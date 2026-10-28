@@ -1,0 +1,84 @@
+id: "dpi_social_registry_civil_defense_triage"
+layer: "L2"
+uncertainty: "epistemic_parameter"
+
+decision_maker_question:
+  who_decides: "Public Infrastructure & Civil Defense Emergency Triage Director"
+  altered_action: "Pre-position mobile civil-defense relief and automatic emergency cash-transfer buffer within 6h shift window when calibrated household vulnerability probability exceeds p* = 0.12000"
+  question: "Does the calibrated shift-level household vulnerability probability in the Digital Public Infrastructure (DPI) registry exceed the economic cost-loss threshold p* = 0.12000 under administrative missingness and Moulton-Campbell clustering?"
+
+epistemological_header:
+  generating_process: "Administrative socio-economic shock propagation across demographic-educational cell clusters with Meng self-selection bias and Lee sharp trimming bounds"
+  nonlinearity: "f(E[X])=139922.61, E[f(X)]=604797.97, Jensen gap Delta_J=+464875.35, median=31820.51, q05=394.24, q95=2121921.47, CRPS=134330.83"
+  unit_and_margin:
+    independent_unit: "Administrative demographic-educational cohort cluster (age x schooling cell across households)"
+    nominal_sample_size_n: 15992
+    weighted_cluster_mean_m_tilde: "m_tilde = m_bar * (1 + CV^2) = 24.53 * 3.899 = 95.65 (Moulton-Campbell unequal administrative cell sizes)"
+    threshold_exceedance_icc: "rho_I(0.90) = 0.0961 -> DEFF_exceedance = 10.10"
+    effective_sample_size_n_eff: 1583
+    unit_margin_of_error: "+/- 1.8 percentage points over 1,583 effective independent units (652 administrative cohort clusters; Meng registry n_eff = 2,842.7)"
+  noise_physics:
+    stochastic_regime: "Non-ergodic household income-loss cascade with administrative registry attrition (Meng rho_R_Y = +0.1334) and 10 bit/s shift triage cognitive ceiling"
+    absorbing_states: "Irreversible household insolvency, eviction barrier, and shift operator alert-fatigue saturation (> 10 bit/s)"
+    bridge_L3_L1_performativity:
+      agent_type: "performative"
+      wasserstein_sensitivity_epsilon: 0.16
+      rrm_convergence_condition: "eps * beta / gamma = 0.16 * 1.40 / 1.00 = 0.224 < 1 (strict contraction; Goodhart 4-variant & PerfGD audited)"
+      stability_optimality_divergence: "theta_PS = 1.7857 vs Stackelberg theta_PO = 1.8980 (audited)"
+  causal_ladder:
+    pearl_rung: "2-Act"
+    identification_strategy: "Experimental NSW anchor benchmark paired with observational CPS registry via Meng identity, Manski non-parametric bounds, and Lee (2009) sharp trimming bounds; Markov blanket verified without collider"
+    untestable_assumption: "Monotonic selection for Lee trimming bounds (q = 0.031 -> [838.7, 2007.2]) and hidden confounding Lambda* <= 1.45"
+
+uncertainty_budget_and_authorship:
+  variance_budget:
+    inputs: 0.40
+    parameters: 0.35
+    covariance: 0.25
+    structural_discrepancy_gp: "Gaussian Process delta(x) ~ GP(0, k_anchored(x,x')) per Kennedy-O'Hagan"
+  dominant_event:
+    description: "Severe household subsistence collapse (annual earnings below $1,500 emergency threshold)"
+    probability_p: 0.17059
+    base_rate_floor_epsilon: 0.001
+    cost_share: 1.00
+  info_gap_robustness:
+    critical_requirement_rc: "Emergency relief delivery to >= 88% of vulnerable households within 6h civil-defense shift without breaching 10 bit/s triage bandwidth"
+    robustness_horizon_alpha_hat: "alpha_hat = 3.10 administrative missingness standard deviations tolerated before violating r_c"
+    opportuneness_horizon_beta_hat: "beta_hat = 1.35 deviations for rapid labor-market recovery windfall r_w"
+    global_maximin_safeguard: "Wald global Maximin bound >= 82% outside U(alpha, u_hat) via universal categorical floor and reversible mobile dispatch"
+  field_authorship:
+    null_model: "inference"
+    decision_rule: "decision"
+    adversarial_reviewer: "independent_adversarial_auditor"
+
+data_and_audit_contract:
+  dataset_path: "data/cps_observational.csv"
+  dataset_sha256: "e357e728bfefa729ff880377aca072aa01563a4b412d956dcf70f2539446cdf5"
+  missingness_mechanism: "MNAR (administrative registry self-selection vs NSW experimental benchmark; Meng rho_R_Y = +0.1334 collapses N=15,992 to n_eff_Meng=2,842.7; Manski bounds and Lee trimming bounds [838.7, 2007.2] verified)"
+  seed_and_environment: "seed=2026; rustc=1.97; linux-x86_64; container_sha256=ba7816bf"
+  null_model: "crates/stochology-cli#evaluate_empirical_card_severe_test"
+  preregistration_hash: "474eb51283b5dd51a53eba5e5f0e394297fbd64aef029d04d0762b850f470a65"
+  attempt_counter_K: 1
+  e_process_multiplicity: "Cumulative Ville e-process E_30 = 54.2 (threshold 1/alpha = 20.0 for alpha = 0.05)"
+  murphy_corp_decomposition:
+    total_score_brier_or_crps: 0.12047
+    miscalibration_REL_MCB: 0.00581
+    resolution_RES_DSC: 0.02683
+    base_uncertainty_UNC0: 0.14149
+  findings:
+    registered: 2
+    used: 1
+    unused:
+      - "Unadjusted raw registry OLS score discarded due to Meng Big Data Paradox bias and Causal Goodhart breakdown"
+
+decision_rule_and_scope:
+  event_probability_p: 0.17059
+  base_rate_floor_epsilon: 0.001
+  protection_cost_C: 420.0
+  event_loss_L: 3500.0
+  mitigation_efficacy_eta: 1.0
+  critical_threshold_p_star: 0.12000
+  declared_act: "protect"
+  scope_statement: "Valid for 6-hour civil-defense and municipal social-protection shift triage over verified administrative registries; does not apply to individualized clinical diagnosis or non-registered rural jurisdictions"
+  who_pays_for_error: "Chouldechova & KMR fairness audit across protected vs reference cohorts (p_A=0.2016 vs p_B=0.1656): equalizing PPV=0.65 & FNR=0.25 forces FPR_A/FPR_B = 1.23 (KMR variance gap = 0.0960); false-negative exclusion errors are absorbed by the public buffer fund"
+  exit_clause: "Trigger PCCP automatic rollback and VSM Algedonic Channel freeze if REL_CORP > 0.015, RES_CORP < 0.015, PLAT enters Red zone (r_s < 0.70 or D_KS > 0.12), or shift alarm load exceeds 10 bit/s over a 7-day window"

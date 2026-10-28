@@ -1,0 +1,67 @@
+name: Deploy Site to GitHub Pages (obestafera.com)
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    paths: ["book-src/**", "book.toml", "mathjax.js", "theme/**", "cards/**", "docs/**", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Audit Protocol & Build mdBook
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Toolchain pinned in rust-toolchain.toml
+        run: rustup show
+
+      - name: Mandatory verification (AGENTS.md §V)
+        run: ./scripts/verify.sh
+
+      - name: Setup mdBook
+        uses: peaceiris/actions-mdbook@v2
+        with:
+          mdbook-version: '0.5.3'
+
+      - name: Build the book
+        run: mdbook build
+
+      - name: Verify staged artifact
+        run: |
+          test -f book/index.html
+          test -f book/toc.html
+          grep -qx "obestafera.com" book/CNAME
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages artifact (book/)
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./book
+
+  deploy:
+    name: Publish to obestafera.com
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

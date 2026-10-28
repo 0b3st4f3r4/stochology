@@ -1,0 +1,16 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/stochology-core",
+    "crates/stochology-lenses",
+    "crates/stochology-siga",
+    "crates/stochology-governance",
+    "crates/stochology-cli",
+]
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/stochology/stochology"
+description = "Stochology Protocol: Enriched Methodological Architecture for Judgment and Decision-Making under Uncertainty"

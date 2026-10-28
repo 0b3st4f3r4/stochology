@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="360" viewBox="0 0 1140 360" fill="none" role="img" aria-labelledby="title-fig-07b-stochary">
+  <title id="title-fig-07b-stochary">Four-Axis Synthesis of Stochary-Conjectural Science, Ontological Stock Axioms, Supply-Chain Physics, and Cybernetic Governance (stochology_lenses::stocks)</title>
+  <defs>
+    <style>text { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; } .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; }</style>
+  </defs>
+  <rect x="1" y="1" width="1138" height="358" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
+  <rect x="20" y="20" width="538" height="148" rx="11" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2"/>
+  <text x="38" y="46" fill="var(--sky)" class="mono" font-size="11" font-weight="800">AXIS 1 · 150-NODE CYBERNETIC GRAPH &amp; THE 4 ONTOLOGICAL STOCK AXIOMS</text>
+  <text x="38" y="72" fill="var(--ink)" font-size="15" font-weight="800">Stochasmos (Target) × Stocks (Buffers) Synthesis</text>
+  <text x="38" y="96" fill="var(--muted)" class="mono" font-size="11.5">150-Node Tree (1+11+32+106=150, H₁=3.4242, J₁=0.9898, H₂=4.9142, J₂=0.9828) → 6 Loops</text>
+  <text x="38" y="118" fill="var(--muted)" class="mono" font-size="11.5">Axioms: (1) Low-Pass 0.15 vs Bullwhip 8.38× · (2) Peters +50%/-40%: g=-5.13% vs f*=+0.62%</text>
+  <text x="38" y="140" fill="var(--muted)" class="mono" font-size="11.5">(3) Taleb-Douady Tail Vega Ω=+6.2 vs JIT -16.2 · (4) Statefulness ρ₁(S_t, S_{t-1})=0.96</text>
+  <rect x="582" y="20" width="538" height="148" rx="11" fill="var(--elevated)" stroke="var(--amber)" stroke-width="2"/>
+  <text x="600" y="46" fill="var(--amber)" class="mono" font-size="11" font-weight="800">AXIS 2 · POWELL META-CLASSES, FRISTON EFE &amp; PEARL DO-CALCULUS</text>
+  <text x="600" y="72" fill="var(--ink)" font-size="15" font-weight="800">Sequential Policies (PFA/CFA/VFA/DLA) &amp; Active Inference</text>
+  <text x="600" y="96" fill="var(--muted)" class="mono" font-size="11.5">Powell 4 Meta-Classes on Unified Stock Plant: Tuned CFA Gain = +15.1 over Myopic</text>
+  <text x="600" y="118" fill="var(--muted)" class="mono" font-size="11.5">Friston G(π): Epistemic (-0.22 &lt; +0.25) under High Unc · Pragmatic (+0.06 &lt; +0.33) Resolved</text>
+  <text x="600" y="140" fill="var(--muted)" class="mono" font-size="11.5">Pearl Front-Door Identifies E[Y|do(X)] = +2.87 (True +2.80) vs Naive Rung-1 Bias 1.54</text>
+  <rect x="20" y="190" width="538" height="148" rx="11" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2"/>
+  <text x="38" y="216" fill="var(--violet)" class="mono" font-size="11" font-weight="800">AXIS 3 · SUPPLY-CHAIN PHYSICS, SCARF (S,s), TTS/TTR &amp; WDRO/CVaR</text>
+  <text x="38" y="242" fill="var(--ink)" font-size="15" font-weight="800">Dierickx-Cool, Kingman VUT, MEIO Decoupling &amp; Wasserstein DRO</text>
+  <text x="38" y="266" fill="var(--muted)" class="mono" font-size="11.5">Scarf K-Convex (s*=44, S*=62) · Simchi-Levi TTS/TTR = 1.33 (REI -89%) · CVaR₉₅ = 47.0</text>
+  <text x="38" y="288" fill="var(--muted)" class="mono" font-size="11.5">WDRO OOS Disappointment = -0.41 vs Naive +2.79 · Conformal Safety Stock Coverage = 90.7%</text>
+  <text x="38" y="310" fill="var(--muted)" class="mono" font-size="11.5">Kingman W_q: 1.84h vs 26.5h Cliff · Sterman SL Damp 0.02 · MEIO -55% · Eppen Tail 3.71×</text>
+  <rect x="582" y="190" width="538" height="148" rx="11" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2"/>
+  <text x="600" y="216" fill="var(--emerald)" class="mono" font-size="11" font-weight="800">AXIS 4 · CYBERNETIC VSM (S1–S5, S3*, ALGEDONIC) &amp; PATE MATRIX</text>
+  <text x="600" y="242" fill="var(--ink)" font-size="15" font-weight="800">Telos vs. Skopos Audit, Noise Hygiene &amp; 5-CSV Empirical Coupler</text>
+  <text x="600" y="266" fill="var(--muted)" class="mono" font-size="11.5">Ashby V_O = 0.0 · Conant-Ashby R² = 0.972 · Beer VSM Perf = 0.80 × 0.75 = 0.60</text>
+  <text x="600" y="288" fill="var(--muted)" class="mono" font-size="11.5">Kahneman Noise: 0.228 → 0.020 · PATE Q2 Exonerated · Q3 Jackpot Triggers S3* Alarm</text>
+  <text x="600" y="310" fill="var(--muted)" class="mono" font-size="11.5">5 CSVs: DJIA Drain 1.45% · Bank LP 0.18 · Fire WDRO -2.4 · Vic TTS/TTR 1.44 · Storms Telos &lt; 0</text>
+</svg>
