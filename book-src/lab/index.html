@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stochology Interactive Laboratory (/lab · seed = 2026)</title>
+  <link rel="stylesheet" href="../theme/book.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--canvas, #f8fafc);
+      color: var(--ink, #0f172a);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .lab-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1.4rem;
+      background: var(--elevated, #ffffff);
+      border-bottom: 1px solid var(--border, #cbd5e1);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .lab-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .lab-brand-badge {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: var(--sky-bg, rgba(2,132,199,0.12));
+      color: var(--sky, #0284c7);
+      border: 1px solid var(--sky, #0284c7);
+    }
+    .lab-brand h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+    .lab-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .lab-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      flex: 1;
+      min-height: calc(100vh - 60px);
+    }
+    @media (max-width: 920px) {
+      .lab-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .lab-sidebar {
+      background: var(--elevated, #ffffff);
+      border-right: 1px solid var(--border, #cbd5e1);
+      padding: 1rem 0.85rem;
+      overflow-y: auto;
+    }
+    .lab-sidebar-heading {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted, #475569);
+      margin: 0.8rem 0.4rem 0.45rem;
+    }
+    .lab-nav-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.55rem 0.7rem;
+      margin-bottom: 0.25rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--ink, #0f172a);
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.14s ease, border-color 0.14s ease;
+    }
+    .lab-nav-item:hover {
+      background: var(--surface, #f1f5f9);
+    }
+    .lab-nav-item.active {
+      background: var(--sky-bg, rgba(2,132,199,0.12));
+      border-color: var(--sky, #0284c7);
+      color: var(--sky, #0284c7);
+      font-weight: 750;
+    }
+    .lab-nav-sub {
+      display: block;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.7rem;
+      color: var(--muted, #64748b);
+      margin-top: 0.15rem;
+    }
+    .lab-main {
+      padding: 1.5rem 2rem;
+      max-width: 1120px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .lab-chapter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.8rem;
+      font-size: 0.85rem;
+      color: var(--muted, #475569);
+    }
+  </style>
+</head>
+<body>
+  <header class="lab-topbar">
+    <div class="lab-brand">
+      <span class="lab-brand-badge">CAPIBA PROTOCOL · /lab</span>
+      <h1>Stochology Interactive Laboratory (seed = 2026)</h1>
+    </div>
+    <div class="lab-top-actions">
+      <button type="button" id="theme-toggle-btn" class="stoch-lab-btn">Toggle Dark / Light</button>
+      <a href="../index.html" class="stoch-lab-btn stoch-lab-btn-primary">← Back to Textbook</a>
+    </div>
+  </header>
+
+  <div class="lab-layout">
+    <aside class="lab-sidebar" id="lab-sidebar">
+      <div class="lab-sidebar-heading">Interactive Modules (14)</div>
+      <div id="lab-module-list"></div>
+    </aside>
+
+    <main class="lab-main">
+      <div class="lab-chapter-bar">
+        <span id="lab-active-module-id" style="font-family: 'JetBrains Mono', monospace; font-weight: 700;"></span>
+        <a id="lab-chapter-backlink" href="../index.html" class="stoch-lab-btn">Read Corresponding Chapter →</a>
+      </div>
+      <div id="lab-widget-host"></div>
+    </main>
+  </div>
+
+  <script>
+    window.path_to_root = "../";
+  </script>
+  <script src="../mathjax.js"></script>
+  <script>
+    (function () {
+      var MODULES = [
+        { id: "gigerenzer-bayes", label: "00. Gigerenzer Tree & Decibans", chapter: "00-preface.html" },
+        { id: "jensen-crps", label: "01. Convexity, Jensen Gap & CRPS", chapter: "01-random-variables-convexity.html" },
+        { id: "meng-performativity", label: "02. Meng Law & Performative RRM", chapter: "02-layers.html" },
+        { id: "ols-cholesky-gls", label: "03. Cholesky GLS & Effective n", chapter: "03-sampling-estimation-linear-algebra.html" },
+        { id: "koh-infogap-wald", label: "04. Kennedy-O'Hagan GP & Info-Gap", chapter: "04-uncertainty.html" },
+        { id: "markov-dag-do", label: "05. DAG Colliders & NILE/ICP", chapter: "05-markov-chains-causal-graphs.html" },
+        { id: "lenses-kelly-tail-corp", label: "06. Five Lenses: Kelly, Hill & CORP", chapter: "06-lenses.html" },
+        { id: "spectral-telgarsky-deff", label: "07–08. Telgarsky 2^D & Gram d_eff", chapter: "08-machine.html" },
+        { id: "rk4-hopf-brusselator", label: "09–10. RK4 Brusselator & Daisyworld", chapter: "10-relational-ontology.html" },
+        { id: "analog-hpinv-collapse", label: "11–12. Analog HP-INV & Basel π²/6", chapter: "11-analog-wave-computing.html" },
+        { id: "stochary-kingman-triad", label: "13. Kingman VUT, Stocks & Triad", chapter: "13-stochary-conjectural-cybernetics.html" },
+        { id: "ville-savi-conformal", label: "14, 18, 23. Ville e-Process & SAVI", chapter: "14-severe-testing-martingales-conformal.html" },
+        { id: "invariants-moulton-chouldechova", label: "15–17. Moulton DEFF & Chouldechova", chapter: "16-invariants.html" },
+        { id: "governance-bitemporal-drift", label: "19–20. Bitemporal Clock & Drift", chapter: "19-governance.html" }
+      ];
+
+      function parseQuery() {
+        var out = {};
+        var q = window.location.search.substring(1).split("&");
+        for (var i = 0; i < q.length; i++) {
+          var kv = q[i].split("=");
+          if (kv.length === 2) {
+            out[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
+          }
+        }
+        return out;
+      }
+
+      var listEl = document.getElementById("lab-module-list");
+      var hostEl = document.getElementById("lab-widget-host");
+      var idEl = document.getElementById("lab-active-module-id");
+      var chapLink = document.getElementById("lab-chapter-backlink");
+
+      function selectModule(modId, preserveQuery) {
+        var found = MODULES[0];
+        for (var i = 0; i < MODULES.length; i++) {
+          if (MODULES[i].id === modId) {
+            found = MODULES[i];
+            break;
+          }
+        }
+
+        var buttons = listEl.querySelectorAll(".lab-nav-item");
+        for (var b = 0; b < buttons.length; b++) {
+          buttons[b].classList.toggle("active", buttons[b].getAttribute("data-id") === found.id);
+        }
+
+        idEl.textContent = "Module: " + found.id + " · Invariant Φ₁ (seed = 2026)";
+        chapLink.href = "../" + found.chapter;
+
+        if (!preserveQuery && window.history && window.history.replaceState) {
+          window.history.replaceState(null, "", "?module=" + encodeURIComponent(found.id) + "&seed=2026");
+        }
+
+        hostEl.innerHTML = "";
+        var widget = document.createElement("div");
+        widget.className = "stoch-lab";
+        widget.setAttribute("data-lab", found.id);
+        widget.setAttribute("data-from-query", "true");
+        hostEl.appendChild(widget);
+
+        if (window.hydrateStochologyLabWidget) {
+          window.hydrateStochologyLabWidget(widget);
+        }
+      }
+
+      for (var m = 0; m < MODULES.length; m++) {
+        (function (item) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "lab-nav-item";
+          btn.setAttribute("data-id", item.id);
+          btn.innerHTML =
+            "<span>" + item.label + "</span>" +
+            '<span class="lab-nav-sub">' + item.id + "</span>";
+          btn.addEventListener("click", function () {
+            selectModule(item.id, false);
+          });
+          listEl.appendChild(btn);
+        })(MODULES[m]);
+      }
+
+      document.getElementById("theme-toggle-btn").addEventListener("click", function () {
+        var html = document.documentElement;
+        if (html.classList.contains("navy")) {
+          html.classList.remove("navy");
+          html.classList.add("light");
+        } else {
+          html.classList.remove("light");
+          html.classList.add("navy");
+        }
+      });
+
+      var initialQ = parseQuery();
+      selectModule(initialQ.module || "gigerenzer-bayes", true);
+    })();
+  </script>
+</body>
+</html>
+

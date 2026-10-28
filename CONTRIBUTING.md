@@ -16,7 +16,7 @@ Before submitting a change, run the verification suite:
 scripts/verify.sh
 ```
 
-This script checks formatting (`cargo fmt --all --check`), lints (`cargo clippy --workspace --all-targets -- -D warnings`), tests (`cargo test --workspace`), all 7 laboratories (`labs`), the 8 positive epistemological gates (`gates`), and all 18 negative defect proofs (`gates -- --defect <...>`).
+This script checks formatting (`cargo fmt --all --check`), lints (`cargo clippy --workspace --all-targets -- -D warnings`), tests (`cargo test --workspace`), all 7 laboratories (`labs`), the 8 positive epistemological gates (`gates`), and all 19 negative defect proofs (`gates -- --defect <...>`).
 
 ## 3. Licensing
 

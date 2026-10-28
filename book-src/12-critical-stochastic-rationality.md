@@ -62,12 +62,14 @@ In *Dialectic of Enlightenment* (1947), *Negative Dialectics* (1966), and *The P
 $$\Delta\_{\text{Nichtidentische}} \triangleq \mathbb{E}\bigl[f(X)\bigr] - \mathbb{E}\_{\mathcal{N}\_{\text{trunc}}}\bigl[f(X)\bigr] \gg 0$$
 
    and erases most of the tail **Expected Shortfall ($\mathrm{ES}\_{0.99}$)**:
-   - In `AdornoNonIdenticalReificationAudit::evaluate(2026, true)`, forced $\pm 2\sigma$ Gaussian truncation produces $\Delta\_{\text{Nichtidentische}} = +34.8$ and erases **$75.7\%$ of $\mathrm{ES}\_{0.99}$**.
+   - In `AdornoNonIdenticalReificationAudit::evaluate(2026, true)`, forced $\pm 2\sigma$ Gaussian truncation produces $\Delta\_{\text{Nichtidentische}} = +34.8$ (positive on all 20 acceptance seeds, but above the original threshold of $30$ on only 35% of them, so only the sign is gated) and erases **$75.7\%$ of $\mathrm{ES}\_{0.99}$**. Backtested on $6\,000$ fresh draws of the same process, the truncated-Gaussian $\mathrm{VaR}\_{0.99}$ is breached **$7.9\%$** of the time, against $1.0\%$ for the empirical quantile that keeps the tail.
    - On the real Copenhagen Re reinsurance dataset **`danish_fire.csv`** ($n = 2\text{,}167$, Hill $\hat{\alpha} = 1.6009 \in (1, 2]$), forced $\pm 2\sigma$ outlier truncation erases **$69.3\%$ of the true Expected Shortfall** ($\mathrm{ES}\_{0.99} = 58.59\text{M DKK}$ reduced to $17.98\text{M DKK}$).
-   - The Stochology Protocol protects the *Non-Identical* through **Prohibition 2** (banning the lone mean and mandating $\Delta\_J$, $\mathrm{CRPS}$, and $\mathrm{ES}\_{0.99}$) and **Anchored Kennedy-O'Hagan Structural Discrepancy** ($\delta(x) \sim \mathcal{GP}(0, k\_{\text{anchored}})$), which explicitly models the qualitative structural remainder that the parametric concept $\eta(x, \theta)$ cannot capture (reducing extrapolation RMSE by $0.768 > 0.40$).
+   - The Stochology Protocol protects the *Non-Identical* through **Prohibition 2** (banning the lone mean and mandating $\Delta\_J$, $\mathrm{CRPS}$, and $\mathrm{ES}\_{0.99}$) and **Anchored Kennedy-O'Hagan Structural Discrepancy** ($\delta(x) \sim \mathcal{GP}(0, k\_{\text{anchored}})$), which explicitly models the qualitative structural remainder that the parametric concept $\eta(x, \theta)$ cannot capture (reducing extrapolation error by $0.775 > 0.40$, from $0.885$ for the bare simulator to $0.110$).
 3. **Eternalization of the Historical Present (Reification of the Status Quo):** Every passive statistical model extracts its distribution from the accumulated past and projects it onto the future. Governing a population via myopic Repeated Risk Minimization ($\theta\_{\mathrm{PS}}$) reifies historical contingencies as natural constants, incurring a positive **Status-Quo Reification Excess Risk** relative to the counterfactual Stackelberg optimum ($\theta\_{\mathrm{PO}}$, Bridge $L\_3 \to L\_1$):
 
 $$\Delta\mathrm{PR}\_{\text{reification}} = \mathrm{PR}(\theta\_{\mathrm{PS}}) - \mathrm{PR}(\theta\_{\mathrm{PO}}) = +0.059 > 0$$
+
+The audit runs both optimizers: Repeated Risk Minimization settles at $\theta\_{\mathrm{PS}}$ and keeps the $+0.059$ excess, while oracle-free `PerfGD` reaches $\theta\_{\mathrm{PO}}$.
 
 ---
 
@@ -96,7 +98,8 @@ When instrumental stochastic rationality scales brute-force statistical correlat
 When instrumental reason detaches from living experience ($L\_1$) and feeds upon its own outputs, it degenerates into tautology:
 - According to **Epoch AI** (Pablo Villalobos et al., updated November 2024), the effective global stock of quality-filtered public human text is approximately **$300\text{ trillion tokens}$** ($300\text{ biliões}$ on the long scale, with a raw upper bound of $3\text{,}100\text{ trillion}$ including unindexed data).
 - Under current scaling trajectories, LLMs will exhaust this human stock between **2026 and 2032**.
-- Training generation $g$ recursively on mode-sharpened synthetic outputs of generation $g-1$ ("AI contaminating AI") triggers **Modal and Variance Collapse**: in `MaterialCollapseTriadAudit`, across $G = 8$ unanchored generations, variance retention drops to **$\frac{\sigma\_G^2}{\sigma\_0^2} = 0.001 < 0.01$**, Shannon entropy loses **$\Delta H = H(P\_0) - H(P\_G) = 1.20\text{ nats}$**, and $D\_{\mathrm{KL}}(P\_0 \parallel P\_G)$ reaches **$1.20\text{ nats}$**.
+- Training generation $g$ recursively on mode-sharpened synthetic outputs of generation $g-1$ ("AI contaminating AI") triggers **Modal and Variance Collapse**: in the simulation behind `MaterialCollapseTriadAudit`, across $G = 8$ unanchored generations, variance retention drops to **$\frac{\sigma\_G^2}{\sigma\_0^2} < 10^{-5}$** and $D\_{\mathrm{KL}}(P\_0 \parallel P\_G)$ reaches **$8.25\text{ nats}$** at this seed. Across the 20 acceptance seeds the KL claim holds everywhere, but retention below $0.25$ holds on only 75% of them, so Gate `G8` gates the KL and reports the retention claim as discarded. The entropy contrast $\Delta H = 1.20\text{ nats}$ compares $P\_0$ with a hand-specified collapsed distribution and is illustrative.
+- The token counts, the exhaustion window, the energy figures below, and Ferran Alia's accuracy curve are transcribed from the cited sources and carried as informative values; they do not enter Gate `G8`.
 
 ### B. Binary Digital Abstraction and Thermodynamic Strangling
 
@@ -121,13 +124,38 @@ When engineering moves from binary determinism to **Analog In-Memory Computing (
 
 To overcome both positivist tautology and the thermodynamic and noise walls, the solutions synthesized by Gibram Raul and recent hardware designs converge on **three reconciliations**:
 
-1. **In Software (Neurosymbolic Computing, Gibram Raul / Technium):** Coupling neural pattern learning with formal rule-based deduction and constraint satisfaction (first-order logic / Prolog and physical conservation invariants) reintroduces conceptual and deductive structure where previously there was only stochastic correlation, raising formal rule satisfaction from **$25\%$ to $100\%$** and preserving **$\frac{\sigma\_G^2}{\sigma\_0^2} = 0.95$** ($D\_{\mathrm{KL}} = 0.0015\text{ nats}$) across recursive generations.
+1. **In Software (Neurosymbolic Computing, Gibram Raul / Technium):** Coupling neural pattern learning with formal rule-based deduction and constraint satisfaction (first-order logic / Prolog and physical conservation invariants) reintroduces conceptual and deductive structure where previously there was only stochastic correlation, so that in $200$ simulated 8-generation recursions the constrained pipeline satisfies the symmetry and variance rules in **$100\%$** of runs, against **$0\%$** for the unconstrained one, while preserving **$\frac{\sigma\_G^2}{\sigma\_0^2} = 0.95$** ($D\_{\mathrm{KL}} = 0.0015\text{ nats}$) across recursive generations.
 2. **In Training and Silicon (Coexistence with Physical Noise via `NAT`, `A-ECC`, and Peking University's 24-Bit `HP-INV`):**
-   - **Noise-Aware Training (`NAT`):** Injecting expected hardware noise $\tilde{G}\_{ij} = G\_{ij} + \xi\_{ij}$ during digital training preserves **$63.5\%$ accuracy** at $\sigma = 0.60$ (versus $35.0\%\text{–}39.0\%$ for standard training);
-   - **Analog Error-Correcting Codes (`A-ECC`):** Raises PCM drift-degraded accuracy from $\sim 73\%$ to **$97.5\%$**;
-   - **Bit-Sliced Iterative Refinement (`HP-INV`, Sun Zhong et al., Peking University, *Nature Electronics* Oct 2025):** Combines a closed-loop $40\text{ nm}$ CMOS $\mathrm{TaO}\_x$ 3-bit RRAM Low-Precision Inversion circuit (`LP-INV`, $\sim 120\text{ ns}$) with bit-sliced 24-bit High-Precision Matrix-Vector Multiplication (`HP-MVM`, $\sim 60\text{ ns}$) to reach **24-bit fixed-point / FP32 precision** (relative residual error **$8.70 \times 10^{-12} < 10^{-7}$** in $7 \le 10$ iterations) at **$7\text{ W}$** ($100\times$ energy efficiency and $1\text{,}000\times$ speedup over an Nvidia H100).
+   - **Noise-Aware Training (`NAT`):** Injecting expected hardware noise $\tilde{G}\_{ij} = G\_{ij} + \xi\_{ij}$ during digital training preserves **$63.5\%$ accuracy** at $\sigma = 0.60$ (versus $35.0\%\text{–}39.0\%$ for standard training). The crossbar model in `crate::analog` represents `NAT` as an assumed reduction of effective conductance noise, not as a trained network, so this figure is informative;
+   - **Analog Error-Correcting Codes (`A-ECC`):** On the same simulated drifted readouts, a calibration column that compensates the power-law drift raises accuracy from **$39\%$** (raw drift) to **$100\%$**;
+   - **Bit-Sliced Iterative Refinement (`HP-INV`, Sun Zhong et al., Peking University, *Nature Electronics* Oct 2025):** Combines a closed-loop $40\text{ nm}$ CMOS $\mathrm{TaO}\_x$ 3-bit RRAM Low-Precision Inversion circuit (`LP-INV`, $\sim 120\text{ ns}$) with bit-sliced 24-bit High-Precision Matrix-Vector Multiplication (`HP-MVM`, $\sim 60\text{ ns}$) to reach **24-bit fixed-point / FP32 precision** (relative residual error **$8.70 \times 10^{-12} < 10^{-7}$** in $7 \le 10$ iterations, against $5.3 \times 10^{-2}$ for one-shot inversion) at **$7\text{ W}$** ($100\times$ energy efficiency and $1\text{,}000\times$ speedup over an Nvidia H100).
 3. **In Representation (Continuous Physics and Wave-Interference Learning):**
    - **Gibram Raul's Phase-and-Amplitude Wave Encoding & `SIREN` (Sitzmann et al., NeurIPS 2020):** Instead of discretizing space pixel by pixel, `SIREN` ($\phi\_i(\mathbf{x}) = \sin(\omega\_0 \mathbf{W}\_i \mathbf{x} + \mathbf{b}\_i)$, where weights are angular frequencies and biases are phase offsets) compresses a 480-pixel field by **$40\times$** ($14\times$ on real `vic_elec.csv` with $R^2 = 0.88$) and solves the 2nd-order Helmholtz wave PDE with Laplacian $\mathrm{MSE} = 1.3 \times 10^{-27}$ (versus $2\text{,}580.3$ for piecewise-linear ReLU where $\mathrm{ReLU}''(x) = 0$ a.e.), alongside exact RLC $\leftrightarrow$ Mass-Spring ODE isomorphism ($< 10^{-14}$), **Stanford's Wave-Physics Analog RNN** ($99.9\%$ interference routing selectivity), and **Tsinghua University's `ACCEL` diffractive photonic processor** (**$74.8\text{ PetaOPS/W} = 74\text{,}800\text{ TOPS/W}$** at $72\text{ ns}$ frame latency).
+
+```mermaid
+flowchart LR
+    subgraph CRIT["INSTRUMENTAL STOCHASTIC PATHOLOGIES (Axes 1–3)"]
+        A1["Axis 1 · Adorno & Horkheimer\nGaussian Amputation of the Non-Identical\nErases 69.3% of Danish Fire ES_99"]
+        A2["Axis 2 · Marcuse & Rouvroy\nStochastic Parrot P(w_t|w_{1:t-1}) & 4 Goodhart Variants\nCounterfactual MSE = 19.13 · Toronto FPR = 5.13×"]
+        A3["Axis 3 · Material Collapse Triad\n300T Token Autophagy · 711× DRAM Wall\nFerran Alia σ=0.60 Cliff (39%)"]
+    end
+    subgraph OVER["DIALECTICAL OVERCOMING (Axis 4 · Gate G8)"]
+        O1["Software: Neurosymbolic Logic\n+ AuthenticModelForm δ(x) + S*\n100% Rule Satisfaction"]
+        O2["Silicon: NAT + A-ECC +\nPKU 24-Bit HP-INV RRAM\n8.70×10⁻¹² Rel. Error at 7W"]
+        O3["Physics: SIREN & Wave RNN\n+ Photonic ACCEL\n74,800 TOPS/W"]
+    end
+    A1 --> O1
+    A2 --> O1
+    A3 --> O2
+    A3 --> O3
+```
+
+### Interactive Laboratory (`/lab`)
+
+Explore informational autophagy (`Replace` vs. `Accumulate`) and analog noise compensation in the interactive laboratory below:
+
+<div class="stoch-lab" data-lab="analog-hpinv-collapse" data-chapter="12-critical-stochastic-rationality" data-title="Chapter 12 Lab: Informational Autophagy vs. Neurosymbolic/HP-INV Overcoming" data-cli="cargo run --release --bin gates -- --defect instrumental_reason"></div>
+
 
 ---
 
@@ -147,13 +175,13 @@ cargo run --release --bin gates -- --defect instrumental_reason
 Expected audited output:
 
 ~~~text
-  [Critical Stochastic Rationality] Adorno(Delta_NonId=+34.8, ES99_erased=75.7%, Reif_excess=+0.059) | Marcuse/Rouvroy(Parrot_CF_MSE=19.13 vs Grounded=0.012, NILE_ratio=34311.3x, FPR_A/B=4.76x) | Collapse(300T@2026-2032, dH=1.20 nats, Alia_0.6=39%) | Overcoming(NeuroSym=100%, NAT=63.5%, ACCEL=74800 TOPS/W) | EmpRealData(Fire_erased=69.3%, Toronto_FPR=5.13x, Storms_ratio=96.8x) | verified=true
+  [Critical Stochastic Rationality] Adorno(Delta_NonId=+34.8, ES99_erased=75.7%, VaR99_breach=1.0% vs Gauss=7.9%, KOH_err=0.110, Reif_excess=+0.059) | Marcuse/Rouvroy(Parrot_CF_MSE=19.13 vs Grounded=0.012, NILE_ratio=34311.3x, FPR_A/B=4.76x) | Collapse(var_ret=0.000, KL=8.25 nats; informative 300T@2026-2032, Alia_0.6=39%) | Overcoming(rule_sat=100% vs 0%, A-ECC=100% vs raw 39%, HP-INV=8.7e-12, SIREN/ReLU=1.3e-27/2580; informative NAT=63.5%, ACCEL=74800 TOPS/W) | EmpRealData(Fire_erased=69.3%, Toronto_FPR=5.13x, Storms_ratio=96.8x) | identities=true | verified=true
 ~~~
 
 And when `--defect instrumental_reason` is injected (liquidating the Non-Identical via Gaussian outlier amputation, deploying an ungrounded Stochastic Parrot without causal invariance or named discarded atoms, and disabling neurosymbolic/NAT/HP-INV overcoming), `gates` blocks the claim and exits with code `1`:
 
 ~~~text
-NEGATIVE PROOF [instrumental_reason] BLOCKED SUCCESSFULLY: Adorno Non-Identical liquidated (axis1=false), Marcuse/Rouvroy Stochastic Parrot counterfactual MSE=19.13 (authentic_blocked=false), and unanchored synthetic/analog collapse (rule_sat=25%)
+NEGATIVE PROOF [instrumental_reason] BLOCKED SUCCESSFULLY on all 20 acceptance seeds (identities closed on every seed): at seed 2026 truncated-Gaussian VaR99 breached on 7.9% of fresh draws, RRM excess performative risk=0.059, Stochastic Parrot counterfactual MSE=19.13, unconstrained recursion rule satisfaction=0%, raw drifted readout accuracy=39%, one-shot HP-INV error=5.3e-2
 ~~~
 
 ---

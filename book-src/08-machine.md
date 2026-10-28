@@ -164,6 +164,32 @@ $$y(x) = \underbrace{f\_{\hat{S}^{\ast}}\bigl(x\_{\hat{S}^{\ast}}, \theta\_{\hat
    The boolean certificate `authentic == true` is granted if and only if all five operational gates hold simultaneously:
    $$A(\text{model}) = c\_1(\text{Invariance of } \hat{S}^{\ast}) \land c\_2(\text{Anchored GP } \delta(x)) \land c\_3(\text{Named Discarded Atoms}) \land c\_4(\text{6 Identities Closed}) \land c\_5(\text{OOT/OOD Survival})$$
 
+```mermaid
+flowchart LR
+    RAW["Candidate Dictionary Φ(x)\n(e.g. Intensity + Lat Proxy)"]
+    ICP["Multi-Environment Hermite\nNILE / IRM Invariance Test"]
+    CORE["Invariant Causal Core S*\n(Thermodynamic Wind/Pressure)"]
+    DISC["DiscardedAtomRecord\n('atom_1_regime_shifted_lat_proxy')"]
+    KOH["Anchored Kennedy-O'Hagan GP\nδ(x) ~ GP(0, k_anchored)"]
+    ID6["IdentityClosureAudit\n(All 6 Exact Identities Closed)"]
+    AUTH["AuthenticModelForm\ny(x) = f_{S*}(x) + δ(x) + ε\nA(model) = TRUE (Gate G8)"]
+
+    RAW --> ICP
+    ICP -->|"Penalty ≤ τ"| CORE
+    ICP -->|"Penalty ≫ τ (Logged)"| DISC
+    CORE --> AUTH
+    KOH --> AUTH
+    DISC --> AUTH
+    ID6 --> AUTH
+```
+
+### Interactive Laboratory (`/lab`)
+
+Test Property `P4` (Telgarsky $2^D$ compositional efficiency), Property `P5` (Gram effective dimension $d\_{\mathrm{eff}} \ge 0.80 W$), and `AuthenticModelForm` approval in Gate `G8`:
+
+<div class="stoch-lab" data-lab="spectral-telgarsky-deff" data-chapter="08-machine" data-title="Chapter 8 Lab: Almost-Perfect Machine M=(T,Φ,θ) &amp; Gate G8 Authenticity Audit" data-cli="cargo run --release --bin gates -- --defect machine"></div>
+
+
 ---
 
 ## Computational Audit in Rust

@@ -174,6 +174,43 @@ To make the file drawer visible and auditable, **Prohibition 4** enforces three 
    $$\text{registered} = \text{used} + \text{unused}, \qquad \text{registered} \ge 1, \qquad \text{used} \ge 1$$
 4. **Out-of-Sample Isotonic CORP-Murphy Audit:** Every probabilistic forecast must report its out-of-sample PAV decomposition ($\mathrm{BS} = \mathrm{REL}\_{\mathrm{CORP}} - \mathrm{RES}\_{\mathrm{CORP}} + \mathrm{UNC}\_0$).
 
+### Step-by-Step Foundational Derivation: Cromwell's Log-Score Bound and the Multiplicity Tax
+
+Why must Cromwell's floor $\varepsilon\_{\text{floor}} \in (0, 0.05]$ be enforced *both* in Bayesian updating and in out-of-sample forecast evaluation?
+1. **Bounded Worst-Case Surprise Under the Logarithmic Scoring Rule:**
+   Under the strictly proper logarithmic score $S\_{\text{log}}(p, y) = -\bigl[y\ln p + (1-y)\ln(1-p)\bigr]$, a single unpredicted tail event ($y = 1$) against a dogmatic forecast $p \to 0^+$ drives the cumulative loss to $+\infty$, destroying the empirical average across all other $n-1$ observations. Clamping $p \in [\varepsilon\_{\text{floor}}, 1 - \varepsilon\_{\text{floor}}]$ via `apply_cromwell_floor(p, eps)` bounds the maximum single-observation log-loss by:
+   $$\sup\_{y \in \lbrace 0, 1\rbrace} S\_{\text{log}}\bigl(\mathrm{clamp}(p, \varepsilon\_{\text{floor}}), y\bigr) \le \ln\left(\frac{1}{\varepsilon\_{\text{floor}}}\right)$$
+   At $\varepsilon\_{\text{floor}} = 0.005$, the worst-case surprise per observation is bounded at $\ln(200) \approx 5.2983\text{ nats}$ ($\approx 23.01\text{ decibans}$), ensuring finite empirical variance for sequential *e-processes*.
+2. **Union-Bound Multiplicity Control for $K$ Forking Paths:**
+   Suppose an analyst explores $K \ge 1$ specifications $M\_1, \dots, M\_K$, each generating a test martingale $E\_t^{(k)}$ with $\mathbb{E}\_{H\_0}[E\_t^{(k)}] \le 1$. Even if the $K$ specifications are arbitrarily correlated across the same dataset, Markov's and Ville's inequalities applied to the average $\bar{E}\_t = \frac{1}{K}\sum\_{k=1}^K E\_t^{(k)}$ guarantee:
+   $$P\_{H\_0}\left(\sup\_{t \ge 1} \frac{\max\_{1 \le k \le K} E\_t^{(k)}}{K} \ge \frac{1}{\alpha}\right) \le P\_{H\_0}\left(\sup\_{t \ge 1} \bar{E}\_t \ge \frac{1}{\alpha}\right) \le \alpha$$
+   Thus, dividing the winning model's evidence $E\_t^{(k^{\ast})}$ by the declared attempt counter $K$ (`e_process_multiplicity = E_t / K`) neutralizes selection bias across the entire Garden of Forking Paths.
+
+```mermaid
+flowchart TD
+    CLAIM["Candidate Inter-Agent or Operational Claim"] --> P1{"Prohibition 1:<br/>Typed YAML Card Schema?"}
+    P1 -- "No (Free Prose)" --> REJ1["BLOCKED (G1 / G6)<br/>Adjective Laundering Rejected"]
+    P1 -- "Yes" --> P2{"Prohibition 2:<br/>All 7 NonlinearSummary Fields<br/>&amp; |Δ_J - (E[f]-f(E))| ≤ 10⁻³?"}
+    P2 -- "No (Lone Mean)" --> REJ2["BLOCKED (G2 / G6)<br/>Curvature Tax Hidden"]
+    P2 -- "Yes" --> P3{"Prohibition 3:<br/>θ_PS vs θ_PO Separated<br/>&amp; r_RRM = εβ/γ &lt; 1?"}
+    P3 -- "No (r_RRM ≥ 1)" --> REJ3["BLOCKED (--defect performativity)<br/>Feedback Loop Diverges"]
+    P3 -- "Yes" --> P4{"Prohibition 4:<br/>p ∈ [ε, 1-ε], K ≥ 1,<br/>registered = used + unused?"}
+    P4 -- "No" --> REJ4["BLOCKED (--defect cromwell)<br/>Dogmatism or File-Drawer Bias"]
+    P4 -- "Yes" --> PASS["APPROVED BY PROHIBITIONS 1–4<br/>Proceed to Boundary Invariants Φ₁–Φ₅"]
+```
+
+---
+
+## Interactive Laboratory (`/lab`)
+
+Explore how cluster correlation, Cromwell bounds, and multi-attempt penalties interact with the protocol's boundary gates:
+
+<div class="stoch-lab"
+     data-lab="invariants-moulton-chouldechova"
+     data-title="Prohibitions &amp; Boundary Invariant Stress-Test"
+     data-subtitle="Audit cluster inflation, base-rate odds locks, and gate thresholds before any claim reaches production">
+</div>
+
 ---
 
 ## Computational Audit in Rust

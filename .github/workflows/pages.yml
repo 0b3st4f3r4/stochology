@@ -40,6 +40,8 @@ jobs:
         run: |
           test -f book/index.html
           test -f book/toc.html
+          test -f book/lab/index.html
+          test -f book/lab/embed/index.html
           grep -qx "obestafera.com" book/CNAME
 
       - name: Configure GitHub Pages

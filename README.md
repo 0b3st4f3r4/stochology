@@ -27,7 +27,7 @@ The repository brings together in a single verifiable workspace:
 
 ## The Six Mnemonic Pillars of the CAPIBA Protocol
 
-**Stochology** is the scientific discipline, while the **CAPIBA Protocol** (*Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol*) defines **what is verified** across six mnemonic pillars, operating above the **5 Boundary Invariants** ($\Phi_1$–$\Phi_5$) and the **8 Epistemological Gates** (`G1`–`G8`). The **SIGA Roadmap** (*Survey, Interrogate, Generate, Act*) defines **how the 8-step operational cycle runs**. Together, the six pillars partition all **18 negative defect proofs** (`3 + 4 + 2 + 3 + 2 + 4 = 18`):
+**Stochology** is the scientific discipline, while the **CAPIBA Protocol** (*Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol*) defines **what is verified** across six mnemonic pillars, operating above the **5 Boundary Invariants** ($\Phi_1$–$\Phi_5$) and the **8 Epistemological Gates** (`G1`–`G8`). The **SIGA Roadmap** (*Survey, Interrogate, Generate, Act*) defines **how the 8-step operational cycle runs**. Together, the six pillars partition all **19 negative defect proofs** (`3 + 4 + 2 + 3 + 2 + 5 = 19`):
 
 | Pillar | Formal Guarantee | Rust Primitives | Gates | Negative Defect Proofs (`gates -- --defect`, `exit 1`) |
 | :---: | :--- | :--- | :---: | :--- |
@@ -36,7 +36,7 @@ The repository brings together in a single verifiable workspace:
 | **P** — **Performative-aware** | Separation of Performative Stability ($\theta_{\mathrm{PS}}$) from Stackelberg Optimality ($\theta_{\mathrm{PO}}$, `PerfGD`), RRM contraction ($\frac{\varepsilon\beta}{\gamma}<1$), Goodhart's 4 variants, and `Accumulate` vs. `Replace` synthetic recursion bounds. | `PerformativeSystem`, `GoodhartTaxonomyAudit`, `GerstgrasserAccumulateAudit`, `SyntheticDataPolicy` | `G6/G8` | `performativity`, `replace_collapse` |
 | **I** — **Invariant** | Structural causal invariance across environments (`ICP` / nonlinear `NILE`), Meng's `ddc`/`DDI` + fractional Lee (2009) trimming bounds & tipping point $\delta_1^*$, anchored Kennedy-O'Hagan GP, and Info-Gap + Sniedovich Maximin floor. | `MengAudit`, `ManskiBounds`, `run_nonlinear_icp_nile`, `KennedyOHaganDiscrepancy`, `InfoGapOption`, `AuthenticModelForm` | `G3/G6/G8` | `lee_point_estimate`, `sniedovich`, `machine` |
 | **B** — **Bitemporal** | Strict event- vs. availability-time separation ($t_{\text{disp}} \ge t_{\text{ev}}$), synthetic canary mutual-information check ($I(\text{Canary}; Y)=0$), and single-opening SHA-256 `TemporalVault` with `PCCP` / `PLAT` governance. | `BitemporalRecord`, `BitemporalClockAudit`, `TemporalVault`, `PredeterminedChangeControlPlan`, `ProfitLossAttributionTest` | `G7` | `clock`, `vault` |
-| **A** — **Auditing** | Eliminatory 4-Filter Funnel, Filter 4 cross-authorship, Chouldechova & KMR fairness impossibility audits, physical/analog `HP-INV` & wave computing, critical theory of stochastic rationality, and VSM `S3*` / `PATE` cybernetics. | `ChouldechovaAudit`, `AlertFatigueAudit`, `AnalogWaveComputingSynthesis`, `CriticalStochasticRationalitySynthesis`, `StocharyConjecturalCyberneticSynthesis` | `G4/G8` | `chouldechova`, `analog_wall`, `instrumental_reason`, `stochary_cybernetics` |
+| **A** — **Auditing** | Eliminatory 4-Filter Funnel, Filter 4 cross-authorship, Chouldechova & KMR fairness impossibility audits, physical/analog `HP-INV` & wave computing, critical theory of stochastic rationality, and VSM `S3*` / `PATE` cybernetics. | `ChouldechovaAudit`, `AlertFatigueAudit`, `AnalogWaveComputingSynthesis`, `CriticalStochasticRationalitySynthesis`, `StocharyConjecturalCyberneticSynthesis` | `G4/G8` | `chouldechova`, `analog_wall`, `instrumental_reason`, `stochary_cybernetics`, `triadic_technium` |
 
 ---
 
@@ -116,4 +116,5 @@ cargo run --release --bin gates -- --defect brier_dominance
 cargo run --release --bin gates -- --defect var_underreport
 cargo run --release --bin gates -- --defect lee_point_estimate
 cargo run --release --bin gates -- --defect replace_collapse
+cargo run --release --bin gates -- --defect triadic_technium
 ```

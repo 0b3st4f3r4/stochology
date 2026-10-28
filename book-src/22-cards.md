@@ -13,36 +13,49 @@ Before reading the full YAML listings below, compare how the four cards span all
 | **`card_04_dpi_civil_defense_triage.yaml`** | `L1` / `epistemic_parameter` | `data/cps_observational.csv` ($n = 15\text{,}992$, $n\_{\mathrm{eff}} = 1\text{,}583.00$) | $\frac{1\text{,}800}{0.75 \times 20\text{,}000} = 0.12000$ | $p = 0.17059$ | **`protect`** ($p = 0.17059 > p^{\ast} = 0.12000$): after Meng `MNAR` adjustment ($\rho\_{R,Y} = +0.1334$), Lee bounds $[838.7, 2\text{,}007.2]$, and Chouldechova audit, mobile-outreach dispatch is optimal. |
 
 <figure class="stoch-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="240" viewBox="0 0 1120 240" fill="none" role="img" aria-labelledby="title-fig-13-cards">
-  <title id="title-fig-13-cards">Comparative Cost-Loss Geometry (p vs p*) Across the Three Canonical Epistemological Cards</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="1140" height="240" viewBox="0 0 1140 240" fill="none" role="img" aria-labelledby="title-fig-13-cards">
+  <title id="title-fig-13-cards">Comparative Cost-Loss Geometry (p vs p*) Across the Four Canonical Epistemological Cards</title>
   <defs>
   <style>text { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; } .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; }</style>
   </defs>
-  <rect x="1" y="1" width="1118" height="238" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
-  <rect x="20" y="22" width="348" height="196" rx="12" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2.2"/>
-  <text x="38" y="50" fill="var(--sky)" class="mono" font-size="11.5" font-weight="800">CARD 01 · ATLANTIC STORMS (L₁)</text>
-  <text x="38" y="76" fill="var(--ink)" font-size="15" font-weight="800">Coastal Evacuation Advisory</text>
-  <text x="38" y="106" fill="var(--muted)" class="mono" font-size="11.5">p = 0.09800  ≤  p* = 0.12000</text>
-  <text x="38" y="130" fill="var(--muted)" class="mono" font-size="11.5">n = 20,778 → n_eff = 1,811.45</text>
-  <text x="38" y="154" fill="var(--muted)" class="mono" font-size="11.5">EVPI = $257,928 · E₃₀ = 324,171</text>
-  <text x="38" y="192" fill="var(--sky)" class="mono" font-size="12" font-weight="800">Act: do_not_protect (Approved)</text>
-  <rect x="386" y="22" width="348" height="196" rx="12" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2.2"/>
-  <text x="404" y="50" fill="var(--violet)" class="mono" font-size="11.5" font-weight="800">CARD 02 · BANK QUEUES (L₂)</text>
-  <text x="404" y="76" fill="var(--ink)" font-size="15" font-weight="800">Overflow Shift Staffing</text>
-  <text x="404" y="106" fill="var(--muted)" class="mono" font-size="11.5">p = 0.09911  &gt;  p* = 0.08000</text>
-  <text x="404" y="130" fill="var(--muted)" class="mono" font-size="11.5">n = 27,716 → n_eff = 980.70</text>
-  <text x="404" y="154" fill="var(--muted)" class="mono" font-size="11.5">EVPI = $216,214 · E₃₀ = 2,786.4</text>
-  <text x="404" y="192" fill="var(--emerald)" class="mono" font-size="12" font-weight="800">Act: protect (Approved)</text>
-  <rect x="752" y="22" width="348" height="196" rx="12" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2.2"/>
-  <text x="770" y="50" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="800">CARD 03 · NYC FLIGHTS (L₃)</text>
-  <text x="770" y="76" fill="var(--ink)" font-size="15" font-weight="800">Ground-Holding &amp; Buffering</text>
-  <text x="770" y="106" fill="var(--muted)" class="mono" font-size="11.5">p = 0.09800  &gt;  p* = 0.06000</text>
-  <text x="770" y="130" fill="var(--muted)" class="mono" font-size="11.5">n = 138,375 → n_eff = 1,364.00</text>
-  <text x="770" y="154" fill="var(--muted)" class="mono" font-size="11.5">EVPI = $135,285 · Wald Floor OK</text>
-  <text x="770" y="192" fill="var(--emerald)" class="mono" font-size="12" font-weight="800">Act: protect (Approved)</text>
+  <rect x="1" y="1" width="1138" height="238" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
+  <rect x="16" y="22" width="264" height="196" rx="12" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2.2"/>
+  <text x="30" y="48" fill="var(--sky)" class="mono" font-size="11" font-weight="800">CARD 01 · STORMS (L₁)</text>
+  <text x="30" y="72" fill="var(--ink)" font-size="14" font-weight="800">Coastal Evacuation</text>
+  <text x="30" y="100" fill="var(--muted)" class="mono" font-size="11">p = 0.09800 ≤ p* = 0.12000</text>
+  <text x="30" y="124" fill="var(--muted)" class="mono" font-size="11">n = 20,778 → n_eff = 1,811</text>
+  <text x="30" y="148" fill="var(--muted)" class="mono" font-size="11">EVPI = $257,928 · E₃₀ = 324k</text>
+  <text x="30" y="190" fill="var(--sky)" class="mono" font-size="11.5" font-weight="800">Act: do_not_protect (OK)</text>
+  <rect x="296" y="22" width="264" height="196" rx="12" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2.2"/>
+  <text x="310" y="48" fill="var(--violet)" class="mono" font-size="11" font-weight="800">CARD 02 · BANK QUEUES (L₂)</text>
+  <text x="310" y="72" fill="var(--ink)" font-size="14" font-weight="800">Overflow Shift Staffing</text>
+  <text x="310" y="100" fill="var(--muted)" class="mono" font-size="11">p = 0.09911 &gt; p* = 0.08000</text>
+  <text x="310" y="124" fill="var(--muted)" class="mono" font-size="11">n = 27,716 → n_eff = 980.7</text>
+  <text x="310" y="148" fill="var(--muted)" class="mono" font-size="11">EVPI = $216,214 · E₃₀ = 2,786</text>
+  <text x="310" y="190" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="800">Act: protect (Approved)</text>
+  <rect x="576" y="22" width="264" height="196" rx="12" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2.2"/>
+  <text x="590" y="48" fill="var(--emerald)" class="mono" font-size="11" font-weight="800">CARD 03 · NYC FLIGHTS (L₃)</text>
+  <text x="590" y="72" fill="var(--ink)" font-size="14" font-weight="800">Ground-Holding Buffer</text>
+  <text x="590" y="100" fill="var(--muted)" class="mono" font-size="11">p = 0.09800 &gt; p* = 0.06000</text>
+  <text x="590" y="124" fill="var(--muted)" class="mono" font-size="11">n = 138,375 → n_eff = 1,364</text>
+  <text x="590" y="148" fill="var(--muted)" class="mono" font-size="11">EVPI = $135,285 · Wald OK</text>
+  <text x="590" y="190" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="800">Act: protect (Approved)</text>
+  <rect x="856" y="22" width="268" height="196" rx="12" fill="var(--elevated)" stroke="var(--amber)" stroke-width="2.2"/>
+  <text x="870" y="48" fill="var(--amber)" class="mono" font-size="11" font-weight="800">CARD 04 · DPI TRIAGE (L₁)</text>
+  <text x="870" y="72" fill="var(--ink)" font-size="14" font-weight="800">Civil-Defense Outreach</text>
+  <text x="870" y="100" fill="var(--muted)" class="mono" font-size="11">p = 0.17059 &gt; p* = 0.12000</text>
+  <text x="870" y="124" fill="var(--muted)" class="mono" font-size="11">n = 15,992 → n_eff = 1,583</text>
+  <text x="870" y="148" fill="var(--muted)" class="mono" font-size="11">Meng n_eff = 2,843 · Lee OK</text>
+  <text x="870" y="190" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="800">Act: protect (Approved)</text>
   </svg>
-  <figcaption><strong>Figure 22.1 — Comparative Cost-Loss Decision Geometry Across the Three Canonical Cards</strong></figcaption>
+  <figcaption><strong>Figure 22.1 — Comparative Cost-Loss Decision Geometry Across the Four Canonical Epistemological Cards</strong></figcaption>
 </figure>
+
+<div class="stoch-lab"
+     data-lab="gigerenzer-bayes"
+     data-title="Canonical Cards Natural-Frequency &amp; Deciban Triage Explorer"
+     data-subtitle="Simulate the Step-8 Gigerenzer integer cohort (N = 10,000) and Turing deciban threshold across Cards 01–04">
+</div>
 
 ---
 

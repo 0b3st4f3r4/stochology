@@ -941,9 +941,302 @@ blockquote {
 @media (forced-colors: active) {
   .stoch-figure:not(.stoch-logo-figure),
   .stoch-matrix-card,
+  .stoch-lab,
   .table-wrapper {
     border: 1px solid CanvasText;
   }
 }
+
+/* ==========================================================================
+   Interactive Playground & Laboratory Integration (/lab)
+   ========================================================================== */
+
+.stoch-lab-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-inline-end: 0.75rem;
+  padding: 0.32rem 0.85rem;
+  border-radius: 999px;
+  font-family: var(--mono-font);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none !important;
+  color: var(--ink) !important;
+  background-color: var(--elevated-bg);
+  border: 1px solid var(--brand-accent);
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.stoch-lab-nav-pill:hover {
+  background-color: var(--diag-sky-soft);
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+  transform: translateY(-1px);
+}
+
+.stoch-lab-nav-dot {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background-color: var(--logo-green);
+  box-shadow: 0 0 6px var(--logo-green);
+}
+
+.stoch-lab {
+  margin-block: 2.6rem;
+  background-color: var(--surface-bg);
+  border: 1.5px solid var(--brand-accent);
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.stoch-lab-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.6rem;
+  background-color: var(--elevated-bg);
+  border-block-end: 1px solid var(--table-border-color);
+}
+
+.stoch-lab-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stoch-lab-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.stoch-lab-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.16rem 0.62rem;
+  border-radius: 999px;
+  font-family: var(--mono-font);
+  font-size: 1.06rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background-color: var(--diag-sky-soft);
+  color: var(--diag-sky);
+  border: 1px solid var(--diag-sky);
+}
+
+.stoch-lab-seed-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.16rem 0.58rem;
+  border-radius: 999px;
+  font-family: var(--mono-font);
+  font-size: 1.04rem;
+  font-weight: 600;
+  background-color: var(--diag-emerald-soft);
+  color: var(--diag-emerald);
+  border: 1px solid var(--diag-emerald);
+}
+
+.stoch-lab-title {
+  margin: 0;
+  font-size: 1.58rem;
+  font-weight: 800;
+  color: var(--fg);
+  line-height: 1.3;
+}
+
+.stoch-lab-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.stoch-lab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  font-family: var(--mono-font);
+  font-size: 1.14rem;
+  font-weight: 650;
+  cursor: pointer;
+  text-decoration: none !important;
+  color: var(--fg) !important;
+  background-color: var(--surface-bg);
+  border: 1px solid var(--table-border-color);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.stoch-lab-btn:hover {
+  background-color: var(--theme-hover);
+  border-color: var(--brand-accent);
+}
+
+.stoch-lab-btn-primary {
+  background-color: var(--diag-sky-soft);
+  color: var(--diag-sky) !important;
+  border-color: var(--diag-sky);
+}
+
+.stoch-lab-btn-primary:hover {
+  background-color: var(--brand-accent);
+  color: #ffffff !important;
+}
+
+.stoch-lab-body {
+  padding: 1.5rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.stoch-lab-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem 1.4rem;
+  padding: 1.1rem 1.3rem;
+  border-radius: 10px;
+  background-color: var(--elevated-bg);
+  border: 1px solid var(--border-subtle);
+}
+
+.stoch-lab-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.stoch-lab-control label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 1.24rem;
+  font-weight: 650;
+  color: var(--fg);
+}
+
+.stoch-lab-control-val {
+  font-family: var(--mono-font);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--brand-accent);
+}
+
+.stoch-lab-control input[type="range"] {
+  inline-size: 100%;
+  cursor: pointer;
+  accent-color: var(--brand-accent);
+}
+
+.stoch-lab-stage {
+  border-radius: 10px;
+  background-color: var(--canvas);
+  border: 1px solid var(--table-border-color);
+  padding: 0.9rem;
+  overflow-x: auto;
+}
+
+.stoch-lab-stage svg {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  block-size: auto;
+  font-family: var(--font-sans);
+}
+
+.stoch-lab-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 0.85rem;
+}
+
+.stoch-lab-metric {
+  padding: 0.85rem 1.05rem;
+  border-radius: 9px;
+  background-color: var(--elevated-bg);
+  border: 1px solid var(--table-border-color);
+  border-inline-start: 3.5px solid var(--brand-accent);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.stoch-lab-metric[data-tone="emerald"] {
+  border-inline-start-color: var(--diag-emerald);
+}
+
+.stoch-lab-metric[data-tone="amber"] {
+  border-inline-start-color: var(--diag-amber);
+}
+
+.stoch-lab-metric[data-tone="rose"] {
+  border-inline-start-color: var(--diag-rose);
+}
+
+.stoch-lab-metric-label {
+  font-family: var(--mono-font);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.stoch-lab-metric-value {
+  font-family: var(--mono-font);
+  font-size: 1.42rem;
+  font-weight: 800;
+  color: var(--fg);
+}
+
+.stoch-lab-metric-sub {
+  font-size: 1.12rem;
+  color: var(--fg-muted);
+}
+
+.stoch-lab-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.85rem 1.6rem;
+  background-color: var(--elevated-bg);
+  border-block-start: 1px solid var(--border-subtle);
+  font-family: var(--mono-font);
+  font-size: 1.12rem;
+  color: var(--fg-muted);
+}
+
+.stoch-lab-iframe-wrap {
+  display: none;
+  border-radius: 10px;
+  border: 1px solid var(--table-border-color);
+  overflow: hidden;
+  background-color: var(--canvas);
+}
+
+.stoch-lab-iframe-wrap.active {
+  display: block;
+}
+
+.stoch-lab-iframe {
+  display: block;
+  inline-size: 100%;
+  block-size: 460px;
+  border: none;
+}
+
 
 

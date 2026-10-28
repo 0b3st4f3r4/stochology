@@ -284,6 +284,92 @@ This equation highlights an operational asymmetry:
   $$V(p^{\ast}) = \frac{\mathbb{E}[\text{Cost}\_{\text{climatology}}] - \mathbb{E}[\text{Cost}\_{\text{forecast}}]}{\mathbb{E}[\text{Cost}\_{\text{climatology}}] - \mathbb{E}[\text{Cost}\_{\text{oracle}}]} \in (-\infty, 1]$$
   as well as I. J. Good's local strictly proper **Logarithmic (Ignorance) Score** $\mathrm{LogS}(p, y) = -\frac{1}{n}\sum\_{i=1}^n \bigl[y\_i \ln \tilde{p}\_i + (1 - y\_i)\ln(1 - \tilde{p}\_i)\bigr]$ safeguarded by Cromwell's floor $\tilde{p}\_i \in [\varepsilon\_{\text{floor}}, 1 - \varepsilon\_{\text{floor}}]$.
 
+### Step-by-Step Dry Run of the Pool-Adjacent-Violators (PAV) Algorithm and Murphy's Elementary Score Integral
+
+To see why `CorpPavDecomposition` requires zero arbitrary histogram bins, let us trace **PAV isotonic regression** by hand on $n = 6$ sorted probability forecasts $p\_{(1)} \le \dots \le p\_{(6)}$ and their realized binary outcomes $y\_{(i)} \in \{0, 1\}$:
+
+| Sorted Index $i$ | Forecast $p\_{(i)}$ | Realized Outcome $y\_{(i)}$ | Pass 1 (Pool Violator $1 > 0$ at $i=2,3$) | Pass 2 (Final Isotonic $\hat{\pi}\_i$) |
+| :---: | :---: | :---: | :---: | :---: |
+| $1$ | $0.10$ | $0$ | $0.00$ | $\hat{\pi}\_1 = 0.00$ |
+| $2$ | $0.20$ | $1$ | $\frac{1+0}{2} = 0.50$ | $\hat{\pi}\_2 = 0.50$ |
+| $3$ | $0.30$ | $0$ | $\frac{1+0}{2} = 0.50$ | $\hat{\pi}\_3 = 0.50$ |
+| $4$ | $0.60$ | $1$ | $1.00$ | $\hat{\pi}\_4 = \frac{1+0+1}{3} = 0.667$ |
+| $5$ | $0.70$ | $0$ | $\text{Violator } (1 > 0) \to \text{pool } \{4,5\}$ | $\hat{\pi}\_5 = 0.667$ |
+| $6$ | $0.90$ | $1$ | $1.00$ | $\hat{\pi}\_6 = 1.00$ |
+
+Whenever an adjacent pair violates monotonicity ($\hat{\pi}\_k > \hat{\pi}\_{k+1}$), PAV merges their blocks into a single block weighted by block size until $\hat{\pi}\_1 \le \hat{\pi}\_2 \le \dots \le \hat{\pi}\_n$.
+
+Furthermore, **Ehm, Gneiting, Jordan, and Krüger (2016)** proved that every Brier Score is the exact integral of **Murphy's Extremal Elementary Cost-Loss Scores** $S\_\theta(p, y)$ across all possible operational decision thresholds $\theta \in (0, 1)$ (`MurphyDiagram` and `CorpRocMurphyTriptych` in `crates/stochology-lenses/src/decision.rs`):
+
+$$S\_\theta(p, y) \triangleq |y - \mathbf{1}\{p \ge \theta\}|\cdot |p - \theta|, \qquad \int\_0^1 \bar{S}\_\theta(p, y)\,d\theta = \frac{1}{2}\mathrm{BS}(p, y)$$
+
+Two forecasters $A$ and $B$ can have nearly identical aggregate Brier Scores while crossing inside $(0, 1)$: Forecaster $A$ may have lower loss at low cost-loss thresholds $\theta = 0.10$ (civil-defense evacuation), while Forecaster $B$ has lower loss at high thresholds $\theta = 0.70$. Selecting a model solely by aggregate Brier Score when its Murphy curve is dominated at the operational threshold $p^{\ast}$ is blocked by **Gate `G6` (`--defect brier_dominance`)**.
+
+<figure class="stoch-figure">
+  <svg xmlns="http://www.w3.org/2000/svg" width="1140" height="360" viewBox="0 0 1140 360" fill="none" role="img" aria-labelledby="title-fig-06b-lenses-charts">
+  <title id="title-fig-06b-lenses-charts">Quantitative Profiles of Lenses 2, 3, and 5: DJIA Kelly Curve, Danish Fire Pareto Tail, and Murphy Diagram</title>
+  <defs>
+    <style>text { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; } .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; }</style>
+  </defs>
+  <rect x="1" y="1" width="1138" height="358" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
+
+  <!-- Panel 1: Lens 2 Kelly Growth Parabola -->
+  <rect x="20" y="20" width="354" height="318" rx="11" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2"/>
+  <text x="38" y="46" fill="var(--emerald)" class="mono" font-size="11" font-weight="800">LENS 2 · KELLY GROWTH vs. RUIN WALL</text>
+  <text x="38" y="68" fill="var(--ink)" font-size="13.5" font-weight="750">g_time(f) = μf - ½σ²f² (DJIA 1885–2023)</text>
+  <line x1="48" y1="210" x2="348" y2="210" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <line x1="48" y1="88" x2="48" y2="268" stroke="var(--muted)" stroke-width="1.4"/>
+  <!-- Ensemble line -->
+  <line x1="48" y1="210" x2="336" y2="96" stroke="var(--sky)" stroke-width="2" stroke-dasharray="5 3"/>
+  <!-- Kelly parabola -->
+  <path d="M 48 210 Q 178 96, 308 210 T 346 262" stroke="var(--emerald)" stroke-width="2.8" fill="none"/>
+  <circle cx="178" cy="153" r="5" fill="var(--emerald)"/>
+  <circle cx="308" cy="210" r="4.5" fill="var(--rose)"/>
+  <text x="135" y="142" fill="var(--emerald)" class="mono" font-size="10.5" font-weight="700">Peak f_emp* = 2.08</text>
+  <text x="242" y="232" fill="var(--rose)" class="mono" font-size="10.5" font-weight="700">f &gt; 2f* (g_time &lt; 0)</text>
+  <text x="38" y="294" fill="var(--muted)" class="mono" font-size="11">g_ens = 6.12%/yr vs g_time = 4.68%/yr</text>
+  <text x="38" y="314" fill="var(--muted)" class="mono" font-size="11">Kurtosis = 17.8 → f_emp(2.08) &lt; Merton(2.12)</text>
+
+  <!-- Panel 2: Lens 3 Danish Fire Log-Log Tail -->
+  <rect x="393" y="20" width="354" height="318" rx="11" fill="var(--elevated)" stroke="var(--amber)" stroke-width="2"/>
+  <text x="411" y="46" fill="var(--amber)" class="mono" font-size="11" font-weight="800">LENS 3 · PARETO POWER-LAW TAIL</text>
+  <text x="411" y="68" fill="var(--ink)" font-size="13.5" font-weight="750">Danish Fire (n = 2,167 · α̂_Hill = 1.6009)</text>
+  <line x1="425" y1="256" x2="720" y2="256" stroke="var(--muted)" stroke-width="1.4"/>
+  <line x1="425" y1="90" x2="425" y2="256" stroke="var(--muted)" stroke-width="1.4"/>
+  <!-- Gaussian thin tail drop -->
+  <path d="M 425 100 Q 520 118, 565 254" stroke="var(--sky)" stroke-width="2" stroke-dasharray="4 3" fill="none"/>
+  <!-- Pareto power-law line on log-log -->
+  <line x1="425" y1="100" x2="710" y2="238" stroke="var(--rose)" stroke-width="2.8"/>
+  <text x="465" y="242" fill="var(--sky)" class="mono" font-size="10.5">Gaussian Fiction</text>
+  <text x="560" y="156" fill="var(--rose)" class="mono" font-size="10.5" font-weight="700">Slope -α = -1.60 (∞ Var)</text>
+  <text x="411" y="294" fill="var(--muted)" class="mono" font-size="11">Median = 1.78M · q99 = 26.04M DKK</text>
+  <text x="411" y="314" fill="var(--muted)" class="mono" font-size="11">ES_99 = 58.59M DKK · tail_n_eff = 13.9</text>
+
+  <!-- Panel 3: Lens 5 CORP-Murphy Triptych -->
+  <rect x="766" y="20" width="354" height="318" rx="11" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2"/>
+  <text x="784" y="46" fill="var(--violet)" class="mono" font-size="11" font-weight="800">LENS 5 · CORP-PAV &amp; MURPHY DIAGRAM</text>
+  <text x="784" y="68" fill="var(--ink)" font-size="13.5" font-weight="750">∫₀¹ S̄_θ dθ = ½ BS = ½(REL - RES + UNC₀)</text>
+  <line x1="798" y1="256" x2="1094" y2="256" stroke="var(--muted)" stroke-width="1.4"/>
+  <line x1="798" y1="90" x2="798" y2="256" stroke="var(--muted)" stroke-width="1.4"/>
+  <!-- Murphy curve A (calibrated) -->
+  <path d="M 798 256 Q 946 132, 1094 256" stroke="var(--emerald)" stroke-width="2.8" fill="none"/>
+  <!-- Murphy curve B (miscalibrated / non-dominant) -->
+  <path d="M 798 256 Q 900 84, 1094 256" stroke="var(--rose)" stroke-width="2.2" stroke-dasharray="5 3" fill="none"/>
+  <text x="845" y="122" fill="var(--rose)" class="mono" font-size="10.5" font-weight="700">Overconfident Forecaster</text>
+  <text x="865" y="206" fill="var(--emerald)" class="mono" font-size="10.5" font-weight="700">CORP-PAV Calibrated</text>
+  <text x="784" y="294" fill="var(--muted)" class="mono" font-size="11">Atlantic Storms: id_err = 1.53×10⁻¹⁴</text>
+  <text x="784" y="314" fill="var(--muted)" class="mono" font-size="11">Gate G6 blocks non-dominant Brier rank</text>
+  </svg>
+  <figcaption><strong>Figure 6.2 — Quantitative synthesis across Lenses 2, 3, and 5: (Left) DJIA time-growth parabola vs. ensemble drift; (Center) log-log Pareto power-law tail on Copenhagen Re fire losses; (Right) Murphy elementary score diagram and CORP-PAV dominance.</strong></figcaption>
+</figure>
+
+### Interactive Laboratory (`/lab`)
+
+Use the interactive Five-Lenses simulator below to explore how drift $\mu$, volatility $\sigma$, leverage $f$, and Pareto tail exponent $\alpha$ shape long-run survival versus ruin:
+
+<div class="stoch-lab" data-lab="lenses-kelly-tail-corp" data-chapter="06-lenses" data-title="Chapter 6 Lab: Itô Variance Drain, Kelly Leverage Curve g(f) &amp; Pareto Tail Regimes" data-cli="cargo run --release --bin labs -- --lenses"></div>
+
+
 ---
 
 ## Computational Audit in Rust

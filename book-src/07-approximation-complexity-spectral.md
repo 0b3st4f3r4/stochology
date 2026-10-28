@@ -176,6 +176,27 @@ $$\inf\_{\hat{\theta}} \sup\_{\theta \in \Theta} \mathbb{E}\_\theta\!\left[\|\ha
 
 Together, orthonormal bases in $L^2$, compositional folding $2^D$, spectral effective dimension $d\_{\mathrm{eff}}$, and minimax information floors provide the tools needed in Chapter 8 to construct the **$(\varepsilon, \delta)$-Almost-Perfect Machine** and **First-Class Authentic Model Form**.
 
+### Parseval's Identity, the Eckart-Young-Mirsky SVD Theorem, and Spectral Bias
+
+Two classical theorems explain why orthonormal bases and singular value decomposition govern both approximation accuracy and effective dimensionality:
+
+1. **Parseval's Identity and Best $L^2$ Truncation:**
+   For any function $f \in L^2(\mathcal{X}, \mu)$ expanded in an orthonormal basis $\{\psi\_k\}\_{k=1}^\infty$ with Fourier-Hermite coefficients $c\_k = \langle f, \psi\_k \rangle$, energy in function space equals energy in coefficient space:
+   $$\|f\|\_{L^2}^2 = \sum\_{k=1}^\infty c\_k^2, \qquad \left\|f - \sum\_{k=1}^W c\_k \psi\_k\right\|\_{L^2}^2 = \sum\_{k=W+1}^\infty c\_k^2$$
+   Thus, truncating after $W$ terms incurs an exact tail residual equal to the sum of omitted squared coefficients.
+
+2. **The Eckart-Young-Mirsky Low-Rank Approximation Theorem (1936):**
+   Given any matrix $A \in \mathbb{R}^{n \times m}$ with singular value decomposition $A = \sum\_{k=1}^r \sigma\_k \mathbf{u}\_k \mathbf{v}\_k^\top$ ($\sigma\_1 \ge \sigma\_2 \ge \dots \ge \sigma\_r > 0$), the best rank-$k$ approximation $A^{(k)} = \sum\_{j=1}^k \sigma\_j \mathbf{u}\_j \mathbf{v}\_j^\top$ minimizes both the spectral norm and Frobenius norm error simultaneously:
+   $$\min\_{\mathrm{rank}(B) \le k} \|A - B\|\_2 = \|A - A^{(k)}\|\_2 = \sigma\_{k+1}, \qquad \min\_{\mathrm{rank}(B) \le k} \|A - B\|\_F = \sqrt{\sum\_{j=k+1}^r \sigma\_j^2}$$
+   This theorem directly powers both our Gram effective-dimension audit $d\_{\mathrm{eff}}(G)$ and Wolfgang Hackbusch's Hierarchical Matrices ($\mathcal{H}$-Matrices) in Chapter 13.
+
+### Interactive Laboratory (`/lab`)
+
+Explore how compositional network depth $D$ exponentially multiplies affine regions ($2^D$) and how feature collinearity $\rho$ collapses Gram effective dimension $d\_{\mathrm{eff}}(G)$:
+
+<div class="stoch-lab" data-lab="spectral-telgarsky-deff" data-chapter="07-approximation-complexity-spectral" data-title="Chapter 7 Lab: Telgarsky Compositional Sawtooth (2^D) &amp; Gram Effective Dimension d_eff" data-cli="cargo run --release --bin gates"></div>
+
+
 ---
 
 ## Computational Audit in Rust

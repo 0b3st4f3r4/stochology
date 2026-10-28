@@ -13,7 +13,7 @@ You operate under the **Stochology Protocol** (`docs/PROTOCOL.md`). Follow these
    Before implementing a change, answer the **Three Structural Questions** (Ontological Layer $L_1/L_2/L_3$ & Bridge, Stirling-Walker Uncertainty Class, and Severe Test) and follow the **Four Prohibitions** (`PROHIBITION_1` no unstructured prose between modules; `PROHIBITION_2` no lone mean under nonlinearity or heavy tails; `PROHIBITION_3` no confusing learning with performativity $\theta_{\mathrm{PS}}$ vs. $\theta_{\mathrm{PO}}$ or ignoring Goodhart's 4 variants; `PROHIBITION_4` no dogmatic $0\%/100\%$ probabilities or omitted attempts $K \ge 1$).
 3. **Subagent Architecture (`.agents/agents/`):**
    - `stochology-modeler` (`workspace: branch`): Implements mathematical and stochastic models (`null_model` / `decision_rule`).
-   - `stochology-adversary` (`workspace: inherit`): Acts as the VSM $S3^*$ sporadic audit channel and Filter 4 `adversarial_reviewer`, running `gates` and all 18 negative defect proofs (`gates -- --defect <name>`).
+   - `stochology-adversary` (`workspace: inherit`): Acts as the VSM $S3^*$ sporadic audit channel and Filter 4 `adversarial_reviewer`, running `gates` and all 19 negative defect proofs (`gates -- --defect <name>`).
    - `stochology-scribe` (`workspace: inherit`): Keeps exported Rust symbols synchronized with `docs/PROTOCOL.md`, `book-src/appendix-protocol.md`, and `book-src/00-preface.md`..`24-sources.md`.
 4. **Terminal Execution Policy & Cryptographic Protection ($\Phi_3$):**
    - **Allow List (Autonomous Execution):** `scripts/verify.sh`, `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test`, `cargo run --release --bin labs -- --all`, and `cargo run --release --bin gates` (plus `--defect <name>`).

@@ -201,6 +201,63 @@ $$R\_{\text{data}} \ge R\_{\text{decision}}$$
 
 Any attempt to answer a shift, hourly, or daily operational question with coarse monthly or annual aggregates is immediately blocked by Gate `G5` (`--defect phi5`).
 
+<figure class="stoch-figure">
+  <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="300" viewBox="0 0 1120 300" fill="none" role="img" aria-labelledby="title-fig-16-2">
+    <title id="title-fig-16-2">Moulton-Campbell Tail Sample-Size Collapse and Chouldechova Base-Rate Fairness Frontier</title>
+    <defs>
+      <style>text { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; } .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; }</style>
+    </defs>
+    <rect x="1" y="1" width="1118" height="298" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
+    <!-- Left panel: Moulton-Campbell n_eff(p) profile on bank_calls.csv -->
+    <rect x="20" y="20" width="530" height="260" rx="12" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2"/>
+    <text x="40" y="48" fill="var(--sky)" class="mono" font-size="11.5" font-weight="800">Φ₂ · MOULTON-CAMPBELL TAIL COLLAPSE (bank_calls.csv)</text>
+    <line x1="65" y1="230" x2="515" y2="230" stroke="var(--border)" stroke-width="1.5"/>
+    <line x1="65" y1="70" x2="65" y2="230" stroke="var(--border)" stroke-width="1.5"/>
+    <!-- Bars for Nominal n=27716, q50 n_eff=9239, q99 n_eff=1308, q90 n_eff=981 -->
+    <rect x="95" y="78" width="72" height="152" rx="5" fill="var(--muted)" fill-opacity="0.35" stroke="var(--muted)" stroke-width="1.6"/>
+    <text x="131" y="70" text-anchor="middle" fill="var(--ink)" class="mono" font-size="11" font-weight="700">n = 27,716</text>
+    <text x="131" y="248" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">Nominal IID</text>
+    <rect x="205" y="176" width="72" height="54" rx="5" fill="var(--sky)" fill-opacity="0.30" stroke="var(--sky)" stroke-width="1.8"/>
+    <text x="241" y="168" text-anchor="middle" fill="var(--sky)" class="mono" font-size="11" font-weight="700">9,239</text>
+    <text x="241" y="248" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">n_eff(q₅₀)</text>
+    <rect x="315" y="220" width="72" height="10" rx="3" fill="var(--rose)" fill-opacity="0.45" stroke="var(--rose)" stroke-width="2"/>
+    <text x="351" y="211" text-anchor="middle" fill="var(--rose)" class="mono" font-size="11" font-weight="800">980.7</text>
+    <text x="351" y="248" text-anchor="middle" fill="var(--rose)" class="mono" font-size="10.5" font-weight="700">n_eff(q₉₀)</text>
+    <rect x="425" y="218" width="72" height="12" rx="3" fill="var(--amber)" fill-opacity="0.40" stroke="var(--amber)" stroke-width="1.8"/>
+    <text x="461" y="209" text-anchor="middle" fill="var(--amber)" class="mono" font-size="11" font-weight="700">1,308</text>
+    <text x="461" y="248" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">n_eff(q₉₉)</text>
+    <text x="285" y="270" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">DEFF(0.90) = 28.26× variance inflation across 164 business days</text>
+    <!-- Right panel: Chouldechova & KMR Fairness Frontier on toronto_arrests.csv -->
+    <rect x="570" y="20" width="530" height="260" rx="12" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2"/>
+    <text x="590" y="48" fill="var(--violet)" class="mono" font-size="11.5" font-weight="800">Φ₄ · CHOULDECHOVA &amp; KMR FRONTIER (toronto_arrests.csv)</text>
+    <line x1="620" y1="230" x2="1070" y2="230" stroke="var(--border)" stroke-width="1.5"/>
+    <line x1="620" y1="70" x2="620" y2="230" stroke="var(--border)" stroke-width="1.5"/>
+    <!-- Hyperbolic curve of FPR_A as a function of PPV under fixed p_A=0.3926, p_B=0.1119 -->
+    <path d="M 640 84 Q 760 155 1050 218" stroke="var(--rose)" stroke-width="2.6" fill="none"/>
+    <path d="M 640 192 Q 760 212 1050 227" stroke="var(--emerald)" stroke-width="2.4" fill="none"/>
+    <circle cx="810" cy="148" r="5.5" fill="var(--rose)"/>
+    <circle cx="810" cy="214" r="5.5" fill="var(--emerald)"/>
+    <line x1="810" y1="148" x2="810" y2="214" stroke="var(--amber)" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="822" y="146" fill="var(--rose)" class="mono" font-size="11" font-weight="700">Group A: FPR_A = 0.2610 (p_A = 0.3926)</text>
+    <text x="822" y="212" fill="var(--emerald)" class="mono" font-size="11" font-weight="700">Group B: FPR_B = 0.0509 (p_B = 0.1119)</text>
+    <text x="822" y="182" fill="var(--amber)" class="mono" font-size="11" font-weight="800">Locked Ratio = 5.13× | KMR ΔVar = 0.0960</text>
+    <text x="845" y="268" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">Equalizing PPV = 0.65 &amp; FNR = 0.25 locks FPR_A / FPR_B to base-rate odds</text>
+  </svg>
+  <figcaption><strong>Figure 16.2 — Quantitative Audit of Invariants Φ₂ (Moulton-Campbell Tail Design Effect) and Φ₄ (Chouldechova &amp; KMR Impossibility Frontier)</strong></figcaption>
+</figure>
+
+---
+
+## Interactive Laboratory (`/lab`)
+
+Experiment interactively with the Moulton-Campbell unequal-cluster design effect $\mathrm{DEFF}(p) = 1 + (\tilde{m}-1)\rho\_I(p)$ and Chouldechova's algebraic fairness identity:
+
+<div class="stoch-lab"
+     data-lab="invariants-moulton-chouldechova"
+     data-title="Invariants Φ₂ &amp; Φ₄: Moulton-Campbell n_eff(p) &amp; Chouldechova Trilemma"
+     data-subtitle="Vary cluster CV, tail ICC ρ_I(p), and group base rates (p_A, p_B) to inspect DEFF(p) and FPR_A / FPR_B">
+</div>
+
 ---
 
 ## Computational Audit in Rust

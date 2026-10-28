@@ -168,6 +168,45 @@ The final section governs Bridge $L\_2 \to L\_3$ and Invariant $\Phi\_4$:
 
 ---
 
+## 17.6 Cryptographic Pre-Registration Integrity: Pure-Rust FIPS 180-4 SHA-256 (`stochology_core::sha256`)
+
+How does `EpistemologicalCard::audit()` guarantee that neither the CSV dataset nor the pre-registered analysis plan was quietly edited after seeing out-of-sample results, without pulling in external C/OpenSSL dependencies?
+
+In `crates/stochology-core/src/sha256.rs`, the protocol implements the **NIST FIPS 180-4 SHA-256 cryptographic hash function** and **RFC 2104 `HMAC-SHA256`** directly from first principles in pure Rust:
+1. **Fractional Cube-Root Round Constants ($K\_{0..63}$) and Square-Root Initial Chaining State ($H^{(0)}\_{0..7}$):**
+   The $8$ initial 32-bit words $H^{(0)}\_0 = \text{0x6a09e667}, \dots, H^{(0)}\_7 = \text{0x5be0cd19}$ are the first $32$ bits of the fractional parts of the square roots of the first $8$ primes ($2, 3, 5, 7, 11, 13, 17, 19$), and the $64$ round constants $K\_t$ are the first $32$ bits of the fractional parts of the cube roots of the first $64$ primes. Because these constants derive deterministically from prime roots, they contain zero hidden trapdoors ("nothing-up-my-sleeve numbers").
+2. **Merkle-Damgård 512-Bit Block Compression:**
+   Every message $M$ of length $\ell$ bits is padded with a `1` bit, zero bits, and a 64-bit big-endian length $\ell$ so the padded length is a multiple of $512$ bits. Each 512-bit block is expanded into $64$ words via:
+   $$\sigma\_0(x) = \mathrm{ROTR}^7(x) \oplus \mathrm{ROTR}^{18}(x) \oplus (x \gg 3), \qquad \sigma\_1(x) = \mathrm{ROTR}^{17}(x) \oplus \mathrm{ROTR}^{19}(x) \oplus (x \gg 10)$$
+   and compressed across $64$ rounds of bitwise majority $\mathrm{Maj}(a,b,c) = (a\wedge b)\oplus(a\wedge c)\oplus(b\wedge c)$ and choice $\mathrm{Ch}(e,f,g) = (e\wedge f)\oplus(\neg e\wedge g)$.
+
+```mermaid
+flowchart LR
+    YAML["cards/*.yaml<br/>EpistemologicalCard"] --> PARSE["Zero-Dependency<br/>YAML Parser"]
+    CSV["data/*.csv<br/>Empirical Dataset"] --> SHA["FIPS 180-4 SHA-256<br/>sha256_hex(bytes)"]
+    PARSE --> AUDIT["EpistemologicalCard::audit()"]
+    SHA --> AUDIT
+    AUDIT --> C1["1. Jensen &amp; Quantile Closure<br/>|Δ_J - (E[f] - f(E))| ≤ 10⁻³"]
+    AUDIT --> C2["2. Moulton-Campbell Φ₂<br/>n_eff = n / (1 + (m̃-1)ρ_I)"]
+    AUDIT --> C3["3. Variance Budget &amp; Info-Gap<br/>Σ shares = 1.0, GP &gt; 0"]
+    AUDIT --> C4["4. CORP PAV &amp; Findings<br/>BS = REL - RES + UNC₀"]
+    AUDIT --> C5["5. Cost-Loss &amp; Authorship<br/>p* = C/(ηL), Modeler ≠ Verifier"]
+```
+
+---
+
+## Interactive Laboratory (`/lab`)
+
+Test the cross-field algebraic invariants that `EpistemologicalCard::audit()` verifies on every YAML card:
+
+<div class="stoch-lab"
+     data-lab="invariants-moulton-chouldechova"
+     data-title="EpistemologicalCard::audit() Cross-Field Invariant Explorer"
+     data-subtitle="Inspect how Moulton-Campbell n_eff(p) and Chouldechova base-rate constraints lock card fields together">
+</div>
+
+---
+
 ## Computational Audit in Rust
 
 In `crates/stochology-core/src/card.rs`, `EpistemologicalCard::from_yaml_str` parses the YAML card using a zero-dependency parser written in pure Rust, and `EpistemologicalCard::audit()` runs all cross-field algebraic checks. You can see all three canonical cards (`card_01`, `card_02`, `card_03`) audited against their real CSV datasets by running:

@@ -1,6 +1,7 @@
 //! `stochology-lenses` — The Five Transversal Lenses of the Stochology Protocol (§1.3),
 //! plus the $(\varepsilon, \delta)$-Almost-Perfect Machine `M = (T, Φ, θ)` and First-Class Authentic Model Form (`δ(x) + Ŝ*`).
 
+pub mod acceptance;
 pub mod analog;
 pub mod critical;
 pub mod decision;
@@ -11,7 +12,12 @@ pub mod relational;
 pub mod stocks;
 pub mod tail;
 pub mod time;
+pub mod triad;
 
+pub use acceptance::{
+    canonical_registry_lines, verify_registry_content, MultiSeedAcceptance, NamedCheck,
+    ACCEPTANCE_REGISTRY_PATH, ACCEPTANCE_SEEDS, MIN_CLAIM_PASS_RATE,
+};
 pub use analog::{
     AimcAnalogWallHpInvAudit, AnalogWaveComputingSynthesis, EmpiricalWaveAnalogAudit,
     GerstgrasserAccumulateAudit, NativeOdeIsomorphismAudit, SensoryDpiOrganoidHybridAudit,
@@ -60,4 +66,10 @@ pub use tail::{
 pub use time::{
     asymmetric_bet_log_growth, asymmetric_kelly_fraction, empirical_kelly_optimal_fraction,
     ito_time_growth_rate, simulate_absorbing_trajectories, MixingTimeAudit, TimeKellyDiagnostic,
+};
+pub use triad::{
+    ComplexFractalToroidalTechniumSynthesis, ComplexRealIsomorphismHMatrixAudit,
+    ComplexWaveGaborHelmholtzAudit, EmpiricalTriadicTechniumAudit, FractionalCtrwAnalogEccAudit,
+    MultifractalPdhteRagCollapseAudit, SnaRlhfFhrrCohomologyTechniumAudit,
+    WeylTorusHermiteMehlerDfmAudit,
 };

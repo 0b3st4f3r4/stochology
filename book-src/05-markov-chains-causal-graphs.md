@@ -203,6 +203,26 @@ $$P(Y = y \mid \mathrm{do}(X = x)) = \sum\_u P(Y = y \mid X = x, U = u) \, P(U =
 
 When $U$ is partially unobserved or we have data across multiple environments $e \in \mathcal{E}$ (such as different seasons, hospitals, or experimental vs. observational cohorts), Chapter 6 (Lens 4) shows how **Invariant Causal Prediction (ICP)**, **Rosenbaum's $\Lambda^\ast$**, and **Cinelli-Hazlett's Robustness Value $RV\_q$** audit causal claims under environmental shifts and hidden confounding.
 
+### Judea Pearl's Three Rules of `do-Calculus` and the Markov Blanket
+
+To decide whether an interventional query $P(y \mid \mathrm{do}(x))$ can be computed purely from observational probabilities $P(v)$ without running a physical experiment, Judea Pearl (1995) proved that **three symbolic transformation rules** are sound and complete for any Directed Acyclic Graph $G$ (where $G\_{\overline{X}}$ denotes $G$ with all arrows *entering* $X$ deleted, and $G\_{\underline{X}}$ denotes $G$ with all arrows *leaving* $X$ deleted):
+
+1. **Rule 1 (Insertion/Deletion of Observations):**
+   $$P(y \mid \mathrm{do}(x), z, w) = P(y \mid \mathrm{do}(x), w) \qquad \text{if } (Y \perp\!\!\!\perp Z \mid X, W)\_{G\_{\overline{X}}}$$
+2. **Rule 2 (Action/Observation Exchange — Back-Door Criterion):**
+   $$P(y \mid \mathrm{do}(x), \mathrm{do}(z), w) = P(y \mid \mathrm{do}(x), z, w) \qquad \text{if } (Y \perp\!\!\!\perp Z \mid X, W)\_{G\_{\overline{X}\underline{Z}}}$$
+3. **Rule 3 (Insertion/Deletion of Actions):**
+   $$P(y \mid \mathrm{do}(x), \mathrm{do}(z), w) = P(y \mid \mathrm{do}(x), w) \qquad \text{if } (Y \perp\!\!\!\perp Z \mid X, W)\_{G\_{\overline{X}\overline{Z(W)}}}$$
+
+Furthermore, for any target node $Y$ in a DAG, its **Markov Blanket** $\mathrm{MB}(Y)$ consists of its **direct parents** $\mathrm{Pa}(Y)$, its **direct children** $\mathrm{Ch}(Y)$, and the **co-parents** of its children. While conditioning on the full Markov Blanket renders $Y$ conditionally independent of the rest of the graph, **Eliminatory Filter 2 (`evaluate_filter_2_independence_and_blanket`) strictly forbids conditioning on children or co-parents when estimating a causal effect**, because conditioning on a common child opens a **Berkson collider path**.
+
+### Interactive Laboratory (`/lab`)
+
+Use the interactive Markov contraction and Pearl `do-calculus` simulator below to observe Dobrushin total-variation contraction $\eta\_{\mathrm{TV}}^t$ alongside confounding and Berkson collider bias:
+
+<div class="stoch-lab" data-lab="markov-dag-do" data-chapter="05-markov-chains-causal-graphs" data-title="Chapter 5 Lab: Markov Contraction (η_TV), Pearl do(X=x) &amp; Berkson Collider Guard" data-cli="cargo run --release --bin labs -- --lenses"></div>
+
+
 ---
 
 ## Computational Audit in Rust

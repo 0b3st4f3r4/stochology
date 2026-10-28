@@ -18,6 +18,10 @@ use stochology_governance::{
     query_with_bitemporal_clock, BitemporalRecord, MurphyCorpCircuitBreaker, PlatTrafficLightZone,
     PredeterminedChangeControlPlan, TemporalVault,
 };
+use stochology_lenses::acceptance::{
+    canonical_registry_lines, verify_registry_content, MultiSeedAcceptance,
+    ACCEPTANCE_REGISTRY_PATH, ACCEPTANCE_SEEDS, MIN_CLAIM_PASS_RATE,
+};
 use stochology_lenses::analog::{
     AnalogWaveComputingSynthesis, EmpiricalWaveAnalogAudit, GerstgrasserAccumulateAudit,
     SyntheticDataPolicy,
@@ -35,7 +39,66 @@ use stochology_lenses::relational::RelationalComplexSystemsSynthesis;
 use stochology_lenses::stocks::{
     EmpiricalStocharyCyberneticAudit, StocharyConjecturalCyberneticSynthesis,
 };
+use stochology_lenses::triad::{
+    ComplexFractalToroidalTechniumSynthesis, EmpiricalTriadicTechniumAudit,
+};
 use stochology_siga::{AlertFatigueAudit, EvidenceProcess, SaviConfidenceSequence, VarEsEBacktest};
+
+/// Gate `G8` multi-seed acceptance: every gated claim must pass on at least `MIN_CLAIM_PASS_RATE` of the pre-declared
+/// `ACCEPTANCE_SEEDS` and every identity must close on all of them; discarded claims are reported with their pass rates.
+fn check_multi_seed(
+    label: &str,
+    accepted: &MultiSeedAcceptance,
+    discarded: &MultiSeedAcceptance,
+) -> Result<(), String> {
+    if !accepted.accepted {
+        return Err(format!(
+            "G8 failed multi-seed acceptance for {label} (identities on all seeds={}): {:?}",
+            accepted.identities_closed_on_all_seeds,
+            accepted.failing_claims()
+        ));
+    }
+    println!(
+        "  [G8] {label}: {} gated claims pass on >= {:.0}% of {} pre-declared seeds; identities closed on every seed",
+        accepted.claim_pass_rates.len(),
+        MIN_CLAIM_PASS_RATE * 100.0,
+        accepted.seeds.len()
+    );
+    for (name, rate) in &discarded.claim_pass_rates {
+        println!(
+            "  [G8] {label} discarded claim (recorded, not approved): {name} passes on {:.0}% of seeds",
+            rate * 100.0
+        );
+    }
+    Ok(())
+}
+
+/// Gate `G8` seal: the acceptance registry must match the claims in the code and its SHA-256 must match `data/SHA256SUMS`.
+fn check_acceptance_registry(root: &Path) -> Result<(), String> {
+    let path = root.join(ACCEPTANCE_REGISTRY_PATH);
+    let bytes = std::fs::read(&path)
+        .map_err(|e| format!("G8 failed: cannot read {ACCEPTANCE_REGISTRY_PATH}: {e}"))?;
+    let actual = stochology_core::sha256_hex(&bytes);
+    let manifest = stochology_cli::load_sha256sums_manifest(root)?;
+    let sealed = manifest.get(ACCEPTANCE_REGISTRY_PATH).ok_or_else(|| {
+        format!("G8 failed: {ACCEPTANCE_REGISTRY_PATH} is not sealed in data/SHA256SUMS")
+    })?;
+    if &actual != sealed {
+        return Err(format!(
+            "G8 failed: {ACCEPTANCE_REGISTRY_PATH} SHA-256 ({actual}) diverges from data/SHA256SUMS ({sealed})"
+        ));
+    }
+    let content = String::from_utf8(bytes)
+        .map_err(|e| format!("G8 failed: {ACCEPTANCE_REGISTRY_PATH} is not UTF-8: {e}"))?;
+    verify_registry_content(&content)
+        .map_err(|e| format!("G8 failed: acceptance registry does not match the code: {e}"))?;
+    println!(
+        "  [G8] Acceptance registry sealed (SHA-256 {}...) and identical to the {} claim lines generated from the code",
+        &actual[..12],
+        canonical_registry_lines().len() - 3
+    );
+    Ok(())
+}
 
 fn run_positive_gates(root: &Path) -> Result<(), String> {
     println!("=== EPISTEMOLOGICAL GATES G1-G8 (STOCHOLOGY PROTOCOL) ===");
@@ -303,6 +366,15 @@ fn run_positive_gates(root: &Path) -> Result<(), String> {
                 .into(),
         );
     }
+    check_acceptance_registry(root)?;
+    check_multi_seed(
+        "Critical Stochastic Rationality",
+        &CriticalStochasticRationalitySynthesis::multi_seed_acceptance(&ACCEPTANCE_SEEDS, true),
+        &MultiSeedAcceptance::evaluate(&ACCEPTANCE_SEEDS, |seed| {
+            let syn = CriticalStochasticRationalitySynthesis::evaluate_canonical(seed);
+            (syn.discarded_claim_checks(), syn.all_identities_closed)
+        }),
+    )?;
     let stoch_syn = StocharyConjecturalCyberneticSynthesis::evaluate_canonical(DEFAULT_SEED);
     let djia_returns = load_djia_returns(root);
     let bank_clusters = load_bank_call_clusters(root);
@@ -319,7 +391,47 @@ fn run_positive_gates(root: &Path) -> Result<(), String> {
                 .into(),
         );
     }
-    println!("  [G8] Almost-Perfect Machine M=(T,Phi,theta) (P1-P5), Authentic Form (delta(x) + S*), Nonlinear NILE/IRM, Coin Benchmark, Relational/Complex Systems, Analog/Wave Computing, Critical Stochastic Rationality, and Stochary-Conjectural Cybernetics (PATE/VSM) -> APPROVED");
+    check_multi_seed(
+        "Stochary-Conjectural & Cybernetics",
+        &StocharyConjecturalCyberneticSynthesis::multi_seed_acceptance(&ACCEPTANCE_SEEDS, true),
+        &MultiSeedAcceptance::evaluate(&ACCEPTANCE_SEEDS, |seed| {
+            let syn = StocharyConjecturalCyberneticSynthesis::evaluate_canonical(seed);
+            (syn.discarded_claim_checks(), syn.all_identities_closed)
+        }),
+    )?;
+    for finding in &emp_stoch.discarded_findings {
+        println!("  [G8] Stochary discarded finding (recorded, not approved): {finding}");
+    }
+    let triad_syn = ComplexFractalToroidalTechniumSynthesis::evaluate_canonical(DEFAULT_SEED);
+    let emp_triad = EmpiricalTriadicTechniumAudit::evaluate_real_datasets(
+        &vic_demand,
+        &fire_losses,
+        (&storm_probs, &storm_outcomes),
+        &djia_returns,
+        &bank_clusters,
+    );
+    if !triad_syn.all_six_bridges_verified || !emp_triad.empirical_triadic_verified {
+        return Err(
+            "G8 failed Triadic (C x Fractals x T^d) & Technium/Technosphere Synthesis verification"
+                .into(),
+        );
+    }
+    check_multi_seed(
+        "Triadic & Technium",
+        &ComplexFractalToroidalTechniumSynthesis::multi_seed_acceptance(&ACCEPTANCE_SEEDS, true),
+        &MultiSeedAcceptance::evaluate(&ACCEPTANCE_SEEDS, |seed| {
+            let syn = ComplexFractalToroidalTechniumSynthesis::evaluate_canonical(seed);
+            (syn.discarded_claim_checks(), syn.all_identities_closed)
+        }),
+    )?;
+    for finding in triad_syn
+        .discarded_findings
+        .iter()
+        .chain(&emp_triad.discarded_findings)
+    {
+        println!("  [G8] Triadic discarded finding (recorded, not approved): {finding}");
+    }
+    println!("  [G8] Almost-Perfect Machine M=(T,Phi,theta) (P1-P5), Authentic Form (delta(x) + S*), Nonlinear NILE/IRM, Coin Benchmark, Relational/Complex Systems, Analog/Wave Computing, Critical Stochastic Rationality, Stochary-Conjectural Cybernetics (PATE/VSM), and Triadic (C x Fractals x T^d) & Technium Synthesis -> APPROVED");
     Ok(())
 }
 
@@ -515,43 +627,109 @@ fn run_negative_proof(root: &Path, defect: &str) -> ! {
             }
         }
         "instrumental_reason" => {
+            // The positivist methods are actually run; identities must still close so the block comes from their outputs.
             let reified =
                 CriticalStochasticRationalitySynthesis::evaluate_with_mode(DEFAULT_SEED, false);
-            if !reified.all_four_axes_verified
+            let fails_on_all_seeds = ACCEPTANCE_SEEDS.iter().all(|&seed| {
+                let naive = CriticalStochasticRationalitySynthesis::evaluate_with_mode(seed, false);
+                naive.all_identities_closed && !naive.all_four_axes_verified
+            });
+            if fails_on_all_seeds
+                && reified.all_identities_closed
+                && !reified.all_four_axes_verified
                 && !reified.adorno_non_identical_and_reification.axis1_verified
                 && !reified.marcuse_rouvroy_stochastic_parrot.axis2_verified
                 && !reified.dialectical_overcoming.axis4_verified
             {
                 eprintln!(
-                    "NEGATIVE PROOF [instrumental_reason] BLOCKED SUCCESSFULLY: Adorno Non-Identical liquidated (axis1={}), Marcuse/Rouvroy Stochastic Parrot counterfactual MSE={:.2} (authentic_blocked={}), and unanchored synthetic/analog collapse (rule_sat={:.0}%)",
-                    reified.adorno_non_identical_and_reification.axis1_verified,
-                    reified.marcuse_rouvroy_stochastic_parrot.parrot_counterfactual_intervention_mse,
-                    reified.marcuse_rouvroy_stochastic_parrot.authentic_form_blocks_spurious_preemption,
-                    reified.dialectical_overcoming.neurosymbolic_rule_satisfaction_rate * 100.0
+                    "NEGATIVE PROOF [instrumental_reason] BLOCKED SUCCESSFULLY on all {} acceptance seeds (identities closed on every seed): at seed 2026 truncated-Gaussian VaR99 breached on {:.1}% of fresh draws, RRM excess performative risk={:.3}, Stochastic Parrot counterfactual MSE={:.2}, unconstrained recursion rule satisfaction={:.0}%, raw drifted readout accuracy={:.0}%, one-shot HP-INV error={:.1e}",
+                    ACCEPTANCE_SEEDS.len(),
+                    reified.adorno_non_identical_and_reification.deployed_var99_holdout_exceedance * 100.0,
+                    reified.adorno_non_identical_and_reification.deployed_performative_excess_risk,
+                    reified.marcuse_rouvroy_stochastic_parrot.deployed_counterfactual_mse,
+                    reified.dialectical_overcoming.deployed_rule_satisfaction_rate * 100.0,
+                    reified.dialectical_overcoming.a_ecc_drift_recovery_accuracy * 100.0,
+                    reified.dialectical_overcoming.pku_40nm_rram_24bit_hp_inv_error
                 );
                 std::process::exit(1);
             }
         }
         "stochary_cybernetics" => {
+            // The naive methods are actually run; identities must still close so the block comes from their outputs.
             let unshielded =
                 StocharyConjecturalCyberneticSynthesis::evaluate_with_mode(DEFAULT_SEED, false);
-            if !unshielded.all_four_axes_verified
+            let fails_on_all_seeds = ACCEPTANCE_SEEDS.iter().all(|&seed| {
+                let naive = StocharyConjecturalCyberneticSynthesis::evaluate_with_mode(seed, false);
+                naive.all_identities_closed && !naive.all_four_axes_verified
+            });
+            if fails_on_all_seeds
+                && unshielded.all_identities_closed
+                && !unshielded.all_four_axes_verified
                 && !unshielded.topology_and_stock_axioms.axis1_verified
                 && !unshielded.powell_friston_causal_engine.axis2_verified
                 && !unshielded.strategic_stock_plant.axis3_verified
                 && !unshielded.cybernetic_vsm_and_pate.axis4_verified
             {
                 eprintln!(
-                    "NEGATIVE PROOF [stochary_cybernetics] BLOCKED SUCCESSFULLY: acyclic tree (loops={}, orphans={}), Peters non-ergodic ruin g_time={:+.4} (100-step={:.2}), Bullwhip={:.2}x, Optimizer's Curse disapp={:+.2} (TTS/TTR={:.2} < 1), and PATE Q3 jackpot / Algedonic violation (algedonic={}, q3_alarm={})",
-                    unshielded.topology_and_stock_axioms.active_cybernetic_feedback_loops,
-                    unshielded.topology_and_stock_axioms.orphan_single_leaf_subbranches,
+                    "NEGATIVE PROOF [stochary_cybernetics] BLOCKED SUCCESSFULLY on all {} acceptance seeds (identities closed on every seed): at seed 2026 panic-order Bullwhip={:.2}x, full-exposure Peters growth={:+.4}, always-act VOI match={}, Rung-1 effect={:.2} (true 2.80), untransported effect error={:.2}, simulated queue wait at u=0.985={:.1} h, Ivanov fill rate={:.2}, TTS/TTR={:.2}, uncertified WDRO disappointment={:+.2}, persistence-model R2={:.2}, raw judge noise={:.3}, factor-omitting PLAT r_s={:.2}",
+                    ACCEPTANCE_SEEDS.len(),
+                    unshielded.topology_and_stock_axioms.low_pass_buffered_variance_ratio,
                     unshielded.topology_and_stock_axioms.ergodic_buffered_time_growth_rate,
-                    unshielded.topology_and_stock_axioms.peters_100_step_unbuffered_terminal_stock,
-                    unshielded.topology_and_stock_axioms.unbuffered_bullwhip_amplification_ratio,
-                    unshielded.strategic_stock_plant.wdro_robust_oos_disappointment,
+                    unshielded.powell_friston_causal_engine.deployed_policy_choices_match_voi,
+                    unshielded.powell_friston_causal_engine.pearl_front_door_identified_effect,
+                    unshielded.powell_friston_causal_engine.pearl_transportability_error,
+                    unshielded.strategic_stock_plant.supply_chain_physics.kingman_vut_buffered_vs_cliff_wait_hours.0,
+                    unshielded.strategic_stock_plant.supply_chain_physics.ivanov_ripple_effect_viability_service_rate,
                     unshielded.strategic_stock_plant.simchi_levi_tts_to_ttr_ratio,
-                    unshielded.cybernetic_vsm_and_pate.algedonic_not_measured_not_executed_enforced,
-                    unshielded.cybernetic_vsm_and_pate.pate_q3_jackpot_algedonic_alarm_triggered
+                    unshielded.strategic_stock_plant.wdro_robust_oos_disappointment,
+                    unshielded.cybernetic_vsm_and_pate.conant_ashby_regulator_homomorphism_r2,
+                    unshielded.cybernetic_vsm_and_pate.kahneman_judgment_noise_before_and_after.1,
+                    unshielded.cybernetic_vsm_and_pate.plat_spearman_and_ks.0
+                );
+                std::process::exit(1);
+            }
+        }
+        "triadic_technium" => {
+            // The naive methods are actually run; identities must still close so the block comes from their outputs.
+            let unshielded_triad =
+                ComplexFractalToroidalTechniumSynthesis::evaluate_with_mode(DEFAULT_SEED, false);
+            let fails_on_all_seeds = ACCEPTANCE_SEEDS.iter().all(|&seed| {
+                let naive =
+                    ComplexFractalToroidalTechniumSynthesis::evaluate_with_mode(seed, false);
+                naive.all_identities_closed && !naive.all_six_bridges_verified
+            });
+            if fails_on_all_seeds
+                && unshielded_triad.all_identities_closed
+                && !unshielded_triad.all_six_bridges_verified
+                && !unshielded_triad.complex_wave_gabor_helmholtz.axis1_verified
+                && !unshielded_triad
+                    .complex_real_isomorphism_hmatrix
+                    .axis2_verified
+                && !unshielded_triad.fractional_ctrw_analog_ecc.axis3_verified
+                && !unshielded_triad
+                    .multifractal_pdhte_rag_collapse
+                    .axis4_verified
+                && !unshielded_triad
+                    .weyl_torus_hermite_mehler_dfm
+                    .axis5_verified
+                && !unshielded_triad
+                    .sna_rlhf_fhrr_cohomology_technium
+                    .axis6_verified
+            {
+                eprintln!(
+                    "NEGATIVE PROOF [triadic_technium] BLOCKED SUCCESSFULLY on all {} acceptance seeds (identities closed on every seed): at seed 2026 tanh Helmholtz residual={:.3}, one-shot BlockAMC residual={:.1e}, naive H-matrix err={:.2e}, uncompensated PCM drift MSE={:.3}, Fickian CTRW err={:.1}%, plain-LS ECC acc={:.2}, OLS ATE RMSE={:.3}, rational Weyl D*={:.3}, random-Fourier DFM err={:.3}, classify-and-count KL={:.4}, RRM gap to theta_PO={:.3}",
+                    ACCEPTANCE_SEEDS.len(),
+                    unshielded_triad.complex_wave_gabor_helmholtz.deployed_helmholtz_residual_rel_mse,
+                    unshielded_triad.complex_real_isomorphism_hmatrix.two_stage_block_amc_16x16_relative_error,
+                    unshielded_triad.complex_real_isomorphism_hmatrix.hmatrix_deployed_relative_error,
+                    unshielded_triad.fractional_ctrw_analog_ecc.deployed_pcm_drift_mse,
+                    unshielded_triad.fractional_ctrw_analog_ecc.deployed_ctrw_spread_prediction_rel_error * 100.0,
+                    unshielded_triad.fractional_ctrw_analog_ecc.analog_ecc_ume_recovery_accuracy,
+                    unshielded_triad.multifractal_pdhte_rag_collapse.deployed_ate_rmse,
+                    unshielded_triad.weyl_torus_hermite_mehler_dfm.deployed_weyl_discrepancy,
+                    unshielded_triad.weyl_torus_hermite_mehler_dfm.deployed_dfm_l2_error,
+                    unshielded_triad.weyl_torus_hermite_mehler_dfm.deployed_label_shift_kl,
+                    unshielded_triad.sna_rlhf_fhrr_cohomology_technium.deployed_performative_gap_to_opt
                 );
                 std::process::exit(1);
             }
@@ -659,8 +837,8 @@ fn run_negative_proof(root: &Path, defect: &str) -> ! {
 
 fn print_usage() {
     println!(
-        "Usage: gates [--help | --defect <defect_name>]\n\
-         Defects: cromwell, phi5, moulton, performativity, sniedovich, clock, vault, concept_drift, chouldechova, machine, analog_wall, instrumental_reason, stochary_cybernetics, peeking, brier_dominance, var_underreport, lee_point_estimate, replace_collapse"
+        "Usage: gates [--help | --defect <defect_name> | --print-acceptance-registry]\n\
+         Defects: cromwell, phi5, moulton, performativity, sniedovich, clock, vault, concept_drift, chouldechova, machine, analog_wall, instrumental_reason, stochary_cybernetics, peeking, brier_dominance, var_underreport, lee_point_estimate, replace_collapse, triadic_technium"
     );
 }
 
@@ -675,6 +853,12 @@ fn main() {
         [] => {}
         [flag] if flag == "--help" || flag == "-h" => {
             print_usage();
+            return;
+        }
+        [flag] if flag == "--print-acceptance-registry" => {
+            for line in canonical_registry_lines() {
+                println!("{line}");
+            }
             return;
         }
         [flag] if flag == "--defect" => {

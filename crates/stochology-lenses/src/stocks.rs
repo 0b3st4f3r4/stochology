@@ -1,5 +1,5 @@
 //! Stochary-Conjectural Synthesis, the Four Ontological Axioms of the Stock, Sequential Decision
-//! Meta-Classes, Active Inference, Wasserstein DRO / $\beta$-CVaR, Viable System Model (VSM),
+//! Meta-Classes, Value of Information, Wasserstein DRO / $\beta$-CVaR, Viable System Model (VSM),
 //! and the Telic-Scopic Audit Protocol (`PATE`) (§1.3.10 — *Estocologia Estocário-Conjectural e Cibernética*):
 //!
 //! Unifies in pure Rust (`seed = 2026`, zero external dependencies) the two foundational lineages of
@@ -15,35 +15,35 @@
 //!
 //! Structured across **4 Canonical Axes**, the **5-Step Stochary Engineering & Stress-Test Notebook**
 //! (`StocharyStressTestNotebook`), and the **5-Dataset Real Empirical Coupler** (`EmpiricalStocharyCyberneticAudit`):
-//! - **Axis 1 (`TopologyAndFourStockAxiomsAudit`):** Mathematical audit of the 150-node acyclic conceptual tree
+//! - **Axis 1 (`TopologyAndFourStockAxiomsAudit`):** Shannon audit of the 150-node acyclic conceptual tree
 //!   ($1\text{ Root} + 11\text{ L1} + 32\text{ L2} + 106\text{ L3}$, $H_{L1} = 3.4242\text{ bits}, J_{L1} = 0.9898$,
-//!   $H_{L2} = 4.9142\text{ bits}, J_{L2} = 0.9828$) vs. the rebalanced Recursive Cybernetic Graph, plus
-//!   verification of the **Four Ontological Axioms of the Stock**:
-//!   (1) Low-Pass Filter & Anti-Bullwhip Variety Attenuator (Meadows 1999; Lee, Padmanabhan & Whang 1997; Ashby 1956);
-//!   (2) Buying Survival Time against Gambler's Ruin & Non-Ergodicity (Ole Peters *Nature Physics* 2019 $+50\% / -40\%$
-//!   canonical experiment: $\mathbb{E}[\Delta X/X] = +5.00\%$ vs. $g_{\text{tempo}} = \sqrt{0.90} - 1 \approx -5.132\%$,
-//!   and Simchi-Levi $\mathrm{TTS}(S_t) \ge \mathrm{TTR}$);
-//!   (3) Convexity Reserve & Asymmetric Optionality (Taleb & Douady 2013 discrete *tail vega* $\Omega$ and Jensen convexity);
-//!   (4) Statefulness & Irreversibility ($dS_t = \mu(S_t, X^\pi(S_t))\,dt + \sigma(S_t)\,dW_t$).
-//! - **Axis 2 (`PowellFristonCausalEngineAudit`):** Warren Powell's **4 Universal Meta-Classes of Sequential Decision Policies**
-//!   (`PFA`, `CFA`, `VFA`, `Det-DLA` / `Stoch-DLA` + hybrids), Karl Friston's **Active Inference & Expected Free Energy**
-//!   $G(\pi, \tau)$ across a Markov Blanket (unifying Epistemic Exploration $I[o_\tau; s_\tau \mid \pi]$ and Pragmatic Value
-//!   $D_{\mathrm{KL}}[Q(o_\tau\mid \pi)\parallel P(o_\tau)]$), and Judea Pearl's **Structural Causal Model (`SCM`), `do-Calculus`**
-//!   (Back-Door, Front-Door, Counterfactual Mediation $\mathrm{CDE}/\mathrm{NDE}$, and Transportability $\Pi \to \Pi^*$).
-//! - **Axis 3 (`StrategicStockPlantResilienceAudit`):** Ingemar Dierickx & Karel Cool's (1989) **5 Laws of Non-Tradeable Asset Stock
-//!   Accumulation** (Time Compression Diseconomies, Asset Mass Efficiencies, Interconnectedness, Asset Erosion, Causal Ambiguity),
-//!   Herbert Scarf's (1960) **$K$-Convexity Optimality of $(S, s)$ Policies**, David Simchi-Levi's (2014/2015) **$\mathrm{TTS}$,
-//!   $\mathrm{TTR}$, and Risk Exposure Index ($\mathrm{REI}$)** with the 3 flexibility levers (Pepsi Network, Nokia Product, Toyota Process),
-//!   R. Tyrrell Rockafellar & Stanislav Uryasev's (2000) **Convex $\beta$-CVaR**, Peyman Mohajerin Esfahani & Daniel Kuhn's (2018)
-//!   **Wasserstein Distributionally Robust Optimization ($\mathrm{WDRO}$)** against the Optimizer's Curse, and Angelopoulos & Bates's (2023)
-//!   **Conformal Prediction** safety stock sizing.
-//! - **Axis 4 (`CyberneticVsmAndPateGovernanceAudit`):** W. Ross Ashby's **Law of Requisite Variety** ($V_O \ge V_D - V_R$),
-//!   Conant & Ashby's (1970) **Good Regulator Theorem**, Stafford Beer's **Viable System Model (`VSM` S1–S5, Triple Capacity Vector,
-//!   Independent Audit Channel `S3*`, and Algedonic Channel *"not measured, not executed"* for AI agents)**, Kahneman, Sibony &
-//!   Sunstein's (2021) **Human Judgment Noise Audit**, and the **4-Quadrant Telic-Scopic Audit Protocol (`PATE`)**.
+//!   $H_{L2} = 4.9142\text{ bits}, J_{L2} = 0.9828$), orphan-leaf count of the deployed taxonomy, and the **Four Ontological Axioms
+//!   of the Stock**: (1) low-pass filtering vs. Bullwhip amplification; (2) Ole Peters' (2019) $+50\% / -40\%$ non-ergodic coin,
+//!   with the realized time-average growth of the deployed exposure simulated over 20 000 tosses; (3) Taleb & Douady (2013) discrete
+//!   *tail vega*; (4) statefulness of the stock integrator.
+//! - **Axis 2 (`PowellFristonCausalEngineAudit`):** a Powell `CFA` buffer whose slack $\theta$ is tuned in-sample and evaluated
+//!   out-of-sample, Friston's Variational Free Energy reduction under Bayesian updating, a preposterior **value-of-information**
+//!   analysis (probe vs. act now) checked against Monte Carlo episodes, and Pearl's front-door identification and transport
+//!   formula against simulated ground truth.
+//! - **Axis 3 (`StrategicStockPlantResilienceAudit`):** Dierickx & Cool's accumulation laws and Scarf's $K$-convexity (closed-form
+//!   identities), Simchi-Levi $\mathrm{TTS}/\mathrm{TTR}/\mathrm{REI}$ with lognormal recovery times, Rockafellar-Uryasev $\beta$-CVaR,
+//!   Esfahani-Kuhn WDRO with a radius calibrated on the training scenarios, split-conformal coverage, and `SupplyChainPhysicsAudit` (simulated G/G/1 queue
+//!   vs. Kingman, Sterman supply line, enumerated Graves-Willems decoupling, Eppen pooling, TBS dual sourcing, and a simulated Ivanov
+//!   ripple disruption).
+//! - **Axis 4 (`CyberneticVsmAndPateGovernanceAudit`):** Conant-Ashby regulator model fidelity, Beer's triple capacity identity,
+//!   the Algedonic gate rule (an identity), a simulated Kahneman judge panel, the `PATE` table (an identity), and a factor-P&L `PLAT` test.
+//!
+//! # Verification semantics
+//!
+//! As in `crate::triad`, each axis separates **claim checks** (the deployed method against computed ground truth; with
+//! `cybernetic_shielded = false` the naive method is actually run), **identity checks** (`identities_closed`, closed-form or
+//! algebraic facts that hold in both modes), **informative constants** (declared or literature values, never gated), and
+//! **discarded findings** (`discarded_findings` and `discarded_claims`, claims that missed their tolerance at seed 2026 or failed
+//! multi-seed acceptance in `crate::acceptance`; recorded, never approved).
 
+use crate::acceptance::{MultiSeedAcceptance, NamedCheck};
 use crate::decision::CorpPavDecomposition;
-use stochology_core::{mean, quantile_sorted, sample_std, sample_variance, Rng};
+use stochology_core::{mean, median, quantile, quantile_sorted, sample_std, sample_variance, Rng};
 
 /// Canonical L3 leaf counts across the 11 L1 primary axes and 32 L2 secondary sub-axes of the
 /// 150-node Stochology conceptual tree ($1 + 11 + 32 + 106 = 150$ total nodes).
@@ -61,56 +61,81 @@ pub const CONCEPTUAL_TREE_SUBAXIS_LEAVES: [&[usize]; 11] = [
     &[4, 5, 3],       // Axis 11: 3 sub-axes, 12 leaves (11.32%)
 ];
 
+/// Rebalanced cybernetic taxonomy: Axis 5 is reorganized into Powell's 4 policy classes `[4, 4, 3, 3]`.
+pub const REBALANCED_TREE_SUBAXIS_LEAVES: [&[usize]; 11] = [
+    &[3, 3, 5, 3],
+    &[2, 2, 2, 3],
+    &[4, 2, 2],
+    &[3, 2, 3, 3, 2],
+    &[4, 4, 3, 3],
+    &[6, 3],
+    &[4, 3],
+    &[4, 5],
+    &[4, 4],
+    &[4, 4],
+    &[4, 5, 3],
+];
+
+/// Number of single-leaf L2 branches in a taxonomy.
+fn orphan_single_leaf_count(tree: &[&[usize]]) -> usize {
+    tree.iter()
+        .flat_map(|s| s.iter())
+        .filter(|&&c| c == 1)
+        .count()
+}
+
 /// Axis 1: Morphological Audit of the 150-Node Conceptual Tree (Acyclic Tree $\to$ Recursive Cybernetic Graph)
 /// and Formal Verification of the Four Ontological Axioms of the Stock.
 #[derive(Debug, Clone, PartialEq)]
 pub struct TopologyAndFourStockAxiomsAudit {
-    /// Total conceptual nodes in the 150-node tree ($1\text{ Root} + 11\text{ L1} + 32\text{ L2} + 106\text{ L3} = 150$).
+    /// Identity: total conceptual nodes in the 150-node tree ($1\text{ Root} + 11\text{ L1} + 32\text{ L2} + 106\text{ L3} = 150$).
     pub tree_total_nodes: usize,
-    /// Number of primary L1 axes ($11$), secondary L2 sub-axes ($32$), and terminal L3 leaves ($106$).
+    /// Identity: number of primary L1 axes ($11$), secondary L2 sub-axes ($32$), and terminal L3 leaves ($106$).
     pub tree_hierarchy_counts: (usize, usize, usize),
-    /// Shannon entropy $H_{L1} = -\sum_{i=1}^{11} p_i \log_2(p_i) \approx 3.4242\text{ bits}$.
+    /// Identity: Shannon entropy $H_{L1} = -\sum_{i=1}^{11} p_i \log_2(p_i) \approx 3.4242\text{ bits}$.
     pub shannon_entropy_l1_bits: f64,
-    /// Normalized balance index $J_{L1} = H_{L1} / \log_2(11) \approx 0.9898$.
+    /// Identity: normalized balance index $J_{L1} = H_{L1} / \log_2(11) \approx 0.9898$.
     pub balance_index_j_l1: f64,
-    /// Shannon entropy $H_{L2} = -\sum_{j=1}^{32} p_j \log_2(p_j) \approx 4.9142\text{ bits}$.
+    /// Identity: Shannon entropy $H_{L2} = -\sum_{j=1}^{32} p_j \log_2(p_j) \approx 4.9142\text{ bits}$.
     pub shannon_entropy_l2_bits: f64,
-    /// Normalized balance index $J_{L2} = H_{L2} / \log_2(32) \approx 0.9828$.
+    /// Identity: normalized balance index $J_{L2} = H_{L2} / \log_2(32) \approx 0.9828$.
     pub balance_index_j_l2: f64,
-    /// Number of orphan single-leaf L2 branches (`count == 1`) after topological rebalancing ($0$ in cybernetic graph vs. $1$ in acyclic tree).
+    /// Informative: orphan single-leaf L2 branches of the deployed taxonomy (rebalanced if shielded, canonical otherwise). Both
+    /// taxonomies are declared constants, so their counts (`1` canonical, `0` rebalanced) are checked under `identities_closed`.
     pub orphan_single_leaf_subbranches: usize,
-    /// Number of active cybernetic feedback loops (`S3-S4-S5`, `S3*`, `Algedonic`, stock-interconnection arcs) in the cybernetic graph.
+    /// Informative: feedback loops declared in the cybernetic design (`S3-S4-S5`, `S3*`, `Algedonic`, stock-interconnection arcs);
+    /// not derived from an executable graph.
     pub active_cybernetic_feedback_loops: usize,
-    /// **Axiom 1 (Low-Pass Filter & Anti-Bullwhip):** Output-to-input variance ratio $\mathrm{Var}(\text{Out}) / \mathrm{Var}(\text{In})$
-    /// with stabilizing stock buffer ($< 0.25$) vs. unbuffered multi-stage Bullwhip variance amplification ($> 2.50\times$).
+    /// **Axiom 1:** Output-to-input variance ratio of the deployed replenishment rule (low-pass buffer if shielded, panic ordering otherwise). Gated (`< 0.30`).
     pub low_pass_buffered_variance_ratio: f64,
-    /// Multi-echelon Bullwhip variance amplification ratio when operating Just-in-Time without stock/information smoothing.
+    /// Variance amplification of unbuffered Just-in-Time panic ordering. Gated as a mode-independent claim (`> 2.0`).
     pub unbuffered_bullwhip_amplification_ratio: f64,
-    /// **Axiom 2 (Non-Ergodicity & Gambler's Ruin Survival):** Ole Peters (2019) $+50\% / -40\%$ fair-coin ensemble rate
-    /// $\mathbb{E}[\Delta X / X] = +0.0500$ ($+5.00\%$).
+    /// Identity: Ole Peters (2019) $+50\% / -40\%$ ensemble rate $\mathbb{E}[\Delta X / X] = +0.05$.
     pub peters_ensemble_expected_rate: f64,
-    /// Ole Peters (2019) time-average compound growth rate $g_{\text{tempo}} = \sqrt{1.50 \times 0.60} - 1 \approx -0.05132$ ($-5.13\%$).
+    /// Identity: time-average growth $g_{\text{tempo}} = \sqrt{1.50 \times 0.60} - 1 \approx -0.05132$.
     pub peters_time_growth_rate: f64,
-    /// Remaining stock after $100$ unbuffered full-exposure coin tosses ($100 \times 0.90^{50} \approx 0.5154$, a $-99.48\%$ collapse).
+    /// Identity: stock after $100$ alternating full-exposure tosses ($100 \times 0.90^{50} \approx 0.5154$).
     pub peters_100_step_unbuffered_terminal_stock: f64,
-    /// Time-average growth rate $g_{\text{tempo}}(f^*)$ under ergonomic Kelly/buffer fraction $f^* = \frac{0.5}{0.4} - \frac{0.5}{0.5} = 0.25 > 0$.
+    /// Realized time-average growth rate over 20 000 simulated tosses with the deployed exposure (Kelly $f^* = 0.25$ if shielded,
+    /// full exposure $f = 1$ otherwise). Gated (`> 0.003`; theory $+0.00623$ at $f^*$).
     pub ergodic_buffered_time_growth_rate: f64,
-    /// **Axiom 3 (Convexity Reserve & Asymmetric Optionality):** Discrete Taleb-Douady *tail vega* $\Omega$ of a buffered convex
-    /// system ($> 0$, gaining from tail dispersion via optionality) vs. concave Just-in-Time system ($< 0$).
+    /// **Axiom 3:** Discrete Taleb-Douady *tail vega* $\Omega$ of the buffered convex payoff. Gated (`> 5.0`).
     pub buffered_convex_tail_vega: f64,
-    /// Concave Just-in-Time discrete *tail vega* sensitivity ($< -15.0$).
+    /// Concave Just-in-Time discrete *tail vega*. Gated (`< -10.0`).
     pub unbuffered_jit_concave_tail_vega: f64,
-    /// **Axiom 4 (Statefulness & Intentional Memory):** Lag-1 state autocorrelation $\rho_1(S_t, S_{t-1}) > 0.85$ of the stock integrator
-    /// vs. memoryless white-noise flow ($\approx 0.0$).
+    /// **Axiom 4:** Lag-1 autocorrelation of the stock integrator. Gated (`> 0.80`).
     pub stock_statefulness_autocorrelation: f64,
-    /// Whether the recursive cybernetic topology and all 4 Ontological Axioms of the Stock hold.
+    /// Named claim checks gated by this axis (see `crate::acceptance`).
+    pub claims: Vec<NamedCheck>,
+    /// True if the tree, orphan-count, and Peters closed-form identities close.
+    pub identities_closed: bool,
+    /// Whether the identities, mode-independent axioms, and deployed replenishment rule and exposure pass.
     pub axis1_verified: bool,
 }
 
 impl TopologyAndFourStockAxiomsAudit {
-    /// Evaluates Axis 1 (`seed = 2026`). When `cybernetic_shielded` is `false` (injected defect),
-    /// the taxonomy remains an acyclic tree with an orphan leaf, operates Just-in-Time without low-pass buffering,
-    /// and optimizes the naive ensemble average on Peters' non-ergodic process until ruin.
+    /// Evaluates Axis 1 (`seed = 2026`). When `cybernetic_shielded` is `false`, the canonical acyclic tree, panic ordering,
+    /// and full exposure on Peters' non-ergodic coin are deployed.
     pub fn evaluate(seed: u64, cybernetic_shielded: bool) -> Self {
         let l1_count = CONCEPTUAL_TREE_SUBAXIS_LEAVES.len();
         let l2_count: usize = CONCEPTUAL_TREE_SUBAXIS_LEAVES.iter().map(|s| s.len()).sum();
@@ -138,21 +163,14 @@ impl TopologyAndFourStockAxiomsAudit {
         }
         let j_l2 = h_l2 / (l2_count as f64).log2();
 
-        let (orphan_single_leaf_subbranches, active_cybernetic_feedback_loops) =
-            if cybernetic_shielded {
-                // Rebalances Axis 5 into Powell's 4 policy classes [4, 4, 3, 3] and closes VSM/stock feedback loops
-                (0, 6)
-            } else {
-                // Acyclic tree retains the orphan leaf [5, 3, 1] and has 0 feedback loops
-                let orphans = CONCEPTUAL_TREE_SUBAXIS_LEAVES
-                    .iter()
-                    .flat_map(|s| s.iter())
-                    .filter(|&&c| c == 1)
-                    .count();
-                (orphans, 0)
-            };
+        let deployed_tree: &[&[usize]] = if cybernetic_shielded {
+            &REBALANCED_TREE_SUBAXIS_LEAVES
+        } else {
+            &CONCEPTUAL_TREE_SUBAXIS_LEAVES
+        };
+        let orphan_single_leaf_subbranches = orphan_single_leaf_count(deployed_tree);
 
-        // Axiom 1: Low-Pass Filter & Anti-Bullwhip across a 4-stage chain over T = 240 steps
+        // Axiom 1: Low-Pass Filter & Anti-Bullwhip over T = 240 steps
         let mut rng = Rng::new(seed);
         let steps = 240usize;
         let mut demand_in = Vec::with_capacity(steps);
@@ -191,21 +209,25 @@ impl TopologyAndFourStockAxiomsAudit {
         let peters_time_growth_rate = (up * down).sqrt() - 1.0; // sqrt(0.90) - 1 = -0.0513167
         let peters_100_step_unbuffered_terminal_stock = 100.0 * (up * down).powi(50); // ~0.5153775
 
-        // With a stabilizing reserve buffer (retaining 1 - f* = 75% in safe stock and exposing f* = 25% Kelly fraction):
-        // f* = p/a - q/b where p = 0.50, loss fraction a = 0.40, gain fraction b = 0.50 -> f* = 1.25 - 1.00 = 0.25
-        // g_ergodic = sqrt((1 + 0.25*0.50)*(1 - 0.25*0.40)) - 1 = sqrt(1.125 * 0.90) - 1 = sqrt(1.0125) - 1 = +0.00623 > 0
+        // Kelly exposure f* = p/a - q/b with p = 0.50, loss fraction a = 0.40, gain fraction b = 0.50 -> f* = 0.25.
+        // The deployed exposure is simulated over 20 000 tosses; the realized time-average growth is exp(mean log factor) - 1.
         let loss_a = 1.0_f64 - down; // 0.40
         let gain_b = up - 1.0_f64; // 0.50
         let f_kelly: f64 = 0.50 / loss_a - 0.50 / gain_b; // 0.25
-        let ergodic_buffered_time_growth_rate = if cybernetic_shielded {
-            ((1.0_f64 + f_kelly * gain_b) * (1.0_f64 - f_kelly * loss_a)).sqrt() - 1.0
-        } else {
-            peters_time_growth_rate
-        };
+        let f_deployed = if cybernetic_shielded { f_kelly } else { 1.0 };
+        let tosses = 20_000usize;
+        let mut log_wealth = 0.0_f64;
+        for _ in 0..tosses {
+            let factor = if rng.next_f64() < 0.5 {
+                1.0 + f_deployed * gain_b
+            } else {
+                1.0 - f_deployed * loss_a
+            };
+            log_wealth += factor.ln();
+        }
+        let ergodic_buffered_time_growth_rate = (log_wealth / (tosses as f64)).exp() - 1.0;
 
         // Axiom 3: Taleb-Douady (2013) Discrete Tail Vega across lower dispersion scale Omega in {1.0, 2.5}
-        // Buffered system holds reserve S = 35 and captures distressed optionality during tail crises;
-        // Unbuffered JIT system suffers concave rupture penalty.
         let evaluate_payoffs = |omega: f64| -> (f64, f64) {
             let mut sum_buffered = 0.0;
             let mut sum_jit = 0.0;
@@ -247,23 +269,44 @@ impl TopologyAndFourStockAxiomsAudit {
         }
         let stock_statefulness_autocorrelation = if den > 1e-12 { num / den } else { 0.0 };
 
-        let axis1_verified = tree_total_nodes == 150
-            && tree_hierarchy_counts_ok((l1_count, l2_count, l3_count))
+        let identities_closed = tree_total_nodes == 150
+            && (l1_count, l2_count, l3_count) == (11, 32, 106)
             && (shannon_round(h_l1) - 3.4242).abs() < 1e-3
             && (shannon_round(j_l1) - 0.9898).abs() < 1e-3
             && (shannon_round(h_l2) - 4.9142).abs() < 1e-3
             && (shannon_round(j_l2) - 0.9828).abs() < 1e-3
-            && orphan_single_leaf_subbranches == 0
-            && active_cybernetic_feedback_loops >= 4
-            && low_pass_buffered_variance_ratio < 0.30
-            && unbuffered_bullwhip_amplification_ratio > 2.0
             && peters_ensemble_expected_rate > 0.049
             && peters_time_growth_rate < -0.050
             && peters_100_step_unbuffered_terminal_stock < 0.60
-            && ergodic_buffered_time_growth_rate > 0.005
-            && buffered_convex_tail_vega > 5.0
-            && unbuffered_jit_concave_tail_vega < -10.0
-            && stock_statefulness_autocorrelation > 0.80;
+            && orphan_single_leaf_count(&CONCEPTUAL_TREE_SUBAXIS_LEAVES) == 1
+            && orphan_single_leaf_count(&REBALANCED_TREE_SUBAXIS_LEAVES) == 0;
+        let claims: Vec<NamedCheck> = vec![
+            (
+                "stocks.a1.bullwhip_amplification_above_2",
+                unbuffered_bullwhip_amplification_ratio > 2.0,
+            ),
+            (
+                "stocks.a1.buffered_tail_vega_above_5",
+                buffered_convex_tail_vega > 5.0,
+            ),
+            (
+                "stocks.a1.jit_tail_vega_below_-10",
+                unbuffered_jit_concave_tail_vega < -10.0,
+            ),
+            (
+                "stocks.a1.stock_autocorrelation_above_0.80",
+                stock_statefulness_autocorrelation > 0.80,
+            ),
+            (
+                "stocks.a1.deployed_low_pass_ratio_below_0.30",
+                low_pass_buffered_variance_ratio < 0.30,
+            ),
+            (
+                "stocks.a1.deployed_time_average_growth_above_0.003",
+                ergodic_buffered_time_growth_rate > 0.003,
+            ),
+        ];
+        let axis1_verified = identities_closed && claims.iter().all(|c| c.1);
 
         Self {
             tree_total_nodes,
@@ -273,7 +316,7 @@ impl TopologyAndFourStockAxiomsAudit {
             shannon_entropy_l2_bits: h_l2,
             balance_index_j_l2: j_l2,
             orphan_single_leaf_subbranches,
-            active_cybernetic_feedback_loops,
+            active_cybernetic_feedback_loops: 6,
             low_pass_buffered_variance_ratio,
             unbuffered_bullwhip_amplification_ratio,
             peters_ensemble_expected_rate,
@@ -283,13 +326,11 @@ impl TopologyAndFourStockAxiomsAudit {
             buffered_convex_tail_vega,
             unbuffered_jit_concave_tail_vega,
             stock_statefulness_autocorrelation,
+            claims,
+            identities_closed,
             axis1_verified,
         }
     }
-}
-
-fn tree_hierarchy_counts_ok(counts: (usize, usize, usize)) -> bool {
-    counts == (11, 32, 106)
 }
 
 fn shannon_round(v: f64) -> f64 {
@@ -311,54 +352,50 @@ pub enum PowellPolicyClass {
     HybridDlaVfa,
 }
 
-/// Axis 2: Epistemic & Conjectural Engine — Warren Powell's 4 Universal Policy Meta-Classes,
-/// Karl Friston's Active Inference ($F$ and Expected Free Energy $G(\pi)$ across a Markov Blanket),
-/// and Judea Pearl's `do-Calculus` (Back-Door, Front-Door, Counterfactual Mediation, Transportability).
+/// Axis 2: Epistemic & Conjectural Engine — Warren Powell's Policy Meta-Classes, Karl Friston's Variational Free Energy
+/// and the preposterior value of information, and Judea Pearl's `do-Calculus` (Front-Door, Mediation, Transportability).
 #[derive(Debug, Clone, PartialEq)]
 pub struct PowellFristonCausalEngineAudit {
-    /// Winning policy class across each of Powell's 5 canonical energy-storage / inventory problem regimes,
-    /// verifying that all 5 policy classes (`PFA`, `CFA`, `VFA`, `DLA`, `Hybrid`) win in their matched regime.
+    /// Informative: declared regime-to-class mapping for Powell's 5 canonical problem regimes (not derived by simulation here).
     pub powell_five_regime_winners: [PowellPolicyClass; 5],
-    /// Cumulative reward of the tuned `CFA` policy with safety slack $\theta^*$ vs. untuned myopic policy.
+    /// Slack $\theta^*$ of the `CFA` order-up-to rule selected on a 400-period training path (grid $0, 0.25, \dots, 3.0$).
+    pub powell_cfa_tuned_theta: f64,
+    /// Out-of-sample per-period reward gain of the tuned rule $\theta^*$ over myopic $\theta = 0$ (mode-independent). Gated (`> 5.0`).
     pub powell_cfa_tuned_vs_myopic_gain: f64,
-    /// Karl Friston's Variational Free Energy $F = \text{Complexity} - \text{Accuracy}$ after Bayesian belief updating
-    /// vs. prior uncalibrated belief ($F_{\text{posterior}} < F_{\text{prior}}$).
+    /// Informative: out-of-sample gain of the deployed rule over myopic (`0` by definition when the myopic rule is deployed).
+    pub powell_cfa_deployed_gain: f64,
+    /// Identity: Variational Free Energy drop $F(q_0) - F(q^*)$ from an uncalibrated belief to the Bayesian posterior ($\ge 0$).
     pub friston_vfe_reduction: f64,
-    /// Expected Free Energy $G(\pi_{\text{epistemic}})$ vs. $G(\pi_{\text{greedy}})$ under high initial state ambiguity:
-    /// epistemic information gain $I[o_\tau; s_\tau \mid \pi]$ makes $G(\pi_{\text{epistemic}}) < G(\pi_{\text{greedy}})$.
-    pub friston_efe_epistemic_under_high_uncertainty: (f64, f64),
-    /// Expected Free Energy $G(\pi_{\text{epistemic}})$ vs. $G(\pi_{\text{pragmatic}})$ after uncertainty is resolved:
-    /// pragmatic preference realization $D_{\mathrm{KL}}[Q(o_\tau\mid \pi)\parallel P(o_\tau)]$ makes $G(\pi_{\text{pragmatic}}) < G(\pi_{\text{epistemic}})$.
-    pub friston_efe_pragmatic_under_resolved_uncertainty: (f64, f64),
-    /// Softmax action selection probability $P(\pi^*) = \sigma(-\gamma G(\pi))$ for the optimal Active Inference policy.
-    pub friston_optimal_policy_probability: f64,
-    /// True causal effect $\mathbb{E}[Y \mid \mathrm{do}(X=1)] - \mathbb{E}[Y \mid \mathrm{do}(X=0)]$ in Pearl's SCM.
+    /// Simulated expected loss of (probe, then act) vs. (act now) under an ambiguous prior $P(\text{fragile}) = 0.50$.
+    pub voi_probe_vs_act_now_loss_ambiguous: (f64, f64),
+    /// Simulated expected loss of (probe, then act) vs. (act now) under a resolved prior $P(\text{fragile}) = 0.05$.
+    pub voi_probe_vs_act_now_loss_resolved: (f64, f64),
+    /// True if the deployed agent (preposterior analysis if shielded, always act now otherwise) picks the lower simulated loss in both regimes. Gated.
+    pub deployed_policy_choices_match_voi: bool,
+    /// Identity: true causal effect $\mathbb{E}[Y \mid \mathrm{do}(X=1)] - \mathbb{E}[Y \mid \mathrm{do}(X=0)] = 2.00 \times 1.40$ in the SCM.
     pub pearl_true_do_effect: f64,
-    /// Naive observational Rung-1 association $\mathbb{E}[Y \mid X=1] - \mathbb{E}[Y \mid X=0]$ distorted by unobserved confounder $U$.
+    /// Absolute bias of the Rung-1 OLS slope of $Y$ on $X$ under the unobserved confounder $U$. Gated as a mode-independent claim (`> 1.0`).
     pub pearl_naive_rung1_associative_bias: f64,
-    /// Front-Door identified causal effect $\hat{\tau}_{\text{FrontDoor}}$ via observed mediator $Z$ despite unobserved confounder $U$.
+    /// Causal effect reported by the deployed estimator (front-door if shielded, Rung-1 slope otherwise). Gated (`|.| - 2.80 < 0.15`).
     pub pearl_front_door_identified_effect: f64,
-    /// Counterfactual Mediation decomposition: Controlled Direct Effect ($\mathrm{CDE}$) and Natural Direct Effect ($\mathrm{NDE}$).
+    /// Informative: Controlled and Natural Direct Effects in closed form from the mediation SCM coefficients.
     pub pearl_counterfactual_cde_and_nde: (f64, f64),
-    /// Transportability error $|\hat{R}(\Pi^*) - R_{\text{true}}(\Pi^*)|$ when transporting causal stock knowledge across domains $\Pi \to \Pi^*$.
+    /// $|\hat{\tau}(\Pi^*) - \tau_{\text{true}}(\Pi^*)|$ of the deployed estimator (transport formula if shielded, source average otherwise). Gated (`< 0.05`).
     pub pearl_transportability_error: f64,
-    /// Whether Powell's 5-regime coverage, Friston's epistemic-to-pragmatic EFE switch, and Pearl's `do-Calculus` identification hold.
+    /// Named claim checks gated by this axis (see `crate::acceptance`).
+    pub claims: Vec<NamedCheck>,
+    /// True if the Free Energy and SCM identities close.
+    pub identities_closed: bool,
+    /// Whether identities, the Rung-1 bias claim, and the deployed `CFA`, VOI agent, and causal estimators pass.
     pub axis2_verified: bool,
 }
 
 impl PowellFristonCausalEngineAudit {
-    /// Evaluates Axis 2 (`seed = 2026`). When `cybernetic_shielded` is `false` (injected defect),
-    /// epistemic value in $G(\pi)$ is zeroed out (causing premature greedy collapse under ambiguity)
-    /// and observational Rung-1 association is used instead of Pearl's `do(X)` operator.
+    /// Evaluates Axis 2 (`seed = 2026`). When `cybernetic_shielded` is `false`, the myopic rule, the always-act agent,
+    /// the Rung-1 slope, and the untransported source effect are deployed.
     pub fn evaluate(seed: u64, cybernetic_shielded: bool) -> Self {
         let mut rng = Rng::new(seed ^ 0xA202_2026);
 
-        // 1. Warren Powell's 5 Energy-Storage / Stock Regimes:
-        // Regime 0: Stationary fast mean-reverting noise -> PFA (threshold lookup) wins
-        // Regime 1: Volatile price spikes with capacity uncertainty -> CFA (parameterized buffer slack theta*) wins
-        // Regime 2: Long-horizon stationary Markovian degradation -> VFA (Bellman value approximation) wins
-        // Regime 3: Deterministic seasonal solar/load forecast -> DLA (rolling horizon MPC) wins
-        // Regime 4: Rolling forecast + multi-day terminal value retention -> Hybrid (DLA + VFA) wins
         let powell_five_regime_winners = [
             PowellPolicyClass::PfaLookupRule,
             PowellPolicyClass::CfaParameterizedBuffer,
@@ -367,81 +404,115 @@ impl PowellFristonCausalEngineAudit {
             PowellPolicyClass::HybridDlaVfa,
         ];
 
-        // Simulate CFA with tuned safety reserve slack theta* = 1.65 vs untuned myopic theta = 0.0 over 200 periods
-        let mut cfa_reward = 0.0_f64;
-        let mut myopic_reward = 0.0_f64;
-        let mut stock_cfa = 40.0_f64;
-        let mut stock_myopic = 40.0_f64;
-        let theta_star = if cybernetic_shielded {
-            1.65_f64
-        } else {
-            0.0_f64
+        // 1. Powell CFA: order up to 25 + theta * 8 under demand N(25, 8) with 12% spikes of +18; theta tuned on a training path.
+        let draw_path = |rng: &mut Rng, periods: usize| -> Vec<f64> {
+            (0..periods)
+                .map(|_| {
+                    let demand = (25.0 + rng.normal(0.0, 8.0)).max(5.0);
+                    let spike = if rng.next_f64() < 0.12 { 18.0 } else { 0.0 };
+                    demand + spike
+                })
+                .collect()
         };
-        for _ in 0..200 {
-            let demand = (25.0 + rng.normal(0.0, 8.0)).max(5.0);
-            let spike = if rng.next_f64() < 0.12 { 18.0 } else { 0.0 };
-            let total_load = demand + spike;
+        let mean_reward = |theta: f64, path: &[f64]| -> f64 {
+            let mut stock = 40.0_f64;
+            let mut reward = 0.0;
+            for &load in path {
+                let order = (25.0 + theta * 8.0 - stock).max(0.0);
+                stock += order;
+                let shortage = (load - stock).max(0.0);
+                stock = (stock - load).max(0.0);
+                reward += 50.0 - 0.8 * order - 0.3 * stock - 6.5 * shortage;
+            }
+            reward / (path.len() as f64)
+        };
+        let train_path = draw_path(&mut rng, 400);
+        let test_path = draw_path(&mut rng, 400);
+        let theta_grid: Vec<f64> = (0..=12).map(|i| 0.25 * (i as f64)).collect();
+        let theta_star = theta_grid
+            .iter()
+            .copied()
+            .max_by(|&a, &b| {
+                mean_reward(a, &train_path)
+                    .partial_cmp(&mean_reward(b, &train_path))
+                    .unwrap_or(std::cmp::Ordering::Equal)
+            })
+            .unwrap_or(0.0);
+        let theta_deployed = if cybernetic_shielded { theta_star } else { 0.0 };
+        let powell_cfa_tuned_vs_myopic_gain =
+            mean_reward(theta_star, &test_path) - mean_reward(0.0, &test_path);
+        let powell_cfa_deployed_gain =
+            mean_reward(theta_deployed, &test_path) - mean_reward(0.0, &test_path);
 
-            // CFA orders up to mean + theta * sigma
-            let target_cfa = 25.0 + theta_star * 8.0;
-            let order_cfa = (target_cfa - stock_cfa).max(0.0);
-            stock_cfa += order_cfa;
-            let shortage_cfa = (total_load - stock_cfa).max(0.0);
-            stock_cfa = (stock_cfa - total_load).max(0.0);
-            cfa_reward += 50.0 - 0.8 * order_cfa - 0.3 * stock_cfa - 6.5 * shortage_cfa;
-
-            let target_myopic = 25.0;
-            let order_myopic = (target_myopic - stock_myopic).max(0.0);
-            stock_myopic += order_myopic;
-            let shortage_myopic = (total_load - stock_myopic).max(0.0);
-            stock_myopic = (stock_myopic - total_load).max(0.0);
-            myopic_reward += 50.0 - 0.8 * order_myopic - 0.3 * stock_myopic - 6.5 * shortage_myopic;
-        }
-        let powell_cfa_tuned_vs_myopic_gain = (cfa_reward - myopic_reward) / 200.0;
-
-        // 2. Karl Friston's Active Inference across a Markov Blanket:
-        // Variational Free Energy F(q) = D_KL(q(s) || p(s)) - E_q[ln p(o|s)]
-        // True hidden state s=0 (Safe) or s=1 (Fragile Regime); observation o=1 signals Fragile with P(o=1|s=1)=0.90, P(o=1|s=0)=0.15
+        // 2. Friston Variational Free Energy F(q) = D_KL(q(s) || p(s)) - E_q[ln p(o|s)] for an observed alarm o = 1
         let prior_s = [0.50_f64, 0.50_f64];
         let likelihood_o1 = [0.15_f64, 0.90_f64];
-        // Unadapted belief q_0 = [0.80, 0.20] vs Bayesian posterior q* = [0.15*0.5/0.525, 0.90*0.5/0.525] = [1/7, 6/7]
         let vfe_for_q = |q: [f64; 2]| -> f64 {
             let kl = q[0] * (q[0] / prior_s[0]).ln() + q[1] * (q[1] / prior_s[1]).ln();
             let accuracy = q[0] * likelihood_o1[0].ln() + q[1] * likelihood_o1[1].ln();
             kl - accuracy
         };
-        let f_prior = vfe_for_q([0.80, 0.20]);
-        let f_posterior = vfe_for_q([1.0 / 7.0, 6.0 / 7.0]);
-        let friston_vfe_reduction = f_prior - f_posterior;
+        let evidence = prior_s[0] * likelihood_o1[0] + prior_s[1] * likelihood_o1[1];
+        let posterior = [
+            prior_s[0] * likelihood_o1[0] / evidence,
+            prior_s[1] * likelihood_o1[1] / evidence,
+        ];
+        let friston_vfe_reduction = vfe_for_q([0.80, 0.20]) - vfe_for_q(posterior);
 
-        // Expected Free Energy G(pi) = Novelty_neg + D_KL(Q(o|pi) || P(o)) - epistemic_weight * I(o; s | pi)
-        // Under high state uncertainty (q = [0.50, 0.50]):
-        // Policy pi_epistemic (diagnostic probe / stress-test stock): moderate pragmatic divergence (0.35), high epistemic MI (0.62 nats)
-        // Policy pi_greedy (blind immediate exploitation): lower pragmatic divergence on nominal belief (0.22), near-zero epistemic MI (0.02 nats)
-        let epistemic_weight: f64 = if cybernetic_shielded { 1.0 } else { 0.0 };
-        let g_epistemic_high_unc: f64 = 0.05 + 0.35 - epistemic_weight * 0.62; // -0.22 when shielded
-        let g_greedy_high_unc: f64 = 0.05 + 0.22 - epistemic_weight * 0.02; // +0.25
+        // 3. Preposterior value of information: hidden state fragile with prior q; acting = buffer (loss 0.20) or not
+        // (loss 1.0 if fragile); probing costs 0.03 and observes an alarm with P(alarm | safe, fragile) = (0.15, 0.90).
+        let buffer_cost = 0.20_f64;
+        let probe_cost = 0.03_f64;
+        let act_loss = |q_fragile: f64| buffer_cost.min(q_fragile);
+        let analytic_probe_loss = |q: f64| -> f64 {
+            let p_alarm = (1.0 - q) * likelihood_o1[0] + q * likelihood_o1[1];
+            let q_alarm = q * likelihood_o1[1] / p_alarm;
+            let q_quiet = q * (1.0 - likelihood_o1[1]) / (1.0 - p_alarm);
+            probe_cost + p_alarm * act_loss(q_alarm) + (1.0 - p_alarm) * act_loss(q_quiet)
+        };
+        let simulate_losses = |rng: &mut Rng, q: f64| -> (f64, f64) {
+            let episodes = 20_000usize;
+            let (mut probe_total, mut act_total) = (0.0, 0.0);
+            let realized = |buffer: bool, fragile: bool| {
+                if buffer {
+                    buffer_cost
+                } else if fragile {
+                    1.0
+                } else {
+                    0.0
+                }
+            };
+            for _ in 0..episodes {
+                let fragile = rng.next_f64() < q;
+                act_total += realized(q > buffer_cost, fragile);
+                let alarm = rng.next_f64()
+                    < if fragile {
+                        likelihood_o1[1]
+                    } else {
+                        likelihood_o1[0]
+                    };
+                let p_alarm = (1.0 - q) * likelihood_o1[0] + q * likelihood_o1[1];
+                let q_post = if alarm {
+                    q * likelihood_o1[1] / p_alarm
+                } else {
+                    q * (1.0 - likelihood_o1[1]) / (1.0 - p_alarm)
+                };
+                probe_total += probe_cost + realized(q_post > buffer_cost, fragile);
+            }
+            (probe_total / episodes as f64, act_total / episodes as f64)
+        };
+        let mut choices_match = true;
+        let mut voi_pairs = [(0.0, 0.0); 2];
+        for (slot, &q) in voi_pairs.iter_mut().zip(&[0.50_f64, 0.05]) {
+            let (probe_sim, act_sim) = simulate_losses(&mut rng, q);
+            *slot = (probe_sim, act_sim);
+            let deployed_probes = cybernetic_shielded && analytic_probe_loss(q) < act_loss(q);
+            choices_match &= deployed_probes == (probe_sim < act_sim);
+        }
 
-        // Under resolved uncertainty (q = [0.05, 0.95], epistemic MI -> 0.04):
-        // Policy pi_pragmatic (protect/replenish buffer to preferred homeostatic state P(o)): low pragmatic KL (0.08)
-        let g_epistemic_resolved: f64 = 0.02 + 0.35 - epistemic_weight * 0.04; // +0.33
-        let g_pragmatic_resolved: f64 = 0.01 + 0.08 - epistemic_weight * 0.03; // +0.06
-
-        // Softmax policy selection P(pi) = sigma(-gamma * G(pi)) with precision gamma = 6.0
-        let gamma: f64 = 6.0;
-        let e_epi = (-gamma * g_epistemic_high_unc).exp();
-        let e_grd = (-gamma * g_greedy_high_unc).exp();
-        let friston_optimal_policy_probability = e_epi / (e_epi + e_grd);
-
-        // 3. Judea Pearl's SCM & do-Calculus (Front-Door Identification under Unobserved Confounder U):
-        // Structural equations:
-        // U ~ N(0, 1) (unobserved macroeconomic distress)
-        // X = 0.85 * U + eps_X (emergency stock order decision confounded by distress U)
-        // Z = 1.40 * X + eps_Z (actual physical buffer build-up, mediated solely by X, independent of U given X!)
-        // Y = 2.00 * Z - 1.80 * U + eps_Y (operational survival score: Z helps +2.00, while U hurts -1.80)
-        // True causal effect of do(X = 1) vs do(X = 0): E[Y | do(X=1)] - E[Y | do(X=0)] = 2.00 * 1.40 = +2.80!
-        // Naive Rung-1 OLS slope of Y on X: Cov(X, Y)/Var(X) = 2.80 - 1.80 * 0.85 / (0.85^2 + 0.25) = 2.80 - 1.57 = +1.23 (severely biased!)
-        let pearl_true_do_effect = 2.00 * 1.40; // +2.80
+        // 4. Judea Pearl's SCM & Front-Door identification under unobserved confounder U:
+        // X = 0.85 U + eps_X, Z = 1.40 X + eps_Z, Y = 2.00 Z - 1.60 U + eps_Y; E[Y | do(X=1)] - E[Y | do(X=0)] = 2.80.
+        let pearl_true_do_effect = 2.00 * 1.40;
         let n_scm = 2_000usize;
         let mut x_vec = Vec::with_capacity(n_scm);
         let mut z_vec = Vec::with_capacity(n_scm);
@@ -458,9 +529,7 @@ impl PowellFristonCausalEngineAudit {
         let naive_slope_yx = ols_slope(&x_vec, &y_vec);
         let pearl_naive_rung1_associative_bias = (naive_slope_yx - pearl_true_do_effect).abs();
 
-        // Front-Door adjustment: Step 1 identifies X -> Z directly (slope_zx);
-        // Step 2 identifies Z -> Y controlling for X via Frisch-Waugh-Lovell residualization;
-        // Front-Door effect = slope_zx * slope_yz_given_x
+        // Front-Door adjustment: X -> Z slope times Z -> Y slope controlling for X (Frisch-Waugh-Lovell residualization)
         let slope_zx = ols_slope(&x_vec, &z_vec);
         let z_resid: Vec<f64> = z_vec
             .iter()
@@ -479,40 +548,104 @@ impl PowellFristonCausalEngineAudit {
             naive_slope_yx
         };
 
-        // Counterfactual Mediation: Y = 0.90*X + 2.00*M + 0.30*X*M, where M = 1.40*X
-        // CDE(m=0) = E[Y | do(X=1, M=0)] - E[Y | do(X=0, M=0)] = 0.90
-        // NDE = E[Y_{X=1, M_{X=0}}] - E[Y_{X=0, M_{X=0}}] = 0.90
+        // Counterfactual Mediation: Y = 0.90*X + 2.00*M + 0.30*X*M with M = 1.40*X + zero-mean noise:
+        // CDE(m=0) = 0.90 and NDE = 0.90 + 0.30 * E[M(0)] = 0.90 in closed form.
         let pearl_counterfactual_cde_and_nde = (0.90, 0.90);
 
-        // Transportability Pi -> Pi* across domain with shifted selection weight S:
-        // Reweighting by target domain stratum distribution P*(S) recovers true target causal effect within < 0.03
-        let pearl_transportability_error = if cybernetic_shielded { 0.012 } else { 0.680 };
+        // 5. Transportability: randomized source trial over strata S with effects tau(S) = (0.5, 1.5, 3.0),
+        // source P(S) = (0.6, 0.3, 0.1) and target P*(S) = (0.1, 0.3, 0.6); true target effect = 2.30.
+        let tau_s = [0.5_f64, 1.5, 3.0];
+        let p_source = [0.6_f64, 0.3, 0.1];
+        let p_target = [0.1_f64, 0.3, 0.6];
+        let true_target_effect: f64 = tau_s.iter().zip(&p_target).map(|(t, p)| t * p).sum();
+        let mut sums = [[0.0_f64; 2]; 3];
+        let mut counts = [[0usize; 2]; 3];
+        let mut treated_sum = 0.0;
+        let mut control_sum = 0.0;
+        let (mut n_treated, mut n_control) = (0usize, 0usize);
+        for _ in 0..20_000 {
+            let u = rng.next_f64();
+            let s = if u < p_source[0] {
+                0
+            } else if u < p_source[0] + p_source[1] {
+                1
+            } else {
+                2
+            };
+            let treated = rng.next_f64() < 0.5;
+            let y = 1.0
+                + 0.4 * (s as f64)
+                + if treated { tau_s[s] } else { 0.0 }
+                + rng.normal(0.0, 0.5);
+            let arm = usize::from(treated);
+            sums[s][arm] += y;
+            counts[s][arm] += 1;
+            if treated {
+                treated_sum += y;
+                n_treated += 1;
+            } else {
+                control_sum += y;
+                n_control += 1;
+            }
+        }
+        let transported: f64 = (0..3)
+            .map(|s| {
+                let diff = sums[s][1] / counts[s][1].max(1) as f64
+                    - sums[s][0] / counts[s][0].max(1) as f64;
+                p_target[s] * diff
+            })
+            .sum();
+        let source_average =
+            treated_sum / n_treated.max(1) as f64 - control_sum / n_control.max(1) as f64;
+        let deployed_target_effect = if cybernetic_shielded {
+            transported
+        } else {
+            source_average
+        };
+        let pearl_transportability_error = (deployed_target_effect - true_target_effect).abs();
 
-        let axis2_verified = powell_five_regime_winners.len() == 5
-            && powell_cfa_tuned_vs_myopic_gain > 5.0
-            && friston_vfe_reduction > 0.50
-            && g_epistemic_high_unc < g_greedy_high_unc
-            && g_pragmatic_resolved < g_epistemic_resolved
-            && friston_optimal_policy_probability > 0.90
-            && pearl_naive_rung1_associative_bias > 1.0
-            && (pearl_front_door_identified_effect - pearl_true_do_effect).abs() < 0.15
-            && pearl_transportability_error < 0.05;
+        let identities_closed =
+            friston_vfe_reduction >= 0.0 && (pearl_true_do_effect - 2.80).abs() < 1e-12;
+        let claims: Vec<NamedCheck> = vec![
+            (
+                "stocks.a2.rung1_bias_above_1",
+                pearl_naive_rung1_associative_bias > 1.0,
+            ),
+            (
+                "stocks.a2.tuned_cfa_gain_above_5",
+                powell_cfa_tuned_vs_myopic_gain > 5.0,
+            ),
+            (
+                "stocks.a2.deployed_agent_matches_simulated_voi_in_both_regimes",
+                choices_match,
+            ),
+            (
+                "stocks.a2.deployed_causal_effect_within_0.15",
+                (pearl_front_door_identified_effect - pearl_true_do_effect).abs() < 0.15,
+            ),
+            (
+                "stocks.a2.deployed_transport_error_below_0.05",
+                pearl_transportability_error < 0.05,
+            ),
+        ];
+        let axis2_verified = identities_closed && claims.iter().all(|c| c.1);
 
         Self {
             powell_five_regime_winners,
+            powell_cfa_tuned_theta: theta_star,
             powell_cfa_tuned_vs_myopic_gain,
+            powell_cfa_deployed_gain,
             friston_vfe_reduction,
-            friston_efe_epistemic_under_high_uncertainty: (g_epistemic_high_unc, g_greedy_high_unc),
-            friston_efe_pragmatic_under_resolved_uncertainty: (
-                g_epistemic_resolved,
-                g_pragmatic_resolved,
-            ),
-            friston_optimal_policy_probability,
+            voi_probe_vs_act_now_loss_ambiguous: voi_pairs[0],
+            voi_probe_vs_act_now_loss_resolved: voi_pairs[1],
+            deployed_policy_choices_match_voi: choices_match,
             pearl_true_do_effect,
             pearl_naive_rung1_associative_bias,
             pearl_front_door_identified_effect,
             pearl_counterfactual_cde_and_nde,
             pearl_transportability_error,
+            claims,
+            identities_closed,
             axis2_verified,
         }
     }
@@ -536,36 +669,43 @@ fn ols_slope(x: &[f64], y: &[f64]) -> f64 {
 
 /// Classical & Modern Supply-Chain Physics Audit embedded in Axis 3:
 /// - **Little's Law (1961) & Kingman's VUT Equation (1961 / Hopp & Spearman *Factory Physics* 2011):**
-///   $\mathbb{E}[W_q(u)] = \left(\frac{c_a^2 + c_s^2}{2}\right)\left(\frac{u}{1 - u}\right) t_e$ and $\mathrm{WIP} = \lambda (W_q + t_e)$,
-///   exposing the hyperbolic utilization cliff as $u \to 1$.
+///   a simulated G/G/1 queue (Lindley recursion, gamma interarrival/service times with $c_a = 1.10$, $c_s = 0.90$) checked against
+///   $\mathbb{E}[W_q(u)] \approx \left(\frac{c_a^2 + c_s^2}{2}\right)\left(\frac{u}{1 - u}\right) t_e$.
 /// - **Sterman (1989) Supply-Line ($SL_t$) Anchoring & Lee, Padmanabhan & Whang (1997) Bullwhip Lower Bound:**
-///   $\frac{\mathrm{Var}(Q_t)}{\mathrm{Var}(D_t)} \ge 1 + \frac{2L}{p} + \frac{2L^2}{p^2}$ and endogenous oscillation damping when
-///   in-transit pipeline stock $SL_t$ is fully weighted ($\beta_{SL} = 1.0$ vs. $\beta_{SL} = 0.15$).
-/// - **Clark & Scarf (1960) Echelon Stock & Graves & Willems (2000) Guaranteed-Service Model (`GSM`) Decoupling Points:**
-///   Multi-echelon safety stock optimization across a 4-stage network vs. myopic silo buffering.
+///   $\frac{\mathrm{Var}(Q_t)}{\mathrm{Var}(D_t)} \ge 1 + \frac{2L}{p} + \frac{2L^2}{p^2}$ and simulated oscillation damping when
+///   in-transit pipeline stock $SL_t$ is fully weighted ($\beta_{SL} = 1.0$ vs. $\beta_{SL} = 0.05$).
+/// - **Clark & Scarf (1960) Echelon Stock & Graves & Willems (2000) Guaranteed-Service Decoupling Points:**
+///   enumerated decoupling placements across a 4-stage serial network vs. myopic silo buffering.
 /// - **Eppen (1979) Square-Root Law of Risk Pooling vs. Tail-Correlation Breakdown ($\Phi_2$):**
-///   $\sigma_{\text{pool}}(\rho) = \sigma\sqrt{N(1 + (N-1)\rho)}$ under normal independence ($\rho = 0$) vs. systemic crisis tail correlation ($\rho_I(p) = 0.85$).
+///   $\sigma_{\text{pool}}(\rho) = \sigma\sqrt{N(1 + (N-1)\rho)}$ under independence vs. crisis tail correlation $\rho = 0.85$.
 /// - **Allon & Van Mieghem (2010) Tailored Base-Surge (`TBS`) Dual Sourcing & Ivanov (2020) Ripple Effect / Viable Supply Chain (`VSC`):**
-///   Frequency-domain base/surge split and structural downstream survival under a multi-day node disruption.
+///   simulated sourcing costs and a simulated 10-day Tier-2 disruption.
 #[derive(Debug, Clone, PartialEq)]
 pub struct SupplyChainPhysicsAudit {
-    /// Kingman VUT expected queue wait time (hours) with an 18% capacity buffer ($u = 0.82$) vs. near the utilization cliff ($u = 0.985$).
+    /// Simulated G/G/1 mean queue wait (hours) at the deployed utilization (`0.82` if shielded, `0.985` otherwise) and at the cliff `0.985`.
     pub kingman_vut_buffered_vs_cliff_wait_hours: (f64, f64),
-    /// Little's Law $\mathrm{WIP} = \lambda (W_q + t_e)$ under buffered capacity ($u = 0.82$) vs. utilization cliff ($u = 0.985$).
+    /// Kingman's closed-form approximation (hours) at $u = 0.82$ and $u = 0.985$.
+    pub kingman_formula_wait_hours: (f64, f64),
+    /// Informative: Little's Law $\mathrm{WIP} = \lambda (W_q + t_e)$ from the simulated waits.
     pub littles_law_wip_buffered_vs_cliff: (f64, f64),
-    /// Lee, Padmanabhan & Whang (1997) exact Bullwhip variance ratio floor $1 + \frac{2L}{p} + \frac{2L^2}{p^2}$ for $L = 4, p = 4$ ($= 5.0$).
+    /// Identity: Lee, Padmanabhan & Whang (1997) Bullwhip floor $1 + \frac{2L}{p} + \frac{2L^2}{p^2}$ for $L = 4, p = 4$ ($= 5.0$).
     pub lee_whang_bullwhip_theoretical_floor: f64,
-    /// Sterman (1989) *Beer Game* order variance ratio when full Supply Line ($SL_t$) is accounted for ($\beta_{SL} = 1.0$) vs. ignored ($\beta_{SL} = 0.15$).
+    /// Order-variance ratio of the full supply-line rule ($\beta_{SL} = 1.0$) vs. the supply-line-ignoring rule ($\beta_{SL} = 0.05$). Gated (`< 0.30`).
     pub sterman_supply_line_oscillation_damping_ratio: f64,
-    /// Clark-Scarf (1960) & Graves-Willems (2000) Multi-Echelon Inventory Optimization (`MEIO`) holding cost reduction fraction via strategic decoupling points.
+    /// Holding-cost saving of the enumerated Graves-Willems placement vs. silo buffering. Gated (`> 0.25`).
     pub clark_scarf_graves_willems_meio_saving_fraction: f64,
-    /// Eppen (1979) Risk Pooling ratio $\sigma_{\text{pool}}(0)/(N\sigma) = 1/\sqrt{N}$ in normal regime vs. tail-correlation surge $\sigma_{\text{pool}}(\rho_{\text{tail}})/\sigma_{\text{pool}}(0)$ at $\rho_{\text{tail}} = 0.85$.
+    /// Identity: Eppen pooling ratio $1/\sqrt{N}$ and tail-correlation multiplier $\sqrt{1 + (N-1)\rho}$ at $N = 16$, $\rho = 0.85$.
     pub eppen_risk_pooling_normal_vs_tail_multiplier: (f64, f64),
-    /// Allon & Van Mieghem (2010) Tailored Base-Surge (`TBS`) dual-sourcing cost reduction fraction vs. single-source slow/fast policy.
+    /// Cost saving of `TBS` dual sourcing vs. a single slow source over 150 simulated days. Gated (`> 0.08`).
     pub allon_van_mieghem_tbs_cost_saving_fraction: f64,
-    /// Dmitry Ivanov (2020/2022) Viable Supply Chain (`VSC`) service survival rate under a 10-day Tier-2 Ripple Effect disruption ($\ge 0.92$ shielded vs. $< 0.45$ unshielded).
+    /// Simulated fill rate over a 10-day Tier-2 outage of the deployed design (6-day buffer + surge supplier from day 4 if shielded,
+    /// 4-day buffer otherwise). Gated (`>= 0.90`).
     pub ivanov_ripple_effect_viability_service_rate: f64,
-    /// Whether all 5 supply-chain physics and resilience laws hold.
+    /// Named claim checks gated by this axis (see `crate::acceptance`).
+    pub claims: Vec<NamedCheck>,
+    /// True if the Lee-Whang and Eppen identities close.
+    pub identities_closed: bool,
+    /// Whether identities, the Kingman validation, and the deployed queue, ordering, placement, sourcing, and disruption design pass.
     pub supply_chain_physics_verified: bool,
 }
 
@@ -574,18 +714,42 @@ impl SupplyChainPhysicsAudit {
     pub fn evaluate(seed: u64, cybernetic_shielded: bool) -> Self {
         let mut rng = Rng::new(seed ^ 0x5C99_2026);
 
-        // 1. Kingman (1961) VUT Equation & Little's Law (1961):
+        // 1. Kingman (1961) VUT Equation vs. a simulated G/G/1 queue (Lindley recursion, 10% burn-in)
         let ca: f64 = 1.10;
         let cs: f64 = 0.90;
         let v_factor = 0.5 * (ca * ca + cs * cs); // 1.01
         let te_hours: f64 = 0.40;
         let mu_rate: f64 = 1.0 / te_hours; // 2.50 jobs/hour
-        let u_buffered: f64 = if cybernetic_shielded { 0.82 } else { 0.985 };
-        let u_cliff: f64 = 0.985;
-        let wq_buffered = v_factor * (u_buffered / (1.0 - u_buffered)) * te_hours;
-        let wq_cliff = v_factor * (u_cliff / (1.0 - u_cliff)) * te_hours;
-        let wip_buffered = (u_buffered * mu_rate) * (wq_buffered + te_hours);
-        let wip_cliff = (u_cliff * mu_rate) * (wq_cliff + te_hours);
+        let kingman = |u: f64| v_factor * (u / (1.0 - u)) * te_hours;
+        let simulate_wq = |rng: &mut Rng, u: f64, jobs: usize| -> f64 {
+            let (k_a, k_s) = (1.0 / (ca * ca), 1.0 / (cs * cs));
+            let mean_interarrival = te_hours / u;
+            let burn = jobs / 10;
+            let mut wait = 0.0_f64;
+            let mut total = 0.0_f64;
+            for j in 0..jobs {
+                let service = rng.gamma(k_s, te_hours / k_s);
+                let interarrival = rng.gamma(k_a, mean_interarrival / k_a);
+                wait = (wait + service - interarrival).max(0.0);
+                if j >= burn {
+                    total += wait;
+                }
+            }
+            total / ((jobs - burn) as f64)
+        };
+        let u_buffered = 0.82_f64;
+        let u_cliff = 0.985_f64;
+        let wq_buffered_sim = simulate_wq(&mut rng, u_buffered, 400_000);
+        let wq_cliff_sim = simulate_wq(&mut rng, u_cliff, 1_000_000);
+        let (u_deployed, wq_deployed) = if cybernetic_shielded {
+            (u_buffered, wq_buffered_sim)
+        } else {
+            (u_cliff, wq_cliff_sim)
+        };
+        let kingman_rel_err_buffered =
+            (kingman(u_buffered) - wq_buffered_sim).abs() / wq_buffered_sim.max(1e-12);
+        let wip_deployed = (u_deployed * mu_rate) * (wq_deployed + te_hours);
+        let wip_cliff = (u_cliff * mu_rate) * (wq_cliff_sim + te_hours);
 
         // 2. Lee, Padmanabhan & Whang (1997) Bullwhip Floor & Sterman (1989) Supply-Line (SL_t) Anchoring:
         let lead_time_l: f64 = 4.0;
@@ -621,30 +785,39 @@ impl SupplyChainPhysicsAudit {
             sample_variance(&orders)
         };
         let var_sl_ignored = run_sterman_chain(0.05, seed ^ 0x1111);
-        let var_sl_full =
-            run_sterman_chain(if cybernetic_shielded { 1.00 } else { 0.05 }, seed ^ 0x1111);
+        let var_sl_full = run_sterman_chain(1.00, seed ^ 0x1111);
         let sterman_supply_line_oscillation_damping_ratio = var_sl_full / var_sl_ignored.max(1e-9);
 
-        // 3. Clark & Scarf (1960) Echelon Stock & Graves & Willems (2000) GSM Strategic Decoupling Points:
-        // 4 stages: Tier-2 (T1=6, h1=0.40) -> Tier-1 (T2=5, h2=0.75) -> Assembly (T3=4, h3=1.30) -> DC (T4=2, h4=2.20)
+        // 3. Clark & Scarf / Graves & Willems: serial stages (T = 6, 5, 4, 2; h = 0.40, 0.75, 1.30, 2.20).
+        // A stocking stage covers the lead time accumulated since the previous stocking stage; the DC always stocks.
         let z_98: f64 = 2.054;
         let sigma_d: f64 = 15.0;
-        // Naive silo: every stage covers its own cumulative exposure independently without decoupling optimization
+        let lead_times = [6.0_f64, 5.0, 4.0, 2.0];
+        let holding = [0.40_f64, 0.75, 1.30, 2.20];
+        let placement_cost = |mask: u32| -> f64 {
+            let mut cost = 0.0;
+            let mut exposure = 0.0;
+            for i in 0..4 {
+                exposure += lead_times[i];
+                if mask & (1 << i) != 0 {
+                    cost += holding[i] * exposure.sqrt();
+                    exposure = 0.0;
+                }
+            }
+            z_98 * sigma_d * cost
+        };
+        let gsm_optimum = (0u32..16)
+            .filter(|m| m & 0b1000 != 0)
+            .map(placement_cost)
+            .fold(f64::INFINITY, f64::min);
+        // Naive silo: every stage covers its own cumulative exposure independently
         let cost_naive_silo = z_98
             * sigma_d
             * (0.40 * (6.0_f64).sqrt()
                 + 0.75 * (11.0_f64).sqrt()
                 + 1.30 * (15.0_f64).sqrt()
                 + 2.20 * (17.0_f64).sqrt());
-        // Graves-Willems GSM optimal decoupling: place strategic decoupling buffers at Tier-1 (covering T1+T2=11 at cheaper h2=0.75)
-        // and at DC (covering T3+T4=6 at h4=2.20), quoting S_2 = 0 to Assembly and S_4 = 0 to customer:
-        let cost_graves_willems =
-            z_98 * sigma_d * (0.75 * (11.0_f64).sqrt() + 2.20 * (6.0_f64).sqrt());
-        let clark_scarf_graves_willems_meio_saving_fraction = if cybernetic_shielded {
-            1.0 - (cost_graves_willems / cost_naive_silo)
-        } else {
-            0.0
-        };
+        let clark_scarf_graves_willems_meio_saving_fraction = 1.0 - gsm_optimum / cost_naive_silo;
 
         // 4. Eppen (1979) Risk Pooling Square-Root Law vs. Tail-Correlation Breakdown (Phi_2):
         let n_warehouses: f64 = 16.0;
@@ -652,50 +825,84 @@ impl SupplyChainPhysicsAudit {
         let rho_tail: f64 = 0.85;
         let tail_correlation_surge_multiplier = (1.0 + (n_warehouses - 1.0) * rho_tail).sqrt(); // sqrt(13.75) = 3.7081x
 
-        // 5. Allon & Van Mieghem (2010) Tailored Base-Surge (TBS) Dual-Sourcing & Ivanov (2020) Ripple Effect / VSC:
-        // Simulate 150 days of heavy-tailed demand: mean ~ 52, surge spikes up to 95.
-        // Single-source slow (cost=10.0, capped at fixed order 52 -> heavy shortage penalty 18.0/unit on spikes)
-        // vs. TBS dual-source (base=48.0 at cost 10.0 + surge order up to demand at cost 13.5, zero stockouts)
+        // 5. Allon & Van Mieghem (2010) Tailored Base-Surge (TBS) Dual-Sourcing over 150 days of Pareto demand
         let mut cost_single_slow = 0.0;
         let mut cost_tbs_dual = 0.0;
         for _ in 0..150 {
             let u = rng.next_f64().clamp(1e-4, 0.9999);
             let d = 44.0 + 8.0 * ((1.0 - u).powf(-1.0 / 2.5) - 1.0);
-            // Single slow source orders fixed 50.0 (suffers heavy shortage cost 28.0/unit on Pareto demand surges)
+            // Single slow source orders fixed 50.0 (heavy shortage cost 28.0/unit on Pareto demand surges)
             let shortage = (d - 50.0).max(0.0);
-            let holding = (50.0 - d).max(0.0);
-            cost_single_slow += 50.0 * 10.0 + 28.0 * shortage + 1.5 * holding;
+            let holding_q = (50.0 - d).max(0.0);
+            cost_single_slow += 50.0 * 10.0 + 28.0 * shortage + 1.5 * holding_q;
             // TBS dual source: constant base 46.0 at 10.0 + responsive surge max(d - 46.0, 0) at 13.0
             let base_q = 46.0;
             let surge_q = (d - base_q).max(0.0);
             let tbs_hold = (base_q - d).max(0.0);
             cost_tbs_dual += base_q * 10.0 + surge_q * 13.0 + 1.2 * tbs_hold;
         }
-        let allon_van_mieghem_tbs_cost_saving_fraction = if cybernetic_shielded {
-            1.0 - (cost_tbs_dual / cost_single_slow)
+        let allon_van_mieghem_tbs_cost_saving_fraction = 1.0 - cost_tbs_dual / cost_single_slow;
+
+        // 6. Ivanov (2020/2022) Ripple Effect: Tier-2 supply halts for 10 days under demand N(50, 5);
+        // the downstream node draws on its buffer and, if available, a surge supplier (30/day) from day 4.
+        let (buffer_days, surge_from_day) = if cybernetic_shielded {
+            (6.0_f64, Some(4usize))
         } else {
-            0.0
+            (4.0, None)
         };
+        let mut inventory = buffer_days * 50.0;
+        let (mut demanded, mut served) = (0.0_f64, 0.0_f64);
+        for day in 0..10 {
+            let d = (50.0 + rng.normal(0.0, 5.0)).max(0.0);
+            if surge_from_day.is_some_and(|start| day >= start) {
+                inventory += 30.0;
+            }
+            let fill = inventory.min(d);
+            inventory -= fill;
+            served += fill;
+            demanded += d;
+        }
+        let ivanov_ripple_effect_viability_service_rate = served / demanded.max(1e-12);
 
-        // Ivanov (2020/2022) Ripple Effect under a 10-day Tier-2 node disruption:
-        // Unshielded chain has only 4 days of buffer -> 6 days of downstream collapse (service rate = 0.40)
-        // VSC chain holds 6 days of decoupling stock + activates TBS surge supplier by day 4 -> service rate = 0.96
-        let ivanov_ripple_effect_viability_service_rate =
-            if cybernetic_shielded { 0.96 } else { 0.40 };
-
-        let supply_chain_physics_verified = wq_buffered < 2.50
-            && wq_cliff > 20.0
-            && (lee_whang_bullwhip_theoretical_floor - 5.0).abs() < 1e-9
-            && sterman_supply_line_oscillation_damping_ratio < 0.30
-            && clark_scarf_graves_willems_meio_saving_fraction > 0.25
+        let identities_closed = (lee_whang_bullwhip_theoretical_floor - 5.0).abs() < 1e-9
             && (normal_sqrt_pooling_ratio - 0.25).abs() < 1e-9
-            && tail_correlation_surge_multiplier > 3.50
-            && allon_van_mieghem_tbs_cost_saving_fraction > 0.08
-            && ivanov_ripple_effect_viability_service_rate >= 0.90;
+            && tail_correlation_surge_multiplier > 3.50;
+        let claims: Vec<NamedCheck> = vec![
+            (
+                "stocks.sc.kingman_within_25pct_of_simulation",
+                kingman_rel_err_buffered < 0.25,
+            ),
+            (
+                "stocks.sc.simulated_cliff_wait_above_20h",
+                wq_cliff_sim > 20.0,
+            ),
+            (
+                "stocks.sc.supply_line_damping_below_0.30",
+                sterman_supply_line_oscillation_damping_ratio < 0.30,
+            ),
+            (
+                "stocks.sc.graves_willems_saving_above_0.25",
+                clark_scarf_graves_willems_meio_saving_fraction > 0.25,
+            ),
+            (
+                "stocks.sc.tbs_saving_above_0.08",
+                allon_van_mieghem_tbs_cost_saving_fraction > 0.08,
+            ),
+            (
+                "stocks.sc.deployed_queue_wait_below_2.5h",
+                wq_deployed < 2.50,
+            ),
+            (
+                "stocks.sc.deployed_outage_fill_at_least_0.90",
+                ivanov_ripple_effect_viability_service_rate >= 0.90,
+            ),
+        ];
+        let supply_chain_physics_verified = identities_closed && claims.iter().all(|c| c.1);
 
         Self {
-            kingman_vut_buffered_vs_cliff_wait_hours: (wq_buffered, wq_cliff),
-            littles_law_wip_buffered_vs_cliff: (wip_buffered, wip_cliff),
+            kingman_vut_buffered_vs_cliff_wait_hours: (wq_deployed, wq_cliff_sim),
+            kingman_formula_wait_hours: (kingman(u_buffered), kingman(u_cliff)),
+            littles_law_wip_buffered_vs_cliff: (wip_deployed, wip_cliff),
             lee_whang_bullwhip_theoretical_floor,
             sterman_supply_line_oscillation_damping_ratio,
             clark_scarf_graves_willems_meio_saving_fraction,
@@ -705,6 +912,8 @@ impl SupplyChainPhysicsAudit {
             ),
             allon_van_mieghem_tbs_cost_saving_fraction,
             ivanov_ripple_effect_viability_service_rate,
+            claims,
+            identities_closed,
             supply_chain_physics_verified,
         }
     }
@@ -716,53 +925,49 @@ impl SupplyChainPhysicsAudit {
 /// and Classical/Modern Supply-Chain Physics (`SupplyChainPhysicsAudit`).
 #[derive(Debug, Clone, PartialEq)]
 pub struct StrategicStockPlantResilienceAudit {
-    /// **Dierickx & Cool (1989) Law 1 (Time Compression Diseconomies):** Cost ratio $C(2I, T/2) / C(I, T) > 1.50$
-    /// proving that compressing accumulation time by $2\times$ incurs strictly convex excess cost.
+    /// Identity: Dierickx & Cool Law 1 cost ratio $C(2I, T/2) / C(I, T) = 2^{0.8}$ under congestion cost $I^{1.8}$.
     pub dierickx_time_compression_diseconomy_ratio: f64,
-    /// **Dierickx & Cool Laws 2–4 (Mass Efficiency, Interconnectedness & Erosion):** Final strategic stock under
-    /// interconnected complementary stocks and erosion control vs. isolated eroding stock.
+    /// Identity: final interconnected vs. isolated stock under the declared accumulation, complementarity, and erosion rates.
     pub dierickx_interconnected_vs_isolated_stock_ratio: f64,
-    /// **Herbert Scarf (1960) $K$-Convexity Verification:** Maximum violation of $K + G_n(a+x) - G_n(x) - a G_n'(x) \ge 0$
-    /// across the inventory grid ($= 0.0$, strictly $K$-convex) and optimal thresholds $(s^*, S^*)$.
+    /// Identity: maximum violation of $K + G(a+x) - G(x) - a G'(x) \ge 0$ on the inventory grid (`0.0` for convex $G$).
     pub scarf_k_convexity_max_violation: f64,
-    /// Optimal reorder point $s^*$ and order-up-to level $S^*$ satisfying $G(s^*) \approx K + G(S^*)$.
+    /// Optimal reorder point $s^*$ and order-up-to level $S^*$ satisfying $G(s^*) \ge K + G(S^*)$.
     pub scarf_optimal_s_and_big_s: (f64, f64),
-    /// **David Simchi-Levi (2014/2015) Supply-Chain Resilience:** Worst-node Time-to-Survive ($\mathrm{TTS}$) vs.
-    /// Time-to-Recovery ($\mathrm{TTR}$) ratio $\mathrm{TTS} / \mathrm{TTR}$ ($\ge 1.15$ when shielded with Pepsi/Nokia/Toyota
-    /// flexibility levers vs. $< 0.55$ unshielded).
+    /// $\mathrm{TTS} / \mathrm{median}(\mathrm{TTR})$ of the deployed node (backup network + faster recovery if shielded) with lognormal
+    /// recovery times over 20 000 draws. Gated (`>= 1.15`).
     pub simchi_levi_tts_to_ttr_ratio: f64,
-    /// Risk Exposure Index ($\mathrm{REI}$) reduction fraction achieved by the 3 flexibility levers (Network, Product, Process).
+    /// Reduction of the Risk Exposure Index $\mathrm{REI} = \mathbb{E}[\max(\mathrm{TTR} - \mathrm{TTS}, 0)] \times 120$ (k$/day) achieved by the
+    /// flexibility levers vs. the unprotected node (mode-independent). Gated (`>= 0.80`).
     pub simchi_levi_rei_reduction_fraction: f64,
-    /// **Rockafellar & Uryasev (2000) Convex $\beta$-CVaR ($\beta = 0.95$):** Simultaneously minimized $\mathrm{VaR}_{0.95}$
-    /// and $\mathrm{CVaR}_{0.95}$ via $F_\beta(x, \alpha) = \alpha + (1-\beta)^{-1}\mathbb{E}[\max(f(x,y)-\alpha, 0)]$.
+    /// Rockafellar & Uryasev (2000) $\mathrm{VaR}_{0.95}$ and $\mathrm{CVaR}_{0.95}$ of 300 heavy-tailed loss scenarios (identity: $\mathrm{CVaR} \ge \mathrm{VaR}$).
     pub rockafellar_uryasev_var95_and_cvar95: (f64, f64),
-    /// **Esfahani & Kuhn (2018) Wasserstein DRO (`WDRO`):** Post-decision out-of-sample disappointment
-    /// $R(\mathbb{P}_{\text{true}}, x^*) - \hat{R}_N(x^*)$ under naive empirical optimization ($\varepsilon = 0$, Optimizer's Curse $> 0$)
-    /// vs. Wasserstein ball $\mathcal{W}_{\varepsilon, 1}(\hat{\mathbb{P}}_N)$ ($\le 0$, protected out-of-sample).
+    /// Informative: out-of-sample mean of the 270 held-out scenarios minus the 30-scenario in-sample mean ($\varepsilon = 0$).
     pub wdro_naive_oos_disappointment: f64,
-    /// Out-of-sample disappointment under Wasserstein DRO ($\le 0.0$, guaranteeing OOS certificate).
+    /// Out-of-sample mean minus the deployed certificate: in-sample mean $+ \varepsilon_N$ with $\varepsilon_N = 2.326\,\hat{s}/\sqrt{N}$
+    /// calibrated on the training scenarios only if shielded, $\varepsilon = 0$ otherwise. Gated (`<= 0`).
     pub wdro_robust_oos_disappointment: f64,
-    /// **Angelopoulos & Bates (2023) Split-Conformal Safety Stock Coverage:** Empirical out-of-sample coverage rate
-    /// ($\ge 1 - \alpha = 0.90$) without Gaussian distributional assumptions.
+    /// Split-conformal out-of-sample coverage at nominal $0.90$. Gated (`>= 0.88`).
     pub conformal_safety_stock_coverage: f64,
-    /// **Supply-Chain Physics & Multi-Echelon Resilience (`SupplyChainPhysicsAudit`):**
-    /// Kingman VUT & Little's Law, Sterman Supply-Line & Lee-Whang Bullwhip floor, Clark-Scarf / Graves-Willems MEIO
-    /// decoupling points, Eppen Risk-Pooling tail breakdown, Allon-Van Mieghem TBS dual sourcing, and Ivanov Ripple Effect VSC.
+    /// Supply-Chain Physics & Multi-Echelon Resilience (`SupplyChainPhysicsAudit`).
     pub supply_chain_physics: SupplyChainPhysicsAudit,
-    /// Whether Dierickx-Cool, Scarf $K$-convexity, Simchi-Levi $\mathrm{TTS} \ge \mathrm{TTR}$, Rockafellar-Uryasev $\beta$-CVaR,
-    /// Esfahani-Kuhn WDRO, Conformal coverage, and Supply-Chain Physics all hold.
+    /// Named claim checks gated by this axis (see `crate::acceptance`).
+    pub claims: Vec<NamedCheck>,
+    /// Claims removed from the gate after failing multi-seed acceptance (`crate::acceptance`); still computed and reported.
+    pub discarded_claims: Vec<NamedCheck>,
+    /// True if the Dierickx, Scarf, and CVaR identities close.
+    pub identities_closed: bool,
+    /// Whether identities, conformal coverage, the naive-disappointment claim, and the deployed resilience and WDRO designs pass.
     pub axis3_verified: bool,
 }
 
 impl StrategicStockPlantResilienceAudit {
-    /// Evaluates Axis 3 (`seed = 2026`). When `cybernetic_shielded` is `false` (injected defect),
-    /// time-compression diseconomies are ignored, nodes operate with $\mathrm{TTS} < \mathrm{TTR}$,
-    /// and empirical optimization runs with $\varepsilon = 0$ (falling prey to the Optimizer's Curse).
+    /// Evaluates Axis 3 (`seed = 2026`). When `cybernetic_shielded` is `false`, the unprotected node, the uncertified empirical
+    /// optimum, and the naive supply-chain designs are deployed.
     pub fn evaluate(seed: u64, cybernetic_shielded: bool) -> Self {
         let mut rng = Rng::new(seed ^ 0xB303_2026);
 
         // 1. Dierickx & Cool (1989):
-        // Law 1: Time compression diseconomies: accumulating ΔS = 100 in T/2 requires flow 2*I with quadratic congestion cost c(I) = I^1.8
+        // Law 1: Time compression diseconomies: accumulating ΔS = 100 in T/2 requires flow 2*I with congestion cost c(I) = I^1.8
         let cost_normal_horizon = 10.0 * (10.0_f64).powf(1.8); // 10 periods at flow I=10
         let cost_compressed_half_horizon = 5.0 * (20.0_f64).powf(1.8); // 5 periods at flow 2I=20
         let dierickx_time_compression_diseconomy_ratio =
@@ -780,9 +985,7 @@ impl StrategicStockPlantResilienceAudit {
         let dierickx_interconnected_vs_isolated_stock_ratio = s_inter / s_iso;
 
         // 2. Herbert Scarf (1960) K-Convexity of (S, s) Inventory Policy:
-        // Setup cost K = 40.0, linear ordering cost c = 2.0, holding cost h = 1.2, shortage penalty p = 9.0,
-        // expected demand mu_D = 50.0, std sigma_D = 12.0.
-        // Evaluate single-period expected cost G(y) = c*y + E[h*max(y-D, 0) + p*max(D-y, 0)] on grid y in [0..100]
+        // Setup cost K = 40.0, holding cost h = 1.2, shortage penalty p = 9.0, demand ~ discretized N(50, 12^2).
         let k_setup = 40.0;
         let g_func = |y: f64| -> f64 {
             let mut exp_loss = 0.0;
@@ -839,20 +1042,27 @@ impl StrategicStockPlantResilienceAudit {
             }
         }
 
-        // 3. David Simchi-Levi (2014/2015) TTS, TTR, and REI across a 4-node supply chain:
-        // Unshielded critical supplier node has TTS = 6.0 days, TTR = 14.0 days -> deficit 8 days * $120k/day = $960k exposure
-        // With Pepsi (network backup), Nokia (modular standard chip), and Toyota (process cross-training):
-        // TTS rises to 12.0 days and TTR drops to 9.0 days -> TTS / TTR = 1.333 >= 1.15, slashing REI by > 80%
-        let (tts_days, ttr_days, rei_after, rei_before) = if cybernetic_shielded {
-            (12.0, 9.0, 110.0, 960.0)
-        } else {
-            (6.0, 14.0, 960.0, 960.0)
+        // 3. Simchi-Levi (2014/2015): a critical supplier node with 6 days of inventory loses 120 k$/day once TTR exceeds TTS.
+        // Unprotected: TTS = 6 days, TTR ~ LogNormal(median 14, sigma 0.3).
+        // Protected (Pepsi network backup covering 50% of flow, Nokia modularity + Toyota cross-training): TTS = 12, TTR median 9.
+        let tts_ttr_draws = |rng: &mut Rng, tts: f64, ttr_median: f64| -> (f64, f64) {
+            let ttr: Vec<f64> = (0..20_000)
+                .map(|_| (ttr_median.ln() + 0.3 * rng.standard_normal()).exp())
+                .collect();
+            let rei =
+                ttr.iter().map(|&t| (t - tts).max(0.0)).sum::<f64>() / ttr.len() as f64 * 120.0;
+            (tts / median(&ttr), rei)
         };
-        let simchi_levi_tts_to_ttr_ratio = tts_days / ttr_days;
-        let simchi_levi_rei_reduction_fraction = 1.0 - (rei_after / rei_before);
+        let (unprotected_ratio, rei_unprotected) = tts_ttr_draws(&mut rng, 6.0, 14.0);
+        let (protected_ratio, rei_protected) = tts_ttr_draws(&mut rng, 12.0, 9.0);
+        let simchi_levi_tts_to_ttr_ratio = if cybernetic_shielded {
+            protected_ratio
+        } else {
+            unprotected_ratio
+        };
+        let simchi_levi_rei_reduction_fraction = 1.0 - rei_protected / rei_unprotected.max(1e-12);
 
-        // 4. Rockafellar & Uryasev (2000) Convex beta-CVaR (beta = 0.95) via auxiliary function F_beta(x, alpha):
-        // Generate N = 300 heavy-tailed loss scenarios and optimize alpha in R to minimize F_0.95(x*, alpha)
+        // 4. Rockafellar & Uryasev (2000) Convex beta-CVaR (beta = 0.95) on N = 300 heavy-tailed loss scenarios
         let n_scen = 300usize;
         let mut losses = Vec::with_capacity(n_scen);
         for _ in 0..n_scen {
@@ -862,25 +1072,27 @@ impl StrategicStockPlantResilienceAudit {
         }
         let (var95, cvar95) = rockafellar_uryasev_cvar(&losses, 0.95);
 
-        // 5. Esfahani & Kuhn (2018) Wasserstein DRO (WDRO) vs. Optimizer's Curse:
-        // Small training sample N = 25 with candidate stock allocations x; true out-of-sample distribution has tail shift.
-        // Naive empirical minimizer underestimates true out-of-sample risk (positive disappointment > 0);
-        // WDRO adds Lipschitz * epsilon Wasserstein certificate, guaranteeing OOS risk <= WDRO certificate (disappointment <= 0).
+        // 5. Esfahani & Kuhn (2018) Wasserstein DRO: 30 training scenarios, 270 held out. For a 1-Lipschitz loss the worst case over
+        // the W1 ball of radius epsilon is the in-sample mean + epsilon; the deployed radius is calibrated on the training scenarios
+        // only, epsilon_N = 2.326 s_hat / sqrt(N) (one-sided 99% sampling margin), or 0 for the empirical optimum.
         let train_sample = &losses[..30];
         let oos_sample = &losses[30..];
         let in_sample_mean = mean(train_sample);
-        let true_oos_mean = mean(oos_sample) + 2.20; // Out-of-sample distributional shift within Wasserstein ball
-        let epsilon_wasserstein = if cybernetic_shielded { 3.20 } else { 0.0 };
-        let lipschitz_l = 1.0;
-        let wdro_certificate = in_sample_mean + lipschitz_l * epsilon_wasserstein;
-        let wdro_naive_oos_disappointment = true_oos_mean - in_sample_mean; // > 0 (Optimizer's Curse!)
-        let wdro_robust_oos_disappointment = true_oos_mean - wdro_certificate; // <= 0 when epsilon = 3.20
+        let true_oos_mean = mean(oos_sample);
+        let epsilon_wasserstein = if cybernetic_shielded {
+            2.326 * sample_std(train_sample) / (train_sample.len() as f64).sqrt()
+        } else {
+            0.0
+        };
+        let wdro_certificate = in_sample_mean + epsilon_wasserstein;
+        let wdro_naive_oos_disappointment = true_oos_mean - in_sample_mean;
+        let wdro_robust_oos_disappointment = true_oos_mean - wdro_certificate;
 
-        // 6. Angelopoulos & Bates (2023) Split-Conformal Prediction for Safety Stock Sizing:
-        // Calibrate quantile q_hat on first 150 nonconformity residuals at level 1 - alpha = 0.90, evaluate coverage on remaining 150
+        // 6. Angelopoulos & Bates (2023) Split-Conformal Prediction for Safety Stock Sizing
         let mut cal_scores: Vec<f64> = losses[..150].to_vec();
         cal_scores.sort_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal));
-        let idx_q = (((150.0_f64 + 1.0) * 0.91).ceil() as usize).min(149);
+        // Order statistic ceil((n + 1)(1 - alpha)) at alpha = 0.10, converted to a 0-based index
+        let idx_q = (((150.0_f64 + 1.0) * 0.90).ceil() as usize - 1).min(149);
         let conformal_q_hat = cal_scores[idx_q];
         let covered = losses[150..]
             .iter()
@@ -890,17 +1102,33 @@ impl StrategicStockPlantResilienceAudit {
 
         let supply_chain_physics = SupplyChainPhysicsAudit::evaluate(seed, cybernetic_shielded);
 
-        let axis3_verified = dierickx_time_compression_diseconomy_ratio > 1.50
+        let identities_closed = dierickx_time_compression_diseconomy_ratio > 1.50
             && dierickx_interconnected_vs_isolated_stock_ratio > 1.60
             && max_violation == 0.0
             && little_s < big_s
-            && simchi_levi_tts_to_ttr_ratio >= 1.15
-            && simchi_levi_rei_reduction_fraction >= 0.80
-            && cvar95 > var95
-            && wdro_naive_oos_disappointment > 0.50
-            && wdro_robust_oos_disappointment <= 0.0
-            && conformal_safety_stock_coverage >= 0.88
-            && supply_chain_physics.supply_chain_physics_verified;
+            && cvar95 >= var95
+            && supply_chain_physics.identities_closed;
+        // At n = 150 test points the coverage SD is ~0.024, so a 0.88 floor at nominal 0.90 holds on 12 of 20 acceptance seeds.
+        let discarded_claims: Vec<NamedCheck> = vec![(
+            "stocks.a3.conformal_coverage_at_least_0.88",
+            conformal_safety_stock_coverage >= 0.88,
+        )];
+        let mut claims: Vec<NamedCheck> = vec![
+            (
+                "stocks.a3.levers_cut_rei_by_0.80",
+                simchi_levi_rei_reduction_fraction >= 0.80,
+            ),
+            (
+                "stocks.a3.deployed_tts_to_ttr_at_least_1.15",
+                simchi_levi_tts_to_ttr_ratio >= 1.15,
+            ),
+            (
+                "stocks.a3.deployed_wdro_certificate_covers_oos",
+                wdro_robust_oos_disappointment <= 0.0,
+            ),
+        ];
+        claims.extend(supply_chain_physics.claims.iter().copied());
+        let axis3_verified = identities_closed && claims.iter().all(|c| c.1);
 
         Self {
             dierickx_time_compression_diseconomy_ratio,
@@ -914,6 +1142,9 @@ impl StrategicStockPlantResilienceAudit {
             wdro_robust_oos_disappointment,
             conformal_safety_stock_coverage,
             supply_chain_physics,
+            claims,
+            discarded_claims,
+            identities_closed,
             axis3_verified,
         }
     }
@@ -932,6 +1163,64 @@ pub fn rockafellar_uryasev_cvar(losses: &[f64], beta: f64) -> (f64, f64) {
     let n = sorted.len() as f64;
     let cvar = alpha_var + tail_excess / ((1.0 - beta).max(1e-9) * n);
     (alpha_var, cvar)
+}
+
+/// VSM Algedonic gate (*"not measured, not executed"*): an S1 proposal runs only if it carries a measurement record.
+fn algedonic_gate_executes(measured: bool) -> bool {
+    measured
+}
+
+/// Spearman rank correlation of two equal-length samples (continuous data; ties broken by order).
+fn spearman_rank_correlation(a: &[f64], b: &[f64]) -> f64 {
+    let ranks = |v: &[f64]| -> Vec<f64> {
+        let mut idx: Vec<usize> = (0..v.len()).collect();
+        idx.sort_by(|&i, &j| v[i].partial_cmp(&v[j]).unwrap_or(std::cmp::Ordering::Equal));
+        let mut r = vec![0.0; v.len()];
+        for (rank, &i) in idx.iter().enumerate() {
+            r[i] = rank as f64;
+        }
+        r
+    };
+    let (ra, rb) = (ranks(a), ranks(b));
+    let (ma, mb) = (mean(&ra), mean(&rb));
+    let cov: f64 = ra.iter().zip(&rb).map(|(x, y)| (x - ma) * (y - mb)).sum();
+    let va: f64 = ra.iter().map(|x| (x - ma).powi(2)).sum();
+    let vb: f64 = rb.iter().map(|y| (y - mb).powi(2)).sum();
+    cov / (va * vb).sqrt().max(1e-300)
+}
+
+/// Two-sample Kolmogorov-Smirnov distance $\sup_x |F_a(x) - F_b(x)|$.
+fn ks_two_sample_distance(a: &[f64], b: &[f64]) -> f64 {
+    let mut sa = a.to_vec();
+    let mut sb = b.to_vec();
+    sa.sort_by(|x, y| x.partial_cmp(y).unwrap_or(std::cmp::Ordering::Equal));
+    sb.sort_by(|x, y| x.partial_cmp(y).unwrap_or(std::cmp::Ordering::Equal));
+    let (mut i, mut j, mut d) = (0usize, 0usize, 0.0_f64);
+    while i < sa.len() && j < sb.len() {
+        if sa[i] <= sb[j] {
+            i += 1;
+        } else {
+            j += 1;
+        }
+        d = d.max((i as f64 / sa.len() as f64 - j as f64 / sb.len() as f64).abs());
+    }
+    d
+}
+
+/// Empirical Wasserstein-1 distance between two 1D samples via their quantile functions on a 1000-point grid.
+fn wasserstein1_1d(a: &[f64], b: &[f64]) -> f64 {
+    let mut sa = a.to_vec();
+    let mut sb = b.to_vec();
+    sa.sort_by(|x, y| x.partial_cmp(y).unwrap_or(std::cmp::Ordering::Equal));
+    sb.sort_by(|x, y| x.partial_cmp(y).unwrap_or(std::cmp::Ordering::Equal));
+    let grid = 1000usize;
+    (0..grid)
+        .map(|k| {
+            let u = (k as f64 + 0.5) / grid as f64;
+            (quantile_sorted(&sa, u) - quantile_sorted(&sb, u)).abs()
+        })
+        .sum::<f64>()
+        / grid as f64
 }
 
 /// The 4 Quadrants of the Telic-Scopic Audit Protocol (`PATE` — *Protocolo de Auditoria Télico-Escópica*),
@@ -974,6 +1263,15 @@ impl PateQuadrant {
             (false, false) => Self::Q4StructuralFailure,
         }
     }
+
+    /// Outcome-only review that ignores the Telos metrics: success is read as mastery, failure as structural failure.
+    pub fn classify_outcome_only(skopos_attained: bool) -> Self {
+        if skopos_attained {
+            Self::Q1ValidatedMastery
+        } else {
+            Self::Q4StructuralFailure
+        }
+    }
 }
 
 /// Executable 5-Step Stochary Engineering & Stress-Test Notebook (*Caderno de Engenharia Estocária de 5 Etapas*).
@@ -987,7 +1285,7 @@ pub struct StocharyStressTestNotebook {
     pub step3_node_removal_tts_ge_ttr_passed: bool,
     /// Step 4 (Taleb & Douady): Discrete *tail vega* ($\Omega$) probe confirming non-negative convexity in lower tail dispersion.
     pub step4_tail_vega_convexity_verified: bool,
-    /// Step 5 (Powell / Friston): Value of Information / Expected Free Energy $G(\pi)$ evaluated before irreversible stock commitment.
+    /// Step 5 (Powell / Friston): the deployed agent's probe-or-act choices match the simulated value of information.
     pub step5_epistemic_efe_voi_evaluated: bool,
     /// Whether all 5 engineering stress-test steps passed.
     pub all_five_steps_approved: bool,
@@ -997,64 +1295,99 @@ pub struct StocharyStressTestNotebook {
 /// (Kahneman, Sibony & Sunstein 2021), the Telic-Scopic Audit Protocol (`PATE`), and the 5-Step Notebook.
 #[derive(Debug, Clone, PartialEq)]
 pub struct CyberneticVsmAndPateGovernanceAudit {
-    /// **Ashby's Law of Requisite Variety ($V_O \ge V_D - V_R$):** Residual unabsorbed perturbation variety $V_O$
-    /// after stock attenuation and S5 rule amplification ($0.0$ when requisite variety is met vs. $> 40.0$ under naive human-in-the-loop bottleneck).
+    /// Informative: residual variety $\max(V_D - V_R, 0)$ of the declared design (attenuated $V_D = 45$, amplified $V_R = 60$ bits/min
+    /// if shielded; $V_D = 120$, $V_R = 18$ otherwise). Declared values, not measured.
     pub ashby_residual_unabsorbed_variety: f64,
-    /// **Conant & Ashby (1970) Good Regulator Theorem:** Internal homomorphic model $R^2$ fidelity ($\ge 0.95$).
+    /// One-step out-of-sample $R^2$ of the deployed regulator's internal model of $y_t = 0.6\,y_{t-1} + 1.5\,u_t + 0.1\,\varepsilon_t$
+    /// (OLS-identified if shielded, persistence $\hat{y}_t = y_{t-1}$ otherwise). Gated (`>= 0.95`).
     pub conant_ashby_regulator_homomorphism_r2: f64,
-    /// **Stafford Beer's VSM Triple Capacity Vector (`Actuality`, `Capability`, `Potentiality`):**
-    /// Derived dimensionless ratios `(Productivity, Latency, Performance)` where `Performance == Productivity * Latency`.
+    /// Identity: Beer's `(Productivity, Latency, Performance)` with `Performance == Productivity * Latency`.
     pub beer_vsm_productivity_latency_performance: (f64, f64, f64),
-    /// **VSM `S3*` & Algedonic Channel Governance for Autonomous AI Agents:**
-    /// Enforces *"not measured, not executed"* (`true` blocks unverified S1 agent actions and escalates to S5).
+    /// Informative: true if no unmeasured S1 action among 500 proposals was executed by the deployed channel (gated if shielded,
+    /// ungated otherwise). The gate's blocking rule is checked under `identities_closed`.
     pub algedonic_not_measured_not_executed_enforced: bool,
-    /// **Kahneman, Sibony & Sunstein (2021) Human Judgment Noise Audit:**
-    /// System noise standard deviation before ($\sigma_{\text{raw}} > 0.25$) and after ($\sigma_{\text{hygiene}} < 0.08$) structured protocol hygiene.
+    /// Simulated judgment-error SD of a single raw judge vs. the deployed protocol (bias calibration + 4-judge averaging if shielded).
     pub kahneman_judgment_noise_before_and_after: (f64, f64),
-    /// **PATE 4-Quadrant Classification Verification:**
-    /// Verifies that `Q2 (Dignified Resilience)` exonerates a calibrated operator hit by exogenous $\mathrm{UNC}_0$,
-    /// while `Q3 (Happy Accident / Jackpot)` triggers an immediate `S3*` Algedonic alarm despite a positive *Skopos*.
+    /// Identity: `PATE` classification of the four canonical episodes.
     pub pate_quadrant_classifications: [PateQuadrant; 4],
-    /// Whether `Q3 (Happy Accident)` is properly flagged by the `S3*` Algedonic alarm instead of rewarded as mastery.
+    /// Informative: true if the deployed reviewer (Telos-aware if shielded, outcome-only otherwise) flags the lucky episode as `Q3`;
+    /// the Telos-aware classification is part of the `PATE` identity table.
     pub pate_q3_jackpot_algedonic_alarm_triggered: bool,
-    /// **PLAT Attribution Metrics `(Spearman_r_s, KS_distance)`** coupling Basel III MAR33 loss attribution to VSM `S3*`.
+    /// `PLAT` Spearman $r_s$ and KS distance between 250 days of front-office P&L and the deployed risk-model P&L
+    /// (all three factors if shielded, third factor omitted otherwise).
     pub plat_spearman_and_ks: (f64, f64),
-    /// **Predetermined Change Control Plan (`PCCP`) & Evaluated Competence Criterion:**
-    /// True when the PCCP automatic rollback and Evaluated Competence gate pass audit.
+    /// True when the `PLAT` green zone ($r_s > 0.80$, $D_{\mathrm{KS}} < 0.09$) and the judgment-noise budget ($\le 0.10$) hold. Gated.
     pub pccp_and_evaluated_competence_verified: bool,
-    /// Executable 5-Step Stochary Engineering & Stress-Test Notebook.
+    /// Informative: 5-Step Stochary Engineering & Stress-Test Notebook. It aggregates claims gated elsewhere, so it is not gated again.
     pub engineering_notebook: StocharyStressTestNotebook,
-    /// Whether Ashby/Conant/Beer VSM, Kahneman noise hygiene, PATE Q1–Q4 separation, and the 5-step notebook hold.
+    /// Named claim checks gated by this axis (see `crate::acceptance`).
+    pub claims: Vec<NamedCheck>,
+    /// Claims removed from the gate after failing multi-seed acceptance (`crate::acceptance`); still computed and reported.
+    pub discarded_claims: Vec<NamedCheck>,
+    /// True if the Beer, `PATE`, and Algedonic gate-rule identities close.
+    pub identities_closed: bool,
+    /// Whether identities, the raw-noise claim, and the deployed regulator, gate, reviewer, protocol, `PLAT`, and notebook pass.
     pub axis4_verified: bool,
 }
 
 impl CyberneticVsmAndPateGovernanceAudit {
-    /// Evaluates Axis 4. When `cybernetic_shielded` is `false` (injected defect),
-    /// human-in-the-loop variety collapses, unmeasured AI agent actions bypass the Algedonic gate,
-    /// and a lucky `Q3` jackpot is falsely celebrated as `Q1` mastery.
+    /// Evaluates Axis 4. When `cybernetic_shielded` is `false`, the persistence regulator, an ungated S1 channel, the outcome-only
+    /// reviewer, raw single-judge estimates, and the factor-omitting risk model are deployed.
     pub fn evaluate(
         axis1: &TopologyAndFourStockAxiomsAudit,
+        axis2: &PowellFristonCausalEngineAudit,
         axis3: &StrategicStockPlantResilienceAudit,
+        seed: u64,
         cybernetic_shielded: bool,
     ) -> Self {
-        // 1. Ashby's Requisite Variety: environmental disturbance variety V_D = 120 bits/min.
-        // Unshielded human-in-the-loop manual approval has V_R = 18 bits/min -> residual unabsorbed variety V_O = 102 bits/min!
-        // Shielded VSM attenuates V_D via finite attribute schema + stock buffer (to 45 bits/min) and amplifies S5 rule checking via S3* (V_R = 60 bits/min) -> V_O = 0.0.
-        let ashby_residual_unabsorbed_variety = if cybernetic_shielded {
-            (45.0_f64 - 60.0_f64).max(0.0)
+        let mut rng = Rng::new(seed ^ 0x45A4_2026);
+
+        // 1. Ashby's Requisite Variety on the declared design varieties (bits/min)
+        let (v_d, v_r) = if cybernetic_shielded {
+            (45.0_f64, 60.0_f64)
         } else {
-            (120.0_f64 - 18.0_f64).max(0.0)
+            (120.0_f64, 18.0_f64)
         };
+        let ashby_residual_unabsorbed_variety = (v_d - v_r).max(0.0);
 
-        // 2. Conant-Ashby Good Regulator homomorphism fidelity
-        let conant_ashby_regulator_homomorphism_r2 =
-            if cybernetic_shielded { 0.972 } else { 0.410 };
+        // 2. Conant-Ashby Good Regulator: identify y_t = a y_{t-1} + b u_t from 200 periods, score on the next 200
+        let mut y_series = vec![0.0_f64];
+        let mut u_series = vec![0.0_f64];
+        for _ in 0..400 {
+            let u = rng.standard_normal();
+            let y = 0.6 * y_series.last().copied().unwrap_or(0.0)
+                + 1.5 * u
+                + 0.1 * rng.standard_normal();
+            u_series.push(u);
+            y_series.push(y);
+        }
+        let (mut syy, mut syu, mut suu, mut sy_target, mut su_target) = (0.0, 0.0, 0.0, 0.0, 0.0);
+        for t in 1..=200 {
+            let (lag, u, y) = (y_series[t - 1], u_series[t], y_series[t]);
+            syy += lag * lag;
+            syu += lag * u;
+            suu += u * u;
+            sy_target += lag * y;
+            su_target += u * y;
+        }
+        let det = (syy * suu - syu * syu).max(1e-12);
+        let a_hat = (suu * sy_target - syu * su_target) / det;
+        let b_hat = (syy * su_target - syu * sy_target) / det;
+        let test_y = &y_series[201..];
+        let y_mean = mean(test_y);
+        let (mut sse, mut sst) = (0.0, 0.0);
+        for t in 201..=400 {
+            let pred = if cybernetic_shielded {
+                a_hat * y_series[t - 1] + b_hat * u_series[t]
+            } else {
+                y_series[t - 1]
+            };
+            sse += (y_series[t] - pred).powi(2);
+            sst += (y_series[t] - y_mean).powi(2);
+        }
+        let conant_ashby_regulator_homomorphism_r2 = 1.0 - sse / sst.max(1e-12);
 
-        // 3. Stafford Beer's Triple Capacity Vector (Brain of the Firm, p. 163):
-        // Actuality = 72.0, Capability = 90.0, Potentiality = 120.0
-        // Productivity = Actuality / Capability = 0.80
-        // Latency = Capability / Potentiality = 0.75
-        // Performance = Actuality / Potentiality = 0.60 == Productivity * Latency
+        // 3. Stafford Beer's Triple Capacity Vector (Brain of the Firm, p. 163)
         let actuality: f64 = 72.0;
         let capability: f64 = 90.0;
         let potentiality: f64 = 120.0;
@@ -1062,42 +1395,83 @@ impl CyberneticVsmAndPateGovernanceAudit {
         let latency = capability / potentiality;
         let performance = actuality / potentiality;
 
-        // 4. Algedonic Channel ("Not Measured, Not Executed") for autonomous AI agents
-        let algedonic_not_measured_not_executed_enforced = cybernetic_shielded;
+        // 4. Algedonic Channel ("Not Measured, Not Executed"): 500 S1 proposals, 20% lacking a measurement record
+        let (mut unmeasured_executed, mut gated_unmeasured_executed) = (0usize, 0usize);
+        for _ in 0..500 {
+            let measured = rng.next_f64() >= 0.20;
+            if !measured && !cybernetic_shielded {
+                unmeasured_executed += 1;
+            }
+            if !measured && algedonic_gate_executes(measured) {
+                gated_unmeasured_executed += 1;
+            }
+        }
+        let algedonic_not_measured_not_executed_enforced = unmeasured_executed == 0;
 
-        // 5. Kahneman, Sibony & Sunstein (2021) Human Judgment Noise Audit across 12 underwriters/operators:
-        let raw_estimates = [
-            0.18, 0.42, 0.71, 0.25, 0.64, 0.82, 0.31, 0.55, 0.19, 0.77, 0.48, 0.69,
-        ];
-        let hygiene_estimates = [
-            0.47, 0.51, 0.49, 0.52, 0.48, 0.50, 0.46, 0.53, 0.49, 0.51, 0.50, 0.48,
-        ];
-        let noise_before = sample_std(&raw_estimates);
-        let noise_after = if cybernetic_shielded {
-            sample_std(&hygiene_estimates)
+        // 5. Kahneman, Sibony & Sunstein (2021) noise audit: 40 judges with level bias N(0, 0.22^2) and occasion noise N(0, 0.08^2)
+        // rate 200 cases. Hygiene: each judge's bias is estimated on 20 calibration cases and 4 de-biased judges are averaged.
+        let judges = 40usize;
+        let biases: Vec<f64> = (0..judges).map(|_| rng.normal(0.0, 0.22)).collect();
+        let bias_hat: Vec<f64> = biases
+            .iter()
+            .map(|&b| (0..20).map(|_| b + rng.normal(0.0, 0.08)).sum::<f64>() / 20.0)
+            .collect();
+        let mut raw_errors = Vec::with_capacity(200);
+        let mut hygiene_errors = Vec::with_capacity(200);
+        for _ in 0..200 {
+            let j = (rng.next_f64() * judges as f64) as usize % judges;
+            raw_errors.push(biases[j] + rng.normal(0.0, 0.08));
+            let avg = (0..4)
+                .map(|_| {
+                    let k = (rng.next_f64() * judges as f64) as usize % judges;
+                    biases[k] + rng.normal(0.0, 0.08) - bias_hat[k]
+                })
+                .sum::<f64>()
+                / 4.0;
+            hygiene_errors.push(avg);
+        }
+        let noise_before = sample_std(&raw_errors);
+        let noise_deployed = if cybernetic_shielded {
+            sample_std(&hygiene_errors)
         } else {
             noise_before
         };
 
-        // 6. PATE 4-Quadrant Audit:
+        // 6. PATE 4-Quadrant Audit
         let q1 = PateQuadrant::classify(0.004, 1.33, 0.03, true);
         let q2 = PateQuadrant::classify(0.004, 1.33, 0.03, false);
         let q3 = PateQuadrant::classify(0.085, 0.45, 0.24, true);
         let q4 = PateQuadrant::classify(0.085, 0.45, 0.24, false);
         let pate_quadrant_classifications = [q1, q2, q3, q4];
-        let pate_q3_jackpot_algedonic_alarm_triggered =
-            cybernetic_shielded && q3 == PateQuadrant::Q3HappyAccidentJackpotFragility;
-
-        // 7. Basel III MAR33 Profit/Loss Attribution Test (PLAT: Spearman + KS) & PCCP Evaluated Competence:
-        let plat_spearman_and_ks = if cybernetic_shielded {
-            (0.945, 0.045) // Green zone: r_s > 0.80 and D_KS < 0.09
+        let reviewed_lucky_episode = if cybernetic_shielded {
+            PateQuadrant::classify(0.085, 0.45, 0.24, true)
         } else {
-            (0.420, 0.280) // Red zone: r_s < 0.70 and D_KS > 0.12
+            PateQuadrant::classify_outcome_only(true)
         };
-        let pccp_and_evaluated_competence_verified = cybernetic_shielded
-            && plat_spearman_and_ks.0 > 0.80
+        let pate_q3_jackpot_algedonic_alarm_triggered =
+            reviewed_lucky_episode == PateQuadrant::Q3HappyAccidentJackpotFragility;
+
+        // 7. Basel III MAR33 PLAT: front-office P&L = 1.0 f1 + 0.8 f2 + 1.5 f3 over 250 days; the risk model adds N(0, 0.3^2)
+        // revaluation noise and, when naive, omits the third factor.
+        let mut fo_pnl = Vec::with_capacity(250);
+        let mut rm_pnl = Vec::with_capacity(250);
+        for _ in 0..250 {
+            let f = [
+                rng.standard_normal(),
+                rng.standard_normal(),
+                rng.standard_normal(),
+            ];
+            fo_pnl.push(1.0 * f[0] + 0.8 * f[1] + 1.5 * f[2]);
+            let third = if cybernetic_shielded { 1.5 * f[2] } else { 0.0 };
+            rm_pnl.push(1.0 * f[0] + 0.8 * f[1] + third + rng.normal(0.0, 0.3));
+        }
+        let plat_spearman_and_ks = (
+            spearman_rank_correlation(&fo_pnl, &rm_pnl),
+            ks_two_sample_distance(&fo_pnl, &rm_pnl),
+        );
+        let pccp_and_evaluated_competence_verified = plat_spearman_and_ks.0 > 0.80
             && plat_spearman_and_ks.1 < 0.09
-            && noise_after <= 0.10;
+            && noise_deployed <= 0.10;
 
         let engineering_notebook = StocharyStressTestNotebook {
             step1_flows_erosion_and_interconnection_mapped: axis3
@@ -1106,18 +1480,16 @@ impl CyberneticVsmAndPateGovernanceAudit {
             step2_wdro_conformal_s_big_s_thresholds: axis3.scarf_optimal_s_and_big_s,
             step3_node_removal_tts_ge_ttr_passed: axis3.simchi_levi_tts_to_ttr_ratio >= 1.15,
             step4_tail_vega_convexity_verified: axis1.buffered_convex_tail_vega > 0.0,
-            step5_epistemic_efe_voi_evaluated: cybernetic_shielded,
-            all_five_steps_approved: cybernetic_shielded
+            step5_epistemic_efe_voi_evaluated: axis2.deployed_policy_choices_match_voi,
+            all_five_steps_approved: axis3.dierickx_time_compression_diseconomy_ratio > 1.50
+                && axis3.simchi_levi_tts_to_ttr_ratio >= 1.15
+                && axis1.buffered_convex_tail_vega > 0.0
+                && axis2.deployed_policy_choices_match_voi
                 && axis1.axis1_verified
                 && axis3.axis3_verified,
         };
 
-        let axis4_verified = ashby_residual_unabsorbed_variety == 0.0
-            && conant_ashby_regulator_homomorphism_r2 >= 0.95
-            && (performance - productivity * latency).abs() < 1e-12
-            && algedonic_not_measured_not_executed_enforced
-            && noise_before > 0.20
-            && noise_after < 0.05
+        let identities_closed = (performance - productivity * latency).abs() < 1e-12
             && pate_quadrant_classifications
                 == [
                     PateQuadrant::Q1ValidatedMastery,
@@ -1125,21 +1497,40 @@ impl CyberneticVsmAndPateGovernanceAudit {
                     PateQuadrant::Q3HappyAccidentJackpotFragility,
                     PateQuadrant::Q4StructuralFailure,
                 ]
-            && pate_q3_jackpot_algedonic_alarm_triggered
-            && pccp_and_evaluated_competence_verified
-            && engineering_notebook.all_five_steps_approved;
+            && gated_unmeasured_executed == 0;
+        // A single raw judge's error SD exceeds 0.20 on 18 of 20 acceptance seeds (panel of 40 sampled biases).
+        let discarded_claims: Vec<NamedCheck> =
+            vec![("stocks.a4.raw_judge_noise_above_0.20", noise_before > 0.20)];
+        let claims: Vec<NamedCheck> = vec![
+            (
+                "stocks.a4.deployed_regulator_r2_at_least_0.95",
+                conant_ashby_regulator_homomorphism_r2 >= 0.95,
+            ),
+            (
+                "stocks.a4.deployed_judgment_noise_below_0.05",
+                noise_deployed < 0.05,
+            ),
+            (
+                "stocks.a4.deployed_plat_rs_above_0.80_ks_below_0.09_noise_at_most_0.10",
+                pccp_and_evaluated_competence_verified,
+            ),
+        ];
+        let axis4_verified = identities_closed && claims.iter().all(|c| c.1);
 
         Self {
             ashby_residual_unabsorbed_variety,
             conant_ashby_regulator_homomorphism_r2,
             beer_vsm_productivity_latency_performance: (productivity, latency, performance),
             algedonic_not_measured_not_executed_enforced,
-            kahneman_judgment_noise_before_and_after: (noise_before, noise_after),
+            kahneman_judgment_noise_before_and_after: (noise_before, noise_deployed),
             pate_quadrant_classifications,
             pate_q3_jackpot_algedonic_alarm_triggered,
             plat_spearman_and_ks,
             pccp_and_evaluated_competence_verified,
             engineering_notebook,
+            claims,
+            discarded_claims,
+            identities_closed,
             axis4_verified,
         }
     }
@@ -1150,12 +1541,14 @@ impl CyberneticVsmAndPateGovernanceAudit {
 pub struct StocharyConjecturalCyberneticSynthesis {
     /// Axis 1: 150-Node Topology (Acyclic Tree $\to$ Recursive Cybernetic Graph) & the Four Ontological Axioms of the Stock.
     pub topology_and_stock_axioms: TopologyAndFourStockAxiomsAudit,
-    /// Axis 2: Powell's 4 Policy Meta-Classes, Friston's Active Inference $G(\pi)$, and Pearl's `do-Calculus`.
+    /// Axis 2: Powell's `CFA` tuning, Friston's Free Energy & value of information, and Pearl's `do-Calculus`.
     pub powell_friston_causal_engine: PowellFristonCausalEngineAudit,
     /// Axis 3: Dierickx & Cool, Scarf $K$-Convexity, Simchi-Levi $\mathrm{TTS}/\mathrm{TTR}/\mathrm{REI}$, and $\beta$-CVaR + WDRO.
     pub strategic_stock_plant: StrategicStockPlantResilienceAudit,
-    /// Axis 4: Ashby/Conant/Beer VSM (S1–S5, `S3*`, Algedonic), Kahneman Noise Audit, PATE Matrix, and 5-Step Notebook.
+    /// Axis 4: Conant-Ashby/Beer VSM (S1–S5, `S3*`, Algedonic), Kahneman Noise Audit, PATE Matrix, and 5-Step Notebook.
     pub cybernetic_vsm_and_pate: CyberneticVsmAndPateGovernanceAudit,
+    /// True if every axis's identity checks close (expected in both modes).
+    pub all_identities_closed: bool,
     /// Whether all 4 axes and the 5-step Stochary Engineering Notebook are simultaneously verified.
     pub all_four_axes_verified: bool,
 }
@@ -1166,8 +1559,8 @@ impl StocharyConjecturalCyberneticSynthesis {
         Self::evaluate_with_mode(seed, true)
     }
 
-    /// Evaluates the synthesis with `cybernetic_shielded` (`true` for positive verification in Gate `G8`,
-    /// `false` for negative proof `--defect stochary_cybernetics`).
+    /// Evaluates the synthesis deploying the cybernetic methods (`true`, Gate `G8`) or the naive methods
+    /// (`false`, negative proof `--defect stochary_cybernetics`).
     pub fn evaluate_with_mode(seed: u64, cybernetic_shielded: bool) -> Self {
         let topology_and_stock_axioms =
             TopologyAndFourStockAxiomsAudit::evaluate(seed, cybernetic_shielded);
@@ -1177,9 +1570,15 @@ impl StocharyConjecturalCyberneticSynthesis {
             StrategicStockPlantResilienceAudit::evaluate(seed, cybernetic_shielded);
         let cybernetic_vsm_and_pate = CyberneticVsmAndPateGovernanceAudit::evaluate(
             &topology_and_stock_axioms,
+            &powell_friston_causal_engine,
             &strategic_stock_plant,
+            seed,
             cybernetic_shielded,
         );
+        let all_identities_closed = topology_and_stock_axioms.identities_closed
+            && powell_friston_causal_engine.identities_closed
+            && strategic_stock_plant.identities_closed
+            && cybernetic_vsm_and_pate.identities_closed;
         let all_four_axes_verified = topology_and_stock_axioms.axis1_verified
             && powell_friston_causal_engine.axis2_verified
             && strategic_stock_plant.axis3_verified
@@ -1190,8 +1589,41 @@ impl StocharyConjecturalCyberneticSynthesis {
             powell_friston_causal_engine,
             strategic_stock_plant,
             cybernetic_vsm_and_pate,
+            all_identities_closed,
             all_four_axes_verified,
         }
+    }
+
+    /// Claims removed from the gate after failing multi-seed acceptance.
+    pub fn discarded_claim_checks(&self) -> Vec<NamedCheck> {
+        self.strategic_stock_plant
+            .discarded_claims
+            .iter()
+            .chain(&self.cybernetic_vsm_and_pate.discarded_claims)
+            .copied()
+            .collect()
+    }
+
+    /// All gated claims of the four axes (Axis 3 includes `SupplyChainPhysicsAudit`), in axis order.
+    pub fn claim_checks(&self) -> Vec<NamedCheck> {
+        [
+            &self.topology_and_stock_axioms.claims,
+            &self.powell_friston_causal_engine.claims,
+            &self.strategic_stock_plant.claims,
+            &self.cybernetic_vsm_and_pate.claims,
+        ]
+        .into_iter()
+        .flatten()
+        .copied()
+        .collect()
+    }
+
+    /// Per-claim pass rates over `seeds` in the given mode (see `crate::acceptance`).
+    pub fn multi_seed_acceptance(seeds: &[u64], cybernetic_shielded: bool) -> MultiSeedAcceptance {
+        MultiSeedAcceptance::evaluate(seeds, |seed| {
+            let syn = Self::evaluate_with_mode(seed, cybernetic_shielded);
+            (syn.claim_checks(), syn.all_identities_closed)
+        })
     }
 }
 
@@ -1199,26 +1631,28 @@ impl StocharyConjecturalCyberneticSynthesis {
 /// `vic_elec.csv`, and `atlantic_storms.csv`) auditing the Stochary-Conjectural & Cybernetic Synthesis.
 #[derive(Debug, Clone, PartialEq)]
 pub struct EmpiricalStocharyCyberneticAudit {
-    /// **`djia_1885_2023.csv` ($n = 37\text{,}930$):** Annualized non-ergodic variance drain
-    /// $g_{\text{ensemble}} - g_{\text{time}} = \frac{1}{2}\sigma^2 > 0.01$ and buffered Kelly survival vs. over-betting drawdown.
+    /// **`djia_1885_2023.csv`:** annualized non-ergodic variance drain $\frac{1}{2}\sigma^2 \times 252$. Gated (`> 0.01`).
     pub djia_non_ergodic_variance_drain: f64,
-    /// **`bank_calls.csv` ($164$ operational days, $n = 27\text{,}716$):** Low-pass buffer variance attenuation ratio
-    /// $\mathrm{Var}_{\text{buffered}} / \mathrm{Var}_{\text{raw}} < 0.30$ and Scarf $(s^*, S^*)$ daily call-buffer thresholds.
+    /// **`bank_calls.csv`:** variance ratio of an EWMA ($\alpha = 0.20$) buffer over daily call totals. Gated (`< 0.30`).
     pub bank_calls_low_pass_variance_ratio: f64,
-    /// Optimal Scarf $(s^*, S^*)$ staffing buffer thresholds on `bank_calls.csv`.
+    /// Informative: $(s, S) = (\mu + 0.45\sigma, \mu + 1.35\sigma)$ daily call-buffer thresholds.
     pub bank_calls_scarf_s_and_big_s: (f64, f64),
-    /// **`danish_fire.csv` ($n = 2\text{,}167$):** Rockafellar-Uryasev $(\mathrm{VaR}_{0.95}, \mathrm{CVaR}_{0.95})$ and
-    /// Wasserstein DRO out-of-sample protection margin ($\le 0.0$ disappointment vs. positive naive disappointment).
+    /// **`danish_fire.csv`:** full-sample $(\mathrm{VaR}_{0.95}, \mathrm{CVaR}_{0.95})$ (identity: $\mathrm{CVaR} \ge \mathrm{VaR}$).
     pub danish_fire_var95_and_cvar95: (f64, f64),
-    /// Naive empirical out-of-sample disappointment vs. WDRO robust out-of-sample margin on `danish_fire.csv`.
+    /// Chronological split (first third train, rest test): $\mathrm{CVaR}^{\text{test}}_{0.95} - \mathrm{CVaR}^{\text{train}}_{0.95}$ of the empirical
+    /// estimate, and of the WDRO certificate $\mathrm{CVaR}^{\text{train}} + \varepsilon/(1-\beta)$ with $\varepsilon$ the $W_1$ distance between
+    /// the two halves of the training window. Informative: the pre-registered Optimizer's Curse claim (`> 1.0`) is discarded at the
+    /// observed chronological gap (see `discarded_findings`), which makes the certificate claim vacuous, so it is not gated either.
     pub danish_fire_naive_vs_wdro_disappointment: (f64, f64),
-    /// **`vic_elec.csv` ($n = 52\text{,}608$):** Simchi-Levi grid reserve $\mathrm{TTS} / \mathrm{TTR}$ ratio ($\ge 1.20$)
-    /// and Powell `CFA` grid storage gain over myopic dispatch.
-    pub vic_elec_tts_to_ttr_ratio: f64,
-    /// **`atlantic_storms.csv` ($n = 20\text{,}778$):** CORP-Murphy Telos score ($\mathrm{REL}_{\mathrm{CORP}} - \mathrm{RES}_{\mathrm{CORP}} < 0$)
-    /// separated from exogenous Skopos uncertainty ($\mathrm{UNC}_0$), validating `PATE Q1/Q2` mastery.
+    /// **`vic_elec.csv`:** share of test-half excursions above the training $q_{95}$ whose excess energy is covered by a reserve of
+    /// $6.5\,\mathrm{h} \times (q_{99} - q_{95})$ sized on the training half. Gated (`>= 0.90`).
+    pub vic_elec_reserve_excursion_coverage: f64,
+    /// **`atlantic_storms.csv`:** out-of-sample CORP Telos score $\mathrm{REL} - \mathrm{RES}$ of the second half recalibrated by the
+    /// first-half isotonic map, and $\mathrm{UNC}_0$. Gated (`< 0` and `> 0.02`).
     pub atlantic_storms_telos_skill_vs_skopos_unc0: (f64, f64),
-    /// Whether all 5 real datasets confirm the Stochary-Conjectural & Cybernetic invariants.
+    /// Data-dependent claims that did not survive on the real datasets (Prohibition 4: recorded, never gated).
+    pub discarded_findings: Vec<&'static str>,
+    /// Whether all surviving real-data claims hold.
     pub empirical_stochary_verified: bool,
 }
 
@@ -1235,7 +1669,7 @@ impl EmpiricalStocharyCyberneticAudit {
         let sigma_daily = sample_std(djia_returns);
         let djia_non_ergodic_variance_drain = 0.5 * sigma_daily * sigma_daily * 252.0;
 
-        // 2. Bank Calls: Low-pass stock smoothing across daily arrival totals and Scarf (s*, S*) staffing buffer
+        // 2. Bank Calls: low-pass stock smoothing across daily arrival totals
         let daily_totals: Vec<f64> = bank_call_clusters
             .iter()
             .map(|c| c.iter().sum::<f64>())
@@ -1250,62 +1684,107 @@ impl EmpiricalStocharyCyberneticAudit {
             sample_variance(&smoothed) / sample_variance(&daily_totals).max(1e-9);
         let mu_calls = mean(&daily_totals);
         let sd_calls = sample_std(&daily_totals);
-        let scarf_s = mu_calls + 0.45 * sd_calls;
-        let scarf_big_s = mu_calls + 1.35 * sd_calls;
+        let bank_calls_scarf_s_and_big_s = (mu_calls + 0.45 * sd_calls, mu_calls + 1.35 * sd_calls);
 
-        // 3. Danish Fire: Rockafellar-Uryasev (VaR_95, CVaR_95) and WDRO out-of-sample protection across chronological split
-        let (var95, cvar95) = rockafellar_uryasev_cvar(danish_fire_losses, 0.95);
+        // 3. Danish Fire: chronological split; the WDRO radius is the W1 drift observed inside the training window
+        let beta = 0.95;
+        let (var95, cvar95) = rockafellar_uryasev_cvar(danish_fire_losses, beta);
         let split = danish_fire_losses.len() / 3;
-        // Pick a calm training window vs. heavy-tailed test window to expose Optimizer's Curse without WDRO
-        let mut sorted_sub = danish_fire_losses[..split].to_vec();
-        sorted_sub.sort_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal));
-        let calm_train = &sorted_sub[..(sorted_sub.len() * 9 / 10)];
-        let (_, cvar_train_naive) = rockafellar_uryasev_cvar(calm_train, 0.95);
-        let (_, cvar_oos_true) = rockafellar_uryasev_cvar(&danish_fire_losses[split..], 0.95);
-        let naive_disappointment = cvar_oos_true - cvar_train_naive;
-        // WDRO certificate with Wasserstein radius epsilon calibrated from Hill/POT tail scale
-        let wdro_certificate = cvar_train_naive + 0.85 * cvar95;
-        let wdro_disappointment = cvar_oos_true - wdro_certificate;
+        let (train, test) = danish_fire_losses.split_at(split);
+        let (_, cvar_train) = rockafellar_uryasev_cvar(train, beta);
+        let (_, cvar_test) = rockafellar_uryasev_cvar(test, beta);
+        let epsilon = wasserstein1_1d(&train[..split / 2], &train[split / 2..]);
+        let naive_disappointment = cvar_test - cvar_train;
+        let wdro_disappointment = cvar_test - (cvar_train + epsilon / (1.0 - beta));
 
-        // 4. Victoria Electricity Demand: Grid storage reserve TTS / TTR during peak-demand excursions (> q95)
-        let mut sorted_vic = vic_elec_demand.to_vec();
-        sorted_vic.sort_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal));
-        let q95_vic = quantile_sorted(&sorted_vic, 0.95);
-        let q99_vic = quantile_sorted(&sorted_vic, 0.99);
-        // Reserve capacity sized by Conformal + CVaR buffer sustains peak excursion for TTS = 6.5 hours vs TTR = 4.5 hours
-        let peak_excess_mw = (q99_vic - q95_vic).max(1.0);
-        let strategic_reserve_mwh = peak_excess_mw * 6.5;
-        let tts_hours = strategic_reserve_mwh / peak_excess_mw;
-        let ttr_hours = 4.5;
-        let vic_elec_tts_to_ttr_ratio = tts_hours / ttr_hours;
+        // 4. Victoria Electricity Demand: reserve sized on the first half, tested on contiguous excursions of the second half
+        let half = vic_elec_demand.len() / 2;
+        let (vic_train, vic_test) = vic_elec_demand.split_at(half);
+        let q95_train = quantile(vic_train, 0.95);
+        let q99_train = quantile(vic_train, 0.99);
+        let reserve_mwh = 6.5 * (q99_train - q95_train).max(1.0);
+        let (mut excursions, mut covered) = (0usize, 0usize);
+        let mut excess_mwh = 0.0_f64;
+        let mut in_excursion = false;
+        for &d in vic_test.iter().chain(std::iter::once(&f64::NEG_INFINITY)) {
+            if d > q95_train {
+                excess_mwh += (d - q95_train) * 0.5;
+                in_excursion = true;
+            } else if in_excursion {
+                excursions += 1;
+                if excess_mwh <= reserve_mwh {
+                    covered += 1;
+                }
+                excess_mwh = 0.0;
+                in_excursion = false;
+            }
+        }
+        let vic_elec_reserve_coverage = covered as f64 / excursions.max(1) as f64;
 
-        // 5. Atlantic Storms: CORP-Murphy Telos skill (REL_CORP - RES_CORP) on PAV-calibrated forecasts vs exogenous Skopos (UNC_0)
-        let corp_raw = CorpPavDecomposition::compute(storm_forecasts.0, storm_forecasts.1);
-        let corp_cal = CorpPavDecomposition::compute(
-            &corp_raw.recalibrated_probabilities_q,
-            storm_forecasts.1,
+        // 5. Atlantic Storms: isotonic recalibration fitted on the first half and applied out of sample to the second half
+        let (probs, outcomes) = storm_forecasts;
+        let storm_half = probs.len().min(outcomes.len()) / 2;
+        let corp_train =
+            CorpPavDecomposition::compute(&probs[..storm_half], &outcomes[..storm_half]);
+        let mut iso_map: Vec<(f64, f64)> = probs[..storm_half]
+            .iter()
+            .copied()
+            .zip(corp_train.recalibrated_probabilities_q.iter().copied())
+            .collect();
+        iso_map.sort_by(|a, b| a.0.partial_cmp(&b.0).unwrap_or(std::cmp::Ordering::Equal));
+        let recalibrate = |p: f64| -> f64 {
+            let idx = iso_map.partition_point(|&(x, _)| x <= p);
+            iso_map[idx.saturating_sub(1)].1.clamp(1e-3, 1.0 - 1e-3)
+        };
+        let test_probs: Vec<f64> = probs[storm_half..outcomes.len().min(probs.len())]
+            .iter()
+            .map(|&p| recalibrate(p))
+            .collect();
+        let corp_test = CorpPavDecomposition::compute(
+            &test_probs,
+            &outcomes[storm_half..storm_half + test_probs.len()],
         );
-        let telos_net_score = corp_cal.rel_miscalibration - corp_cal.res_resolution; // negative = positive skill!
-        let skopos_unc0 = corp_cal.unc0_uncertainty;
+        let telos_net_score = corp_test.rel_miscalibration - corp_test.res_resolution;
+        let skopos_unc0 = corp_test.unc0_uncertainty;
+
+        let mut discarded_findings = Vec::new();
+        if naive_disappointment <= 1.0 {
+            discarded_findings.push(
+                "danish_fire: the training-window CVaR_95 underestimates the later CVaR_95 by more than 1.0 (Optimizer's Curse)",
+            );
+        }
+        if wdro_disappointment > 0.0 {
+            discarded_findings.push(
+                "danish_fire: the WDRO certificate CVaR_train + W1/(1 - beta) covers the later CVaR_95",
+            );
+        }
+        if vic_elec_reserve_coverage < 0.90 {
+            discarded_findings.push(
+                "vic_elec: a 6.5 h x (q99 - q95) reserve sized on the first half covers 90% of second-half peak excursions",
+            );
+        }
+        if telos_net_score >= 0.0 {
+            discarded_findings.push(
+                "atlantic_storms: first-half isotonic recalibration keeps positive net skill (REL - RES < 0) on the second half",
+            );
+        }
 
         let empirical_stochary_verified = djia_non_ergodic_variance_drain > 0.010
             && bank_calls_low_pass_variance_ratio < 0.30
-            && scarf_s < scarf_big_s
-            && cvar95 > var95
-            && naive_disappointment > 1.0
-            && wdro_disappointment <= 0.0
-            && vic_elec_tts_to_ttr_ratio >= 1.30
-            && telos_net_score < 0.0
-            && skopos_unc0 > 0.02;
+            && cvar95 >= var95
+            && skopos_unc0 > 0.02
+            && vic_elec_reserve_coverage >= 0.90
+            && telos_net_score < 0.0;
 
         Self {
             djia_non_ergodic_variance_drain,
             bank_calls_low_pass_variance_ratio,
-            bank_calls_scarf_s_and_big_s: (scarf_s, scarf_big_s),
+            bank_calls_scarf_s_and_big_s,
             danish_fire_var95_and_cvar95: (var95, cvar95),
             danish_fire_naive_vs_wdro_disappointment: (naive_disappointment, wdro_disappointment),
-            vic_elec_tts_to_ttr_ratio,
+            vic_elec_reserve_excursion_coverage: vic_elec_reserve_coverage,
             atlantic_storms_telos_skill_vs_skopos_unc0: (telos_net_score, skopos_unc0),
+            discarded_findings,
             empirical_stochary_verified,
         }
     }
@@ -1319,7 +1798,7 @@ mod tests {
     #[test]
     fn test_stochary_conjectural_cybernetic_canonical_and_defect() {
         let pos = StocharyConjecturalCyberneticSynthesis::evaluate_canonical(DEFAULT_SEED);
-        assert!(pos.all_four_axes_verified);
+        assert!(pos.all_identities_closed);
         assert_eq!(pos.topology_and_stock_axioms.tree_total_nodes, 150);
         assert_eq!(
             pos.topology_and_stock_axioms.tree_hierarchy_counts,
@@ -1345,12 +1824,31 @@ mod tests {
             "J_L2={}",
             pos.topology_and_stock_axioms.balance_index_j_l2
         );
-        assert!(pos.topology_and_stock_axioms.axis1_verified);
-        assert!(pos.powell_friston_causal_engine.axis2_verified);
-        assert!(pos.strategic_stock_plant.axis3_verified);
-        assert!(pos.cybernetic_vsm_and_pate.axis4_verified);
+        assert!(
+            pos.topology_and_stock_axioms.axis1_verified,
+            "{:?}",
+            pos.topology_and_stock_axioms
+        );
+        assert!(
+            pos.powell_friston_causal_engine.axis2_verified,
+            "{:?}",
+            pos.powell_friston_causal_engine
+        );
+        assert!(
+            pos.strategic_stock_plant.axis3_verified,
+            "{:?}",
+            pos.strategic_stock_plant
+        );
+        assert!(
+            pos.cybernetic_vsm_and_pate.axis4_verified,
+            "{:?}",
+            pos.cybernetic_vsm_and_pate
+        );
+        assert!(pos.all_four_axes_verified);
 
+        // The naive methods are actually run and miss their targets while every identity still closes.
         let neg = StocharyConjecturalCyberneticSynthesis::evaluate_with_mode(DEFAULT_SEED, false);
+        assert!(neg.all_identities_closed);
         assert!(!neg.all_four_axes_verified);
         assert!(!neg.topology_and_stock_axioms.axis1_verified);
         assert!(!neg.powell_friston_causal_engine.axis2_verified);

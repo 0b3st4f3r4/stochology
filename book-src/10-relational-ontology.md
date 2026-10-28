@@ -218,6 +218,25 @@ Historian of economics **Philip Mirowski** (*More Heat than Light*, 1989) docume
 | **5. Sociology & Emergence** | Methodological individualism (macro $=$ sum of micro intentions). | Mill's heteropathic laws, Anderson's *More Is Different*, Schelling tipping cascades, Giddens's Duality. | Schelling $\tau = 0.375 \implies 82.4\%$ segregation ($\Delta\_{\text{emerg}} = 0.449 > 0.38$). |
 | **6. Political Economy & Epistemology** | Neoclassical static equilibrium (Mirowski's copied energetics). | Complexity Economics (Arthur, Beinhocker), Morin's complex thought, Jensen's Gap & Stackelberg performativity. | $\Delta\_J > 0$ under endogenous volatility & Stackelberg $\theta\_{\mathrm{PO}} = 2.444 > \theta\_{\mathrm{PS}} = 2.000$. |
 
+```mermaid
+flowchart TD
+    S1["1 · Physics & Metaphysics\nŚūnyatā · RQM · OSR\nRelational MI = 0.3681 vs Isolated = 0.0003 nats"]
+    S2["2 · Non-Equilibrium Thermodynamics\nPrigogine Brusselator RK4 + Schnakenberg d_i S > 0\nAutopoietic Boundary Export dS = d_i S + d_e S ≤ 0"]
+    S3["3 · Biosphere & Niche Co-Evolution\nLewontin Triple Helix + Lovelock Daisyworld RK4\ndT_e/dL = -11.93 (MAE 1.52°C) → Extinction L = 1.60"]
+    S4["4 · Figurational Psychology\nHomines aperti vs. Homo clausus\nMoulton-Campbell DEFF = 5.81× (n=500 → n_eff=86)"]
+    S5["5 · Heteropathic Emergence\nAnderson 'More Is Different' + Schelling Cascade\nNon-hostile τ = 0.375 tips into 82.4% segregation"]
+    S6["6 · Complexity Political Economy\nArthur & Beinhocker vs. Mirowski Static Equilibrium\nJensen Δ_J > 0 + Stackelberg θ_PO = 2.444 > θ_PS = 2.000"]
+
+    S1 --> S2 --> S3 --> S4 --> S5 --> S6
+```
+
+### Interactive Laboratory (`/lab`)
+
+Explore the Brusselator non-equilibrium limit cycle ($B > 1 + A^2$) and `RK4` phase-space integration in the interactive laboratory below:
+
+<div class="stoch-lab" data-lab="rk4-hopf-brusselator" data-chapter="10-relational-ontology" data-title="Chapter 10 Lab: Prigogine Brusselator Hopf Limit Cycle &amp; Open-System RK4 Dynamics" data-cli="cargo run --release --bin labs -- --lenses"></div>
+
+
 ---
 
 ## Computational Audit in Rust

@@ -248,6 +248,25 @@ Every decision under Knightian uncertainty must pass **three simultaneous checks
 
 Any option that violates the global Wald floor in No-Man's Land is automatically rejected (`Gate G6` and `--defect sniedovich`).
 
+```mermaid
+flowchart TD
+    Q["Incoming Operational Claim & Model M"]
+    Q --> S1{"Are outcomes & probabilities\nboth well-characterized?"}
+    S1 -->|"Yes (L₁ Aleatory / L₂ Parametric)"| R1["Aleatory / Epistemic Parameter\nEve's Law + Laplace Rule (s+1)/(n+2)\nMoulton-Campbell n_eff(p)"]
+    S1 -->|"Outcomes clear, model form misspecified"| R2["Epistemic Specification (L₂)\nAnchored Kennedy-O'Hagan GP δ(x) ~ GP(0, k)\nCholesky Empirical Bayes LML"]
+    S1 -->|"Deep Knightian Ignorance (L₃)"| R3["Knightian Severe Uncertainty (L₃)\nInfo-Gap Horizon α̂(q, r_c) > 0\n+ Sniedovich Global Wald Floor"]
+    R3 --> W{"Global min_{u ∈ U_global} R(q,u) ≥ r_Wald?"}
+    W -->|"No (Christmas Turkey)"| BLK["BLOCKED by Gate G6\n(--defect sniedovich → exit 1)"]
+    W -->|"Yes"| APP["APPROVED under Severe Uncertainty"]
+```
+
+### Interactive Laboratory (`/lab`)
+
+Adjust the critical survival requirement $r\_c$, the tail drop in Sniedovich's "No-Man's Land," and the Kennedy-O'Hagan GP boundary anchor weight in the interactive laboratory below:
+
+<div class="stoch-lab" data-lab="koh-infogap-wald" data-chapter="04-uncertainty" data-title="Chapter 4 Lab: Kennedy-O'Hagan GP Discrepancy &amp; Info-Gap + Sniedovich Wald Floor" data-cli="cargo run --release --bin labs -- --uncertainty"></div>
+
+
 ---
 
 ## Computational Audit in Rust

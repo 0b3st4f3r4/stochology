@@ -305,6 +305,24 @@ When a statistical proxy metric $M$ is promoted into an optimization target on B
 3. **Causal Goodhart (`GoodhartVariant::Causal`):** When $M$ is a downstream symptom or sibling effect of the true causal mechanism ($U \to Y$ and $U \to M$, so $M \notin \hat{S}^{\ast}$ under `run_nonlinear_icp_nile`), intervening via $\mathrm{do}(M = m)$ shifts the proxy while leaving $\mathbb{E}[Y \mid \mathrm{do}(M = m)] = \mu\_Y$ unchanged (causal intervention gap $+2.56$).
 4. **Adversarial Goodhart (`GoodhartVariant::Adversarial`):** Rational agents game the proxy rule directly along the performative distribution-shift gradient $\nabla\_1 \mathrm{DPR}(\theta, \theta)$ (`PerformativeSystem::dpr_gradient_components`), inflating $M$ while degrading true Performative Risk $\mathrm{PR}(\theta\_{\mathrm{PS}}) - \mathrm{PR}(\theta\_{\mathrm{PO}}) = +0.0078 > 0$.
 
+```mermaid
+flowchart TD
+    L1["Layer L₁ · Physical & Social World\nTrue state Y, finite population N"]
+    L2["Layer L₂ · Mathematical Model\nRecorded sample n, predictive CDF F(y|x)"]
+    L3["Layer L₃ · Deciding Agent\nAction a ∈ {protect, do_not_protect}, deployed policy θ"]
+
+    L1 -->|"Bridge L₁ → L₂ (Observation Filter)\nRubin MCAR/MAR/MNAR · Meng ρ_{R,Y}\nManski & Lee (2009) Bounds"| L2
+    L2 -->|"Bridge L₂ → L₃ (Decision Compression)\nJensen Gap Δ_J = E[f(X)] - f(E[X])\nLOO CRPS · 10 bit/s AlertFatigueAudit"| L3
+    L3 -->|"Bridge L₃ → L₁ (Performative Feedback)\nD(θ) shift · θ_PS vs Stackelberg θ_PO\nr_RRM = εβ/γ < 1 · Goodhart 4 Variants"| L1
+```
+
+### Interactive Laboratory (`/lab`)
+
+Use the interactive dual-bridge simulator below to test how even a tiny selection correlation $|\rho\_{R,Y}|$ collapses Meng's effective sample size $n\_{\mathrm{eff}}$ on Bridge $L\_1 \to L\_2$, and how performative sensitivity $\varepsilon$ governs whether Repeated Risk Minimization converges to $\theta\_{\mathrm{PS}}$ or diverges on Bridge $L\_3 \to L\_1$:
+
+<div class="stoch-lab" data-lab="meng-performativity" data-chapter="02-layers" data-title="Chapter 2 Lab: Meng Big-Data Paradox (L₁→L₂) &amp; Performative RRM vs. PerfGD (L₃→L₁)" data-cli="cargo run --release --bin labs -- --layers"></div>
+
+
 ---
 
 ## Computational Audit in Rust

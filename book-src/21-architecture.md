@@ -44,7 +44,7 @@ The repository is organized as a layered Cargo workspace where dependency arrows
   <text x="184" y="191" text-anchor="middle" fill="var(--sky)" class="mono" font-size="11" font-weight="700">5 Transversal Lenses + Machine</text>
   <text x="184" y="213" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11">information · time · tail</text>
   <text x="184" y="233" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11">invariance · decision (CORP)</text>
-  <text x="184" y="253" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">machine · relational · analog · critical · stocks</text>
+  <text x="184" y="253" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">machine · relational · analog · critical · stocks · triad</text>
   <rect x="370" y="140" width="320" height="128" rx="12" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2.2"/>
   <text x="530" y="168" text-anchor="middle" fill="var(--ink)" class="mono" font-size="14.5" font-weight="800">stochology-siga</text>
   <text x="530" y="191" text-anchor="middle" fill="var(--violet)" class="mono" font-size="11" font-weight="700">Funnel &amp; Operational Roadmap</text>
@@ -87,7 +87,7 @@ The repository is organized as a layered Cargo workspace where dependency arrows
 | **Ch. 10 (§1.3.7)** — Relational Ontology | *Śūnyatā*/RQM/OSR, Prigogine Brusselator RK4 + Schnakenberg $d\_i S$, Schelling tipping, *Homo clausus*, and *Daisyworld* RK4 | `stochology_lenses::relational::{RelationalComplexSystemsSynthesis, DissipativeAutopoieticAudit, DaisyworldSystem}` | `labs --lenses` & `gates` (`G8`) |
 | **Ch. 11 (§1.3.8)** — Analog & Wave Computing | Horowitz energy wall, RLC-mechanical RK4 isomorphism, AIMC "Analog Wall" vs. NAT, PKU `HP-INV` + `BlockAMC`, `ABNAT / HaLoRA`, `SIREN`/Wave RNN, and Sensory DPI + Turing decibans | `stochology_lenses::analog::{AnalogWaveComputingSynthesis, AimcAnalogWallHpInvAudit, EmpiricalWaveAnalogAudit}` | `labs --lenses`, `gates` (`G8`), `--defect analog_wall` |
 | **Ch. 12 (§1.3.9)** — Critical Stochastic Rationality | Adorno's *Nichtidentische* $\Delta_{\text{Nichtidentische}}$, Marcuse/Rouvroy preemption, "Stochastic Parrots" + 4 Goodhart Variants, 300T token autophagy & Alia noise cliff, and neurosymbolic/wave overcoming | `stochology_lenses::critical::{CriticalStochasticRationalitySynthesis, EmpiricalCriticalRationalityAudit}` | `labs --lenses`, `labs --real-data`, `gates` (`G8`), `--defect instrumental_reason` |
-| **Ch. 13 (§1.3.10)** — Stochary-Conjectural Synthesis, Supply-Chain Physics & Cybernetics | 150-node cybernetic graph, 4 Ontological Stock Axioms, Powell's 4 policy classes, Friston $G(\pi)$, Pearl Front-Door, Dierickx-Cool, Scarf $(S,s)$, Kingman VUT & MEIO decoupling (`SupplyChainPhysicsAudit`), Simchi-Levi $\mathrm{TTS}/\mathrm{TTR}$, $\beta$-CVaR + WDRO, Ashby/Conant/Beer `VSM` S1–S5/`S3*`/Algedonic + `PLAT`/`PCCP`, and `PATE` Q1–Q4 matrix | `stochology_lenses::stocks::{StocharyConjecturalCyberneticSynthesis, SupplyChainPhysicsAudit, EmpiricalStocharyCyberneticAudit}` | `labs --lenses`, `labs --real-data`, `gates` (`G8`), `--defect stochary_cybernetics` |
+| **Ch. 13 (§1.3.10–11)** — Stochary-Conjectural Synthesis, Supply-Chain Physics, Cybernetics & Triadic ($\mathbb{C} \times \text{Fractals} \times \mathbb{T}^d$) Technium | 150-node cybernetic graph, 4 Ontological Stock Axioms, Powell's 4 policy classes, Friston $G(\pi)$, Pearl Front-Door, Dierickx-Cool, Scarf $(S,s)$, Kingman VUT & MEIO decoupling (`SupplyChainPhysicsAudit`), Simchi-Levi $\mathrm{TTS}/\mathrm{TTR}$, $\beta$-CVaR + WDRO, Ashby/Conant/Beer `VSM` S1–S5/`S3*`/Algedonic + `PLAT`/`PCCP`, `PATE` Q1–Q4 matrix, Complex Gabor `WIRE` vs. `tanh` on the discrete Helmholtz PDE, $\mathbb{C}\hookrightarrow\mathbb{R}$ `BlockAMC` & admissible hierarchical compression, simulated `CTRW` scaling & trimmed analog ECC decoding, `PDHTE` refusal gate & `TailWelsch-DML`, Golden Weyl `mixGamma` & Hermite-Mehler `DFM`/`MLLS+BCTS`, and forced-logistic `SNA`/`RLHF` spectra/`PerfGD`/`FHRR`/`LTC` (identities closed in both modes; refuted claims recorded as `discarded_findings`) | `stochology_lenses::{stocks::{StocharyConjecturalCyberneticSynthesis, SupplyChainPhysicsAudit, EmpiricalStocharyCyberneticAudit}, triad::{ComplexFractalToroidalTechniumSynthesis, EmpiricalTriadicTechniumAudit}}` | `labs --lenses`, `labs --real-data`, `gates` (`G8`), `--defect stochary_cybernetics`, `--defect triadic_technium` |
 | **Ch. 15–17 (§2)** — Contract, $\Phi\_1$–$\Phi\_5$ & Card | Prohibitions 1–4, `SplitMix64::split` (`MonteCarloSplitTreeAudit`), Moulton-Campbell $\tilde{m}$, exceedance profile $\rho\_I(p)$, Chouldechova + KMR, and YAML Card | `stochology_core::{rng::MonteCarloSplitTreeAudit, invariants::{ExceedanceDesignEffect, ChouldechovaAudit}, card::EpistemologicalCard}` | `labs --invariants`, `gates`, `--defect cromwell/phi5/moulton/chouldechova` |
 | **Ch. 18 (§3)** — Funnel & SIGA Roadmap | 4 Eliminatory Filters, Lentz Incomplete Beta & SHELF $\mathrm{Beta}(\hat{\alpha},\hat{\beta})$, 8-Step SIGA, SBC $\chi^2$, GRAPA *e-processes*, Gigerenzer trees, and `AlertFatigueAudit` ($10\text{ bit/s}$ + Turing decibans) | `stochology_siga::funnel::{evaluate_four_filter_funnel, fit_shelf_beta_prior}` & `stochology_siga::roadmap::{EvidenceProcess, NaturalFrequencyMemo, AlertFatigueAudit}` | `cargo run --release --bin labs -- --siga` |
 | **Ch. 19 (§4)** — Governance, Vault & Drift | Bitemporal Clock ($t\_{\text{disp}}$), Canary, `HMAC-SHA256` Vault (`SealTampered`), CORP Breaker, `ExTRA-WCP-T`, Online `ACI`, 4 Label Shift Estimators, `PredeterminedChangeControlPlan`, `ProfitLossAttributionTest`, and `EvaluatedCompetenceCriterion` | `stochology_governance::{clock::*, vault::TemporalVault, drift::{AdaptiveConformalInference, PredeterminedChangeControlPlan, ProfitLossAttributionTest, EvaluatedCompetenceCriterion, *}}` | `labs --governance`, `gates -- --defect clock/vault/concept_drift` |
@@ -100,6 +100,36 @@ The repository is organized as a layered Cargo workspace where dependency arrows
 To enforce Filter 4's strict separation of authorship (`null_model` / `decision_rule` vs. `adversarial_reviewer`) and Invariant $\Phi\_3$'s cryptographic protection across any autonomous coding agent or multi-agent harness, the workspace defines three specialized subagents and a pre-tool cryptographic hook in `.agents/` alongside the root contract in `AGENTS.md`:
 
 1. **`stochology-modeler` (`.agents/agents/stochology-modeler.md`, Mode `branch`):** Operates in an isolated Git worktree to expand `stochology-core`, `stochology-lenses`, `stochology-siga`, and `stochology-governance` in pure Rust (`std` only) anchored to `SplitMix64` (`seed = 2026`).
-2. **`stochology-adversary` (`.agents/agents/stochology-adversary.md`, Mode `inherit`):** Acts as the independent VSM audit channel `S3*` and `adversarial_reviewer`, executing the 8 positive gates (`gates`) and all 13 negative defect proofs (`gates -- --defect <name>`).
+2. **`stochology-adversary` (`.agents/agents/stochology-adversary.md`, Mode `inherit`):** Acts as the independent VSM audit channel `S3*` and `adversarial_reviewer`, executing the 8 positive gates (`gates`) and all 19 negative defect proofs (`gates -- --defect <name>`).
 3. **`stochology-scribe` (`.agents/agents/stochology-scribe.md`, Mode `inherit`):** Maintains documentary and pedagogical parity across the Rust crates, `docs/PROTOCOL.md`, `book-src/appendix-protocol.md`, and the 24 chapters of `book-src/`.
 4. **Cryptographic Protection Hook (`.agents/hooks.json` & `.agents/scripts/phi3_cryptographic_gate.sh`):** Enforces autonomous execution (`Allow List`) for `scripts/verify.sh`, `cargo fmt`, `cargo clippy`, `cargo test`, `labs`, and `gates`, while requiring explicit human inline-diff approval (`Request Review` / `force_ask`) before any modification to `data/SHA256SUMS`, `cards/*.yaml`, or `crates/stochology-governance/src/vault.rs`.
+
+---
+
+## 21.5 Interactive Playground Architecture (`/lab` Bridge on GitHub Pages)
+
+Every chapter of the compiled textbook (`book/`) integrates directly with the **Stochology Interactive Laboratory (`/lab`)** via `book-src/lab/index.html`, `book-src/lab/embed/index.html`, `mathjax.js`, and `theme/book.css`:
+
+1. **Declarative DOM Contract (`.stoch-lab`):**
+   Chapters declare interactive modules via `<div class="stoch-lab" data-lab="<module-id>" data-title="..." data-subtitle="..."></div>` elements. At page load, the engine hydrates each container with parameter sliders, a real-time vector stage (`<svg viewBox="0 0 680 230">`), four quantitative telemetry readouts, a one-click CLI audit copy button, a synchronized deep-link button (`Open in /lab ↗`), and an optional embedded sandbox toggle (`Sandbox (/lab/embed)`).
+2. **Deterministic URL & `postMessage` Synchronization (`seed = 2026`):**
+   Every slider mutation updates the query string `/lab/?module=<id>&seed=2026&<k1>=<v1>&...` and, when the sandbox `iframe` (`/lab/embed/?...`) is active, dispatches a structured `window.postMessage` payload (`{ type: "stochology:lab:state", seed: 2026, module, state, metrics, cli }`).
+
+```mermaid
+sequenceDiagram
+    participant Reader as Human Reader (book/*.html)
+    participant Widget as In-Page Engine (mathjax.js)
+    participant Lab as Interactive Sandbox (/lab &amp; /lab/embed)
+    participant CLI as Pure-Rust Binary (labs / gates)
+    Reader->>Widget: Adjusts parameter sliders (seed = 2026)
+    Widget->>Widget: Recomputes exact SVG curves &amp; gate status
+    Widget->>Lab: Updates deep-link URL (/lab/?...) &amp; postMessage("stochology:lab:state")
+    Reader->>CLI: Copies &amp; runs cargo run --release --bin labs / gates
+    CLI-->>Reader: Reproduces bit-for-bit terminal audit (exit code 0 or 1)
+```
+
+<div class="stoch-lab"
+     data-lab="spectral-telgarsky-deff"
+     data-title="Workspace Architecture Lab: Almost-Perfect Machine M = (T, Φ, θ)"
+     data-subtitle="Inspect Telgarsky depth 2^D, Gram effective dimension d_eff, and Barron rate across crates">
+</div>

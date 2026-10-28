@@ -202,6 +202,28 @@ In live deployment (Chapter 19), the target environment $Q(X, Y)$ often diverges
    $$\mathbf{q}\_{\text{pred}} = C \, \boldsymbol{\pi}\_Q \implies \hat{\boldsymbol{\pi}}\_Q = C^{-1} \mathbf{q}\_{\text{pred}}$$
    Solving this equation (via `BBSE`, `MLLS/SLD`, `DFM`, or `OTTER` Optimal Transport in Chapter 19) recovers the new target prevalence $\boldsymbol{\pi}\_Q$ **without needing a single new ground-truth label in production**.
 
+### Step-by-Step Proof of Jean Ville's (1939) Maximal Inequality and Model-Free `GREE` VaR/ES E-Backtesting
+
+Why does a nonnegative test martingale $E\_t = \prod\_{i=1}^t L\_i$ ($E\_0 = 1$, $\mathbb{E}\_0[E\_t \mid \mathcal{F}\_{t-1}] \le E\_{t-1}$) allow you to peek after every single observation without inflating your false-positive rate?
+
+1. **Proof via Doob's Stopped Supermartingale:**
+   Fix any threshold $c = 1/\alpha > 1$ (say $c = 20$ for $\alpha = 0.05$), and define the stopping time $\tau = \inf\{t \ge 1 : E\_t \ge c\}$ (the very first moment the evidence crosses $c$). For any finite horizon $T$, the stopped process $E\_{t \wedge \tau}$ is still a nonnegative supermartingale with initial value $E\_0 = 1$, so by Optional Stopping and Markov's Inequality:
+   $$1 = E\_0 \ge \mathbb{E}\_0\!\left[E\_{T \wedge \tau}\right] \ge \mathbb{E}\_0\!\left[E\_\tau \, \mathbf{1}\{\tau \le T\}\right] \ge c \cdot P\_0(\tau \le T)$$
+   Dividing by $c = 1/\alpha$ and letting $T \to \infty$ by monotone convergence yields **Ville's Inequality**:
+   $$P\_0\!\left(\exists t \ge 1 : E\_t \ge \frac{1}{\alpha}\right) \le \alpha$$
+
+2. **Model-Free `GREE` E-Backtesting for Value-at-Risk and Expected Shortfall (`VarEsEBacktest`):**
+   Following Wang, Wang & Ziegel (2022/2025), we can audit any reported $(1-\alpha)$-$\mathrm{VaR}$ forecast $v\_t$ and Expected Shortfall forecast $s\_t > v\_t$ against realized losses $L\_t$ without distributional assumptions using the elementaryExpected Shortfall e-statistic:
+   $$e\_t^{\mathrm{ES}}(L\_t; v\_t, s\_t) = \frac{(L\_t - v\_t)\_+}{\alpha(s\_t - v\_t)}$$
+   Under a truthful risk report ($\mathbb{E}[(L\_t - v\_t)\_+] \le \alpha(s\_t - v\_t)$), $\mathbb{E}[e\_t^{\mathrm{ES}}] \le 1$, so the betting martingale $M\_t = \prod\_{i=1}^t \bigl(1 - \lambda\_i + \lambda\_i e\_i^{\mathrm{ES}}\bigr)$ is a valid test supermartingale (`--defect var_underreport` in Gate `G7`).
+
+### Interactive Laboratory (`/lab`)
+
+Use the interactive Ville martingale vs. optional-stopping laboratory below to compare `aGRAPA`/`GRO` anytime-valid evidence $E\_t$ against the false-positive inflation of repeated $z$-test peeking:
+
+<div class="stoch-lab" data-lab="ville-savi-conformal" data-chapter="14-severe-testing-martingales-conformal" data-title="Chapter 14 Lab: Ville Martingale e-Process (E_t) vs. Optional-Stopping Peeking Inflation" data-cli="cargo run --release --bin gates -- --defect peeking"></div>
+
+
 ---
 
 ## Computational Audit in Rust

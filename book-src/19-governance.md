@@ -201,6 +201,76 @@ To prevent unauthorized post-hoc model mutation or silent P&L divergence when an
 3. **Predetermined Change Control Plan (`PredeterminedChangeControlPlan`, `PCCP`):**
    Seals the allowed modification boundary via a 64-character SHA-256 protocol hash, enforcing that any automated recalibration or conformal update remains within pre-registered bounds (`candidate_rel <= max_allowed_rel_corp`), retains at least $85\%$ of baseline resolution (`candidate_res >= 0.85 * baseline_res`), stays outside the `PLAT Red` zone, and satisfies `EvaluatedCompetenceCriterion`.
 
+### Step-by-Step Proof of Gibbs & Candès's (2021) Telescoping Bound for Online Adaptive Conformal Inference (`ACI`)
+
+Why does the simple online update $\alpha\_{t+1} = \alpha\_t + \gamma(\alpha - \mathrm{err}\_t)$ guarantee long-run coverage $1 - \alpha$ on **arbitrary non-stationary time series** without exchangeability?
+1. **Rearranging the Update Rule:**
+   At each step $t = 1, \dots, T$, the miscoverage indicator is $\mathrm{err}\_t = \mathbb{I}\lbrace S\_t > \hat{Q}\_{1-\alpha\_t}\rbrace \in \lbrace 0, 1\rbrace$, and the uncapped recurrence satisfies:
+   $$\alpha\_{t+1} - \alpha\_t = \gamma(\alpha - \mathrm{err}\_t) \implies \alpha - \mathrm{err}\_t = \frac{\alpha\_{t+1} - \alpha\_t}{\gamma}$$
+2. **Telescoping Sum Over $t = 1, \dots, T$:**
+   Summing both sides from $t = 1$ to $T$ collapses the right-hand side into a telescoping difference between the final state $\alpha\_{T+1}$ and initial state $\alpha\_1$:
+   $$\sum\_{t=1}^T (\alpha - \mathrm{err}\_t) = \frac{1}{\gamma}\sum\_{t=1}^T (\alpha\_{t+1} - \alpha\_t) = \frac{\alpha\_{T+1} - \alpha\_1}{\gamma}$$
+3. **Boundedness Implies Finite-Horizon Convergence:**
+   Because $\alpha\_t$ remains bounded inside $[0, 1]$ (so $|\alpha\_{T+1} - \alpha\_1| \le 1$), dividing by $T$ yields the exact deterministic finite-sample bound for *every* realization of the data stream:
+   $$\left|\frac{1}{T}\sum\_{t=1}^T \mathrm{err}\_t - \alpha\right| = \frac{|\alpha\_{T+1} - \alpha\_1|}{\gamma T} \le \frac{1}{\gamma T}$$
+   As $T \to \infty$, empirical coverage $1 - \frac{1}{T}\sum\_{t=1}^T \mathrm{err}\_t$ converges to $1 - \alpha$ at rate $\mathcal{O}(1/(\gamma T))$ regardless of distribution shifts, serial correlation, or adversarial shocks.
+
+<figure class="stoch-figure">
+  <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="290" viewBox="0 0 1120 290" fill="none" role="img" aria-labelledby="title-fig-19-2">
+    <title id="title-fig-19-2">The Bitemporal Causality Plane (t_ev, t_disp) and the PLAT Spearman-KS Traffic-Light Zones</title>
+    <defs>
+      <style>text { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; } .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; }</style>
+    </defs>
+    <rect x="1" y="1" width="1118" height="288" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
+    <!-- Left panel: Bitemporal Plane (t_ev, t_disp) -->
+    <rect x="20" y="20" width="530" height="250" rx="12" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2"/>
+    <text x="40" y="46" fill="var(--sky)" class="mono" font-size="11.5" font-weight="800">BITEMPORAL PLANE (t_ev ≤ t_disp) AT DECISION TIME τ</text>
+    <line x1="70" y1="225" x2="510" y2="225" stroke="var(--border)" stroke-width="1.5"/>
+    <line x1="70" y1="62" x2="70" y2="225" stroke="var(--border)" stroke-width="1.5"/>
+    <!-- Admissible Triangle: t_ev <= t_disp <= tau -->
+    <polygon points="70,225 330,225 330,115" fill="var(--emerald-bg)" stroke="var(--emerald)" stroke-width="2"/>
+    <!-- Quarantine Triangle: t_ev <= tau < t_disp -->
+    <polygon points="70,225 330,115 70,68" fill="var(--rose-bg)" stroke="var(--rose)" stroke-width="2" stroke-dasharray="5 3"/>
+    <!-- Diagonal t_disp = t_ev -->
+    <line x1="70" y1="225" x2="470" y2="65" stroke="var(--ink)" stroke-width="1.8"/>
+    <!-- Horizontal line t_disp = tau -->
+    <line x1="70" y1="115" x2="510" y2="115" stroke="var(--amber)" stroke-width="2" stroke-dasharray="6 4"/>
+    <text x="235" y="192" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="11" font-weight="800">ADMITTED (t_disp ≤ τ)</text>
+    <text x="235" y="208" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10">I(Canary; Y) = 0.0000</text>
+    <text x="165" y="96" text-anchor="middle" fill="var(--rose)" class="mono" font-size="10.5" font-weight="800">QUARANTINED (t_ev ≤ τ &lt; t_disp)</text>
+    <text x="455" y="108" text-anchor="end" fill="var(--amber)" class="mono" font-size="10.5" font-weight="700">Wall Clock t_disp = τ</text>
+    <text x="290" y="250" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">Event Time t_ev → (y-axis: Availability Time t_disp)</text>
+    <!-- Right panel: PLAT Traffic Light (Spearman r_s vs KS D_KS) -->
+    <rect x="570" y="20" width="530" height="250" rx="12" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2"/>
+    <text x="590" y="46" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="800">BASEL III FRTB PLAT TRAFFIC-LIGHT &amp; ALGEDONIC GATE</text>
+    <!-- Red Zone background -->
+    <rect x="620" y="65" width="440" height="160" rx="8" fill="var(--rose-bg)" stroke="var(--rose)" stroke-width="1.6"/>
+    <!-- Amber Zone -->
+    <rect x="770" y="110" width="290" height="115" rx="6" fill="var(--amber-bg)" stroke="var(--amber)" stroke-width="1.6"/>
+    <!-- Green Zone -->
+    <rect x="840" y="140" width="220" height="85" rx="6" fill="var(--emerald-bg)" stroke="var(--emerald)" stroke-width="2.2"/>
+    <text x="950" y="178" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="12" font-weight="800">GREEN ZONE</text>
+    <text x="950" y="198" text-anchor="middle" fill="var(--ink)" class="mono" font-size="10.5">r_s ≥ 0.80 &amp; D_KS ≤ 0.09</text>
+    <text x="915" y="129" text-anchor="middle" fill="var(--amber)" class="mono" font-size="11" font-weight="800">AMBER (1.50× Surcharge)</text>
+    <text x="700" y="96" text-anchor="middle" fill="var(--rose)" class="mono" font-size="11.5" font-weight="800">RED ZONE (ALGEDONIC HALT)</text>
+    <text x="700" y="114" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10">r_s &lt; 0.70 or D_KS &gt; 0.12</text>
+    <text x="840" y="250" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">Spearman Rank Alignment r_s → (y-axis: KS Distance D_KS)</text>
+  </svg>
+  <figcaption><strong>Figure 19.2 — Bitemporal Causality Plane (t_ev ≤ t_disp ≤ τ) and the PLAT Spearman–Kolmogorov-Smirnov Traffic-Light Gate</strong></figcaption>
+</figure>
+
+---
+
+## Interactive Laboratory (`/lab`)
+
+Simulate bitemporal reporting latency, the 4 regimes of production drift, the Lei & Candès conformal floor $1 - \alpha - d\_{\mathrm{TV}}$, and the Murphy-CORP circuit breaker:
+
+<div class="stoch-lab"
+     data-lab="governance-bitemporal-drift"
+     data-title="Bitemporal Clock, Lei-Candès Conformal Drift &amp; CORP Circuit Breaker"
+     data-subtitle="Test how reporting lag, covariate shift d_TV, and resolution collapse trigger Gate G7 and Algedonic halts">
+</div>
+
 ---
 
 ## Computational Audit in Rust

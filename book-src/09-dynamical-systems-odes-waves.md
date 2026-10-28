@@ -206,6 +206,27 @@ Comparing the second derivatives of two neural activation functions shows why pe
    $$\sigma'(x) = \omega\_0 \cos(\omega\_0 x + b), \qquad \sigma''(x) = -\omega\_0^2 \sin(\omega\_0 x + b) = -\omega\_0^2 \sigma(x)$$
    The derivative of a `SIREN` network is another `SIREN` network (phase-shifted by $\pi/2$), and its second derivative is proportional to itself, matching the Helmholtz operator $\frac{d^2\psi}{dx^2} + \omega\_0^2 \psi$ natively.
 
+### Exact Stability Amplification Factor: Why Forward Euler Spirals Outward on Every Harmonic Oscillator
+
+To prove algebraically why Forward Euler injects artificial energy into an undamped harmonic oscillator ($\dot{x} = v, \; \dot{v} = -\omega^2 x$), combine the state vector $(x\_n, v\_n/\omega)$ into a single complex number $z\_n = x\_n + i(v\_n/\omega)$. The continuous ODE is simply $\dot{z} = -i\omega z$, whose exact solution $z(t) = z\_0 e^{-i\omega t}$ rotates around the unit circle with constant energy $|z(t)|^2 = |z\_0|^2$.
+
+Applying one step of **Forward Euler** with step size $h$ multiplies $z\_n$ by the complex amplification factor $G\_{\text{Euler}}(i\omega h) = 1 - i\omega h$:
+
+$$|z\_{n+1}|^2 = |1 - i\omega h|^2 \, |z\_n|^2 = \left(1 + \omega^2 h^2\right) |z\_n|^2 \implies E\_n = E\_0 \left(1 + \omega^2 h^2\right)^n \longrightarrow +\infty$$
+
+Regardless of how small $h > 0$ is, $1 + \omega^2 h^2 > 1$, so Forward Euler exponentially inflates oscillator energy. By contrast, **4th-Order Runge-Kutta (`RK4`)** matches the Taylor series of $e^{-i\omega h}$ through degree $4$:
+
+$$G\_{\mathrm{RK4}}(i\omega h) = 1 - i\omega h - \frac{(\omega h)^2}{2} + i\frac{(\omega h)^3}{6} + \frac{(\omega h)^4}{24} \implies |G\_{\mathrm{RK4}}(i\omega h)|^2 = 1 - \frac{(\omega h)^6}{72} + \frac{(\omega h)^8}{576}$$
+
+reducing single-step amplitude drift from $\mathcal{O}((\omega h)^2)$ to $\mathcal{O}((\omega h)^6)$.
+
+### Interactive Laboratory (`/lab`)
+
+Use the interactive ODE and Brusselator simulator below to compare Forward Euler's parasitic energy explosion against `RK4` and explore the Hopf bifurcation threshold $B > 1 + A^2$:
+
+<div class="stoch-lab" data-lab="rk4-hopf-brusselator" data-chapter="09-dynamical-systems-odes-waves" data-title="Chapter 9 Lab: Forward Euler vs. RK4 Phase Integrator &amp; Hopf Bifurcation" data-cli="cargo run --release --bin labs -- --lenses"></div>
+
+
 ---
 
 ## Computational Audit in Rust

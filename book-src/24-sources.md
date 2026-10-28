@@ -129,3 +129,37 @@ Their exact 64-character SHA-256 digests are recorded in [`data/SHA256SUMS`](../
 - **Dehejia, Rajeev H. & Sadek Wahba (1999).** "Causal Effects in Nonexperimental Studies: Reevaluating the Evaluation of Training Programs." *Journal of the American Statistical Association*, 94(448), 1053–1062.
 - **Weinberg, Jonathan, Lawrence D. Brown & Jonathan R. Stroud (2007).** "Bayesian Forecasting of an Inhomogeneous Poisson Process With Applications to Call Center Data." *Journal of the American Statistical Association*, 102(480), 1185–1198.
 - **McNeil, Alexander J. (1997).** "Estimating the Tails of Loss Severity Distributions Using Extreme Value Theory." *ASTIN Bulletin*, 27(1), 117–137.
+
+### IX. Critical Theory, Triadic Synthesis ($\mathbb{C} \times \text{Fractals} \times \mathbb{T}^d$), and Technosphere Ontology
+- **Horkheimer, Max & Theodor W. Adorno (1944 / 1947).** *Dialectic of Enlightenment* (*Dialektik der Aufklärung*); & **Adorno, Theodor W. (1966).** *Negative Dialectics* (*Negative Dialektik*). Frankfurt am Main: Suhrkamp. — Critiques positivist identity thinking and the liquidation of the *Non-Identical* ($\Delta\_{\text{Nichtidentische}}$).
+- **Marcuse, Herbert (1964).** *One-Dimensional Man*. Beacon Press; & **Rouvroy, Antoinette & Thomas Berns (2013).** "Gouvernementalité algorithmique et perspectives d'émancipation." *Réseaux*, 177(1), 163–196. — Analyzes operational closure and preemptive algorithmic governmentality.
+- **Saragadam, Vishwanath, Daniel LeJeune, Jasper Tan, Guha Balakrishnan, Ashok Veeraraghavan & Richard G. Baraniuk (2023).** "`WIRE`: Wavelet Implicit Neural Representations." *Proceedings of IEEE/CVF CVPR 2023*, pp. 18507–18516. — Introduces continuous complex Gabor wavelet activations $\psi(z) = e^{i\omega\_0 z} e^{-|s\_0 z|^2}$ on the Helmholtz PDE.
+- **Hackbusch, Wolfgang (2015).** *Hierarchical Matrices: Algorithms and Analysis*. Berlin: Springer. — Establishes $\eta$-admissible tree-structured low-rank approximations ($\mathcal{H}$-Matrices).
+- **Montroll, Elliott W. & George H. Weiss (1965).** "Random Walks on Lattices. II." *Journal of Mathematical Physics*, 6(2), 167–181; & **Roth, Ron M. (2020).** "Analog Error-Correcting Codes." *IEEE Transactions on Information Theory*, 66(7), 4075–4088. — Formalizes heavy-tailed continuous-time random walks (`CTRW`) and analog $m$-height error-correcting codes.
+- **Mandelbrot, Benoit B., Adlai Fisher & Laurent Calvet (1997).** "A Multifractal Model of Asset Returns (`MMAR`)." Cowles Foundation Discussion Paper No. 1164; & **Gerstgrasser, Matthias et al. (2024).** "Is Model Collapse Inevitable? Breaking the Curse of Recursion by Accumulating Real and Synthetic Data." *Proceedings of ICML 2024*. — Formalizes multifractal cascades and the $\pi^2/6$ Basel bound for data accumulation.
+- **Garg, Saurabh, Yifan Wu, Sivaraman Balakrishnan & Zachary C. Lipton (2020).** "A Unified View of Label Shift Estimation." *Advances in NeurIPS*, 33, 3290–3300. — Analyzes Maximum Likelihood Label Shift with Bias-Corrected Temperature Scaling (`MLLS+BCTS`).
+- **Feudel, Ulrike, Sergey Kuznetsov & Arkady Pikovsky (2006).** *Strange Nonchaotic Attractors: Dynamics Between Order and Chaos*. World Scientific; & **Perea, Jose A. (2018).** "Topological Time Series Analysis." *Notices of the AMS*, 66(5), 686–694. — Establishes quasiperiodically forced Strange Nonchaotic Attractors (`SNA`, $\lambda < 0, \mu > 0$) and persistent cohomology circular coordinates $H^1(X; \mathbb{Z}) \cong [X, S^1]$.
+- **Kelly, Kevin (2010).** *What Technology Wants*. Viking Press; **Arthur, W. Brian (2009).** *The Nature of Technology: What It Is and How It Evolves*. Free Press; & **Haff, Peter K. (2014).** "Humans and Technology in the Anthropocene: Six Rules." *The Anthropocene Review*, 1(2), 126–136. — Formalizes the *Technium*, combinatorial autopoiesis, and the Six Rules of the Technosphere across Strata I–III.
+
+```mermaid
+flowchart TD
+    BIB["Annotated Bibliography (9 Pillars)"] --> P1["I–II: Epistemology, Bridges &amp; Severe Uncertainty<br/>Bernoulli, Mayo, Rubin, Meng, Manski, Lee, Perdomo, Izzo, Sniedovich"]
+    BIB --> P2["III–IV: 5 Lenses, Machine, Invariants &amp; Governance<br/>Raginsky, Kelly, Hill, Pearl, Dimitriadis (CORP), Moulton, Chouldechova, Grünwald, Candès"]
+    BIB --> P3["V–IX: Relational, Analog/Wave, Critical, Stochary &amp; Triadic Technium<br/>Prigogine, Horowitz, Sun (HP-INV), Sitzmann, Adorno, Beer (VSM), Saragadam, Hackbusch, Haff"]
+    P1 --> DATA["13 Real Datasets (data/*.csv, SHA-256 Sealed)"]
+    P2 --> DATA
+    P3 --> DATA
+    DATA --> CRATES["5 Pure-Rust Crates + 4 Canonical Cards + /lab"]
+```
+
+---
+
+## Interactive Laboratory (`/lab`)
+
+Launch the full interactive sandbox across all modules and empirical datasets at **[`/lab`](./lab/index.html?seed=2026)**:
+
+<div class="stoch-lab"
+     data-lab="lenses-kelly-tail-corp"
+     data-title="Empirical Data Explorer: DJIA (1885–2023), Danish Fire &amp; NOAA Storms"
+     data-subtitle="Cross-examine the primary empirical datasets audited across Laboratories 1–7">
+</div>

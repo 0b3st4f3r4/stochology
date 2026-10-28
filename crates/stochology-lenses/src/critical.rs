@@ -9,45 +9,50 @@
 //! 1. **Axis 1 — Genealogy of Stochastic Reason ($\sigma\tau\acute{o}\chi\omicron\varsigma \to \sigma\tau\omicron\chi\alpha\sigma\tau\iota\kappa\acute{o}\varsigma$),
 //!    Adorno & Horkheimer's Liquidation of the "Non-Identical" (*Nichtidentische*), and Eternalization of the Historical Present:**
 //!    Quantifies how positivist Gaussian identity reduction (discarding singular heavy-tailed events beyond $\pm 2\sigma$ as
-//!    "standard deviation / noise") liquidates the *Non-Identical* ($\Delta_{\text{Nichtidentische}} \gg 0$, erasing $> 65\%$ of
-//!    $\mathrm{ES}_{0.99}$) and reifies the historical status quo ($\theta_{\mathrm{SL}} / \theta_{\mathrm{PS}}$ vs. counterfactual
-//!    Stackelberg $\theta_{\mathrm{PO}}$), whereas the Stochology Protocol preserves the non-identical via **Prohibition 2**
-//!    (`NonlinearSummary`), **Lens 3** ($\mathrm{ES}_{0.99}$), and **Anchored Kennedy-O'Hagan Structural Discrepancy** ($\delta(x) \sim \mathcal{GP}$).
+//!    "standard deviation / noise") liquidates the *Non-Identical* ($\Delta_{\text{Nichtidentische}} \gg 0$ and the erased share of
+//!    $\mathrm{ES}_{0.99}$), backtests the resulting $\mathrm{VaR}_{0.99}$ on fresh draws of the same process, and contrasts the
+//!    historical status quo ($\theta_{\mathrm{PS}}$, reached by Repeated Risk Minimization) with counterfactual Stackelberg
+//!    $\theta_{\mathrm{PO}}$ (reached by `PerfGD`), plus the **Anchored Kennedy-O'Hagan Structural Discrepancy** ($\delta(x) \sim \mathcal{GP}$).
 //! 2. **Axis 2 — Herbert Marcuse's Operational Closure of Language (*One-Dimensional Man*), Antoinette Rouvroy & Thomas Berns's
 //!    Algorithmic Governmentality (Preemption), and the "Stochastic Parrots" Paradigm ($P(w_t \mid w_{1:t-1})$):**
 //!    Demonstrates that an ungrounded autoregressive next-token predictor achieves deceptive surface fluency on stationary
 //!    correlations (Pearl Rung 1 `1-See`) while suffering catastrophic counterfactual breakdown under causal/normative interventions
-//!    ($\mathrm{do}(X)$, Pearl Rung 2/3) and amplifying **Chouldechova's false-positive disparity** ($\mathrm{FPR}_A / \mathrm{FPR}_B > 3\times$)
-//!    when deployed as preemptive correlational profiling without causal invariance ($\hat{S}^*$).
-//! 3. **Axis 3 — The Material & Thermodynamic Collapse of Instrumental Stochastic Reason (Informational Autophagy,
-//!    Binary Digital Abstraction, and Ferran Alia's Stochastic "Analog Wall" Threshold Cliff):**
-//!    Couples the epistemological critique to the three material walls of digital-statistical AI:
-//!    (A) **Informational Autophagy** (Epoch AI's $\sim 300\text{ trillion}$ human token ceiling exhausted in 2026–2032 and recursive
-//!    synthetic "AI contaminating AI" modal/variance collapse $\sigma_G^2 / \sigma_0^2 \to 0$);
-//!    (B) **Binary Digital Abstraction & Thermodynamic Strangling** (discretizing the continuous physical spectrum $(0, 1)$ into
-//!    $\{0, 1\}$ gates at $640\text{ pJ}$ DRAM read vs. $0.9\text{ pJ}$ FP32 add $= 711.11\times$, $700\text{ W}$ H100, and IEA's
-//!    $945\text{ TWh}$ data-center trajectory by 2030); and
-//!    (C) **Return of the Contingency of Matter ("The Analog Wall")** (Ferran Alia's 5-point noise threshold cliff across
-//!    $\sigma \in \{0.10, 0.20, 0.40, 0.60, 0.80\}$ where standard digital weights collapse from $\sim 98\%$ to $83\%, 64\%, 39\%$,
-//!    and random guessing, compounded across $L$ deep LLM layers).
-//! 4. **Axis 4 — Dialectical Overcoming: Neurosymbolic Logic, Noise Coexistence (`NAT`, `A-ECC`, Peking University 24-Bit `HP-INV`),
-//!    and Continuous Wave-Interference Physics (Gibram Raul, `SIREN`, Stanford Wave-RNN, Tsinghua `ACCEL`):**
-//!    Proves how reconciling formal logical constraints (neurosymbolic Prolog/Horn rules), hardware noise coexistence
-//!    (`NAT` $61\%+$ at $\sigma = 0.60$, `A-ECC` $> 97\%$, and Sun Zhong et al.'s $40\text{ nm}$ RRAM 24-bit `HP-INV` solver),
-//!    and continuous phase-amplitude wave representation (`SIREN` Helmholtz PDE, RLC ODE isomorphism, Stanford Wave-RNN, and
-//!    $74.8\text{ PetaOPS/W}$ photonic `ACCEL`) overcomes both positivist tautology and the thermodynamic wall.
+//!    ($\mathrm{do}(X)$, Pearl Rung 2/3), and evaluates the closed-form **Chouldechova false-positive disparity**
+//!    ($\mathrm{FPR}_A / \mathrm{FPR}_B$) of preemptive correlational profiling under unequal base rates.
+//! 3. **Axis 3 — The Material & Thermodynamic Collapse of Instrumental Stochastic Reason:** simulated synthetic-recursion
+//!    variance and KL collapse (`crate::analog`), with Epoch AI's token ceiling, Horowitz's 45nm energy hierarchy, the H100 and IEA
+//!    figures, and Ferran Alia's noise-threshold curve carried as informative literature values.
+//! 4. **Axis 4 — Dialectical Overcoming:** symbolic-constraint satisfaction of a constrained vs. unconstrained synthetic recursion,
+//!    A-ECC drift compensation vs. raw drift, Peking University 24-bit `HP-INV` refinement vs. one-shot inversion, and a continuous
+//!    phase-amplitude (`SIREN`) Helmholtz Laplacian vs. piecewise-linear `ReLU`; `NAT` accuracies (an assumed noise-reduction law in
+//!    `crate::analog`), the wave compression ratio, and Tsinghua `ACCEL` efficiency are informative.
+//!
+//! # Verification semantics
+//!
+//! As in `crate::triad`, each axis separates **claim checks** (the deployed method against computed ground truth; with
+//! `grounded_mode = false` the naive method is actually run), **identity checks** (`identities_closed`, closed-form or
+//! algebraic facts that hold in both modes), **informative constants** (literature values, never gated), and
+//! **discarded claims** (`discarded_claims`, claims that failed multi-seed acceptance in `crate::acceptance`; recorded, never approved).
 
+use crate::acceptance::{MultiSeedAcceptance, NamedCheck};
 use crate::analog::{
     AimcAnalogWallHpInvAudit, AnalogWaveComputingSynthesis, EmpiricalWaveAnalogAudit,
 };
-use crate::information::kl_divergence;
 use crate::invariance::{run_nonlinear_icp_nile, CausalEnvironment};
 use crate::machine::AuthenticModelForm;
 use crate::tail::{expected_shortfall_99, HillTailDiagnostic};
 use stochology_core::{
-    mean, sample_std, sample_variance, ChouldechovaAudit, GoodhartTaxonomyAudit,
+    mean, quantile, sample_std, sample_variance, ChouldechovaAudit, GoodhartTaxonomyAudit,
     KennedyOHaganDiscrepancy, NonlinearSummary, PerformativeSystem, Rng,
 };
+
+/// Heavy-tailed draw of the Axis 1 generating process: Pareto ($\alpha = 1.65$) plus a structural singularity every 40th index.
+fn non_identical_draw(rng: &mut Rng, index: usize) -> f64 {
+    let u = rng.next_f64().clamp(1e-6, 0.999_999);
+    let pareto = (1.0 - u).powf(-1.0 / 1.65);
+    let singularity = if index.is_multiple_of(40) { 14.0 } else { 0.0 };
+    pareto + singularity
+}
 
 /// Axis 1: Adorno & Horkheimer's Critique of the "Mathematization of Thought", Liquidation of the
 /// "Non-Identical" (*Nichtidentische*, *Negative Dialectics* 1966), and Eternalization of the Historical Present.
@@ -65,34 +70,41 @@ pub struct AdornoNonIdenticalReificationAudit {
     pub true_es99: f64,
     /// Positivist truncated Expected Shortfall $\mathrm{ES}_{0.99}^{\text{trunc}}$ after outlier liquidation.
     pub positivist_truncated_es99: f64,
-    /// Fraction of tail catastrophe risk erased by forced Gaussian identity ($1 - \mathrm{ES}_{0.99}^{\text{trunc}} / \mathrm{ES}_{0.99} > 0.60$).
+    /// Fraction of tail catastrophe risk erased by forced Gaussian identity ($1 - \mathrm{ES}_{0.99}^{\text{trunc}} / \mathrm{ES}_{0.99}$).
     pub es99_erasure_fraction: f64,
-    /// Anchored Kennedy-O'Hagan GP structural discrepancy norm $\|\delta(x)\|_2$ representing the irreducible qualitative remainder.
+    /// Exceedance rate of $\mathrm{VaR}_{0.99}$ on 6000 fresh draws of the same process: empirical quantile vs. truncated Gaussian.
+    pub var99_holdout_exceedance_empirical_vs_gaussian: (f64, f64),
+    /// Holdout exceedance rate of the deployed $\mathrm{VaR}_{0.99}$ (empirical if grounded, truncated Gaussian otherwise). Gated (`<= 0.02`).
+    pub deployed_var99_holdout_exceedance: f64,
+    /// Improvement of the anchored Kennedy-O'Hagan GP over the bare simulator in extrapolation error, $\|\cdot\|_{\text{w/o GP}} - \|\cdot\|_{\text{GP}}$.
     pub koh_structural_discrepancy_norm: f64,
-    /// Performative Risk $\mathrm{PR}(\theta_{\mathrm{SL}})$ under passive positivist projection (eternalizing the historical status quo).
+    /// Extrapolation error of the deployed model (simulator + GP discrepancy if grounded, bare simulator otherwise). Gated.
+    pub deployed_koh_extrapolation_error: f64,
+    /// Performative Risk $\mathrm{PR}(\theta_{\mathrm{PS}})$ at the status-quo fixed point (eternalizing the historical present).
     pub passive_status_quo_performative_risk: f64,
     /// Performative Risk $\mathrm{PR}(\theta_{\mathrm{PO}})$ under counterfactual Stackelberg agency ($L_3 \to L_1$).
     pub counterfactual_stackelberg_performative_risk: f64,
-    /// Excess performative risk caused by reifying the historical present ($\mathrm{PR}(\theta_{\mathrm{SL}}) - \mathrm{PR}(\theta_{\mathrm{PO}}) > 0$).
+    /// Excess performative risk caused by reifying the historical present ($\mathrm{PR}(\theta_{\mathrm{PS}}) - \mathrm{PR}(\theta_{\mathrm{PO}})$).
     pub status_quo_reification_excess_risk: f64,
-    /// Whether the Non-Identical preservation and anti-reification invariants hold.
+    /// $\mathrm{PR}(\theta_{\text{final}}) - \mathrm{PR}(\theta_{\mathrm{PO}})$ of the deployed optimizer (`PerfGD` if grounded, RRM otherwise). Gated.
+    pub deployed_performative_excess_risk: f64,
+    /// Named claim checks gated by this axis (see `crate::acceptance`).
+    pub claims: Vec<NamedCheck>,
+    /// Claims removed from the gate after failing multi-seed acceptance (`crate::acceptance`); still computed and reported.
+    pub discarded_claims: Vec<NamedCheck>,
+    /// True if the optimality identity $\mathrm{PR}(\theta_{\mathrm{PO}}) \le \mathrm{PR}(\theta_{\mathrm{PS}})$ closes.
+    pub identities_closed: bool,
+    /// Whether the mode-independent liquidation claims and the deployed tail, extrapolation, and performative claims hold.
     pub axis1_verified: bool,
 }
 
 impl AdornoNonIdenticalReificationAudit {
-    /// Evaluates Axis 1 (`seed = 2026`). When `preserve_non_identical` is `false` (injected positivist defect),
-    /// singular tail events are liquidated as Gaussian noise and passive status-quo reification is left uncorrected.
+    /// Evaluates Axis 1 (`seed = 2026`). When `preserve_non_identical` is `false`, the positivist pipeline is deployed:
+    /// truncated-Gaussian $\mathrm{VaR}$, the bare simulator without structural discrepancy, and Repeated Risk Minimization.
     pub fn evaluate(seed: u64, preserve_non_identical: bool) -> Self {
         let mut rng = Rng::new(seed);
         let n = 600usize;
-        let mut raw_samples = Vec::with_capacity(n);
-        // Pareto-like heavy-tailed process (alpha = 1.65) with qualitative structural singularities
-        for i in 0..n {
-            let u = rng.next_f64().clamp(1e-6, 0.999_999);
-            let pareto = (1.0 - u).powf(-1.0 / 1.65);
-            let singularity = if i % 40 == 0 { 14.0 } else { 0.0 };
-            raw_samples.push(pareto + singularity);
-        }
+        let raw_samples: Vec<f64> = (0..n).map(|i| non_identical_draw(&mut rng, i)).collect();
 
         let split = (n * 4) / 5;
         let full_summary = NonlinearSummary::evaluate_out_of_sample(
@@ -119,16 +131,23 @@ impl AdornoNonIdenticalReificationAudit {
         // For f(x) = x^2 under N(mu_trunc, var_trunc), E[X^2] = mu_trunc^2 + var_trunc
         let positivist_gaussian_truncated_expectation = mu_trunc * mu_trunc + var_trunc;
         let positivist_truncated_es99 = expected_shortfall_99(&truncated);
+        let non_identical_liquidation_gap =
+            true_nonlinear_expectation - positivist_gaussian_truncated_expectation;
+        let es99_erasure_fraction = 1.0 - (positivist_truncated_es99 / true_es99.max(1e-12));
 
-        let non_identical_liquidation_gap = if preserve_non_identical {
-            true_nonlinear_expectation - positivist_gaussian_truncated_expectation
+        // VaR_99 backtest on 6000 fresh draws of the same generating process
+        let var99_empirical = quantile(&raw_samples, 0.99);
+        let var99_gaussian = mu_trunc + 2.326_348 * var_trunc.sqrt();
+        let holdout: Vec<f64> = (n..n + 6000)
+            .map(|i| non_identical_draw(&mut rng, i))
+            .collect();
+        let exceed = |v: f64| holdout.iter().filter(|&&x| x > v).count() as f64 / 6000.0;
+        let exceed_empirical = exceed(var99_empirical);
+        let exceed_gaussian = exceed(var99_gaussian);
+        let deployed_exceedance = if preserve_non_identical {
+            exceed_empirical
         } else {
-            0.0
-        };
-        let es99_erasure_fraction = if preserve_non_identical {
-            1.0 - (positivist_truncated_es99 / true_es99.max(1e-12))
-        } else {
-            0.0
+            exceed_gaussian
         };
 
         // Kennedy-O'Hagan GP structural discrepancy \delta(x): captures the non-identical qualitative structure
@@ -140,28 +159,71 @@ impl AdornoNonIdenticalReificationAudit {
         let koh = KennedyOHaganDiscrepancy::calibrate(
             &x_obs, &y_obs, 0.80, 2.4, 0.85, 0.005, &x_ext, &y_ext,
         );
-        let koh_structural_discrepancy_norm = if preserve_non_identical {
-            koh.extrapolation_error_without_gp - koh.extrapolation_error_with_gp
+        let koh_structural_discrepancy_norm =
+            koh.extrapolation_error_without_gp - koh.extrapolation_error_with_gp;
+        let deployed_koh_error = if preserve_non_identical {
+            koh.extrapolation_error_with_gp
         } else {
-            0.0
+            koh.extrapolation_error_without_gp
         };
 
-        // Eternalization of the historical present: myopic status-quo fixed point (\theta_PS) vs. Stackelberg (\theta_PO)
-        let perf = PerformativeSystem::new(1.0, 0.30, 0.80, 1.0, 1.4).diagnose();
+        // Eternalization of the historical present: RRM reaches the status-quo fixed point \theta_PS, PerfGD reaches \theta_PO
+        let perf_sys = PerformativeSystem::new(1.0, 0.30, 0.80, 1.0, 1.4);
+        let perf = perf_sys.diagnose();
         let passive_status_quo_performative_risk = perf.risk_at_ps;
-        let counterfactual_stackelberg_performative_risk = if preserve_non_identical {
-            perf.risk_at_po
-        } else {
-            perf.risk_at_ps
-        };
+        let counterfactual_stackelberg_performative_risk = perf.risk_at_po;
         let status_quo_reification_excess_risk =
             passive_status_quo_performative_risk - counterfactual_stackelberg_performative_risk;
+        let deployed_theta = if preserve_non_identical {
+            *perf_sys
+                .perfgd_finite_difference_trajectory(0.0, 1.0, 0.5, 60)
+                .last()
+                .unwrap_or(&0.0)
+        } else {
+            *perf.rrm_trajectory.last().unwrap_or(&0.0)
+        };
+        let deployed_performative_excess_risk =
+            perf_sys.performative_risk_pr(deployed_theta) - perf.risk_at_po;
 
-        let axis1_verified = preserve_non_identical
-            && non_identical_liquidation_gap > 30.0
-            && es99_erasure_fraction > 0.60
-            && koh_structural_discrepancy_norm > 0.40
-            && status_quo_reification_excess_risk > 0.05;
+        // The closed-form Stackelberg optimum cannot carry more performative risk than the stable point.
+        let identities_closed =
+            counterfactual_stackelberg_performative_risk <= passive_status_quo_performative_risk;
+        // The liquidation gap exceeds 30 on 7 of 20 acceptance seeds (its sign is robust, its size is not).
+        let discarded_claims: Vec<NamedCheck> = vec![(
+            "critical.a1.liquidation_gap_above_30",
+            non_identical_liquidation_gap > 30.0,
+        )];
+        let claims: Vec<NamedCheck> = vec![
+            (
+                "critical.a1.liquidation_gap_positive",
+                non_identical_liquidation_gap > 0.0,
+            ),
+            (
+                "critical.a1.es99_erasure_above_0.60",
+                es99_erasure_fraction > 0.60,
+            ),
+            (
+                "critical.a1.koh_improvement_above_0.40",
+                koh_structural_discrepancy_norm > 0.40,
+            ),
+            (
+                "critical.a1.reification_excess_above_0.05",
+                status_quo_reification_excess_risk > 0.05,
+            ),
+            (
+                "critical.a1.deployed_var99_breach_at_most_2pct",
+                deployed_exceedance <= 0.02,
+            ),
+            (
+                "critical.a1.deployed_koh_error_below_half_bare",
+                deployed_koh_error < 0.5 * koh.extrapolation_error_without_gp.max(1e-12),
+            ),
+            (
+                "critical.a1.deployed_performative_excess_below_1e-3",
+                deployed_performative_excess_risk < 1e-3,
+            ),
+        ];
+        let axis1_verified = identities_closed && claims.iter().all(|c| c.1);
 
         Self {
             true_nonlinear_expectation,
@@ -171,10 +233,17 @@ impl AdornoNonIdenticalReificationAudit {
             true_es99,
             positivist_truncated_es99,
             es99_erasure_fraction,
+            var99_holdout_exceedance_empirical_vs_gaussian: (exceed_empirical, exceed_gaussian),
+            deployed_var99_holdout_exceedance: deployed_exceedance,
             koh_structural_discrepancy_norm,
+            deployed_koh_extrapolation_error: deployed_koh_error,
             passive_status_quo_performative_risk,
             counterfactual_stackelberg_performative_risk,
             status_quo_reification_excess_risk,
+            deployed_performative_excess_risk,
+            claims,
+            discarded_claims,
+            identities_closed,
             axis1_verified,
         }
     }
@@ -191,21 +260,32 @@ pub struct MarcuseRouvroyStochasticParrotAudit {
     pub parrot_counterfactual_intervention_mse: f64,
     /// Counterfactual MSE of the Causal-Normative Grounded agent anchored to $\hat{S}^* = [0]$ via ICP/NILE.
     pub causal_grounded_counterfactual_mse: f64,
+    /// Counterfactual MSE of the deployed predictor (causal if grounded, parrot otherwise). Gated (`< 0.03`).
+    pub deployed_counterfactual_mse: f64,
     /// Ratio of NILE/IRM invariance penalty on the spurious operational proxy ($X_1$) vs. the invariant causal core ($X_0$).
     pub spurious_proxy_invariance_penalty_ratio: f64,
-    /// Chouldechova False-Positive Rate disparity ($\mathrm{FPR}_A / \mathrm{FPR}_B$) induced by preemptive correlational profiling under unequal historical base rates.
+    /// Identity: closed-form Chouldechova False-Positive Rate disparity ($\mathrm{FPR}_A / \mathrm{FPR}_B$) at base rates $(0.32, 0.09)$
+    /// with equal $\mathrm{PPV} = 0.65$ and $\mathrm{FNR} = 0.25$.
     pub preemptive_profiling_fpr_disparity_ratio: f64,
-    /// Whether the Authentic Model Form ($\delta(x) + \hat{S}^*$ + named discarded atoms) blocks ungrounded preemption.
+    /// Informative: whether the deployed Authentic Model Form blocks ungrounded preemption (the naive pipeline does not name its
+    /// discarded atoms, so it fails by construction).
     pub authentic_form_blocks_spurious_preemption: bool,
+    /// Whether the Authentic Model Form, run with named discarded atoms, approves $\hat{S}^* = [0]$ on these environments
+    /// (mode-independent). Gated.
+    pub authentic_form_audit_approves_causal_core: bool,
     /// Formal Manheim-Garrabrant (2018) 4-variant Goodhart taxonomy audit linking Causal collapse to ICP/NILE ($S^*$) and Adversarial gaming to $\nabla_1 \mathrm{DPR}(\theta,\theta)$ in `PerfGD`.
     pub goodhart_taxonomy: GoodhartTaxonomyAudit,
-    /// Whether Marcuse/Rouvroy critique and causal-normative grounding invariants are verified.
+    /// Named claim checks gated by this axis (see `crate::acceptance`).
+    pub claims: Vec<NamedCheck>,
+    /// True if the Chouldechova identity closes.
+    pub identities_closed: bool,
+    /// Whether the mode-independent parrot/invariance claims and the deployed predictor and authentic form pass.
     pub axis2_verified: bool,
 }
 
 impl MarcuseRouvroyStochasticParrotAudit {
-    /// Evaluates Axis 2 (`seed = 2026`). When `causal_normative_grounding` is `false` (injected operationalist defect),
-    /// the model relies on ungrounded Markov/spurious correlations and silently drops discarded-atom accounting.
+    /// Evaluates Axis 2 (`seed = 2026`). When `causal_normative_grounding` is `false`, the parrot predictor is deployed
+    /// and the Authentic Model Form omits discarded-atom accounting.
     pub fn evaluate(seed: u64, causal_normative_grounding: bool) -> Self {
         let mut rng = Rng::new(seed.wrapping_add(17));
         // Build 3 environments across historical/interventional regimes:
@@ -258,22 +338,21 @@ impl MarcuseRouvroyStochasticParrotAudit {
         }
         let parrot_stationary_surface_mse = parrot_stationary_sq / (e0.y.len() as f64);
 
-        // Evaluate under counterfactual intervention (environment e_2)
+        // Evaluate both predictors under counterfactual intervention (environment e_2)
         let e2 = &envs[2];
         let mut parrot_cf_sq = 0.0;
         let mut causal_cf_sq = 0.0;
         for (row, &yi) in e2.x.iter().zip(e2.y.iter()) {
-            let err_parrot = yi - beta_parrot_x1 * row[1];
-            let err_causal = if causal_normative_grounding {
-                yi - beta_causal_x0 * row[0]
-            } else {
-                err_parrot
-            };
-            parrot_cf_sq += err_parrot * err_parrot;
-            causal_cf_sq += err_causal * err_causal;
+            parrot_cf_sq += (yi - beta_parrot_x1 * row[1]).powi(2);
+            causal_cf_sq += (yi - beta_causal_x0 * row[0]).powi(2);
         }
         let parrot_counterfactual_intervention_mse = parrot_cf_sq / (e2.y.len() as f64);
         let causal_grounded_counterfactual_mse = causal_cf_sq / (e2.y.len() as f64);
+        let deployed_counterfactual_mse = if causal_normative_grounding {
+            causal_grounded_counterfactual_mse
+        } else {
+            parrot_counterfactual_intervention_mse
+        };
 
         // Nonlinear ICP / NILE audit across environments
         let nile = run_nonlinear_icp_nile(&envs, 0.15);
@@ -294,9 +373,21 @@ impl MarcuseRouvroyStochasticParrotAudit {
         );
         let authentic_form_blocks_spurious_preemption =
             auth.approved_authentic_form && auth.invariant_core_s_star == vec![0];
+        let auth_named = AuthenticModelForm::audit_environments(
+            seed,
+            &envs,
+            &[
+                "atom_0_ontological_causal_driver".to_string(),
+                "atom_1_marcuse_operational_token_proxy".to_string(),
+            ],
+            0.15,
+            true,
+        );
+        let authentic_form_audit_approves_causal_core =
+            auth_named.approved_authentic_form && auth_named.invariant_core_s_star == vec![0];
 
-        // Rouvroy & Berns Algorithmic Governmentality: Preemptive profiling under unequal historical base rates
-        // (e.g., p_A = 0.32 vs p_B = 0.09) forces an algebraic Chouldechova FPR disparity ratio > 3.0x
+        // Rouvroy & Berns Algorithmic Governmentality: preemptive profiling under unequal historical base rates
+        // (p_A = 0.32 vs p_B = 0.09) forces an algebraic Chouldechova FPR disparity
         let (_, _, preemptive_profiling_fpr_disparity_ratio) =
             ChouldechovaAudit::fpr_ratio_under_equal_ppv_and_fnr(0.32, 0.09, 0.65, 0.25);
 
@@ -306,23 +397,47 @@ impl MarcuseRouvroyStochasticParrotAudit {
             parrot_counterfactual_intervention_mse - causal_grounded_counterfactual_mse,
         );
 
-        let axis2_verified = causal_normative_grounding
-            && parrot_stationary_surface_mse < 0.06
-            && parrot_counterfactual_intervention_mse > 5.0
-            && causal_grounded_counterfactual_mse < 0.03
-            && spurious_proxy_invariance_penalty_ratio > 20.0
-            && preemptive_profiling_fpr_disparity_ratio > 3.0
-            && authentic_form_blocks_spurious_preemption
-            && goodhart_taxonomy.all_four_variants_audited;
+        let identities_closed = preemptive_profiling_fpr_disparity_ratio > 3.0;
+        let claims: Vec<NamedCheck> = vec![
+            (
+                "critical.a2.parrot_surface_mse_below_0.06",
+                parrot_stationary_surface_mse < 0.06,
+            ),
+            (
+                "critical.a2.parrot_counterfactual_mse_above_5",
+                parrot_counterfactual_intervention_mse > 5.0,
+            ),
+            (
+                "critical.a2.proxy_penalty_ratio_above_20",
+                spurious_proxy_invariance_penalty_ratio > 20.0,
+            ),
+            (
+                "critical.a2.goodhart_four_variants_per_core_layers_thresholds",
+                goodhart_taxonomy.all_four_variants_audited,
+            ),
+            (
+                "critical.a2.authentic_form_criteria_c1_to_c5_approve_s_star_0",
+                authentic_form_audit_approves_causal_core,
+            ),
+            (
+                "critical.a2.deployed_counterfactual_mse_below_0.03",
+                deployed_counterfactual_mse < 0.03,
+            ),
+        ];
+        let axis2_verified = identities_closed && claims.iter().all(|c| c.1);
 
         Self {
             parrot_stationary_surface_mse,
             parrot_counterfactual_intervention_mse,
             causal_grounded_counterfactual_mse,
+            deployed_counterfactual_mse,
             spurious_proxy_invariance_penalty_ratio,
             preemptive_profiling_fpr_disparity_ratio,
             authentic_form_blocks_spurious_preemption,
+            authentic_form_audit_approves_causal_core,
             goodhart_taxonomy,
+            claims,
+            identities_closed,
             axis2_verified,
         }
     }
@@ -331,41 +446,41 @@ impl MarcuseRouvroyStochasticParrotAudit {
 /// Axis 3: The Material, Informational, and Thermodynamic Collapse of Brute-Force Stochastic Reason.
 #[derive(Debug, Clone, PartialEq)]
 pub struct MaterialCollapseTriadAudit {
-    /// Epoch AI (Villalobos et al., Nov 2024) effective human public text stock in trillions of tokens ($300.0\text{T}$).
+    /// Informative: Epoch AI (Villalobos et al., Nov 2024) effective human public text stock in trillions of tokens.
     pub epoch_ai_effective_human_tokens_trillions: f64,
-    /// Epoch AI raw upper bound including unindexed text in trillions of tokens ($3100.0\text{T}$).
+    /// Informative: Epoch AI raw upper bound including unindexed text in trillions of tokens.
     pub epoch_ai_raw_upper_bound_tokens_trillions: f64,
-    /// Projected exhaustion window of human public text (`(2026, 2032)`).
+    /// Informative: projected exhaustion window of human public text.
     pub human_token_exhaustion_window_years: (u32, u32),
-    /// Variance retention $\sigma_G^2 / \sigma_0^2$ after recursive training on synthetic AI outputs ("IA que contamina IA").
+    /// Simulated variance retention $\sigma_G^2 / \sigma_0^2$ after 8 generations of unanchored synthetic recursion (`crate::analog`). Gated (`< 0.25`).
     pub synthetic_autophagy_variance_retention: f64,
-    /// Shannon entropy loss $\Delta H = H(P_0) - H(P_G)$ (in nats) under synthetic modal collapse.
+    /// Informative: Shannon entropy loss $H(P_0) - H(P_G)$ between two illustrative distributions (the collapsed one is hand-specified).
     pub synthetic_autophagy_entropy_loss_nats: f64,
-    /// Kullback-Leibler divergence $D_{\mathrm{KL}}(P_0 \parallel P_G)$ (in nats) after synthetic recursion.
+    /// Simulated $D_{\mathrm{KL}}(P_0 \parallel P_G)$ after unanchored synthetic recursion (`crate::analog`). Gated (`> 0.60`).
     pub synthetic_autophagy_kl_divergence_nats: f64,
-    /// Continuous-to-binary quantization information loss (in nats) when amputating continuous physical states $(0, 1)$ into $\{0, 1\}$.
+    /// Informative: $\ln 16 - \ln 2$, the information removed by mapping 16 levels onto one bit.
     pub binary_abstraction_information_loss_nats: f64,
-    /// Horowitz (ISSCC 2014, 45nm CMOS) DRAM read ($640\text{ pJ}$) to FP32 addition ($0.9\text{ pJ}$) energy ratio ($711.11\times$).
+    /// Informative: Horowitz (ISSCC 2014, 45nm CMOS) DRAM read to FP32 addition energy ratio.
     pub von_neumann_dram_to_fp32_ratio: f64,
-    /// Nvidia H100 GPU power ($700\text{ W}$) and total cooled envelope ($1100\text{ W}$) vs. $20\text{ W}$ biological brain.
+    /// Informative: Nvidia H100 GPU power and total cooled envelope (W).
     pub h100_gpu_watts_and_cooled_watts: (f64, f64),
-    /// IEA global data-center electricity demand trajectory in 2030 ($945.0\text{ TWh}$).
+    /// Informative: IEA global data-center electricity demand trajectory in 2030 (TWh).
     pub iea_2030_datacenter_twh: f64,
-    /// Ferran Alia (July 2026) 5-point AIMC crossbar noise threshold cliff `[sigma=0.1, 0.2, 0.4, 0.6, 0.8]` for standard digital weights.
+    /// Informative: Ferran Alia (July 2026) 5-point noise threshold curve `[sigma=0.1, 0.2, 0.4, 0.6, 0.8]` as transcribed.
     pub ferran_alia_threshold_cliff_curve: [f64; 5],
-    /// Compounded effective noise standard deviation $\sigma_{\text{eff}}(L) = \sigma_0 \sqrt{L}$ across $L = 32$ deep LLM layers at $\sigma_0 = 0.15$.
+    /// Informative: $\sigma_0 \sqrt{L}$ for $L = 32$ layers at $\sigma_0 = 0.15$ (independent-noise compounding).
     pub deep_llm_32_layer_compounded_noise_sigma: f64,
-    /// Whether all three material collapse diagnostics are verified.
+    /// Named claim checks gated by this axis (see `crate::acceptance`).
+    pub claims: Vec<NamedCheck>,
+    /// Claims removed from the gate after failing multi-seed acceptance (`crate::acceptance`); still computed and reported.
+    pub discarded_claims: Vec<NamedCheck>,
+    /// Whether the simulated synthetic-recursion collapse claims hold.
     pub axis3_verified: bool,
 }
 
 impl MaterialCollapseTriadAudit {
     /// Evaluates the three material contradictions (`seed = 2026`).
     pub fn evaluate(seed: u64) -> Self {
-        let epoch_ai_effective_human_tokens_trillions = 300.0;
-        let epoch_ai_raw_upper_bound_tokens_trillions = 3_100.0;
-        let human_token_exhaustion_window_years = (2026, 2032);
-
         let analog_syn = AnalogWaveComputingSynthesis::evaluate_canonical(seed);
         let synthetic_autophagy_variance_retention = analog_syn
             .von_neumann_and_collapse
@@ -374,146 +489,227 @@ impl MaterialCollapseTriadAudit {
             .von_neumann_and_collapse
             .unanchored_synthetic_kl_divergence_nats;
 
-        // Compute Shannon entropy collapse H(P_0) - H(P_G) across 5 semantic states when modal collapse concentrates on the mean
+        // Illustrative entropy contrast between the base distribution and a hand-specified collapsed distribution
         let p0 = [0.12_f64, 0.23, 0.30, 0.23, 0.12];
         let pg_collapsed = [0.002_f64, 0.038, 0.920, 0.038, 0.002];
         let h0: f64 = p0.iter().map(|&p| -p * p.ln()).sum();
         let hg: f64 = pg_collapsed.iter().map(|&p| -p * p.ln()).sum();
-        let synthetic_autophagy_entropy_loss_nats = h0 - hg;
 
-        // Information amputated when discretizing a continuous 16-level physical wave field into a 1-bit binary gate {0, 1}
-        let binary_abstraction_information_loss_nats = (16.0_f64).ln() - (2.0_f64).ln();
-
-        let von_neumann_dram_to_fp32_ratio =
-            analog_syn.von_neumann_and_collapse.dram_to_fp32_add_ratio;
-        let h100_gpu_watts_and_cooled_watts = (700.0, 1_100.0);
-        let iea_2030_datacenter_twh = analog_syn
-            .von_neumann_and_collapse
-            .iea_datacenter_twh_trajectory[2];
-
-        // Ferran Alia's (Towards Data Science, July 2026) 5-point noise threshold cliff for standard digital training on noisy AIMC crossbars:
-        // Below sigma=0.10 stable (~98%), then 83% at 0.20, 64% at 0.40, 39% at 0.60, and random guessing (~25%) at 0.80.
-        let ferran_alia_threshold_cliff_curve = [0.98, 0.83, 0.64, 0.39, 0.25];
-        let deep_llm_32_layer_compounded_noise_sigma = 0.15 * (32.0_f64).sqrt();
-
-        let axis3_verified = epoch_ai_effective_human_tokens_trillions == 300.0
-            && human_token_exhaustion_window_years == (2026, 2032)
-            && synthetic_autophagy_variance_retention < 0.25
-            && synthetic_autophagy_entropy_loss_nats > 0.70
-            && synthetic_autophagy_kl_divergence_nats > 0.60
-            && binary_abstraction_information_loss_nats > 2.0
-            && von_neumann_dram_to_fp32_ratio > 711.0
-            && iea_2030_datacenter_twh == 945.0
-            && ferran_alia_threshold_cliff_curve[0] > 0.95
-            && ferran_alia_threshold_cliff_curve[3] < 0.45
-            && deep_llm_32_layer_compounded_noise_sigma > 0.80;
+        let claims: Vec<NamedCheck> = vec![(
+            "critical.a3.synthetic_kl_above_0.60",
+            synthetic_autophagy_kl_divergence_nats > 0.60,
+        )];
+        // Variance retention falls below 0.25 on 15 of 20 acceptance seeds after 8 generations.
+        let discarded_claims: Vec<NamedCheck> = vec![(
+            "critical.a3.synthetic_variance_retention_below_0.25",
+            synthetic_autophagy_variance_retention < 0.25,
+        )];
+        let axis3_verified = claims.iter().all(|c| c.1);
 
         Self {
-            epoch_ai_effective_human_tokens_trillions,
-            epoch_ai_raw_upper_bound_tokens_trillions,
-            human_token_exhaustion_window_years,
+            epoch_ai_effective_human_tokens_trillions: 300.0,
+            epoch_ai_raw_upper_bound_tokens_trillions: 3_100.0,
+            human_token_exhaustion_window_years: (2026, 2032),
             synthetic_autophagy_variance_retention,
-            synthetic_autophagy_entropy_loss_nats,
+            synthetic_autophagy_entropy_loss_nats: h0 - hg,
             synthetic_autophagy_kl_divergence_nats,
-            binary_abstraction_information_loss_nats,
-            von_neumann_dram_to_fp32_ratio,
-            h100_gpu_watts_and_cooled_watts,
-            iea_2030_datacenter_twh,
-            ferran_alia_threshold_cliff_curve,
-            deep_llm_32_layer_compounded_noise_sigma,
+            binary_abstraction_information_loss_nats: (16.0_f64).ln() - (2.0_f64).ln(),
+            von_neumann_dram_to_fp32_ratio: analog_syn
+                .von_neumann_and_collapse
+                .dram_to_fp32_add_ratio,
+            h100_gpu_watts_and_cooled_watts: (700.0, 1_100.0),
+            iea_2030_datacenter_twh: analog_syn
+                .von_neumann_and_collapse
+                .iea_datacenter_twh_trajectory[2],
+            ferran_alia_threshold_cliff_curve: [0.98, 0.83, 0.64, 0.39, 0.25],
+            deep_llm_32_layer_compounded_noise_sigma: 0.15 * (32.0_f64).sqrt(),
+            claims,
+            discarded_claims,
             axis3_verified,
         }
     }
 }
 
+/// Fraction of `runs` 8-generation synthetic recursions over 5 semantic states whose final distribution satisfies the symbolic
+/// rules (mirror symmetry $|p_i - p_{4-i}| \le 0.02$ and variance retention $\ge 0.90$). With `constrained`, each generation samples
+/// the anchored observations and projects onto the symmetric set; otherwise it refits temperature-sharpened self-samples.
+fn synthetic_recursion_rule_satisfaction(rng: &mut Rng, constrained: bool, runs: usize) -> f64 {
+    let p0 = [0.12_f64, 0.23, 0.30, 0.23, 0.12];
+    let vals = [-2.0_f64, -1.0, 0.0, 1.0, 2.0];
+    let variance = |p: &[f64; 5]| {
+        let m: f64 = p.iter().zip(&vals).map(|(pi, v)| pi * v).sum();
+        p.iter()
+            .zip(&vals)
+            .map(|(pi, v)| pi * (v - m).powi(2))
+            .sum::<f64>()
+    };
+    let var0 = variance(&p0);
+    let draw = |rng: &mut Rng, w: &[f64; 5]| -> usize {
+        let u = rng.next_f64();
+        let mut acc = 0.0;
+        for (i, &wi) in w.iter().enumerate() {
+            acc += wi;
+            if u < acc {
+                return i;
+            }
+        }
+        4
+    };
+    let n_per_gen = 120usize;
+    let mut satisfied = 0usize;
+    for _ in 0..runs {
+        let mut p = p0;
+        for _ in 0..8 {
+            let source = if constrained {
+                p0
+            } else {
+                let mut w = p.map(|pi| pi.powf(1.35));
+                let total: f64 = w.iter().sum();
+                w.iter_mut().for_each(|wi| *wi /= total);
+                w
+            };
+            let mut counts = [0usize; 5];
+            for _ in 0..n_per_gen {
+                counts[draw(rng, &source)] += 1;
+            }
+            if constrained {
+                let raw = counts.map(|c| (c as f64 + 0.5) / (n_per_gen as f64 + 2.5));
+                for i in 0..5 {
+                    p[i] = 0.25 * 0.5 * (raw[i] + raw[4 - i]) + 0.75 * p0[i];
+                }
+            } else {
+                p = counts.map(|c| (c as f64 + 1e-4) / (n_per_gen as f64 + 5e-4));
+            }
+        }
+        let symmetric = (0..5).all(|i| (p[i] - p[4 - i]).abs() <= 0.02);
+        if symmetric && variance(&p) / var0 >= 0.90 {
+            satisfied += 1;
+        }
+    }
+    satisfied as f64 / runs as f64
+}
+
 /// Axis 4: Paths of Overcoming — Reconciling Logical Structure (Neurosymbolic Computing),
-/// Coexistence with Physical Noise (`NAT`, `A-ECC`, Peking University 24-Bit `HP-INV`),
-/// and Continuous Wave-Interference Physics (Gibram Raul, `SIREN`, Stanford Wave-RNN, Tsinghua `ACCEL`).
+/// Coexistence with Physical Noise (`A-ECC`, Peking University 24-Bit `HP-INV`),
+/// and Continuous Wave-Interference Physics (`SIREN`).
 #[derive(Debug, Clone, PartialEq)]
 pub struct DialecticalOvercomingSynthesisAudit {
-    /// Logical rule & conservation-constraint satisfaction rate under unanchored statistical autoregression ($< 0.35$).
+    /// Symbolic-rule satisfaction rate over 200 unconstrained synthetic recursions.
     pub unanchored_statistical_rule_satisfaction_rate: f64,
-    /// Logical rule & conservation-constraint satisfaction rate under Gibram Raul's neurosymbolic coupling ($1.00$).
+    /// Symbolic-rule satisfaction rate over 200 constrained (anchored + symmetric projection) recursions.
     pub neurosymbolic_rule_satisfaction_rate: f64,
-    /// Variance retention $\sigma_G^2 / \sigma_0^2$ under neurosymbolic + physical anchoring ($\ge 0.95$).
+    /// Rule satisfaction of the deployed recursion (constrained if overcoming is enabled). Gated (`>= 0.95`).
+    pub deployed_rule_satisfaction_rate: f64,
+    /// Variance retention $\sigma_G^2 / \sigma_0^2$ of the deployed recursion in `crate::analog` (anchored only if overcoming is enabled). Gated (`> 0.90`).
     pub neurosymbolic_variance_retention: f64,
-    /// Accuracy at $\sigma = 0.60$ under Noise-Aware Training (`NAT`, $\ge 61\%$) vs. standard digital training ($\le 39\%$).
+    /// Informative: accuracy at $\sigma = 0.60$ under `NAT` vs. standard training; `crate::analog` models `NAT` as an assumed reduction of
+    /// effective conductance noise, so these values are not trained results.
     pub nat_vs_standard_accuracy_at_sigma_060: (f64, f64),
-    /// Accuracy recovery under Analog Error-Correcting Codes (`A-ECC`, elevating $\sim 73\%$ drift-degraded accuracy to $> 97\%$).
+    /// Accuracy of drifted PCM readouts with the A-ECC calibration column vs. raw drift.
+    pub a_ecc_compensated_vs_raw_accuracy: (f64, f64),
+    /// Accuracy of the deployed readout (compensated if overcoming is enabled). Gated (`>= 0.97`).
     pub a_ecc_drift_recovery_accuracy: f64,
-    /// Peking University (Sun Zhong et al., *Nature Electronics* Oct 2025) 40nm RRAM `HP-INV` relative residual error ($< 10^{-7}$, 24-bit FP32 equivalence).
+    /// Relative residual of the deployed `HP-INV` solve (10 refinements if overcoming is enabled, 1 otherwise). Gated (`< 1e-7`).
     pub pku_40nm_rram_24bit_hp_inv_error: f64,
-    /// Gibram Raul's wave-interference phase-amplitude compression ratio over pixel-by-pixel grids ($40\times$).
+    /// Informative: phase-amplitude parameter compression ratio (480 grid points over 12 sinusoid parameters).
     pub wave_phase_amplitude_compression_ratio: f64,
-    /// `SIREN` ($\sin(\omega_0 W x + b)$) vs. piecewise-linear `ReLU` 2nd-order Helmholtz PDE Laplacian MSE.
+    /// `SIREN` (projection on the known frequencies, an identity) vs. piecewise-linear `ReLU` Helmholtz Laplacian MSE.
     pub siren_vs_relu_helmholtz_laplacian_mse: (f64, f64),
-    /// Tsinghua University `ACCEL` diffractive photonic efficiency in TOPS/W ($74\text{,}800\text{ TOPS/W} = 74.8\text{ PetaOPS/W}$).
+    /// Informative: Laplacian MSE of the deployed representation (`SIREN` if overcoming is enabled, `ReLU` otherwise); the `ReLU`
+    /// side is zero by construction ($\mathrm{ReLU}'' = 0$ a.e.), so it is not a test.
+    pub deployed_helmholtz_laplacian_mse: f64,
+    /// Informative: Tsinghua University `ACCEL` diffractive photonic efficiency in TOPS/W as transcribed.
     pub tsinghua_accel_photonic_tops_per_watt: f64,
-    /// Whether all three overcoming paths (neurosymbolic, noise-coexistence, and continuous wave physics) are verified.
+    /// Named claim checks gated by this axis (see `crate::acceptance`).
+    pub claims: Vec<NamedCheck>,
+    /// True if the `SIREN` projection identity closes (Laplacian MSE $< 10^{-10}$).
+    pub identities_closed: bool,
+    /// Whether the deployed recursion, readout, solver, and representation pass their claim checks.
     pub axis4_verified: bool,
 }
 
 impl DialecticalOvercomingSynthesisAudit {
-    /// Evaluates Axis 4 (`seed = 2026`). When `enable_overcoming` is `false` (injected defect),
-    /// neurosymbolic rules, NAT, and `HP-INV` iterative refinement are disabled.
+    /// Evaluates Axis 4 (`seed = 2026`). When `enable_overcoming` is `false`, the unconstrained recursion, raw drifted readout,
+    /// one-shot inversion, and `ReLU` representation are deployed.
     pub fn evaluate(seed: u64, enable_overcoming: bool) -> Self {
         let analog = AnalogWaveComputingSynthesis::evaluate_with_mode(seed, enable_overcoming);
         let aimc: &AimcAnalogWallHpInvAudit = &analog.aimc_analog_wall_hp_inv;
 
-        // Audit formal Horn-clause / conservation constraint satisfaction (e.g., p[i] == p[4-i] and energy conservation)
-        let unanchored_statistical_rule_satisfaction_rate = 0.25;
-        let neurosymbolic_rule_satisfaction_rate = if enable_overcoming {
-            1.00
+        let mut rng = Rng::new(seed ^ 0xC417_1CA1_2026);
+        let unanchored_rate = synthetic_recursion_rule_satisfaction(&mut rng, false, 200);
+        let constrained_rate = synthetic_recursion_rule_satisfaction(&mut rng, true, 200);
+        let deployed_rule_rate = if enable_overcoming {
+            constrained_rate
         } else {
-            unanchored_statistical_rule_satisfaction_rate
+            unanchored_rate
         };
         let neurosymbolic_variance_retention = analog
             .von_neumann_and_collapse
             .neurosymbolic_anchored_variance_retention;
 
-        let nat_vs_standard_accuracy_at_sigma_060 = (
-            aimc.nat_accuracy_at_sigma_060,
-            aimc.standard_accuracy_at_sigma_060,
+        let a_ecc_pair = (
+            aimc.a_ecc_drift_recovered_accuracy,
+            aimc.a_ecc_uncompensated_accuracy,
         );
-        let a_ecc_drift_recovery_accuracy = if enable_overcoming {
-            aimc.a_ecc_drift_recovered_accuracy
+        let deployed_a_ecc = if enable_overcoming {
+            a_ecc_pair.0
         } else {
-            0.73
+            a_ecc_pair.1
         };
-        let pku_40nm_rram_24bit_hp_inv_error = aimc.pku_hp_inv_final_relative_error;
-        let wave_phase_amplitude_compression_ratio =
-            analog.wave_interference.phase_amplitude_compression_ratio;
-        let siren_vs_relu_helmholtz_laplacian_mse = (
+        let siren_vs_relu = (
             analog.wave_interference.siren_helmholtz_laplacian_mse,
             analog.wave_interference.relu_helmholtz_laplacian_mse,
         );
-        let tsinghua_accel_photonic_tops_per_watt = analog
-            .sensory_dpi_and_ecosystem
-            .tsinghua_accel_tops_per_watt;
+        let deployed_laplacian = if enable_overcoming {
+            siren_vs_relu.0
+        } else {
+            siren_vs_relu.1
+        };
+        let pku_40nm_rram_24bit_hp_inv_error = aimc.pku_hp_inv_final_relative_error;
 
-        let axis4_verified = enable_overcoming
-            && neurosymbolic_rule_satisfaction_rate >= 0.99
-            && neurosymbolic_variance_retention > 0.90
-            && nat_vs_standard_accuracy_at_sigma_060.0 >= 0.61
-            && nat_vs_standard_accuracy_at_sigma_060.0
-                > nat_vs_standard_accuracy_at_sigma_060.1 + 0.20
-            && a_ecc_drift_recovery_accuracy >= 0.97
-            && pku_40nm_rram_24bit_hp_inv_error < 1e-7
-            && wave_phase_amplitude_compression_ratio >= 35.0
-            && siren_vs_relu_helmholtz_laplacian_mse.0 < 1e-10
-            && siren_vs_relu_helmholtz_laplacian_mse.1 > 500.0
-            && tsinghua_accel_photonic_tops_per_watt >= 74_800.0;
+        let identities_closed = siren_vs_relu.0 < 1e-10;
+        let claims: Vec<NamedCheck> = vec![
+            (
+                "critical.a4.deployed_rule_satisfaction_at_least_0.95",
+                deployed_rule_rate >= 0.95,
+            ),
+            (
+                "critical.a4.deployed_variance_retention_above_0.90",
+                neurosymbolic_variance_retention > 0.90,
+            ),
+            (
+                "critical.a4.deployed_a_ecc_accuracy_at_least_0.97",
+                deployed_a_ecc >= 0.97,
+            ),
+            (
+                "critical.a4.deployed_hp_inv_residual_below_1e-7",
+                pku_40nm_rram_24bit_hp_inv_error < 1e-7,
+            ),
+        ];
+        let axis4_verified = identities_closed && claims.iter().all(|c| c.1);
 
         Self {
-            unanchored_statistical_rule_satisfaction_rate,
-            neurosymbolic_rule_satisfaction_rate,
+            unanchored_statistical_rule_satisfaction_rate: unanchored_rate,
+            neurosymbolic_rule_satisfaction_rate: constrained_rate,
+            deployed_rule_satisfaction_rate: deployed_rule_rate,
             neurosymbolic_variance_retention,
-            nat_vs_standard_accuracy_at_sigma_060,
-            a_ecc_drift_recovery_accuracy,
+            nat_vs_standard_accuracy_at_sigma_060: (
+                aimc.nat_accuracy_at_sigma_060,
+                aimc.standard_accuracy_at_sigma_060,
+            ),
+            a_ecc_compensated_vs_raw_accuracy: a_ecc_pair,
+            a_ecc_drift_recovery_accuracy: deployed_a_ecc,
             pku_40nm_rram_24bit_hp_inv_error,
-            wave_phase_amplitude_compression_ratio,
-            siren_vs_relu_helmholtz_laplacian_mse,
-            tsinghua_accel_photonic_tops_per_watt,
+            wave_phase_amplitude_compression_ratio: analog
+                .wave_interference
+                .phase_amplitude_compression_ratio,
+            siren_vs_relu_helmholtz_laplacian_mse: siren_vs_relu,
+            deployed_helmholtz_laplacian_mse: deployed_laplacian,
+            tsinghua_accel_photonic_tops_per_watt: analog
+                .sensory_dpi_and_ecosystem
+                .tsinghua_accel_tops_per_watt,
+            claims,
+            identities_closed,
             axis4_verified,
         }
     }
@@ -529,8 +725,10 @@ pub struct CriticalStochasticRationalitySynthesis {
     pub marcuse_rouvroy_stochastic_parrot: MarcuseRouvroyStochasticParrotAudit,
     /// Axis 3: Material Collapse Triad (Informational Autophagy, Binary Thermodynamic Wall, and Analog Noise Cliff).
     pub material_collapse_triad: MaterialCollapseTriadAudit,
-    /// Axis 4: Dialectical Overcoming (Neurosymbolic Logic, NAT/A-ECC/PKU `HP-INV`, and Continuous Wave Physics).
+    /// Axis 4: Dialectical Overcoming (Neurosymbolic Constraints, A-ECC/PKU `HP-INV`, and Continuous Wave Physics).
     pub dialectical_overcoming: DialecticalOvercomingSynthesisAudit,
+    /// True if every axis's identity checks close (expected in both modes).
+    pub all_identities_closed: bool,
     /// Whether all four axes pass their epistemological and mathematical gates.
     pub all_four_axes_verified: bool,
 }
@@ -541,8 +739,8 @@ impl CriticalStochasticRationalitySynthesis {
         Self::evaluate_with_mode(seed, true)
     }
 
-    /// Evaluates the 4-axis synthesis with configurable protection mode (`true` = Stochological/Dialectical grounding;
-    /// `false` = injected `--defect instrumental_reason` pathology).
+    /// Evaluates the 4-axis synthesis deploying the grounded methods (`true`) or the naive positivist methods
+    /// (`false`, used by `--defect instrumental_reason`).
     pub fn evaluate_with_mode(seed: u64, grounded_mode: bool) -> Self {
         let adorno_non_identical_and_reification =
             AdornoNonIdenticalReificationAudit::evaluate(seed, grounded_mode);
@@ -552,6 +750,9 @@ impl CriticalStochasticRationalitySynthesis {
         let dialectical_overcoming =
             DialecticalOvercomingSynthesisAudit::evaluate(seed, grounded_mode);
 
+        let all_identities_closed = adorno_non_identical_and_reification.identities_closed
+            && marcuse_rouvroy_stochastic_parrot.identities_closed
+            && dialectical_overcoming.identities_closed;
         let all_four_axes_verified = adorno_non_identical_and_reification.axis1_verified
             && marcuse_rouvroy_stochastic_parrot.axis2_verified
             && material_collapse_triad.axis3_verified
@@ -562,8 +763,41 @@ impl CriticalStochasticRationalitySynthesis {
             marcuse_rouvroy_stochastic_parrot,
             material_collapse_triad,
             dialectical_overcoming,
+            all_identities_closed,
             all_four_axes_verified,
         }
+    }
+
+    /// Claims removed from the gate after failing multi-seed acceptance.
+    pub fn discarded_claim_checks(&self) -> Vec<NamedCheck> {
+        self.adorno_non_identical_and_reification
+            .discarded_claims
+            .iter()
+            .chain(&self.material_collapse_triad.discarded_claims)
+            .copied()
+            .collect()
+    }
+
+    /// All gated claims of the four axes, in axis order.
+    pub fn claim_checks(&self) -> Vec<NamedCheck> {
+        [
+            &self.adorno_non_identical_and_reification.claims,
+            &self.marcuse_rouvroy_stochastic_parrot.claims,
+            &self.material_collapse_triad.claims,
+            &self.dialectical_overcoming.claims,
+        ]
+        .into_iter()
+        .flatten()
+        .copied()
+        .collect()
+    }
+
+    /// Per-claim pass rates over `seeds` in the given mode (see `crate::acceptance`).
+    pub fn multi_seed_acceptance(seeds: &[u64], grounded_mode: bool) -> MultiSeedAcceptance {
+        MultiSeedAcceptance::evaluate(seeds, |seed| {
+            let syn = Self::evaluate_with_mode(seed, grounded_mode);
+            (syn.claim_checks(), syn.all_identities_closed)
+        })
     }
 }
 
@@ -573,15 +807,15 @@ impl CriticalStochasticRationalitySynthesis {
 pub struct EmpiricalCriticalRationalityAudit {
     /// Hill tail index $\hat{\alpha}_{k,n} \in (1, 2]$ on `danish_fire.csv` (infinite theoretical variance regime).
     pub danish_fire_hill_alpha: f64,
-    /// True Expected Shortfall $\mathrm{ES}_{0.99}$ on `danish_fire.csv` ($58.59\text{M}$) vs. Gaussian $2\sigma$-truncated $\mathrm{ES}_{0.99}^{\text{trunc}}$.
+    /// True Expected Shortfall $\mathrm{ES}_{0.99}$ on `danish_fire.csv` vs. Gaussian $2\sigma$-truncated $\mathrm{ES}_{0.99}^{\text{trunc}}$.
     pub danish_fire_true_vs_truncated_es99: (f64, f64),
     /// Fraction of real `danish_fire.csv` tail risk liquidated by forced Gaussian identity ($> 65\%$).
     pub danish_fire_non_identical_erasure_fraction: f64,
-    /// Chouldechova FPR disparity ratio ($\mathrm{FPR}_A / \mathrm{FPR}_B = 5.13\times$) on `toronto_arrests.csv` under unequal base rates.
+    /// Chouldechova FPR disparity ratio ($\mathrm{FPR}_A / \mathrm{FPR}_B$) on `toronto_arrests.csv` base rates.
     pub toronto_arrests_preemptive_fpr_ratio: f64,
-    /// Ratio of spurious latitude proxy penalty to invariant barometric core penalty on `atlantic_storms.csv` ($> 90\times$).
+    /// Ratio of spurious latitude proxy penalty to invariant barometric core penalty on `atlantic_storms.csv` ($> 80\times$).
     pub atlantic_storms_spurious_to_invariant_penalty_ratio: f64,
-    /// Wave-interference compression ratio ($14\times$) and PKU 24-bit `HP-INV` spectral error ($< 10^{-12}$) on `vic_elec.csv`.
+    /// Wave-interference compression ratio and PKU 24-bit `HP-INV` spectral error on `vic_elec.csv`.
     pub vic_elec_wave_compression_and_hp_inv_error: (f64, f64),
     /// Whether all four empirical real-data audits are verified.
     pub empirical_critical_verified: bool,
@@ -627,8 +861,6 @@ impl EmpiricalCriticalRationalityAudit {
             emp_wave.empirical_hp_inv_relative_error,
         );
 
-        let _ = kl_divergence(&[0.5, 0.5], &[0.5, 0.5]);
-
         let empirical_critical_verified = hill.alpha_hill > 1.0
             && hill.alpha_hill <= 2.0
             && danish_fire_non_identical_erasure_fraction > 0.65
@@ -660,9 +892,13 @@ mod tests {
         assert!(pos.es99_erasure_fraction > 0.60);
         assert!(pos.koh_structural_discrepancy_norm > 0.40);
         assert!(pos.status_quo_reification_excess_risk > 0.05);
-        assert!(pos.axis1_verified);
+        assert!(pos.axis1_verified, "{pos:?}");
 
+        // The positivist pipeline is actually run: its VaR is breached, its extrapolation and policy miss the targets.
         let neg = AdornoNonIdenticalReificationAudit::evaluate(DEFAULT_SEED, false);
+        assert!(neg.non_identical_liquidation_gap > 30.0);
+        assert!(neg.deployed_var99_holdout_exceedance > 0.02, "{neg:?}");
+        assert!(neg.deployed_performative_excess_risk > 1e-3);
         assert!(!neg.axis1_verified);
     }
 
@@ -678,33 +914,33 @@ mod tests {
         assert!(pos.axis2_verified);
 
         let neg = MarcuseRouvroyStochasticParrotAudit::evaluate(DEFAULT_SEED, false);
+        assert!(neg.identities_closed);
+        assert!(neg.deployed_counterfactual_mse > 5.0);
         assert!(!neg.axis2_verified);
     }
 
     #[test]
     fn test_axis3_material_collapse_triad() {
         let m = MaterialCollapseTriadAudit::evaluate(DEFAULT_SEED);
-        assert_eq!(m.epoch_ai_effective_human_tokens_trillions, 300.0);
-        assert_eq!(m.human_token_exhaustion_window_years, (2026, 2032));
         assert!(m.synthetic_autophagy_variance_retention < 0.25);
-        assert!(m.synthetic_autophagy_entropy_loss_nats > 0.70);
-        assert!(m.von_neumann_dram_to_fp32_ratio > 711.0);
-        assert_eq!(m.iea_2030_datacenter_twh, 945.0);
-        assert_eq!(
-            m.ferran_alia_threshold_cliff_curve,
-            [0.98, 0.83, 0.64, 0.39, 0.25]
-        );
+        assert!(m.synthetic_autophagy_kl_divergence_nats > 0.60);
         assert!(m.axis3_verified);
     }
 
     #[test]
     fn test_axis4_dialectical_overcoming_and_full_synthesis() {
         let syn_pos = CriticalStochasticRationalitySynthesis::evaluate_canonical(DEFAULT_SEED);
-        assert!(syn_pos.all_four_axes_verified);
+        assert!(syn_pos.all_identities_closed);
+        assert!(
+            syn_pos.all_four_axes_verified,
+            "{:?}",
+            syn_pos.dialectical_overcoming
+        );
         assert!(syn_pos.dialectical_overcoming.axis4_verified);
 
         let syn_neg =
             CriticalStochasticRationalitySynthesis::evaluate_with_mode(DEFAULT_SEED, false);
+        assert!(syn_neg.all_identities_closed);
         assert!(!syn_neg.all_four_axes_verified);
         assert!(!syn_neg.adorno_non_identical_and_reification.axis1_verified);
         assert!(!syn_neg.marcuse_rouvroy_stochastic_parrot.axis2_verified);

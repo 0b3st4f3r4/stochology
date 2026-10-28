@@ -78,10 +78,43 @@ Stochology restores the full loop: **the noisy world that generates the observat
 ### Dedication and the Name of the Protocol: **The CAPIBA Protocol**
 
 While **Stochology** names the scientific discipline, the operational and auditing architecture formalized in this treatise is named the **CAPIBA Protocol** (*Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol*):
-- **CAPIBA** defines the **six mnemonic pillars** of what is audited across the eight epistemological gates (`G1`–`G8`) and their eighteen negative defect proofs (`--defect`);
+- **CAPIBA** defines the **six mnemonic pillars** of what is audited across the eight epistemological gates (`G1`–`G8`) and their nineteen negative defect proofs (`--defect`);
 - **SIGA** (*Survey, Interrogate, Generate, Act*) defines the **eight-step operational roadmap** of how a decision-maker and auditor traverse the cycle from raw observation to action.
 
 The name **CAPIBA** is a tribute to **Lourenço da Fonseca Barbosa (Capiba)** (Surubim, Pernambuco, 28 October 1904 – Recife, Pernambuco, 31 December 1997). Across a century of Brazilian intellectual and musical life, Capiba practiced two crafts that rarely meet in the same person: by day, a career official at the *Banco do Brasil* (admitted by public competitive examination in 1930), working amid ledgers, clearing balances, and institutional risk; by night and by vocation, the master of Pernambucan *frevo* and a central composer of Ariano Suassuna's *Movimento Armorial*. In the physics of the street carnival of Recife, *frevo* (from *ferver*, to boil, a turbulent, non-equilibrium brass polyphony) lives on the edge of kinetic instability, and the *passista* dances across that turbulence without falling by wielding the *sombrinha* (umbrella) as a dynamic pendulum counterweight. Ledgers and syncopation, rigorous accounting and high-volatility equilibrium: that pairing captures the spirit of this treatise.
+
+### The Six Mnemonic Pillars of the CAPIBA Protocol and the 18 Disjoint Defect Proofs
+
+To give students and auditors an immediate mental map of the entire treatise, the **CAPIBA Protocol** partitions every epistemological check across **six orthogonal pillars (`C-A-P-I-B-A`)**. Together, these six pillars partition all **19 negative defect proofs** (`3 + 4 + 2 + 3 + 2 + 5 = 19`) enforced by the `gates` binary:
+
+| Pillar | Verification Axis | Primary Mathematical & Rust Primitives | Gates | Disjoint Negative Defect Proofs (`--defect`) |
+| :---: | --- | --- | :---: | --- |
+| **C** — **Calibrated** | Out-of-sample probabilistic honesty and non-dogmatic bounds | Isotonic PAV `CorpPavDecomposition`, `MurphyDiagram` ($\int_0^1 \bar{S}_\theta d\theta = \frac{1}{2}\mathrm{BS}$), `CorpRocMurphyTriptych`, and Cromwell's Rule $p \in [\varepsilon, 1-\varepsilon]$ | `G6` | `cromwell`, `brier_dominance`, `concept_drift` (3) |
+| **A** — **Anytime-valid** | Sequential evidence under optional stopping and cluster/resolution parity | Betting martingales `EvidenceProcess` (`aGRAPA`/`GRO`), `SaviConfidenceSequence`, `VarEsEBacktest` (`GREE`), Moulton-Campbell `ExceedanceDesignEffect`, and $\Phi_5$ `verify_resolution_phi5` | `G2/G3/G6` | `moulton`, `peeking`, `var_underreport`, `phi5` (4) |
+| **P** — **Performative-aware** | Endogenous feedback loops $L_3 \to L_1$, Goodhart collapse, and synthetic recursion | `PerformativeSystem` ($\theta_{\mathrm{PS}}$ vs. Stackelberg $\theta_{\mathrm{PO}}$, `PerfGD`, $r_{\mathrm{RRM}} = \frac{\varepsilon\beta}{\gamma} < 1$), `GoodhartTaxonomyAudit`, and `GerstgrasserAccumulateAudit` ($\le c\pi^2/6$) | `G6/G8` | `performativity`, `replace_collapse` (2) |
+| **I** — **Invariant** | Structural stability across regimes, missingness bounds, and severe uncertainty | `MengAudit` (`ddc`/`DDI`), `ManskiBounds` + Lee (2009) trimming & tipping point $\Delta^*$, Hermite `run_nonlinear_icp_nile`, `KennedyOHaganDiscrepancy`, `InfoGapOption` + Sniedovich Wald floor, and `AuthenticModelForm` | `G3/G6/G8` | `lee_point_estimate`, `sniedovich`, `machine` (3) |
+| **B** — **Bitemporal** | Causality of event vs. availability clocks and cryptographic holdout seals | `BitemporalRecord` ($t_{\text{disp}} \ge t_{\text{ev}}$), synthetic canary $I(\text{Canary}; Y)=0$, single-opening `HMAC-SHA256` `TemporalVault`, `PredeterminedChangeControlPlan`, and `ProfitLossAttributionTest` | `G7` | `clock`, `vault` (2) |
+| **A** — **Auditing** | Eliminatory funnel, fairness trilemmas, analog/wave physics, cybernetics, and triadic synthesis | 4-Filter Funnel, `ChouldechovaAudit`, `AlertFatigueAudit`, `AnalogWaveComputingSynthesis` (`HP-INV`), `CriticalStochasticRationalitySynthesis`, `StocharyConjecturalCyberneticSynthesis`, and `ComplexFractalToroidalTechniumSynthesis` | `G4/G8` | `chouldechova`, `analog_wall`, `instrumental_reason`, `stochary_cybernetics`, `triadic_technium` (5) |
+
+```mermaid
+flowchart LR
+    subgraph CAPIBA["THE CAPIBA PROTOCOL (What Is Verified: 6 Pillars → 8 Gates → 18 Defects)"]
+        C1["C · Calibrated (3)"]
+        A1["A · Anytime-valid (4)"]
+        P1["P · Performative-aware (2)"]
+        I1["I · Invariant (3)"]
+        B1["B · Bitemporal (2)"]
+        A2["A · Auditing (4)"]
+    end
+    subgraph SIGA["THE 8-STEP SIGA ROADMAP (How Verification Runs)"]
+        S["S · Survey Layer & Bridge (Steps 1–2)"]
+        I["I · Interrogate Decision-Maker (Steps 3–4)"]
+        G["G · Generate Null & Noise Physics (Steps 5–6)"]
+        A["A · Act with Threshold, Memory & Exit (Steps 7–8)"]
+    end
+    S --> I --> G --> A
+    CAPIBA === SIGA
+```
 
 ---
 
@@ -303,7 +336,7 @@ Anyone in the world who starts from $x\_0 = 7$ will obtain the exact sequence $6
 However, you must keep three concepts separate:
 1. **Reproducibility:** Running the same code on the same dataset with `seed = 2026` produces the exact same floating-point output on every machine. The fixed seed guarantees this floor.
 2. **Replicability:** Collecting a *new* dataset in a *new* hospital, city, or year and observing that the scientific conclusion still holds. No random seed can buy replicability; only invariant causal structure (Chapters 5–6) and out-of-time/out-of-domain governance (Chapter 19) can test it.
-3. **Validity:** Whether the mathematical equation in the code actually measures what the claim says it measures. A fixed seed reproduces a wrong formula just as faithfully as a right one. For that reason, our protocol combines fixed-seed reproducibility with **algebraic identity closure** and **18 negative defect proofs** (Chapter 23).
+3. **Validity:** Whether the mathematical equation in the code actually measures what the claim says it measures. A fixed seed reproduces a wrong formula just as faithfully as a right one. For that reason, our protocol combines fixed-seed reproducibility with **algebraic identity closure**, **multi-seed acceptance over 20 pre-declared seeds**, and **19 negative defect proofs** (Chapter 23).
 
 ---
 
@@ -333,4 +366,19 @@ At any moment, a single command in the terminal executes the complete verificati
 scripts/verify.sh
 ~~~
 
-This command checks code formatting (`cargo fmt`), enforces zero compiler or linter warnings (`cargo clippy -- -D warnings`), executes all unit and integration tests (`cargo test`), runs all seven methodological and empirical laboratories (`labs --all`), verifies that the eight epistemological gates approve the canonical system (`gates` exiting with `0`), and proves that all eighteen injected methodological defects are caught and blocked (`gates -- --defect <name>` exiting with `1`).
+This command checks code formatting (`cargo fmt`), enforces zero compiler or linter warnings (`cargo clippy -- -D warnings`), executes all unit and integration tests (`cargo test`), runs all seven methodological and empirical laboratories (`labs --all`), verifies that the eight epistemological gates approve the canonical system (`gates` exiting with `0`), and proves that all nineteen injected methodological defects are caught and blocked (`gates -- --defect <name>` exiting with `1`).
+
+---
+
+## 7. Interactive Experimentation in `/lab`
+
+Reading equations on a static page is never enough to build physical intuition for tail risk, variance drain, or performative feedback. Every chapter of this textbook is coupled to an **Interactive Laboratory Widget** synchronized with **[`/lab`](./lab/index.html?seed=2026)**:
+
+- **In-Page Deterministic Simulation (`seed = 2026`):** Move the parameter sliders directly inside any chapter to watch the mathematical curves, natural-frequency trees, and epistemological gates update in real time.
+- **Deep-Link State Sharing (`Open in /lab ↗`):** Every slider adjustment updates the deep-link query string (`/lab/?module=<id>&seed=2026&...`), allowing instructors and auditors to share exact reproducible configurations on GitHub Pages.
+- **Embedded Sandbox & CLI Parity (`Sandbox (/lab/embed)` & `Copy CLI Audit`):** Toggle the embedded sandbox frame from `/lab/embed/` or copy the exact `cargo run --release --bin ...` command to verify the same numbers in the pure-Rust terminal suite.
+
+Try the interactive Gigerenzer Natural-Frequency & Turing Deciban Laboratory below:
+
+<div class="stoch-lab" data-lab="gigerenzer-bayes" data-chapter="00-preface" data-title="Preface Lab: Gigerenzer Natural-Frequency Tree &amp; Turing Deciban Updater" data-cli="cargo run --release --bin labs -- --siga"></div>
+

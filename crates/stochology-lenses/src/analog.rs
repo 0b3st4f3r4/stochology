@@ -495,6 +495,8 @@ pub struct AimcAnalogWallHpInvAudit {
     pub nat_gain_at_sigma_060: f64,
     /// Accuracy after applying Analog Error-Correcting Codes (A-ECC) under PCM resistance drift $G(t) = G_0(t/t_0)^{-\nu}$.
     pub a_ecc_drift_recovered_accuracy: f64,
+    /// Accuracy of the same drifted readouts without the A-ECC calibration column (raw power-law drift).
+    pub a_ecc_uncompensated_accuracy: f64,
     /// Prohibition 2 nonlinear summary over the stochastic crossbar loss under conductance noise.
     pub crossbar_noise_nonlinear_summary: NonlinearSummary,
     /// Initial 1-step relative residual error $\lVert A x^{(1)} - b\rVert_2 / \lVert b\rVert_2$ of the 3-bit RRAM `LP-INV` circuit.
@@ -581,6 +583,7 @@ impl AimcAnalogWallHpInvAudit {
 
         // PCM Resistance Drift G(t) = G_0 * (t / t_0)^(-nu) + Analog Error-Correcting Code (A-ECC) recovery
         let mut aecc_hits = 0usize;
+        let mut raw_hits = 0usize;
         let nu_drift = 0.06;
         let drift_factor = (1000.0f64).powf(-nu_drift);
         for _ in 0..400 {
@@ -591,11 +594,15 @@ impl AimcAnalogWallHpInvAudit {
             }
             // A-ECC redundant calibration column compensates the global power-law drift factor
             let sum_compensated = sum_raw / drift_factor;
+            if (sum_raw - 1.0).abs() < 0.32 {
+                raw_hits += 1;
+            }
             if (sum_compensated - 1.0).abs() < 0.32 {
                 aecc_hits += 1;
             }
         }
         let a_ecc_drift_recovered_accuracy = aecc_hits as f64 / 400.0;
+        let a_ecc_uncompensated_accuracy = raw_hits as f64 / 400.0;
 
         // Prohibition 2: NonlinearSummary over convex exponential crossbar logit loss f(X) = exp(1.5 * X^2)
         let mut noise_samples = Vec::with_capacity(400);
@@ -659,6 +666,7 @@ impl AimcAnalogWallHpInvAudit {
             nat_accuracy_at_sigma_060,
             nat_gain_at_sigma_060,
             a_ecc_drift_recovered_accuracy,
+            a_ecc_uncompensated_accuracy,
             crossbar_noise_nonlinear_summary,
             pku_lp_inv_initial_relative_error,
             pku_hp_inv_final_relative_error,

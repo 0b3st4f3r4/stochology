@@ -189,6 +189,47 @@ In Step 8 of the SIGA Roadmap, alongside the integer Gigerenzer natural-frequenc
    $$W\_k = 10\log\_{10}\left(\frac{\mathrm{TPR}\_k}{\mathrm{FPR}\_k}\right), \qquad W\_{\text{total}} = \sum\_k W\_k, \qquad O\_{\text{post}} = O\_{\text{prior}} \times 10^{W\_{\text{total}} / 10}$$
 3. **Why the Epic Sepsis Model Failed in External Validation (`AlertFatigueAudit::canonical_epic_sepsis_vs_stochological_gate`):** In **Wong et al. (*JAMA Internal Medicine* 2021)** across $27\text{,}697$ hospitalizations, the proprietary Epic Sepsis Model ($\mathrm{AUC} = 0.63, \mathrm{TPR} = 0.33, \mathrm{FPR} = 0.0495$ at shift prevalence $p\_0 = 0.02$) achieved only $W = +8.24\text{ dB}$ and **$\mathrm{PPV} = 0.120$**, generating **$7.33$ false alarms for every true case** and imposing $18.5\text{ bit/s} > 10\text{ bit/s}$ of cognitive load (`passes_alert_fatigue_gate = false`). By contrast, a CORP-calibrated Stochological triage gate requiring $W\_{\text{total}} = +17.99\text{ dB} \ge W^{\ast} = +12.61\text{ dB}$ achieves **$\mathrm{PPV} = 0.563 > p^{\ast} = 0.120$** ($0.78$ false alarms per true case) and an operator load of **$3.2\text{ bit/s} \le 10.0\text{ bit/s}$** (`passes_alert_fatigue_gate = true`).
 
+### Step-by-Step Foundational Derivation: Lentz's Continued Fraction for the Regularized Incomplete Beta Function $I\_x(\alpha, \beta)$
+
+How does Filter 3 fit a conjugate $\mathrm{Beta}(\alpha, \beta)$ distribution to expert SHELF quartiles $(q\_{25}, q\_{50}, q\_{75})$ in pure Rust without external special-function libraries?
+1. **Integral Definition and Symmetry Reduction:**
+   The cumulative distribution function of $\mathrm{Beta}(\alpha, \beta)$ at $x \in (0, 1)$ is the regularized incomplete Beta function:
+   $$I\_x(\alpha, \beta) = \frac{B(x; \alpha, \beta)}{B(\alpha, \beta)} = \frac{1}{B(\alpha, \beta)} \int\_0^x t^{\alpha-1}(1-t)^{\beta-1}\,dt$$
+   where $\ln B(\alpha, \beta) = \ln\Gamma(\alpha) + \ln\Gamma(\beta) - \ln\Gamma(\alpha+\beta)$ is evaluated via Lanczos's $g=7$ Chebyshev rational approximation (`ln_gamma_lanczos`). Whenever $x > \frac{\alpha + 1}{\alpha + \beta + 2}$, we apply the exact reflection identity $I\_x(\alpha, \beta) = 1 - I\_{1-x}(\beta, \alpha)$ so the continued fraction always converges rapidly in the tail.
+2. **Continued-Fraction Expansion and Lentz's (1976) Modified Algorithm:**
+   When $x \le \frac{\alpha + 1}{\alpha + \beta + 2}$, $I\_x(\alpha, \beta)$ admits the classical continued fraction:
+   $$I\_x(\alpha, \beta) = \frac{x^\alpha (1-x)^\beta}{\alpha B(\alpha, \beta)} \left(\frac{1}{1 + \frac{d\_1}{1 + \frac{d\_2}{1 + \cdots}}}\right)$$
+   with even and odd coefficients:
+   $$d\_{2m} = \frac{m(\beta - m)x}{(\alpha + 2m - 1)(\alpha + 2m)}, \qquad d\_{2m+1} = -\frac{(\alpha + m)(\alpha + \beta + m)x}{(\alpha + 2m)(\alpha + 2m + 1)}$$
+   In `regularized_incomplete_beta`, Lentz's recurrence maintains two forward ratios $C\_k = 1 + \frac{d\_k}{C\_{k-1}}$ and $D\_k = \frac{1}{1 + d\_k D\_{k-1}}$ (clamping denominators away from zero at $10^{-30}$), multiplying $f\_k = f\_{k-1} C\_k D\_k$ until $|\Delta\_k - 1| = |C\_k D\_k - 1| < 10^{-14}$.
+
+```mermaid
+flowchart LR
+    subgraph FUNNEL["4-Filter Eliminatory Funnel (Short-Circuiting)"]
+      F1["Filter 1<br/>EVPI &gt; C_total &amp; Φ₅"] --> F2["Filter 2<br/>Moulton n_eff &amp; Zero Collider"]
+      F2 --> F3["Filter 3<br/>SBC χ² &amp; SHELF Beta Fit"]
+      F3 --> F4["Filter 4<br/>SHA-256 &amp; Cross-Authorship"]
+    end
+    subgraph SIGA["8-Step SIGA Operational Roadmap"]
+      S["S · Survey<br/>Steps 1–2: Layer, GP, Info-Gap"] --> I["I · Interrogate<br/>Steps 3–4: p*, EVPI, n_eff(p)"]
+      I --> G["G · Generate<br/>Steps 5–6: Seed 2026 Null, Δ_J, RRM"]
+      G --> A["A · Act<br/>Steps 7–8: CORP, e-process, Memo"]
+    end
+    F4 --> S
+```
+
+---
+
+## Interactive Laboratory (`/lab`)
+
+Explore the sequential `aGRAPA` betting martingale $E\_t = \prod (1 + \lambda\_i X\_i)$, Ville's anytime-valid barrier $1/\alpha$, and the multiplicity penalty $E\_t / K$ executed during Step 7 of the SIGA Roadmap:
+
+<div class="stoch-lab"
+     data-lab="ville-savi-conformal"
+     data-title="SIGA Step 7: Sequential e-Process &amp; Multiplicity Gate"
+     data-subtitle="Test how optional stopping and K ≥ 1 attempted specifications interact with Ville's 1/α threshold">
+</div>
+
 ---
 
 ## Computational Audit in Rust

@@ -230,6 +230,73 @@ $$\left|\mathbb{E}\_{X \sim P}[h(X)] - \mathbb{E}\_{X \sim Q}[h(X)]\right| \le L
 
 When a deployed model shifts its parameter by $\|\theta - \theta'\|$, and the world's distribution shifts by $W\_1(\mathcal{D}(\theta), \mathcal{D}(\theta')) \le \varepsilon \|\theta - \theta'\|$, Kantorovich-Rubinstein duality bounds whether the feedback loop between Agent and World converges to stability or diverges.
 
+### 3. Foundational Derivation: Tail-Integral Identity and Exact $\mathcal{O}(n \log n)$ Empirical $\mathrm{CRPS}$
+
+Two foundational identities connect quantiles, expectations, and proper scoring rules throughout the Stochology codebase:
+
+1. **Darboux / Quantile-Inversion Identity ($\mathbb{E}[X] = \int\_0^1 F\_X^{-1}(u)\,du$):**
+   For any non-negative random variable $X \ge 0$, writing $X = \int\_0^\infty \mathbf{1}\{X > t\}\,dt$ and taking expectations via Fubini's theorem yields the **survival-area identity**:
+   $$\mathbb{E}[X] = \int\_0^\infty (1 - F\_X(t))\,dt = \int\_0^1 F\_X^{-1}(u)\,du$$
+   Subtracting two CDFs $F$ and $G$ immediately proves **Vallender's Theorem (1973)**: the vertical area between two CDFs $\int\_{-\infty}^\infty |F(x) - G(x)|\,dx$ and the horizontal area between their quantile curves $\int\_0^1 |F^{-1}(u) - G^{-1}(u)|\,du$ are **geometrically identical**—both equal the 1D Wasserstein-1 distance $W\_1(P, Q)$.
+
+2. **Exact $\mathcal{O}(n \log n)$ Order-Statistic Decomposition of $\mathrm{CRPS}$:**
+   Given $n$ sorted ensemble forecast draws $x\_{(1)} \le x\_{(2)} \le \dots \le x\_{(n)}$, a naive evaluation of $\frac{1}{2n^2}\sum\_{i=1}^n\sum\_{j=1}^n |x\_i - x\_j|$ requires $\mathcal{O}(n^2)$ operations. However, because $x\_{(i)} \ge x\_{(j)}$ whenever $i > j$, each sorted element $x\_{(i)}$ appears with a positive sign $(i - 1)$ times and with a negative sign $(n - i)$ times, reducing the double sum to a single linear pass after sorting (`exact_loo_empirical_crps` in `crates/stochology-core/src/layers.rs`):
+   $$\frac{1}{2n^2}\sum\_{i=1}^n\sum\_{j=1}^n |x\_i - x\_j| = \frac{1}{n^2}\sum\_{i=1}^n (2i - n - 1)\,x\_{(i)}$$
+
+<figure class="stoch-figure">
+  <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="340" viewBox="0 0 1120 340" fill="none" role="img" aria-labelledby="title-fig-01b-jensen">
+  <title id="title-fig-01b-jensen">Geometric Proof of Jensen's Inequality: Secant Chord E[f(X)] vs. Supporting Tangent at E[X]</title>
+  <defs>
+    <style>text { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; } .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; }</style>
+  </defs>
+  <rect x="1" y="1" width="1118" height="338" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
+  <!-- Left Plot: Convex Secant vs Tangent -->
+  <rect x="24" y="22" width="520" height="296" rx="12" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2"/>
+  <text x="44" y="48" fill="var(--sky)" class="mono" font-size="11.5" font-weight="800">GEOMETRY OF CONVEXITY · SECANT CHORD ABOVE TANGENT</text>
+  <line x1="64" y1="276" x2="510" y2="276" stroke="var(--muted)" stroke-width="1.5"/>
+  <line x1="64" y1="64" x2="64" y2="276" stroke="var(--muted)" stroke-width="1.5"/>
+  <!-- Convex curve f(x) -->
+  <path d="M 84 258 Q 260 250, 480 78" stroke="var(--sky)" stroke-width="3" fill="none"/>
+  <!-- Tangent line at mu -->
+  <line x1="120" y1="268" x2="460" y2="146" stroke="var(--emerald)" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <!-- Secant chord between x1 and x2 -->
+  <line x1="110" y1="254" x2="460" y2="94" stroke="var(--amber)" stroke-width="2.4" stroke-dasharray="6 3"/>
+  <!-- Vertical Jensen Gap at mu = 285 -->
+  <line x1="285" y1="174" x2="285" y2="209" stroke="var(--rose)" stroke-width="3.6"/>
+  <circle cx="110" cy="254" r="5" fill="var(--amber)"/>
+  <circle cx="460" cy="94" r="5" fill="var(--amber)"/>
+  <circle cx="285" cy="174" r="5.5" fill="var(--rose)"/>
+  <circle cx="285" cy="209" r="5.5" fill="var(--sky)"/>
+  <text x="298" y="188" fill="var(--rose)" class="mono" font-size="12" font-weight="800">E[f(X)] (Chord Midpoint)</text>
+  <text x="298" y="222" fill="var(--sky)" class="mono" font-size="12" font-weight="800">f(E[X]) (Curve at μ)</text>
+  <text x="150" y="198" fill="var(--rose)" class="mono" font-size="12" font-weight="800">Δ_J = E[f(X)] - f(E[X]) ≥ 0</text>
+  <text x="80" y="298" fill="var(--muted)" class="mono" font-size="11">x₁ (Shallows)</text>
+  <text x="265" y="298" fill="var(--ink)" class="mono" font-size="11" font-weight="700">μ = E[X]</text>
+  <text x="425" y="298" fill="var(--muted)" class="mono" font-size="11">x₂ (Channel)</text>
+
+  <!-- Right Plot: Vallender Identity & LOO CRPS -->
+  <rect x="576" y="22" width="520" height="296" rx="12" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2"/>
+  <text x="596" y="48" fill="var(--violet)" class="mono" font-size="11.5" font-weight="800">SEVEN-NUMBER NONLINEAR SUMMARY (PROHIBITION 2)</text>
+  <text x="596" y="76" fill="var(--ink)" font-size="14" font-weight="750">Why a Single Scalar Mean Is Rejected by Gate G6</text>
+  <text x="596" y="106" fill="var(--muted)" class="mono" font-size="11.5">1. f(E[X])  — Naive plug-in cost at the mean input</text>
+  <text x="596" y="130" fill="var(--muted)" class="mono" font-size="11.5">2. E[f(X)]  — True expected cost across the distribution</text>
+  <text x="596" y="154" fill="var(--rose)" class="mono" font-size="11.5" font-weight="700">3. Δ_J      — Jensen's Gap E[f(X)] - f(E[X]) ≈ ½f''(μ)σ²</text>
+  <text x="596" y="178" fill="var(--muted)" class="mono" font-size="11.5">4. q_05     — 5th percentile lower-tail outcome</text>
+  <text x="596" y="202" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="700">5. q_50     — Rank-robust median (immune to single spike)</text>
+  <text x="596" y="226" fill="var(--amber)" class="mono" font-size="11.5" font-weight="700">6. q_95     — 95th percentile upper-tail congestion/loss</text>
+  <text x="596" y="250" fill="var(--sky)" class="mono" font-size="11.5" font-weight="700">7. CRPS     — Strictly proper full-CDF calibration score</text>
+  <text x="596" y="286" fill="var(--ink)" class="mono" font-size="11.5" font-weight="700">Bank Calls (n=27,716): Δ_J = +9.03×10⁶ · CRPS = 9.06×10⁷</text>
+  </svg>
+  <figcaption><strong>Figure 1.2 — Geometric proof of Jensen's Inequality via secant chords and supporting tangent lines, paired with the mandatory 7-number `NonlinearSummary` audited in Gate G6.</strong></figcaption>
+</figure>
+
+### Interactive Laboratory (`/lab`)
+
+Explore how input dispersion $\delta$ and payoff curvature $c$ interact to amplify Jensen's Gap $\Delta\_J = \mathbb{E}[f(X)] - f(\mathbb{E}[X])$ in real time:
+
+<div class="stoch-lab" data-lab="jensen-crps" data-chapter="01-random-variables-convexity" data-title="Chapter 1 Lab: Convexity, Secant Geometry &amp; Jensen's Gap (Δ_J) Explorer" data-cli="cargo run --release --bin labs -- --layers"></div>
+
+
 ---
 
 ## Computational Audit in Rust

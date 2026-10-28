@@ -16,13 +16,13 @@ Every byte of these 13 CSV files is cryptographically locked in `data/SHA256SUMS
 
 <figure class="stoch-figure">
   <svg xmlns="http://www.w3.org/2000/svg" width="1140" height="310" viewBox="0 0 1140 310" fill="none" role="img" aria-labelledby="title-fig-11-synthesis">
-  <title id="title-fig-11-synthesis">Synoptic Map of the 13 Real Empirical Datasets and 3 Canonical Cards Across 6 Domains (Lab 7)</title>
+  <title id="title-fig-11-synthesis">Synoptic Map of the 13 Real Empirical Datasets and 4 Canonical Cards Across 6 Domains (Lab 7)</title>
   <defs>
   <style>text { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; } .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; }</style>
   </defs>
   <rect x="1" y="1" width="1138" height="308" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
   <rect x="20" y="22" width="352" height="122" rx="11" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2"/>
-  <text x="38" y="48" fill="var(--sky)" class="mono" font-size="11" font-weight="800">1. LABOR POLICY (2 CSVs)</text>
+  <text x="38" y="48" fill="var(--sky)" class="mono" font-size="11" font-weight="800">1. LABOR &amp; DPI TRIAGE (2 CSVs → card_04)</text>
   <text x="38" y="74" fill="var(--ink)" font-size="14.5" font-weight="800">nsw_experimental + cps_obs</text>
   <text x="38" y="98" fill="var(--muted)" class="mono" font-size="11">Meng ρ_R,Y = +0.1334 → n_eff = 2,843</text>
   <text x="38" y="120" fill="var(--muted)" class="mono" font-size="11">Manski [5463, 13835] · Lee [839, 2007]</text>
@@ -52,7 +52,7 @@ Every byte of these 13 CSV files is cryptographically locked in `data/SHA256SUMS
   <text x="786" y="242" fill="var(--muted)" class="mono" font-size="11">Lei-Candès ≥ 0.802 / 0.828 / 0.693</text>
   <text x="786" y="264" fill="var(--muted)" class="mono" font-size="11">H1 Vault = OpenedApproved (BS=0.1783)</text>
   </svg>
-  <figcaption><strong>Figure 20.1 — Synoptic Map of All 13 Real Empirical Datasets &amp; 3 Canonical Cards in Laboratory 7</strong></figcaption>
+  <figcaption><strong>Figure 20.1 — Synoptic Map of All 13 Real Empirical Datasets &amp; 4 Canonical Cards in Laboratory 7</strong></figcaption>
 </figure>
 
 ---
@@ -147,10 +147,39 @@ cargo run --release --bin labs -- --real-data
   [4b/6 Wave-Analog Empirical: vic_elec.csv] Wave compression=14.0x (336 -> 24), R^2=0.88, PKU HP-INV Gram err=4.39e-16 (3-bit LP-INV=1.41e-2)
   [5/6 Calibration & Fairness: atlantic_storms.csv + toronto_arrests.csv -> card_01] Lens 5 & Phi4: Storms BS=0.26906 (REL=0.21135, RES=0.13102, err=1.53e-14) | Toronto FPR_A/FPR_B=5.13x
   [5b/6 Critical Rationality Empirical: danish_fire + toronto_arrests + atlantic_storms + vic_elec] Fire Non-Identical ES99 erased=69.3% | Toronto preemptive FPR=5.13x | Storms spurious/invariant NILE ratio=96.8x | VicElec wave R2=0.88 | verified=true
-  [5c/6 Stochary-Conjectural & Cybernetic Empirical (5 CSVs): djia + bank_calls + danish_fire + vic_elec + atlantic_storms] DJIA drain=0.0145 | BankCalls LP_var=0.18, Scarf(s*=196, S*=233) | DanishFire VaR95=8.42M, CVaR95=23.95M, WDRO_disapp=-2.43 vs naive=+17.92 | VicElec TTS/TTR=1.44 | Storms PATE(Telos_net=-0.1302, Skopos_UNC0=0.1887) | verified=true
+  [5c/6 Stochary-Conjectural & Cybernetic Empirical (5 CSVs): djia + bank_calls + danish_fire + vic_elec + atlantic_storms] DJIA drain=0.0145 | BankCalls LP_var=0.18 | DanishFire VaR95=9.97M, CVaR95=24.17M, chronological CVaR gap=-3.15 (Optimizer's Curse discarded), WDRO_disapp=-25.40 | VicElec reserve covers 90.7% of out-of-sample excursions | Storms out-of-sample PATE(Telos_net=-0.1117, Skopos_UNC0=0.1749) | verified=true
   [6/6 Aviation Drift (5 CSVs): nyc_flights_2013/2023 + H1 reserves + houston_flights_2011.csv -> card_03] Lei-Candes(NYC 13->23 >= 0.802, H1 13->23 >= 0.828, NYC->Houston OOD >= 0.693) | H1 Vault=OpenedApproved (Brier=0.1783)
   [Synthesis Ledger] 13/13 real CSV datasets audited | 4/4 canonical YAML cards approved (G1-G8 & SIGA)
 ~~~
+
+```mermaid
+flowchart LR
+    subgraph L1L2["Bridge L₁ → L₂ (Selection &amp; Clustering)"]
+      D1["cps_observational.csv<br/>n = 15,992 → n_eff,Meng = 2,843"]
+      D2["bank_calls.csv<br/>n = 27,716 → n_eff(0.90) = 980.7"]
+    end
+    subgraph L2L3["Bridge L₂ → L₃ (Nonlinearity &amp; Calibration)"]
+      D3["danish_fire.csv + vic_elec.csv<br/>α̂ = 1.6009, ES₉₉ = 58.59M, Wave 14×"]
+      D4["atlantic_storms.csv + toronto_arrests.csv<br/>CORP BS = 0.0321, FPR_A/FPR_B = 5.13×"]
+    end
+    subgraph L3L1["Bridge L₃ → L₁ (Performativity &amp; Drift)"]
+      D5["djia_1885_2023.csv<br/>g_time = 4.68% &lt; g_ens = 6.12%, θ_PO &gt; θ_PS"]
+      D6["nyc_flights 13/23 + H1 + houston<br/>Lei-Candès ≥ 0.802 / 0.828 / 0.693"]
+    end
+    L1L2 --> L2L3 --> L3L1
+```
+
+---
+
+## Interactive Laboratory (`/lab`)
+
+Explore the multi-dataset drift and bitemporal synthesis audited in Laboratory 7:
+
+<div class="stoch-lab"
+     data-lab="governance-bitemporal-drift"
+     data-title="Lab 7 Transversal Synthesis: Multi-Regime Drift &amp; Temporal Vault"
+     data-subtitle="Simulate NYC 2013→2023 covariate shift, Houston out-of-domain transfer, and CORP circuit breaking">
+</div>
 
 ## Exercises
 

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stochology Embedded Sandbox (/lab/embed)</title>
+  <link rel="stylesheet" href="../../theme/book.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0.9rem 1.1rem;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: var(--elevated, #ffffff);
+      color: var(--ink, #0f172a);
+    }
+    .embed-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border, #cbd5e1);
+      padding-bottom: 0.55rem;
+      margin-bottom: 0.75rem;
+    }
+    .embed-tag {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: var(--emerald, #059669);
+    }
+    .embed-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+    @media (max-width: 680px) {
+      .embed-grid { grid-template-columns: 1fr; }
+    }
+    .embed-box {
+      background: var(--surface, #f1f5f9);
+      border: 1px solid var(--border, #cbd5e1);
+      border-radius: 8px;
+      padding: 0.7rem 0.85rem;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.75rem;
+      overflow-x: auto;
+    }
+    .embed-box h5 {
+      margin: 0 0 0.45rem;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: var(--sky, #0284c7);
+    }
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="embed-top">
+    <span class="embed-tag" id="embed-header">SANDBOX /lab/embed · postMessage("stochology:lab:state") · seed = 2026</span>
+    <a id="embed-full-link" href="../index.html" target="_blank" rel="noopener noreferrer" class="stoch-lab-btn">Full Screen /lab ↗</a>
+  </div>
+  <div class="embed-grid">
+    <div class="embed-box">
+      <h5>Live Parameter State Vector (Φ₁)</h5>
+      <pre id="embed-state-json"></pre>
+    </div>
+    <div class="embed-box">
+      <h5>Audited Telemetry &amp; CLI Verification</h5>
+      <pre id="embed-metrics-json"></pre>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var statePre = document.getElementById("embed-state-json");
+      var metricsPre = document.getElementById("embed-metrics-json");
+      var headerEl = document.getElementById("embed-header");
+      var fullLink = document.getElementById("embed-full-link");
+
+      function renderFromQuery() {
+        var params = {};
+        var q = window.location.search.substring(1).split("&");
+        for (var i = 0; i < q.length; i++) {
+          var kv = q[i].split("=");
+          if (kv.length === 2) {
+            params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
+          }
+        }
+        var mod = params.module || "jensen-crps";
+        headerEl.textContent = "SANDBOX /lab/embed · module=" + mod + " · seed=2026";
+        fullLink.href = "../index.html" + window.location.search;
+        statePre.textContent = JSON.stringify(params, null, 2);
+        metricsPre.textContent = "Listening for live slider events via postMessage(\"stochology:lab:state\")...";
+      }
+
+      window.addEventListener("message", function (ev) {
+        var d = ev.data;
+        if (!d || d.type !== "stochology:lab:state") return;
+        headerEl.textContent = "SANDBOX /lab/embed · module=" + d.module + " · seed=" + d.seed + " (LIVE SYNC)";
+        statePre.textContent = JSON.stringify({ module: d.module, seed: d.seed, state: d.state }, null, 2);
+        var lines = [];
+        if (d.metrics) {
+          for (var i = 0; i < d.metrics.length; i++) {
+            lines.push(d.metrics[i].label + ": " + d.metrics[i].value + " (" + d.metrics[i].sub + ")");
+          }
+        }
+        if (d.cli) {
+          lines.push("\n$ " + d.cli);
+        }
+        metricsPre.textContent = lines.join("\n");
+      });
+
+      renderFromQuery();
+    })();
+  </script>
+</body>
+</html>
+
