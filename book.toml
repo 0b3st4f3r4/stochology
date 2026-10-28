@@ -8,8 +8,9 @@ src = "book-src"
 build-dir = "book"
 
 [output.html]
-cname = "obestafera.com"
-site-url = "https://obestafera.com/"
+hash-files = false
+cname = "stochology.org"
+site-url = "https://stochology.org/"
 git-repository-url = "https://github.com/0b3st4f3r4/stochology"
 edit-url-template = "https://github.com/0b3st4f3r4/stochology/edit/main/{path}"
 default-theme = "light"

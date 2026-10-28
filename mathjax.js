@@ -3,13 +3,22 @@
 
   var LAB_PATH = "/lab";
 
-  function resolveLabBaseUrl() {
-    if (typeof window !== "undefined" && typeof window.path_to_root === "string" && window.path_to_root.length > 0) {
-      var prefix = window.path_to_root;
-      if (prefix.charAt(prefix.length - 1) !== "/") prefix += "/";
-      return prefix + "lab";
+  function getPathToRoot() {
+    if (typeof window !== "undefined" && typeof window.path_to_root === "string") {
+      return window.path_to_root;
     }
-    return LAB_PATH;
+    if (typeof path_to_root === "string") {
+      return path_to_root;
+    }
+    return "";
+  }
+
+  function resolveLabBaseUrl() {
+    var prefix = getPathToRoot();
+    if (prefix.length > 0 && prefix.charAt(prefix.length - 1) !== "/") {
+      prefix += "/";
+    }
+    return prefix + "lab";
   }
 
   function normalizeMathText(text) {
@@ -887,6 +896,7 @@
 
     var openLink = document.createElement("a");
     openLink.className = "stoch-lab-btn stoch-lab-btn-primary";
+    openLink.href = buildLabDeepLink(moduleKey, state, chapter);
     openLink.target = "_blank";
     openLink.rel = "noopener noreferrer";
     openLink.textContent = "Open in /lab ↗";
@@ -1036,7 +1046,9 @@
     body.appendChild(controlsGrid);
     body.appendChild(stage);
     body.appendChild(metricsGrid);
-    body.appendChild(iframeWrap);
+    if (!fromQuery) {
+      body.appendChild(iframeWrap);
+    }
     container.appendChild(body);
     container.appendChild(footer);
 

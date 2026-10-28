@@ -1,4 +1,4 @@
-name: Deploy Site to GitHub Pages (obestafera.com)
+name: Deploy Site to GitHub Pages (stochology.org)
 
 on:
   push:
@@ -40,9 +40,11 @@ jobs:
         run: |
           test -f book/index.html
           test -f book/toc.html
+          test -f book/mathjax.js
+          test -f book/theme/book.css
           test -f book/lab/index.html
           test -f book/lab/embed/index.html
-          grep -qx "obestafera.com" book/CNAME
+          grep -qx "stochology.org" book/CNAME
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -53,7 +55,7 @@ jobs:
           path: ./book
 
   deploy:
-    name: Publish to obestafera.com
+    name: Publish to stochology.org
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-24.04
