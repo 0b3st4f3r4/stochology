@@ -374,6 +374,35 @@ impl ChouldechovaAudit {
     }
 }
 
+/// Prospective Clustered Design of Experiments (`prospective_clustered_mde` — Invariant $\Phi_2$, Filter 1 & Filter 2):
+///
+/// Computes the Minimum Detectable Effect
+/// $$\mathrm{MDE}_{\text{clustered}} = (z_{1-\alpha/2} + z_{1-\beta})\,\sigma\sqrt{\frac{2\,\mathrm{DEFF}(p)}{n_{\text{nominal}}}}$$
+/// where $\mathrm{DEFF}(p) = 1 + (\tilde{m} - 1)\rho_I(p)$ and $\tilde{m} = \bar{m}(1 + \mathrm{CV}^2)$, returning
+/// `(mde_iid_naive, mde_clustered_moulton, required_clusters_j_min_for_target_delta)`.
+pub fn prospective_clustered_mde(
+    z_alpha_plus_beta: f64,
+    sigma: f64,
+    nominal_n: usize,
+    m_tilde: f64,
+    rho_exceedance_p: f64,
+    m_bar: f64,
+    target_effect_delta: f64,
+) -> (f64, f64, usize) {
+    assert!(
+        z_alpha_plus_beta > 0.0 && sigma > 0.0 && nominal_n > 0 && m_tilde >= 1.0 && m_bar >= 1.0,
+        "requires positive z, sigma, nominal_n, and cluster size >= 1"
+    );
+    let deff = (1.0 + (m_tilde - 1.0) * rho_exceedance_p.max(0.0)).max(1.0);
+    let n_f = nominal_n as f64;
+    let mde_iid = z_alpha_plus_beta * sigma * (2.0 / n_f).sqrt();
+    let mde_clustered = mde_iid * deff.sqrt();
+    let n_req_clustered =
+        2.0 * deff * (z_alpha_plus_beta * sigma / target_effect_delta.abs().max(1e-9)).powi(2);
+    let j_min = (n_req_clustered / m_bar).ceil().max(2.0) as usize;
+    (mde_iid, mde_clustered, j_min)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

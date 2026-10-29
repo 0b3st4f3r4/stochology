@@ -1,7 +1,7 @@
 # Stochology acceptance registry (Invariant Phi_3 pre-registration of G8 claims)
 # Sealed: 2026-10-29. Verified by `gates` (G8): the non-comment lines must equal
 # `cargo run --release --bin gates -- --print-acceptance-registry`, and this file's SHA-256 must match data/SHA256SUMS.
-# The `source` lines hash the 18 files that define the claims (the module closure of the three syntheses) (thresholds, sample sizes, generating constants), so any edit to
+# The `source` lines hash the 19 files that define the claims (the module closure of the four syntheses) (thresholds, sample sizes, generating constants), so any edit to
 # them breaks the seal and requires regenerating this file and re-sealing data/SHA256SUMS under human inline-diff review
 # (AGENTS.md section V.3).
 #
@@ -27,6 +27,11 @@
 #   non-robust: 0.907 forward, 0.880 with the halves swapped. Source closure widened from 12 to 18 files (information.rs,
 #   time.rs, invariants.rs, sha256.rs, both lib.rs) with a unit test. Added exact binomial OC and Clopper-Pearson reporting,
 #   a seal integrity step in scripts/verify.sh, and clearer lab labels.
+# - K=5 (2026-10-29, Strategic AI Six-Pair Accommodation Synthesis): added fourth synthesis `strategic.rs` (source closure
+#   widened from 18 to 19 files). Discarded: `strategic.a2.parametric_mar_mi_covers_true_mean_under_mnar` (0.000 under MNAR
+#   truncation) and `strategic.a3.llm_judge_deployed_abs_error_below_0.06` (0.950 on dev seeds, refuted at 0.880 on the 200
+#   confirmation seeds due to n_gold = 160 PPI standard error ~ 0.035). All 15 gated claims of `strategic` pass >= 0.995 on
+#   confirmation seeds.
 #
 # Operating characteristic of the 190-of-200 confirmation rule, P(approve | true pass rate p):
 #   p = 0.90 -> 0.008, 0.93 -> 0.166, 0.95 -> 0.583, 0.97 -> 0.960, 0.99 -> >0.999
@@ -35,24 +40,25 @@ acceptance_registry v1
 development_seeds 2026 2027 2028 2029 2030 2031 2032 2033 2034 2035 2036 2037 2038 2039 2040 2041 2042 2043 2044 2045
 confirmation_seeds 9000000..=9000199
 min_claim_pass_rate 0.95
-source a92054330d71b82f0e525edcab9bbf8c03fa5fc9b8863bc5ebb4701a71359a11 crates/stochology-lenses/src/acceptance.rs
+source a88b0f53c6e2e5b91bcaca1ea60c6658658f3dc6d6fb80afe59a739942f86c94 crates/stochology-lenses/src/acceptance.rs
 source e46987c3124397c4882cabea7fc9e1d2b7bf4a61300d04252597efa4ce83cd7a crates/stochology-lenses/src/critical.rs
 source fecb33c550a0fe8c100d374bb6d5465823a9936d84240e32779b356d84216417 crates/stochology-lenses/src/stocks.rs
 source 5be3a175ee0f9d5513c96990101bae8edef15f4add24a322ddd25dedbb0faa08 crates/stochology-lenses/src/triad.rs
+source b4d7811cdd353da71dccd6fdae330a8a966290bd547100908c47fb65859f7f88 crates/stochology-lenses/src/strategic.rs
 source ea03a4eca7a0470ef072a46aec895f25f73d47ed7e920431fb7cd0a8e16028c5 crates/stochology-lenses/src/analog.rs
 source 8dbe2aeb31ef1cf019ad8d471092e2052be9f9d3bd866c857122b2b4376c768e crates/stochology-lenses/src/machine.rs
-source f2ead941700f018bfbefe9769ccfd429775e7a1efd7c59b6babbdfe7a98345e9 crates/stochology-lenses/src/invariance.rs
+source 216d255b06a54d06916e095d87de1ab2062ea0e967287afb1334d47a86d0a925 crates/stochology-lenses/src/invariance.rs
 source 980b5315024693a8cce5cd55eaab5b062ddcb3080dee6ddf290eb976b8831422 crates/stochology-lenses/src/tail.rs
-source 926b724250ca16a450ea8b04eb4aae36904ae809aaa5ce18991e3c818ed715db crates/stochology-lenses/src/decision.rs
+source 3926b694e808619e09f1fd60eaab62d75fa1d2c8c40827d55833c85a4a0bbc52 crates/stochology-lenses/src/decision.rs
 source 3359b2bc7f7cdfdee1cba22135f4bc8cdb67fc59c09f132fe475abdc2860bc10 crates/stochology-lenses/src/information.rs
-source 5b90cbb7fc42d8818171a22cda40cba30792e9ea0f42d0b5a9cd0fa65676348a crates/stochology-lenses/src/time.rs
-source f64df9ef6f57a518b015ca5c25eba37ea3b1fc68cf3649fcbe03eefeaafd3fde crates/stochology-lenses/src/lib.rs
-source c076a159f6cbb739fcad5a6678c7381611c70c913ce970195eb1290db1fe4493 crates/stochology-core/src/layers.rs
+source 539854a3eacdabe7d6a9b1d5ac2b9954a70eee2c59d42dd518d5e5be1b12ef1f crates/stochology-lenses/src/time.rs
+source f54167131b39da11874544d600dc64568a8f8f3606384b294befbba969883e78 crates/stochology-lenses/src/lib.rs
+source 2459147434eadb2e0e93ed48be3b5294964d54cfd21e9bbd27102efbb46e994c crates/stochology-core/src/layers.rs
 source 08792813ca5586117a64e3bd04400824bf5920323f47d7b0f3b548af1743ff15 crates/stochology-core/src/uncertainty.rs
 source 4d962e1383225127b3121e63b624e5b851b1a4bae109ab5d6127b7a2e4d28bae crates/stochology-core/src/rng.rs
-source dc8fcd3c23d0ced320fd7959ff37a6a92fe07863ace7127881b516f91635e14a crates/stochology-core/src/invariants.rs
+source 0a141c9a4cd879b85fbaf25ef1cfb891eba197b7a4d3e9859f138d00a64ed00f crates/stochology-core/src/invariants.rs
 source f2cc3a4528dbf99df4b48fe3a759709225116c3c6c1c7d87cb935961ea3642bd crates/stochology-core/src/sha256.rs
-source 589d179518b557ff3e8beed42d17ab532e19aa3b2aa0e73f4cab3544c1ad17b6 crates/stochology-core/src/lib.rs
+source c5da346ad02f8456e0f71f872146e361e903b3d3dddefa2eaae060fa10558a05 crates/stochology-core/src/lib.rs
 gated critical critical.a1.det.koh_improvement_above_0.40 confirmation 1.000
 gated critical critical.a1.det.reification_excess_above_0.05 confirmation 1.000
 gated critical critical.a1.deployed_var99_breach_at_most_2pct confirmation 0.965
@@ -116,3 +122,20 @@ gated triad triad.a6.det.rlhf_undelayed_radius_below_1 confirmation 1.000
 gated triad triad.a6.fhrr_bundled_unbinding_above_0.55 confirmation 0.995
 gated triad triad.a6.det.deployed_performative_gap_below_1e-3 confirmation 1.000
 discarded triad triad.a5.deployed_label_shift_kl_below_1e-3 confirmation 0.925
+gated strategic strategic.a1.connectivity_deployed_accuracy_above_0.90 confirmation 1.000
+gated strategic strategic.a1.society_of_mind_deployed_brier_below_0.195 confirmation 1.000
+gated strategic strategic.a2.deployed_shap_causal_intervention_mse_below_0.15 confirmation 1.000
+gated strategic strategic.a2.deployed_imputation_variance_retention_above_0.80 confirmation 0.995
+gated strategic strategic.a2.clustered_doe_deployed_power_above_0.80 confirmation 1.000
+gated strategic strategic.a2.det.gp_expected_improvement_ratio_above_5 confirmation 1.000
+gated strategic strategic.a3.det.rag_deployed_mi_above_0.30_nats confirmation 1.000
+gated strategic strategic.a3.finops_cascade_beats_naive_local_by_1.5 confirmation 0.995
+gated strategic strategic.a3.quantization_deployed_es99_retention_above_0.90 confirmation 1.000
+gated strategic strategic.a4.airspace_deployed_survival_above_0.80 confirmation 1.000
+gated strategic strategic.a4.det.centola_deployed_adoption_above_0.85 confirmation 1.000
+gated strategic strategic.a5.pareto_portfolio_deployed_value_above_15.0 confirmation 1.000
+gated strategic strategic.a5.det.regulatory_ai_act_lgpd_and_pkm_provenance_verified confirmation 1.000
+gated strategic strategic.a6.deployed_kalman_state_rmse_below_0.45 confirmation 1.000
+gated strategic strategic.a6.deployed_mpc_lap_survival_above_0.95 confirmation 1.000
+discarded strategic strategic.a2.parametric_mar_mi_covers_true_mean_under_mnar confirmation 0.000
+discarded strategic strategic.a3.llm_judge_deployed_abs_error_below_0.06 confirmation 0.880

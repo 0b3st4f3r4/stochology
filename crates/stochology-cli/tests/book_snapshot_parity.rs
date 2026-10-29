@@ -2,7 +2,7 @@
 //! `book-src/*.md` must appear verbatim (trimmed) in the output that the current code prints.
 //!
 //! Quoted output lines are recognized by their trimmed prefix: `[`, `NEGATIVE PROOF`, `=== `, or `Out of every`.
-//! The collected output is `labs --all`, `gates`, and `gates --defect <name>` for each of the 19 negative proofs.
+//! The collected output is `labs --all`, `gates`, and `gates --defect <name>` for each of the 20 negative proofs.
 
 use std::collections::HashSet;
 use std::fs;
@@ -10,8 +10,8 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::thread;
 
-/// The 19 negative defect proofs, in the order run by `scripts/verify.sh`.
-const DEFECTS: [&str; 19] = [
+/// The 20 negative defect proofs, in the order run by `scripts/verify.sh`.
+const DEFECTS: [&str; 20] = [
     "cromwell",
     "phi5",
     "moulton",
@@ -31,6 +31,7 @@ const DEFECTS: [&str; 19] = [
     "lee_point_estimate",
     "replace_collapse",
     "triadic_technium",
+    "strategic_accommodation",
 ];
 
 /// Trimmed prefixes that mark a fenced-block line as quoted `labs`/`gates` output.
@@ -57,7 +58,7 @@ fn run_capture(bin: &'static str, args: Vec<String>, root: PathBuf) -> String {
     text
 }
 
-/// Collects the trimmed output lines of `labs --all`, `gates`, and the 19 `gates --defect <name>` runs.
+/// Collects the trimmed output lines of `labs --all`, `gates`, and the 20 `gates --defect <name>` runs.
 fn collect_output_lines(root: &Path) -> HashSet<String> {
     let labs_bin: &'static str = env!("CARGO_BIN_EXE_labs");
     let gates_bin: &'static str = env!("CARGO_BIN_EXE_gates");

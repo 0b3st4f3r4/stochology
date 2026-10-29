@@ -218,6 +218,116 @@ impl MixingTimeAudit {
     }
 }
 
+/// Robust Sensor Fusion, Joseph-Form Kalman Covariance Update, Huber-Kalman Filtering under
+/// Heavy-Tailed Sensor Glitches, and Tube-Buffered MPC vs. Certainty Equivalence (`RobustKalmanControlAudit`).
+#[derive(Debug, Clone, PartialEq)]
+pub struct RobustKalmanControlAudit {
+    /// Fused variance $\sigma_{\text{fused}}^2 = (\sigma_1^{-2} + \sigma_2^{-2})^{-1}$ from two sensors $(\sigma_1^2, \sigma_2^2)$.
+    pub fused_sensor_variance: f64,
+    /// Joseph-form covariance identity residual $\bigl|P_{t|t}^{\text{Joseph}} - (P_{t|t-1}^{-1} + H^2 R^{-1})^{-1}\bigr|$.
+    pub joseph_covariance_identity_error: f64,
+    /// State estimation RMSE of standard L2 Kalman filter vs. Huber innovation-clipped Kalman filter under Pareto glitches.
+    pub l2_kalman_vs_huber_kalman_rmse: (f64, f64),
+    /// Lap survival rate (zero barrier collisions) of naive Certainty-Equivalent control vs. Tube/CVaR-Buffered MPC.
+    pub certainty_equivalent_vs_tube_mpc_survival: (f64, f64),
+    /// True if precision fusion and Joseph-form covariance identities close to machine precision.
+    pub identities_closed: bool,
+}
+
+impl RobustKalmanControlAudit {
+    /// Evaluates precision sensor fusion, the Joseph-form Kalman covariance identity, Huber-Kalman vs. L2 Kalman
+    /// state tracking on a series with heavy-tailed glitches, and Tube-MPC vs. Certainty Equivalence.
+    pub fn evaluate_trajectory(
+        true_states: &[f64],
+        glitchy_observations: &[f64],
+        process_var_q: f64,
+        nominal_obs_var_r: f64,
+        huber_threshold_c: f64,
+        disturbances: &[f64],
+        safety_buffer_u: f64,
+    ) -> Self {
+        // 1. Two-sensor precision fusion identity: sigma_1^2 = 0.64, sigma_2^2 = 0.36 => fused = 1 / (1/0.64 + 1/0.36) = 0.2304 < 0.36
+        let s1_sq = 0.64_f64;
+        let s2_sq = 0.36_f64;
+        let fused_var = 1.0 / (1.0 / s1_sq + 1.0 / s2_sq);
+
+        // 2. Joseph-form posterior covariance update P_{t|t} = (1 - K H)^2 P_{t|t-1} + K^2 R == 1 / (1/P_{t|t-1} + H^2/R)
+        let p_prior = 1.25_f64;
+        let h_obs = 1.40_f64;
+        let r_var = 0.50_f64;
+        let s_innov = h_obs * h_obs * p_prior + r_var;
+        let k_gain = p_prior * h_obs / s_innov;
+        let p_joseph = (1.0 - k_gain * h_obs).powi(2) * p_prior + k_gain * k_gain * r_var;
+        let p_precision = 1.0 / (1.0 / p_prior + (h_obs * h_obs) / r_var);
+        let joseph_err = (p_joseph - p_precision).abs();
+
+        // 3. Standard L2 Kalman vs. Huber-clipped Innovation Kalman over `true_states` and `glitchy_observations`
+        let n = true_states.len().min(glitchy_observations.len()).max(1);
+        let mut x_l2 = true_states[0];
+        let mut p_l2 = 1.0_f64;
+        let mut x_hub = true_states[0];
+        let mut p_hub = 1.0_f64;
+        let mut sq_err_l2 = 0.0_f64;
+        let mut sq_err_hub = 0.0_f64;
+
+        for i in 0..n {
+            let p_pred_l2 = p_l2 + process_var_q;
+            let s_l2 = p_pred_l2 + nominal_obs_var_r;
+            let k_l2 = p_pred_l2 / s_l2;
+            let nu_l2 = glitchy_observations[i] - x_l2;
+            x_l2 += k_l2 * nu_l2;
+            p_l2 = (1.0 - k_l2).powi(2) * p_pred_l2 + k_l2 * k_l2 * nominal_obs_var_r;
+
+            let p_pred_hub = p_hub + process_var_q;
+            let s_hub = p_pred_hub + nominal_obs_var_r;
+            let k_hub = p_pred_hub / s_hub;
+            let nu_hub = glitchy_observations[i] - x_hub;
+            let std_innov = nu_hub / s_hub.sqrt().max(1e-12);
+            let weight_hub = if std_innov.abs() <= huber_threshold_c {
+                1.0
+            } else {
+                huber_threshold_c / std_innov.abs()
+            };
+            x_hub += k_hub * (weight_hub * nu_hub);
+            p_hub = (1.0 - weight_hub * k_hub).powi(2) * p_pred_hub
+                + (weight_hub * k_hub).powi(2) * nominal_obs_var_r;
+
+            sq_err_l2 += (x_l2 - true_states[i]).powi(2);
+            sq_err_hub += (x_hub - true_states[i]).powi(2);
+        }
+        let rmse_l2 = (sq_err_l2 / (n as f64)).sqrt();
+        let rmse_hub = (sq_err_hub / (n as f64)).sqrt();
+
+        // 4. Certainty-Equivalent Control (u_CE = 0.05 nominal mean clearance) vs. Tube-Buffered MPC (u_MPC = safety_buffer_u):
+        let u_ce = 0.05_f64;
+        let mut surv_ce = 0usize;
+        let mut surv_mpc = 0usize;
+        let d_len = disturbances.len().max(1);
+        for &xi in disturbances {
+            if u_ce - xi > 0.0 {
+                surv_ce += 1;
+            }
+            if safety_buffer_u - xi > 0.0 {
+                surv_mpc += 1;
+            }
+        }
+        let rate_ce = (surv_ce as f64) / (d_len as f64);
+        let rate_mpc = (surv_mpc as f64) / (d_len as f64);
+
+        let identities_closed = fused_var < s1_sq.min(s2_sq)
+            && (fused_var - 0.2304).abs() < 1e-12
+            && joseph_err < 1e-12;
+
+        Self {
+            fused_sensor_variance: fused_var,
+            joseph_covariance_identity_error: joseph_err,
+            l2_kalman_vs_huber_kalman_rmse: (rmse_l2, rmse_hub),
+            certainty_equivalent_vs_tube_mpc_survival: (rate_ce, rate_mpc),
+            identities_closed,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

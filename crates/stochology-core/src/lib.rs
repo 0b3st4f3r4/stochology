@@ -15,13 +15,14 @@ pub use card::{
     UnitAndMargin, VarianceBudget,
 };
 pub use invariants::{
-    verify_resolution_phi5, ChouldechovaAudit, ExceedanceDesignEffect, OperationalWeightingGap,
+    prospective_clustered_mde, verify_resolution_phi5, ChouldechovaAudit, ExceedanceDesignEffect,
+    OperationalWeightingGap,
 };
 pub use layers::{
     apply_cromwell_floor, empirical_crps, empirical_wasserstein_1, laplace_succession,
-    respects_cromwell, DpiOperationalStage, GoodhartTaxonomyAudit, GoodhartVariant, Layer,
-    ManskiBounds, MengAudit, NonlinearSummary, PerformativeDiagnostic, PerformativeSystem,
-    UncertaintyClass,
+    respects_cromwell, ClaimProvenanceClass, DpiOperationalStage, EpistemicPkmProvenanceAudit,
+    GoodhartTaxonomyAudit, GoodhartVariant, Layer, ManskiBounds, MengAudit, NonlinearSummary,
+    PerformativeDiagnostic, PerformativeSystem, RubinMultipleImputationAudit, UncertaintyClass,
 };
 pub use rng::{
     block_bootstrap_ci, mean, median, median_absolute_deviation, quantile, quantile_sorted,

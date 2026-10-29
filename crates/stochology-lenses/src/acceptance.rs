@@ -34,13 +34,14 @@ pub const MIN_CLAIM_PASS_RATE: f64 = 0.95;
 pub const ACCEPTANCE_REGISTRY_PATH: &str = "data/preregistration/acceptance_registry.txt";
 
 /// Source files whose bytes define the gated claims (thresholds, sample sizes, generating constants, and the methods they call).
-/// This is the transitive closure of the modules the three syntheses use (checked by a unit test); only `relational.rs` and
+/// This is the transitive closure of the modules the four syntheses use (checked by a unit test); only `relational.rs` and
 /// `core/src/card.rs` are outside it. Any edit to these files changes the registry and requires re-sealing under human review.
-pub const CLAIM_DEFINING_SOURCES: [&str; 18] = [
+pub const CLAIM_DEFINING_SOURCES: [&str; 19] = [
     "crates/stochology-lenses/src/acceptance.rs",
     "crates/stochology-lenses/src/critical.rs",
     "crates/stochology-lenses/src/stocks.rs",
     "crates/stochology-lenses/src/triad.rs",
+    "crates/stochology-lenses/src/strategic.rs",
     "crates/stochology-lenses/src/analog.rs",
     "crates/stochology-lenses/src/machine.rs",
     "crates/stochology-lenses/src/invariance.rs",
@@ -262,10 +263,11 @@ impl SynthesisAcceptance {
     }
 }
 
-/// Evaluates development and confirmation acceptance of the three simulated syntheses (grounded mode).
+/// Evaluates development and confirmation acceptance of the four simulated syntheses (grounded/shielded mode).
 pub fn evaluate_all_syntheses() -> Vec<SynthesisAcceptance> {
     use crate::critical::CriticalStochasticRationalitySynthesis as Critical;
     use crate::stocks::StocharyConjecturalCyberneticSynthesis as Stocks;
+    use crate::strategic::StrategicAiAccommodationSynthesis as Strategic;
     use crate::triad::ComplexFractalToroidalTechniumSynthesis as Triad;
     let confirmation = confirmation_seeds();
     let names = |claims: Vec<NamedCheck>| claims.into_iter().map(|c| c.0).collect::<Vec<_>>();
@@ -276,6 +278,7 @@ pub fn evaluate_all_syntheses() -> Vec<SynthesisAcceptance> {
     let c0 = Critical::evaluate_canonical(ACCEPTANCE_SEEDS[0]);
     let s0 = Stocks::evaluate_canonical(ACCEPTANCE_SEEDS[0]);
     let t0 = Triad::evaluate_canonical(ACCEPTANCE_SEEDS[0]);
+    let st0 = Strategic::evaluate_canonical(ACCEPTANCE_SEEDS[0]);
     vec![
         SynthesisAcceptance {
             label: "critical",
@@ -310,6 +313,19 @@ pub fn evaluate_all_syntheses() -> Vec<SynthesisAcceptance> {
             development: Triad::multi_seed_acceptance(&ACCEPTANCE_SEEDS, true),
             confirmation: MultiSeedAcceptance::evaluate(&confirmation, |seed| {
                 let syn = Triad::evaluate_canonical(seed);
+                (
+                    both(syn.claim_checks(), syn.discarded_claim_checks()),
+                    syn.all_identities_closed,
+                )
+            }),
+        },
+        SynthesisAcceptance {
+            label: "strategic",
+            gated: names(st0.claim_checks()),
+            discarded: names(st0.discarded_claim_checks()),
+            development: Strategic::multi_seed_acceptance(&ACCEPTANCE_SEEDS, true),
+            confirmation: MultiSeedAcceptance::evaluate(&confirmation, |seed| {
+                let syn = Strategic::evaluate_canonical(seed);
                 (
                     both(syn.claim_checks(), syn.discarded_claim_checks()),
                     syn.all_identities_closed,
@@ -474,6 +490,7 @@ mod tests {
             "critical".to_string(),
             "stocks".to_string(),
             "triad".to_string(),
+            "strategic".to_string(),
             "acceptance".to_string(),
         ];
         let mut closure: Vec<String> = Vec::new();

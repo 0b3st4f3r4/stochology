@@ -238,6 +238,20 @@ fn cli_binaries_handle_help_and_defects_correctly() {
         .expect("run gates positive");
     assert_eq!(gates_positive.status.code(), Some(0));
 
+    let gates_audit_card = Command::new(gates_bin)
+        .args([
+            "--audit-card",
+            "cards/card_01_atlantic_storms_evacuation.yaml",
+        ])
+        .current_dir(&root)
+        .output()
+        .expect("run gates --audit-card");
+    assert_eq!(gates_audit_card.status.code(), Some(0));
+    let audit_stdout = String::from_utf8_lossy(&gates_audit_card.stdout);
+    assert!(
+        audit_stdout.contains("Statutory Compliance (EU AI Act Arts. 9/10/14/15 & LGPD Art. 20)")
+    );
+
     for defect in [
         "cromwell",
         "phi5",
@@ -257,6 +271,8 @@ fn cli_binaries_handle_help_and_defects_correctly() {
         "var_underreport",
         "lee_point_estimate",
         "replace_collapse",
+        "triadic_technium",
+        "strategic_accommodation",
     ] {
         let out = Command::new(gates_bin)
             .args(["--defect", defect])

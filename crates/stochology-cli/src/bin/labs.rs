@@ -29,10 +29,10 @@ use stochology_lenses::{
     AnalogWaveComputingSynthesis, AuthenticModelForm, CausalEnvironment,
     ComplexFractalToroidalTechniumSynthesis, CorpPavDecomposition, CostLossRule,
     CriticalStochasticRationalitySynthesis, DpiMarkovChain, EmpiricalCriticalRationalityAudit,
-    EmpiricalStocharyCyberneticAudit, EmpiricalTriadicTechniumAudit, EmpiricalWaveAnalogAudit,
-    ExactCoinCalibrationBenchmark, HillTailDiagnostic, MixingTimeAudit,
-    RelationalComplexSystemsSynthesis, SdpiHierarchy, StocharyConjecturalCyberneticSynthesis,
-    TimeKellyDiagnostic,
+    EmpiricalStocharyCyberneticAudit, EmpiricalStrategicAccommodationAudit,
+    EmpiricalTriadicTechniumAudit, EmpiricalWaveAnalogAudit, ExactCoinCalibrationBenchmark,
+    HillTailDiagnostic, MixingTimeAudit, RelationalComplexSystemsSynthesis, SdpiHierarchy,
+    StocharyConjecturalCyberneticSynthesis, StrategicAiAccommodationSynthesis, TimeKellyDiagnostic,
 };
 use stochology_siga::roadmap::OperatingPointSource;
 use stochology_siga::{fit_shelf_beta_prior, AlertFatigueAudit, EvidenceProcess};
@@ -573,6 +573,70 @@ fn lab_lenses(root: &Path) {
             .chain(&emp_triad.discarded_findings)
             .collect::<Vec<_>>(),
         triad_syn.all_six_bridges_verified && emp_triad.empirical_triadic_verified
+    );
+
+    // 12. Strategic AI Six-Pair Accommodation Synthesis & Empirical 6-CSV Coupler
+    let strat_syn = StrategicAiAccommodationSynthesis::evaluate_canonical(DEFAULT_SEED);
+    let (nsw_t_lens, _nsw_c_lens, cps_c_lens) = load_lalonde_nsw_cps(root);
+    let (_x13_h1_l, _y13_h1_l, x23_h1_l, y23_h1_l, _, _) = load_oot_ood_flight_reserves(root);
+    let probs_h1_l: Vec<f64> = x23_h1_l
+        .iter()
+        .map(|&x| apply_cromwell_floor(1.0 / (1.0 + (-(-1.35 + 0.15 * x)).exp()), 0.001))
+        .collect();
+    let emp_strat = EmpiricalStrategicAccommodationAudit::evaluate_real_datasets(
+        &storm_envs,
+        (&nsw_t_lens, &cps_c_lens),
+        &bank_clusters_lens,
+        &fire_losses,
+        (&probs_h1_l, &y23_h1_l),
+        &vic_demand,
+    );
+    println!(
+        "  [Strategic AI Six-Pair Accommodation Synthesis] Axis1_Minsky(Walsh_corr={:.1e}, Conn_acc={:.2} vs {:.2}, SoM_Brier={:.3} vs {:.3}) | Axis2_CausalXAI_MI_DoE(SHAP_do_MSE={:.3} vs {:.2}, Rubin_MI_var_ret={:.2}, Clustered_Power={:.2}, GP_EI_ratio={:.1}) | Axis3_GenAI_RAG_Judge(RAG_MI={:.3} nats, PPI_err={:.3} vs bias={:.3}, FinOps_cost={:.2} vs {:.2}, INT4_ES99_ret={:.2} vs {:.2}) | Axis4_Networks(Fiedler_l2={:.3}, Hub_survival={:.2} vs {:.2}, Centola_adopt={:.2} vs {:.2}) | Axis5_MCDM_AIAct_PKM(AHP_val={:.2} vs {:.2}, ICE_bias={:+.1}, AIAct_LGPD={}, PKM_audit={}) | Axis6_Kalman_MPC(Huber_RMSE={:.3} vs L2={:.2}, Tube_MPC_surv={:.2} vs CE={:.2}) | Emp6CSVs(Storms_SHAP_p0={:.2}, Bank_MDE_ratio={:.2}x, Fire_ES99_prot={:.2} vs clip={:.2}, Vic_Huber_RMSE={:.1} vs L2={:.1}) | identities={} | discarded={:?} | verified={}",
+        strat_syn.minsky_papert_society_of_mind.parity_lower_order_walsh_max_correlation,
+        strat_syn.minsky_papert_society_of_mind.diameter_limited_vs_global_connectivity_accuracy.1,
+        strat_syn.minsky_papert_society_of_mind.diameter_limited_vs_global_connectivity_accuracy.0,
+        strat_syn.minsky_papert_society_of_mind.homogeneous_vs_society_of_mind_brier.1,
+        strat_syn.minsky_papert_society_of_mind.homogeneous_vs_society_of_mind_brier.0,
+        strat_syn.shapley_rubin_mi_doe.shapley_audit.observational_vs_interventional_do_mse.1,
+        strat_syn.shapley_rubin_mi_doe.shapley_audit.observational_vs_interventional_do_mse.0,
+        strat_syn.shapley_rubin_mi_doe.deployed_imputation_variance_retention,
+        strat_syn.shapley_rubin_mi_doe.deployed_clustered_doe_power,
+        strat_syn.shapley_rubin_mi_doe.gp_expected_improvement_exploratory_to_anchored_ratio,
+        strat_syn.generative_rag_llm_judge_compression.deployed_rag_end_to_end_mi_nats,
+        strat_syn.generative_rag_llm_judge_compression.deployed_llm_judge_abs_error,
+        strat_syn.generative_rag_llm_judge_compression.llm_judge_ppi.estimated_judge_bias,
+        strat_syn.generative_rag_llm_judge_compression.finops_cascade_vs_naive_local_cost_per_unit.0,
+        strat_syn.generative_rag_llm_judge_compression.finops_cascade_vs_naive_local_cost_per_unit.1,
+        strat_syn.generative_rag_llm_judge_compression.quantization_outlier_protected_vs_naive_es99_retention.0,
+        strat_syn.generative_rag_llm_judge_compression.quantization_outlier_protected_vs_naive_es99_retention.1,
+        strat_syn.complex_network_hub_contagion.fiedler_algebraic_connectivity_lambda2,
+        strat_syn.complex_network_hub_contagion.buffered_vs_unbuffered_airspace_survival.0,
+        strat_syn.complex_network_hub_contagion.buffered_vs_unbuffered_airspace_survival.1,
+        strat_syn.complex_network_hub_contagion.centola_clustered_vs_random_adoption.0,
+        strat_syn.complex_network_hub_contagion.centola_clustered_vs_random_adoption.1,
+        strat_syn.multi_criteria_ahp_regulatory_pkm.ideal_mode_vs_naive_ahp_realized_value.0,
+        strat_syn.multi_criteria_ahp_regulatory_pkm.ideal_mode_vs_naive_ahp_realized_value.1,
+        strat_syn.multi_criteria_ahp_regulatory_pkm.ahp_ice_audit.ice_product_of_means_overestimation_bias,
+        strat_syn.multi_criteria_ahp_regulatory_pkm.deployed_statutory_compliance_approved,
+        strat_syn.multi_criteria_ahp_regulatory_pkm.deployed_pkm_provenance_clean,
+        strat_syn.robust_kalman_closed_loop_control.kalman_control.l2_kalman_vs_huber_kalman_rmse.1,
+        strat_syn.robust_kalman_closed_loop_control.kalman_control.l2_kalman_vs_huber_kalman_rmse.0,
+        strat_syn.robust_kalman_closed_loop_control.kalman_control.certainty_equivalent_vs_tube_mpc_survival.1,
+        strat_syn.robust_kalman_closed_loop_control.kalman_control.certainty_equivalent_vs_tube_mpc_survival.0,
+        emp_strat.atlantic_storms_icp_shap_pressure_share,
+        emp_strat.bank_calls_clustered_mde_inflation_ratio,
+        emp_strat.danish_fire_outlier_protected_vs_clipped_es99_retention.0,
+        emp_strat.danish_fire_outlier_protected_vs_clipped_es99_retention.1,
+        emp_strat.vic_elec_huber_vs_l2_kalman_rmse.0,
+        emp_strat.vic_elec_huber_vs_l2_kalman_rmse.1,
+        strat_syn.all_identities_closed && emp_strat.empirical_identities_closed,
+        strat_syn
+            .discarded_findings
+            .iter()
+            .chain(&emp_strat.discarded_findings)
+            .collect::<Vec<_>>(),
+        strat_syn.all_six_axes_verified && emp_strat.empirical_strategic_verified
     );
 }
 

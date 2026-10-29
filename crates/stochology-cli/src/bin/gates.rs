@@ -11,12 +11,14 @@ use stochology_cli::{
     load_toronto_arrests_prevalences, load_vic_elec_demand, PublicInfrastructureCard04Audit,
 };
 use stochology_core::{
-    apply_cromwell_floor, mean, verify_resolution_phi5, ChouldechovaAudit, ExceedanceDesignEffect,
-    InfoGapOption, ManskiBounds, MonteCarloSplitTreeAudit, PerformativeSystem, Rng, DEFAULT_SEED,
+    apply_cromwell_floor, mean, verify_resolution_phi5, ChouldechovaAudit, EpistemologicalCard,
+    ExceedanceDesignEffect, InfoGapOption, ManskiBounds, MonteCarloSplitTreeAudit,
+    PerformativeSystem, Rng, DEFAULT_SEED,
 };
 use stochology_governance::{
-    query_with_bitemporal_clock, BitemporalRecord, MurphyCorpCircuitBreaker, PlatTrafficLightZone,
-    PredeterminedChangeControlPlan, TemporalVault,
+    query_with_bitemporal_clock, BitemporalRecord, CloudLocalLoraArchitectureAudit,
+    MurphyCorpCircuitBreaker, PlatTrafficLightZone, PredeterminedChangeControlPlan,
+    RegulatoryComplianceAudit, TemporalVault,
 };
 use stochology_lenses::acceptance::{
     canonical_registry_lines, clopper_pearson_lower, evaluate_all_syntheses, is_deterministic,
@@ -40,11 +42,18 @@ use stochology_lenses::relational::RelationalComplexSystemsSynthesis;
 use stochology_lenses::stocks::{
     EmpiricalStocharyCyberneticAudit, StocharyConjecturalCyberneticSynthesis,
 };
+use stochology_lenses::strategic::{
+    EmpiricalStrategicAccommodationAudit, StrategicAiAccommodationSynthesis,
+};
 use stochology_lenses::triad::{
     ComplexFractalToroidalTechniumSynthesis, EmpiricalTriadicTechniumAudit,
 };
 use stochology_siga::roadmap::OperatingPointSource;
-use stochology_siga::{AlertFatigueAudit, EvidenceProcess, SaviConfidenceSequence, VarEsEBacktest};
+use stochology_siga::{
+    AlertFatigueAudit, EvidenceProcess, LongContextDpiDilutionAudit,
+    MultimodalCorrelatedFusionAudit, PreMortemCounterfactualRootCauseAudit, SaviConfidenceSequence,
+    SimpsonCausalParadoxAudit, VarEsEBacktest,
+};
 
 /// Gate `G8` acceptance of the simulated syntheses: each gated claim must pass on the development seeds and on the sealed
 /// confirmation seeds (`.det.` claims everywhere, others on at least `MIN_CLAIM_PASS_RATE`), and the registry that seals the claim
@@ -461,8 +470,31 @@ fn run_positive_gates(root: &Path) -> Result<(), String> {
     {
         println!("  [G8] Triadic discarded finding (recorded, not approved): {finding}");
     }
+    let strat_syn = StrategicAiAccommodationSynthesis::evaluate_canonical(DEFAULT_SEED);
+    let (nsw_t_g8, _nsw_c_g8, cps_c_g8) = load_lalonde_nsw_cps(root);
+    let emp_strat = EmpiricalStrategicAccommodationAudit::evaluate_real_datasets(
+        &storm_envs,
+        (&nsw_t_g8, &cps_c_g8),
+        &bank_clusters,
+        &fire_losses,
+        (&probs_h1, &y23_h1),
+        &vic_demand,
+    );
+    if !strat_syn.all_six_axes_verified || !emp_strat.empirical_strategic_verified {
+        return Err(
+            "G8 failed Strategic AI Six-Pair Accommodation Synthesis & Empirical 6-CSV Coupler verification"
+                .into(),
+        );
+    }
+    for finding in strat_syn
+        .discarded_findings
+        .iter()
+        .chain(&emp_strat.discarded_findings)
+    {
+        println!("  [G8] Strategic AI discarded finding (recorded, not approved): {finding}");
+    }
     check_acceptance(root)?;
-    println!("  [G8] Almost-Perfect Machine M=(T,Phi,theta) (P1-P5), Authentic Form (delta(x) + S*), Nonlinear NILE/IRM, Coin Benchmark, Relational/Complex Systems, Analog/Wave Computing, Critical Stochastic Rationality, Stochary-Conjectural Cybernetics (PATE/VSM), and Triadic (C x Fractals x T^d) & Technium Synthesis -> APPROVED");
+    println!("  [G8] Almost-Perfect Machine M=(T,Phi,theta) (P1-P5), Authentic Form (delta(x) + S*), Nonlinear NILE/IRM, Coin Benchmark, Relational/Complex Systems, Analog/Wave Computing, Critical Stochastic Rationality, Stochary-Conjectural Cybernetics (PATE/VSM), Triadic (C x Fractals x T^d) & Technium Synthesis, and Strategic AI Six-Pair Accommodation -> APPROVED");
     Ok(())
 }
 
@@ -872,6 +904,56 @@ fn run_negative_proof(root: &Path, defect: &str) -> ! {
                 std::process::exit(1);
             }
         }
+        "strategic_accommodation" => {
+            let unshielded_strat =
+                StrategicAiAccommodationSynthesis::evaluate_with_mode(DEFAULT_SEED, false);
+            let fails_on_all_seeds = ACCEPTANCE_SEEDS.iter().all(|&seed| {
+                let naive = StrategicAiAccommodationSynthesis::evaluate_with_mode(seed, false);
+                naive.all_identities_closed
+                    && !naive.all_six_axes_verified
+                    && naive
+                        .claim_checks()
+                        .iter()
+                        .any(|&(name, ok)| !ok && !is_deterministic(name))
+            });
+            if fails_on_all_seeds
+                && unshielded_strat.all_identities_closed
+                && !unshielded_strat.all_six_axes_verified
+                && !unshielded_strat
+                    .minsky_papert_society_of_mind
+                    .axis1_verified
+                && !unshielded_strat.shapley_rubin_mi_doe.axis2_verified
+                && !unshielded_strat
+                    .generative_rag_llm_judge_compression
+                    .axis3_verified
+                && !unshielded_strat
+                    .complex_network_hub_contagion
+                    .axis4_verified
+                && !unshielded_strat
+                    .multi_criteria_ahp_regulatory_pkm
+                    .axis5_verified
+                && !unshielded_strat
+                    .robust_kalman_closed_loop_control
+                    .axis6_verified
+            {
+                eprintln!(
+                    "NEGATIVE PROOF [strategic_accommodation] BLOCKED SUCCESSFULLY on all {} development seeds through seed-dependent claims (identities closed on every seed): at seed 2026 diameter-limited connectivity acc={:.2}, homogeneous voter Brier={:.3}, Rung-1 symptom SHAP do-MSE={:.2}, single-mean imputation var retention={:.2}, naive i.i.d. clustered power={:.2}, uncalibrated LLM-Judge err={:.3}, clipped INT4 ES99 retention={:.2}, unbuffered hub survival={:.2}, rank-reversed AHP portfolio val={:.2}, L2 Kalman glitch RMSE={:.2}, certainty-equivalent MPC survival={:.2}",
+                    ACCEPTANCE_SEEDS.len(),
+                    unshielded_strat.minsky_papert_society_of_mind.deployed_connectivity_accuracy,
+                    unshielded_strat.minsky_papert_society_of_mind.deployed_ensemble_brier,
+                    unshielded_strat.shapley_rubin_mi_doe.deployed_shap_intervention_mse,
+                    unshielded_strat.shapley_rubin_mi_doe.deployed_imputation_variance_retention,
+                    unshielded_strat.shapley_rubin_mi_doe.deployed_clustered_doe_power,
+                    unshielded_strat.generative_rag_llm_judge_compression.deployed_llm_judge_abs_error,
+                    unshielded_strat.generative_rag_llm_judge_compression.deployed_quantization_es99_retention,
+                    unshielded_strat.complex_network_hub_contagion.deployed_airspace_survival,
+                    unshielded_strat.multi_criteria_ahp_regulatory_pkm.deployed_portfolio_realized_value,
+                    unshielded_strat.robust_kalman_closed_loop_control.deployed_kalman_state_rmse,
+                    unshielded_strat.robust_kalman_closed_loop_control.deployed_lap_survival_rate
+                );
+                std::process::exit(1);
+            }
+        }
         other => {
             eprintln!("Unknown defect: '{other}'");
             std::process::exit(2);
@@ -881,10 +963,137 @@ fn run_negative_proof(root: &Path, defect: &str) -> ! {
     std::process::exit(0);
 }
 
+fn run_audit_card(root: &Path, card_arg: &str) -> Result<(), String> {
+    let candidate_path = Path::new(card_arg);
+    let full_path = if candidate_path.exists() {
+        candidate_path.to_path_buf()
+    } else {
+        root.join(card_arg)
+    };
+    let yaml_content = std::fs::read_to_string(&full_path)
+        .map_err(|e| format!("Failed to read card '{}': {e}", full_path.display()))?;
+    let card = EpistemologicalCard::from_yaml(&yaml_content)
+        .map_err(|e| format!("Failed to parse YAML card '{}': {e}", full_path.display()))?;
+    card.audit().map_err(|violations| {
+        format!(
+            "Card '{}' failed EpistemologicalCard::audit(): {:?}",
+            card.id, violations
+        )
+    })?;
+
+    let (emp, siga_rep) = evaluate_empirical_card_severe_test(root, &card)?;
+    let (tpr, fpr) = emp.confusion_tpr_fpr_at_p_star;
+    let p_star = card.decision_rule_and_scope.critical_threshold_p_star;
+    let alert_audit =
+        AlertFatigueAudit::evaluate(emp.event_probability_p, tpr, fpr, p_star, 3.0, 32.0, true);
+    let statutory = RegulatoryComplianceAudit::evaluate(
+        1.25,
+        true,
+        true,
+        emp.n_eff_exceedance_90 as f64,
+        alert_audit.cognitive_triage_load_bps,
+        alert_audit.turing_weight_of_evidence_decibans.max(10.0),
+        !siga_rep
+            .natural_frequency_memo
+            .formatted_summary
+            .trim()
+            .is_empty(),
+        emp.corp_pav.rel_miscalibration,
+        siga_rep.approved_end_to_end,
+        !card
+            .decision_rule_and_scope
+            .who_pays_for_error
+            .trim()
+            .is_empty(),
+    );
+
+    println!("=== PORTABLE EPISTEMOLOGICAL CARD AUDIT (`gates --audit-card`) ===");
+    println!(
+        "  Card ID: {} | Layer: {:?} | Uncertainty: {:?} | Env: {} | K={}",
+        card.id,
+        card.layer,
+        card.uncertainty,
+        card.data_and_audit_contract.seed_and_environment,
+        card.data_and_audit_contract.attempt_counter_k
+    );
+    println!(
+        "  [1] 4-Filter Funnel: approved={}, EVPI={:.1}, n_eff(q90)={}, SBC chi2={:.2}",
+        siga_rep.funnel_result.approved_all_filters,
+        siga_rep.funnel_result.calculated_evpi,
+        emp.n_eff_exceedance_90,
+        siga_rep.funnel_result.sbc_chi2_statistic
+    );
+    println!(
+        "  [2] 8-Step SIGA Roadmap: steps={:?}, p_null={:.4}, E_t/K={:.2}, REL_CORP={:.4}, RES_CORP={:.4}",
+        siga_rep.steps_1_to_8_completed,
+        siga_rep.null_p_value,
+        siga_rep.e_process.multiplicity_adjusted_e_value,
+        emp.corp_pav.rel_miscalibration,
+        emp.corp_pav.res_resolution
+    );
+    println!(
+        "  [3] Gigerenzer Natural Frequency Memo: {}",
+        siga_rep.natural_frequency_memo.formatted_summary
+    );
+    println!(
+        "  [4] Statutory Compliance (EU AI Act Arts. 9/10/14/15 & LGPD Art. 20): Art.9={}, Art.10={}, Art.14/LGPD20={}, Art.15/Phi4={} -> approved={}",
+        statutory.eu_ai_act_art9_risk_management_ok,
+        statutory.eu_ai_act_art10_lgpd_minimization_ok,
+        statutory.eu_ai_act_art14_lgpd_art20_human_oversight_ok,
+        statutory.eu_ai_act_art15_robustness_fairness_ok,
+        statutory.all_statutory_requirements_approved
+    );
+
+    let simpson = SimpsonCausalParadoxAudit::canonical_pearl_benchmark();
+    let long_ctx = LongContextDpiDilutionAudit::evaluate(100, 3, 1, 2.2, 0.9);
+    let five_senses = MultimodalCorrelatedFusionAudit::canonical_five_senses_benchmark();
+    let premortem = PreMortemCounterfactualRootCauseAudit::canonical_benchmark();
+    let cloud_lora = CloudLocalLoraArchitectureAudit::canonical_benchmark();
+    let blueprints_ok = simpson.simpson_reversal_and_dag_dichotomy_verified
+        && long_ctx.markov_blanket_pruning_approved
+        && five_senses.multimodal_fusion_approved
+        && premortem.premortem_and_sop_approved
+        && cloud_lora.architecture_and_lora_approved;
+    println!(
+        "  [5] Strategic Weekly Blueprint Resonances (8/16/24w): Simpson(do_conf={:+.3} vs do_med={:+.3})={}, LongCtxDPI(gain={:+.1}dB)={}, FiveSenses(W={:.1}dB<naive={:.1}dB)={}, PreMortem(PNS={:.2}, SOP={:.1}b/s)={}, CloudLocalLoRA(TBS={:.0}<API={:.0}, E_r={:.3})={} -> approved={}",
+        simpson.confounder_do_ate,
+        simpson.mediator_do_ate,
+        simpson.simpson_reversal_and_dag_dichotomy_verified,
+        long_ctx.snr_gain_decibans,
+        long_ctx.markov_blanket_pruning_approved,
+        five_senses.shielded_correlated_decibans,
+        five_senses.naive_independent_decibans,
+        five_senses.multimodal_fusion_approved,
+        premortem.true_root_cause_pns,
+        premortem.sop_cognitive_load_bps,
+        premortem.premortem_and_sop_approved,
+        cloud_lora.tbs_hybrid_total_cost,
+        cloud_lora.pure_api_total_cost,
+        cloud_lora.lora_retained_energy_ratio,
+        cloud_lora.architecture_and_lora_approved,
+        blueprints_ok
+    );
+
+    if !siga_rep.approved_end_to_end
+        || !statutory.all_statutory_requirements_approved
+        || !blueprints_ok
+    {
+        return Err(format!(
+            "Card '{}' failed end-to-end SIGA, statutory, or blueprint resonance audit",
+            card.id
+        ));
+    }
+    println!(
+        "=== CARD '{}' APPROVED END-TO-END (EXIT CODE 0) ===",
+        card.id
+    );
+    Ok(())
+}
+
 fn print_usage() {
     println!(
-        "Usage: gates [--help | --defect <defect_name> | --print-acceptance-registry]\n\
-         Defects: cromwell, phi5, moulton, performativity, sniedovich, clock, vault, concept_drift, chouldechova, machine, analog_wall, instrumental_reason, stochary_cybernetics, peeking, brier_dominance, var_underreport, lee_point_estimate, replace_collapse, triadic_technium"
+        "Usage: gates [--help | --defect <defect_name> | --audit-card <card.yaml> | --print-acceptance-registry]\n\
+         Defects: cromwell, phi5, moulton, performativity, sniedovich, clock, vault, concept_drift, chouldechova, machine, analog_wall, instrumental_reason, stochary_cybernetics, peeking, brier_dominance, var_underreport, lee_point_estimate, replace_collapse, triadic_technium, strategic_accommodation"
     );
 }
 
@@ -908,6 +1117,18 @@ fn main() {
                     eprintln!("{e}");
                     std::process::exit(2);
                 }
+            }
+            return;
+        }
+        [flag] if flag == "--audit-card" => {
+            eprintln!("Missing card path after '--audit-card'.");
+            print_usage();
+            std::process::exit(2);
+        }
+        [flag, card_path] if flag == "--audit-card" => {
+            if let Err(msg) = run_audit_card(root, card_path) {
+                eprintln!("CARD AUDIT FAILED: {msg}");
+                std::process::exit(1);
             }
             return;
         }
