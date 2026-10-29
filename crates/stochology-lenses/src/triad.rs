@@ -335,7 +335,7 @@ impl ComplexWaveGaborHelmholtzAudit {
 
         let identities_closed = max_adj_err < 1e-6 && worst_pair < 1e-6;
         let claims: Vec<NamedCheck> = vec![(
-            "triad.a1.deployed_helmholtz_residual_below_1e-2",
+            "triad.a1.det.deployed_helmholtz_residual_below_1e-2",
             deployed_res < 1e-2,
         )];
         let axis1_verified = identities_closed && claims.iter().all(|c| c.1);
@@ -561,7 +561,7 @@ impl ComplexRealIsomorphismHMatrixAudit {
                 block_amc_rel_err < 1e-7,
             ),
             (
-                "triad.a2.deployed_hmatrix_error_below_1e-3",
+                "triad.a2.det.deployed_hmatrix_error_below_1e-3",
                 hm_deployed_err < 1e-3,
             ),
         ];
@@ -1408,7 +1408,7 @@ impl WeylTorusHermiteMehlerDfmAudit {
             && mixed_min >= 24;
         let claims: Vec<NamedCheck> = vec![
             (
-                "triad.a5.deployed_weyl_discrepancy_below_0.02",
+                "triad.a5.det.deployed_weyl_discrepancy_below_0.02",
                 deployed_disc < 0.02,
             ),
             (
@@ -1757,20 +1757,26 @@ impl SnaRlhfFhrrCohomologyTechniumAudit {
             && h_antifragile > 0.0
             && max_ltc_abs <= a_rev;
         let claims: Vec<NamedCheck> = vec![
-            ("triad.a6.sna_lyapunov_below_-0.04", lyap_sna < -0.04),
+            ("triad.a6.det.sna_lyapunov_below_-0.04", lyap_sna < -0.04),
             (
-                "triad.a6.sna_phase_growth_exponent_above_0.15",
+                "triad.a6.det.sna_phase_growth_exponent_above_0.15",
                 fractal_exp > 0.15,
             ),
-            ("triad.a6.sna_sync_error_below_1e-10", sync_err < 1e-10),
-            ("triad.a6.rlhf_at_least_2_sign_flips_and_decay", rlhf_damped),
-            ("triad.a6.rlhf_undelayed_radius_below_1", rho_delay0 < 1.0),
+            ("triad.a6.det.sna_sync_error_below_1e-10", sync_err < 1e-10),
+            (
+                "triad.a6.det.rlhf_at_least_2_sign_flips_and_decay",
+                rlhf_damped,
+            ),
+            (
+                "triad.a6.det.rlhf_undelayed_radius_below_1",
+                rho_delay0 < 1.0,
+            ),
             (
                 "triad.a6.fhrr_bundled_unbinding_above_0.55",
                 bundled_unbind_cos > 0.55,
             ),
             (
-                "triad.a6.deployed_performative_gap_below_1e-3",
+                "triad.a6.det.deployed_performative_gap_below_1e-3",
                 deployed_perf_gap < 1e-3,
             ),
         ];
@@ -2104,6 +2110,25 @@ mod tests {
         assert!(!unshielded.multifractal_pdhte_rag_collapse.axis4_verified);
         assert!(!unshielded.weyl_torus_hermite_mehler_dfm.axis5_verified);
         assert!(!unshielded.sna_rlhf_fhrr_cohomology_technium.axis6_verified);
+    }
+
+    #[test]
+    fn test_fit_bcts_recovers_calibration_and_refuses_degenerate_labels() {
+        // Logits z = 4x - 0.5 of x | y ~ N(2y - 1, 1) with balanced labels: the calibrated map is sigma(z / 2 + 0.25).
+        let mut rng = Rng::new(DEFAULT_SEED);
+        let (mut z, mut y) = (Vec::new(), Vec::new());
+        for _ in 0..20_000 {
+            let label = if rng.next_f64() < 0.5 { 1.0 } else { 0.0 };
+            z.push(4.0 * ((2.0 * label - 1.0) + rng.standard_normal()) - 0.5);
+            y.push(label);
+        }
+        let (a, b) = fit_bcts(&z, &y).expect("converges on non-separable data");
+        assert!(
+            (a - 0.5).abs() < 0.03 && (b - 0.25).abs() < 0.05,
+            "a={a} b={b}"
+        );
+        // Constant labels have no finite maximum-likelihood calibration.
+        assert!(fit_bcts(&z, &vec![1.0; z.len()]).is_none());
     }
 
     #[test]

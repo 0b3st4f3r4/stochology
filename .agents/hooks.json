@@ -2,7 +2,7 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "write_file|edit_file|replace_file_content|multi_replace_file_content",
+        "matcher": "write_file|edit_file|replace_file_content|multi_replace_file_content|Edit|Write|MultiEdit|NotebookEdit|Bash",
         "hooks": [
           {
             "type": "command",

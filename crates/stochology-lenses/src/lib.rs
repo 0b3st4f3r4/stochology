@@ -15,8 +15,10 @@ pub mod time;
 pub mod triad;
 
 pub use acceptance::{
-    canonical_registry_lines, verify_registry_content, MultiSeedAcceptance, NamedCheck,
-    ACCEPTANCE_REGISTRY_PATH, ACCEPTANCE_SEEDS, MIN_CLAIM_PASS_RATE,
+    canonical_registry_lines, confirmation_seeds, evaluate_all_syntheses, is_deterministic,
+    verify_registry_content, MultiSeedAcceptance, NamedCheck, SynthesisAcceptance,
+    ACCEPTANCE_REGISTRY_PATH, ACCEPTANCE_SEEDS, CLAIM_DEFINING_SOURCES, CONFIRMATION_SEED_RANGE,
+    MIN_CLAIM_PASS_RATE,
 };
 pub use analog::{
     AimcAnalogWallHpInvAudit, AnalogWaveComputingSynthesis, EmpiricalWaveAnalogAudit,

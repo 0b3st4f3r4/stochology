@@ -299,8 +299,8 @@ pub struct AuthenticityCriterionA {
     /// (4) Hidden confounding threshold $\Lambda^* >$ critical decision threshold.
     pub confounding_threshold_lambda_star: f64,
     pub c4_survives_plausible_confounding: bool,
-    /// (5) Reproducible (an independent re-run selects the same $\hat{S}^*$) and invariant to $(X, Y)$ rescaling.
-    pub c5_reproducible_and_scale_invariant: bool,
+    /// (5) Invariant to $(X, Y)$ rescaling: the rescaled environments select the same $\hat{S}^*$.
+    pub c5_scale_invariant: bool,
     /// Overall operational verdict $A(\text{model})$.
     pub is_authentic: bool,
 }
@@ -390,7 +390,6 @@ impl AuthenticModelForm {
             })
             .collect();
         let nl_rescaled = run_nonlinear_icp_nile(&envs_rescaled, tol);
-        let nl_rerun = run_nonlinear_icp_nile(environments, tol);
 
         let mut discarded = Vec::new();
         let mut accepted_pen_sum = 0.0;
@@ -476,8 +475,7 @@ impl AuthenticModelForm {
         let c2 = pen_ratio < 0.05;
         let c3 = nl.max_accepted_env_deviation <= tol;
         let c4 = lambda_star > 2.0;
-        let c5 = nl.accepted_causal_predictors == nl_rerun.accepted_causal_predictors
-            && nl.accepted_causal_predictors == nl_rescaled.accepted_causal_predictors;
+        let c5 = nl.accepted_causal_predictors == nl_rescaled.accepted_causal_predictors;
         let is_authentic = c1 && c2 && c3 && c4 && c5;
 
         // Audit the 6 exact numerical identities directly on the pooled data of `environments`:
@@ -613,7 +611,7 @@ impl AuthenticModelForm {
             c3_environment_deviation_within_tol: c3,
             confounding_threshold_lambda_star: lambda_star,
             c4_survives_plausible_confounding: c4,
-            c5_reproducible_and_scale_invariant: c5,
+            c5_scale_invariant: c5,
             is_authentic,
         };
 

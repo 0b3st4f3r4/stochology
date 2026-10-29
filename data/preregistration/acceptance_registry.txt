@@ -1,86 +1,118 @@
-# Stochology acceptance registry (Invariant Phi_3 pre-registration of G8 claim tolerances)
-# Sealed: 2026-10-28. Verified by `gates` (G8): the non-comment lines must equal
+# Stochology acceptance registry (Invariant Phi_3 pre-registration of G8 claims)
+# Sealed: 2026-10-29. Verified by `gates` (G8): the non-comment lines must equal
 # `cargo run --release --bin gates -- --print-acceptance-registry`, and this file's SHA-256 must match data/SHA256SUMS.
-# Claim names encode their thresholds. Changing a threshold, a claim, the seed set, or the pass rate requires
-# regenerating this file and re-sealing data/SHA256SUMS under human inline-diff review (AGENTS.md section V.3).
+# The `source` lines hash the 18 files that define the claims (the module closure of the three syntheses) (thresholds, sample sizes, generating constants), so any edit to
+# them breaks the seal and requires regenerating this file and re-sealing data/SHA256SUMS under human inline-diff review
+# (AGENTS.md section V.3).
 #
-# Attempt counter K (Prohibition 4), per claim family:
+# Attempt counter K (Prohibition 4):
 # - K=1 (2026-10-28): claim checks of triad.rs, critical.rs, stocks.rs restructured so naive methods are executed; tolerances
-#   fixed in code before the first run at seed 2026. Discarded at seed 2026 (triad discarded_findings): cascade curvature
-#   within 0.06, PDHTE+JK superiority, lag-induced RLHF instability, out-of-time storm label shift; stocks real data:
-#   chronological Optimizer's Curse on danish_fire.
-# - K=2 (2026-10-28, after independent S3* review): multi-seed acceptance introduced (seeds 2026..=2045, pass rate >= 0.95).
-#   Re-specifications: critical.a1.liquidation_gap_above_30 (7/20 seeds) replaced in the gate by liquidation_gap_positive;
-#   stocks WDRO radius recalibrated on training data only (oracle shift and budget removed); conformal order-statistic
-#   index corrected; by-construction checks moved to identities. Bug fixes without tolerance change: machine.rs criterion 5
-#   seed literal removed; triad BCTS damped Newton with Newton-decrement convergence test.
-#   Discarded (pass rate over the 20 seeds): liquidation_gap_above_30 0.35, synthetic_variance_retention_below_0.25 0.75,
-#   conformal_coverage_at_least_0.88 0.60, raw_judge_noise_above_0.20 0.90, deployed_label_shift_kl_below_1e-3 0.90.
+#   fixed in code before the first run at seed 2026. Discarded at seed 2026: cascade curvature within 0.06, PDHTE+JK
+#   superiority, lag-induced RLHF instability, out-of-time storm label shift (triad); chronological Optimizer's Curse on
+#   danish_fire (stocks, real data).
+# - K=2 (2026-10-28, after S3* review 1): multi-seed acceptance on development seeds 2026..=2045. Discarded on development
+#   seeds: liquidation_gap_above_30, synthetic_variance_retention_below_0.25, conformal_coverage_at_least_0.88,
+#   raw_judge_noise_above_0.20, deployed_label_shift_kl_below_1e-3. Re-specified: WDRO radius (oracle shift removed),
+#   conformal order statistic, by-construction checks moved to identities. Bug fixes: machine.rs criterion 5 seed literal;
+#   triad BCTS damped Newton.
+# - K=3 (2026-10-29, after S3* review 2): the K=2 claim set passed only its own development block. Changes made BEFORE any
+#   confirmation run: seed-independent claims marked `.det.`; post-hoc liquidation_gap_positive removed; criterion 5 reduced
+#   to rescaling invariance; claim-defining sources hashed into this registry. Then the frozen claim set was evaluated ONCE on
+#   confirmation seeds 9_000_000..=9_000_199 (never used for a decision). Refuted there and moved to discarded:
+#   critical.a1.es99_erasure_above_0.60 (0.945), stocks.a3.deployed_wdro_certificate_covers_oos (0.890),
+#   stocks.sc.tbs_saving_above_0.08 (0.935). Afterwards only formatting, a unit test for fit_bcts, and documentation changed;
+#   the claim set and confirmation results did not. Any future change to the claim set needs a new, never-used confirmation set.
+# - K=4 (2026-10-29, open points of S3* review 2): no change to the synthetic claim set or to the confirmation seeds; the
+#   confirmation rates are recomputed deterministically and are unchanged. vic_elec reserve coverage (real data) discarded as
+#   non-robust: 0.907 forward, 0.880 with the halves swapped. Source closure widened from 12 to 18 files (information.rs,
+#   time.rs, invariants.rs, sha256.rs, both lib.rs) with a unit test. Added exact binomial OC and Clopper-Pearson reporting,
+#   a seal integrity step in scripts/verify.sh, and clearer lab labels.
+#
+# Operating characteristic of the 190-of-200 confirmation rule, P(approve | true pass rate p):
+#   p = 0.90 -> 0.008, 0.93 -> 0.166, 0.95 -> 0.583, 0.97 -> 0.960, 0.99 -> >0.999
 #
 acceptance_registry v1
-seeds 2026 2027 2028 2029 2030 2031 2032 2033 2034 2035 2036 2037 2038 2039 2040 2041 2042 2043 2044 2045
+development_seeds 2026 2027 2028 2029 2030 2031 2032 2033 2034 2035 2036 2037 2038 2039 2040 2041 2042 2043 2044 2045
+confirmation_seeds 9000000..=9000199
 min_claim_pass_rate 0.95
-gated critical critical.a1.liquidation_gap_positive
-gated critical critical.a1.es99_erasure_above_0.60
-gated critical critical.a1.koh_improvement_above_0.40
-gated critical critical.a1.reification_excess_above_0.05
-gated critical critical.a1.deployed_var99_breach_at_most_2pct
-gated critical critical.a1.deployed_koh_error_below_half_bare
-gated critical critical.a1.deployed_performative_excess_below_1e-3
-gated critical critical.a2.parrot_surface_mse_below_0.06
-gated critical critical.a2.parrot_counterfactual_mse_above_5
-gated critical critical.a2.proxy_penalty_ratio_above_20
-gated critical critical.a2.goodhart_four_variants_per_core_layers_thresholds
-gated critical critical.a2.authentic_form_criteria_c1_to_c5_approve_s_star_0
-gated critical critical.a2.deployed_counterfactual_mse_below_0.03
-gated critical critical.a3.synthetic_kl_above_0.60
-gated critical critical.a4.deployed_rule_satisfaction_at_least_0.95
-gated critical critical.a4.deployed_variance_retention_above_0.90
-gated critical critical.a4.deployed_a_ecc_accuracy_at_least_0.97
-gated critical critical.a4.deployed_hp_inv_residual_below_1e-7
-discarded critical critical.a1.liquidation_gap_above_30
-discarded critical critical.a3.synthetic_variance_retention_below_0.25
-gated stocks stocks.a1.bullwhip_amplification_above_2
-gated stocks stocks.a1.buffered_tail_vega_above_5
-gated stocks stocks.a1.jit_tail_vega_below_-10
-gated stocks stocks.a1.stock_autocorrelation_above_0.80
-gated stocks stocks.a1.deployed_low_pass_ratio_below_0.30
-gated stocks stocks.a1.deployed_time_average_growth_above_0.003
-gated stocks stocks.a2.rung1_bias_above_1
-gated stocks stocks.a2.tuned_cfa_gain_above_5
-gated stocks stocks.a2.deployed_agent_matches_simulated_voi_in_both_regimes
-gated stocks stocks.a2.deployed_causal_effect_within_0.15
-gated stocks stocks.a2.deployed_transport_error_below_0.05
-gated stocks stocks.a3.levers_cut_rei_by_0.80
-gated stocks stocks.a3.deployed_tts_to_ttr_at_least_1.15
-gated stocks stocks.a3.deployed_wdro_certificate_covers_oos
-gated stocks stocks.sc.kingman_within_25pct_of_simulation
-gated stocks stocks.sc.simulated_cliff_wait_above_20h
-gated stocks stocks.sc.supply_line_damping_below_0.30
-gated stocks stocks.sc.graves_willems_saving_above_0.25
-gated stocks stocks.sc.tbs_saving_above_0.08
-gated stocks stocks.sc.deployed_queue_wait_below_2.5h
-gated stocks stocks.sc.deployed_outage_fill_at_least_0.90
-gated stocks stocks.a4.deployed_regulator_r2_at_least_0.95
-gated stocks stocks.a4.deployed_judgment_noise_below_0.05
-gated stocks stocks.a4.deployed_plat_rs_above_0.80_ks_below_0.09_noise_at_most_0.10
-discarded stocks stocks.a3.conformal_coverage_at_least_0.88
-discarded stocks stocks.a4.raw_judge_noise_above_0.20
-gated triad triad.a1.deployed_helmholtz_residual_below_1e-2
-gated triad triad.a2.deployed_block_amc_residual_below_1e-7
-gated triad triad.a2.deployed_hmatrix_error_below_1e-3
-gated triad triad.a3.deployed_pcm_drift_mse_below_0.01
-gated triad triad.a3.deployed_ctrw_spread_error_below_10pct
-gated triad triad.a3.deployed_ecc_recovery_at_least_0.99
-gated triad triad.a4.refusal_gate_accepted_fraction_below_0.70
-gated triad triad.a4.deployed_ate_rmse_below_0.10
-gated triad triad.a5.deployed_weyl_discrepancy_below_0.02
-gated triad triad.a5.deployed_dfm_error_below_0.05
-gated triad triad.a6.sna_lyapunov_below_-0.04
-gated triad triad.a6.sna_phase_growth_exponent_above_0.15
-gated triad triad.a6.sna_sync_error_below_1e-10
-gated triad triad.a6.rlhf_at_least_2_sign_flips_and_decay
-gated triad triad.a6.rlhf_undelayed_radius_below_1
-gated triad triad.a6.fhrr_bundled_unbinding_above_0.55
-gated triad triad.a6.deployed_performative_gap_below_1e-3
-discarded triad triad.a5.deployed_label_shift_kl_below_1e-3
+source a92054330d71b82f0e525edcab9bbf8c03fa5fc9b8863bc5ebb4701a71359a11 crates/stochology-lenses/src/acceptance.rs
+source e46987c3124397c4882cabea7fc9e1d2b7bf4a61300d04252597efa4ce83cd7a crates/stochology-lenses/src/critical.rs
+source fecb33c550a0fe8c100d374bb6d5465823a9936d84240e32779b356d84216417 crates/stochology-lenses/src/stocks.rs
+source 5be3a175ee0f9d5513c96990101bae8edef15f4add24a322ddd25dedbb0faa08 crates/stochology-lenses/src/triad.rs
+source ea03a4eca7a0470ef072a46aec895f25f73d47ed7e920431fb7cd0a8e16028c5 crates/stochology-lenses/src/analog.rs
+source 8dbe2aeb31ef1cf019ad8d471092e2052be9f9d3bd866c857122b2b4376c768e crates/stochology-lenses/src/machine.rs
+source f2ead941700f018bfbefe9769ccfd429775e7a1efd7c59b6babbdfe7a98345e9 crates/stochology-lenses/src/invariance.rs
+source 980b5315024693a8cce5cd55eaab5b062ddcb3080dee6ddf290eb976b8831422 crates/stochology-lenses/src/tail.rs
+source 926b724250ca16a450ea8b04eb4aae36904ae809aaa5ce18991e3c818ed715db crates/stochology-lenses/src/decision.rs
+source 3359b2bc7f7cdfdee1cba22135f4bc8cdb67fc59c09f132fe475abdc2860bc10 crates/stochology-lenses/src/information.rs
+source 5b90cbb7fc42d8818171a22cda40cba30792e9ea0f42d0b5a9cd0fa65676348a crates/stochology-lenses/src/time.rs
+source f64df9ef6f57a518b015ca5c25eba37ea3b1fc68cf3649fcbe03eefeaafd3fde crates/stochology-lenses/src/lib.rs
+source c076a159f6cbb739fcad5a6678c7381611c70c913ce970195eb1290db1fe4493 crates/stochology-core/src/layers.rs
+source 08792813ca5586117a64e3bd04400824bf5920323f47d7b0f3b548af1743ff15 crates/stochology-core/src/uncertainty.rs
+source 4d962e1383225127b3121e63b624e5b851b1a4bae109ab5d6127b7a2e4d28bae crates/stochology-core/src/rng.rs
+source dc8fcd3c23d0ced320fd7959ff37a6a92fe07863ace7127881b516f91635e14a crates/stochology-core/src/invariants.rs
+source f2cc3a4528dbf99df4b48fe3a759709225116c3c6c1c7d87cb935961ea3642bd crates/stochology-core/src/sha256.rs
+source 589d179518b557ff3e8beed42d17ab532e19aa3b2aa0e73f4cab3544c1ad17b6 crates/stochology-core/src/lib.rs
+gated critical critical.a1.det.koh_improvement_above_0.40 confirmation 1.000
+gated critical critical.a1.det.reification_excess_above_0.05 confirmation 1.000
+gated critical critical.a1.deployed_var99_breach_at_most_2pct confirmation 0.965
+gated critical critical.a1.det.deployed_koh_error_below_half_bare confirmation 1.000
+gated critical critical.a1.det.deployed_performative_excess_below_1e-3 confirmation 1.000
+gated critical critical.a2.parrot_surface_mse_below_0.06 confirmation 1.000
+gated critical critical.a2.parrot_counterfactual_mse_above_5 confirmation 1.000
+gated critical critical.a2.proxy_penalty_ratio_above_20 confirmation 1.000
+gated critical critical.a2.goodhart_four_variants_per_core_layers_thresholds confirmation 0.995
+gated critical critical.a2.authentic_form_criteria_c1_to_c5_approve_s_star_0 confirmation 1.000
+gated critical critical.a2.deployed_counterfactual_mse_below_0.03 confirmation 1.000
+gated critical critical.a3.synthetic_kl_above_0.60 confirmation 1.000
+gated critical critical.a4.deployed_rule_satisfaction_at_least_0.95 confirmation 1.000
+gated critical critical.a4.deployed_variance_retention_above_0.90 confirmation 1.000
+gated critical critical.a4.deployed_a_ecc_accuracy_at_least_0.97 confirmation 1.000
+gated critical critical.a4.deployed_hp_inv_residual_below_1e-7 confirmation 1.000
+discarded critical critical.a1.liquidation_gap_above_30 confirmation 0.290
+discarded critical critical.a1.es99_erasure_above_0.60 confirmation 0.945
+discarded critical critical.a3.synthetic_variance_retention_below_0.25 confirmation 0.830
+gated stocks stocks.a1.bullwhip_amplification_above_2 confirmation 1.000
+gated stocks stocks.a1.det.buffered_tail_vega_above_5 confirmation 1.000
+gated stocks stocks.a1.det.jit_tail_vega_below_-10 confirmation 1.000
+gated stocks stocks.a1.stock_autocorrelation_above_0.80 confirmation 1.000
+gated stocks stocks.a1.deployed_low_pass_ratio_below_0.30 confirmation 1.000
+gated stocks stocks.a1.deployed_time_average_growth_above_0.003 confirmation 1.000
+gated stocks stocks.a2.rung1_bias_above_1 confirmation 1.000
+gated stocks stocks.a2.tuned_cfa_gain_above_5 confirmation 1.000
+gated stocks stocks.a2.deployed_agent_matches_simulated_voi_in_both_regimes confirmation 1.000
+gated stocks stocks.a2.deployed_causal_effect_within_0.15 confirmation 1.000
+gated stocks stocks.a2.deployed_transport_error_below_0.05 confirmation 1.000
+gated stocks stocks.a3.levers_cut_rei_by_0.80 confirmation 1.000
+gated stocks stocks.a3.deployed_tts_to_ttr_at_least_1.15 confirmation 1.000
+gated stocks stocks.sc.kingman_within_25pct_of_simulation confirmation 1.000
+gated stocks stocks.sc.simulated_cliff_wait_above_20h confirmation 0.975
+gated stocks stocks.sc.supply_line_damping_below_0.30 confirmation 1.000
+gated stocks stocks.sc.det.graves_willems_saving_above_0.25 confirmation 1.000
+gated stocks stocks.sc.deployed_queue_wait_below_2.5h confirmation 1.000
+gated stocks stocks.sc.deployed_outage_fill_at_least_0.90 confirmation 0.980
+gated stocks stocks.a4.deployed_regulator_r2_at_least_0.95 confirmation 1.000
+gated stocks stocks.a4.deployed_judgment_noise_below_0.05 confirmation 1.000
+gated stocks stocks.a4.deployed_plat_rs_above_0.80_ks_below_0.09_noise_at_most_0.10 confirmation 1.000
+discarded stocks stocks.a3.conformal_coverage_at_least_0.88 confirmation 0.755
+discarded stocks stocks.a3.deployed_wdro_certificate_covers_oos confirmation 0.890
+discarded stocks stocks.sc.tbs_saving_above_0.08 confirmation 0.935
+discarded stocks stocks.a4.raw_judge_noise_above_0.20 confirmation 0.860
+gated triad triad.a1.det.deployed_helmholtz_residual_below_1e-2 confirmation 1.000
+gated triad triad.a2.deployed_block_amc_residual_below_1e-7 confirmation 1.000
+gated triad triad.a2.det.deployed_hmatrix_error_below_1e-3 confirmation 1.000
+gated triad triad.a3.deployed_pcm_drift_mse_below_0.01 confirmation 1.000
+gated triad triad.a3.deployed_ctrw_spread_error_below_10pct confirmation 0.980
+gated triad triad.a3.deployed_ecc_recovery_at_least_0.99 confirmation 1.000
+gated triad triad.a4.refusal_gate_accepted_fraction_below_0.70 confirmation 1.000
+gated triad triad.a4.deployed_ate_rmse_below_0.10 confirmation 1.000
+gated triad triad.a5.det.deployed_weyl_discrepancy_below_0.02 confirmation 1.000
+gated triad triad.a5.deployed_dfm_error_below_0.05 confirmation 1.000
+gated triad triad.a6.det.sna_lyapunov_below_-0.04 confirmation 1.000
+gated triad triad.a6.det.sna_phase_growth_exponent_above_0.15 confirmation 1.000
+gated triad triad.a6.det.sna_sync_error_below_1e-10 confirmation 1.000
+gated triad triad.a6.det.rlhf_at_least_2_sign_flips_and_decay confirmation 1.000
+gated triad triad.a6.det.rlhf_undelayed_radius_below_1 confirmation 1.000
+gated triad triad.a6.fhrr_bundled_unbinding_above_0.55 confirmation 0.995
+gated triad triad.a6.det.deployed_performative_gap_below_1e-3 confirmation 1.000
+discarded triad triad.a5.deployed_label_shift_kl_below_1e-3 confirmation 0.925

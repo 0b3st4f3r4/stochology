@@ -19,8 +19,9 @@ use stochology_governance::{
     PredeterminedChangeControlPlan, TemporalVault,
 };
 use stochology_lenses::acceptance::{
-    canonical_registry_lines, verify_registry_content, MultiSeedAcceptance,
-    ACCEPTANCE_REGISTRY_PATH, ACCEPTANCE_SEEDS, MIN_CLAIM_PASS_RATE,
+    canonical_registry_lines, clopper_pearson_lower, evaluate_all_syntheses, is_deterministic,
+    verify_registry_content, SynthesisAcceptance, ACCEPTANCE_REGISTRY_PATH, ACCEPTANCE_SEEDS,
+    CONFIRMATION_SEED_RANGE, MIN_CLAIM_PASS_RATE,
 };
 use stochology_lenses::analog::{
     AnalogWaveComputingSynthesis, EmpiricalWaveAnalogAudit, GerstgrasserAccumulateAudit,
@@ -44,37 +45,14 @@ use stochology_lenses::triad::{
 };
 use stochology_siga::{AlertFatigueAudit, EvidenceProcess, SaviConfidenceSequence, VarEsEBacktest};
 
-/// Gate `G8` multi-seed acceptance: every gated claim must pass on at least `MIN_CLAIM_PASS_RATE` of the pre-declared
-/// `ACCEPTANCE_SEEDS` and every identity must close on all of them; discarded claims are reported with their pass rates.
-fn check_multi_seed(
-    label: &str,
-    accepted: &MultiSeedAcceptance,
-    discarded: &MultiSeedAcceptance,
-) -> Result<(), String> {
-    if !accepted.accepted {
-        return Err(format!(
-            "G8 failed multi-seed acceptance for {label} (identities on all seeds={}): {:?}",
-            accepted.identities_closed_on_all_seeds,
-            accepted.failing_claims()
-        ));
+/// Gate `G8` acceptance of the simulated syntheses: each gated claim must pass on the development seeds and on the sealed
+/// confirmation seeds (`.det.` claims everywhere, others on at least `MIN_CLAIM_PASS_RATE`), and the registry that seals the claim
+/// set, the claim-defining sources, and the confirmation pass rates must match the code and `data/SHA256SUMS`.
+fn check_acceptance(root: &Path) -> Result<(), String> {
+    let syntheses = evaluate_all_syntheses();
+    for syn in &syntheses {
+        report_synthesis(syn)?;
     }
-    println!(
-        "  [G8] {label}: {} gated claims pass on >= {:.0}% of {} pre-declared seeds; identities closed on every seed",
-        accepted.claim_pass_rates.len(),
-        MIN_CLAIM_PASS_RATE * 100.0,
-        accepted.seeds.len()
-    );
-    for (name, rate) in &discarded.claim_pass_rates {
-        println!(
-            "  [G8] {label} discarded claim (recorded, not approved): {name} passes on {:.0}% of seeds",
-            rate * 100.0
-        );
-    }
-    Ok(())
-}
-
-/// Gate `G8` seal: the acceptance registry must match the claims in the code and its SHA-256 must match `data/SHA256SUMS`.
-fn check_acceptance_registry(root: &Path) -> Result<(), String> {
     let path = root.join(ACCEPTANCE_REGISTRY_PATH);
     let bytes = std::fs::read(&path)
         .map_err(|e| format!("G8 failed: cannot read {ACCEPTANCE_REGISTRY_PATH}: {e}"))?;
@@ -90,13 +68,78 @@ fn check_acceptance_registry(root: &Path) -> Result<(), String> {
     }
     let content = String::from_utf8(bytes)
         .map_err(|e| format!("G8 failed: {ACCEPTANCE_REGISTRY_PATH} is not UTF-8: {e}"))?;
-    verify_registry_content(&content)
+    let expected =
+        canonical_registry_lines(root, &syntheses).map_err(|e| format!("G8 failed: {e}"))?;
+    verify_registry_content(&content, &expected)
         .map_err(|e| format!("G8 failed: acceptance registry does not match the code: {e}"))?;
     println!(
-        "  [G8] Acceptance registry sealed (SHA-256 {}...) and identical to the {} claim lines generated from the code",
-        &actual[..12],
-        canonical_registry_lines().len() - 3
+        "  [G8] Acceptance registry sealed (SHA-256 {}...): claim set, claim-defining sources, and confirmation rates match the code",
+        &actual[..12]
     );
+    Ok(())
+}
+
+fn report_synthesis(syn: &SynthesisAcceptance) -> Result<(), String> {
+    if !syn.development.accepted {
+        return Err(format!(
+            "G8 failed development acceptance for {} (identities on all seeds={}, deterministic constant={}): {:?}",
+            syn.label,
+            syn.development.identities_closed_on_all_seeds,
+            syn.development.deterministic_claims_constant,
+            syn.development.failing_claims()
+        ));
+    }
+    if !syn.accepted() {
+        return Err(format!(
+            "G8 failed confirmation for {} on seeds {}..={} (identities on all seeds={}, deterministic constant={}): {:?}",
+            syn.label,
+            CONFIRMATION_SEED_RANGE.0,
+            CONFIRMATION_SEED_RANGE.1,
+            syn.confirmation.identities_closed_on_all_seeds,
+            syn.confirmation.deterministic_claims_constant,
+            syn.refuted_on_confirmation()
+        ));
+    }
+    let deterministic = syn.gated.iter().filter(|n| is_deterministic(n)).count();
+    let n_confirm = syn.confirmation.seeds.len() as u64;
+    let (worst_claim, worst_lower) = syn
+        .confirmation
+        .claim_pass_rates
+        .iter()
+        .filter(|(name, _)| syn.gated.contains(name) && !is_deterministic(name))
+        .map(|&(name, rate)| {
+            let passes = (rate * n_confirm as f64).round() as u64;
+            (name, clopper_pearson_lower(passes, n_confirm, 0.05))
+        })
+        .min_by(|a, b| a.1.partial_cmp(&b.1).unwrap_or(std::cmp::Ordering::Equal))
+        .unwrap_or(("none", 1.0));
+    println!(
+        "  [G8] {}: {} gated claims ({} seed-dependent, {} deterministic) pass on >= {:.0}% of {} development and {} sealed confirmation seeds",
+        syn.label,
+        syn.gated.len(),
+        syn.gated.len() - deterministic,
+        deterministic,
+        MIN_CLAIM_PASS_RATE * 100.0,
+        syn.development.seeds.len(),
+        syn.confirmation.seeds.len()
+    );
+    println!(
+        "  [G8] {}: lowest one-sided 95% Clopper-Pearson bound on a confirmation pass rate is {:.3} ({worst_claim})",
+        syn.label, worst_lower
+    );
+    for name in &syn.discarded {
+        let rate = syn
+            .confirmation
+            .claim_pass_rates
+            .iter()
+            .find(|(n, _)| n == name)
+            .map_or(f64::NAN, |&(_, r)| r);
+        println!(
+            "  [G8] {} discarded claim (recorded, not approved): {name} passes on {:.1}% of confirmation seeds",
+            syn.label,
+            rate * 100.0
+        );
+    }
     Ok(())
 }
 
@@ -366,15 +409,6 @@ fn run_positive_gates(root: &Path) -> Result<(), String> {
                 .into(),
         );
     }
-    check_acceptance_registry(root)?;
-    check_multi_seed(
-        "Critical Stochastic Rationality",
-        &CriticalStochasticRationalitySynthesis::multi_seed_acceptance(&ACCEPTANCE_SEEDS, true),
-        &MultiSeedAcceptance::evaluate(&ACCEPTANCE_SEEDS, |seed| {
-            let syn = CriticalStochasticRationalitySynthesis::evaluate_canonical(seed);
-            (syn.discarded_claim_checks(), syn.all_identities_closed)
-        }),
-    )?;
     let stoch_syn = StocharyConjecturalCyberneticSynthesis::evaluate_canonical(DEFAULT_SEED);
     let djia_returns = load_djia_returns(root);
     let bank_clusters = load_bank_call_clusters(root);
@@ -391,14 +425,6 @@ fn run_positive_gates(root: &Path) -> Result<(), String> {
                 .into(),
         );
     }
-    check_multi_seed(
-        "Stochary-Conjectural & Cybernetics",
-        &StocharyConjecturalCyberneticSynthesis::multi_seed_acceptance(&ACCEPTANCE_SEEDS, true),
-        &MultiSeedAcceptance::evaluate(&ACCEPTANCE_SEEDS, |seed| {
-            let syn = StocharyConjecturalCyberneticSynthesis::evaluate_canonical(seed);
-            (syn.discarded_claim_checks(), syn.all_identities_closed)
-        }),
-    )?;
     for finding in &emp_stoch.discarded_findings {
         println!("  [G8] Stochary discarded finding (recorded, not approved): {finding}");
     }
@@ -416,14 +442,6 @@ fn run_positive_gates(root: &Path) -> Result<(), String> {
                 .into(),
         );
     }
-    check_multi_seed(
-        "Triadic & Technium",
-        &ComplexFractalToroidalTechniumSynthesis::multi_seed_acceptance(&ACCEPTANCE_SEEDS, true),
-        &MultiSeedAcceptance::evaluate(&ACCEPTANCE_SEEDS, |seed| {
-            let syn = ComplexFractalToroidalTechniumSynthesis::evaluate_canonical(seed);
-            (syn.discarded_claim_checks(), syn.all_identities_closed)
-        }),
-    )?;
     for finding in triad_syn
         .discarded_findings
         .iter()
@@ -431,6 +449,7 @@ fn run_positive_gates(root: &Path) -> Result<(), String> {
     {
         println!("  [G8] Triadic discarded finding (recorded, not approved): {finding}");
     }
+    check_acceptance(root)?;
     println!("  [G8] Almost-Perfect Machine M=(T,Phi,theta) (P1-P5), Authentic Form (delta(x) + S*), Nonlinear NILE/IRM, Coin Benchmark, Relational/Complex Systems, Analog/Wave Computing, Critical Stochastic Rationality, Stochary-Conjectural Cybernetics (PATE/VSM), and Triadic (C x Fractals x T^d) & Technium Synthesis -> APPROVED");
     Ok(())
 }
@@ -632,7 +651,12 @@ fn run_negative_proof(root: &Path, defect: &str) -> ! {
                 CriticalStochasticRationalitySynthesis::evaluate_with_mode(DEFAULT_SEED, false);
             let fails_on_all_seeds = ACCEPTANCE_SEEDS.iter().all(|&seed| {
                 let naive = CriticalStochasticRationalitySynthesis::evaluate_with_mode(seed, false);
-                naive.all_identities_closed && !naive.all_four_axes_verified
+                naive.all_identities_closed
+                    && !naive.all_four_axes_verified
+                    && naive
+                        .claim_checks()
+                        .iter()
+                        .any(|&(name, ok)| !ok && !is_deterministic(name))
             });
             if fails_on_all_seeds
                 && reified.all_identities_closed
@@ -642,7 +666,7 @@ fn run_negative_proof(root: &Path, defect: &str) -> ! {
                 && !reified.dialectical_overcoming.axis4_verified
             {
                 eprintln!(
-                    "NEGATIVE PROOF [instrumental_reason] BLOCKED SUCCESSFULLY on all {} acceptance seeds (identities closed on every seed): at seed 2026 truncated-Gaussian VaR99 breached on {:.1}% of fresh draws, RRM excess performative risk={:.3}, Stochastic Parrot counterfactual MSE={:.2}, unconstrained recursion rule satisfaction={:.0}%, raw drifted readout accuracy={:.0}%, one-shot HP-INV error={:.1e}",
+                    "NEGATIVE PROOF [instrumental_reason] BLOCKED SUCCESSFULLY on all {} development seeds through seed-dependent claims (identities closed on every seed): at seed 2026 truncated-Gaussian VaR99 breached on {:.1}% of fresh draws, RRM excess performative risk={:.3}, Stochastic Parrot counterfactual MSE={:.2}, unconstrained recursion rule satisfaction={:.0}%, raw drifted readout accuracy={:.0}%, one-shot HP-INV error={:.1e}",
                     ACCEPTANCE_SEEDS.len(),
                     reified.adorno_non_identical_and_reification.deployed_var99_holdout_exceedance * 100.0,
                     reified.adorno_non_identical_and_reification.deployed_performative_excess_risk,
@@ -660,7 +684,12 @@ fn run_negative_proof(root: &Path, defect: &str) -> ! {
                 StocharyConjecturalCyberneticSynthesis::evaluate_with_mode(DEFAULT_SEED, false);
             let fails_on_all_seeds = ACCEPTANCE_SEEDS.iter().all(|&seed| {
                 let naive = StocharyConjecturalCyberneticSynthesis::evaluate_with_mode(seed, false);
-                naive.all_identities_closed && !naive.all_four_axes_verified
+                naive.all_identities_closed
+                    && !naive.all_four_axes_verified
+                    && naive
+                        .claim_checks()
+                        .iter()
+                        .any(|&(name, ok)| !ok && !is_deterministic(name))
             });
             if fails_on_all_seeds
                 && unshielded.all_identities_closed
@@ -671,7 +700,7 @@ fn run_negative_proof(root: &Path, defect: &str) -> ! {
                 && !unshielded.cybernetic_vsm_and_pate.axis4_verified
             {
                 eprintln!(
-                    "NEGATIVE PROOF [stochary_cybernetics] BLOCKED SUCCESSFULLY on all {} acceptance seeds (identities closed on every seed): at seed 2026 panic-order Bullwhip={:.2}x, full-exposure Peters growth={:+.4}, always-act VOI match={}, Rung-1 effect={:.2} (true 2.80), untransported effect error={:.2}, simulated queue wait at u=0.985={:.1} h, Ivanov fill rate={:.2}, TTS/TTR={:.2}, uncertified WDRO disappointment={:+.2}, persistence-model R2={:.2}, raw judge noise={:.3}, factor-omitting PLAT r_s={:.2}",
+                    "NEGATIVE PROOF [stochary_cybernetics] BLOCKED SUCCESSFULLY on all {} development seeds through seed-dependent claims (identities closed on every seed): at seed 2026 panic-order Bullwhip={:.2}x, full-exposure Peters growth={:+.4}, always-act VOI match={}, Rung-1 effect={:.2} (true 2.80), untransported effect error={:.2}, simulated queue wait at u=0.985={:.1} h, Ivanov fill rate={:.2}, TTS/TTR={:.2}, uncertified WDRO disappointment={:+.2}, persistence-model R2={:.2}, raw judge noise={:.3}, factor-omitting PLAT r_s={:.2}",
                     ACCEPTANCE_SEEDS.len(),
                     unshielded.topology_and_stock_axioms.low_pass_buffered_variance_ratio,
                     unshielded.topology_and_stock_axioms.ergodic_buffered_time_growth_rate,
@@ -696,7 +725,12 @@ fn run_negative_proof(root: &Path, defect: &str) -> ! {
             let fails_on_all_seeds = ACCEPTANCE_SEEDS.iter().all(|&seed| {
                 let naive =
                     ComplexFractalToroidalTechniumSynthesis::evaluate_with_mode(seed, false);
-                naive.all_identities_closed && !naive.all_six_bridges_verified
+                naive.all_identities_closed
+                    && !naive.all_six_bridges_verified
+                    && naive
+                        .claim_checks()
+                        .iter()
+                        .any(|&(name, ok)| !ok && !is_deterministic(name))
             });
             if fails_on_all_seeds
                 && unshielded_triad.all_identities_closed
@@ -717,7 +751,7 @@ fn run_negative_proof(root: &Path, defect: &str) -> ! {
                     .axis6_verified
             {
                 eprintln!(
-                    "NEGATIVE PROOF [triadic_technium] BLOCKED SUCCESSFULLY on all {} acceptance seeds (identities closed on every seed): at seed 2026 tanh Helmholtz residual={:.3}, one-shot BlockAMC residual={:.1e}, naive H-matrix err={:.2e}, uncompensated PCM drift MSE={:.3}, Fickian CTRW err={:.1}%, plain-LS ECC acc={:.2}, OLS ATE RMSE={:.3}, rational Weyl D*={:.3}, random-Fourier DFM err={:.3}, classify-and-count KL={:.4}, RRM gap to theta_PO={:.3}",
+                    "NEGATIVE PROOF [triadic_technium] BLOCKED SUCCESSFULLY on all {} development seeds through seed-dependent claims (identities closed on every seed): at seed 2026 tanh Helmholtz residual={:.3}, one-shot BlockAMC residual={:.1e}, naive H-matrix err={:.2e}, uncompensated PCM drift MSE={:.3}, Fickian CTRW err={:.1}%, plain-LS ECC acc={:.2}, OLS ATE RMSE={:.3}, rational Weyl D*={:.3}, random-Fourier DFM err={:.3}, classify-and-count KL={:.4}, RRM gap to theta_PO={:.3}",
                     ACCEPTANCE_SEEDS.len(),
                     unshielded_triad.complex_wave_gabor_helmholtz.deployed_helmholtz_residual_rel_mse,
                     unshielded_triad.complex_real_isomorphism_hmatrix.two_stage_block_amc_16x16_relative_error,
@@ -856,8 +890,12 @@ fn main() {
             return;
         }
         [flag] if flag == "--print-acceptance-registry" => {
-            for line in canonical_registry_lines() {
-                println!("{line}");
+            match canonical_registry_lines(root, &evaluate_all_syntheses()) {
+                Ok(lines) => lines.iter().for_each(|l| println!("{l}")),
+                Err(e) => {
+                    eprintln!("{e}");
+                    std::process::exit(2);
+                }
             }
             return;
         }

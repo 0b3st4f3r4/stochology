@@ -98,6 +98,26 @@ for pillar_gate in "G6" "G2/G3/G6" "G6/G8" "G3/G6/G8" "G7" "G4/G8"; do
 done
 echo "  [OK] CAPIBA Protocol 6-pillar contract verified (gates pinned + 3+4+2+3+2+5 = 19 negative proofs + preface dedication hygiene)"
 
+# Phi3 seal integrity: every manifest entry matches its file, and dataset hashes are unchanged since HEAD
+if ! sha256sum -c --quiet data/SHA256SUMS; then
+    echo "ERROR: data/SHA256SUMS does not match the files it seals!" >&2
+    exit 1
+fi
+if git rev-parse --verify -q HEAD >/dev/null; then
+    head_csv="$(git show HEAD:data/SHA256SUMS | grep '\.csv$' || true)"
+    work_csv="$(grep '\.csv$' data/SHA256SUMS || true)"
+    if [ "$head_csv" != "$work_csv" ]; then
+        echo "ERROR: dataset hashes in data/SHA256SUMS differ from HEAD; datasets are immutable!" >&2
+        exit 1
+    fi
+    head_reg="$(git show HEAD:data/SHA256SUMS | grep 'acceptance_registry' || true)"
+    work_reg="$(grep 'acceptance_registry' data/SHA256SUMS || true)"
+    if [ "$head_reg" != "$work_reg" ]; then
+        echo "  [NOTICE] acceptance registry re-sealed since HEAD: requires human inline-diff review before commit (AGENTS.md V.3)"
+    fi
+fi
+echo "  [OK] data/SHA256SUMS seals every listed file and dataset hashes match HEAD"
+
 if [ -n "$(git tag --list)" ]; then
     echo "ERROR: git tags found; this repository does not use git tags." >&2
     exit 1

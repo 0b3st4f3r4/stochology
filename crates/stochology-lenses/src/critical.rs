@@ -188,26 +188,25 @@ impl AdornoNonIdenticalReificationAudit {
         // The closed-form Stackelberg optimum cannot carry more performative risk than the stable point.
         let identities_closed =
             counterfactual_stackelberg_performative_risk <= passive_status_quo_performative_risk;
-        // The liquidation gap exceeds 30 on 7 of 20 acceptance seeds (its sign is robust, its size is not).
-        let discarded_claims: Vec<NamedCheck> = vec![(
-            "critical.a1.liquidation_gap_above_30",
-            non_identical_liquidation_gap > 30.0,
-        )];
-        let claims: Vec<NamedCheck> = vec![
+        // Development: the liquidation gap exceeds 30 on 7 of 20 seeds. Refuted on the one-shot confirmation
+        // (seeds 9_000_000..=9_000_199): ES99 erasure above 0.60 on 0.945 of seeds.
+        let discarded_claims: Vec<NamedCheck> = vec![
             (
-                "critical.a1.liquidation_gap_positive",
-                non_identical_liquidation_gap > 0.0,
+                "critical.a1.liquidation_gap_above_30",
+                non_identical_liquidation_gap > 30.0,
             ),
             (
                 "critical.a1.es99_erasure_above_0.60",
                 es99_erasure_fraction > 0.60,
             ),
+        ];
+        let claims: Vec<NamedCheck> = vec![
             (
-                "critical.a1.koh_improvement_above_0.40",
+                "critical.a1.det.koh_improvement_above_0.40",
                 koh_structural_discrepancy_norm > 0.40,
             ),
             (
-                "critical.a1.reification_excess_above_0.05",
+                "critical.a1.det.reification_excess_above_0.05",
                 status_quo_reification_excess_risk > 0.05,
             ),
             (
@@ -215,11 +214,11 @@ impl AdornoNonIdenticalReificationAudit {
                 deployed_exceedance <= 0.02,
             ),
             (
-                "critical.a1.deployed_koh_error_below_half_bare",
+                "critical.a1.det.deployed_koh_error_below_half_bare",
                 deployed_koh_error < 0.5 * koh.extrapolation_error_without_gp.max(1e-12),
             ),
             (
-                "critical.a1.deployed_performative_excess_below_1e-3",
+                "critical.a1.det.deployed_performative_excess_below_1e-3",
                 deployed_performative_excess_risk < 1e-3,
             ),
         ];

@@ -286,11 +286,11 @@ impl TopologyAndFourStockAxiomsAudit {
                 unbuffered_bullwhip_amplification_ratio > 2.0,
             ),
             (
-                "stocks.a1.buffered_tail_vega_above_5",
+                "stocks.a1.det.buffered_tail_vega_above_5",
                 buffered_convex_tail_vega > 5.0,
             ),
             (
-                "stocks.a1.jit_tail_vega_below_-10",
+                "stocks.a1.det.jit_tail_vega_below_-10",
                 unbuffered_jit_concave_tail_vega < -10.0,
             ),
             (
@@ -881,12 +881,8 @@ impl SupplyChainPhysicsAudit {
                 sterman_supply_line_oscillation_damping_ratio < 0.30,
             ),
             (
-                "stocks.sc.graves_willems_saving_above_0.25",
+                "stocks.sc.det.graves_willems_saving_above_0.25",
                 clark_scarf_graves_willems_meio_saving_fraction > 0.25,
-            ),
-            (
-                "stocks.sc.tbs_saving_above_0.08",
-                allon_van_mieghem_tbs_cost_saving_fraction > 0.08,
             ),
             (
                 "stocks.sc.deployed_queue_wait_below_2.5h",
@@ -1108,11 +1104,22 @@ impl StrategicStockPlantResilienceAudit {
             && little_s < big_s
             && cvar95 >= var95
             && supply_chain_physics.identities_closed;
-        // At n = 150 test points the coverage SD is ~0.024, so a 0.88 floor at nominal 0.90 holds on 12 of 20 acceptance seeds.
-        let discarded_claims: Vec<NamedCheck> = vec![(
-            "stocks.a3.conformal_coverage_at_least_0.88",
-            conformal_safety_stock_coverage >= 0.88,
-        )];
+        // Development: the 0.88 coverage floor held on 12 of 20 seeds (coverage SD ~0.024 at n = 150).
+        // Refuted on the one-shot confirmation (seeds 9_000_000..=9_000_199): WDRO certificate coverage 0.890 and TBS saving 0.935.
+        let discarded_claims: Vec<NamedCheck> = vec![
+            (
+                "stocks.a3.conformal_coverage_at_least_0.88",
+                conformal_safety_stock_coverage >= 0.88,
+            ),
+            (
+                "stocks.a3.deployed_wdro_certificate_covers_oos",
+                wdro_robust_oos_disappointment <= 0.0,
+            ),
+            (
+                "stocks.sc.tbs_saving_above_0.08",
+                supply_chain_physics.allon_van_mieghem_tbs_cost_saving_fraction > 0.08,
+            ),
+        ];
         let mut claims: Vec<NamedCheck> = vec![
             (
                 "stocks.a3.levers_cut_rei_by_0.80",
@@ -1121,10 +1128,6 @@ impl StrategicStockPlantResilienceAudit {
             (
                 "stocks.a3.deployed_tts_to_ttr_at_least_1.15",
                 simchi_levi_tts_to_ttr_ratio >= 1.15,
-            ),
-            (
-                "stocks.a3.deployed_wdro_certificate_covers_oos",
-                wdro_robust_oos_disappointment <= 0.0,
             ),
         ];
         claims.extend(supply_chain_physics.claims.iter().copied());
@@ -1645,8 +1648,9 @@ pub struct EmpiricalStocharyCyberneticAudit {
     /// observed chronological gap (see `discarded_findings`), which makes the certificate claim vacuous, so it is not gated either.
     pub danish_fire_naive_vs_wdro_disappointment: (f64, f64),
     /// **`vic_elec.csv`:** share of test-half excursions above the training $q_{95}$ whose excess energy is covered by a reserve of
-    /// $6.5\,\mathrm{h} \times (q_{99} - q_{95})$ sized on the training half. Gated (`>= 0.90`).
-    pub vic_elec_reserve_excursion_coverage: f64,
+    /// $6.5\,\mathrm{h} \times (q_{99} - q_{95})$ sized on the training half, for (first half -> second half, second half -> first half).
+    /// Informative: the `>= 0.90` claim holds in the first direction by one excursion and fails in the second, so it is discarded.
+    pub vic_elec_reserve_excursion_coverage: (f64, f64),
     /// **`atlantic_storms.csv`:** out-of-sample CORP Telos score $\mathrm{REL} - \mathrm{RES}$ of the second half recalibrated by the
     /// first-half isotonic map, and $\mathrm{UNC}_0$. Gated (`< 0` and `> 0.02`).
     pub atlantic_storms_telos_skill_vs_skopos_unc0: (f64, f64),
@@ -1697,29 +1701,34 @@ impl EmpiricalStocharyCyberneticAudit {
         let naive_disappointment = cvar_test - cvar_train;
         let wdro_disappointment = cvar_test - (cvar_train + epsilon / (1.0 - beta));
 
-        // 4. Victoria Electricity Demand: reserve sized on the first half, tested on contiguous excursions of the second half
-        let half = vic_elec_demand.len() / 2;
-        let (vic_train, vic_test) = vic_elec_demand.split_at(half);
-        let q95_train = quantile(vic_train, 0.95);
-        let q99_train = quantile(vic_train, 0.99);
-        let reserve_mwh = 6.5 * (q99_train - q95_train).max(1.0);
-        let (mut excursions, mut covered) = (0usize, 0usize);
-        let mut excess_mwh = 0.0_f64;
-        let mut in_excursion = false;
-        for &d in vic_test.iter().chain(std::iter::once(&f64::NEG_INFINITY)) {
-            if d > q95_train {
-                excess_mwh += (d - q95_train) * 0.5;
-                in_excursion = true;
-            } else if in_excursion {
-                excursions += 1;
-                if excess_mwh <= reserve_mwh {
-                    covered += 1;
+        // 4. Victoria Electricity Demand: reserve sized on one half, tested on contiguous excursions of the other half
+        let reserve_coverage = |train: &[f64], test: &[f64]| -> f64 {
+            let q95_train = quantile(train, 0.95);
+            let q99_train = quantile(train, 0.99);
+            let reserve_mwh = 6.5 * (q99_train - q95_train).max(1.0);
+            let (mut excursions, mut covered) = (0usize, 0usize);
+            let mut excess_mwh = 0.0_f64;
+            let mut in_excursion = false;
+            for &d in test.iter().chain(std::iter::once(&f64::NEG_INFINITY)) {
+                if d > q95_train {
+                    excess_mwh += (d - q95_train) * 0.5;
+                    in_excursion = true;
+                } else if in_excursion {
+                    excursions += 1;
+                    if excess_mwh <= reserve_mwh {
+                        covered += 1;
+                    }
+                    excess_mwh = 0.0;
+                    in_excursion = false;
                 }
-                excess_mwh = 0.0;
-                in_excursion = false;
             }
-        }
-        let vic_elec_reserve_coverage = covered as f64 / excursions.max(1) as f64;
+            covered as f64 / excursions.max(1) as f64
+        };
+        let (vic_first, vic_second) = vic_elec_demand.split_at(vic_elec_demand.len() / 2);
+        let vic_elec_reserve_coverage = (
+            reserve_coverage(vic_first, vic_second),
+            reserve_coverage(vic_second, vic_first),
+        );
 
         // 5. Atlantic Storms: isotonic recalibration fitted on the first half and applied out of sample to the second half
         let (probs, outcomes) = storm_forecasts;
@@ -1758,9 +1767,10 @@ impl EmpiricalStocharyCyberneticAudit {
                 "danish_fire: the WDRO certificate CVaR_train + W1/(1 - beta) covers the later CVaR_95",
             );
         }
-        if vic_elec_reserve_coverage < 0.90 {
+        // The first-direction coverage clears 0.90 by one excursion and the swapped direction does not, so the claim is not robust.
+        if vic_elec_reserve_coverage.0.min(vic_elec_reserve_coverage.1) < 0.90 {
             discarded_findings.push(
-                "vic_elec: a 6.5 h x (q99 - q95) reserve sized on the first half covers 90% of second-half peak excursions",
+                "vic_elec: a 6.5 h x (q99 - q95) reserve sized on one half covers 90% of peak excursions of the other half in both directions",
             );
         }
         if telos_net_score >= 0.0 {
@@ -1773,7 +1783,6 @@ impl EmpiricalStocharyCyberneticAudit {
             && bank_calls_low_pass_variance_ratio < 0.30
             && cvar95 >= var95
             && skopos_unc0 > 0.02
-            && vic_elec_reserve_coverage >= 0.90
             && telos_net_score < 0.0;
 
         Self {
