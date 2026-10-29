@@ -58,6 +58,65 @@ for ch in $(grep -oE '[0-9]{2}-[a-z0-9-]+\.md' "book-src/SUMMARY.md" | sort -u);
 done
 echo "  [OK] book-src/SUMMARY.md chapter references verified against book-src/*.md"
 
+# Overclaim phrase blacklist (AGENTS.md II.C): audited overclaims must not return to derived texts.
+# AGENTS.md and .agents/ are excluded on purpose: they quote the rules. Patterns tolerate LaTeX ($20\text{ W}$, 100\times$).
+BLACKLIST_DOCS=(book-src/*.md docs/PROTOCOL.md README.md)
+BLACKLIST_PATTERNS=(
+    'retinas?[[:space:]]+transduc'
+    '20[- ]*(\\text\{[[:space:]]*)?W\}?\$?[- ]+human[[:space:]]+retina'
+    '(^|[^[:alpha:]])real[- ]+interventions?'
+    'toxic[[:space:]]+noise'
+    'only[[:space:]]+antidote'
+    '100[[:space:]]*(\\times|×|x)\$?[[:space:]]*(vs\.?|versus)(\\[[:space:]]|~|[[:space:]])*(an?[[:space:]]+)?(Nvidia[[:space:]]+)?H100'
+)
+blacklist_failed=0
+for pat in "${BLACKLIST_PATTERNS[@]}"; do
+    if hits="$(grep -niE -- "$pat" "${BLACKLIST_DOCS[@]}")"; then
+        echo "ERROR: blacklisted overclaim phrase /$pat/ found:" >&2
+        echo "$hits" | cut -c1-240 >&2
+        blacklist_failed=1
+    fi
+done
+if [ "$blacklist_failed" -ne 0 ]; then
+    exit 1
+fi
+echo "  [OK] Overclaim phrase blacklist clean across book-src/*.md, docs/PROTOCOL.md, and README.md (${#BLACKLIST_PATTERNS[@]} patterns)"
+
+# Cross-reference integrity: SUMMARY.md order, "Chapter N" bounds, and relative chapter links.
+summary_prefixes="$(grep -oE '\]\([0-9]{2}-[a-z0-9-]+\.md\)' book-src/SUMMARY.md | sed -E 's/^\]\(([0-9]{2}).*/\1/')"
+prev_prefix=-1
+for prefix in $summary_prefixes; do
+    if [ "$((10#$prefix))" -le "$prev_prefix" ]; then
+        echo "ERROR: book-src/SUMMARY.md chapter prefixes are not strictly increasing ($prev_prefix then $prefix)!" >&2
+        exit 1
+    fi
+    prev_prefix="$((10#$prefix))"
+done
+max_chapter="$prev_prefix"
+xref_failed=0
+while IFS= read -r hit; do
+    for n in $(printf '%s\n' "${hit#*:*:}" | grep -oE '[0-9]+'); do
+        if [ "$((10#$n))" -gt "$max_chapter" ]; then
+            echo "ERROR: '$hit' cites chapter $n, beyond the last chapter ($max_chapter) in book-src/SUMMARY.md!" >&2
+            xref_failed=1
+        fi
+    done
+done < <(grep -noE 'Chapters? [0-9]+((–|-|, | and | & |, and )[0-9]+)*' book-src/*.md)
+while IFS= read -r doc; do
+    doc_dir="$(dirname "$doc")"
+    while IFS= read -r target; do
+        case "$target" in *://*) continue ;; esac
+        if [ ! -f "$doc_dir/$target" ]; then
+            echo "ERROR: '$doc' links to non-existent chapter '$target'!" >&2
+            xref_failed=1
+        fi
+    done < <(grep -oE '\]\([^)#[:space:]]*[0-9]{2}-[A-Za-z0-9_-]+\.md' "$doc" | sed -E 's/^\]\(//')
+done < <(find book-src docs -name '*.md' | sort; echo README.md)
+if [ "$xref_failed" -ne 0 ]; then
+    exit 1
+fi
+echo "  [OK] Cross-references verified (SUMMARY.md prefixes strictly increasing, 'Chapter N' <= $max_chapter, chapter links resolve)"
+
 # CAPIBA Protocol Contract Gate (6 mnemonic pillars -> gates & 19 disjoint negative defect proofs)
 CAPIBA_EN="Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol"
 for doc in "README.md" "AGENTS.md" "docs/PROTOCOL.md" "book-src/00-preface.md"; do

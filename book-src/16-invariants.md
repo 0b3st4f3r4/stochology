@@ -270,8 +270,8 @@ cargo run --release --bin labs -- --invariants
 
 ~~~text
 === LAB 4: INVARIANTS PHI1-PHI5, MOULTON-CAMPBELL, EXCEEDANCE, AND CHOULDECHOVA ===
-  [Benchmarks Phi2] n=25028 -> m_bar=59.59, m_tilde=119.05, rho_I(0.90)=0.155, n_eff=1297.0 (naive Kish=2482.6) | n=500 -> n_eff=86.0 | var_amp=69.0x
-  [Real Data: bank_calls.csv] n=27716, clusters=164, m_bar=169.00, m_tilde=169.00, rho_I(0.90)=0.1623, DEFF=28.26, n_eff(0.90)=980.7 (profile q50/q90/q99 n_eff=["9239", "981", "1308"])
+  [Phi1 SplitMix64::split(stream_id)] streams=16, max_|rho|=0.0874, Hamming_avalanche=32.3 bits (verified=true) | [Benchmarks Phi2] n=25028 -> m_bar=59.59, m_tilde=119.05, rho_I(0.90)=0.155, n_eff=1297.0 (naive Kish=2482.6) | n=500 -> n_eff=86.0 | var_amp=69.0x
+  [Real Data: bank_calls.csv] n=27716, clusters=164, m_bar=169.00, m_tilde=169.00, rho_I(0.90)=0.1623, DEFF=28.26, n_eff(0.90)=980.7 (profile q50/q90/q99 n_eff=[9239, 981, 1308])
   [Phi4: Chouldechova on toronto_arrests.csv] p_A=0.3926 vs p_B=0.1119 -> equalizing PPV=0.65 & FNR=0.25 forces FPR_A=0.2610 vs FPR_B=0.0509 (ratio=5.13x, KMR_var_gap=0.0960)
 ~~~
 

@@ -76,7 +76,7 @@ While the software industry celebrates multi-agent pipelines in which Large Lang
 
 Under **Prohibition 1**, all communication between agents or modules transits **exclusively through structured Epistemological Cards** (`EpistemologicalCard` in `crates/stochology-core/src/card.rs`), serialized in strict YAML (`cards/*.yaml`) and validated in pure Rust by `EpistemologicalCard::audit()`.
 
-A fixed typed schema is the only antidote to adjective laundering because **an empty or inconsistent slot for effective sample size, Jensen's Gap ($\Delta_J$), or economic threshold ($p^{\ast} = \frac{C}{\eta L}$) cannot hide behind an eloquent verb.** If an agent wants to recommend an action in a YAML card, the parser forces the agent to fill in:
+A fixed typed schema counters adjective laundering because **an empty or inconsistent slot for effective sample size, Jensen's Gap ($\Delta_J$), or economic threshold ($p^{\ast} = \frac{C}{\eta L}$) cannot hide behind an eloquent verb.** If an agent wants to recommend an action in a YAML card, the parser forces the agent to fill in:
 - the exact SHA-256 hash of the dataset (`dataset_sha256`);
 - the true independent unit and Moulton-Campbell effective sample size (`effective_sample_size_n_eff`);
 - all seven numbers of the nonlinear summary (`f_at_mean`, `mean_of_f`, `jensen_gap`, `median`, `q05`, `q95`, `crps`);

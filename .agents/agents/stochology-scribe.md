@@ -15,7 +15,7 @@ When any struct, function, invariant, laboratory, gate, or canonical card is add
 2. **Textbook Appendix & Chapters (`book-src/`):**
    Keep `book-src/SUMMARY.md`, `book-src/appendix-protocol.md`, and the 24 chapters (`book-src/00-preface.md` through `book-src/24-sources.md`) aligned:
    - `00-preface.md` & `16-invariants.md`: `SplitMix64::split(stream_id)` & `MonteCarloSplitTreeAudit` ($\Phi_1$).
-   - `02-layers.md`, `11-analog-wave-computing.md` & `18-funnel-siga.md`: `AlertFatigueAudit` ($10\text{ bit/s}$ conscious ceiling, Turing decibans $W = 10\log_{10}\mathrm{LR}$, and the measured Epic Sepsis PPV vs. the *assumed* Stochological design operating point — never present the latter as a result).
+   - `02-layers.md`, `11-analog-wave-computing.md` & `18-funnel-siga.md`: `AlertFatigueAudit` ($10\text{ bit/s}$ conscious ceiling, Turing decibans $W = 10\log_{10}\mathrm{LR}$, and the published Epic Sepsis PPV (Wong et al. 2021, literature) vs. the *assumed* Stochological design operating point — never present the latter as a result).
    - `02-layers.md` & `12-critical-stochastic-rationality.md`: `GoodhartTaxonomyAudit` (4 Manheim-Garrabrant Goodhart variants coupled to ICP/NILE $S^*$ and `PerfGD` $\nabla_1 \mathrm{DPR}$).
    - `11-analog-wave-computing.md`: `BlockAMC` recursive $4\times 4$ RRAM block solver and `ABNAT / HaLoRA` attention-drift reduction in `AimcAnalogWallHpInvAudit`.
    - `13-stochary-conjectural-cybernetics.md` & `19-governance.md`: `PredeterminedChangeControlPlan` (`PCCP`), `ProfitLossAttributionTest` (`PLAT` Spearman + KS traffic-light), and `EvaluatedCompetenceCriterion`.

@@ -43,6 +43,7 @@ use stochology_lenses::stocks::{
 use stochology_lenses::triad::{
     ComplexFractalToroidalTechniumSynthesis, EmpiricalTriadicTechniumAudit,
 };
+use stochology_siga::roadmap::OperatingPointSource;
 use stochology_siga::{AlertFatigueAudit, EvidenceProcess, SaviConfidenceSequence, VarEsEBacktest};
 
 /// Gate `G8` acceptance of the simulated syntheses: each gated claim must pass on the development seeds and on the sealed
@@ -228,6 +229,17 @@ fn run_positive_gates(root: &Path) -> Result<(), String> {
         AlertFatigueAudit::canonical_epic_sepsis_vs_stochological_gate();
     if epic_sepsis.approved_bridge_l2_l3 || !stoch_triage.approved_bridge_l2_l3 {
         return Err("G6 failed AlertFatigueAudit (10 bit/s & Turing decibans) check".into());
+    }
+    // §II.C provenance: the Epic operating point is literature (Wong et al. 2021); the Stochological one is assumed.
+    if !matches!(
+        epic_sepsis.operating_point_source,
+        OperatingPointSource::Literature { .. }
+    ) || stoch_triage.operating_point_source != OperatingPointSource::Assumed
+    {
+        return Err(
+            "G6 failed AlertFatigueAudit operating-point provenance (Literature vs Assumed) check"
+                .into(),
+        );
     }
     println!("  [G6] Prohibitions 1-4, Performativity (PS vs PO & Goodhart 4-Variant), AlertFatigueAudit (10 bit/s & Decibans), Info-Gap + Sniedovich, SDPI/DPI Chain, SAVI CS, VaR/ES E-Backtest, and CORP-ROC-Murphy Triptych -> APPROVED");
 

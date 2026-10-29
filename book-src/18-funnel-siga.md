@@ -11,9 +11,9 @@ $$p^{\ast} = \frac{C}{\eta L} = \frac{100}{50\text{,}000} = 0.002 \quad (0.2\%)$
 
 Clinically, any patient arriving at the hospital with severe fever already has a baseline probability of bacterial infection of at least $15\%$. Even if the new USD 500,000 machine-learning test comes back **negative**, the patient's posterior probability drops only from $15\%$ to $3\%$, which remains **fifteen times higher than the $0.2\%$ threshold $p^{\ast}$.**
 
-In other words, whether the expensive new model says "positive" or "negative," the doctor must administer antibiotics either way. **The Expected Value of Sample Information is zero, and the USD 500,000 project was dead on arrival before a single line of code was written.**
+In other words, whether the expensive new model says "positive" or "negative," the doctor must administer antibiotics either way. **Under this worked example's assumed costs and probabilities, the Expected Value of Sample Information is zero, so the USD 500,000 project could have been stopped before a single line of code was written.**
 
-In most organizations, nobody checks whether a model can alter an action, whether the true cluster sample size $n\_{\mathrm{eff}}(p)$ is large enough, or whether the inference software can even recover known synthetic parameters until *after* months of computing have been spent.
+The risk is that nobody checks whether a model can alter an action, whether the true cluster sample size $n\_{\mathrm{eff}}(p)$ is large enough, or whether the inference software can even recover known synthetic parameters until *after* months of computing have been spent.
 
 To reverse this waste, `crates/stochology-siga` enforces two sequential operational instruments:
 1. **The 4-Filter Eliminatory Funnel (`funnel.rs`):** A strict short-circuiting gate that kills economically, causally, or computationally invalid projects upfront.
@@ -244,14 +244,15 @@ cargo run --release --bin labs -- --siga
 
 ~~~text
 === LAB 5: 4-FILTER ELIMINATORY FUNNEL AND 8-STEP SIGA ROADMAP ===
-  [SIGA cards/card_01_atlantic_storms_evacuation.yaml] dataset=data/atlantic_storms.csv, EVPI=257928.0, p_null=0.0050 (unclamped), chi2_SBC=0.85, E_30=324171.1, steps_1_to_8=[true, true, true, true, true, true, true, true], approved=true
+  [Filter 3 SHELF Beta Fit & Step 6 GRAPA] Beta(alpha=1.05, beta=15.03, CDF_RMSE=0.0111) | GRAPA E_35=992.26 (rejects_H0=true) | [Bridge L2->L3 AlertFatigueAudit (10 bit/s & Turing Decibans)] EpicSepsis(PPV=12.0%, FP/TP=7.3, approved=false) vs StochologicalTarget(assumed TPR/FPR, PPV=56.3%, W=+12.61 dB, load=3.2 bit/s <= 10, approved=true)
+  [SIGA cards/card_01_atlantic_storms_evacuation.yaml] dataset=data/atlantic_storms.csv, EVPI=257928.0, p_null=0.0050 (unclamped), chi2_SBC=0.85, E_30=546503.8, steps_1_to_8=[true, true, true, true, true, true, true, true], approved=true
     Out of every 1000 independent units, 98 experience the critical event (of which 98 trigger the alarm at threshold p*=0.12000 and 0 are missed), while 902 do not experience the event (of which 156 trigger a false alarm and 746 remain clear). Positive predictive frequency: 98 out of 254 alarms. Action: do_not_protect. Exit clause: Immediately suspend automated synoptic advisory if REL_CORP > 0.015 or RES_CORP < 0.020 over a 14-day rolling window.
-  [SIGA cards/card_02_bank_queue_staffing.yaml] dataset=data/bank_calls.csv, EVPI=216213.6, p_null=0.0050 (unclamped), chi2_SBC=4.65, E_30=2786.4, steps_1_to_8=[true, true, true, true, true, true, true, true], approved=true
+  [SIGA cards/card_02_bank_queue_staffing.yaml] dataset=data/bank_calls.csv, EVPI=216213.6, p_null=0.0050 (unclamped), chi2_SBC=4.65, E_30=3814.5, steps_1_to_8=[true, true, true, true, true, true, true, true], approved=true
     Out of every 1000 independent units, 99 experience the critical event (of which 99 trigger the alarm at threshold p*=0.08000 and 0 are missed), while 901 do not experience the event (of which 426 trigger a false alarm and 475 remain clear). Positive predictive frequency: 99 out of 525 alarms. Action: protect. Exit clause: Immediately suspend automated shift scheduling if REL_CORP > 0.020 or RES_CORP < 0.025 over a 10-business-day rolling window.
-  [SIGA cards/card_03_nyc_flights_holding.yaml] dataset=data/nyc_flights_2013.csv, EVPI=135285.0, p_null=0.0050 (unclamped), chi2_SBC=3.00, E_30=32.8, steps_1_to_8=[true, true, true, true, true, true, true, true], approved=true
+  [SIGA cards/card_03_nyc_flights_holding.yaml] dataset=data/nyc_flights_2013.csv, EVPI=135285.0, p_null=0.0050 (unclamped), chi2_SBC=3.00, E_30=32.6, steps_1_to_8=[true, true, true, true, true, true, true, true], approved=true
     Out of every 1000 independent units, 98 experience the critical event (of which 71 trigger the alarm at threshold p*=0.06000 and 27 are missed), while 902 do not experience the event (of which 277 trigger a false alarm and 625 remain clear). Positive predictive frequency: 71 out of 348 alarms. Action: protect. Exit clause: Immediately revert to conservative Wald Maximin ground-delay policy if REL_CORP > 0.012 or RES_CORP < 0.005 or RRM radius >= 0.85 over a 7-day window.
-  [SIGA cards/card_04_dpi_civil_defense_triage.yaml] dataset=data/cps_observational.csv, EVPI=141229.4, p_null=0.0050 (unclamped), chi2_SBC=2.40, E_30=184.2, steps_1_to_8=[true, true, true, true, true, true, true, true], approved=true
-  [Filter 3 SHELF Beta Fit & Step 6 GRAPA] Beta(alpha=1.05, beta=15.03, CDF_RMSE=0.0111) | GRAPA E_35=946.42 (rejects_H0=true) | [Bridge L2->L3 AlertFatigueAudit (10 bit/s & Turing Decibans)] EpicSepsis(PPV=12.0%, FP/TP=7.3, approved=false) vs StochologicalTarget(assumed TPR/FPR, PPV=56.3%, W=+12.61 dB, load=3.2 bit/s <= 10, approved=true)
+  [SIGA cards/card_04_dpi_civil_defense_triage.yaml] dataset=data/cps_observational.csv, EVPI=34835.2, p_null=0.0050 (unclamped), chi2_SBC=0.85, E_30=128.8, steps_1_to_8=[true, true, true, true, true, true, true, true], approved=true
+    Out of every 1000 independent units, 171 experience the critical event (of which 116 trigger the alarm at threshold p*=0.12000 and 55 are missed), while 829 do not experience the event (of which 188 trigger a false alarm and 641 remain clear). Positive predictive frequency: 116 out of 304 alarms. Action: protect. Exit clause: Trigger PCCP automatic rollback and VSM Algedonic Channel freeze if REL_CORP > 0.015, RES_CORP < 0.015, PLAT enters Red zone (r_s < 0.70 or D_KS > 0.12), or shift alarm load exceeds 10 bit/s over a 7-day window.
 ~~~
 
 ## Exercises

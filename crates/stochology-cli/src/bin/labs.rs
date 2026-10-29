@@ -34,6 +34,7 @@ use stochology_lenses::{
     RelationalComplexSystemsSynthesis, SdpiHierarchy, StocharyConjecturalCyberneticSynthesis,
     TimeKellyDiagnostic,
 };
+use stochology_siga::roadmap::OperatingPointSource;
 use stochology_siga::{fit_shelf_beta_prior, AlertFatigueAudit, EvidenceProcess};
 
 /// Lab 1: Dynamics of the Three Ontological Layers ($L_1 \to L_2 \to L_3 \to L_1$), Meng, Manski, Jensen, and Performativity.
@@ -629,6 +630,16 @@ fn lab_invariants(root: &Path) {
     );
 }
 
+/// Renders the §II.C provenance class of an `AlertFatigueAudit` operating point.
+fn describe_operating_point_source(source: &OperatingPointSource) -> String {
+    match source {
+        OperatingPointSource::Literature { source } => format!("Literature({source})"),
+        OperatingPointSource::Assumed => {
+            "Assumed (design operating point, not measured)".to_string()
+        }
+    }
+}
+
 /// Lab 5: 4-Filter Eliminatory Funnel, 8-Step SIGA Roadmap, and Natural-Frequency Executive Memoranda on the 4 Canonical YAML Cards.
 fn lab_siga(root: &Path) {
     println!("=== LAB 5: 4-FILTER ELIMINATORY FUNNEL AND 8-STEP SIGA ROADMAP ===");
@@ -651,6 +662,11 @@ fn lab_siga(root: &Path) {
         stoch_triage.turing_weight_of_evidence_decibans,
         stoch_triage.cognitive_triage_load_bps,
         stoch_triage.approved_bridge_l2_l3
+    );
+    println!(
+        "  [AlertFatigueAudit provenance] EpicSepsis={} | StochologicalTarget={}",
+        describe_operating_point_source(&epic_sepsis.operating_point_source),
+        describe_operating_point_source(&stoch_triage.operating_point_source)
     );
     let cards = load_cards_from_disk(root).expect("load canonical YAML cards from disk");
     for (rel_path, card) in cards {

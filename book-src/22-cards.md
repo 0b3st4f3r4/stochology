@@ -24,14 +24,14 @@ Before reading the full YAML listings below, compare how the four cards span all
   <text x="30" y="72" fill="var(--ink)" font-size="14" font-weight="800">Coastal Evacuation</text>
   <text x="30" y="100" fill="var(--muted)" class="mono" font-size="11">p = 0.09800 ≤ p* = 0.12000</text>
   <text x="30" y="124" fill="var(--muted)" class="mono" font-size="11">n = 20,778 → n_eff = 1,811</text>
-  <text x="30" y="148" fill="var(--muted)" class="mono" font-size="11">EVPI = $257,928 · E₃₀ = 324k</text>
+  <text x="30" y="148" fill="var(--muted)" class="mono" font-size="11">EVPI = $257,928 · E₃₀ = 547k</text>
   <text x="30" y="190" fill="var(--sky)" class="mono" font-size="11.5" font-weight="800">Act: do_not_protect (OK)</text>
   <rect x="296" y="22" width="264" height="196" rx="12" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2.2"/>
   <text x="310" y="48" fill="var(--violet)" class="mono" font-size="11" font-weight="800">CARD 02 · BANK QUEUES (L₂)</text>
   <text x="310" y="72" fill="var(--ink)" font-size="14" font-weight="800">Overflow Shift Staffing</text>
   <text x="310" y="100" fill="var(--muted)" class="mono" font-size="11">p = 0.09911 &gt; p* = 0.08000</text>
   <text x="310" y="124" fill="var(--muted)" class="mono" font-size="11">n = 27,716 → n_eff = 980.7</text>
-  <text x="310" y="148" fill="var(--muted)" class="mono" font-size="11">EVPI = $216,214 · E₃₀ = 2,786</text>
+  <text x="310" y="148" fill="var(--muted)" class="mono" font-size="11">EVPI = $216,214 · E₃₀ = 3,814.5</text>
   <text x="310" y="190" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="800">Act: protect (Approved)</text>
   <rect x="576" y="22" width="264" height="196" rx="12" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2.2"/>
   <text x="590" y="48" fill="var(--emerald)" class="mono" font-size="11" font-weight="800">CARD 03 · NYC FLIGHTS (L₃)</text>

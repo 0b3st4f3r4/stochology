@@ -25,7 +25,7 @@ Every byte of these 13 CSV files is cryptographically locked in `data/SHA256SUMS
   <text x="38" y="48" fill="var(--sky)" class="mono" font-size="11" font-weight="800">1. LABOR &amp; DPI TRIAGE (2 CSVs → card_04)</text>
   <text x="38" y="74" fill="var(--ink)" font-size="14.5" font-weight="800">nsw_experimental + cps_obs</text>
   <text x="38" y="98" fill="var(--muted)" class="mono" font-size="11">Meng ρ_R,Y = +0.1334 → n_eff = 2,843</text>
-  <text x="38" y="120" fill="var(--muted)" class="mono" font-size="11">Manski [5463, 13835] · Lee [839, 2007]</text>
+  <text x="38" y="120" fill="var(--muted)" class="mono" font-size="11">Manski [5463, 13835] · Lee [872.5, 1995.8]</text>
   <rect x="394" y="22" width="352" height="122" rx="11" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2"/>
   <text x="412" y="48" fill="var(--violet)" class="mono" font-size="11" font-weight="800">2. BANKING QUEUES (1 CSV → card_02)</text>
   <text x="412" y="74" fill="var(--ink)" font-size="14.5" font-weight="800">bank_calls.csv (n = 27,716)</text>
@@ -73,7 +73,7 @@ Every byte of these 13 CSV files is cryptographically locked in `data/SHA256SUMS
 - **The Stochology Audit (Bridge $L\_2 \to L\_3$ & Invariants $\Phi\_2, \Phi\_5$):**
   1. **Prohibition 2 (Jensen's Gap):** Evaluating the nonlinear congestion penalty across the $164$ fluctuating days reveals $f(\mathbb{E}[X]) = 1.0669 \times 10^9$ versus $\mathbb{E}[f(X)] = 1.0760 \times 10^9$, uncovering a positive **Jensen's Gap of $\Delta\_J = +9\text{,}033\text{,}837.19$** ($\approx 0.85\%$ of $f(\mathbb{E}[X])$, in squared daily calls under the illustrative cost $f(x) = x^2$) and out-of-sample $\mathrm{CRPS} = 9.055 \times 10^7$.
   2. **Invariant $\Phi\_2$ (Moulton-Campbell Tail Exceedance):** At the $90\text{th}$ percentile ($p = 0.90$), five-minute surges cluster heavily within specific days ($\tilde{m} = 169.00$, threshold exceedance ICC $\rho\_I(0.90) = 0.1623$), producing a design effect of **$\mathrm{DEFF}(0.90) = 28.26$** and shrinking $n = 27\text{,}716$ to **$n\_{\mathrm{eff}}(0.90) = 980.7$**.
-  3. **Decision (`card_02`):** Because the calibrated daily overload probability $p = 0.09911$ exceeds $p^{\ast} = 0.08000$ with $\mathrm{EVPI} = USD 216\text{,}213.60$ and cumulative *e-process* $E\_{30} = 2\text{,}786.4$, the SIGA roadmap approves `protect`.
+  3. **Decision (`card_02`):** Because the calibrated daily overload probability $p = 0.09911$ exceeds $p^{\ast} = 0.08000$ with $\mathrm{EVPI} = USD 216\text{,}213.60$ and cumulative *e-process* $E\_{30} = 3\text{,}814.5$, the SIGA roadmap approves `protect`.
 
 ---
 

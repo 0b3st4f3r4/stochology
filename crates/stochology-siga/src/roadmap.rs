@@ -569,6 +569,19 @@ impl NaturalFrequencyMemorandum {
     }
 }
 
+/// Provenance of the $(\mathrm{TPR}, \mathrm{FPR})$ operating point fed into `AlertFatigueAudit` (§II.C).
+///
+/// A `Literature` operating point is a published external validation transcribed from its source (informative,
+/// not computed by this code); an `Assumed` operating point is a hand-set design target and must never be
+/// presented as a result.
+#[derive(Debug, Clone, PartialEq)]
+pub enum OperatingPointSource {
+    /// Informative: published external validation transcribed from the literature, not computed by this code.
+    Literature { source: &'static str },
+    /// Hand-set design operating point (Assumed: not measured on any dataset).
+    Assumed,
+}
+
 /// Bridge $L_2 \to L_3$ Cognitive & Clinical Triage Verifier (`AlertFatigueAudit`):
 ///
 /// Couples the biological conscious bottleneck of $10\text{ bit/s}$ (Zheng & Meister 2024/2025, *Neuron*),
@@ -599,10 +612,16 @@ pub struct AlertFatigueAudit {
     /// Whether the system satisfies $\Phi_5$ shift resolution, $W \ge 8.0\text{ dB}$, $\mathrm{PPV} \ge p^*$,
     /// false-to-true ratio $\le 4.0$, and stays below the $10\text{ bit/s}$ conscious cognitive ceiling.
     pub approved_bridge_l2_l3: bool,
+    /// Provenance of the $(\mathrm{TPR}, \mathrm{FPR})$ operating point (`Assumed` unless declared otherwise
+    /// via `with_operating_point_source`).
+    pub operating_point_source: OperatingPointSource,
 }
 
 impl AlertFatigueAudit {
     /// Evaluates an operational alerting rule at shift resolution (`seed = 2026`).
+    ///
+    /// The operating point defaults to `OperatingPointSource::Assumed`; declare a literature operating point
+    /// with `with_operating_point_source`.
     pub fn evaluate(
         prevalence_pi: f64,
         sensitivity_tpr: f64,
@@ -648,7 +667,14 @@ impl AlertFatigueAudit {
             false_alarms_per_true_case,
             cognitive_triage_load_bps,
             approved_bridge_l2_l3,
+            operating_point_source: OperatingPointSource::Assumed,
         }
+    }
+
+    /// Declares the provenance of the operating point without altering any computed quantity.
+    pub fn with_operating_point_source(mut self, source: OperatingPointSource) -> Self {
+        self.operating_point_source = source;
+        self
     }
 
     /// Canonical comparison between the failed Epic Sepsis Model (Wong et al., *JAMA Internal Medicine* 2021:
@@ -658,13 +684,17 @@ impl AlertFatigueAudit {
     /// The two sides are not symmetric evidence: the Epic operating point is a published external validation,
     /// whereas the Stochological operating point ($\mathrm{TPR} = 0.82$, $\mathrm{FPR} = 0.045$) is an *assumed
     /// design target* that was never measured on the Wong et al. cohort. The comparison verifies that the audit
-    /// rejects the measured operating point and accepts one meeting its thresholds; it is not a performance claim.
+    /// rejects the published operating point and accepts one meeting its thresholds; it is not a performance claim.
     pub fn canonical_epic_sepsis_vs_stochological_gate() -> (Self, Self) {
-        // Epic Sepsis Model (Wong et al. 2021, measured): prevalence ~6.6%, TPR = 0.33, FPR = 0.171 -> PPV = 0.120, W = +2.86 dB
-        let epic_sepsis = Self::evaluate(0.066, 0.33, 0.171, 0.20, 18.0, 42.0, false);
+        // Epic Sepsis Model (Wong et al. 2021, published external validation): prevalence ~6.6%, TPR = 0.33, FPR = 0.171 -> PPV = 0.120, W = +2.86 dB
+        let epic_sepsis = Self::evaluate(0.066, 0.33, 0.171, 0.20, 18.0, 42.0, false)
+            .with_operating_point_source(OperatingPointSource::Literature {
+                source: "Wong et al., JAMA Internal Medicine 2021",
+            });
         // Stochological CORP-calibrated multi-signal gate (3 independent channels summing deciban weights), ASSUMED operating point:
         // TPR = 0.82, FPR = 0.045 -> LR+ = 18.22 (W = +12.61 dB), PPV = 0.563 >= p* = 0.20, cognitive load = 3.2 bit/s <= 10 bit/s
-        let stochological_gate = Self::evaluate(0.066, 0.82, 0.045, 0.20, 4.0, 48.0, true);
+        let stochological_gate = Self::evaluate(0.066, 0.82, 0.045, 0.20, 4.0, 48.0, true)
+            .with_operating_point_source(OperatingPointSource::Assumed);
         (epic_sepsis, stochological_gate)
     }
 }
@@ -1054,6 +1084,29 @@ mod tests {
         assert!(stoch_gate.approved_bridge_l2_l3);
         assert!(stoch_gate.turing_weight_of_evidence_decibans > 12.0);
         assert!(stoch_gate.cognitive_triage_load_bps <= 10.0);
+    }
+
+    #[test]
+    fn alert_fatigue_operating_points_declare_literature_vs_assumed_provenance() {
+        let (epic, stoch_gate) = AlertFatigueAudit::canonical_epic_sepsis_vs_stochological_gate();
+        assert_eq!(
+            epic.operating_point_source,
+            OperatingPointSource::Literature {
+                source: "Wong et al., JAMA Internal Medicine 2021"
+            }
+        );
+        assert_eq!(
+            stoch_gate.operating_point_source,
+            OperatingPointSource::Assumed
+        );
+        // Declaring provenance never alters a computed quantity.
+        let bare = AlertFatigueAudit::evaluate(0.066, 0.33, 0.171, 0.20, 18.0, 42.0, false);
+        assert_eq!(bare.operating_point_source, OperatingPointSource::Assumed);
+        assert_eq!(
+            bare.positive_predictive_value_ppv,
+            epic.positive_predictive_value_ppv
+        );
+        assert_eq!(bare.approved_bridge_l2_l3, epic.approved_bridge_l2_l3);
     }
 
     #[test]

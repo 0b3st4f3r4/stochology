@@ -279,7 +279,7 @@ cargo run --release --bin labs -- --uncertainty
 
 ~~~text
 === LAB 2: KENNEDY-O'HAGAN GP DISCREPANCY AND INFO-GAP + SNIEDOVICH ===
-  [Kennedy-O'Hagan GP] theta_true=0.800 | without_GP=0.6454 (bias=0.1546, extrap_err=0.2022) | with_GP=0.7865 (bias=0.0135, extrap_err=0.0324) | EmpBayes(ell*=3.60, sigma*=1.00, LML=+27.27)
+  [Kennedy-O'Hagan GP] theta_true=0.800 | without_GP=0.6454 (bias=0.1546, extrap_err=0.2022) | with_GP=0.7865 (bias=0.0135, extrap_err=0.0324) | EB_Cholesky(ell*=3.60, sigma*=1.00, LML=+27.27)
   [Info-Gap + Sniedovich] fragile_nominal_turkey: alpha_hat=1.60, zero_ing=0.0, Wald=-450.0, approved=false | robust_satisficing_wald: alpha_hat=3.50, beta_hat=2.13, Wald=45.0, approved=true
 ~~~
 

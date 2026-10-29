@@ -275,7 +275,7 @@ Simulate bitemporal reporting latency, the 4 regimes of production drift, the Le
 
 ## Computational Audit in Rust
 
-Run Laboratory 6 from your terminal to see the Bitemporal Clock, Synthetic Canary, Single-Opening Vault, `ExTRA-WCP-T` on real NYC flight shifts (`2013 -> 2023`), the 4 Label Shift estimators, the Concept Drift Circuit Breaker, and the `PCCP + PLAT + EvaluatedCompetence` Algedonic gate:
+Run Laboratory 6 from your terminal to see the Bitemporal Clock, Synthetic Canary, Single-Opening Vault, `ExTRA-WCP-T` on real NYC flight shifts (`2013 -> 2023`), the 4 Label Shift estimators, the Concept Drift Circuit Breaker, and the `PCCP` & `PLAT` attribution check with `EvaluatedCompetenceCriterion` (Lab 6 prints the Green, approved case):
 
 ~~~bash
 cargo run --release --bin labs -- --governance
@@ -287,8 +287,10 @@ cargo run --release --bin labs -- --governance
   [Single-Opening Temporal Vault] sha256_seal=b451a7f0..8524795a, HMAC_tag=36cb9aff..ab71228a, Brier=0.0044, state=OpenedApproved
   [Covariate Drift: NYC Flights 2013->2023] beta_tilt=-0.1562, Z_P=0.9946, ExTRA_WCP_T_threshold=0.8178, Lei_Candes_bound >= 0.802 | Online_ACI_cov=0.891 (vs static=0.882)
   [Label Shift 4 Estimators (fit on 2013, TPR=0.620, FPR=0.249)] BBSE=0.0341 (sigma_min=0.094), MLLS/SLD=0.1161, DFM=0.0717 (Delta_min=0.6), OTTER=0.0691 (kappa=2.73) | Concept Drift Breaker=ConceptDriftCircuitBreaker (tripped=true)
-  [PCCP + PLAT + Evaluated Competence] PLAT_Green(r_s=0.956, KS=0.056) vs Red(r_s=-0.946, KS=0.583, algedonic=true) | PCCP_approved=true (unauth_algedonic=true)
+  [PCCP & PLAT Attribution (Basel III MAR33 / VSM Algedonic)] Spearman_rs=1.0000, D_KS=0.0100, Zone=Green, Competence=true, Rollback=false, Approved=true
 ~~~
+
+The rollback case runs in Gate `G7` (`cargo run --release --bin gates`): the `PCCP`/`PLAT` check approves calibration residuals simulated from the executable null (`seed = 2026`) and rolls back the H1 vault model on the real 2023 H1 outcomes (`nyc_flights_2023_h1.csv`, measured), printing `real H1 drift sup E_t = 4.941e4 rolled back` on its `[G7]` line.
 
 And in Laboratory 7 (`labs --real-data`), the out-of-time H1 flight vaults (`nyc_flights_2013_h1.csv` $\to$ `nyc_flights_2023_h1.csv`) and the out-of-domain Houston reserve (`houston_flights_2011.csv`) verify:
 - NYC $2013 \to 2023$ Lei & Candès bound $\ge 0.802$ (and online Gibbs-Candès ACI tracks $89.1\%$ target $90\%$ coverage vs. $88.2\%$ static);
