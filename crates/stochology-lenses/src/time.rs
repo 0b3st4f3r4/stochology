@@ -9,7 +9,7 @@
 //! - Mixing-time audit for stochastic / Langevin sampling via the log-Sobolev constant
 //!   associated with $\eta_{\mathrm{KL}}$ and warm-start bounds under tail profile $H_R = \pi(w > R)$.
 
-use stochology_core::{median, Rng};
+use stochology_core::{Rng, median};
 
 /// Non-Ergodicity and Kelly Survival Diagnostic.
 #[derive(Debug, Clone, Copy, PartialEq)]

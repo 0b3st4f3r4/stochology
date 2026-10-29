@@ -2,24 +2,24 @@
 
 use std::path::Path;
 use stochology_cli::{
-    evaluate_empirical_card_severe_test, load_atlantic_storms_decade_environments,
-    load_atlantic_storms_forecasts, load_bank_call_clusters, load_cards_from_disk,
-    load_cps_cohort_clusters, load_danish_fire, load_djia_returns, load_lalonde_nsw_cps,
-    load_oot_ood_flight_reserves, load_toronto_arrests_prevalences, load_vic_elec_demand,
-    PublicInfrastructureCard04Audit,
+    PublicInfrastructureCard04Audit, evaluate_empirical_card_severe_test,
+    load_atlantic_storms_decade_environments, load_atlantic_storms_forecasts,
+    load_bank_call_clusters, load_cards_from_disk, load_cps_cohort_clusters, load_danish_fire,
+    load_djia_returns, load_lalonde_nsw_cps, load_oot_ood_flight_reserves,
+    load_toronto_arrests_prevalences, load_vic_elec_demand,
 };
 use stochology_core::{
-    apply_cromwell_floor, mean, EpistemologicalCard, ExceedanceDesignEffect, InfoGapOption,
-    MonteCarloSplitTreeAudit, PerformativeSystem, Rng, DEFAULT_SEED,
+    DEFAULT_SEED, EpistemologicalCard, ExceedanceDesignEffect, InfoGapOption,
+    MonteCarloSplitTreeAudit, PerformativeSystem, Rng, apply_cromwell_floor, mean,
 };
 use stochology_governance::{
-    query_with_bitemporal_clock, BitemporalRecord, MurphyCorpCircuitBreaker, PlatTrafficLightZone,
-    PredeterminedChangeControlPlan, TemporalVault,
+    BitemporalRecord, MurphyCorpCircuitBreaker, PlatTrafficLightZone,
+    PredeterminedChangeControlPlan, TemporalVault, query_with_bitemporal_clock,
 };
 use stochology_lenses::acceptance::{
+    ACCEPTANCE_REGISTRY_PATH, CONFIRMATION_SEED_RANGE, MIN_CLAIM_PASS_RATE, SynthesisAcceptance,
     canonical_registry_lines, clopper_pearson_lower, evaluate_all_syntheses, is_deterministic,
-    verify_registry_content, SynthesisAcceptance, ACCEPTANCE_REGISTRY_PATH,
-    CONFIRMATION_SEED_RANGE, MIN_CLAIM_PASS_RATE,
+    verify_registry_content,
 };
 use stochology_lenses::analog::{
     AnalogWaveComputingSynthesis, EmpiricalWaveAnalogAudit, GerstgrasserAccumulateAudit,
@@ -35,7 +35,8 @@ use stochology_lenses::information::{DpiMarkovChain, SdpiHierarchy};
 use stochology_lenses::machine::{AlmostPerfectMachine, AuthenticModelForm};
 use stochology_lenses::relational::RelationalComplexSystemsSynthesis;
 use stochology_lenses::society::{
-    CoupledPublicPrivateSocietySynthesis, EmpiricalCoupledSocietyAudit,
+    COUPLED_SOCIETY_PREREGISTRATION_HASH, CoupledPublicPrivateSocietySynthesis,
+    EmpiricalCoupledSocietyAudit,
 };
 use stochology_lenses::stocks::{
     EmpiricalStocharyCyberneticAudit, StocharyConjecturalCyberneticSynthesis,
@@ -160,6 +161,42 @@ pub fn report_synthesis(syn: &SynthesisAcceptance) -> Result<(), String> {
 }
 
 fn eval_gates_g1_to_g5(root: &Path) -> Result<Vec<(String, EpistemologicalCard)>, String> {
+    let manifest = stochology_cli::load_sha256sums_manifest(root)?;
+    if manifest.len() < 15 {
+        return Err(format!(
+            "G3 failed: data/SHA256SUMS has {} entries (expected >= 15)",
+            manifest.len()
+        ));
+    }
+    for (rel_path, expected_sha) in &manifest {
+        let full_path = root.join(rel_path);
+        let bytes = std::fs::read(&full_path)
+            .map_err(|e| format!("G3 failed: cannot read manifest entry '{rel_path}': {e}"))?;
+        let actual_sha = stochology_core::sha256_hex(&bytes);
+        if &actual_sha != expected_sha {
+            return Err(format!(
+                "G3 failed: '{rel_path}' SHA-256 ({actual_sha}) diverges from data/SHA256SUMS ({expected_sha})"
+            ));
+        }
+    }
+    let soc_prereg_path = root.join("data/preregistration/coupled_society_preregistration.yaml");
+    let soc_prereg_yaml = std::fs::read_to_string(&soc_prereg_path).map_err(|e| {
+        format!(
+            "G3 failed: cannot read '{}': {e}",
+            soc_prereg_path.display()
+        )
+    })?;
+    let soc_card = CoupledPublicPrivateSocietySynthesis::epistemological_card();
+    let soc_payload = soc_card.compute_preregistration_payload();
+    if !soc_prereg_yaml.contains(COUPLED_SOCIETY_PREREGISTRATION_HASH)
+        || !soc_prereg_yaml.contains(&soc_payload)
+    {
+        return Err(
+            "G3 failed: data/preregistration/coupled_society_preregistration.yaml does not match COUPLED_SOCIETY_PREREGISTRATION_HASH or compute_preregistration_payload()"
+                .into(),
+        );
+    }
+
     let split_tree = MonteCarloSplitTreeAudit::evaluate(DEFAULT_SEED, 16, 512);
     if !split_tree.split_independence_verified {
         return Err("G1 failed SplitMix64::split(stream_id) fork-join independence check".into());
@@ -254,7 +291,9 @@ fn eval_gate_g6(root: &Path) -> Result<(Vec<f64>, Vec<f64>), String> {
                 .into(),
         );
     }
-    println!("  [G6] Prohibitions 1-4, Performativity (PS vs PO & Goodhart 4-Variant), AlertFatigueAudit (10 bit/s & Decibans), Info-Gap + Sniedovich, SDPI/DPI Chain, SAVI CS, VaR/ES E-Backtest, and CORP-ROC-Murphy Triptych -> APPROVED");
+    println!(
+        "  [G6] Prohibitions 1-4, Performativity (PS vs PO & Goodhart 4-Variant), AlertFatigueAudit (10 bit/s & Decibans), Info-Gap + Sniedovich, SDPI/DPI Chain, SAVI CS, VaR/ES E-Backtest, and CORP-ROC-Murphy Triptych -> APPROVED"
+    );
     Ok((storm_probs, storm_outcomes))
 }
 
@@ -360,7 +399,10 @@ fn eval_gate_g7(
             real_e_proc.multiplicity_adjusted_e_value
         ));
     }
-    println!("  [G7] Bitemporal Clock (t_disp), Canary Column, Single-Opening Vault, Murphy-CORP Circuit Breaker, and PCCP/PLAT (null approved, real H1 drift sup E_t = {:.3e} rolled back) -> APPROVED", real_e_proc.multiplicity_adjusted_e_value);
+    println!(
+        "  [G7] Bitemporal Clock (t_disp), Canary Column, Single-Opening Vault, Murphy-CORP Circuit Breaker, and PCCP/PLAT (null approved, real H1 drift sup E_t = {:.3e} rolled back) -> APPROVED",
+        real_e_proc.multiplicity_adjusted_e_value
+    );
     Ok((probs_h1, y23_h1))
 }
 
@@ -401,9 +443,7 @@ fn eval_gate_g8(
     {
         return Err(format!(
             "G8 failed Authentic Model Form check on atlantic_storms.csv: S*={:?}, crit={:?}, id={:?}",
-            authentic.invariant_core_s_star,
-            authentic.criterion_a,
-            authentic.identities_audit
+            authentic.invariant_core_s_star, authentic.criterion_a, authentic.identities_audit
         ));
     }
     let coin_bench = ExactCoinCalibrationBenchmark::evaluate(DEFAULT_SEED, 1_000);
@@ -529,7 +569,9 @@ fn eval_gate_g8(
         println!("  [G8] Coupled Society discarded finding (recorded, not approved): {finding}");
     }
     check_acceptance(root)?;
-    println!("  [G8] Almost-Perfect Machine M=(T,Phi,theta) (P1-P5), Authentic Form (delta(x) + S*), Nonlinear NILE/IRM, Coin Benchmark, Relational/Complex Systems, Analog/Wave Computing, Critical Stochastic Rationality, Stochary-Conjectural Cybernetics (PATE/VSM), Triadic (C x Fractals x T^d) & Technium Synthesis, Strategic AI Six-Pair Accommodation, and Coupled Public-Private SFC Society Synthesis -> APPROVED");
+    println!(
+        "  [G8] Almost-Perfect Machine M=(T,Phi,theta) (P1-P5), Authentic Form (delta(x) + S*), Nonlinear NILE/IRM, Coin Benchmark, Relational/Complex Systems, Analog/Wave Computing, Critical Stochastic Rationality, Stochary-Conjectural Cybernetics (PATE/VSM), Triadic (C x Fractals x T^d) & Technium Synthesis, Strategic AI Six-Pair Accommodation, and Coupled Public-Private SFC Society Synthesis -> APPROVED"
+    );
     Ok(())
 }
 

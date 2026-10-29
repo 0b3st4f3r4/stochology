@@ -16,8 +16,8 @@ pub use alert_fatigue::{AlertFatigueAudit, NaturalFrequencyMemorandum, Operating
 pub use blueprints::{MultimodalCorrelatedFusionAudit, PreMortemCounterfactualRootCauseAudit};
 pub use martingales::{EvidenceProcess, SaviConfidenceSequence, VarEsEBacktest};
 pub use runner::{
-    run_full_siga_roadmap, run_full_siga_roadmap_empirical, simulate_sbc_beta_binomial_ranks,
-    SigaExecutionReport,
+    SigaExecutionReport, run_full_siga_roadmap, run_full_siga_roadmap_empirical,
+    simulate_sbc_beta_binomial_ranks,
 };
 
 #[cfg(test)]
@@ -34,14 +34,18 @@ mod tests {
         let report = run_full_siga_roadmap(&card, &plan, 5.0, &null_samples, &[24.8]);
         assert!(report.approved_end_to_end);
         assert_eq!(report.steps_1_to_8_completed, [true; 8]);
-        assert!(report
-            .natural_frequency_memo
-            .formatted_summary
-            .contains("1000"));
-        assert!(report
-            .natural_frequency_memo
-            .formatted_summary
-            .contains("p*=0.12000"));
+        assert!(
+            report
+                .natural_frequency_memo
+                .formatted_summary
+                .contains("1000")
+        );
+        assert!(
+            report
+                .natural_frequency_memo
+                .formatted_summary
+                .contains("p*=0.12000")
+        );
 
         // Un-clamped low observed test statistic fails Step 5 (null_p >= 0.05)
         let weak_signal = run_full_siga_roadmap(&card, &plan, 0.50, &null_samples, &[24.8]);

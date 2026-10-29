@@ -62,10 +62,10 @@ To prevent these errors from ever entering production, the Stochology Protocol e
 
 | Invariant | Name | Formal Requirement | Rust Implementation |
 | --- | --- | --- | --- |
-| **$\Phi\_1$** | **Simulability** | Fixed seed (`seed = 2026`, `SplitMix64`) and an executable generative null model before any parameter fitting. | `stochology_core::rng::Rng` & `card.rs` |
+| **$\Phi\_1$** | **Simulability** | Fixed seed (`seed = 2026`, `SplitMix64`) and an executable generative null model before any parameter fitting. | `stochology_core::rng::Rng` & `card/` |
 | **$\Phi\_2$** | **Independent Unit & Exceedance Design Effect** | Margin computed over the true independent unit; Moulton-Campbell unequal-cluster correction $\tilde{m} = \bar{m}(1 + \mathrm{CV}^2(m\_j))$, threshold exceedance ICC $\rho\_I(p)$, and $n\_{\mathrm{eff}}(p) = \frac{n}{1 + (\tilde{m}-1)\rho\_I(p)}$. | `stochology_core::invariants::{ExceedanceDesignEffect, OperationalWeightingGap}` |
 | **$\Phi\_3$** | **Severe Test, Missingness & Pre-Registration** | Explicit Rubin missingness (`MCAR`, `MAR`, `MNAR`), Meng's Identity ($\rho\_{R,Y}$), Manski bounds, 64-hex SHA-256 pre-registration seal, and Pearl's Ladder rung. | `stochology_core::{layers, sha256, card}` |
-| **$\Phi\_4$** | **Scope, Fairness & Automatic Exit** | Economic threshold $p^{\ast} = \frac{C}{\eta L}$, Chouldechova's algebraic fairness audit ($\mathrm{FPR}\_A / \mathrm{FPR}\_B$), declared scope, and machine-actionable numeric exit clause. | `stochology_core::invariants::ChouldechovaAudit` & `card.rs` |
+| **$\Phi\_4$** | **Scope, Fairness & Automatic Exit** | Economic threshold $p^{\ast} = \frac{C}{\eta L}$, Chouldechova's algebraic fairness audit ($\mathrm{FPR}\_A / \mathrm{FPR}\_B$), declared scope, and machine-actionable numeric exit clause. | `stochology_core::invariants::ChouldechovaAudit` & `card/` |
 | **$\Phi\_5$** | **Question Resolution Alignment** | Ban on answering a fine-grained operational decision (5-min shift, 6-hr synoptic track) with coarse annual or monthly aggregates ($R\_{\text{data}} \ge R\_{\text{decision}}$). | `stochology_core::invariants::verify_resolution_phi5` |
 
 ---
@@ -317,13 +317,14 @@ Experiment interactively with the Moulton-Campbell unequal-cluster design effect
 
 <div class="stoch-lab"
      data-lab="invariants-moulton-chouldechova"
+     data-chapter="20-decision-worlds-regime.html"
      data-title="Invariants Φ₂ &amp; Φ₄: Moulton-Campbell n_eff(p) &amp; Chouldechova Trilemma"
      data-subtitle="Vary cluster CV, tail ICC ρ_I(p), and group base rates (p_A, p_B) to inspect DEFF(p) and FPR_A / FPR_B">
 </div>
 
 Adjust the critical survival requirement $r\_c$, the tail drop in Sniedovich's "No-Man's Land," and the Kennedy-O'Hagan GP boundary anchor weight in the interactive laboratory below:
 
-<div class="stoch-lab" data-lab="koh-infogap-wald" data-chapter="20-decision-worlds-regime" data-title="Chapter 20 Lab: Kennedy-O'Hagan GP Discrepancy &amp; Info-Gap + Sniedovich Wald Floor" data-cli="cargo run --release --bin labs -- --uncertainty"></div>
+<div class="stoch-lab" data-lab="koh-infogap-wald" data-chapter="20-decision-worlds-regime.html" data-title="Chapter 20 Lab: Kennedy-O'Hagan GP Discrepancy &amp; Info-Gap + Sniedovich Wald Floor" data-cli="cargo run --release --bin labs -- --uncertainty"></div>
 
 ---
 

@@ -6,7 +6,7 @@ use super::supply_chain_plant::StrategicStockPlantResilienceAudit;
 use super::topology_axioms::TopologyAndFourStockAxiomsAudit;
 use crate::acceptance::NamedCheck;
 use stochology_core::math::stats::{spearman_rank_correlation, two_sample_ks_distance};
-use stochology_core::{mean, sample_std, Rng};
+use stochology_core::{Rng, mean, sample_std};
 
 /// VSM Algedonic gate (*"not measured, not executed"*): an S1 proposal runs only if it carries a measurement record.
 fn algedonic_gate_executes(measured: bool) -> bool {

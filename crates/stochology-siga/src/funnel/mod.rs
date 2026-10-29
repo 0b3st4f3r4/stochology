@@ -13,7 +13,7 @@ pub mod paradoxes;
 pub mod ppi;
 pub mod priors;
 
-pub use evaluator::{evaluate_four_filter_funnel, FunnelCandidate, FunnelResult};
+pub use evaluator::{FunnelCandidate, FunnelResult, evaluate_four_filter_funnel};
 pub use paradoxes::{LongContextDpiDilutionAudit, SimpsonCausalParadoxAudit};
 pub use ppi::{
     ppi_effective_sample_size_multiplier, prospective_clustered_mde,

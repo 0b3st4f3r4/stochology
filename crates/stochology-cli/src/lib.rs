@@ -9,34 +9,31 @@ pub mod error;
 pub mod loaders;
 
 pub use card_audit::{
+    CardDatasetStrategy, EmpiricalDatasetAudit, ExtractedCardDataset,
     compute_empirical_dataset_audit, compute_unclamped_cluster_permutation_null,
     compute_ville_betting_e_values, evaluate_empirical_card_severe_test,
-    verify_card_against_empirical_data, CardDatasetStrategy, EmpiricalDatasetAudit,
-    ExtractedCardDataset,
+    verify_card_against_empirical_data,
 };
 pub use csv::{CsvRow, CsvTable};
-pub use defects::{all_defect_names, CapibaPillar, DefectDescriptor, ALL_DEFECTS};
+pub use defects::{ALL_DEFECTS, CapibaPillar, DefectDescriptor, all_defect_names};
 pub use dpi_card04::PublicInfrastructureCard04Audit;
 pub use error::CliError;
 pub use loaders::{
-    load_atlantic_storms_decade_environments, load_atlantic_storms_forecasts,
+    CANONICAL_CARD_PATHS, load_atlantic_storms_decade_environments, load_atlantic_storms_forecasts,
     load_bank_call_clusters, load_cards_from_disk, load_cps_cohort_clusters, load_danish_fire,
     load_djia_returns, load_flight_stream, load_lalonde_nsw_cps, load_nyc_flights_2013_2023,
     load_nyc_flights_cascade_2013_2023, load_oot_ood_flight_reserves, load_sha256sums_manifest,
-    load_toronto_arrests_prevalences, load_vic_elec_demand, CANONICAL_CARD_PATHS,
+    load_toronto_arrests_prevalences, load_vic_elec_demand, resolve_workspace_root,
 };
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::path::Path;
 
     #[test]
     fn csv_loaders_read_real_datasets_in_data() {
-        let root = Path::new(env!("CARGO_MANIFEST_DIR"))
-            .parent()
-            .and_then(|p| p.parent())
-            .expect("workspace root");
+        let root_buf = resolve_workspace_root();
+        let root = root_buf.as_path();
         let losses = load_danish_fire(root);
         assert!(losses.len() > 2_000);
         let bank = load_bank_call_clusters(root);

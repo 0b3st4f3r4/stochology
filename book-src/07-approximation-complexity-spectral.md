@@ -194,17 +194,16 @@ Two classical theorems explain why orthonormal bases and singular value decompos
 
 Explore how compositional network depth $D$ exponentially multiplies affine regions ($2^D$) and how feature collinearity $\rho$ collapses Gram effective dimension $d\_{\mathrm{eff}}(G)$:
 
-<div class="stoch-lab" data-lab="spectral-telgarsky-deff" data-chapter="07-approximation-complexity-spectral" data-title="Chapter 7 Lab: Telgarsky Compositional Sawtooth (2^D) &amp; Gram Effective Dimension d_eff" data-cli="cargo run --release --bin gates"></div>
+<div class="stoch-lab" data-lab="spectral-telgarsky-deff" data-chapter="07-approximation-complexity-spectral.html" data-title="Chapter 7 Lab: Telgarsky Compositional Sawtooth (2^D) &amp; Gram Effective Dimension d_eff" data-cli="cargo run --release --bin gates"></div>
 
 
 ---
 
 ## Computational Audit in Rust
 
-All spectral, compositional, and minimax diagnostics developed in this chapter are implemented in pure Rust in [`crates/stochology-lenses/src/machine.rs`](../crates/stochology-lenses/src/machine.rs) and [`crates/stochology-lenses/src/invariance.rs`](../crates/stochology-lenses/src/invariance.rs):
-- **`effective_dimension(&gram, m)`:** Computes $\mathrm{tr}(G)$, $\|G\|\_F^2$, and $d\_{\mathrm{eff}} = (\mathrm{tr}\,G)^2 / \|G\|\_F^2$ directly from any $m \times m$ Gram matrix.
-- **`TelgarskyDepthAudit`:** Evaluates iterated tent maps $\Delta^{\circ D}(x)$, counting exact linear segments $2^D$ and comparing deep vs. shallow approximation error.
-- **`hermite_basis_3(z)` (`invariance.rs`):** Evaluates the probabilists' orthonormal Hermite basis $\{\psi\_1(z), \psi\_2(z), \psi\_3(z)\}$ for nonlinear invariance testing.
+All spectral, compositional, and minimax diagnostics developed in this chapter are implemented in pure Rust in [`crates/stochology-lenses/src/machine.rs`](../crates/stochology-lenses/src/machine.rs) and [`crates/stochology-lenses/src/invariance/mod.rs`](../crates/stochology-lenses/src/invariance/mod.rs):
+- **`AlmostPerfectMachine::evaluate_canonical()` (`gram_effective_dimension`, `telgarsky_depth_regions`):** Computes $\mathrm{tr}(G)$, $\|G\|\_F^2$, and $d\_{\mathrm{eff}} = (\mathrm{tr}\,G)^2 / \|G\|\_F^2$ from the dictionary Gram matrix, and evaluates iterated tent maps $\Delta^{\circ D}(x)$ with $2^D$ linear segments.
+- **`run_nonlinear_icp_nile` (`invariance/mod.rs`):** Evaluates the probabilists' orthonormal Hermite basis $\{\psi\_1(z), \psi\_2(z), \psi\_3(z)\}$ (`hermite_basis`) for nonlinear invariance testing across environments.
 
 Run Gate `G8` and Lab 3 to verify these foundations:
 

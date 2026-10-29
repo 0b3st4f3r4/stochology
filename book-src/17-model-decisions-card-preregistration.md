@@ -86,7 +86,7 @@ While the software industry celebrates multi-agent pipelines in which Large Lang
 
 ### The Structural Remedy: Typed Epistemological Cards
 
-Under **Prohibition 1**, all communication between agents or modules transits **exclusively through structured Epistemological Cards** (`EpistemologicalCard` in `crates/stochology-core/src/card.rs`), serialized in strict YAML (`cards/*.yaml`) and validated in pure Rust by `EpistemologicalCard::audit()`.
+Under **Prohibition 1**, all communication between agents or modules transits **exclusively through structured Epistemological Cards** (`EpistemologicalCard` in `crates/stochology-core/src/card/`), serialized in strict YAML (`cards/*.yaml`) and validated in pure Rust by `EpistemologicalCard::audit()`.
 
 A fixed typed schema counters adjective laundering because **an empty or inconsistent slot for effective sample size, Jensen's Gap ($\Delta_J$), or economic threshold ($p^{\ast} = \frac{C}{\eta L}$) cannot hide behind an eloquent verb.** If an agent wants to recommend an action in a YAML card, the parser forces the agent to fill in:
 - the exact SHA-256 hash of the dataset (`dataset_sha256`);
@@ -109,7 +109,7 @@ Before taking off in a modern commercial airliner, the captain and first officer
 
 Aviation adopted rigid checklists after the 1935 Boeing Model 299 crash because cognitive load, time pressure, and institutional incentives cause even experienced crews to skip uncomfortable checks during free-form narration.
 
-An **Epistemological Card** (`EpistemologicalCard` in `crates/stochology-core/src/card.rs`) is the pre-flight checklist of quantitative science and decision-making. Every technical claim in the Stochology Protocol lives as a self-contained YAML document (`cards/*.yaml`).
+An **Epistemological Card** (`EpistemologicalCard` in `crates/stochology-core/src/card/`) is the pre-flight checklist of quantitative science and decision-making. Every technical claim in the Stochology Protocol lives as a self-contained YAML document (`cards/*.yaml`).
 
 When `EpistemologicalCard::audit()` reads a card from disk, it acts as an adversarial mathematical auditor rather than a passive syntax checker: it recomputes Jensen's Gap, recomputes the Moulton-Campbell design effect, checks that the four variance-budget shares sum to $1.0$, verifies the CORP-Murphy PAV identity $\mathrm{BS} = \mathrm{REL}\_{\mathrm{CORP}} - \mathrm{RES}\_{\mathrm{CORP}} + \mathrm{UNC}\_0$, checks the cost-loss threshold $p^{\ast} = \frac{C}{\eta L}$ against the recommended act (`protect` vs. `do_not_protect`), verifies that the modeler and adversarial verifier are distinct agents, and recomputes the SHA-256 cryptographic digest of the underlying CSV dataset on disk.
 
@@ -458,6 +458,7 @@ Test the cross-field algebraic invariants that `EpistemologicalCard::audit()` ve
 
 <div class="stoch-lab"
      data-lab="invariants-moulton-chouldechova"
+     data-chapter="17-model-decisions-card-preregistration.html"
      data-title="EpistemologicalCard::audit() Cross-Field Invariant Explorer"
      data-subtitle="Inspect how Moulton-Campbell n_eff(p) and Chouldechova base-rate constraints lock card fields together">
 </div>
@@ -466,7 +467,7 @@ Test the cross-field algebraic invariants that `EpistemologicalCard::audit()` ve
 
 ## Computational Audit in Rust
 
-In `crates/stochology-core/src/card.rs`, `EpistemologicalCard::from_yaml` parses the YAML card using a zero-dependency parser written in pure Rust, and `EpistemologicalCard::audit()` runs all cross-field algebraic checks. You can see all four canonical cards (`card_01`, `card_02`, `card_03`, `card_04`) audited against their real CSV datasets by running:
+In `crates/stochology-core/src/card/`, `EpistemologicalCard::from_yaml` parses the YAML card using a zero-dependency parser written in pure Rust, and `EpistemologicalCard::audit()` runs all cross-field algebraic checks. You can see all four canonical cards (`card_01`, `card_02`, `card_03`, `card_04`) audited against their real CSV datasets by running:
 
 ~~~bash
 cargo run --release --bin labs -- --siga
@@ -511,4 +512,4 @@ cargo run --release --bin gates
 - The **Epistemological Card (`EpistemologicalCard`)** is the universal unit of communication in the Stochology Protocol.
 - Its five sections (`decision_maker_question`, `epistemological_header`, `uncertainty_budget_and_authorship`, `data_and_audit_contract`, `decision_rule_and_scope`) enforce Prohibitions 1–4 and Invariants $\Phi\_1$–$\Phi\_5$.
 - `EpistemologicalCard::audit()` verifies internal algebraic closure across Jensen's Gap, Moulton-Campbell $n\_{\mathrm{eff}}(p)$, variance-budget unity, CORP-Murphy PAV decomposition, findings conservation, SHA-256 integrity, and the cost-loss decision rule $p \gtrless p^{\ast} = \frac{C}{\eta L}$.
-- **Epistemic PKM & Provenance Auditing (`EpistemicPkmProvenanceAudit` & `ClaimProvenanceClass` in `crates/stochology-core/src/layers.rs`):** Enforces in executable Rust that every quantitative claim in a knowledge graph or executive synthesis carries a provenance class (`ClaimProvenanceClass::{Measured, Simulated, Assumed, LiteratureInformative, UnanchoredLlmSynthesis}`; the variants carry no payload, and a `Measured` node must additionally be anchored to a verified dataset SHA-256), blocking unanchored "Second Brain" note accumulation when untagged or unverified claims are injected (`MultiCriteriaAhpRegulatoryPkmAudit` in Gate `G8`).
+- **Epistemic PKM & Provenance Auditing (`EpistemicPkmProvenanceAudit` & `ClaimProvenanceClass` in `crates/stochology-core/src/layers/`):** Enforces in executable Rust that every quantitative claim in a knowledge graph or executive synthesis carries a provenance class (`ClaimProvenanceClass::{Measured, Simulated, Assumed, LiteratureInformative, UnanchoredLlmSynthesis}`; the variants carry no payload, and a `Measured` node must additionally be anchored to a verified dataset SHA-256), blocking unanchored "Second Brain" note accumulation when untagged or unverified claims are injected (`MultiCriteriaAhpRegulatoryPkmAudit` in Gate `G8`).

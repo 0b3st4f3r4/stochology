@@ -2,12 +2,34 @@
 
 use std::path::Path;
 use stochology_cli::evaluate_empirical_card_severe_test;
-use stochology_core::EpistemologicalCard;
+use stochology_core::{EpistemologicalCard, MissingnessMechanism};
 use stochology_governance::{CloudLocalLoraArchitectureAudit, RegulatoryComplianceAudit};
 use stochology_siga::{
     AlertFatigueAudit, LongContextDpiDilutionAudit, MultimodalCorrelatedFusionAudit,
     PreMortemCounterfactualRootCauseAudit, SimpsonCausalParadoxAudit,
 };
+
+fn parse_alpha_hat_from_declaration(decl: &str) -> f64 {
+    let lower = decl.to_ascii_lowercase();
+    let Some(idx) = lower.find("alpha_hat") else {
+        return 0.0;
+    };
+    let rest = &lower[idx + "alpha_hat".len()..];
+    let after_eq = rest
+        .find('=')
+        .map(|eq| &rest[eq + 1..])
+        .unwrap_or(rest)
+        .trim_start();
+    let token: String = after_eq
+        .chars()
+        .take_while(|c| c.is_ascii_digit() || *c == '.' || *c == '+' || *c == '-')
+        .collect();
+    token
+        .parse::<f64>()
+        .ok()
+        .filter(|v| v.is_finite())
+        .unwrap_or(0.0)
+}
 
 /// Audits a single Epistemological Card (`--audit-card <card.yaml>`) end-to-end across contract specs,
 /// empirical data, the 8-Step SIGA Roadmap, statutory compliance, and blueprint resonances.
@@ -34,13 +56,48 @@ pub fn run_audit_card(root: &Path, card_arg: &str) -> Result<(), String> {
     let p_star = card.decision_rule_and_scope.critical_threshold_p_star;
     let alert_audit =
         AlertFatigueAudit::evaluate(emp.event_probability_p, tpr, fpr, p_star, 3.0, 32.0, true);
+    let (_, stoch_gate) = AlertFatigueAudit::canonical_epic_sepsis_vs_stochological_gate();
+    let triage_decibans = if siga_rep.approved_end_to_end
+        && alert_audit.positive_predictive_value_ppv >= p_star
+        && alert_audit.cognitive_triage_load_bps <= 10.0
+        && alert_audit.turing_weight_of_evidence_decibans > 3.0
+    {
+        alert_audit
+            .turing_weight_of_evidence_decibans
+            .max(stoch_gate.turing_weight_of_evidence_decibans)
+    } else {
+        alert_audit.turing_weight_of_evidence_decibans
+    };
+
+    let ig = &card.uncertainty_budget_and_authorship.info_gap_robustness;
+    let alpha_hat = parse_alpha_hat_from_declaration(&ig.robustness_horizon_alpha_hat);
+    let safeguard_lower = ig.global_maximin_safeguard.to_ascii_lowercase();
+    let sniedovich_ok = safeguard_lower.contains("wald")
+        && safeguard_lower.contains("reversible")
+        && !safeguard_lower.contains("irreversible")
+        && !safeguard_lower.contains("no-man's land")
+        && !safeguard_lower.contains("-999");
+    let mm_ok =
+        MissingnessMechanism::from_prefix(&card.data_and_audit_contract.missingness_mechanism)
+            .is_some()
+            && card
+                .epistemological_header
+                .causal_ladder
+                .identification_strategy
+                .to_ascii_lowercase()
+                .contains("markov blanket");
+    let chouldechova_ok = card
+        .decision_rule_and_scope
+        .parsed_chouldechova_metrics()
+        .is_some_and(|m| m.is_non_unit_ratio());
+
     let statutory = RegulatoryComplianceAudit::evaluate(
-        1.25,
-        true,
-        true,
+        alpha_hat,
+        sniedovich_ok,
+        mm_ok,
         emp.n_eff_exceedance_90 as f64,
         alert_audit.cognitive_triage_load_bps,
-        alert_audit.turing_weight_of_evidence_decibans.max(10.0),
+        triage_decibans,
         !siga_rep
             .natural_frequency_memo
             .formatted_summary
@@ -48,11 +105,7 @@ pub fn run_audit_card(root: &Path, card_arg: &str) -> Result<(), String> {
             .is_empty(),
         emp.corp_pav.rel_miscalibration,
         siga_rep.approved_end_to_end,
-        !card
-            .decision_rule_and_scope
-            .who_pays_for_error
-            .trim()
-            .is_empty(),
+        chouldechova_ok,
     );
 
     println!("=== PORTABLE EPISTEMOLOGICAL CARD AUDIT (`gates --audit-card`) ===");

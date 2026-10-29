@@ -10,9 +10,9 @@ pub use linalg::{
     mat_mul, mat_vec_mul, ols_slope, solve_linear_system, solve_spd_system, univariate_ols_fit,
 };
 pub use stats::{
-    average_ranks, empirical_wasserstein_1, empirical_wasserstein_1_grid, mean,
+    OnlineMoments, average_ranks, empirical_wasserstein_1, empirical_wasserstein_1_grid, mean,
     pearson_correlation, quantile, sample_std, sample_variance, spearman_rank_correlation,
-    two_sample_ks_distance, OnlineMoments,
+    two_sample_ks_distance,
 };
 
 #[cfg(test)]

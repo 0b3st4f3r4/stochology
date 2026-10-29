@@ -2,10 +2,10 @@
 //! to `data/cps_observational.csv`, `data/bank_calls.csv`, and `data/danish_fire.csv`.
 
 use crate::decision::CorpPavDecomposition;
-use crate::society::sfc_matrix::COUPLED_SOCIETY_PREREGISTRATION_HASH;
 use crate::society::CoupledPublicPrivateSocietySynthesis;
+use crate::society::sfc_matrix::COUPLED_SOCIETY_PREREGISTRATION_HASH;
 use stochology_core::{
-    mean, ExceedanceDesignEffect, ManskiBounds, MengAudit, NonlinearSummary, UncertaintyClass,
+    ExceedanceDesignEffect, ManskiBounds, MengAudit, NonlinearSummary, UncertaintyClass, mean,
 };
 
 /// Real-Data Empirical Coupler (`EmpiricalCoupledSocietyAudit`) anchoring the Coupled Public-Private Society Synthesis

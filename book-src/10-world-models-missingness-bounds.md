@@ -56,11 +56,11 @@ Since we observe the response rate $p\_{\text{obs}} = P(R = 1)$ and the observed
 
 $$\bigl[  p\_{\text{obs}} \bar{Y}\_{\text{obs}} + (1 - p\_{\text{obs}}) Y\_{\min} ,\quad p\_{\text{obs}} \bar{Y}\_{\text{obs}} + (1 - p\_{\text{obs}}) Y\_{\max}  \bigr]$$
 
-No matter how adversarial the missingness mechanism is, the population mean cannot escape this interval (`crates/stochology-core/src/layers.rs`, `ManskiBounds`). If a decision remains optimal at both endpoints of Manski's interval, the decision is immune to missing-data bias; if the optimal action flips between the lower and upper bound, the analyst must declare that the conclusion depends on an untestable assumption about the unseen records.
+No matter how adversarial the missingness mechanism is, the population mean cannot escape this interval (`crates/stochology-core/src/layers/`, `ManskiBounds`). If a decision remains optimal at both endpoints of Manski's interval, the decision is immune to missing-data bias; if the optimal action flips between the lower and upper bound, the analyst must declare that the conclusion depends on an untestable assumption about the unseen records.
 
 ### Stratified `MAR` Bounds, David Lee's (2009) Sharp Trimming Bounds, and Rubin's Multiple Imputation (`RubinMultipleImputationAudit`)
 
-Can we tighten Manski's worst-case interval when additional structure is observed, and when does parametric Multiple Imputation fail? The protocol provides two non-parametric refinements in `ManskiBounds` alongside an audit of Donald Rubin's (1987) Multiple Imputation (`RubinMultipleImputationAudit` in `crates/stochology-core/src/layers.rs`):
+Can we tighten Manski's worst-case interval when additional structure is observed, and when does parametric Multiple Imputation fail? The protocol provides two non-parametric refinements in `ManskiBounds` alongside an audit of Donald Rubin's (1987) Multiple Imputation (`RubinMultipleImputationAudit` in `crates/stochology-core/src/layers/`):
 
 1. **Covariate-Stratified Bounds (`ManskiBounds::compute_stratified`):** When the population is partitioned into $S$ observed covariate strata with population weights $w\_s \ge 0$ ($\sum\_{s=1}^S w\_s = 1$), stratum response rates $p\_{\text{obs}, s}$, and stratum-specific physical bounds $[Y\_{\min, s}, Y\_{\max, s}]$, aggregating the stratum bounds yields:
    $$\mathbb{E}[Y] \in \left[\sum\_{s=1}^S w\_s\bigl(p\_{\text{obs}, s}\bar{Y}\_{\text{obs}, s} + (1 - p\_{\text{obs}, s})Y\_{\min, s}\bigr),\quad \sum\_{s=1}^S w\_s\bigl(p\_{\text{obs}, s}\bar{Y}\_{\text{obs}, s} + (1 - p\_{\text{obs}, s})Y\_{\max, s}\bigr)\right]$$
@@ -70,9 +70,9 @@ Can we tighten Manski's worst-case interval when additional structure is observe
    Alongside Lee's bounds, `empirical_wasserstein_1` computes the exact 1D Kantorovich-Wasserstein $W\_1(P, Q) = \int\_0^1 |F\_P^{-1}(u) - F\_Q^{-1}(u)|\,du$ distance between the empirical outcome distributions.
 3. **Rubin's (1987) Multiple Imputation Pooling vs. `MNAR` Selection (`RubinMultipleImputationAudit`):** Given $m \ge 2$ completed datasets with within-imputation point estimates $\hat{Q}\_k$ and variances $U\_k$, Rubin's pooling rules combine the mean estimate $\bar{Q}\_m = \frac{1}{m}\sum\_{k=1}^m \hat{Q}\_k$, within-imputation variance $\bar{U}\_m = \frac{1}{m}\sum\_{k=1}^m U\_k$, and between-imputation variance $B\_m = \frac{1}{m-1}\sum\_{k=1}^m (\hat{Q}\_k - \bar{Q}\_m)^2$ into the total variance identity:
    $$T\_m = \bar{U}\_m + \left(1 + \frac{1}{m}\right)B\_m, \qquad r\_m = \frac{(1 + m^{-1})B\_m}{\bar{U}\_m}, \qquad \gamma\_m = \frac{r\_m + 2/(\nu\_m + 3)}{r\_m + 1}$$
-   In `ShapleyCausalRubinMiDoeAudit` (Axis 2 of the strategic synthesis in `crates/stochology-lenses/src/strategic.rs`, filed under World Models by the book's authorial mapping; simulated, `seed = 2026`, $n = 300$ units with about $40\%$ `MAR` missingness and $M = 5$ stochastic-regression imputations), Rubin's variance decomposition identity closes to machine precision (residual checked below $10^{-14}$), and the completed datasets retain $0.93$ of the true outcome variance (`Rubin_MI_var_ret=0.93`) versus $0.62$ for single mean imputation (the naive arm printed by `--defect strategic_accommodation`). The `MNAR` check is narrower than its name: the code truncates the simulated sample to $Y > 5.5$ and asks whether a complete-case interval $\bar{Y} \pm 1.96\,\mathrm{SE}$ on the truncated sample covers the true mean. It covers it on $0.0\%$ of the 200 confirmation seeds, so the claim sealed as `strategic.a2.parametric_mar_mi_covers_true_mean_under_mnar` is recorded as refuted in `discarded_claims` (the sealed name says "MAR MI", but no imputation is run in this check). Manski's non-parametric interval on the same truncated sample, with an assumed support $[-2, 14]$, covers the true mean; that coverage is folded into the axis identity check, which must hold on every seed.
+   In `ShapleyCausalRubinMiDoeAudit` (Axis 2 of the strategic synthesis in `crates/stochology-lenses/src/strategic/`, filed under World Models by the book's authorial mapping; simulated, `seed = 2026`, $n = 300$ units with about $40\%$ `MAR` missingness and $M = 5$ stochastic-regression imputations), Rubin's variance decomposition identity closes to machine precision (residual checked below $10^{-14}$), and the completed datasets retain $0.93$ of the true outcome variance (`Rubin_MI_var_ret=0.93`) versus $0.62$ for single mean imputation (the naive arm printed by `--defect strategic_accommodation`). The `MNAR` check is narrower than its name: the code truncates the simulated sample to $Y > 5.5$ and asks whether a complete-case interval $\bar{Y} \pm 1.96\,\mathrm{SE}$ on the truncated sample covers the true mean. It covers it on $0.0\%$ of the 200 confirmation seeds, so the claim sealed as `strategic.a2.parametric_mar_mi_covers_true_mean_under_mnar` is recorded as refuted in `discarded_claims` (the sealed name says "MAR MI", but no imputation is run in this check). Manski's non-parametric interval on the same truncated sample, with an assumed support $[-2, 14]$, covers the true mean; that coverage is folded into the axis identity check, which must hold on every seed.
 
-On Bridge $L\_1 \to L\_2$, Invariant $\Phi\_3$ (`EpistemologicalCard::audit()` in `crates/stochology-core/src/card.rs`, whose causal-ladder and cryptographic pre-registration requirements are completed in [Chapter 17](17-model-decisions-card-preregistration.md)) enforces as its first requirement:
+On Bridge $L\_1 \to L\_2$, Invariant $\Phi\_3$ (`EpistemologicalCard::audit()` in `crates/stochology-core/src/card/`, whose causal-ladder and cryptographic pre-registration requirements are completed in [Chapter 17](17-model-decisions-card-preregistration.md)) enforces as its first requirement:
 
 1. An explicit Rubin missingness classification (`MCAR`, `MAR`, or `MNAR`) paired with Meng's Identity and Manski bounds;
 
@@ -82,13 +82,13 @@ On Bridge $L\_1 \to L\_2$, Invariant $\Phi\_3$ (`EpistemologicalCard::audit()` i
 
 Use the interactive dual-bridge simulator below to test how even a tiny selection correlation $|\rho\_{R,Y}|$ collapses Meng's effective sample size $n\_{\mathrm{eff}}$ on Bridge $L\_1 \to L\_2$ (together with the performative feedback loop on Bridge $L\_3 \to L\_1$ examined in [Chapter 19](19-world-decisions-performativity.md)):
 
-<div class="stoch-lab" data-lab="meng-performativity" data-chapter="10-world-models-missingness-bounds" data-title="Chapter 10 Lab: Meng Big-Data Paradox (L₁→L₂) &amp; Performative RRM vs. PerfGD (L₃→L₁)" data-cli="cargo run --release --bin labs -- --layers"></div>
+<div class="stoch-lab" data-lab="meng-performativity" data-chapter="10-world-models-missingness-bounds.html" data-title="Chapter 10 Lab: Meng Big-Data Paradox (L₁→L₂) &amp; Performative RRM vs. PerfGD (L₃→L₁)" data-cli="cargo run --release --bin labs -- --layers"></div>
 
 ---
 
 ## Computational Audit in Rust
 
-In `crates/stochology-core/src/layers.rs`, the three bridges are implemented in `MengAudit`, `ManskiBounds`, `NonlinearSummary`, and `PerformativeSystem`. Run Laboratory 1 from your terminal:
+In `crates/stochology-core/src/layers/`, the three bridges are implemented in `MengAudit`, `ManskiBounds`, `NonlinearSummary`, and `PerformativeSystem`. Run Laboratory 1 from your terminal:
 
 ~~~bash
 cargo run --release --bin labs -- --layers

@@ -1,7 +1,7 @@
 //! Shared non-parametric and parametric statistical primitives (`stochology_core::math::stats`).
 
 pub use crate::layers::empirical_wasserstein_1;
-pub use crate::rng::{mean, quantile, sample_std, sample_variance, OnlineMoments};
+pub use crate::rng::{OnlineMoments, mean, quantile, sample_std, sample_variance};
 
 /// Sample Pearson linear correlation coefficient $r \in [-1, 1]$.
 pub fn pearson_correlation(x: &[f64], y: &[f64]) -> f64 {

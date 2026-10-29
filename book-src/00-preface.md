@@ -51,6 +51,68 @@
 
 # Preface: The Invisible Target and the Foundations of Stochology
 
+<div class="stoch-hero" role="region" aria-label="Treatise overview and quick navigation">
+  <div class="stoch-hero-badges">
+    <span class="stoch-hero-badge" data-tone="sky">CAPIBA PROTOCOL · 6 PILLARS</span>
+    <span class="stoch-hero-badge" data-tone="emerald">Φ₁ SPLITMIX64 · SEED = 2026</span>
+    <span class="stoch-hero-badge" data-tone="amber">8 GATES (G1–G8) · 21 DEFECT PROOFS</span>
+    <span class="stoch-hero-badge" data-tone="violet">13 DATASETS · 16 INTERACTIVE LABS</span>
+  </div>
+  <p class="stoch-hero-lead">An <strong>auditable epistemological machine</strong> implemented in pure Rust (zero external dependencies) where every quantitative claim, physical generating process (<strong>L₁</strong>), mathematical compression (<strong>L₂</strong>), and operational decision rule (<strong>L₃</strong>) is coupled to an executable null model, a structured Epistemological Card, and algorithmic gates that reject flawed claims.</p>
+  <div class="stoch-hero-actions">
+    <a class="stoch-hero-btn stoch-hero-btn-primary" href="01-layers-six-pairs.html">Start Reading: Part I (Three Layers, Six Pairs) →</a>
+    <a class="stoch-hero-btn stoch-hero-btn-secondary" href="lab/index.html?seed=2026">Launch Interactive Laboratory (/lab) ↗</a>
+    <a class="stoch-hero-btn" href="#preface-lab-widget">Try In-Page Bayes &amp; Deciban Lab ↓</a>
+    <a class="stoch-hero-btn" href="appendix-protocol.html">Full Protocol Specification</a>
+  </div>
+  <div class="stoch-pathway-grid" role="list" aria-label="Reading pathways by role">
+    <div class="stoch-pathway-card" role="listitem" data-role="decision">
+      <div class="stoch-pathway-kicker">PATHWAY 1 · DECISION-MAKER &amp; EXECUTIVE</div>
+      <h4>Act Under Severe Uncertainty</h4>
+      <p>Focus on the Three Structural Questions, the Four Golden Prohibitions, Gigerenzer Natural-Frequency Trees, and institutional governance (<code>PATE</code> Telos/Skopos &amp; <code>PLAT</code>).</p>
+      <div class="stoch-pathway-links">
+        <a href="01-layers-six-pairs.html">Ch 1 · Layers &amp; Prohibitions</a>
+        <a href="16-decision-models-thresholds-evidence.html">Ch 16 · Thresholds &amp; Triage</a>
+        <a href="21-decision-worlds-governance.html">Ch 21 · Bitemporal Governance</a>
+        <a href="24-funnel-siga.html">Ch 24 · Funnel &amp; SIGA</a>
+      </div>
+    </div>
+    <div class="stoch-pathway-card" role="listitem" data-role="student">
+      <div class="stoch-pathway-kicker">PATHWAY 2 · STUDENT &amp; INSTRUCTOR</div>
+      <h4>Master the 6-Part Curriculum</h4>
+      <p>Traverse the 28 chapters from probability, convexity, and causal DAGs through the Five Transversal Lenses and the Six Ordered Pairs with live interactive sliders.</p>
+      <div class="stoch-pathway-links">
+        <a href="02-uncertainty-typology.html">Ch 2 · Uncertainty Typology</a>
+        <a href="03-random-variables-convexity.html">Ch 3 · Convexity &amp; Jensen</a>
+        <a href="09-lenses.html">Ch 9 · Five Lenses</a>
+        <a href="lab/index.html?seed=2026">Explore All 16 Labs ↗</a>
+      </div>
+    </div>
+    <div class="stoch-pathway-card" role="listitem" data-role="auditor">
+      <div class="stoch-pathway-kicker">PATHWAY 3 · AUDITOR &amp; ENGINEER</div>
+      <h4>Verify the Cryptographic &amp; Rust Suite</h4>
+      <p>Inspect Boundary Invariants (Φ₁–Φ₅), YAML Epistemological Cards, SHA-256 pre-registration seals, and the 8 algorithmic gates plus 21 negative defect proofs.</p>
+      <div class="stoch-pathway-links">
+        <a href="17-model-decisions-card-preregistration.html">Ch 17 · Cards &amp; Pre-Reg</a>
+        <a href="25-empirical-synthesis.html">Ch 25 · Empirical Lab 7</a>
+        <a href="26-architecture.html">Ch 26 · Rust Architecture</a>
+        <a href="27-verification.html">Ch 27 · Gates &amp; 21 Defects</a>
+      </div>
+    </div>
+  </div>
+  <nav class="stoch-toc-strip" aria-label="On this page">
+    <span class="stoch-toc-label">In This Preface:</span>
+    <a href="#1-the-decision-before-the-answer">§1 Decision Before Answer</a>
+    <a href="#the-six-mnemonic-pillars-of-the-capiba-protocol-and-the-21-disjoint-defect-proofs">§1.3 Six CAPIBA Pillars</a>
+    <a href="#2-the-three-traditions-joined-together">§2 Three Traditions</a>
+    <a href="#3-foundations-probability-without-mystery">§3 Probability &amp; Decibans</a>
+    <a href="#4-reproducible-chance-why-a-fixed-seed-seed--2026-matters">§4 Reproducible Seed (2026)</a>
+    <a href="#5-the-three-structural-questions-and-the-four-prohibitions">§5 Questions, Prohibitions &amp; Failures</a>
+    <a href="#6-end-to-end-algorithmic-verification">§6 Verification CLI</a>
+    <a href="#7-interactive-experimentation-in-lab">§7 Interactive /lab</a>
+  </nav>
+</div>
+
 ## 1. The Decision Before the Answer
 
 On a Tuesday morning, an emergency-room physician examines a 54-year-old man complaining of chest pain. She has an electrocardiogram, his vital signs, his clinical history, and fifteen minutes. She must choose between admitting him to the coronary care unit or discharging him home. If she admits him and the pain is benign reflux, the hospital spends a scarce intensive-care bed that a critical patient may need an hour later. If she sends him home and he is experiencing an atypical myocardial infarction, the catastrophic cost falls on his life.
@@ -290,7 +352,7 @@ The fraction of those $981$ positive alarms who actually have the disease is:
 
 $$P(\text{Disease} \mid \text{Positive}) = \frac{90}{90 + 891} = \frac{90}{981} \approx 0.0917 \quad (\text{about } 1 \text{ in } 11)$$
 
-The percentage formula and the natural-frequency tree are mathematically identical, yet the natural-frequency tree makes the **base rate** ($100$ vs. $9\text{,}900$) visually inescapable. That is why Step 8 of the Stochology SIGA Roadmap (`crates/stochology-siga/src/roadmap.rs`) translates every operational model into an integer natural-frequency tree before presenting it to a human decision-maker.
+The percentage formula and the natural-frequency tree are mathematically identical, yet the natural-frequency tree makes the **base rate** ($100$ vs. $9\text{,}900$) visually inescapable. That is why Step 8 of the Stochology SIGA Roadmap (`crates/stochology-siga/src/roadmap/`) translates every operational model into an integer natural-frequency tree before presenting it to a human decision-maker.
 
 ### Bayes' Rule in Odds and Turing's Decibans
 
@@ -392,6 +454,19 @@ Reading equations on a static page is never enough to build physical intuition f
 
 Try the interactive Gigerenzer Natural-Frequency & Turing Deciban Laboratory below:
 
-<div class="stoch-lab" data-lab="gigerenzer-bayes" data-chapter="00-preface" data-title="Preface Lab: Gigerenzer Natural-Frequency Tree &amp; Turing Deciban Updater" data-cli="cargo run --release --bin labs -- --siga"></div>
+<div id="preface-lab-widget" class="stoch-lab" data-lab="gigerenzer-bayes" data-chapter="00-preface.html" data-title="Preface Lab: Gigerenzer Natural-Frequency Tree &amp; Turing Deciban Updater" data-cli="cargo run --release --bin labs -- --siga"></div>
+
+<div class="stoch-next-card" role="region" aria-label="Next chapter progression">
+  <div class="stoch-next-body">
+    <span class="stoch-next-kicker">NEXT IN PART I — ONTOLOGY</span>
+    <h3>Chapter 1: Three Layers, Six Pairs (L₁ ⇄ L₂ ⇄ L₃)</h3>
+    <p>Move from the foundations of probability and natural frequencies to the ontological architecture of the CAPIBA Protocol: how the physical World (L₁), the mathematical Model (L₂), and the deciding Agent (L₃) interact across three implemented forward bridges and three reverse reading frames, enforced by the Four Golden Prohibitions.</p>
+  </div>
+  <div class="stoch-next-actions">
+    <a class="stoch-hero-btn stoch-hero-btn-primary" href="01-layers-six-pairs.html">Continue to Chapter 1 →</a>
+    <a class="stoch-hero-btn" href="lab/index.html?module=gigerenzer-bayes&amp;seed=2026">Open Full /lab Explorer ↗</a>
+  </div>
+</div>
+
 
 

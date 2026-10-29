@@ -2,17 +2,18 @@
 //! (`compute_empirical_dataset_audit`, `verify_card_against_empirical_data`, `evaluate_empirical_card_severe_test`).
 
 use crate::csv::CsvTable;
-use crate::loaders::{load_bank_call_clusters, load_sha256sums_manifest};
+use crate::error::CliError;
+use crate::loaders::load_sha256sums_manifest;
 use std::collections::BTreeMap;
 use std::fs;
 use std::path::Path;
 use stochology_core::{
-    apply_cromwell_floor, mean, sha256_hex, EpistemologicalCard, ExceedanceDesignEffect,
-    NonlinearSummary, Rng, DEFAULT_SEED,
+    DEFAULT_SEED, EpistemologicalCard, ExceedanceDesignEffect, NonlinearSummary, Rng,
+    apply_cromwell_floor, mean, sha256_hex,
 };
 use stochology_lenses::CorpPavDecomposition;
 use stochology_siga::{
-    run_full_siga_roadmap_empirical, simulate_sbc_beta_binomial_ranks, SigaExecutionReport,
+    SigaExecutionReport, run_full_siga_roadmap_empirical, simulate_sbc_beta_binomial_ranks,
 };
 
 /// Empirical ground-truth metrics computed directly from a card's declared `data/*.csv` file.
@@ -132,8 +133,16 @@ impl CardDatasetStrategy for BankCallsCardStrategy {
         "data/bank_calls.csv"
     }
 
-    fn extract(&self, root_dir: &Path, _content: &str) -> ExtractedCardDataset {
-        let clusters_raw = load_bank_call_clusters(root_dir);
+    fn extract(&self, _root_dir: &Path, content: &str) -> ExtractedCardDataset {
+        let table = CsvTable::from_string(content.to_string());
+        let mut by_day: BTreeMap<String, Vec<f64>> = BTreeMap::new();
+        for row in table.rows() {
+            if let (Some(ts), Some(calls)) = (row.str_at(1), row.f64_at(2)) {
+                let date = ts.split('T').next().unwrap_or("").to_string();
+                by_day.entry(date).or_default().push(calls);
+            }
+        }
+        let clusters_raw: Vec<Vec<f64>> = by_day.into_values().collect();
         let daily_totals: Vec<f64> = clusters_raw.iter().map(|c| c.iter().sum::<f64>()).collect();
         let sp = daily_totals.len() * 4 / 5;
         let jensen = NonlinearSummary::evaluate_out_of_sample(
@@ -471,35 +480,43 @@ pub fn compute_empirical_dataset_audit(
 ) -> Result<EmpiricalDatasetAudit, String> {
     let rel_csv = card.data_and_audit_contract.dataset_path.trim();
     let full_csv = root_dir.join(rel_csv);
-    let raw_bytes = fs::read(&full_csv)
-        .map_err(|e| format!("Failed to read dataset '{}': {e}", full_csv.display()))?;
+    let raw_bytes = fs::read(&full_csv).map_err(|e| {
+        String::from(CliError::Io {
+            path: full_csv.display().to_string(),
+            message: e.to_string(),
+        })
+    })?;
     let actual_sha256 = sha256_hex(&raw_bytes);
 
     let manifest = load_sha256sums_manifest(root_dir)?;
     let Some(manifest_sha) = manifest.get(rel_csv) else {
-        return Err(format!(
-            "Dataset '{rel_csv}' is missing from data/SHA256SUMS"
-        ));
+        return Err(String::from(CliError::ManifestMismatch {
+            dataset_path: rel_csv.to_string(),
+            actual_sha256,
+            expected_sha256: None,
+        }));
     };
     if &actual_sha256 != manifest_sha {
-        return Err(format!(
-            "Dataset '{rel_csv}' SHA-256 ({actual_sha256}) diverges from data/SHA256SUMS ({manifest_sha})"
-        ));
+        return Err(String::from(CliError::ManifestMismatch {
+            dataset_path: rel_csv.to_string(),
+            actual_sha256,
+            expected_sha256: Some(manifest_sha.clone()),
+        }));
     }
 
-    let content = String::from_utf8(raw_bytes)
-        .map_err(|e| format!("Dataset '{rel_csv}' is not valid UTF-8: {e}"))?;
+    let content = String::from_utf8(raw_bytes).map_err(|e| {
+        String::from(CliError::Utf8 {
+            path: rel_csv.to_string(),
+            message: e.to_string(),
+        })
+    })?;
 
     let p_star = card.decision_rule_and_scope.critical_threshold_p_star;
 
     let strategy = CARD_DATASET_STRATEGIES
         .iter()
         .find(|s| s.dataset_path() == rel_csv)
-        .ok_or_else(|| {
-            format!(
-                "Unsupported primary card dataset path '{rel_csv}' (expected atlantic_storms, bank_calls, nyc_flights_2013, or cps_observational)"
-            )
-        })?;
+        .ok_or_else(|| String::from(CliError::UnsupportedDataset(rel_csv.to_string())))?;
 
     let ExtractedCardDataset {
         clusters_raw,
@@ -564,40 +581,82 @@ pub fn verify_card_against_empirical_data(
     card: &EpistemologicalCard,
 ) -> Result<(EmpiricalDatasetAudit, SigaExecutionReport), String> {
     if let Err(violations) = card.audit() {
-        return Err(format!(
-            "Card '{}' failed structural audit: {violations:?}",
-            card.id
-        ));
+        return Err(String::from(CliError::ContractAudit {
+            card_id: card.id.clone(),
+            violations,
+        }));
     }
     let emp = compute_empirical_dataset_audit(root_dir, card)?;
 
     if card.data_and_audit_contract.dataset_sha256.trim() != emp.dataset_sha256 {
-        return Err(format!(
-            "Card '{}' declared dataset_sha256 '{}' != actual CSV SHA-256 '{}'",
-            card.id, card.data_and_audit_contract.dataset_sha256, emp.dataset_sha256
-        ));
+        return Err(String::from(CliError::EmpiricalMismatch {
+            card_id: card.id.clone(),
+            detail: format!(
+                "declared dataset_sha256 '{}' != actual CSV SHA-256 '{}'",
+                card.data_and_audit_contract.dataset_sha256, emp.dataset_sha256
+            ),
+        }));
     }
 
     let um = &card.epistemological_header.unit_and_margin;
     if um.nominal_sample_size_n != emp.n_nominal {
-        return Err(format!(
-            "Card '{}' declared nominal_sample_size_n={} != CSV n={}",
-            card.id, um.nominal_sample_size_n, emp.n_nominal
-        ));
+        return Err(String::from(CliError::EmpiricalMismatch {
+            card_id: card.id.clone(),
+            detail: format!(
+                "declared nominal_sample_size_n={} != CSV n={}",
+                um.nominal_sample_size_n, emp.n_nominal
+            ),
+        }));
     }
     if (um.effective_sample_size_n_eff as isize - emp.n_eff_exceedance_90 as isize).abs() > 1 {
-        return Err(format!(
-            "Card '{}' declared effective_sample_size_n_eff={} != CSV n_eff={}",
-            card.id, um.effective_sample_size_n_eff, emp.n_eff_exceedance_90
-        ));
+        return Err(String::from(CliError::EmpiricalMismatch {
+            card_id: card.id.clone(),
+            detail: format!(
+                "declared effective_sample_size_n_eff={} != CSV n_eff={}",
+                um.effective_sample_size_n_eff, emp.n_eff_exceedance_90
+            ),
+        }));
+    }
+    let Some(moulton) = um.parsed_moulton_metrics() else {
+        return Err(String::from(CliError::EmpiricalMismatch {
+            card_id: card.id.clone(),
+            detail: "failed to parse Moulton-Campbell cluster metrics from unit_and_margin".into(),
+        }));
+    };
+    if (moulton.weighted_cluster_mean_m_tilde - emp.m_tilde).abs() > 0.02
+        || (moulton.threshold_exceedance_icc_rho_i - emp.rho_exceedance_90).abs() > 5e-4
+    {
+        return Err(String::from(CliError::EmpiricalMismatch {
+            card_id: card.id.clone(),
+            detail: format!(
+                "declared Moulton metrics (m_tilde={:.2}, rho_I={:.4}) diverge from CSV (m_tilde={:.2}, rho_I={:.4})",
+                moulton.weighted_cluster_mean_m_tilde,
+                moulton.threshold_exceedance_icc_rho_i,
+                emp.m_tilde,
+                emp.rho_exceedance_90
+            ),
+        }));
     }
 
     let dr = &card.decision_rule_and_scope;
     if (dr.event_probability_p - emp.event_probability_p).abs() > 5e-4 {
-        return Err(format!(
-            "Card '{}' declared event_probability_p={:.5} != CSV empirical p={:.5}",
-            card.id, dr.event_probability_p, emp.event_probability_p
-        ));
+        return Err(String::from(CliError::EmpiricalMismatch {
+            card_id: card.id.clone(),
+            detail: format!(
+                "declared event_probability_p={:.5} != CSV empirical p={:.5}",
+                dr.event_probability_p, emp.event_probability_p
+            ),
+        }));
+    }
+    let dom = &card.uncertainty_budget_and_authorship.dominant_event;
+    if (dom.probability_p - emp.event_probability_p).abs() > 5e-4 {
+        return Err(String::from(CliError::EmpiricalMismatch {
+            card_id: card.id.clone(),
+            detail: format!(
+                "declared dominant_event.probability_p={:.5} != CSV empirical p={:.5}",
+                dom.probability_p, emp.event_probability_p
+            ),
+        }));
     }
 
     let mc = &card.data_and_audit_contract.murphy_corp_decomposition;
@@ -606,30 +665,51 @@ pub fn verify_card_against_empirical_data(
         || (mc.resolution_res_dsc - emp.corp_pav.res_resolution).abs() > 5e-4
         || (mc.base_uncertainty_unc0 - emp.corp_pav.unc0_uncertainty).abs() > 5e-4
     {
-        return Err(format!(
-            "Card '{}' declared CORP-PAV ({:.5}, {:.5}, {:.5}, {:.5}) diverges from CSV CORP-PAV ({:.5}, {:.5}, {:.5}, {:.5})",
-            card.id,
-            mc.total_score_brier_or_crps,
-            mc.miscalibration_rel_mcb,
-            mc.resolution_res_dsc,
-            mc.base_uncertainty_unc0,
-            emp.corp_pav.brier_total,
-            emp.corp_pav.rel_miscalibration,
-            emp.corp_pav.res_resolution,
-            emp.corp_pav.unc0_uncertainty
-        ));
+        return Err(String::from(CliError::EmpiricalMismatch {
+            card_id: card.id.clone(),
+            detail: format!(
+                "declared CORP-PAV ({:.5}, {:.5}, {:.5}, {:.5}) diverges from CSV CORP-PAV ({:.5}, {:.5}, {:.5}, {:.5})",
+                mc.total_score_brier_or_crps,
+                mc.miscalibration_rel_mcb,
+                mc.resolution_res_dsc,
+                mc.base_uncertainty_unc0,
+                emp.corp_pav.brier_total,
+                emp.corp_pav.rel_miscalibration,
+                emp.corp_pav.res_resolution,
+                emp.corp_pav.unc0_uncertainty
+            ),
+        }));
     }
 
-    let expected_dj_str = format!("{:.2}", emp.jensen_summary.jensen_gap);
-    if !card
-        .epistemological_header
-        .nonlinearity
-        .contains(&expected_dj_str)
+    let Some(nl) = card.epistemological_header.parsed_nonlinearity_metrics() else {
+        return Err(String::from(CliError::EmpiricalMismatch {
+            card_id: card.id.clone(),
+            detail: "failed to parse Prohibition 2 nonlinearity metrics".into(),
+        }));
+    };
+    let js = &emp.jensen_summary;
+    if (nl.f_at_mean - js.f_at_mean).abs() > 0.05
+        || (nl.expected_f - js.expected_f).abs() > 0.05
+        || (nl.jensen_gap_delta_j - js.jensen_gap).abs() > 0.05
+        || (nl.median - js.median_f).abs() > 0.05
+        || (nl.q05 - js.q05_f).abs() > 0.05
+        || (nl.q95 - js.q95_f).abs() > 0.05
+        || (nl.crps - js.empirical_crps).abs() > 0.05
     {
-        return Err(format!(
-            "Card '{}' nonlinearity '{}' does not match CSV Jensen gap Delta_J={expected_dj_str}",
-            card.id, card.epistemological_header.nonlinearity
-        ));
+        return Err(String::from(CliError::EmpiricalMismatch {
+            card_id: card.id.clone(),
+            detail: format!(
+                "declared nonlinearity '{}' does not match CSV Jensen summary (f(E[X])={:.2}, E[f(X)]={:.2}, Delta_J={:.2}, median={:.2}, q05={:.2}, q95={:.2}, CRPS={:.2})",
+                card.epistemological_header.nonlinearity,
+                js.f_at_mean,
+                js.expected_f,
+                js.jensen_gap,
+                js.median_f,
+                js.q05_f,
+                js.q95_f,
+                js.empirical_crps
+            ),
+        }));
     }
 
     let plan_payload = card.compute_preregistration_payload();
@@ -643,13 +723,15 @@ pub fn verify_card_against_empirical_data(
         emp.confusion_tpr_fpr_at_p_star,
     );
     if !siga_rep.approved_end_to_end {
-        return Err(format!(
-            "Card '{}' failed 8-Step SIGA Roadmap on empirical CSV: steps={:?}, p_null={:.4}, E_t={:.2}",
-            card.id,
-            siga_rep.steps_1_to_8_completed,
-            siga_rep.null_p_value,
-            siga_rep.e_process.final_e_value
-        ));
+        return Err(String::from(CliError::EmpiricalMismatch {
+            card_id: card.id.clone(),
+            detail: format!(
+                "failed 8-Step SIGA Roadmap on empirical CSV: steps={:?}, p_null={:.4}, E_t={:.2}",
+                siga_rep.steps_1_to_8_completed,
+                siga_rep.null_p_value,
+                siga_rep.e_process.final_e_value
+            ),
+        }));
     }
 
     Ok((emp, siga_rep))

@@ -2,7 +2,7 @@
 
 use super::alert_fatigue::NaturalFrequencyMemorandum;
 use super::martingales::EvidenceProcess;
-use crate::funnel::{evaluate_four_filter_funnel, FunnelCandidate, FunnelResult};
+use crate::funnel::{FunnelCandidate, FunnelResult, evaluate_four_filter_funnel};
 use stochology_core::{EpistemologicalCard, Rng};
 
 /// Full end-to-end execution report of the 8-Step SIGA Operational Roadmap.

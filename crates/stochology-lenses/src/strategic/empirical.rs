@@ -4,7 +4,7 @@ use crate::decision::CorpPavDecomposition;
 use crate::invariance::{CausalEnvironment, ShapleyCausalAudit};
 use crate::tail::expected_shortfall_99;
 use crate::time::RobustKalmanControlAudit;
-use stochology_core::{quantile, ExceedanceDesignEffect, ManskiBounds, MengAudit};
+use stochology_core::{ExceedanceDesignEffect, ManskiBounds, MengAudit, quantile};
 
 /// Real-Data Empirical Coupler (`EmpiricalStrategicAccommodationAudit`) binding the 6 Strategic Accommodation axes
 /// to the sealed empirical CSV datasets (`atlantic_storms.csv`, `nsw_experimental.csv` / `cps_observational.csv`,

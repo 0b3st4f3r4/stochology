@@ -3,7 +3,7 @@
 //! and Recursive Synthetic Data Contamination (*Model Collapse*, `VonNeumannModelCollapseAudit`, `GerstgrasserAccumulateAudit`).
 
 use crate::information::kl_divergence;
-use stochology_core::{cholesky_decompose, cholesky_solve, Rng};
+use stochology_core::{Rng, cholesky_decompose, cholesky_solve};
 
 /// Axis 1: Mark Horowitz's (ISSCC 2014) von Neumann Energy Hierarchy, IEA Macro-Trajectory,
 /// and Recursive Synthetic Data Contamination (*Model Collapse*) vs. Neurosymbolic/Physical Anchoring.
@@ -234,7 +234,7 @@ impl GerstgrasserAccumulateAudit {
             let mut w_rep = cholesky_solve(&chol, &xty_real);
             let mut acc_xty = xty_real;
             let mut w_acc = w_rep.clone();
-            for gen in 2..=generations_n {
+            for gen_idx in 2..=generations_n {
                 let xty_rep = relabel_xty(&w_rep, &mut rng);
                 w_rep = cholesky_solve(&chol, &xty_rep);
                 let xty_new = relabel_xty(&w_acc, &mut rng);
@@ -243,7 +243,7 @@ impl GerstgrasserAccumulateAudit {
                 }
                 w_acc = cholesky_solve(&chol, &acc_xty)
                     .into_iter()
-                    .map(|v| v / gen as f64)
+                    .map(|v| v / gen_idx as f64)
                     .collect();
             }
             sum_rep += w_rep.iter().map(|v| v * v).sum::<f64>();

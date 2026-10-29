@@ -3,7 +3,7 @@
 
 use stochology_core::mean;
 
-use super::icp::{fit_ols_multi, run_icp, CausalEnvironment};
+use super::icp::{CausalEnvironment, fit_ols_multi, run_icp};
 
 /// Exact Post-Hoc XAI Causal Audit (`ShapleyCausalAudit` — Lundberg & Lee 2017 `SHAP` vs.
 /// Janzing, Minorics & Blöbaum 2020 Interventional `SHAP` & Goldstein et al. 2015 `ICE` vs. `PDP`).

@@ -38,7 +38,7 @@ pub const ALL_DEFECTS: [DefectDescriptor; 21] = [
     DefectDescriptor {
         name: "phi5",
         pillar: CapibaPillar::AnytimeValid,
-        gate: "G5",
+        gate: "G2/G5",
         summary: "Coarse annual aggregate action answering a daily/shift decision unit",
     },
     DefectDescriptor {
@@ -74,7 +74,7 @@ pub const ALL_DEFECTS: [DefectDescriptor; 21] = [
     DefectDescriptor {
         name: "concept_drift",
         pillar: CapibaPillar::Calibrated,
-        gate: "G7",
+        gate: "G6/G7",
         summary: "Collapsed CORP resolution tripping Concept Drift circuit breaker",
     },
     DefectDescriptor {
@@ -160,4 +160,22 @@ pub const ALL_DEFECTS: [DefectDescriptor; 21] = [
 /// Returns the list of all 21 defect names in canonical verification order.
 pub fn all_defect_names() -> [&'static str; 21] {
     ALL_DEFECTS.map(|d| d.name)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn capiba_pillar_defect_partition_matches_3_4_2_3_2_7_contract() {
+        let count_for =
+            |pillar: CapibaPillar| ALL_DEFECTS.iter().filter(|d| d.pillar == pillar).count();
+        assert_eq!(count_for(CapibaPillar::Calibrated), 3);
+        assert_eq!(count_for(CapibaPillar::AnytimeValid), 4);
+        assert_eq!(count_for(CapibaPillar::PerformativeAware), 2);
+        assert_eq!(count_for(CapibaPillar::Invariant), 3);
+        assert_eq!(count_for(CapibaPillar::Bitemporal), 2);
+        assert_eq!(count_for(CapibaPillar::Auditing), 7);
+        assert_eq!(ALL_DEFECTS.len(), 21);
+    }
 }

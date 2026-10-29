@@ -3,7 +3,7 @@
 use std::path::Path;
 use stochology_cli::{load_cards_from_disk, verify_card_against_empirical_data};
 use stochology_siga::roadmap::OperatingPointSource;
-use stochology_siga::{fit_shelf_beta_prior, AlertFatigueAudit, EvidenceProcess};
+use stochology_siga::{AlertFatigueAudit, EvidenceProcess, fit_shelf_beta_prior};
 
 /// Renders the §II.C provenance class of an `AlertFatigueAudit` operating point.
 fn describe_operating_point_source(source: &OperatingPointSource) -> String {

@@ -2,22 +2,22 @@ use std::path::PathBuf;
 use std::process::Command;
 
 use stochology_cli::{
-    all_defect_names, compute_unclamped_cluster_permutation_null, load_cards_from_disk,
-    verify_card_against_empirical_data,
+    CANONICAL_CARD_PATHS, all_defect_names, compute_unclamped_cluster_permutation_null,
+    load_cards_from_disk, resolve_workspace_root, verify_card_against_empirical_data,
 };
 use stochology_core::card::EpistemologicalCard;
 use stochology_core::layers::{ManskiBounds, PerformativeSystem};
 use stochology_core::rng::{OnlineMoments, SplitMix64};
 use stochology_core::sha256::hmac_sha256_hex;
 use stochology_core::uncertainty::KennedyOHaganDiscrepancy;
-use stochology_governance::clock::{query_with_bitemporal_clock, BitemporalRecord};
+use stochology_governance::clock::{BitemporalRecord, query_with_bitemporal_clock};
 use stochology_governance::drift::{AdaptiveConformalInference, MurphyCorpCircuitBreaker};
 use stochology_governance::vault::{TemporalVault, VaultError, VaultState};
 use stochology_lenses::analog::{AnalogWaveComputingSynthesis, EmpiricalWaveAnalogAudit};
 use stochology_lenses::decision::CorpPavDecomposition;
-use stochology_lenses::information::{blahut_arimoto_capacity, DpiMarkovChain, SdpiHierarchy};
+use stochology_lenses::information::{DpiMarkovChain, SdpiHierarchy, blahut_arimoto_capacity};
 use stochology_lenses::invariance::{
-    chow_invariance_f_stat, cinelli_hazlett_robustness_value, CausalEnvironment,
+    CausalEnvironment, chow_invariance_f_stat, cinelli_hazlett_robustness_value,
 };
 use stochology_lenses::tail::{dedh_moment_tail_index, gpd_pot_fit};
 use stochology_lenses::time::empirical_kelly_optimal_fraction;
@@ -25,11 +25,7 @@ use stochology_siga::funnel::fit_shelf_beta_prior;
 use stochology_siga::roadmap::EvidenceProcess;
 
 fn workspace_root() -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .parent()
-        .and_then(|p| p.parent())
-        .expect("workspace root")
-        .to_path_buf()
+    resolve_workspace_root()
 }
 
 #[test]
@@ -71,6 +67,22 @@ fn yaml_cards_on_disk_roundtrip_and_pass_empirical_siga_roadmap() {
     assert!(
         verify_card_against_empirical_data(&root, &tampered).is_err(),
         "tampered event_probability_p must be rejected against CSV"
+    );
+
+    let mut tampered_moulton = cards[0].1.clone();
+    tampered_moulton
+        .epistemological_header
+        .unit_and_margin
+        .weighted_cluster_mean_m_tilde =
+        "m_tilde = m_bar * (1 + CV^2) = 29.98 * 1.500 = 44.97 (Moulton-Campbell, CV = 0.707)"
+            .into();
+    tampered_moulton
+        .epistemological_header
+        .unit_and_margin
+        .effective_sample_size_n_eff = 1_651;
+    assert!(
+        verify_card_against_empirical_data(&root, &tampered_moulton).is_err(),
+        "tampered m_tilde must be rejected against CSV even when internally coherent with n_eff"
     );
 }
 
@@ -225,6 +237,27 @@ fn cli_binaries_handle_help_and_defects_correctly() {
         .expect("run gates --defect");
     assert_eq!(gates_missing_defect.status.code(), Some(2));
 
+    let gates_unknown_defect = Command::new(gates_bin)
+        .args(["--defect", "unknown_defect"])
+        .current_dir(&root)
+        .output()
+        .expect("run gates --defect unknown_defect");
+    assert_eq!(gates_unknown_defect.status.code(), Some(2));
+
+    let gates_missing_card = Command::new(gates_bin)
+        .arg("--audit-card")
+        .current_dir(&root)
+        .output()
+        .expect("run gates --audit-card");
+    assert_eq!(gates_missing_card.status.code(), Some(2));
+
+    let gates_nonexistent_card = Command::new(gates_bin)
+        .args(["--audit-card", "cards/nonexistent_card.yaml"])
+        .current_dir(&root)
+        .output()
+        .expect("run gates --audit-card nonexistent");
+    assert_eq!(gates_nonexistent_card.status.code(), Some(1));
+
     let gates_unknown_flag = Command::new(gates_bin)
         .arg("--unknown-flag")
         .current_dir(&root)
@@ -232,39 +265,67 @@ fn cli_binaries_handle_help_and_defects_correctly() {
         .expect("run gates --unknown-flag");
     assert_eq!(gates_unknown_flag.status.code(), Some(2));
 
+    let gates_print_reg = Command::new(gates_bin)
+        .arg("--print-acceptance-registry")
+        .current_dir(&root)
+        .output()
+        .expect("run gates --print-acceptance-registry");
+    assert_eq!(gates_print_reg.status.code(), Some(0));
+    let reg_stdout = String::from_utf8_lossy(&gates_print_reg.stdout);
+    assert!(
+        reg_stdout.contains("acceptance_registry v1")
+            && reg_stdout.contains("confirmation_seeds 9000000..=9000199")
+    );
+
     let gates_positive = Command::new(gates_bin)
         .current_dir(&root)
         .output()
         .expect("run gates positive");
     assert_eq!(gates_positive.status.code(), Some(0));
 
-    let gates_audit_card = Command::new(gates_bin)
-        .args([
-            "--audit-card",
-            "cards/card_01_atlantic_storms_evacuation.yaml",
-        ])
-        .current_dir(&root)
-        .output()
-        .expect("run gates --audit-card");
-    assert_eq!(gates_audit_card.status.code(), Some(0));
-    let audit_stdout = String::from_utf8_lossy(&gates_audit_card.stdout);
-    assert!(
-        audit_stdout.contains("Statutory Compliance (EU AI Act Arts. 9/10/14/15 & LGPD Art. 20)")
-    );
-
-    for defect in all_defect_names() {
-        let out = Command::new(gates_bin)
-            .args(["--defect", defect])
+    for card_rel in CANONICAL_CARD_PATHS {
+        let gates_audit_card = Command::new(gates_bin)
+            .args(["--audit-card", card_rel])
             .current_dir(&root)
             .output()
-            .unwrap_or_else(|e| panic!("failed to run gates --defect {defect}: {e}"));
+            .expect("run gates --audit-card");
         assert_eq!(
-            out.status.code(),
-            Some(1),
-            "expected exit code 1 for --defect {defect}, got {:?}",
-            out.status.code()
+            gates_audit_card.status.code(),
+            Some(0),
+            "expected exit code 0 for --audit-card {card_rel}"
+        );
+        let audit_stdout = String::from_utf8_lossy(&gates_audit_card.stdout);
+        assert!(
+            audit_stdout
+                .contains("Statutory Compliance (EU AI Act Arts. 9/10/14/15 & LGPD Art. 20)")
         );
     }
+
+    let defects = all_defect_names();
+    std::thread::scope(|s| {
+        let handles: Vec<_> = defects
+            .iter()
+            .map(|&defect| {
+                let root_ref = &root;
+                s.spawn(move || {
+                    let out = Command::new(gates_bin)
+                        .args(["--defect", defect])
+                        .current_dir(root_ref)
+                        .output()
+                        .unwrap_or_else(|e| panic!("failed to run gates --defect {defect}: {e}"));
+                    (defect, out.status.code())
+                })
+            })
+            .collect();
+        for h in handles {
+            let (defect, code) = h.join().expect("defect thread panicked");
+            assert_eq!(
+                code,
+                Some(1),
+                "expected exit code 1 for --defect {defect}, got {code:?}"
+            );
+        }
+    });
 
     let labs_help = Command::new(labs_bin)
         .arg("--help")
@@ -272,6 +333,13 @@ fn cli_binaries_handle_help_and_defects_correctly() {
         .output()
         .expect("run labs --help");
     assert_eq!(labs_help.status.code(), Some(0));
+
+    let labs_too_many = Command::new(labs_bin)
+        .args(["--layers", "--lenses"])
+        .current_dir(&root)
+        .output()
+        .expect("run labs --layers --lenses");
+    assert_eq!(labs_too_many.status.code(), Some(2));
 
     let labs_unknown = Command::new(labs_bin)
         .arg("--invalid-lab")

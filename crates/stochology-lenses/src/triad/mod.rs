@@ -117,7 +117,7 @@ impl ComplexFractalToroidalTechniumSynthesis {
 mod tests {
     use super::weyl_sna_rlhf::{fit_bcts, rlhf_nonconsensus_spectral_radius};
     use super::*;
-    use stochology_core::rng::{Rng, DEFAULT_SEED};
+    use stochology_core::rng::{DEFAULT_SEED, Rng};
 
     #[test]
     fn test_triadic_synthesis_shielded_and_unshielded() {

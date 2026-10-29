@@ -217,14 +217,14 @@ By contrast, any subset $S$ that relies on a confounder, a collider, or a regime
 
 $$\hat{S}^{\ast} = \bigcap\_{S  :  H\_{0, S} \text{ not rejected across } \mathcal{E}} S$$
 
-In `crates/stochology-lenses/src/invariance.rs`, the protocol extends linear ICP (`env_ols_invariance_penalties`) to **Nonlinear ICP and NILE/IRM** (`run_nonlinear_icp_nile`) by expanding standardized predictors onto the **3-atom orthonormal probabilists' Hermite basis**:
+In `crates/stochology-lenses/src/invariance/`, the protocol extends linear ICP (`env_ols_invariance_penalties`) to **Nonlinear ICP and NILE/IRM** (`run_nonlinear_icp_nile`) by expanding standardized predictors onto the **3-atom orthonormal probabilists' Hermite basis**:
 
 $$\Phi(z) = \left[  z ,\quad \frac{z^2 - 1}{\sqrt{2}} ,\quad \frac{z^3 - 3z}{\sqrt{6}}  \right], \qquad \mathbb{E}\_{Z \sim \mathcal{N}(0,1)}[\Phi\_j(Z)\Phi\_k(Z)] = \delta\_{jk}$$
 
 and auditing the **Invariant Risk Minimization (IRM / NILE)** risk-gradient penalty $\sum\_{e \in \mathcal{E}} \lVert \nabla\_{w \mid w=1.0} R^e(w \cdot \Phi) \rVert^2$ alongside Paul Rosenbaum's hidden-confounding sensitivity threshold $\Lambda^{\ast}$ (the minimum odds ratio an unobserved confounder would need to overturn the conclusion).
 
-In addition, `crates/stochology-lenses/src/invariance.rs` provides two classic econometric invariance and sensitivity audits:
-- **Gregory Chow's (1960) Structural Break $F$-Statistic (`chow_invariance_f_stat`):** Tests $H\_{0, S}: \beta^{(e)} = \beta^{\text{pooled}}$ across $E$ environments via $F\_S = \frac{(\mathrm{RSS}\_{\text{pooled}} - \sum\_{e=1}^E \mathrm{RSS}\_e) / ((E - 1)p)}{\sum\_{e=1}^E \mathrm{RSS}\_e / (N\_{\text{total}} - E p)}$. For the true causal parent $X\_0$, $F\_{\lbrace 0 \rbrace} = 0.18$ (invariant), whereas for the spurious proxy $X\_1$, $F\_{\lbrace 1 \rbrace} = 23\text{,}437.0$ (structural breakdown).
+In addition, `crates/stochology-lenses/src/invariance/` provides two classic econometric invariance and sensitivity audits:
+- **Gregory Chow's (1960) Structural Break $F$-Statistic (`chow_invariance_f_stat`):** Tests $H\_{0, S}: \beta^{(e)} = \beta^{\text{pooled}}$ across $E$ environments via $F\_S = \frac{(\mathrm{RSS}\_{\text{pooled}} - \sum\_{e=1}^E \mathrm{RSS}\_e) / ((E - 1)p)}{\sum\_{e=1}^E \mathrm{RSS}\_e / (N\_{\text{total}} - E p)}$. For the true causal parent $X\_0$, $F\_{\lbrace 0 \rbrace} = 0.18$ (invariant), whereas for the spurious proxy $X\_1$, $F\_{\lbrace 1 \rbrace} = 23\text{,}437.0$ (structural breakdown, simulated at `seed = 2026`).
 - **Cinelli & Hazlett (2020) Omitted-Variable Bias Robustness Value (`cinelli_hazlett_robustness_value`):** Computes the exact partial-$R^2$ strength $RV\_q = \frac{1}{2}\bigl(\sqrt{f\_q^4 + 4 f\_q^2} - f\_q^2\bigr)$ (where $f\_q = q\cdot |t| / \sqrt{\mathrm{df}}$) that an unobserved confounder $U$ would need with *both* treatment $X$ and outcome $Y$ to reduce the estimated effect by fraction $q$.
 
 ---
@@ -271,7 +271,7 @@ In 1973, Allan Murphy showed that the Brier Score splits into three meaningful p
 
 Historically, analysts estimated $\mathrm{REL}$ and $\mathrm{RES}$ by chopping $[0, 1]$ into $10$ arbitrary histogram bins, a procedure that breaks the exact algebraic identity and changes its answer whenever someone shifts the bin boundaries.
 
-In 2021, **Timo Dimitriadis, Tilmann Gneiting, and Alexander Jordan** resolved this binning problem with the **CORP (*Consistent, Optimally Binned, Reproducible*) Decomposition**. Instead of arbitrary bins, CORP computes the unique non-parametric isotonic regression $\hat{\pi}\_1 \le \hat{\pi}\_2 \le \dots \le \hat{\pi}\_n$ of the sorted outcomes $y\_{(i)}$ on the sorted forecasts $p\_{(i)}$ via the **Pool-Adjacent-Violators (PAV)** algorithm (`CorpPavDecomposition` in `crates/stochology-lenses/src/decision.rs`).
+In 2021, **Timo Dimitriadis, Tilmann Gneiting, and Alexander Jordan** resolved this binning problem with the **CORP (*Consistent, Optimally Binned, Reproducible*) Decomposition**. Instead of arbitrary bins, CORP computes the unique non-parametric isotonic regression $\hat{\pi}\_1 \le \hat{\pi}\_2 \le \dots \le \hat{\pi}\_n$ of the sorted outcomes $y\_{(i)}$ on the sorted forecasts $p\_{(i)}$ via the **Pool-Adjacent-Violators (PAV)** algorithm (`CorpPavDecomposition` in `crates/stochology-lenses/src/decision/`).
 
 Because PAV partitions the sorted data into optimal monotone blocks where the block average equals the conditional frequency, the **CORP-Murphy Identity** closes to machine precision ($\sim 10^{-15}$):
 
@@ -299,7 +299,7 @@ To see why `CorpPavDecomposition` requires zero arbitrary histogram bins, let us
 
 Whenever an adjacent pair violates monotonicity ($\hat{\pi}\_k > \hat{\pi}\_{k+1}$), PAV merges their blocks into a single block weighted by block size until $\hat{\pi}\_1 \le \hat{\pi}\_2 \le \dots \le \hat{\pi}\_n$.
 
-Furthermore, **Ehm, Gneiting, Jordan, and Krüger (2016)** proved that every Brier Score is the exact integral of **Murphy's Extremal Elementary Cost-Loss Scores** $S\_\theta(p, y)$ across all possible operational decision thresholds $\theta \in (0, 1)$ (`MurphyDiagram` and `CorpRocMurphyTriptych` in `crates/stochology-lenses/src/decision.rs`):
+Furthermore, **Ehm, Gneiting, Jordan, and Krüger (2016)** proved that every Brier Score is the exact integral of **Murphy's Extremal Elementary Cost-Loss Scores** $S\_\theta(p, y)$ across all possible operational decision thresholds $\theta \in (0, 1)$ (`MurphyDiagram` and `CorpRocMurphyTriptych` in `crates/stochology-lenses/src/decision/`):
 
 $$S\_\theta(p, y) \triangleq |y - \mathbf{1}\{p \ge \theta\}|\cdot |p - \theta|, \qquad \int\_0^1 \bar{S}\_\theta(p, y)\,d\theta = \frac{1}{2}\mathrm{BS}(p, y)$$
 
@@ -367,14 +367,14 @@ Two forecasters $A$ and $B$ can have nearly identical aggregate Brier Scores whi
 
 Use the interactive Five-Lenses simulator below to explore how drift $\mu$, volatility $\sigma$, leverage $f$, and Pareto tail exponent $\alpha$ shape long-run survival versus ruin:
 
-<div class="stoch-lab" data-lab="lenses-kelly-tail-corp" data-chapter="09-lenses" data-title="Chapter 9 Lab: Itô Variance Drain, Kelly Leverage Curve g(f) &amp; Pareto Tail Regimes" data-cli="cargo run --release --bin labs -- --lenses"></div>
+<div class="stoch-lab" data-lab="lenses-kelly-tail-corp" data-chapter="09-lenses.html" data-title="Chapter 9 Lab: Itô Variance Drain, Kelly Leverage Curve g(f) &amp; Pareto Tail Regimes" data-cli="cargo run --release --bin labs -- --lenses"></div>
 
 
 ---
 
 ## Computational Audit in Rust
 
-Run Laboratory 3 from your terminal to execute all five transversal lenses on both synthetic benchmarks and real empirical data:
+Run Laboratory 3 from your terminal to execute all five transversal lenses on both synthetic benchmarks and real empirical data (the block below shows the first seven lines of `labs --lenses`; the remaining synthesis lines are audited in Chapters 13, 14, 18, 22, and 23):
 
 ~~~bash
 cargo run --release --bin labs -- --lenses
@@ -392,11 +392,11 @@ cargo run --release --bin labs -- --lenses
 ~~~
 
 Each lens audits a specific aspect of the data:
-1. **Lens 1 (Information):** Across the 3-step Markov chain $W \to X \to Y \to Z$, mutual information decays monotonically ($0.3681 \ge 0.1662 \ge 0.0576\text{ nats}$), the SDPI contraction constants obey $\eta\_{\chi^2}(0.4900) \le \eta\_{\mathrm{KL}}(0.4900) \le \eta\_{\mathrm{TV}}(0.7000)$ with Blahut-Arimoto channel capacity $C\_{\mathrm{BA}} = 0.2704\text{ nats}$, and Fano's inequality forces at least $11.56\%$ classification error.
-2. **Lens 2 (Time):** Over $37\text{,}930$ trading sessions of the Dow Jones (`djia_1885_2023.csv`, excess kurtosis $17.8$, Jarque-Bera $\mathrm{JB} = 502\text{,}551$), Itô's variance drain reduces the ensemble growth rate of $6.12\%$ down to a time-average growth rate of $4.68\%$, while exact continuous empirical Kelly leverage ($2.08$) is strictly more conservative than the Gaussian Merton ratio ($2.12$).
-3. **Lens 3 (Tail):** On `danish_fire.csv` ($n = 2\text{,}167$), the Hill estimator finds $\hat{\alpha} = 1.6009 \pm 0.1601$ (`FiniteMeanInfiniteVariance`), corroborated by Dekkers-Einmahl-de Haan $\hat{\xi}\_{\mathrm{DEdH}} = 0.538$ and Peaks-Over-Threshold GPD $\hat{\xi}\_{\mathrm{GPD}} = 0.483$, with $99\%$ Expected Shortfall $\mathrm{ES}\_{0.99} = 58.59\text{M DKK}$ (`POT = 58.88M`).
-4. **Lens 4 (Invariance):** Across shifting regimes, ICP isolates the true causal parent $\hat{S}^{\ast} = [0]$ with tiny invariance penalty ($0.0001$ linear, Chow $F = 0.18$; $0.0011$ nonlinear NILE/IRM on `atlantic_storms.csv`) while exposing the spurious proxy ($15.8059$ linear, Chow $F = 23\text{,}437.0$; $0.1072$ nonlinear), with Rosenbaum sensitivity $\Lambda^{\ast} = 4.752$ and Cinelli-Hazlett Robustness Value $RV = 0.511$.
-5. **Lens 5 (Decision):** On $n = 20\text{,}778$ NOAA Atlantic storm records, the PAV isotonic decomposition splits $\mathrm{BS} = 0.26906$ into $\mathrm{REL}\_{\mathrm{CORP}} = 0.21135$, $\mathrm{RES}\_{\mathrm{CORP}} = 0.13102$, and $\mathrm{UNC}\_0 = 0.18873$ with an identity closure error of $1.53 \times 10^{-14}$, PAV-calibrated Logarithmic Score $\mathrm{LogS} = 0.1849$, and Relative Economic Value $\mathrm{REV}\_{\mathrm{PAV}} = 0.719$ ($71.9\%$ of an infallible oracle's economic gain). Meanwhile, the `FairCoin` benchmark proves that an overconfident forecaster (`REL = 0.1104`) who agrees $100\%$ of the time with a calibrated forecaster (`REL = 0.0005`) at threshold $p^{\ast}\_A = 0.30$ inflicts $+18.20$ units of excess regret the moment the decision threshold moves to $p^{\ast}\_B = 0.70$.
+1. **Lens 1 (Information):** Across the 3-step Markov chain $W \to X \to Y \to Z$ (deterministic analytic benchmark on assumed stochastic transition matrices), mutual information decays monotonically ($0.3681 \ge 0.1662 \ge 0.0576\text{ nats}$), the SDPI contraction constants obey $\eta\_{\chi^2}(0.4900) \le \eta\_{\mathrm{KL}}(0.4900) \le \eta\_{\mathrm{TV}}(0.7000)$ with Blahut-Arimoto channel capacity $C\_{\mathrm{BA}} = 0.2704\text{ nats}$, and Fano's inequality forces at least $11.56\%$ classification error.
+2. **Lens 2 (Time):** Over $37\text{,}930$ trading sessions of the Dow Jones (`djia_1885_2023.csv`, measured: excess kurtosis $17.8$, Jarque-Bera $\mathrm{JB} = 502\text{,}551$), Itô's variance drain reduces the ensemble growth rate of $6.12\%$ down to a time-average growth rate of $4.68\%$, while exact continuous empirical Kelly leverage ($2.08$) is strictly more conservative than the Gaussian Merton ratio ($2.12$).
+3. **Lens 3 (Tail):** On `danish_fire.csv` ($n = 2\text{,}167$, measured), the Hill estimator finds $\hat{\alpha} = 1.6009 \pm 0.1601$ (`FiniteMeanInfiniteVariance`), corroborated by Dekkers-Einmahl-de Haan $\hat{\xi}\_{\mathrm{DEdH}} = 0.538$ and Peaks-Over-Threshold GPD $\hat{\xi}\_{\mathrm{GPD}} = 0.483$, with $99\%$ Expected Shortfall $\mathrm{ES}\_{0.99} = 58.59\text{M DKK}$ (`POT = 58.88M`).
+4. **Lens 4 (Invariance):** Across shifting regimes, ICP isolates the true causal parent $\hat{S}^{\ast} = [0]$ with tiny invariance penalty ($0.0001$ linear, Chow $F = 0.18$, simulated at `seed = 2026`; $0.0011$ nonlinear NILE/IRM, measured on `atlantic_storms.csv`) while exposing the spurious proxy ($15.8059$ linear, Chow $F = 23\text{,}437.0$, simulated at `seed = 2026`; $0.1072$ nonlinear, measured on `atlantic_storms.csv`), with Rosenbaum sensitivity $\Lambda^{\ast} = 4.752$ and Cinelli-Hazlett Robustness Value $RV = 0.511$ (analytic from the linear benchmark).
+5. **Lens 5 (Decision):** On $n = 20\text{,}778$ NOAA Atlantic storm records (`atlantic_storms.csv`, measured), the PAV isotonic decomposition splits $\mathrm{BS} = 0.26906$ into $\mathrm{REL}\_{\mathrm{CORP}} = 0.21135$, $\mathrm{RES}\_{\mathrm{CORP}} = 0.13102$, and $\mathrm{UNC}\_0 = 0.18873$ with an identity closure error of $1.53 \times 10^{-14}$, PAV-calibrated Logarithmic Score $\mathrm{LogS} = 0.1849$, and Relative Economic Value $\mathrm{REV}\_{\mathrm{PAV}} = 0.719$ ($71.9\%$ of an infallible oracle's economic gain). Meanwhile, the `FairCoin` benchmark (simulated at `seed = 2026`) proves that an overconfident forecaster (`REL = 0.1104`) who agrees $100\%$ of the time with a calibrated forecaster (`REL = 0.0005`) at threshold $p^{\ast}\_A = 0.30$ inflicts $+18.20$ units of excess regret the moment the decision threshold moves to $p^{\ast}\_B = 0.70$.
 
 ## Exercises
 

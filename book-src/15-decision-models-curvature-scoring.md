@@ -47,7 +47,7 @@ Suppose a model issues a full predictive cumulative distribution function (CDF) 
 
 $$\mathrm{CRPS}(F, y) \triangleq \int\_{-\infty}^{\infty} \bigl(F(x) - \mathbb{I}\lbrace x \ge y \rbrace\bigr)^2 dx = \mathbb{E}\_F|X - y| - \frac{1}{2}\mathbb{E}\_F|X - X'|$$
 
-where $X$ and $X'$ are independent draws from the predictive distribution $F$. The second expression (`NonlinearSummary` in `crates/stochology-core/src/layers.rs`) has two terms:
+where $X$ and $X'$ are independent draws from the predictive distribution $F$. The second expression (`NonlinearSummary` in `crates/stochology-core/src/layers/`) has two terms:
 - The first term, $\mathbb{E}\_F|X - y|$, rewards the distribution for placing its mass close to the realized truth $y$ (*accuracy*).
 - The second term, $-\frac{1}{2}\mathbb{E}\_F|X - X'|$, rewards sharp, well-calibrated spread.
 - $\mathrm{CRPS}$ is a **strictly proper scoring rule**: a forecaster minimizes expected $\mathrm{CRPS}$ if and only if they report their true predictive distribution $F$, with zero incentive to hedge or exaggerate confidence.
@@ -66,7 +66,7 @@ In elementary courses, students are taught to summarize a random variable $X$ by
 
 ### The Seven Mandatory Quantities of `NonlinearSummary`
 
-Under **Prohibition 2**, reporting only $\mathbb{E}[X]$ or $f(\mathbb{E}[X])$ is strictly forbidden. Every Epistemological Card (`epistemological_header.nonlinearity`) and every laboratory summary (`NonlinearSummary` in `crates/stochology-core/src/layers.rs`) must report **all seven numbers together**:
+Under **Prohibition 2**, reporting only $\mathbb{E}[X]$ or $f(\mathbb{E}[X])$ is strictly forbidden. Every Epistemological Card (`epistemological_header.nonlinearity`) and every laboratory summary (`NonlinearSummary` in `crates/stochology-core/src/layers/`) must report **all seven numbers together**:
 
 $$\bigl(  f(\mathbb{E}[X]),\quad \mathbb{E}[f(X)],\quad \Delta\_J = \mathbb{E}[f(X)] - f(\mathbb{E}[X]),\quad \text{median},\quad q\_{05},\quad q\_{95},\quad \mathrm{CRPS}  \bigr)$$
 
@@ -123,6 +123,7 @@ Explore how cluster correlation ([Chapter 20](20-decision-worlds-regime.md)), Cr
 
 <div class="stoch-lab"
      data-lab="invariants-moulton-chouldechova"
+     data-chapter="15-decision-models-curvature-scoring.html"
      data-title="Prohibitions &amp; Boundary Invariant Stress-Test"
      data-subtitle="Audit cluster inflation, base-rate odds locks, and gate thresholds before any claim reaches production">
 </div>
@@ -131,7 +132,7 @@ Explore how cluster correlation ([Chapter 20](20-decision-worlds-regime.md)), Cr
 
 ## Computational Audit in Rust
 
-Run Laboratory 1 (`crates/stochology-core/src/layers.rs`) to inspect the Bridge $L\_2 \to L\_3$ `NonlinearSummary` and leave-one-out empirical $\mathrm{CRPS}$ on `bank_calls.csv`:
+Run Laboratory 1 (`crates/stochology-core/src/layers/`) to inspect the Bridge $L\_2 \to L\_3$ `NonlinearSummary` and leave-one-out empirical $\mathrm{CRPS}$ on `bank_calls.csv`:
 
 ~~~bash
 cargo run --release --bin labs -- --layers
@@ -143,9 +144,9 @@ cargo run --release --bin labs -- --layers
 ~~~
 
 1. **On Bridge $L\_2 \to L\_3$**, across the $164$ days of `bank_calls.csv`, the illustrative quadratic loss $f(x) = x^2$ exhibits a positive Jensen's Gap of $\Delta\_J = +9\text{,}033\text{,}837.19$ (squared daily calls, $\approx 0.85\%$) above the naive plug-in mean evaluation $f(\mathbb{E}[X])$, and reports the full quantile profile ($q\_{05}$, median, $q\_{95}$) alongside the exact $O(n \log n)$ out-of-sample $\mathrm{CRPS} = 9.055 \times 10^7$.
-2. **On Pair $L\_2 \to L\_3$ (`GenerativeRagLlmJudgeCompressionAudit`, Axis 3 of the strategic synthesis in `crates/stochology-lenses/src/strategic.rs`; the code assigns it to this pair, and filing it in this chapter is the book's authorial mapping):**
+2. **On Pair $L\_2 \to L\_3$ (`GenerativeRagLlmJudgeCompressionAudit`, Axis 3 of the strategic synthesis in `crates/stochology-lenses/src/strategic/`; the code assigns it to this pair, and filing it in this chapter is the book's authorial mapping):**
    - **RAG Data Processing Inequality (`DpiMarkovChain`):** A Retrieval-Augmented Generation pipeline is modeled as a four-stage chain of binary symmetric channels, $\text{Corpus } W \to \text{Chunk } X \to \text{Embedding } Y \to \text{Rerank } Z$. The axis checks that mutual information can only fall along the chain, $I(W; X) \ge I(W; Y) \ge I(W; Z)$, for both the semantic-chunking and the naive fixed-boundary chains, and the semantic chain keeps $I(W; Z) = 0.382$ nats end to end (`RAG_MI=0.382 nats`, deterministic; the channel error rates are assumed).
-   - **Prediction-Powered Inference for LLM-as-a-Judge (`LlmJudgePpiRectifier`, Angelopoulos et al. 2023):** A simulated judge with assumed sensitivity $0.86$ and specificity $0.72$ scores $N = 800$ unlabeled outputs whose true pass rate is $\theta^{\ast} = 0.22$, and $n\_{\text{gold}} = 160$ human-labeled gold items rectify it via $\hat{\theta}\_{\mathrm{PPI}} = \frac{1}{N}\sum\_{i=1}^N \tilde{f}(X\_i) - \frac{1}{n\_{\text{gold}}}\sum\_{j=1}^{n\_{\text{gold}}} (\tilde{f}(X\_j^{\text{gold}}) - Y\_j^{\text{gold}})$; the Rogan-Gladen inversion identity closes. The accuracy claim did **not** survive acceptance: the claim that the rectified error stays below $0.06$ passed on 19 of 20 development seeds but on only $88.0\%$ of the 200 confirmation seeds, because at $n\_{\text{gold}} = 160$ the rectifier's standard error is about $0.035$, so $0.06$ is only about $1.71$ standard errors. The claim is recorded in `discarded_claims` as refuted, and the seed-2026 errors printed by `labs` (`PPI_err=0.011 vs bias=0.188`) are a single draw, not evidence that the corrected judge meets the bound. Sizing the gold set in advance is what `prospective_ppi_gold_sample_size` in `crates/stochology-siga/src/funnel.rs` is for; it is exercised in a unit test and is not called by the simulation above.
+   - **Prediction-Powered Inference for LLM-as-a-Judge (`LlmJudgePpiRectifier`, Angelopoulos et al. 2023):** A simulated judge with assumed sensitivity $0.86$ and specificity $0.72$ scores $N = 800$ unlabeled outputs whose true pass rate is $\theta^{\ast} = 0.22$, and $n\_{\text{gold}} = 160$ human-labeled gold items rectify it via $\hat{\theta}\_{\mathrm{PPI}} = \frac{1}{N}\sum\_{i=1}^N \tilde{f}(X\_i) - \frac{1}{n\_{\text{gold}}}\sum\_{j=1}^{n\_{\text{gold}}} (\tilde{f}(X\_j^{\text{gold}}) - Y\_j^{\text{gold}})$; the Rogan-Gladen inversion identity closes. The accuracy claim did **not** survive acceptance: the claim that the rectified error stays below $0.06$ passed on 19 of 20 development seeds but on only $88.0\%$ of the 200 confirmation seeds, because at $n\_{\text{gold}} = 160$ the rectifier's standard error is about $0.035$, so $0.06$ is only about $1.71$ standard errors. The claim is recorded in `discarded_claims` as refuted, and the seed-2026 errors printed by `labs` (`PPI_err=0.011 vs bias=0.188`) are a single draw, not evidence that the corrected judge meets the bound. Sizing the gold set in advance is what `prospective_ppi_gold_sample_size` in `crates/stochology-siga/src/funnel/` is for; it is exercised in a unit test and is not called by the simulation above.
    - **Conformal FinOps Cascade:** Under an assumed cost-loss rule ($C = 20$, $L = 100$, $p^\ast = 0.20$) and assumed compute fees, a calibrated local model that escalates cases near $p^\ast$ to a more expensive verifier costs $17.34$ per decision versus $24.87$ for a naive local model that under-predicts risk, about $30.3\%$ less (`FinOps_cost=17.34 vs 24.87`, simulated, `seed = 2026`).
    - **Outlier-Protected Mixed-Precision `INT4` Quantization:** On 500 simulated Pareto losses (tail index $1.65$), uniform 4-bit clipping at $4.0$ keeps only $0.17$ of the full-precision $\mathrm{ES}\_{0.99}$ (about $83\%$ erased), while routing values above the clip to FP16 keeps $1.00$ (`INT4_ES99_ret=1.00 vs 0.17`, simulated, `seed = 2026`). The same contrast on measured `danish_fire.csv` gives $1.00$ versus $0.17$ (`Fire_ES99_prot=1.00 vs clip=0.17`); the opposite real-data hypothesis, that clipping preserves $\mathrm{ES}\_{0.99}$ within $10\%$, is recorded by `G8` as a refuted discarded finding.
 

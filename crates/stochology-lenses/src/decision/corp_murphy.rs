@@ -1,7 +1,7 @@
 //! Isotonic **CORP** (*Consistent, Optimal, Reproducible, PAV-calibrated*) Decomposition,
 //! Murphy Diagram, CORP–ROC–Murphy Evaluation Triptych, and Exact Fair-Coin Calibration vs. Decision Benchmark.
 
-use super::cost_loss::{brier_score, CostLossRule};
+use super::cost_loss::{CostLossRule, brier_score};
 
 /// Exact Isotonic **CORP** (*Consistent, Optimal, Reproducible, PAV-calibrated*) Decomposition
 /// of the Brier Score (Dimitriadis, Gneiting & Jordan / Arnold et al. — §1.3.5):
@@ -173,11 +173,7 @@ impl MurphyDiagram {
     #[inline]
     pub fn elementary_score(forecast_x: f64, outcome_y: f64, theta: f64) -> f64 {
         if outcome_y < 0.5 {
-            if forecast_x > theta {
-                theta
-            } else {
-                0.0
-            }
+            if forecast_x > theta { theta } else { 0.0 }
         } else if forecast_x <= theta {
             1.0 - theta
         } else {
@@ -233,7 +229,7 @@ impl MurphyDiagram {
         let err_half = forecasts_p
             .iter()
             .zip(outcomes_y.iter())
-            .filter(|(&x, &y)| (y >= 0.5 && x <= 0.5) || (y < 0.5 && x > 0.5))
+            .filter(|&(&x, &y)| (y >= 0.5 && x <= 0.5) || (y < 0.5 && x > 0.5))
             .count() as f64
             / (forecasts_p.len() as f64);
         let half_err = 0.5 * err_half;

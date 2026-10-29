@@ -3,8 +3,8 @@
 use std::path::Path;
 use stochology_cli::{load_bank_call_clusters, load_lalonde_nsw_cps};
 use stochology_core::{
-    empirical_wasserstein_1, GoodhartTaxonomyAudit, ManskiBounds, MengAudit, NonlinearSummary,
-    PerformativeSystem, DEFAULT_SEED,
+    DEFAULT_SEED, GoodhartTaxonomyAudit, ManskiBounds, MengAudit, NonlinearSummary,
+    PerformativeSystem, empirical_wasserstein_1,
 };
 
 /// Lab 1: Dynamics of the Three Ontological Layers ($L_1 \to L_2 \to L_3 \to L_1$), Meng, Manski, Jensen, and Performativity.

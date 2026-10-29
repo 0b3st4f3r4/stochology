@@ -17,11 +17,11 @@ pub mod time;
 pub mod triad;
 
 pub use acceptance::{
-    canonical_registry_lines, confirmation_seeds, evaluate_all_syntheses, is_deterministic,
-    society_confirmation_seeds, verify_registry_content, MultiSeedAcceptance, NamedCheck,
-    SimulatedSynthesis, SynthesisAcceptance, SynthesisAxisAudit, ACCEPTANCE_REGISTRY_PATH,
-    ACCEPTANCE_SEEDS, CLAIM_DEFINING_SOURCES, CONFIRMATION_SEED_RANGE, MIN_CLAIM_PASS_RATE,
-    SOCIETY_CONFIRMATION_SEED_RANGE,
+    ACCEPTANCE_REGISTRY_PATH, ACCEPTANCE_SEEDS, CLAIM_DEFINING_SOURCES, CONFIRMATION_SEED_RANGE,
+    MIN_CLAIM_PASS_RATE, MultiSeedAcceptance, NamedCheck, SOCIETY_CONFIRMATION_SEED_RANGE,
+    SimulatedSynthesis, SynthesisAcceptance, SynthesisAxisAudit, canonical_registry_lines,
+    confirmation_seeds, evaluate_all_syntheses, is_deterministic, society_confirmation_seeds,
+    verify_registry_content,
 };
 pub use analog::{
     AimcAnalogWallHpInvAudit, AnalogWaveComputingSynthesis, EmpiricalWaveAnalogAudit,
@@ -34,19 +34,19 @@ pub use critical::{
     MarcuseRouvroyStochasticParrotAudit, MaterialCollapseTriadAudit,
 };
 pub use decision::{
-    brier_score, critical_cost_loss_threshold, logarithmic_score, quantile_score,
     CorpPavDecomposition, CorpRocMurphyTriptych, CostLossRule, ExactCoinCalibrationBenchmark,
-    LlmJudgePpiRectifier, MurphyDiagram, SaatyAhpRankReversalAudit,
+    LlmJudgePpiRectifier, MurphyDiagram, SaatyAhpRankReversalAudit, brier_score,
+    critical_cost_loss_threshold, logarithmic_score, quantile_score,
 };
 pub use information::{
-    amplitude_constrained_mi_bound, binary_entropy_nats, blahut_arimoto_capacity,
-    estimate_empirical_channel, fano_error_floor, kl_divergence, DpiMarkovChain, SdpiHierarchy,
+    DpiMarkovChain, SdpiHierarchy, amplitude_constrained_mi_bound, binary_entropy_nats,
+    blahut_arimoto_capacity, estimate_empirical_channel, fano_error_floor, kl_divergence,
 };
 pub use invariance::{
+    CausalEnvironment, IcpResult, NonlinearIcpNileResult, PearlRung, ShapleyCausalAudit,
     chow_invariance_f_stat, cinelli_hazlett_robustness_value,
     hidden_confounding_threshold_lambda_star, run_icp, run_nonlinear_icp_nile,
-    second_order_worst_case_loss, second_order_worst_case_loss_full, CausalEnvironment, IcpResult,
-    NonlinearIcpNileResult, PearlRung, ShapleyCausalAudit,
+    second_order_worst_case_loss, second_order_worst_case_loss_full,
 };
 pub use machine::{
     AlmostPerfectMachine, AuthenticModelForm, AuthenticityCriterionA, DiscardedAtomRecord,
@@ -58,16 +58,17 @@ pub use relational::{
     SchellingCell, SchellingPhaseTransitionAudit, SchellingSegregationModel,
 };
 pub use society::{
-    BesterScreeningPointAudit, CoupledPublicPrivateSocietySynthesis, EmpiricalCoupledSocietyAudit,
+    BesterScreeningPointAudit, COUPLED_SOCIETY_PREREGISTRATION_HASH,
+    CoupledPublicPrivateSocietySynthesis, EmpiricalCoupledSocietyAudit,
     H1aRegulatorCouplingAblation, H1bCreditScreeningAblation, H2VcgGreenLaffontCommonsAblation,
-    SfcCellSummary, SfcFlowMatrix, VcgCohortRegimePoint, COUPLED_SOCIETY_PREREGISTRATION_HASH,
+    SfcCellSummary, SfcFlowMatrix, VcgCohortRegimePoint,
 };
 pub use stocks::{
-    rockafellar_uryasev_cvar, CyberneticVsmAndPateGovernanceAudit,
+    CONCEPTUAL_TREE_SUBAXIS_LEAVES, CyberneticVsmAndPateGovernanceAudit,
     EmpiricalStocharyCyberneticAudit, PateQuadrant, PowellFristonCausalEngineAudit,
     PowellPolicyClass, StocharyConjecturalCyberneticSynthesis, StocharyStressTestNotebook,
     StrategicStockPlantResilienceAudit, SupplyChainPhysicsAudit, TopologyAndFourStockAxiomsAudit,
-    CONCEPTUAL_TREE_SUBAXIS_LEAVES,
+    rockafellar_uryasev_cvar,
 };
 pub use strategic::{
     ComplexNetworkHubContagionAudit, EmpiricalStrategicAccommodationAudit,
@@ -76,13 +77,13 @@ pub use strategic::{
     ShapleyCausalRubinMiDoeAudit, StrategicAiAccommodationSynthesis,
 };
 pub use tail::{
-    dedh_moment_tail_index, expected_shortfall_99, gpd_pot_fit, hill_estimator, HillTailDiagnostic,
-    TailMomentRegime,
+    HillTailDiagnostic, TailMomentRegime, dedh_moment_tail_index, expected_shortfall_99,
+    gpd_pot_fit, hill_estimator,
 };
 pub use time::{
-    asymmetric_bet_log_growth, asymmetric_kelly_fraction, empirical_kelly_optimal_fraction,
-    ito_time_growth_rate, simulate_absorbing_trajectories, MixingTimeAudit,
-    RobustKalmanControlAudit, TimeKellyDiagnostic,
+    MixingTimeAudit, RobustKalmanControlAudit, TimeKellyDiagnostic, asymmetric_bet_log_growth,
+    asymmetric_kelly_fraction, empirical_kelly_optimal_fraction, ito_time_growth_rate,
+    simulate_absorbing_trajectories,
 };
 pub use triad::{
     ComplexFractalToroidalTechniumSynthesis, ComplexRealIsomorphismHMatrixAudit,

@@ -6,8 +6,9 @@ cd "$(dirname "$0")/.."
 echo ">>> [1/6] Checking formatting (cargo fmt)..."
 cargo fmt --all --check
 
-echo ">>> [2/6] Checking strict lints (cargo clippy -D warnings)..."
+echo ">>> [2/6] Checking strict lints (cargo clippy -D warnings) and rustdoc..."
 cargo clippy --workspace --all-targets -- -D warnings
+RUSTDOCFLAGS="-D warnings" cargo doc --workspace --no-deps
 
 echo ">>> [3/6] Running unit and integration tests (cargo test)..."
 cargo test --workspace
@@ -24,8 +25,10 @@ cargo run --release --bin labs -- --real-data
 
 echo ">>> [5/6] Running epistemological gates (gates) and negative proofs..."
 cargo run --release --bin gates
-cargo run --release --bin gates -- --audit-card cards/card_01_atlantic_storms_evacuation.yaml >/dev/null
-echo "  [OK] Portable external card audit (--audit-card cards/card_01_atlantic_storms_evacuation.yaml) passed"
+for card in cards/card_0*.yaml; do
+    cargo run --release --bin gates -- --audit-card "$card" >/dev/null
+    echo "  [OK] Portable external card audit (--audit-card $card) passed"
+done
 
 for defect in cromwell phi5 moulton performativity sniedovich clock vault concept_drift chouldechova machine analog_wall instrumental_reason stochary_cybernetics peeking brier_dominance var_underreport lee_point_estimate replace_collapse triadic_technium strategic_accommodation coupled_society; do
     set +e
@@ -40,13 +43,13 @@ for defect in cromwell phi5 moulton performativity sniedovich clock vault concep
     fi
 done
 
-echo ">>> [6/6] Verifying doc-to-code symbol parity, CAPIBA Protocol contract, and absence of git tags..."
+echo ">>> [6/6] Verifying doc-to-code symbol parity, CAPIBA Protocol contract, and release tag hygiene..."
 for sym in SplitMix64 DpiOperationalStage MengAudit data_defect_correlation_ddc data_defect_index_ddi law_of_large_populations_z ManskiBounds lee_trimming_bounds lee_tipping_point_delta PerformativeSystem perfgd_trajectory ChouldechovaAudit disparate_impact_fpr_ratio minmax_penalty_disparity CorpPavDecomposition compute_logarithmic MurphyDiagram CorpRocMurphyTriptych SaviConfidenceSequence gro_betting VarEsEBacktest GerstgrasserAccumulateAudit SyntheticDataPolicy AlertFatigueAudit PredeterminedChangeControlPlan ProfitLossAttributionTest EvaluatedCompetenceCriterion ComplexFractalToroidalTechniumSynthesis EmpiricalTriadicTechniumAudit RubinMultipleImputationAudit ShapleyCausalAudit SaatyAhpRankReversalAudit LlmJudgePpiRectifier RobustKalmanControlAudit RegulatoryComplianceAudit EpistemicPkmProvenanceAudit StrategicAiAccommodationSynthesis EmpiricalStrategicAccommodationAudit prospective_ppi_gold_sample_size ppi_effective_sample_size_multiplier SimpsonCausalParadoxAudit LongContextDpiDilutionAudit MultimodalCorrelatedFusionAudit PreMortemCounterfactualRootCauseAudit CloudLocalLoraArchitectureAudit CoupledPublicPrivateSocietySynthesis EmpiricalCoupledSocietyAudit SfcFlowMatrix H1aRegulatorCouplingAblation H1bCreditScreeningAblation H2VcgGreenLaffontCommonsAblation; do
     if ! grep -q "$sym" "docs/PROTOCOL.md"; then
         echo "ERROR: docs/PROTOCOL.md omits canonical symbol '$sym'!" >&2
         exit 1
     fi
-    if ! grep -rq "$sym" crates/; then
+    if ! grep -rq --include='*.rs' "\b$sym\b" crates/; then
         echo "ERROR: Crate codebase omits symbol '$sym' cited in docs/PROTOCOL.md!" >&2
         exit 1
     fi
@@ -62,7 +65,7 @@ echo "  [OK] book-src/SUMMARY.md chapter references verified against book-src/*.
 
 # Overclaim phrase blacklist (AGENTS.md II.C): audited overclaims must not return to derived texts.
 # AGENTS.md and .agents/ are excluded on purpose: they quote the rules. Patterns tolerate LaTeX ($20\text{ W}$, 100\times$).
-BLACKLIST_DOCS=(book-src/*.md docs/PROTOCOL.md README.md)
+BLACKLIST_DOCS=(book-src/*.md docs/PROTOCOL.md README.md crates/*/README.md)
 BLACKLIST_PATTERNS=(
     'retinas?[[:space:]]+transduc'
     '20[- ]*(\\text\{[[:space:]]*)?W\}?\$?[- ]+human[[:space:]]+retina'
@@ -113,11 +116,32 @@ while IFS= read -r doc; do
             xref_failed=1
         fi
     done < <(grep -oE '\]\([^)#[:space:]]*[0-9]{2}-[A-Za-z0-9_-]+\.md' "$doc" | sed -E 's/^\]\(//')
+    while IFS= read -r rel_target; do
+        if [ ! -e "$doc_dir/$rel_target" ]; then
+            echo "ERROR: '$doc' links to non-existent workspace path '$rel_target'!" >&2
+            xref_failed=1
+        fi
+    done < <(grep -oE '\]\(\.\./(crates|data|cards|docs)/[^)#[:space:]]+' "$doc" | sed -E 's/^\]\(//')
 done < <(find book-src docs -name '*.md' | sort; echo README.md)
 if [ "$xref_failed" -ne 0 ]; then
     exit 1
 fi
-echo "  [OK] Cross-references verified (SUMMARY.md prefixes strictly increasing, 'Chapter N' <= $max_chapter, chapter links resolve)"
+echo "  [OK] Cross-references verified (SUMMARY.md prefixes strictly increasing, 'Chapter N' <= $max_chapter, chapter & workspace links resolve)"
+
+# Epistemic ledger parity: book-src/28-sources.md must match data/SHA256SUMS and data/preregistration/acceptance_registry.txt
+reg_prefix="$(awk '$2 == "data/preregistration/acceptance_registry.txt" {print substr($1, 1, 12)}' data/SHA256SUMS)"
+soc_prefix="$(awk '$2 == "data/preregistration/coupled_society_preregistration.yaml" {print substr($1, 1, 12)}' data/SHA256SUMS)"
+reg_k="$(sed -nE 's/.*Acceptance Registry entry K = ([0-9]+).*/\1/p' data/preregistration/coupled_society_preregistration.yaml)"
+reg_sources="$(grep -c '^source ' data/preregistration/acceptance_registry.txt)"
+reg_gated="$(grep -c '^gated ' data/preregistration/acceptance_registry.txt)"
+reg_discarded="$(grep -c '^discarded ' data/preregistration/acceptance_registry.txt)"
+for token in "${reg_prefix}..." "${soc_prefix}..." "K = ${reg_k}" "${reg_sources} claim-defining" "${reg_gated} approved" "${reg_discarded} synthetic"; do
+    if ! grep -Fq "$token" "book-src/28-sources.md"; then
+        echo "ERROR: 'book-src/28-sources.md' is out of sync with data/preregistration/acceptance_registry.txt (missing '$token')!" >&2
+        exit 1
+    fi
+done
+echo "  [OK] book-src/28-sources.md synchronized with acceptance_registry.txt (K=$reg_k, sources=$reg_sources, gated=$reg_gated, discarded=$reg_discarded)"
 
 # CAPIBA Protocol Contract Gate (6 mnemonic pillars -> gates & 21 disjoint negative defect proofs)
 CAPIBA_EN="Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol"
@@ -179,9 +203,25 @@ if git rev-parse --verify -q HEAD >/dev/null; then
 fi
 echo "  [OK] data/SHA256SUMS seals every listed file and dataset hashes match HEAD"
 
-if [ -n "$(git tag --list)" ]; then
-    echo "ERROR: git tags found; this repository does not use git tags." >&2
+workspace_ver="$(sed -nE 's/^version = "([^"]+)"/\1/p' Cargo.toml | head -n 1)"
+while IFS= read -r dep_ver; do
+    [ -z "$dep_ver" ] && continue
+    if [ "$dep_ver" != "$workspace_ver" ]; then
+        echo "ERROR: [workspace.dependencies] stochology-* version '$dep_ver' does not match workspace version '$workspace_ver'!" >&2
+        exit 1
+    fi
+done < <(sed -nE 's/^stochology-[a-z-]+ = \{ version = "([^"]+)".*/\1/p' Cargo.toml)
+while IFS= read -r tag; do
+    [ -z "$tag" ] && continue
+    if ! printf '%s\n' "$tag" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$'; then
+        echo "ERROR: non-SemVer git tag '$tag' found (expected vX.Y.Z)!" >&2
+        exit 1
+    fi
+done < <(git tag --list)
+if [ "${GITHUB_REF_TYPE:-}" = "tag" ] && [ "${GITHUB_REF_NAME:-}" != "v${workspace_ver}" ]; then
+    echo "ERROR: tag '${GITHUB_REF_NAME:-}' does not match Cargo.toml workspace version 'v${workspace_ver}'!" >&2
     exit 1
 fi
+echo "  [OK] Release tag hygiene verified (workspace version v${workspace_ver})"
 
 echo ">>> FULL VERIFICATION APPROVED (STOCHOLOGY PROTOCOL) <<<"

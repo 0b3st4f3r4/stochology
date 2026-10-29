@@ -104,9 +104,9 @@ data_and_audit_contract:
 decision_rule_and_scope:
   event_probability_p: {dr_p}
   base_rate_floor_epsilon: {dr_eps}
-  protection_cost_C: {dr_c:.1}
-  event_loss_L: {dr_l:.1}
-  mitigation_efficacy_eta: {dr_eta:.1}
+  protection_cost_C: {dr_c}
+  event_loss_L: {dr_l}
+  mitigation_efficacy_eta: {dr_eta}
   critical_threshold_p_star: {dr_p_star:.5}
   declared_act: "{declared_act}"
   scope_statement: "{scope_statement}"
@@ -303,9 +303,9 @@ decision_rule_and_scope:
             unused_yaml = unused_yaml,
             dr_p = self.decision_rule_and_scope.event_probability_p,
             dr_eps = self.decision_rule_and_scope.base_rate_floor_epsilon,
-            dr_c = self.decision_rule_and_scope.protection_cost_c,
-            dr_l = self.decision_rule_and_scope.event_loss_l,
-            dr_eta = self.decision_rule_and_scope.mitigation_efficacy_eta,
+            dr_c = format_yaml_decimal_min1(self.decision_rule_and_scope.protection_cost_c),
+            dr_l = format_yaml_decimal_min1(self.decision_rule_and_scope.event_loss_l),
+            dr_eta = format_yaml_decimal_min1(self.decision_rule_and_scope.mitigation_efficacy_eta),
             dr_p_star = self.decision_rule_and_scope.critical_threshold_p_star,
             declared_act = escape_yaml_str(&self.decision_rule_and_scope.declared_act),
             scope_statement = escape_yaml_str(&self.decision_rule_and_scope.scope_statement),
@@ -513,7 +513,9 @@ decision_rule_and_scope:
                     )?,
                 },
                 field_authorship: FieldAuthorship {
-                    null_model: req("uncertainty_budget_and_authorship.field_authorship.null_model")?,
+                    null_model: req(
+                        "uncertainty_budget_and_authorship.field_authorship.null_model",
+                    )?,
                     decision_rule: req(
                         "uncertainty_budget_and_authorship.field_authorship.decision_rule",
                     )?,
@@ -575,6 +577,14 @@ decision_rule_and_scope:
     /// Parses an Epistemological Card from the YAML template.
     pub fn from_yaml(yaml: &str) -> Result<Self, String> {
         Self::from_yaml_typed(yaml).map_err(|e| e.to_string())
+    }
+}
+
+fn format_yaml_decimal_min1(v: f64) -> String {
+    if (v * 10.0 - (v * 10.0).round()).abs() < 1e-9 {
+        format!("{v:.1}")
+    } else {
+        format!("{v}")
     }
 }
 

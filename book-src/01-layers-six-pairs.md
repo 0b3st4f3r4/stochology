@@ -94,7 +94,7 @@ When an analyst says "we corrected for bias," your first question must always be
 
 ## 1.2 Map of the Six Directed Pairs Across the Three Layers
 
-Among three ontological layers $\{L\_1, L\_2, L\_3\}$, there are $3 \times 2 = 6$ ordered pairs. Three of them are the canonical clockwise bridges implemented in the protocol ($L\_1 \to L\_2$ via `MengAudit` and `ManskiBounds`, $L\_2 \to L\_3$ via `NonlinearSummary` and `AlertFatigueAudit`, and $L\_3 \to L\_1$ via `PerformativeSystem` and `GoodhartTaxonomyAudit`, all in `crates/stochology-core/src/layers.rs` except `AlertFatigueAudit` in `crates/stochology-siga/src/roadmap.rs`), and the other three reverse directions complete the **Six Directed Pairs** that structure Parts III–V of this book. The reverse pairs are a reading frame over existing code (seeded null models and multi-seed acceptance; the attempt counter $K \ge 1$, named discarded atoms, and SHA-256 pre-registration; the Stirling-Walker class with Info-Gap and the Sniedovich floor, $n\_{\mathrm{eff}}(p)$, and $\Phi\_5$), not new bridges; the six-pair architecture itself is authorial. Each Part closes with an **Axis Synthesis** (Chapters 14, 18, and 22–23) that reads both directions of its axis together and is not assigned to a single pair:
+Among three ontological layers $\{L\_1, L\_2, L\_3\}$, there are $3 \times 2 = 6$ ordered pairs. Three of them are the canonical clockwise bridges implemented in the protocol ($L\_1 \to L\_2$ via `MengAudit` and `ManskiBounds`, $L\_2 \to L\_3$ via `NonlinearSummary` and `AlertFatigueAudit`, and $L\_3 \to L\_1$ via `PerformativeSystem` and `GoodhartTaxonomyAudit`, all in `crates/stochology-core/src/layers/` except `AlertFatigueAudit` in `crates/stochology-siga/src/roadmap/`), and the other three reverse directions complete the **Six Directed Pairs** that structure Parts III–V of this book. The reverse pairs are a reading frame over existing code (seeded null models and multi-seed acceptance; the attempt counter $K \ge 1$, named discarded atoms, SHA-256 pre-registration, and the card's `who_pays_for_error` field audited against Chouldechova's identity; the Stirling-Walker class with Info-Gap and the Sniedovich floor, $n\_{\mathrm{eff}}(p)$, and $\Phi\_5$), not new bridges; the six-pair architecture itself is authorial. Each Part closes with an **Axis Synthesis** (Chapters 14, 18, and 22–23) that reads both directions of its axis together and is not assigned to a single pair:
 
 | Directed Pair | Direction | Core Epistemological Question | Textbook Chapters |
 | --- | --- | --- | --- |
@@ -104,6 +104,43 @@ Among three ontological layers $\{L\_1, L\_2, L\_3\}$, there are $3 \times 2 = 6
 | **4. Model Decisions** | $L\_3 \to L\_2$ *(Contract Counterpart, reading frame)* | How do an Agent's loss function, fairness constraints, and pre-registration contract constrain which Models are admissible? | [Chapter 17](17-model-decisions-card-preregistration.md) (Epistemological Card, Chouldechova/KMR & SHA-256 Pre-Registration); axis synthesis in [Chapter 18](18-critical-stochastic-rationality.md) |
 | **5. World Decisions** | $L\_3 \to L\_1$ *(Bridge 3)* | How does deploying an Agent's decision rule deform the physical or social World it acts upon? | [Chapter 19](19-world-decisions-performativity.md) (Performative Stability $\theta\_{\mathrm{PS}}$ vs. Stackelberg $\theta\_{\mathrm{PO}}$, RRM & Goodhart's 4 Variants) |
 | **6. Decision Worlds** | $L\_1 \to L\_3$ *(Regime Counterpart, reading frame)* | How do regime shifts, non-stationarity, and bitemporal delays in the World force an Agent to adapt, hedge, or trigger an exit clause? | [Chapter 20](20-decision-worlds-regime.md) (Info-Gap $\hat{\alpha}$ & Sniedovich Floor) & [Chapter 21](21-decision-worlds-governance.md) (Bitemporal Clock, Drift & Temporal Vault); axis synthesis in [Chapter 22](22-relational-ontology.md) & [Chapter 23](23-stochary-conjectural-cybernetics.md) |
+
+### Authorial Extension: The Closure Cube and the Bitemporal Half-Plane
+
+> **Authorial extension, not protocol.** The repository implements no geometry over the layers. This subsection is a reading frame for the six pairs above; nothing in it is computed by `labs` or `gates`.
+
+It is tempting to picture World, Model, and Agent as the axes of $\mathbb{R}^3$, with time as a fourth axis. That picture claims too much structure. `Layer` (`crates/stochology-core/src/layers/ontology.rs`) is a three-valued enum: there is no distance between layers, no sum, and no scaling, so a point such as $(0, x\_2, 0)$ has no defined coordinate $x\_2$. What an audit can actually say about each layer is whether it is **closed**, which gives the Boolean cube
+$$(I\_{L\_1}, I\_{L\_2}, I\_{L\_3}) \in \{0, 1\}^3, \qquad 2^3 = 8 \text{ vertices}.$$
+
+**Where the card sits.** An `EpistemologicalCard` declares a single primary layer in its `layer: Layer` field (`crates/stochology-core/src/card/model.rs`); the card is not a vector. `EpistemologicalCard::audit()` runs the 14 rules in `CANONICAL_CARD_SPECIFICATIONS` (`crates/stochology-core/src/card/specs.rs`), and those rules are organized by Prohibition and Invariant, not by layer. Grouping them by layer is the authorial step:
+
+| Closure indicator | Specifications grouped under it (authorial grouping) |
+| --- | --- |
+| $I\_{L\_1}$ — World | `Phi2IndependentUnitSpec` (independent unit, $n\_{\mathrm{eff}}(p)$), `Phi3ProvenanceAndMissingnessSpec` (provenance, Rubin class, Pearl rung) |
+| $I\_{L\_2}$ — Model | `Phi1SimulabilitySpec` (seed and executable null model), `VarianceBudgetAndDominantEventSpec` (Kennedy-O'Hagan budget), `Prohibition2LoneMeanSpec`, `Lens5MurphyCorpAndFindingsSpec` |
+| $I\_{L\_3}$ — Agent | `Step2QuestionSpec`, `Lens5CostLossBoundarySpec` ($p^\ast = \frac{C}{\eta L}$), `Phi4ChouldechovaAndScopeSpec` (exit clause), `Phi5ResolutionSpec`, `InfoGapSniedovichSpec` |
+| Cross-layer (not assigned) | `Prohibition3PerformativitySpec` ($L\_3 \to L\_1$), `Prohibition4CromwellAndEProcessSpec`, `Filter4CrossAuthorshipSpec` |
+
+Because `audit()` returns `Ok` only when all 14 rules pass, a card that passes sits at the vertex $(1, 1, 1)$ under this grouping. A different grouping is defensible (Lens 5 could equally be read on the pair $L\_2 \to L\_3$); the vertex labels below hold for any grouping that gives each layer at least one rule.
+
+| Vertex | Closed layers | Reading |
+| :---: | --- | --- |
+| $(1,1,1)$ | World, Model, Agent | A card that passes `audit()`. |
+| $(0,1,1)$ | Model, Agent | A decision rule on a formal model that ignores the selection filter $\rho\_{R,Y}$ and the true independent unit. |
+| $(1,0,1)$ | World, Agent | An audited sample and a defined action with no executable null model ($\Phi\_1$) and no calibration. |
+| $(1,1,0)$ | World, Model | Passive inference: no altered action, no threshold $p^\ast$, no exit clause ($\Phi\_4$). |
+| $(1,0,0)$ | World only | A raw data record. |
+| $(0,1,0)$ | Model only | A fit with no provenance and no loss function. |
+| $(0,0,1)$ | Agent only | A decision with neither data nor model. |
+| $(0,0,0)$ | None | Unstructured prose, the form `PROHIBITION_1` bans between modules. |
+
+The cube's vertices say *which* layers are closed; the six directed pairs of the table above say *how* a defect travels between them, and they keep their split into three implemented bridges and three reverse reading frames.
+
+**Time is not one more axis.** Three different temporal structures appear in the code, and none of them is a single scalar coordinate:
+
+1. **The bitemporal half-plane.** A `BitemporalRecord` (`crates/stochology-governance/src/clock.rs`) carries two times, $(t\_{\mathrm{ev}}, t\_{\mathrm{disp}}) \in \mathbb{N}^2$ with $t\_{\mathrm{disp}} \ge t\_{\mathrm{ev}}$, so time alone is already a two-dimensional half-plane. At decision time $\tau$, `query_with_bitemporal_clock` keeps the half-space $t\_{\mathrm{disp}} \le \tau$ and checks $I(\text{Canary}; Y) = 0$. This is a filter, not a light cone: no metric is involved ([Chapter 21](21-decision-worlds-governance.md)).
+2. **Ensemble average versus time average.** `TimeKellyDiagnostic::compute` (`crates/stochology-lenses/src/time.rs`) flags `non_ergodic_trap` when $\mu > 0$ but $g\_{\mathrm{time}} = \mu - \frac{1}{2}\sigma^2 < 0$: the ensemble grows while a single multiplicative trajectory decays to zero almost surely. The same function computes the binary-bet Kelly fraction $f^\ast = \frac{p}{a} - \frac{1-p}{b}$ from separate inputs $(p, b, a)$; it does not bound the exposure of the $(\mu, \sigma)$ process. The continuous Merton ratio $\hat{\mu}/\hat{\sigma}^2$ lives in `empirical_kelly_optimal_fraction`, and ruin at an absorbing barrier only in `simulate_absorbing_trajectories`.
+3. **Discrete iterations $t \in \mathbb{N}$.** On $L\_2 \to L\_3$, the betting martingale `EvidenceProcess` and `SaviConfidenceSequence` update step by step and stay valid at any stopping time. On $L\_3 \to L\_1$, the condition $\frac{|\varepsilon| \beta}{\gamma} < 1$ guarantees that Repeated Risk Minimization contracts to $\theta\_{\mathrm{PS}}$; whether `PerformativeSystem::perfgd_trajectory` reaches $\theta\_{\mathrm{PO}}$ depends instead on its step size $\eta$ relative to the curvature $\gamma(1 - \varepsilon)^2$. The bounded $0, 1, 0, 1, \dots$ oscillation of `simulate_rrm_oscillation` is a constructed case at radius exactly $1$ ($\varepsilon = -1$, $\beta = \gamma = 1$) with a clamp to $[0, 1]$; in this linear model a radius above $1$ diverges rather than oscillates ([Chapter 19](19-world-decisions-performativity.md)).
 
 ## 1.3 The Protocol Contract on One Page
 
@@ -136,7 +173,7 @@ flowchart TD
 
 ## Computational Audit in Rust
 
-The three clockwise bridges of the closed loop ($L\_1 \to L\_2$, $L\_2 \to L\_3$, and $L\_3 \to L\_1$) are executed in **Laboratory 1** (`cargo run --release --bin labs -- --layers`, implemented in `crates/stochology-core/src/layers.rs`), whose three output blocks are audited in detail in [Chapter 10](10-world-models-missingness-bounds.md) (Bridge $L\_1 \to L\_2$ Meng/Manski/Lee), [Chapter 15](15-decision-models-curvature-scoring.md) (Bridge $L\_2 \to L\_3$ Jensen's Gap and LOO $\mathrm{CRPS}$), and [Chapter 19](19-world-decisions-performativity.md) (Bridge $L\_3 \to L\_1$ Performative Stability vs. Stackelberg Optimality). Explore how Meng's selection correlation $\rho\_{R,Y}$ on Bridge $L\_1 \to L\_2$ and Performative Sensitivity $\varepsilon$ on Bridge $L\_3 \to L\_1$ interact in the interactive laboratory below:
+The three clockwise bridges of the closed loop ($L\_1 \to L\_2$, $L\_2 \to L\_3$, and $L\_3 \to L\_1$) are executed in **Laboratory 1** (`cargo run --release --bin labs -- --layers`, implemented in `crates/stochology-core/src/layers/`), whose three output blocks are audited in detail in [Chapter 10](10-world-models-missingness-bounds.md) (Bridge $L\_1 \to L\_2$ Meng/Manski/Lee), [Chapter 15](15-decision-models-curvature-scoring.md) (Bridge $L\_2 \to L\_3$ Jensen's Gap and LOO $\mathrm{CRPS}$), and [Chapter 19](19-world-decisions-performativity.md) (Bridge $L\_3 \to L\_1$ Performative Stability vs. Stackelberg Optimality). Explore how Meng's selection correlation $\rho\_{R,Y}$ on Bridge $L\_1 \to L\_2$ and Performative Sensitivity $\varepsilon$ on Bridge $L\_3 \to L\_1$ interact in the interactive laboratory below:
 
 <div class="stoch-lab" data-lab="meng-performativity" data-chapter="01-layers-six-pairs.html" data-title="Interactive Closed-Loop Bridges: Meng Selection Identity (L₁ → L₂) &amp; Performative Feedback (L₃ → L₁)" data-cli="cargo run --release --bin labs -- --layers"></div>
 

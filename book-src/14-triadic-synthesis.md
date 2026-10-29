@@ -81,8 +81,8 @@ Before inspecting the six bridges, notice why these three mathematical structure
    - Two-stage `BlockAMC` with 10 24-bit `HP-INV` refinements solves the $16 \times 16$ real (8x8 complex MIMO) system to **$1.53 \times 10^{-10}$**; one-shot inversion stops at $5.7 \times 10^{-2}$. The 16-tile count and the $+48.83\%$ area / $+40\%$ energy gains are informative.
    - Rank-3 hierarchical approximation of $K\_{ij} = 1/(y\_j - x\_i)$ over a near (inadmissible) and a far ($\eta = 1$ admissible) source cluster: compressing only admissible blocks gives relative Frobenius error **$9.6 \times 10^{-6}$**; compressing every block diverges ($62.0$). The closed-form storage $(2p+1)n$ ($144$ vs. $256$ at $p = 4$) is informative.
 3. **Bridge 3 ($\text{Fractals} \leftrightarrow \mathbb{R}^n$ — $G\_0$, PCM Drift, Simulated `CTRW`, & Analog ECC — `FractionalCtrwAnalogEccAudit`):**
-   - Identity: $G\_0 = \frac{2e^2}{h} = 77.48\,\mu\text{S}$ from the exact SI constants.
-   - State-aware drift compensation with $\hat{\nu}\_i$ estimated from one noisy read at $t/t\_0 = 10$ brings the PCM drift MSE at $t/t\_0 = 10^4$ from $0.359$ to **$0.0019$**.
+   - Identity: $G\_0 = \frac{2e^2}{h} = 77.48\,\mu\text{S}$ from the exact 2019 SI physical constants.
+   - State-aware drift compensation with $\hat{\nu}\_i$ estimated from one noisy read at $t/t\_0 = 10$ brings the simulated PCM drift MSE at $t/t\_0 = 10^4$ from $0.359$ to **$0.0019$** (`seed = 2026`).
    - A simulated Montroll-Weiss `CTRW` (2000 walkers, Pareto waiting times $\beta = 0.70$, Chambers-Mallows-Stuck $\alpha = 1.75$ jumps) spreads by **$2.80\times$** between $t$ and $16t$: the anomalous prediction $16^{\beta/\alpha} = 3.03$ is within $8.2\%$, the Fickian prediction $16^{1/2} = 4$ misses by $42.8\%$.
    - Residual-trimmed least squares recovers $100\%$ of 100 analog codewords corrupted by LME noise plus two unlimited-magnitude errors; plain least squares recovers $0\%$. Roth's $[10, 2]$ $m$-height profile ($h\_8 = 28.74$) and the polygonal sector $\pi/2n$ are informative.
 4. **Bridge 4 ($\text{Fractals} \leftrightarrow \text{Scaling Laws}$ — Multifractal Cascade, `PDHTE+JK`, `TailWelsch-DML`, & the $\pi^2/6$ Bound — `MultifractalPdhteRagCollapseAudit`):**
@@ -106,7 +106,7 @@ The real-data coupler approves the `vic_elec.csv` wave $R^2$, the `danish_fire.c
 
 ## Computational Audit in Rust
 
-The six-bridge Triadic Synthesis (`ComplexFractalToroidalTechniumSynthesis`) and its 5-CSV real-data coupler (`EmpiricalTriadicTechniumAudit` in `crates/stochology-lenses/src/triad.rs`) are audited in **Laboratory 3** and **Gate `G8`** (across all 20 development seeds `2026..=2045` and 200 confirmation seeds `9_000_000..=9_000_199`), while `--defect triadic_technium` runs the naive unshielded methods (`shielded = false`) and confirms that Gate `G8` halts with exit code `1`:
+The six-bridge Triadic Synthesis (`ComplexFractalToroidalTechniumSynthesis`) and its 5-CSV real-data coupler (`EmpiricalTriadicTechniumAudit` in `crates/stochology-lenses/src/triad/`) are audited in **Laboratory 3** and **Gate `G8`** (across all 20 development seeds `2026..=2045` and 200 confirmation seeds `9_000_000..=9_000_199`), while `--defect triadic_technium` runs the naive unshielded methods (`shielded = false`) and confirms that Gate `G8` halts with exit code `1`:
 
 ~~~bash
 cargo run --release --bin labs -- --lenses

@@ -14,10 +14,10 @@ pub use cybernetic_vsm_pate::{
 pub use empirical::EmpiricalStocharyCyberneticAudit;
 pub use powell_friston_pearl::{PowellFristonCausalEngineAudit, PowellPolicyClass};
 pub use supply_chain_plant::{
-    rockafellar_uryasev_cvar, StrategicStockPlantResilienceAudit, SupplyChainPhysicsAudit,
+    StrategicStockPlantResilienceAudit, SupplyChainPhysicsAudit, rockafellar_uryasev_cvar,
 };
 pub use topology_axioms::{
-    TopologyAndFourStockAxiomsAudit, CONCEPTUAL_TREE_SUBAXIS_LEAVES, REBALANCED_TREE_SUBAXIS_LEAVES,
+    CONCEPTUAL_TREE_SUBAXIS_LEAVES, REBALANCED_TREE_SUBAXIS_LEAVES, TopologyAndFourStockAxiomsAudit,
 };
 
 use crate::acceptance::{MultiSeedAcceptance, NamedCheck};

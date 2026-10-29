@@ -2,8 +2,8 @@
 //! RK4 second-order step, Peking University 24-bit `HP-INV` + `BlockAMC` RRAM solvers,
 //! `ABNAT`/`HaLoRA` attention stability, and Stanford 1D nonlinear Wave-Equation RNN propagation.
 
-use stochology_core::math::linalg::{invert_matrix, l2_norm, mat_mul};
 use stochology_core::Rng;
+use stochology_core::math::linalg::{invert_matrix, l2_norm, mat_mul};
 
 /// Single 4th-order Runge-Kutta (RK4) step for $a \ddot{y} + b \dot{y} + c y = f_{\text{ext}}$.
 pub(crate) fn rk4_second_order_step(

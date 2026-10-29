@@ -707,7 +707,7 @@ pub fn verify_registry_content(content: &str, expected: &[String]) -> Result<(),
                 return Err(format!(
                     "registry line {} is '{got}', code expects '{exp}'",
                     i + 1
-                ))
+                ));
             }
             None => return Err(format!("registry is missing '{exp}'")),
         }

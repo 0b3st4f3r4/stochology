@@ -97,7 +97,7 @@ impl NaturalFrequencyMemorandum {
 pub enum OperatingPointSource {
     /// Informative: published external validation transcribed from the literature, not computed by this code.
     Literature { source: &'static str },
-    /// Hand-set design operating point (Assumed: not measured on any dataset).
+    /// Assumed: hand-set design operating point (not measured on any dataset).
     Assumed,
 }
 
@@ -114,9 +114,9 @@ pub enum OperatingPointSource {
 /// alarm rate, generating $\ge 7.3$ false alarms per true case).
 #[derive(Debug, Clone, PartialEq)]
 pub struct AlertFatigueAudit {
-    /// Conscious executive action-selection bandwidth ceiling ($10.0\text{ bit/s}$, Zheng & Meister 2024/2025).
+    /// Informative: conscious executive action-selection bandwidth ceiling ($10.0\text{ bit/s}$, Zheng & Meister 2024/2025).
     pub conscious_bottleneck_bps: f64,
-    /// Minimum human-perceptible weight-of-evidence quantum ($1.0\text{ deciban}$, Good 1979).
+    /// Informative: minimum human-perceptible weight-of-evidence quantum ($1.0\text{ deciban}$, Good 1979).
     pub minimum_perceptible_decibans: f64,
     /// Additive Turing-Good weight of evidence $W(H:E) = 10\log_{10}(\mathrm{TPR}/\mathrm{FPR})$ in decibans.
     pub turing_weight_of_evidence_decibans: f64,
@@ -196,9 +196,10 @@ impl AlertFatigueAudit {
         self
     }
 
-    /// Canonical comparison between the failed Epic Sepsis Model (Wong et al., *JAMA Internal Medicine* 2021:
-    /// $\mathrm{AUC} = 0.63$, $\mathrm{TPR} = 0.33$, $\mathrm{PPV} = 0.12$, $18\%$ hospitalization alarm rate,
-    /// $\approx 7.33$ false alarms per true case) and a CORP-calibrated Stochological triage gate.
+    /// Informative / Assumed: canonical comparison between the failed Epic Sepsis Model (`Informative:` Wong et al.,
+    /// *JAMA Internal Medicine* 2021: $\mathrm{AUC} = 0.63$, $\mathrm{TPR} = 0.33$, $\mathrm{PPV} = 0.12$, $18\%$
+    /// hospitalization alarm rate, $\approx 7.33$ false alarms per true case) and a CORP-calibrated Stochological
+    /// triage gate (`Assumed:` $\mathrm{TPR} = 0.82$, $\mathrm{FPR} = 0.045$).
     ///
     /// The two sides are not symmetric evidence: the Epic operating point is a published external validation,
     /// whereas the Stochological operating point ($\mathrm{TPR} = 0.82$, $\mathrm{FPR} = 0.045$) is an *assumed

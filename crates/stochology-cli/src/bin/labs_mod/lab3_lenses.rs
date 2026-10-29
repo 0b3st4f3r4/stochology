@@ -7,13 +7,9 @@ use stochology_cli::{
     load_lalonde_nsw_cps, load_oot_ood_flight_reserves, load_toronto_arrests_prevalences,
     load_vic_elec_demand,
 };
-use stochology_core::{apply_cromwell_floor, mean, sample_std, OnlineMoments, Rng, DEFAULT_SEED};
+use stochology_core::{DEFAULT_SEED, OnlineMoments, Rng, apply_cromwell_floor, mean, sample_std};
 use stochology_lenses::{
-    amplitude_constrained_mi_bound, blahut_arimoto_capacity, chow_invariance_f_stat,
-    cinelli_hazlett_robustness_value, dedh_moment_tail_index, empirical_kelly_optimal_fraction,
-    expected_shortfall_99, fano_error_floor, gpd_pot_fit, hidden_confounding_threshold_lambda_star,
-    logarithmic_score, run_icp, run_nonlinear_icp_nile, AlmostPerfectMachine,
-    AnalogWaveComputingSynthesis, AuthenticModelForm, CausalEnvironment,
+    AlmostPerfectMachine, AnalogWaveComputingSynthesis, AuthenticModelForm, CausalEnvironment,
     ComplexFractalToroidalTechniumSynthesis, CorpPavDecomposition, CostLossRule,
     CoupledPublicPrivateSocietySynthesis, CriticalStochasticRationalitySynthesis, DpiMarkovChain,
     EmpiricalCoupledSocietyAudit, EmpiricalCriticalRationalityAudit,
@@ -21,6 +17,10 @@ use stochology_lenses::{
     EmpiricalTriadicTechniumAudit, EmpiricalWaveAnalogAudit, ExactCoinCalibrationBenchmark,
     HillTailDiagnostic, MixingTimeAudit, RelationalComplexSystemsSynthesis, SdpiHierarchy,
     StocharyConjecturalCyberneticSynthesis, StrategicAiAccommodationSynthesis, TimeKellyDiagnostic,
+    amplitude_constrained_mi_bound, blahut_arimoto_capacity, chow_invariance_f_stat,
+    cinelli_hazlett_robustness_value, dedh_moment_tail_index, empirical_kelly_optimal_fraction,
+    expected_shortfall_99, fano_error_floor, gpd_pot_fit, hidden_confounding_threshold_lambda_star,
+    logarithmic_score, run_icp, run_nonlinear_icp_nile,
 };
 
 /// Lab 3: The Five Transversal Lenses on Real Datasets.
@@ -208,8 +208,12 @@ pub fn lab_lenses(root: &Path) {
     let rel_syn = RelationalComplexSystemsSynthesis::evaluate_canonical(DEFAULT_SEED);
     println!(
         "  [Relational Ontology & Complex Systems] MI_rel={:.4} vs MI_iso={:.4} nats | Prigogine dS={:+.2} (turnover={:.1}%, closure={:.1}%) | Schelling(tau=0.125->{:.1}% vs tau=0.375->{:.1}%) | Daisyworld(MAE={:.2}C vs dead={:.2}C, dT/dL={:+.2}) | verified={}",
-        rel_syn.relational_figuration.relational_mutual_information_nats,
-        rel_syn.relational_figuration.isolated_svabhava_mutual_information_nats,
+        rel_syn
+            .relational_figuration
+            .relational_mutual_information_nats,
+        rel_syn
+            .relational_figuration
+            .isolated_svabhava_mutual_information_nats,
         rel_syn.dissipative_autopoiesis.net_open_entropy_change_ds,
         rel_syn.dissipative_autopoiesis.material_turnover_fraction * 100.0,
         rel_syn.dissipative_autopoiesis.autopoietic_pattern_fidelity * 100.0,
@@ -217,7 +221,9 @@ pub fn lab_lenses(root: &Path) {
         rel_syn.schelling_emergence.emergent_segregation_at_mild_tau * 100.0,
         rel_syn.daisyworld_homeostasis.homeostatic_mean_abs_error_c,
         rel_syn.daisyworld_homeostasis.lifeless_mean_abs_error_c,
-        rel_syn.daisyworld_homeostasis.coexistence_feedback_slope_dt_dl,
+        rel_syn
+            .daisyworld_homeostasis
+            .coexistence_feedback_slope_dt_dl,
         rel_syn.all_six_axes_verified
     );
 
@@ -227,22 +233,50 @@ pub fn lab_lenses(root: &Path) {
     println!(
         "  [Analog & Wave Computing] DRAM/FP32={:.0}x, collapse_var={:.2}->anchored={:.2} | RLC_iso_err={:.1e} | AIMC_sigma0.6(std={:.1}% vs NAT={:.1}%), PKU_HP_INV_err={:.2e} ({} iters, BlockAMC_err={:.2e}/{}ops, HaLoRA_drift_red={:.1}%) | SIREN_compr={:.0}x (Lap_MSE={:.1e} vs ReLU={:.1}), WaveRNN_sel={:.1}% | BrainDPI_compr={:.1e}x (ret={:.1}%) | VicElec_wave(R2={:.2}, HP_INV={:.2e}) | verified={}",
         analog_syn.von_neumann_and_collapse.dram_to_fp32_add_ratio,
-        analog_syn.von_neumann_and_collapse.unanchored_synthetic_variance_retention,
-        analog_syn.von_neumann_and_collapse.neurosymbolic_anchored_variance_retention,
+        analog_syn
+            .von_neumann_and_collapse
+            .unanchored_synthetic_variance_retention,
+        analog_syn
+            .von_neumann_and_collapse
+            .neurosymbolic_anchored_variance_retention,
         analog_syn.ode_isomorphism.max_isomorphism_discrepancy,
-        analog_syn.aimc_analog_wall_hp_inv.standard_accuracy_at_sigma_060 * 100.0,
+        analog_syn
+            .aimc_analog_wall_hp_inv
+            .standard_accuracy_at_sigma_060
+            * 100.0,
         analog_syn.aimc_analog_wall_hp_inv.nat_accuracy_at_sigma_060 * 100.0,
-        analog_syn.aimc_analog_wall_hp_inv.pku_hp_inv_final_relative_error,
-        analog_syn.aimc_analog_wall_hp_inv.pku_hp_inv_iterations_to_fp32,
-        analog_syn.aimc_analog_wall_hp_inv.pku_block_amc_relative_error,
-        analog_syn.aimc_analog_wall_hp_inv.pku_block_amc_operations_count,
-        analog_syn.aimc_analog_wall_hp_inv.abnat_halora_attention_drift_reduction * 100.0,
-        analog_syn.wave_interference.phase_amplitude_compression_ratio,
+        analog_syn
+            .aimc_analog_wall_hp_inv
+            .pku_hp_inv_final_relative_error,
+        analog_syn
+            .aimc_analog_wall_hp_inv
+            .pku_hp_inv_iterations_to_fp32,
+        analog_syn
+            .aimc_analog_wall_hp_inv
+            .pku_block_amc_relative_error,
+        analog_syn
+            .aimc_analog_wall_hp_inv
+            .pku_block_amc_operations_count,
+        analog_syn
+            .aimc_analog_wall_hp_inv
+            .abnat_halora_attention_drift_reduction
+            * 100.0,
+        analog_syn
+            .wave_interference
+            .phase_amplitude_compression_ratio,
         analog_syn.wave_interference.siren_helmholtz_laplacian_mse,
         analog_syn.wave_interference.relu_helmholtz_laplacian_mse,
-        analog_syn.wave_interference.wave_rnn_target_probe_selectivity * 100.0,
-        analog_syn.sensory_dpi_and_ecosystem.total_sensory_compression_ratio,
-        analog_syn.sensory_dpi_and_ecosystem.actionable_information_retention_ratio * 100.0,
+        analog_syn
+            .wave_interference
+            .wave_rnn_target_probe_selectivity
+            * 100.0,
+        analog_syn
+            .sensory_dpi_and_ecosystem
+            .total_sensory_compression_ratio,
+        analog_syn
+            .sensory_dpi_and_ecosystem
+            .actionable_information_retention_ratio
+            * 100.0,
         emp_wave.wave_explained_variance_r2,
         emp_wave.empirical_hp_inv_relative_error,
         analog_syn.all_five_axes_verified && emp_wave.empirical_wave_verified
@@ -259,30 +293,96 @@ pub fn lab_lenses(root: &Path) {
     );
     println!(
         "  [Critical Stochastic Rationality] Adorno(Delta_NonId={:+.1}, ES99_erased={:.1}%, VaR99_breach={:.1}% vs Gauss={:.1}%, KOH_err={:.3}, Reif_excess={:+.3}) | Marcuse/Rouvroy(Parrot_CF_MSE={:.2} vs Grounded={:.3}, NILE_ratio={:.1}x, FPR_A/B={:.2}x) | Collapse(var_ret={:.3}, KL={:.2} nats; informative 300T@{}-{}, Alia_0.6={:.0}%) | Overcoming(rule_sat={:.0}% vs {:.0}%, A-ECC={:.0}% vs raw {:.0}%, HP-INV={:.1e}, SIREN/ReLU={:.1e}/{:.0}; informative NAT={:.1}%, ACCEL={:.0} TOPS/W) | EmpRealData(Fire_erased={:.1}%, Toronto_FPR={:.2}x, Storms_ratio={:.1}x) | identities={} | verified={}",
-        crit_syn.adorno_non_identical_and_reification.non_identical_liquidation_gap,
-        crit_syn.adorno_non_identical_and_reification.es99_erasure_fraction * 100.0,
-        crit_syn.adorno_non_identical_and_reification.var99_holdout_exceedance_empirical_vs_gaussian.0 * 100.0,
-        crit_syn.adorno_non_identical_and_reification.var99_holdout_exceedance_empirical_vs_gaussian.1 * 100.0,
-        crit_syn.adorno_non_identical_and_reification.deployed_koh_extrapolation_error,
-        crit_syn.adorno_non_identical_and_reification.status_quo_reification_excess_risk,
-        crit_syn.marcuse_rouvroy_stochastic_parrot.parrot_counterfactual_intervention_mse,
-        crit_syn.marcuse_rouvroy_stochastic_parrot.causal_grounded_counterfactual_mse,
-        crit_syn.marcuse_rouvroy_stochastic_parrot.spurious_proxy_invariance_penalty_ratio,
-        crit_syn.marcuse_rouvroy_stochastic_parrot.preemptive_profiling_fpr_disparity_ratio,
-        crit_syn.material_collapse_triad.synthetic_autophagy_variance_retention,
-        crit_syn.material_collapse_triad.synthetic_autophagy_kl_divergence_nats,
-        crit_syn.material_collapse_triad.human_token_exhaustion_window_years.0,
-        crit_syn.material_collapse_triad.human_token_exhaustion_window_years.1,
-        crit_syn.material_collapse_triad.ferran_alia_threshold_cliff_curve[3] * 100.0,
-        crit_syn.dialectical_overcoming.neurosymbolic_rule_satisfaction_rate * 100.0,
-        crit_syn.dialectical_overcoming.unanchored_statistical_rule_satisfaction_rate * 100.0,
-        crit_syn.dialectical_overcoming.a_ecc_compensated_vs_raw_accuracy.0 * 100.0,
-        crit_syn.dialectical_overcoming.a_ecc_compensated_vs_raw_accuracy.1 * 100.0,
-        crit_syn.dialectical_overcoming.pku_40nm_rram_24bit_hp_inv_error,
-        crit_syn.dialectical_overcoming.siren_vs_relu_helmholtz_laplacian_mse.0,
-        crit_syn.dialectical_overcoming.siren_vs_relu_helmholtz_laplacian_mse.1,
-        crit_syn.dialectical_overcoming.nat_vs_standard_accuracy_at_sigma_060.0 * 100.0,
-        crit_syn.dialectical_overcoming.tsinghua_accel_photonic_tops_per_watt,
+        crit_syn
+            .adorno_non_identical_and_reification
+            .non_identical_liquidation_gap,
+        crit_syn
+            .adorno_non_identical_and_reification
+            .es99_erasure_fraction
+            * 100.0,
+        crit_syn
+            .adorno_non_identical_and_reification
+            .var99_holdout_exceedance_empirical_vs_gaussian
+            .0
+            * 100.0,
+        crit_syn
+            .adorno_non_identical_and_reification
+            .var99_holdout_exceedance_empirical_vs_gaussian
+            .1
+            * 100.0,
+        crit_syn
+            .adorno_non_identical_and_reification
+            .deployed_koh_extrapolation_error,
+        crit_syn
+            .adorno_non_identical_and_reification
+            .status_quo_reification_excess_risk,
+        crit_syn
+            .marcuse_rouvroy_stochastic_parrot
+            .parrot_counterfactual_intervention_mse,
+        crit_syn
+            .marcuse_rouvroy_stochastic_parrot
+            .causal_grounded_counterfactual_mse,
+        crit_syn
+            .marcuse_rouvroy_stochastic_parrot
+            .spurious_proxy_invariance_penalty_ratio,
+        crit_syn
+            .marcuse_rouvroy_stochastic_parrot
+            .preemptive_profiling_fpr_disparity_ratio,
+        crit_syn
+            .material_collapse_triad
+            .synthetic_autophagy_variance_retention,
+        crit_syn
+            .material_collapse_triad
+            .synthetic_autophagy_kl_divergence_nats,
+        crit_syn
+            .material_collapse_triad
+            .human_token_exhaustion_window_years
+            .0,
+        crit_syn
+            .material_collapse_triad
+            .human_token_exhaustion_window_years
+            .1,
+        crit_syn
+            .material_collapse_triad
+            .ferran_alia_threshold_cliff_curve[3]
+            * 100.0,
+        crit_syn
+            .dialectical_overcoming
+            .neurosymbolic_rule_satisfaction_rate
+            * 100.0,
+        crit_syn
+            .dialectical_overcoming
+            .unanchored_statistical_rule_satisfaction_rate
+            * 100.0,
+        crit_syn
+            .dialectical_overcoming
+            .a_ecc_compensated_vs_raw_accuracy
+            .0
+            * 100.0,
+        crit_syn
+            .dialectical_overcoming
+            .a_ecc_compensated_vs_raw_accuracy
+            .1
+            * 100.0,
+        crit_syn
+            .dialectical_overcoming
+            .pku_40nm_rram_24bit_hp_inv_error,
+        crit_syn
+            .dialectical_overcoming
+            .siren_vs_relu_helmholtz_laplacian_mse
+            .0,
+        crit_syn
+            .dialectical_overcoming
+            .siren_vs_relu_helmholtz_laplacian_mse
+            .1,
+        crit_syn
+            .dialectical_overcoming
+            .nat_vs_standard_accuracy_at_sigma_060
+            .0
+            * 100.0,
+        crit_syn
+            .dialectical_overcoming
+            .tsinghua_accel_photonic_tops_per_watt,
         emp_crit.danish_fire_non_identical_erasure_fraction * 100.0,
         emp_crit.toronto_arrests_preemptive_fpr_ratio,
         emp_crit.atlantic_storms_spurious_to_invariant_penalty_ratio,
@@ -306,45 +406,134 @@ pub fn lab_lenses(root: &Path) {
         stoch_syn.topology_and_stock_axioms.balance_index_j_l1,
         stoch_syn.topology_and_stock_axioms.shannon_entropy_l2_bits,
         stoch_syn.topology_and_stock_axioms.balance_index_j_l2,
-        stoch_syn.topology_and_stock_axioms.orphan_single_leaf_subbranches,
-        stoch_syn.topology_and_stock_axioms.low_pass_buffered_variance_ratio,
-        stoch_syn.topology_and_stock_axioms.unbuffered_bullwhip_amplification_ratio,
+        stoch_syn
+            .topology_and_stock_axioms
+            .orphan_single_leaf_subbranches,
+        stoch_syn
+            .topology_and_stock_axioms
+            .low_pass_buffered_variance_ratio,
+        stoch_syn
+            .topology_and_stock_axioms
+            .unbuffered_bullwhip_amplification_ratio,
         stoch_syn.topology_and_stock_axioms.peters_time_growth_rate,
-        stoch_syn.topology_and_stock_axioms.ergodic_buffered_time_growth_rate,
-        stoch_syn.topology_and_stock_axioms.buffered_convex_tail_vega,
-        stoch_syn.topology_and_stock_axioms.unbuffered_jit_concave_tail_vega,
-        stoch_syn.topology_and_stock_axioms.stock_statefulness_autocorrelation,
-        stoch_syn.powell_friston_causal_engine.powell_cfa_tuned_theta,
-        stoch_syn.powell_friston_causal_engine.powell_cfa_tuned_vs_myopic_gain,
-        stoch_syn.powell_friston_causal_engine.voi_probe_vs_act_now_loss_ambiguous.0,
-        stoch_syn.powell_friston_causal_engine.voi_probe_vs_act_now_loss_ambiguous.1,
-        stoch_syn.powell_friston_causal_engine.voi_probe_vs_act_now_loss_resolved.0,
-        stoch_syn.powell_friston_causal_engine.voi_probe_vs_act_now_loss_resolved.1,
-        stoch_syn.powell_friston_causal_engine.deployed_policy_choices_match_voi,
-        stoch_syn.powell_friston_causal_engine.pearl_front_door_identified_effect,
-        stoch_syn.powell_friston_causal_engine.pearl_transportability_error,
+        stoch_syn
+            .topology_and_stock_axioms
+            .ergodic_buffered_time_growth_rate,
+        stoch_syn
+            .topology_and_stock_axioms
+            .buffered_convex_tail_vega,
+        stoch_syn
+            .topology_and_stock_axioms
+            .unbuffered_jit_concave_tail_vega,
+        stoch_syn
+            .topology_and_stock_axioms
+            .stock_statefulness_autocorrelation,
+        stoch_syn
+            .powell_friston_causal_engine
+            .powell_cfa_tuned_theta,
+        stoch_syn
+            .powell_friston_causal_engine
+            .powell_cfa_tuned_vs_myopic_gain,
+        stoch_syn
+            .powell_friston_causal_engine
+            .voi_probe_vs_act_now_loss_ambiguous
+            .0,
+        stoch_syn
+            .powell_friston_causal_engine
+            .voi_probe_vs_act_now_loss_ambiguous
+            .1,
+        stoch_syn
+            .powell_friston_causal_engine
+            .voi_probe_vs_act_now_loss_resolved
+            .0,
+        stoch_syn
+            .powell_friston_causal_engine
+            .voi_probe_vs_act_now_loss_resolved
+            .1,
+        stoch_syn
+            .powell_friston_causal_engine
+            .deployed_policy_choices_match_voi,
+        stoch_syn
+            .powell_friston_causal_engine
+            .pearl_front_door_identified_effect,
+        stoch_syn
+            .powell_friston_causal_engine
+            .pearl_transportability_error,
         stoch_syn.strategic_stock_plant.scarf_optimal_s_and_big_s.0,
         stoch_syn.strategic_stock_plant.scarf_optimal_s_and_big_s.1,
         stoch_syn.strategic_stock_plant.simchi_levi_tts_to_ttr_ratio,
-        stoch_syn.strategic_stock_plant.simchi_levi_rei_reduction_fraction * 100.0,
-        stoch_syn.strategic_stock_plant.rockafellar_uryasev_var95_and_cvar95.1,
-        stoch_syn.strategic_stock_plant.wdro_robust_oos_disappointment,
-        stoch_syn.strategic_stock_plant.wdro_naive_oos_disappointment,
-        stoch_syn.strategic_stock_plant.supply_chain_physics.kingman_vut_buffered_vs_cliff_wait_hours.0,
-        stoch_syn.strategic_stock_plant.supply_chain_physics.kingman_formula_wait_hours.0,
-        stoch_syn.strategic_stock_plant.supply_chain_physics.kingman_vut_buffered_vs_cliff_wait_hours.1,
-        stoch_syn.strategic_stock_plant.supply_chain_physics.sterman_supply_line_oscillation_damping_ratio,
-        stoch_syn.strategic_stock_plant.supply_chain_physics.clark_scarf_graves_willems_meio_saving_fraction * 100.0,
-        stoch_syn.strategic_stock_plant.supply_chain_physics.eppen_risk_pooling_normal_vs_tail_multiplier.1,
-        stoch_syn.strategic_stock_plant.supply_chain_physics.allon_van_mieghem_tbs_cost_saving_fraction * 100.0,
-        stoch_syn.strategic_stock_plant.supply_chain_physics.ivanov_ripple_effect_viability_service_rate * 100.0,
-        stoch_syn.cybernetic_vsm_and_pate.conant_ashby_regulator_homomorphism_r2,
-        stoch_syn.cybernetic_vsm_and_pate.kahneman_judgment_noise_before_and_after.0,
-        stoch_syn.cybernetic_vsm_and_pate.kahneman_judgment_noise_before_and_after.1,
+        stoch_syn
+            .strategic_stock_plant
+            .simchi_levi_rei_reduction_fraction
+            * 100.0,
+        stoch_syn
+            .strategic_stock_plant
+            .rockafellar_uryasev_var95_and_cvar95
+            .1,
+        stoch_syn
+            .strategic_stock_plant
+            .wdro_robust_oos_disappointment,
+        stoch_syn
+            .strategic_stock_plant
+            .wdro_naive_oos_disappointment,
+        stoch_syn
+            .strategic_stock_plant
+            .supply_chain_physics
+            .kingman_vut_buffered_vs_cliff_wait_hours
+            .0,
+        stoch_syn
+            .strategic_stock_plant
+            .supply_chain_physics
+            .kingman_formula_wait_hours
+            .0,
+        stoch_syn
+            .strategic_stock_plant
+            .supply_chain_physics
+            .kingman_vut_buffered_vs_cliff_wait_hours
+            .1,
+        stoch_syn
+            .strategic_stock_plant
+            .supply_chain_physics
+            .sterman_supply_line_oscillation_damping_ratio,
+        stoch_syn
+            .strategic_stock_plant
+            .supply_chain_physics
+            .clark_scarf_graves_willems_meio_saving_fraction
+            * 100.0,
+        stoch_syn
+            .strategic_stock_plant
+            .supply_chain_physics
+            .eppen_risk_pooling_normal_vs_tail_multiplier
+            .1,
+        stoch_syn
+            .strategic_stock_plant
+            .supply_chain_physics
+            .allon_van_mieghem_tbs_cost_saving_fraction
+            * 100.0,
+        stoch_syn
+            .strategic_stock_plant
+            .supply_chain_physics
+            .ivanov_ripple_effect_viability_service_rate
+            * 100.0,
+        stoch_syn
+            .cybernetic_vsm_and_pate
+            .conant_ashby_regulator_homomorphism_r2,
+        stoch_syn
+            .cybernetic_vsm_and_pate
+            .kahneman_judgment_noise_before_and_after
+            .0,
+        stoch_syn
+            .cybernetic_vsm_and_pate
+            .kahneman_judgment_noise_before_and_after
+            .1,
         stoch_syn.cybernetic_vsm_and_pate.plat_spearman_and_ks.0,
         stoch_syn.cybernetic_vsm_and_pate.plat_spearman_and_ks.1,
-        stoch_syn.cybernetic_vsm_and_pate.algedonic_not_measured_not_executed_enforced,
-        stoch_syn.cybernetic_vsm_and_pate.pate_q3_jackpot_algedonic_alarm_triggered,
+        stoch_syn
+            .cybernetic_vsm_and_pate
+            .algedonic_not_measured_not_executed_enforced,
+        stoch_syn
+            .cybernetic_vsm_and_pate
+            .pate_q3_jackpot_algedonic_alarm_triggered,
         emp_stoch.bank_calls_low_pass_variance_ratio,
         emp_stoch.danish_fire_naive_vs_wdro_disappointment.1,
         emp_stoch.vic_elec_reserve_excursion_coverage.0,
@@ -365,48 +554,162 @@ pub fn lab_lenses(root: &Path) {
     );
     println!(
         "  [Triadic (C x Fractals x T^d) & Technium Synthesis] Axis1_C(Gabor_res={:.1e} vs tanh={:.3}, LSSA_freq_err={:.1e}, Adjoint_err={:.2e}) | Axis2_Iso(C4x4->R8x8={:.2e}, BlockAMC_16x16={:.2e}, HMatrix_admissible={:.1e} vs naive={:.1}) | Axis3_Frac(G0={:.2}uS, PCM_drift_MSE={:.4} vs {:.3}, CTRW_ratio_sim={:.2} vs 16^(b/a)={:.2}/Fick={:.1}, ECC_trimmed={:.0}% vs plain={:.0}%) | Axis4_Tail(cascade_d2tau={:.3} vs theory={:.3}, PDHTE_xi={:.3}/DEdH={:.3}, Welsch_RMSE={:.3} vs OLS={:.3}, Basel_G8={:.4}<pi2/6) | Axis5_Torus(Weyl_D*={:.4} vs rational={:.3}, mixGamma_tr>={}, HM_DFM_err={:.4} vs RFF={:.4}, KL MLLS={:.1e}/BBSE={:.1e}/CC={:.1e}) | Axis6_SNA_Technium(Pi={:.2}, SNA_lyap={:.3}/mu={:.2}/sync={:.1e}, RLHF_flips={}/rho_tau1={:.3}, PerfGD/RRM->theta_PO={:.4}/{:.4}, FHRR_cos={:.2}, LTC_max={:.2} vs Euler={:.1e}) | Emp5CSVs(Fire_xi_JK={:.3}, Storms_q_DFM={:.3} vs realized={:.3}, DJIA_d2tau={:+.3}) | identities={} | discarded={:?} | verified={}",
-        triad_syn.complex_wave_gabor_helmholtz.wire_complex_gabor_helmholtz_residual_mse,
-        triad_syn.complex_wave_gabor_helmholtz.tanh_mlp_helmholtz_residual_mse,
-        triad_syn.complex_wave_gabor_helmholtz.lssa_learned_frequency_relative_error,
-        triad_syn.complex_wave_gabor_helmholtz.hughes_adjoint_in_situ_gradient_max_error,
-        triad_syn.complex_real_isomorphism_hmatrix.complex_4x4_to_real_8x8_inversion_discrepancy,
-        triad_syn.complex_real_isomorphism_hmatrix.two_stage_block_amc_16x16_relative_error,
-        triad_syn.complex_real_isomorphism_hmatrix.hmatrix_admissible_vs_naive_relative_error.0,
-        triad_syn.complex_real_isomorphism_hmatrix.hmatrix_admissible_vs_naive_relative_error.1,
-        triad_syn.fractional_ctrw_analog_ecc.atomic_conductance_quantum_g0_microsiemens,
-        triad_syn.fractional_ctrw_analog_ecc.pcm_uncompensated_vs_compensated_drift_mse.1,
-        triad_syn.fractional_ctrw_analog_ecc.pcm_uncompensated_vs_compensated_drift_mse.0,
-        triad_syn.fractional_ctrw_analog_ecc.ctrw_simulated_vs_anomalous_vs_fickian_spread_ratio.0,
-        triad_syn.fractional_ctrw_analog_ecc.ctrw_simulated_vs_anomalous_vs_fickian_spread_ratio.1,
-        triad_syn.fractional_ctrw_analog_ecc.ctrw_simulated_vs_anomalous_vs_fickian_spread_ratio.2,
-        triad_syn.fractional_ctrw_analog_ecc.analog_ecc_trimmed_vs_plain_ls_recovery.0 * 100.0,
-        triad_syn.fractional_ctrw_analog_ecc.analog_ecc_trimmed_vs_plain_ls_recovery.1 * 100.0,
-        triad_syn.multifractal_pdhte_rag_collapse.mmar_multifractal_concavity_curvature,
-        triad_syn.multifractal_pdhte_rag_collapse.mmar_theoretical_curvature,
-        triad_syn.multifractal_pdhte_rag_collapse.pdhte_jk_bias_reduced_xi_vs_naive.0,
-        triad_syn.multifractal_pdhte_rag_collapse.pdhte_jk_bias_reduced_xi_vs_naive.1,
-        triad_syn.multifractal_pdhte_rag_collapse.tail_welsch_vs_ols_ate_rmse.0,
-        triad_syn.multifractal_pdhte_rag_collapse.tail_welsch_vs_ols_ate_rmse.1,
-        triad_syn.multifractal_pdhte_rag_collapse.bipartite_scaling_accumulate_vs_replace_g8.0,
-        triad_syn.weyl_torus_hermite_mehler_dfm.golden_weyl_vs_rational_discrepancy.0,
-        triad_syn.weyl_torus_hermite_mehler_dfm.golden_weyl_vs_rational_discrepancy.1,
-        triad_syn.weyl_torus_hermite_mehler_dfm.mixgamma_min_transition_bits,
-        triad_syn.weyl_torus_hermite_mehler_dfm.dfm_hermite_vs_rff_l2_error.0,
-        triad_syn.weyl_torus_hermite_mehler_dfm.dfm_hermite_vs_rff_l2_error.1,
-        triad_syn.weyl_torus_hermite_mehler_dfm.mlls_bcts_vs_bbse_kl_divergence.0,
-        triad_syn.weyl_torus_hermite_mehler_dfm.mlls_bcts_vs_bbse_kl_divergence.1,
-        triad_syn.weyl_torus_hermite_mehler_dfm.classify_and_count_kl_divergence,
-        triad_syn.sna_rlhf_fhrr_cohomology_technium.schnakenberg_cycle_entropy_production_pi,
-        triad_syn.sna_rlhf_fhrr_cohomology_technium.sna_fractal_exponent_and_negative_lyapunov.1,
-        triad_syn.sna_rlhf_fhrr_cohomology_technium.sna_fractal_exponent_and_negative_lyapunov.0,
-        triad_syn.sna_rlhf_fhrr_cohomology_technium.sna_orbital_synchronization_error,
-        triad_syn.sna_rlhf_fhrr_cohomology_technium.rlhf_delay0_damped_sign_flips,
-        triad_syn.sna_rlhf_fhrr_cohomology_technium.rlhf_delay0_vs_delayed_spectral_radius.1,
-        triad_syn.sna_rlhf_fhrr_cohomology_technium.izzo_rrm_vs_perfgd_ratio_to_opt.1,
-        triad_syn.sna_rlhf_fhrr_cohomology_technium.izzo_rrm_vs_perfgd_ratio_to_opt.0,
-        triad_syn.sna_rlhf_fhrr_cohomology_technium.fhrr_phasor_exact_and_bundled_unbinding_cosine.1,
-        triad_syn.sna_rlhf_fhrr_cohomology_technium.ltc_fused_solver_max_state_vs_euler.0,
-        triad_syn.sna_rlhf_fhrr_cohomology_technium.ltc_fused_solver_max_state_vs_euler.1,
+        triad_syn
+            .complex_wave_gabor_helmholtz
+            .wire_complex_gabor_helmholtz_residual_mse,
+        triad_syn
+            .complex_wave_gabor_helmholtz
+            .tanh_mlp_helmholtz_residual_mse,
+        triad_syn
+            .complex_wave_gabor_helmholtz
+            .lssa_learned_frequency_relative_error,
+        triad_syn
+            .complex_wave_gabor_helmholtz
+            .hughes_adjoint_in_situ_gradient_max_error,
+        triad_syn
+            .complex_real_isomorphism_hmatrix
+            .complex_4x4_to_real_8x8_inversion_discrepancy,
+        triad_syn
+            .complex_real_isomorphism_hmatrix
+            .two_stage_block_amc_16x16_relative_error,
+        triad_syn
+            .complex_real_isomorphism_hmatrix
+            .hmatrix_admissible_vs_naive_relative_error
+            .0,
+        triad_syn
+            .complex_real_isomorphism_hmatrix
+            .hmatrix_admissible_vs_naive_relative_error
+            .1,
+        triad_syn
+            .fractional_ctrw_analog_ecc
+            .atomic_conductance_quantum_g0_microsiemens,
+        triad_syn
+            .fractional_ctrw_analog_ecc
+            .pcm_uncompensated_vs_compensated_drift_mse
+            .1,
+        triad_syn
+            .fractional_ctrw_analog_ecc
+            .pcm_uncompensated_vs_compensated_drift_mse
+            .0,
+        triad_syn
+            .fractional_ctrw_analog_ecc
+            .ctrw_simulated_vs_anomalous_vs_fickian_spread_ratio
+            .0,
+        triad_syn
+            .fractional_ctrw_analog_ecc
+            .ctrw_simulated_vs_anomalous_vs_fickian_spread_ratio
+            .1,
+        triad_syn
+            .fractional_ctrw_analog_ecc
+            .ctrw_simulated_vs_anomalous_vs_fickian_spread_ratio
+            .2,
+        triad_syn
+            .fractional_ctrw_analog_ecc
+            .analog_ecc_trimmed_vs_plain_ls_recovery
+            .0
+            * 100.0,
+        triad_syn
+            .fractional_ctrw_analog_ecc
+            .analog_ecc_trimmed_vs_plain_ls_recovery
+            .1
+            * 100.0,
+        triad_syn
+            .multifractal_pdhte_rag_collapse
+            .mmar_multifractal_concavity_curvature,
+        triad_syn
+            .multifractal_pdhte_rag_collapse
+            .mmar_theoretical_curvature,
+        triad_syn
+            .multifractal_pdhte_rag_collapse
+            .pdhte_jk_bias_reduced_xi_vs_naive
+            .0,
+        triad_syn
+            .multifractal_pdhte_rag_collapse
+            .pdhte_jk_bias_reduced_xi_vs_naive
+            .1,
+        triad_syn
+            .multifractal_pdhte_rag_collapse
+            .tail_welsch_vs_ols_ate_rmse
+            .0,
+        triad_syn
+            .multifractal_pdhte_rag_collapse
+            .tail_welsch_vs_ols_ate_rmse
+            .1,
+        triad_syn
+            .multifractal_pdhte_rag_collapse
+            .bipartite_scaling_accumulate_vs_replace_g8
+            .0,
+        triad_syn
+            .weyl_torus_hermite_mehler_dfm
+            .golden_weyl_vs_rational_discrepancy
+            .0,
+        triad_syn
+            .weyl_torus_hermite_mehler_dfm
+            .golden_weyl_vs_rational_discrepancy
+            .1,
+        triad_syn
+            .weyl_torus_hermite_mehler_dfm
+            .mixgamma_min_transition_bits,
+        triad_syn
+            .weyl_torus_hermite_mehler_dfm
+            .dfm_hermite_vs_rff_l2_error
+            .0,
+        triad_syn
+            .weyl_torus_hermite_mehler_dfm
+            .dfm_hermite_vs_rff_l2_error
+            .1,
+        triad_syn
+            .weyl_torus_hermite_mehler_dfm
+            .mlls_bcts_vs_bbse_kl_divergence
+            .0,
+        triad_syn
+            .weyl_torus_hermite_mehler_dfm
+            .mlls_bcts_vs_bbse_kl_divergence
+            .1,
+        triad_syn
+            .weyl_torus_hermite_mehler_dfm
+            .classify_and_count_kl_divergence,
+        triad_syn
+            .sna_rlhf_fhrr_cohomology_technium
+            .schnakenberg_cycle_entropy_production_pi,
+        triad_syn
+            .sna_rlhf_fhrr_cohomology_technium
+            .sna_fractal_exponent_and_negative_lyapunov
+            .1,
+        triad_syn
+            .sna_rlhf_fhrr_cohomology_technium
+            .sna_fractal_exponent_and_negative_lyapunov
+            .0,
+        triad_syn
+            .sna_rlhf_fhrr_cohomology_technium
+            .sna_orbital_synchronization_error,
+        triad_syn
+            .sna_rlhf_fhrr_cohomology_technium
+            .rlhf_delay0_damped_sign_flips,
+        triad_syn
+            .sna_rlhf_fhrr_cohomology_technium
+            .rlhf_delay0_vs_delayed_spectral_radius
+            .1,
+        triad_syn
+            .sna_rlhf_fhrr_cohomology_technium
+            .izzo_rrm_vs_perfgd_ratio_to_opt
+            .1,
+        triad_syn
+            .sna_rlhf_fhrr_cohomology_technium
+            .izzo_rrm_vs_perfgd_ratio_to_opt
+            .0,
+        triad_syn
+            .sna_rlhf_fhrr_cohomology_technium
+            .fhrr_phasor_exact_and_bundled_unbinding_cosine
+            .1,
+        triad_syn
+            .sna_rlhf_fhrr_cohomology_technium
+            .ltc_fused_solver_max_state_vs_euler
+            .0,
+        triad_syn
+            .sna_rlhf_fhrr_cohomology_technium
+            .ltc_fused_solver_max_state_vs_euler
+            .1,
         emp_triad.danish_fire_pdhte_jk_xi_and_plateau_cv.0,
         emp_triad.atlantic_storms_out_of_time_dfm_prior.1,
         emp_triad.atlantic_storms_out_of_time_dfm_prior.2,
@@ -438,41 +741,133 @@ pub fn lab_lenses(root: &Path) {
     );
     println!(
         "  [Strategic AI Six-Pair Accommodation Synthesis] Axis1_Minsky(Walsh_corr={:.1e}, Conn_acc={:.2} vs {:.2}, SoM_Brier={:.3} vs {:.3}) | Axis2_CausalXAI_MI_DoE(SHAP_do_MSE={:.3} vs {:.2}, Rubin_MI_var_ret={:.2}, Clustered_Power={:.2}, GP_EI_ratio={:.1}) | Axis3_GenAI_RAG_Judge(RAG_MI={:.3} nats, PPI_err={:.3} vs bias={:.3}, FinOps_cost={:.2} vs {:.2}, INT4_ES99_ret={:.2} vs {:.2}) | Axis4_Networks(Fiedler_l2={:.3}, Hub_survival={:.2} vs {:.2}, Centola_adopt={:.2} vs {:.2}) | Axis5_MCDM_AIAct_PKM(AHP_val={:.2} vs {:.2}, ICE_bias={:+.1}, AIAct_LGPD={}, PKM_audit={}) | Axis6_Kalman_MPC(Huber_RMSE={:.3} vs L2={:.2}, Tube_MPC_surv={:.2} vs CE={:.2}) | Emp6CSVs(Storms_SHAP_p0={:.2}, Bank_MDE_ratio={:.2}x, Fire_ES99_prot={:.2} vs clip={:.2}, Vic_Huber_RMSE={:.1} vs L2={:.1}) | identities={} | discarded={:?} | verified={}",
-        strat_syn.minsky_papert_society_of_mind.parity_lower_order_walsh_max_correlation,
-        strat_syn.minsky_papert_society_of_mind.diameter_limited_vs_global_connectivity_accuracy.1,
-        strat_syn.minsky_papert_society_of_mind.diameter_limited_vs_global_connectivity_accuracy.0,
-        strat_syn.minsky_papert_society_of_mind.homogeneous_vs_society_of_mind_brier.1,
-        strat_syn.minsky_papert_society_of_mind.homogeneous_vs_society_of_mind_brier.0,
-        strat_syn.shapley_rubin_mi_doe.shapley_audit.observational_vs_interventional_do_mse.1,
-        strat_syn.shapley_rubin_mi_doe.shapley_audit.observational_vs_interventional_do_mse.0,
-        strat_syn.shapley_rubin_mi_doe.deployed_imputation_variance_retention,
+        strat_syn
+            .minsky_papert_society_of_mind
+            .parity_lower_order_walsh_max_correlation,
+        strat_syn
+            .minsky_papert_society_of_mind
+            .diameter_limited_vs_global_connectivity_accuracy
+            .1,
+        strat_syn
+            .minsky_papert_society_of_mind
+            .diameter_limited_vs_global_connectivity_accuracy
+            .0,
+        strat_syn
+            .minsky_papert_society_of_mind
+            .homogeneous_vs_society_of_mind_brier
+            .1,
+        strat_syn
+            .minsky_papert_society_of_mind
+            .homogeneous_vs_society_of_mind_brier
+            .0,
+        strat_syn
+            .shapley_rubin_mi_doe
+            .shapley_audit
+            .observational_vs_interventional_do_mse
+            .1,
+        strat_syn
+            .shapley_rubin_mi_doe
+            .shapley_audit
+            .observational_vs_interventional_do_mse
+            .0,
+        strat_syn
+            .shapley_rubin_mi_doe
+            .deployed_imputation_variance_retention,
         strat_syn.shapley_rubin_mi_doe.deployed_clustered_doe_power,
-        strat_syn.shapley_rubin_mi_doe.gp_expected_improvement_exploratory_to_anchored_ratio,
-        strat_syn.generative_rag_llm_judge_compression.deployed_rag_end_to_end_mi_nats,
-        strat_syn.generative_rag_llm_judge_compression.deployed_llm_judge_abs_error,
-        strat_syn.generative_rag_llm_judge_compression.llm_judge_ppi.estimated_judge_bias,
-        strat_syn.generative_rag_llm_judge_compression.finops_cascade_vs_naive_local_cost_per_unit.0,
-        strat_syn.generative_rag_llm_judge_compression.finops_cascade_vs_naive_local_cost_per_unit.1,
-        strat_syn.generative_rag_llm_judge_compression.quantization_outlier_protected_vs_naive_es99_retention.0,
-        strat_syn.generative_rag_llm_judge_compression.quantization_outlier_protected_vs_naive_es99_retention.1,
-        strat_syn.complex_network_hub_contagion.fiedler_algebraic_connectivity_lambda2,
-        strat_syn.complex_network_hub_contagion.buffered_vs_unbuffered_airspace_survival.0,
-        strat_syn.complex_network_hub_contagion.buffered_vs_unbuffered_airspace_survival.1,
-        strat_syn.complex_network_hub_contagion.centola_clustered_vs_random_adoption.0,
-        strat_syn.complex_network_hub_contagion.centola_clustered_vs_random_adoption.1,
-        strat_syn.multi_criteria_ahp_regulatory_pkm.ideal_mode_vs_naive_ahp_realized_value.0,
-        strat_syn.multi_criteria_ahp_regulatory_pkm.ideal_mode_vs_naive_ahp_realized_value.1,
-        strat_syn.multi_criteria_ahp_regulatory_pkm.ahp_ice_audit.ice_product_of_means_overestimation_bias,
-        strat_syn.multi_criteria_ahp_regulatory_pkm.deployed_statutory_compliance_approved,
-        strat_syn.multi_criteria_ahp_regulatory_pkm.deployed_pkm_provenance_clean,
-        strat_syn.robust_kalman_closed_loop_control.kalman_control.l2_kalman_vs_huber_kalman_rmse.1,
-        strat_syn.robust_kalman_closed_loop_control.kalman_control.l2_kalman_vs_huber_kalman_rmse.0,
-        strat_syn.robust_kalman_closed_loop_control.kalman_control.certainty_equivalent_vs_tube_mpc_survival.1,
-        strat_syn.robust_kalman_closed_loop_control.kalman_control.certainty_equivalent_vs_tube_mpc_survival.0,
+        strat_syn
+            .shapley_rubin_mi_doe
+            .gp_expected_improvement_exploratory_to_anchored_ratio,
+        strat_syn
+            .generative_rag_llm_judge_compression
+            .deployed_rag_end_to_end_mi_nats,
+        strat_syn
+            .generative_rag_llm_judge_compression
+            .deployed_llm_judge_abs_error,
+        strat_syn
+            .generative_rag_llm_judge_compression
+            .llm_judge_ppi
+            .estimated_judge_bias,
+        strat_syn
+            .generative_rag_llm_judge_compression
+            .finops_cascade_vs_naive_local_cost_per_unit
+            .0,
+        strat_syn
+            .generative_rag_llm_judge_compression
+            .finops_cascade_vs_naive_local_cost_per_unit
+            .1,
+        strat_syn
+            .generative_rag_llm_judge_compression
+            .quantization_outlier_protected_vs_naive_es99_retention
+            .0,
+        strat_syn
+            .generative_rag_llm_judge_compression
+            .quantization_outlier_protected_vs_naive_es99_retention
+            .1,
+        strat_syn
+            .complex_network_hub_contagion
+            .fiedler_algebraic_connectivity_lambda2,
+        strat_syn
+            .complex_network_hub_contagion
+            .buffered_vs_unbuffered_airspace_survival
+            .0,
+        strat_syn
+            .complex_network_hub_contagion
+            .buffered_vs_unbuffered_airspace_survival
+            .1,
+        strat_syn
+            .complex_network_hub_contagion
+            .centola_clustered_vs_random_adoption
+            .0,
+        strat_syn
+            .complex_network_hub_contagion
+            .centola_clustered_vs_random_adoption
+            .1,
+        strat_syn
+            .multi_criteria_ahp_regulatory_pkm
+            .ideal_mode_vs_naive_ahp_realized_value
+            .0,
+        strat_syn
+            .multi_criteria_ahp_regulatory_pkm
+            .ideal_mode_vs_naive_ahp_realized_value
+            .1,
+        strat_syn
+            .multi_criteria_ahp_regulatory_pkm
+            .ahp_ice_audit
+            .ice_product_of_means_overestimation_bias,
+        strat_syn
+            .multi_criteria_ahp_regulatory_pkm
+            .deployed_statutory_compliance_approved,
+        strat_syn
+            .multi_criteria_ahp_regulatory_pkm
+            .deployed_pkm_provenance_clean,
+        strat_syn
+            .robust_kalman_closed_loop_control
+            .kalman_control
+            .l2_kalman_vs_huber_kalman_rmse
+            .1,
+        strat_syn
+            .robust_kalman_closed_loop_control
+            .kalman_control
+            .l2_kalman_vs_huber_kalman_rmse
+            .0,
+        strat_syn
+            .robust_kalman_closed_loop_control
+            .kalman_control
+            .certainty_equivalent_vs_tube_mpc_survival
+            .1,
+        strat_syn
+            .robust_kalman_closed_loop_control
+            .kalman_control
+            .certainty_equivalent_vs_tube_mpc_survival
+            .0,
         emp_strat.atlantic_storms_icp_shap_pressure_share,
         emp_strat.bank_calls_clustered_mde_inflation_ratio,
-        emp_strat.danish_fire_outlier_protected_vs_clipped_es99_retention.0,
-        emp_strat.danish_fire_outlier_protected_vs_clipped_es99_retention.1,
+        emp_strat
+            .danish_fire_outlier_protected_vs_clipped_es99_retention
+            .0,
+        emp_strat
+            .danish_fire_outlier_protected_vs_clipped_es99_retention
+            .1,
         emp_strat.vic_elec_huber_vs_l2_kalman_rmse.0,
         emp_strat.vic_elec_huber_vs_l2_kalman_rmse.1,
         strat_syn.all_identities_closed && emp_strat.empirical_identities_closed,
@@ -495,18 +890,40 @@ pub fn lab_lenses(root: &Path) {
     );
     println!(
         "  [Coupled Public-Private SFC Society Synthesis] H1a_SFC_Regulator(Closed_Surv={:.3} vs Naive={:.3}, Open_Surv={:.3} vs {:.3}, DiD_Surv={:+.3}, DiD_CRRA_Welfare={:+.4}, SFC_err={:.1e}, KG_err={:.1e}, Perm_Linf={:.1e}) | H1b_Bester_Credit(lambda*={:.3}, Gain_0.50={:+.3}, Gain_0.88={:+.3}) | H2_VCG_Commons(eps_same M4={:.4}->M32={:.4}, eps_disj={:.1e}, Commons_Stock={:.3} vs Rebate={:.3}, E_60={:.1}) | EmpCPS(m_tilde={:.2}, n_eff={:.1}, Meng_n_eff={:.1}, Manski_W={:.1}, CRRA_DJ={:+.4}, Card_OK={}) | identities={} | discarded={:?} | verified={}",
-        soc_syn.h1a_regulator_coupling.shielded_closed_loop.terminal_firm_survival_rate,
-        soc_syn.h1a_regulator_coupling.naive_closed_loop.terminal_firm_survival_rate,
-        soc_syn.h1a_regulator_coupling.shielded_open_loop.terminal_firm_survival_rate,
-        soc_syn.h1a_regulator_coupling.naive_open_loop.terminal_firm_survival_rate,
-        soc_syn.h1a_regulator_coupling.deployed_coupling_did_firm_survival,
-        soc_syn.h1a_regulator_coupling.deployed_coupling_did_crra_welfare,
+        soc_syn
+            .h1a_regulator_coupling
+            .shielded_closed_loop
+            .terminal_firm_survival_rate,
+        soc_syn
+            .h1a_regulator_coupling
+            .naive_closed_loop
+            .terminal_firm_survival_rate,
+        soc_syn
+            .h1a_regulator_coupling
+            .shielded_open_loop
+            .terminal_firm_survival_rate,
+        soc_syn
+            .h1a_regulator_coupling
+            .naive_open_loop
+            .terminal_firm_survival_rate,
+        soc_syn
+            .h1a_regulator_coupling
+            .deployed_coupling_did_firm_survival,
+        soc_syn
+            .h1a_regulator_coupling
+            .deployed_coupling_did_crra_welfare,
         soc_syn.h1a_regulator_coupling.max_sfc_bilinear_error,
         soc_syn.h1a_regulator_coupling.max_kalecki_godley_error,
-        soc_syn.h1a_regulator_coupling.agent_order_permutation_linf_diff,
+        soc_syn
+            .h1a_regulator_coupling
+            .agent_order_permutation_linf_diff,
         soc_syn.h1b_credit_screening.analytical_lambda_star_bester,
-        soc_syn.h1b_credit_screening.deployed_survival_gain_lambda_050,
-        soc_syn.h1b_credit_screening.deployed_survival_gain_lambda_088,
+        soc_syn
+            .h1b_credit_screening
+            .deployed_survival_gain_lambda_050,
+        soc_syn
+            .h1b_credit_screening
+            .deployed_survival_gain_lambda_088,
         soc_syn.h2_vcg_commons.cohort_grid_points[0].eps_same_cohort_buffer,
         soc_syn.h2_vcg_commons.cohort_grid_points[3].eps_same_cohort_buffer,
         soc_syn.h2_vcg_commons.cohort_grid_points[3].eps_disjoint_cohort_buffer,

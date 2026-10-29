@@ -9,7 +9,7 @@ Finally, psychologist **Oskar Pfungst** ran an experiment that changed only one 
 Hans had not learned arithmetic. Instead, he watched the slight, unconscious forward lean of the questioner's posture as the hoof taps approached the expected count, along with the subtle relaxation of the questioner's eyebrows on the final tap.
 
 Modern machine learning is filled with Clever Hans horses:
-- A deep convolutional network trained to detect pneumonia on chest X-rays achieves an area under the curve ($\mathrm{AUC}$) of $0.96$ by reading the portable metal hospital token in the corner of the image rather than the lungs. When deployed at a second hospital across town, it fails.
+- As a thought experiment inspired by Zech et al. (2018), suppose a deep convolutional network trained to detect pneumonia on chest X-rays achieves an assumed area under the curve ($\mathrm{AUC}$) of $0.96$ by reading a portable metal hospital token in the corner of the image rather than the lungs. When deployed at a second hospital across town, it fails.
 - A tropical cyclone rapid-intensification model fits historical storm tracks closely by latching onto a basin-specific latitude-season correlation that shifts whenever the multi-decadal ocean oscillation flips regime.
 - An over-parameterized model uses $100$ collinear dictionary features that duplicate one another, hiding structural model error inside tweaked weights.
 
@@ -210,7 +210,7 @@ $$y(x) = \underbrace{f\_{\hat{S}^{\ast}}\bigl(x\_{\hat{S}^{\ast}}, \theta\_{\hat
    $$A(\text{model}) = c\_1(\text{Invariance of } \hat{S}^{\ast}) \land c\_2(\text{Anchored GP } \delta(x)) \land c\_3(\text{Named Discarded Atoms}) \land c\_4(\text{6 Identities Closed}) \land c\_5(\text{OOT/OOD Survival})$$
 
 5. **Causal vs. Observational Shapley XAI Attribution (`ShapleyCausalAudit`) & GP Expected Improvement (`EI`):**
-   In `crates/stochology-lenses/src/invariance.rs`, `ShapleyCausalAudit` contrasts Rung-1 observational Shapley attributions $\phi\_j^{\text{obs}}$ (computed from a single-environment OLS fit; they satisfy exact efficiency $\sum\_{j=1}^p \phi\_j = \hat{f}(x) - \mathbb{E}[\hat{f}(X)]$ to machine precision yet put causal credit on a downstream symptom $X\_2 = wY + \varepsilon\_2$) against Rung-2 **Causal / `do`-Shapley attributions** $\phi\_j^{\mathrm{do}}$ restricted to the ICP invariant parent set $\hat{S}^{\ast}$. In `ShapleyCausalRubinMiDoeAudit` (Axis 2 of the strategic synthesis taught in [Chapter 12](12-model-worlds-simulation-acceptance.md); filing it under World Models is the book's authorial mapping; simulated, `seed = 2026`, three environments of 240 units on the graph $X\_0 \to Y \to X\_2$ with a null $X\_1$), intervening on the feature ranked first by each method gives a counterfactual $\mathrm{MSE}$ of $0.000$ for `do`-Shapley versus $0.14$ for Rung-1 Shapley (`SHAP_do_MSE=0.000 vs 0.14`). The companion figure on `atlantic_storms.csv` (`Storms_SHAP_p0=1.00`, `EmpiricalStrategicAccommodationAudit`) is not an estimated attribution: nonlinear ICP/NILE on the measured storm environments only decides whether the pressure feature enters $\hat{S}^{\ast}$, after which the code assigns hard-coded coefficients $(1, 0, 0)$, so the pressure share is $1.00$ by construction. The Gaussian-process check that accompanies this axis is likewise a ratio, not an optimization run: the anchored Kennedy-O'Hagan GP has a posterior standard deviation $50.2$ times larger at an extrapolation point far from the design ($x = 2.6$) than at one next to it ($x = 0.02$) (`GP_EI_ratio=50.2`, deterministic). That ratio is the $\sigma(x)\phi(Z)$ term through which the **Expected Improvement** acquisition $\mathrm{EI}(x) = (\mu(x) - f^+)\Phi(Z) + \sigma(x)\phi(Z) \ge 0$ rewards exploration; no Bayesian-optimization loop and no grid-search comparison are run.
+   In `crates/stochology-lenses/src/invariance/`, `ShapleyCausalAudit` contrasts Rung-1 observational Shapley attributions $\phi\_j^{\text{obs}}$ (computed from a single-environment OLS fit; they satisfy exact efficiency $\sum\_{j=1}^p \phi\_j = \hat{f}(x) - \mathbb{E}[\hat{f}(X)]$ to machine precision yet put causal credit on a downstream symptom $X\_2 = wY + \varepsilon\_2$) against Rung-2 **Causal / `do`-Shapley attributions** $\phi\_j^{\mathrm{do}}$ restricted to the ICP invariant parent set $\hat{S}^{\ast}$. In `ShapleyCausalRubinMiDoeAudit` (Axis 2 of the strategic synthesis taught in [Chapter 12](12-model-worlds-simulation-acceptance.md); filing it under World Models is the book's authorial mapping; simulated, `seed = 2026`, three environments of 240 units on the graph $X\_0 \to Y \to X\_2$ with a null $X\_1$), intervening on the feature ranked first by each method gives a counterfactual $\mathrm{MSE}$ of $0.000$ for `do`-Shapley versus $0.14$ for Rung-1 Shapley (`SHAP_do_MSE=0.000 vs 0.14`). The companion figure on `atlantic_storms.csv` (`Storms_SHAP_p0=1.00`, `EmpiricalStrategicAccommodationAudit`) is not an estimated attribution: nonlinear ICP/NILE on the measured storm environments only decides whether the pressure feature enters $\hat{S}^{\ast}$, after which the code assigns hard-coded coefficients $(1, 0, 0)$, so the pressure share is $1.00$ by construction. The Gaussian-process check that accompanies this axis is likewise a ratio, not an optimization run: the anchored Kennedy-O'Hagan GP has a posterior standard deviation $50.2$ times larger at an extrapolation point far from the design ($x = 2.6$) than at one next to it ($x = 0.02$) (`GP_EI_ratio=50.2`, deterministic). That ratio is the $\sigma(x)\phi(Z)$ term through which the **Expected Improvement** acquisition $\mathrm{EI}(x) = (\mu(x) - f^+)\Phi(Z) + \sigma(x)\phi(Z) \ge 0$ rewards exploration; no Bayesian-optimization loop and no grid-search comparison are run.
 
 ```mermaid
 flowchart LR
@@ -235,15 +235,16 @@ flowchart LR
 
 Test Property `P4` (Telgarsky $2^D$ compositional efficiency), Property `P5` (Gram effective dimension $d\_{\mathrm{eff}} \ge 0.80 W$), and `AuthenticModelForm` approval in Gate `G8`:
 
-<div class="stoch-lab" data-lab="spectral-telgarsky-deff" data-chapter="11-world-models-discrepancy-authentic-form" data-title="Chapter 11 Lab: Almost-Perfect Machine M=(T,Φ,θ) &amp; Gate G8 Authenticity Audit" data-cli="cargo run --release --bin gates -- --defect machine"></div>
+<div class="stoch-lab" data-lab="spectral-telgarsky-deff" data-chapter="11-world-models-discrepancy-authentic-form.html" data-title="Chapter 11 Lab: Almost-Perfect Machine M=(T,Φ,θ) &amp; Gate G8 Authenticity Audit" data-cli="cargo run --release --bin gates -- --defect machine"></div>
 
 ---
 
 ## Computational Audit in Rust
 
-Both `AlmostPerfectMachine` and `AuthenticModelForm` are audited in `labs --lenses` and enforced as a blocking check in **Gate `G8`** (`crates/stochology-cli/src/bin/gates.rs`). Run `gates` and its negative defect proof `--defect machine` from your terminal:
+Both `AlmostPerfectMachine` and `AuthenticModelForm` are audited in `labs --lenses` and enforced as a blocking check in **Gate `G8`** (`crates/stochology-cli/src/bin/gates.rs` and `crates/stochology-cli/src/bin/gates_mod/`). Run `labs --lenses`, `gates`, and its negative defect proof `--defect machine` from your terminal:
 
 ~~~bash
+cargo run --release --bin labs -- --lenses
 cargo run --release --bin gates
 cargo run --release --bin gates -- --defect machine
 ~~~
@@ -269,7 +270,7 @@ cargo run --release --bin labs -- --uncertainty
 ~~~
 
 Walk through the Kennedy-O'Hagan laboratory experiment above (the companion Info-Gap + Sniedovich output line of Lab 2 is audited in [Chapter 20](20-decision-worlds-regime.md)):
-1. **In `[Kennedy-O'Hagan GP]`**, the true physical parameter is $\theta\_{\text{true}} = 0.800$, but the physical world includes a nonlinear structural discrepancy $\delta(x)$ absent from the bare model $\eta(x, \theta)$.
+1. **In `[Kennedy-O'Hagan GP]`** (deterministic synthetic benchmark in `KennedyOHaganDiscrepancy::canonical_benchmark()`), the true physical parameter is $\theta\_{\text{true}} = 0.800$, but the physical world includes a nonlinear structural discrepancy $\delta(x)$ absent from the bare model $\eta(x, \theta)$.
    - **Without the GP discrepancy**, ordinary least squares twists the physical parameter down to $\hat{\theta} = 0.6454$ (a parameter bias of $0.1546$) and suffers an out-of-domain extrapolation error of $0.2022$.
    - **With the anchored Kennedy-O'Hagan GP $\delta(x) \sim \mathcal{GP}(0, k)$**, the estimator recovers $\hat{\theta} = 0.7865$ (cutting parameter bias more than $11$-fold to $0.0135$), reduces extrapolation error more than $6$-fold to $0.0324$, and selects Empirical Bayes hyperparameters $(\ell^{\ast} = 3.60,\ \sigma\_\delta^{\ast} = 1.00)$ maximizing the Cholesky log marginal likelihood ($\mathrm{LML} = +27.27$).
 

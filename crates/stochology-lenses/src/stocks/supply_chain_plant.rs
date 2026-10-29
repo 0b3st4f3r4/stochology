@@ -4,7 +4,7 @@
 //! and Classical/Modern Supply-Chain Physics (`SupplyChainPhysicsAudit`).
 
 use crate::acceptance::NamedCheck;
-use stochology_core::{mean, median, quantile_sorted, sample_std, sample_variance, Rng};
+use stochology_core::{Rng, mean, median, quantile_sorted, sample_std, sample_variance};
 
 /// Classical & Modern Supply-Chain Physics Audit embedded in Axis 3:
 /// - **Little's Law (1961) & Kingman's VUT Equation (1961 / Hopp & Spearman *Factory Physics* 2011):**

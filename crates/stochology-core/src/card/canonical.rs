@@ -10,7 +10,10 @@ use super::model::{
 };
 
 impl EpistemologicalCard {
-    /// Returns a canonical, empirically grounded Epistemological Card (`data/atlantic_storms.csv`).
+    /// Returns a canonical, empirically grounded Epistemological Card (`data/atlantic_storms.csv`):
+    /// empirical header and CORP-Murphy metrics are **Measured** on `data/atlantic_storms.csv`, while
+    /// decision-rule and Info-Gap targets (`Assumed:` $C = 3\,600$, $L = 30\,000$, $\eta = 1.0 \implies p^* = 0.12000$,
+    /// $\hat{\alpha} = 3.50$, $\hat{\beta} = 1.20$) are hand-set design inputs.
     pub fn canonical_example() -> Self {
         let mut card = Self {
             id: "atlantic_storms_coastal_evacuation".into(),

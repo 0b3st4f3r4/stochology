@@ -3,7 +3,7 @@
 
 use stochology_core::{mean, sample_std, sample_variance};
 
-use super::icp::{eval_basis_model, fit_ols_multi, run_icp, CausalEnvironment};
+use super::icp::{CausalEnvironment, eval_basis_model, fit_ols_multi, run_icp};
 
 /// Output of Nonlinear Invariant Causal Prediction and Nonlinear NILE/IRM over representation $\Phi(X)$.
 #[derive(Debug, Clone, PartialEq)]

@@ -3,7 +3,7 @@
 //! Roth's `Analog ECC`, Log-Normal Multiplicative Cascade, Eichi's `PDHTE+JK` & `TailWelsch-DML`, and Dey-Donoho $\pi^2/6$ Bound.
 
 use std::f64::consts::{LN_2, PI};
-use stochology_core::rng::{median, Rng};
+use stochology_core::rng::{Rng, median};
 
 use crate::acceptance::NamedCheck;
 use crate::tail::{dedh_moment_tail_index, hill_estimator};

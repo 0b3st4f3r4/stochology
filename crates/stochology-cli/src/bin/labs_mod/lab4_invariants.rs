@@ -3,8 +3,8 @@
 use std::path::Path;
 use stochology_cli::{load_bank_call_clusters, load_toronto_arrests_prevalences};
 use stochology_core::{
-    ChouldechovaAudit, ExceedanceDesignEffect, MonteCarloSplitTreeAudit, OperationalWeightingGap,
-    DEFAULT_SEED,
+    ChouldechovaAudit, DEFAULT_SEED, ExceedanceDesignEffect, MonteCarloSplitTreeAudit,
+    OperationalWeightingGap,
 };
 
 /// Lab 4: Invariants $\Phi_1$–$\Phi_5$, Moulton-Campbell, Exceedance ICC, and Chouldechova.

@@ -35,7 +35,7 @@ This distinction separates two equilibria that are easy to conflate (Prohibition
 
 ### Step-by-Step Derivation of the Canonical Linear Benchmark
 
-Let us derive the exact gap between passive learning ($\theta\_{\mathrm{SL}}$), Performative Stability ($\theta\_{\mathrm{PS}}$), and Performative Optimality ($\theta\_{\mathrm{PO}})$ in the canonical linear-quadratic system implemented in `PerformativeSystem` (`crates/stochology-core/src/layers.rs`).
+Let us derive the exact gap between passive learning ($\theta\_{\mathrm{SL}}$), Performative Stability ($\theta\_{\mathrm{PS}}$), and Performative Optimality ($\theta\_{\mathrm{PO}})$ in the canonical linear-quadratic system implemented in `PerformativeSystem` (`crates/stochology-core/src/layers/`).
 
 Suppose that when the institution deploys decision parameter $\theta$, the outcome in the world reacts linearly with performative sensitivity $\varepsilon$:
 
@@ -79,7 +79,7 @@ In our linear-quadratic system, $\nabla\_\theta \mathrm{PR}(\theta) = \gamma(1 -
 
 ### Formal Taxonomy of the Four Variants of Goodhart's Law (`GoodhartTaxonomyAudit`)
 
-When a statistical proxy metric $M$ is promoted into an optimization target on Bridge $L\_3 \to L\_1$, *"when a measure becomes a target, it ceases to be a good measure"* (Charles Goodhart 1975; Marilyn Strathern 1997). Following **David Manheim and Scott Garrabrant (2018)**, `GoodhartTaxonomyAudit` (`crates/stochology-core/src/layers.rs`) decomposes Goodhart collapse into four distinct mathematical mechanisms (`GoodhartVariant`):
+When a statistical proxy metric $M$ is promoted into an optimization target on Bridge $L\_3 \to L\_1$, *"when a measure becomes a target, it ceases to be a good measure"* (Charles Goodhart 1975; Marilyn Strathern 1997). Following **David Manheim and Scott Garrabrant (2018)**, `GoodhartTaxonomyAudit` (`crates/stochology-core/src/layers/`) decomposes Goodhart collapse into four distinct mathematical mechanisms (`GoodhartVariant`):
 
 1. **Regressional Goodhart (`GoodhartVariant::Regressional`):** Even without strategic gaming or causal change, when $M = Y + \xi$ ($\sigma\_\xi > 0$), conditioning on an extreme proxy realization $M = m$ incurs Galtonian shrinkage $\mathbb{E}[Y \mid M = m] = \mu\_Y + \rho\_{M,Y}\frac{\sigma\_Y}{\sigma\_M}(m - \mu\_M) < m$, producing systematic post-selection disappointment ($+0.600$ at $3\sigma$ when $\rho = 0.80$).
 2. **Extremal Goodhart (`GoodhartVariant::Extremal`):** A proxy that correlates tightly with the true objective in the bulk of the distribution ($\alpha\_M = 3.2$) decouples in the tail when the true risk is heavy-tailed ($\alpha\_Y = 1.5$), creating a $q\_{99.9}$ tail gap ($+19.29$).
@@ -110,7 +110,7 @@ If $r\_{\mathrm{RRM}} \ge 1$, `PerformativeSystem` and `EpistemologicalCard::aud
 
 ## Computational Audit in Rust
 
-Run Laboratory 1 (`crates/stochology-core/src/layers.rs`) to inspect the Bridge $L\_3 \to L\_1$ performative prediction trajectory (`PerformativeSystem`) and the four-variant Goodhart audit (`GoodhartTaxonomyAudit`):
+Run Laboratory 1 (`crates/stochology-core/src/layers/`) to inspect the Bridge $L\_3 \to L\_1$ performative prediction trajectory (`PerformativeSystem`) and the four-variant Goodhart audit (`GoodhartTaxonomyAudit`):
 
 ~~~bash
 cargo run --release --bin labs -- --layers
@@ -123,7 +123,7 @@ cargo run --release --bin labs -- --layers
 
 1. **On Bridge $L\_3 \to L\_1$**, with $\mu = 1.0, \varepsilon = 0.20, \alpha = 0.50, \gamma = 1.0, \beta = 1.50$, passive learning chooses $\theta\_{\mathrm{SL}} = 1.5000$, Repeated Risk Minimization converges ($r\_{\mathrm{RRM}} = \frac{0.20 \times 1.50}{1.0} = 0.300 < 1$) to $\theta\_{\mathrm{PS}} = 1.8750$ ($\mathrm{PR} = -0.8125$), whereas Performative Gradient Descent (`PerfGD = 2.0312`) reaches the Stackelberg leader optimum $\theta\_{\mathrm{PO}} = 2.0312$ with strictly lower Performative Risk ($\mathrm{PR} = -0.8203$). When the contraction condition is violated, RRM oscillates endlessly (`[1.0, 0.0, 1.0, 0.0, 1.0]`).
 
-Use the interactive closed-loop control and network laboratory below to explore the strategic synthesis's Axes 4 and 6 (`ComplexNetworkHubContagionAudit`, `RobustKalmanClosedLoopControlAudit` in `strategic.rs`; their placement beside this chapter is an authorial reading frame): a 12-node hub-and-spoke delay cascade with and without buffer slack at the hub, Centola complex contagion on a clustered ring, a Huber-clipped Kalman filter versus a Gaussian $L\_2$ Kalman filter under simulated sensor glitches, and Tube-MPC versus certainty-equivalent MPC:
+Use the interactive closed-loop control and network laboratory below to explore the strategic synthesis's Axes 4 and 6 (`ComplexNetworkHubContagionAudit`, `RobustKalmanClosedLoopControlAudit` in `crates/stochology-lenses/src/strategic/`; their placement beside this chapter is an authorial reading frame): a 12-node hub-and-spoke delay cascade with and without assumed buffer slack at the hub, Centola complex contagion on a clustered ring (simulated, `seed = 2026`), a Huber-clipped Kalman filter versus a Gaussian $L\_2$ Kalman filter under simulated sensor glitches (simulated at `seed = 2026`, and coupled to measured `vic_elec.csv` demand with simulated glitches), and Tube-MPC versus certainty-equivalent MPC:
 
 <div class="stoch-lab" data-lab="kalman-control-hub-contagion" data-chapter="19-world-decisions-performativity.html" data-title="Chapter 19 Lab: Huber-Kalman, Tube-MPC &amp; Hub-Buffer Cascades" data-cli="cargo run --release --bin labs -- --layers"></div>
 

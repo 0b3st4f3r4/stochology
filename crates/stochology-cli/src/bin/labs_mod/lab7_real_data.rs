@@ -2,17 +2,17 @@
 
 use std::path::Path;
 use stochology_cli::{
-    load_atlantic_storms_decade_environments, load_atlantic_storms_forecasts,
-    load_bank_call_clusters, load_cards_from_disk, load_danish_fire, load_djia_returns,
-    load_lalonde_nsw_cps, load_nyc_flights_2013_2023, load_oot_ood_flight_reserves,
-    load_toronto_arrests_prevalences, load_vic_elec_demand, verify_card_against_empirical_data,
-    PublicInfrastructureCard04Audit,
+    PublicInfrastructureCard04Audit, load_atlantic_storms_decade_environments,
+    load_atlantic_storms_forecasts, load_bank_call_clusters, load_cards_from_disk,
+    load_danish_fire, load_djia_returns, load_lalonde_nsw_cps, load_nyc_flights_2013_2023,
+    load_oot_ood_flight_reserves, load_toronto_arrests_prevalences, load_vic_elec_demand,
+    verify_card_against_empirical_data,
 };
 use stochology_core::{
-    apply_cromwell_floor, mean, sample_std, ChouldechovaAudit, ExceedanceDesignEffect,
-    NonlinearSummary, PerformativeSystem,
+    ChouldechovaAudit, ExceedanceDesignEffect, NonlinearSummary, PerformativeSystem,
+    apply_cromwell_floor, mean, sample_std,
 };
-use stochology_governance::{fit_covariate_drift_extra_wcp, TemporalVault};
+use stochology_governance::{TemporalVault, fit_covariate_drift_extra_wcp};
 use stochology_lenses::{
     CorpPavDecomposition, EmpiricalCriticalRationalityAudit, EmpiricalStocharyCyberneticAudit,
     EmpiricalTriadicTechniumAudit, EmpiricalWaveAnalogAudit, HillTailDiagnostic,
@@ -21,7 +21,9 @@ use stochology_lenses::{
 
 /// Lab 7: Transversal Real-Data Synthesis Across All 13 Empirical Datasets (`data/*.csv`) and 4 Canonical Cards (`cards/*.yaml`).
 pub fn lab_real_data(root: &Path) {
-    println!("=== LAB 7: TRANSVERSAL REAL-DATA SYNTHESIS (13 EMPIRICAL DATASETS & 4 CANONICAL CARDS) ===");
+    println!(
+        "=== LAB 7: TRANSVERSAL REAL-DATA SYNTHESIS (13 EMPIRICAL DATASETS & 4 CANONICAL CARDS) ==="
+    );
 
     // 1. Public Policy, Digital Public Infrastructure & Observational Selection
     let dpi_card04 = PublicInfrastructureCard04Audit::evaluate_from_disk(root);

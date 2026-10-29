@@ -4,9 +4,9 @@ use std::path::Path;
 use stochology_cli::{load_nyc_flights_2013_2023, load_nyc_flights_cascade_2013_2023};
 use stochology_core::{hmac_sha256_hex, mean};
 use stochology_governance::{
-    estimate_label_shift_four_methods, fit_calibrated_logistic_1d, fit_covariate_drift_extra_wcp,
-    query_with_bitemporal_clock, AdaptiveConformalInference, BitemporalRecord,
-    MurphyCorpCircuitBreaker, PredeterminedChangeControlPlan, TemporalVault,
+    AdaptiveConformalInference, BitemporalRecord, MurphyCorpCircuitBreaker,
+    PredeterminedChangeControlPlan, TemporalVault, estimate_label_shift_four_methods,
+    fit_calibrated_logistic_1d, fit_covariate_drift_extra_wcp, query_with_bitemporal_clock,
 };
 
 /// Lab 6: Production Governance: Bitemporal Clock, Single-Opening Vault, and 4 Regimes of Drift.

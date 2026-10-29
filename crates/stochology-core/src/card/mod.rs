@@ -16,12 +16,12 @@ pub use model::{
     UnitAndMargin, VarianceBudget,
 };
 pub use specs::{
-    CardSpecification, Filter4CrossAuthorshipSpec, InfoGapSniedovichSpec,
-    Lens5CostLossBoundarySpec, Lens5MurphyCorpAndFindingsSpec, Phi1SimulabilitySpec,
-    Phi2IndependentUnitSpec, Phi3ProvenanceAndMissingnessSpec, Phi4ChouldechovaAndScopeSpec,
-    Phi5ResolutionSpec, Prohibition2LoneMeanSpec, Prohibition3PerformativitySpec,
-    Prohibition4CromwellAndEProcessSpec, Step2QuestionSpec, VarianceBudgetAndDominantEventSpec,
-    CANONICAL_CARD_SPECIFICATIONS,
+    CANONICAL_CARD_SPECIFICATIONS, CardSpecification, Filter4CrossAuthorshipSpec,
+    InfoGapSniedovichSpec, Lens5CostLossBoundarySpec, Lens5MurphyCorpAndFindingsSpec,
+    Phi1SimulabilitySpec, Phi2IndependentUnitSpec, Phi3ProvenanceAndMissingnessSpec,
+    Phi4ChouldechovaAndScopeSpec, Phi5ResolutionSpec, Prohibition2LoneMeanSpec,
+    Prohibition3PerformativitySpec, Prohibition4CromwellAndEProcessSpec, Step2QuestionSpec,
+    VarianceBudgetAndDominantEventSpec,
 };
 pub use value_objects::{
     ChouldechovaRatioMetrics, EProcessMetrics, MoultonClusterMetrics, NonlinearSummaryMetrics,
@@ -54,9 +54,10 @@ mod tests {
             .total_score_brier_or_crps = 0.999; // Violates Murphy-CORP
         let errs = c.audit().expect_err("must reject defective card");
         assert!(errs.iter().any(|e| e.gate_code == "PROHIBITION_4_CROMWELL"));
-        assert!(errs
-            .iter()
-            .any(|e| e.gate_code == "FILTER4_CROSS_AUTHORSHIP"));
+        assert!(
+            errs.iter()
+                .any(|e| e.gate_code == "FILTER4_CROSS_AUTHORSHIP")
+        );
         assert!(errs.iter().any(|e| e.gate_code == "LENS5_MURPHY_CORP"));
     }
 
@@ -77,15 +78,18 @@ mod tests {
 
         let errs = c.audit().expect_err("must reject numeric violations");
         assert!(errs.iter().any(|e| e.gate_code == "PHI1_SEED"));
-        assert!(errs
-            .iter()
-            .any(|e| e.gate_code == "PROHIBITION_2_LONE_MEAN"));
-        assert!(errs
-            .iter()
-            .any(|e| e.gate_code == "PROHIBITION_3_RRM_CONTRACTION"));
-        assert!(errs
-            .iter()
-            .any(|e| e.gate_code == "PROHIBITION_4_E_PROCESS"));
+        assert!(
+            errs.iter()
+                .any(|e| e.gate_code == "PROHIBITION_2_LONE_MEAN")
+        );
+        assert!(
+            errs.iter()
+                .any(|e| e.gate_code == "PROHIBITION_3_RRM_CONTRACTION")
+        );
+        assert!(
+            errs.iter()
+                .any(|e| e.gate_code == "PROHIBITION_4_E_PROCESS")
+        );
         assert!(errs.iter().any(|e| e.gate_code == "VARIANCE_BUDGET"));
     }
 

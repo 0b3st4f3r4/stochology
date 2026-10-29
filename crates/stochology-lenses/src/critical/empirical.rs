@@ -1,9 +1,9 @@
 //! Real-Data Empirical Coupler for **Critical Stochastic Rationality** (`EmpiricalCriticalRationalityAudit`).
 
 use crate::analog::EmpiricalWaveAnalogAudit;
-use crate::invariance::{run_nonlinear_icp_nile, CausalEnvironment};
-use crate::tail::{expected_shortfall_99, HillTailDiagnostic};
-use stochology_core::{mean, sample_std, ChouldechovaAudit};
+use crate::invariance::{CausalEnvironment, run_nonlinear_icp_nile};
+use crate::tail::{HillTailDiagnostic, expected_shortfall_99};
+use stochology_core::{ChouldechovaAudit, mean, sample_std};
 
 /// Real-Data Empirical Coupler for **Critical Stochastic Rationality** across `danish_fire.csv` ($n=2\text{,}167$),
 /// `toronto_arrests.csv` ($n=5\text{,}226$), `atlantic_storms.csv` ($n=20\text{,}778$), and `vic_elec.csv` ($n=52\text{,}608$).

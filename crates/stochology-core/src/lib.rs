@@ -9,38 +9,38 @@ pub mod sha256;
 pub mod uncertainty;
 
 pub use card::{
-    BridgePerformativity, CardParseError, CardSpecification, CausalLadder,
-    ChouldechovaRatioMetrics, ContractViolation, DataAndAuditContract, DecisionMakerQuestion,
-    DecisionRuleAndScope, DominantEvent, EProcessMetrics, EpistemologicalCard,
-    EpistemologicalHeader, FieldAuthorship, FindingsRegistry, InfoGapRobustness,
-    MissingnessMechanism, MoultonClusterMetrics, MurphyCorpDecomposition, NoisePhysics,
-    NonlinearSummaryMetrics, PerformativeDivergenceMetrics, RrmContractionMetrics,
-    UncertaintyBudgetAndAuthorship, UnitAndMargin, VarianceBudget, CANONICAL_CARD_SPECIFICATIONS,
+    BridgePerformativity, CANONICAL_CARD_SPECIFICATIONS, CardParseError, CardSpecification,
+    CausalLadder, ChouldechovaRatioMetrics, ContractViolation, DataAndAuditContract,
+    DecisionMakerQuestion, DecisionRuleAndScope, DominantEvent, EProcessMetrics,
+    EpistemologicalCard, EpistemologicalHeader, FieldAuthorship, FindingsRegistry,
+    InfoGapRobustness, MissingnessMechanism, MoultonClusterMetrics, MurphyCorpDecomposition,
+    NoisePhysics, NonlinearSummaryMetrics, PerformativeDivergenceMetrics, RrmContractionMetrics,
+    UncertaintyBudgetAndAuthorship, UnitAndMargin, VarianceBudget,
 };
 pub use invariants::{
-    prospective_clustered_mde, verify_resolution_phi5, ChouldechovaAudit, ExceedanceDesignEffect,
-    OperationalWeightingGap,
+    ChouldechovaAudit, ExceedanceDesignEffect, OperationalWeightingGap, prospective_clustered_mde,
+    verify_resolution_phi5,
 };
 pub use layers::{
-    apply_cromwell_floor, empirical_crps, empirical_wasserstein_1, laplace_succession,
-    respects_cromwell, ClaimProvenanceClass, DpiOperationalStage, EpistemicPkmProvenanceAudit,
-    GoodhartTaxonomyAudit, GoodhartVariant, Layer, ManskiBounds, MengAudit, NonlinearSummary,
-    PerformativeDiagnostic, PerformativeSystem, RubinMultipleImputationAudit, UncertaintyClass,
+    ClaimProvenanceClass, DpiOperationalStage, EpistemicPkmProvenanceAudit, GoodhartTaxonomyAudit,
+    GoodhartVariant, Layer, ManskiBounds, MengAudit, NonlinearSummary, PerformativeDiagnostic,
+    PerformativeSystem, RubinMultipleImputationAudit, UncertaintyClass, apply_cromwell_floor,
+    empirical_crps, empirical_wasserstein_1, laplace_succession, respects_cromwell,
 };
 pub use math::{
-    average_ranks, dot_product, empirical_wasserstein_1_grid, invert_matrix, l2_norm, mat_mul,
-    mat_vec_mul, ols_slope, pearson_correlation, solve_linear_system, spearman_rank_correlation,
-    two_sample_ks_distance, univariate_ols_fit, Complex64,
+    Complex64, average_ranks, dot_product, empirical_wasserstein_1_grid, invert_matrix, l2_norm,
+    mat_mul, mat_vec_mul, ols_slope, pearson_correlation, solve_linear_system,
+    spearman_rank_correlation, two_sample_ks_distance, univariate_ols_fit,
 };
 pub use rng::{
-    block_bootstrap_ci, mean, median, median_absolute_deviation, quantile, quantile_sorted,
-    sample_std, sample_variance, MonteCarloSplitTreeAudit, OnlineMoments, Rng, SplitMix64,
-    DEFAULT_SEED,
+    DEFAULT_SEED, MonteCarloSplitTreeAudit, OnlineMoments, Rng, SplitMix64, block_bootstrap_ci,
+    mean, median, median_absolute_deviation, quantile, quantile_sorted, sample_std,
+    sample_variance,
 };
 pub use sha256::{
     hmac_sha256_bytes, hmac_sha256_hex, is_valid_sha256_hex, sha256_bytes, sha256_hex,
 };
 pub use uncertainty::{
-    cholesky_decompose, cholesky_log_det, cholesky_solve, solve_spd_system, InfoGapEvaluation,
-    InfoGapOption, KennedyOHaganDiscrepancy,
+    InfoGapEvaluation, InfoGapOption, KennedyOHaganDiscrepancy, cholesky_decompose,
+    cholesky_log_det, cholesky_solve, solve_spd_system,
 };

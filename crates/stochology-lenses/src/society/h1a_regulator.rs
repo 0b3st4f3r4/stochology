@@ -3,12 +3,12 @@
 
 use crate::acceptance::NamedCheck;
 use crate::society::sfc_matrix::{
-    SfcCellSummary, SfcFlowMatrix, SOCIETY_BITEMPORAL_LAG_DELTA_T,
-    SOCIETY_CRITICAL_THRESHOLD_P_STAR, SOCIETY_FIRMS_N_F, SOCIETY_HORIZON_EPOCHS_T,
-    SOCIETY_HOUSEHOLDS_N_H, SOCIETY_MNAR_OBS_FRACTION, SOCIETY_PARETO_SHOCK_ALPHA,
-    SOCIETY_PARETO_SHOCK_SCALE_XM, SOCIETY_SHOCKED_FIRM_FRACTION, SOCIETY_SHOCK_EPOCH_T0,
+    SOCIETY_BITEMPORAL_LAG_DELTA_T, SOCIETY_CRITICAL_THRESHOLD_P_STAR, SOCIETY_FIRMS_N_F,
+    SOCIETY_HORIZON_EPOCHS_T, SOCIETY_HOUSEHOLDS_N_H, SOCIETY_MNAR_OBS_FRACTION,
+    SOCIETY_PARETO_SHOCK_ALPHA, SOCIETY_PARETO_SHOCK_SCALE_XM, SOCIETY_SHOCK_EPOCH_T0,
+    SOCIETY_SHOCKED_FIRM_FRACTION, SfcCellSummary, SfcFlowMatrix,
 };
-use stochology_core::{mean, InfoGapOption, ManskiBounds, NonlinearSummary, Rng};
+use stochology_core::{InfoGapOption, ManskiBounds, NonlinearSummary, Rng, mean};
 
 /// Axis H1a: Single-Factor Regulator Ablation across the $2 \times 2$ `(policy_shielded, closed_loop)` SFC design.
 #[derive(Debug, Clone, PartialEq)]

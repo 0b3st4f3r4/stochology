@@ -13,7 +13,7 @@ To address both bottlenecks, three physical and algorithmic shifts turn continuo
 - **Computing Inside Memory via Ohm and Kirchhoff (AIMC):** By storing neural weights directly as the physical electrical conductance ($G\_{ij}$) of non-volatile memory cells in a crossbar grid, voltage times conductance ($I\_{ij} = V\_i G\_{ij}$, Ohm's Law) performs multiplication and wire current summation ($I\_j = \sum\_i I\_{ij}$, Kirchhoff's Current Law) performs accumulation in a single $\mathcal{O}(1)$ physical step where the weights reside.
 - **Wave-Interference Learning:** A continuous mechanical wave on a taut rope carries spatial geometry without storing discrete pixel-by-pixel coordinates. Instead of filling memory with millions of static discrete pixels, a wave-based learning architecture encodes multidimensional signals through the **phase ($\phi$) and amplitude ($A$)** of interfering waves, computing via constructive and destructive interference.
 
-In `crates/stochology-lenses/src/analog.rs`, the Stochology Protocol formalizes this synthesis into **five executable, quantitatively audited axes** (`seed = 2026`), enforced in Lab 3 (`labs --lenses`), Lab 7 (`labs --real-data`), and Gate `G8` (`--defect analog_wall`).
+In `crates/stochology-lenses/src/analog/`, the Stochology Protocol formalizes this synthesis into **five executable, quantitatively audited axes** (`seed = 2026`), enforced in Lab 3 (`labs --lenses`), Lab 7 (`labs --real-data`), and Gate `G8` (`--defect analog_wall`).
 
 <figure class="stoch-figure">
   <svg xmlns="http://www.w3.org/2000/svg" width="1140" height="330" viewBox="0 0 1140 330" fill="none" role="img" aria-labelledby="title-fig-06-analog">
@@ -78,7 +78,7 @@ When the human token stock ($\sim 300\text{ trillion tokens}$) saturates and gen
 $$P\_{g}(x) \propto \hat{P}\_{g-1}(x)^{\gamma\_{\text{temp}}}, \qquad \gamma\_{\text{temp}} > 1$$
 
 the tails of the distribution vanish exponentially:
-- In `VonNeumannModelCollapseAudit::evaluate(2026, true)`, after $G = 8$ unanchored synthetic generations, the variance retention ratio drops to $\frac{\sigma\_G^2}{\sigma\_0^2} \approx 5.9 \times 10^{-6} < 0.25$ and the Kullback-Leibler divergence reaches $D\_{\mathrm{KL}}(P\_0 \parallel P\_G) = 8.25\text{ nats} > 0.60\text{ nats}$. These are `seed = 2026` values: across the 20 acceptance seeds the KL claim holds everywhere, but retention below $0.25$ holds on only 75% of them, so Gate `G8` reports the retention claim as discarded (Chapter 18).
+- In `VonNeumannModelCollapseAudit::evaluate(2026, true)`, after $G = 8$ unanchored synthetic generations, the variance retention ratio drops to $\frac{\sigma\_G^2}{\sigma\_0^2} \approx 5.9 \times 10^{-6} < 0.25$ and the Kullback-Leibler divergence reaches $D\_{\mathrm{KL}}(P\_0 \parallel P\_G) = 8.25\text{ nats} > 0.60\text{ nats}$. These are `seed = 2026` values: across the 20 development seeds (`2026..=2045`) and 200 confirmation seeds (`9_000_000..=9_000_199`), the KL claim holds on $100\%$ of both sets, whereas retention below $0.25$ holds on only $75\%$ of the 20 development seeds ($83.0\%$ of confirmation seeds), so Gate `G8` reports the retention claim as discarded (Chapter 18).
 - When coupled with **Gibram Raul's software remedy (Neurosymbolic Constraint Projection + Physical Anchoring)**, which enforces formal symmetry and conservation rules alongside anchored physical observations, variance retention stays at $\frac{\sigma\_G^2}{\sigma\_0^2} = 0.95 > 0.90$ and $D\_{\mathrm{KL}}(P\_0 \parallel P\_G) = 0.0015\text{ nats} < 0.02\text{ nats}$.
 
 ---
@@ -220,7 +220,7 @@ Suppose generation $g = 1$ estimates a linear parameter $\hat{\theta}\_1$ from $
 
 Simulate recursive synthetic training (`Accumulate` $\le \pi^2/6$ vs. `Replace` linear divergence) and Peking University's 24-bit `HP-INV` iterative RRAM solver in the interactive laboratory below:
 
-<div class="stoch-lab" data-lab="analog-hpinv-collapse" data-chapter="13-model-worlds-analog-wave-computing" data-title="Chapter 13 Lab: Basel π²/6 Accumulation Bound &amp; PKU 24-Bit HP-INV RRAM Solver" data-cli="cargo run --release --bin gates -- --defect replace_collapse"></div>
+<div class="stoch-lab" data-lab="analog-hpinv-collapse" data-chapter="13-model-worlds-analog-wave-computing.html" data-title="Chapter 13 Lab: Basel π²/6 Accumulation Bound &amp; PKU 24-Bit HP-INV RRAM Solver" data-cli="cargo run --release --bin gates -- --defect replace_collapse"></div>
 
 
 ---

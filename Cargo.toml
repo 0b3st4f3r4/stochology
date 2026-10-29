@@ -1,5 +1,5 @@
 [workspace]
-resolver = "2"
+resolver = "3"
 members = [
     "crates/stochology-core",
     "crates/stochology-lenses",
@@ -10,7 +10,21 @@ members = [
 
 [workspace.package]
 version = "1.0.0"
-edition = "2021"
-license = "MIT OR Apache-2.0"
-repository = "https://github.com/stochology/stochology"
+edition = "2024"
+rust-version = "1.87"
+authors = ["Silvano Neto <dev@silvanoneto.com>"]
+license = "MIT"
+repository = "https://github.com/0b3st4f3r4/stochology"
+homepage = "https://stochology.org"
+keywords = ["stochastic", "calibration", "causality", "uncertainty", "decision"]
+categories = ["science", "mathematics", "simulation", "algorithms"]
 description = "Stochology Protocol: Enriched Methodological Architecture for Judgment and Decision-Making under Uncertainty"
+
+[workspace.dependencies]
+stochology-core = { version = "1.0.0", path = "crates/stochology-core" }
+stochology-lenses = { version = "1.0.0", path = "crates/stochology-lenses" }
+stochology-siga = { version = "1.0.0", path = "crates/stochology-siga" }
+stochology-governance = { version = "1.0.0", path = "crates/stochology-governance" }
+
+[workspace.lints.rustdoc]
+broken_intra_doc_links = "allow"

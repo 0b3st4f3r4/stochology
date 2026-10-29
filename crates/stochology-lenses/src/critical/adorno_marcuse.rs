@@ -3,12 +3,12 @@
 //! - Marcuse's Operational Closure, Rouvroy's Algorithmic Preemption & "Stochastic Parrots" (`MarcuseRouvroyStochasticParrotAudit`)
 
 use crate::acceptance::NamedCheck;
-use crate::invariance::{run_nonlinear_icp_nile, CausalEnvironment};
+use crate::invariance::{CausalEnvironment, run_nonlinear_icp_nile};
 use crate::machine::AuthenticModelForm;
 use crate::tail::expected_shortfall_99;
 use stochology_core::{
-    mean, quantile, sample_std, sample_variance, ChouldechovaAudit, GoodhartTaxonomyAudit,
-    KennedyOHaganDiscrepancy, NonlinearSummary, PerformativeSystem, Rng,
+    ChouldechovaAudit, GoodhartTaxonomyAudit, KennedyOHaganDiscrepancy, NonlinearSummary,
+    PerformativeSystem, Rng, mean, quantile, sample_std, sample_variance,
 };
 
 /// Heavy-tailed draw of the Axis 1 generating process: Pareto ($\alpha = 1.65$) plus a structural singularity every 40th index.

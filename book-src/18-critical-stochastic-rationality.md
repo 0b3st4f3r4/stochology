@@ -15,7 +15,7 @@ Across the twentieth and twenty-first centuries, the **Frankfurt School of Criti
    - **Binary Abstraction and the Thermodynamic Wall:** In Horowitz's (2014) 45 nm CMOS energy table, one off-chip DRAM weight read costs $640\text{ pJ}$ versus $0.9\text{ pJ}$ per FP32 addition ($711\times$; literature constant, informative). Set side by side with it, and with no causal link computed here, are two further literature figures: individual data-center GPUs rated at $700\text{ W}$ ($>1\text{,}100\text{ W}$ cooled) and projections of global data-center demand near **$945\text{ TWh}$ by 2030**;
    - **The Return of Material Contingency ("The Analog Wall"):** When engineers move from binary determinism to Analog In-Memory Computing (AIMC) crossbars ($I\_j = \sum\_i V\_i G\_{ij}$ via Ohm's and Kirchhoff's laws), thermal and telegraph noise in physical matter triggers **Ferran Alia's (2026) threshold cliff**, dropping standard digitally trained accuracy from $\sim 98\%$ at $\sigma \le 0.10$ down to $83\%$ ($\sigma = 0.20$), $64\%$ ($\sigma = 0.40$), $39\%$ ($\sigma = 0.60$), and random guessing at $\sigma = 0.80$.
 
-In `crates/stochology-lenses/src/critical.rs`, the Stochology Protocol formalizes this synthesis into **four executable, quantitatively audited axes** (`seed = 2026`) plus a four-dataset empirical coupler (`EmpiricalCriticalRationalityAudit`), enforced in Lab 3 (`labs --lenses`), Lab 7 (`labs --real-data`), Gate `G8`, and the negative blocking proof `gates -- --defect instrumental_reason`.
+In `crates/stochology-lenses/src/critical/`, the Stochology Protocol formalizes this synthesis into **four executable, quantitatively audited axes** (`seed = 2026`) plus a four-dataset empirical coupler (`EmpiricalCriticalRationalityAudit`), enforced in Lab 3 (`labs --lenses`), Lab 7 (`labs --real-data`), Gate `G8`, and the dedicated negative blocking proof `gates -- --defect instrumental_reason` (one of the 21 defect proofs).
 
 <figure class="stoch-figure">
   <svg xmlns="http://www.w3.org/2000/svg" width="1140" height="340" viewBox="0 0 1140 340" fill="none" role="img" aria-labelledby="title-fig-07-critical">
@@ -37,13 +37,13 @@ In `crates/stochology-lenses/src/critical.rs`, the Stochology Protocol formalize
   <rect x="20" y="180" width="538" height="136" rx="11" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2"/>
   <text x="38" y="206" fill="var(--violet)" class="mono" font-size="11" font-weight="800">AXIS 3 · MATERIAL &amp; THERMODYNAMIC COLLAPSE TRIAD</text>
   <text x="38" y="232" fill="var(--ink)" font-size="15" font-weight="800">Token Exhaustion, Binary Wall &amp; Analog Noise Cliff</text>
-  <text x="38" y="258" fill="var(--muted)" class="mono" font-size="11.5">Epoch AI 300T Tokens (2026–2032) · Synthetic Autophagy σ²_G/σ²_0 ≈ 6×10⁻⁶ (KL = 8.25 nats)</text>
-  <text x="38" y="280" fill="var(--muted)" class="mono" font-size="11.5">DRAM 711× · 945 TWh (2030) · Ferran Alia Cliff: [98%, 83%, 64%, 39%, 25%]</text>
+  <text x="38" y="258" fill="var(--muted)" class="mono" font-size="11">Epoch AI 300T Tokens (lit.) · Synthetic Autophagy σ²_G/σ²_0 ≈ 6×10⁻⁶ (sim., KL = 8.25 nats)</text>
+  <text x="38" y="280" fill="var(--muted)" class="mono" font-size="11">DRAM 711× · 945 TWh (lit.) · Ferran Alia Cliff (lit., info.): [98%, 83%, 64%, 39%, 25%]</text>
   <rect x="582" y="180" width="538" height="136" rx="11" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2"/>
   <text x="600" y="206" fill="var(--emerald)" class="mono" font-size="11" font-weight="800">AXIS 4 · DIALECTICAL, NEUROSYMBOLIC &amp; WAVE OVERCOMING</text>
   <text x="600" y="232" fill="var(--ink)" font-size="15" font-weight="800">Logical Rules, Noise Coexistence &amp; Continuous Wave Physics</text>
-  <text x="600" y="258" fill="var(--muted)" class="mono" font-size="11.5">Neurosymbolic Rules: 25% → 100% (σ²_G/σ²_0 = 0.95) · NAT 63.5% · A-ECC 97.5%</text>
-  <text x="600" y="280" fill="var(--muted)" class="mono" font-size="11.5">PKU 24-bit HP-INV (sim. 8.7×10⁻¹²; lit. 7 W) · SIREN 40× · Tsinghua ACCEL 74.8 PetaOPS/W</text>
+  <text x="600" y="258" fill="var(--muted)" class="mono" font-size="11">Neurosymbolic Rules: 25% → 100% (sim., σ²_G/σ²_0 = 0.95) · NAT 63.5% (info.) · A-ECC 97.5%</text>
+  <text x="600" y="280" fill="var(--muted)" class="mono" font-size="11">PKU 24-bit HP-INV (sim. 8.7×10⁻¹²; lit. 7 W) · SIREN 40× (sim.) · ACCEL 74.8 PetaOPS/W (lit.)</text>
   </svg>
   <figcaption><strong>Figure 18.1 — The Four-Axis Synthesis of Critical Theory of Stochastic Rationality &amp; Material Overcoming (`stochology_lenses::critical`)</strong></figcaption>
 </figure>
@@ -98,16 +98,16 @@ When instrumental stochastic rationality scales brute-force statistical correlat
 When instrumental reason detaches from living experience ($L\_1$) and feeds upon its own outputs, it degenerates into tautology:
 - According to **Epoch AI** (Pablo Villalobos et al., updated November 2024), the effective global stock of quality-filtered public human text is approximately **$300\text{ trillion tokens}$** ($300\text{ biliões}$ on the long scale, with a raw upper bound of $3\text{,}100\text{ trillion}$ including unindexed data).
 - Under current scaling trajectories, LLMs will exhaust this human stock between **2026 and 2032**.
-- Training generation $g$ recursively on mode-sharpened synthetic outputs of generation $g-1$ ("AI contaminating AI") triggers **Modal and Variance Collapse**: in the simulation behind `MaterialCollapseTriadAudit`, across $G = 8$ unanchored generations, variance retention drops to **$\frac{\sigma\_G^2}{\sigma\_0^2} < 10^{-5}$** and $D\_{\mathrm{KL}}(P\_0 \parallel P\_G)$ reaches **$8.25\text{ nats}$** at this seed. Across the 20 acceptance seeds the KL claim holds everywhere, but retention below $0.25$ holds on only 75% of them, so Gate `G8` gates the KL and reports the retention claim as discarded. The entropy contrast $\Delta H = 1.20\text{ nats}$ compares $P\_0$ with a hand-specified collapsed distribution and is illustrative.
-- By **Gerstgrässer, Schaeffer, Dey, Rafailov, Koyejo & Donoho's (ICML 2024) Accumulate-vs.-Replace Theorem (`GerstgrasserAccumulateAudit` in `crates/stochology-lenses/src/analog.rs`, enforced by `--defect replace_collapse`)**, **replacing** real human data with synthetic data causes test risk to diverge linearly with generation count ($E\_n^{\mathrm{Replace}} = \frac{\sigma^2 d}{T - d - 1}\,n$), whereas **accumulating** real + constrained synthetic data bounds the excess risk uniformly across all generations by Euler's **Basel constant $\zeta(2) = \frac{\pi^2}{6} \approx 1.644934$**:
+- Training generation $g$ recursively on mode-sharpened synthetic outputs of generation $g-1$ ("AI contaminating AI") triggers **Modal and Variance Collapse**: in the simulation behind `MaterialCollapseTriadAudit`, across $G = 8$ unanchored generations, variance retention drops to **$\frac{\sigma\_G^2}{\sigma\_0^2} < 10^{-5}$** and $D\_{\mathrm{KL}}(P\_0 \parallel P\_G)$ reaches **$8.25\text{ nats}$** at this seed. Across the 20 development seeds (`2026..=2045`) and 200 confirmation seeds (`9_000_000..=9_000_199`), the KL claim holds on $100\%$ of both sets, whereas retention below $0.25$ holds on only $75\%$ of the 20 development seeds ($83.0\%$ of confirmation seeds), so Gate `G8` gates the KL and reports the retention claim as discarded. The entropy contrast $\Delta H = 1.20\text{ nats}$ compares $P\_0$ with a hand-specified collapsed distribution and is illustrative.
+- By **Gerstgrässer, Schaeffer, Dey, Rafailov, Koyejo & Donoho's (ICML 2024) Accumulate-vs.-Replace Theorem (`GerstgrasserAccumulateAudit` in `crates/stochology-lenses/src/analog/`, enforced by `--defect replace_collapse`)**, **replacing** real human data with synthetic data causes test risk to diverge linearly with generation count ($E\_n^{\mathrm{Replace}} = \frac{\sigma^2 d}{T - d - 1}\,n$), whereas **accumulating** real + constrained synthetic data bounds the excess risk uniformly across all generations by Euler's **Basel constant $\zeta(2) = \frac{\pi^2}{6} \approx 1.644934$**:
   $$E\_n^{\mathrm{Accumulate}} = \frac{\sigma^2 d}{T - d - 1}\sum\_{g=1}^n \frac{1}{g^2} \le \frac{\sigma^2 d}{T - d - 1}\frac{\pi^2}{6} \qquad \left(\text{with }\sum\_{g=1}^8 g^{-2} = 1.527422 < \frac{\pi^2}{6}\right)$$
 - The token counts, the exhaustion window, the energy figures below, and Ferran Alia's accuracy curve are transcribed from the cited sources and carried as informative values; they do not enter Gate `G8`.
 
 ### B. Binary Digital Abstraction and Thermodynamic Strangling
 
 Just as Adorno critiqued formal abstraction for discarding the qualitative continuum of reality, binary digital computing discards the continuous physical spectrum between $0$ and $1$ ($\Delta I\_{\text{bin}} = \ln(16) - \ln(2) = 2.079\text{ nats}$ per 16-level continuous channel) in exchange for deterministic noise margins:
-- To simulate continuous processes via sequential binary switches across the **von Neumann Bottleneck**, an off-chip 32-bit DRAM read consumes **$640.0\text{ pJ}$** versus **$0.9\text{ pJ}$** for an FP32 addition in $45\text{ nm}$ CMOS (**$711.11\times$ asymmetry**, Mark Horowitz ISSCC 2014).
-- A single Nvidia H100 GPU draws **$700\text{ W}$** (**$>1\text{,}100\text{ W}$** with cooling) against the **$20\text{ W}$** human brain, pushing global data-center electricity demand from $485.1\text{ TWh}$ (2025) to **$945\text{ TWh}$ by 2030** and **$1\text{,}200\text{ TWh}$ by 2035** (IEA).
+- To simulate continuous processes via sequential binary switches across the **von Neumann Bottleneck**, an off-chip 32-bit DRAM read consumes **$640.0\text{ pJ}$** versus **$0.9\text{ pJ}$** for an FP32 addition in $45\text{ nm}$ CMOS (**$711.11\times$ asymmetry**, Mark Horowitz ISSCC 2014; literature, informative).
+- A single Nvidia H100 GPU draws **$700\text{ W}$** (**$>1\text{,}100\text{ W}$** with cooling) against the **$20\text{ W}$** human brain, alongside IEA projections of global data-center electricity demand rising from $485.1\text{ TWh}$ (2025) to **$945\text{ TWh}$ by 2030** and **$1\text{,}200\text{ TWh}$ by 2035** (literature, informative; set side by side without claiming an efficiency ratio).
 
 ### C. Return of the Contingency of Matter: The Stochastic "Analog Wall" Threshold Cliff
 
@@ -132,7 +132,7 @@ To overcome both positivist tautology and the thermodynamic and noise walls, the
    - **Analog Error-Correcting Codes (`A-ECC`):** On the same simulated drifted readouts, a calibration column that compensates the power-law drift raises accuracy from **$39\%$** (raw drift) to **$100\%$**;
    - **Bit-Sliced Iterative Refinement (`HP-INV`, Zuo, Sun et al., Peking University, *Nature Electronics* Oct 2025; see Chapter 28, Section VI):** Combines a closed-loop $40\text{ nm}$ CMOS $\mathrm{TaO}\_x$ 3-bit RRAM Low-Precision Inversion circuit (`LP-INV`, $\sim 120\text{ ns}$) with bit-sliced 24-bit High-Precision Matrix-Vector Multiplication (`HP-MVM`, $\sim 60\text{ ns}$) to reach **24-bit fixed-point / FP32 precision** (relative residual error **$8.70 \times 10^{-12} < 10^{-7}$** in $7 \le 10$ iterations, against $5.3 \times 10^{-2}$ for one-shot inversion) at **$7\text{ W}$** (a reported $100\times$ lower system power than a $700\text{ W}$ Nvidia H100 and a reported $1\text{,}000\times$ speedup; literature figures, informative, not computed here).
 3. **In Representation (Continuous Physics and Wave-Interference Learning):**
-   - **Gibram Raul's Phase-and-Amplitude Wave Encoding & `SIREN` (Sitzmann et al., NeurIPS 2020):** Instead of discretizing space pixel by pixel, `SIREN` ($\phi\_i(\mathbf{x}) = \sin(\omega\_0 \mathbf{W}\_i \mathbf{x} + \mathbf{b}\_i)$, where weights are angular frequencies and biases are phase offsets) compresses a 480-pixel field by **$40\times$** ($14\times$ on real `vic_elec.csv` with $R^2 = 0.88$) and solves the 2nd-order Helmholtz wave PDE with Laplacian $\mathrm{MSE} = 1.3 \times 10^{-27}$ (versus $2\text{,}580.3$ for piecewise-linear ReLU where $\mathrm{ReLU}''(x) = 0$ a.e.), alongside exact RLC $\leftrightarrow$ Mass-Spring ODE isomorphism ($< 10^{-14}$), **Stanford's Wave-Physics Analog RNN** ($99.9\%$ interference routing selectivity), and **Tsinghua University's `ACCEL` diffractive photonic processor** (**$74.8\text{ PetaOPS/W} = 74\text{,}800\text{ TOPS/W}$** at $72\text{ ns}$ frame latency).
+   - **Gibram Raul's Phase-and-Amplitude Wave Encoding & `SIREN` (Sitzmann et al., NeurIPS 2020):** Instead of discretizing space pixel by pixel, `SIREN` ($\phi\_i(\mathbf{x}) = \sin(\omega\_0 \mathbf{W}\_i \mathbf{x} + \mathbf{b}\_i)$, where weights are angular frequencies and biases are phase offsets) compresses a 480-pixel field by **$40\times$** ($14\times$ on real `vic_elec.csv` with $R^2 = 0.88$, measured) and solves the 2nd-order Helmholtz wave PDE with Laplacian $\mathrm{MSE} = 1.3 \times 10^{-27}$ (versus $2\text{,}580.3$ for piecewise-linear ReLU where $\mathrm{ReLU}''(x) = 0$ a.e.), alongside exact RLC $\leftrightarrow$ Mass-Spring ODE isomorphism ($< 10^{-14}$), **Stanford's Wave-Physics Analog RNN** ($99.9\%$ interference routing selectivity, simulated), and **Tsinghua University's `ACCEL` diffractive photonic processor** (**$74.8\text{ PetaOPS/W} = 74\text{,}800\text{ TOPS/W}$** at $72\text{ ns}$ frame latency; literature, informative).
 
 ```mermaid
 flowchart LR
@@ -156,7 +156,7 @@ flowchart LR
 
 Explore informational autophagy (`Replace` vs. `Accumulate`) and analog noise compensation in the interactive laboratory below:
 
-<div class="stoch-lab" data-lab="analog-hpinv-collapse" data-chapter="18-critical-stochastic-rationality" data-title="Chapter 18 Lab: Informational Autophagy vs. Neurosymbolic/HP-INV Overcoming" data-cli="cargo run --release --bin gates -- --defect instrumental_reason"></div>
+<div class="stoch-lab" data-lab="analog-hpinv-collapse" data-chapter="18-critical-stochastic-rationality.html" data-title="Chapter 18 Lab: Informational Autophagy vs. Neurosymbolic/HP-INV Overcoming" data-cli="cargo run --release --bin gates -- --defect instrumental_reason"></div>
 
 
 ---
@@ -165,7 +165,7 @@ Explore informational autophagy (`Replace` vs. `Accumulate`) and analog noise co
 
 ## Running the Critical Stochastic Rationality Audit (`labs --lenses`, `labs --real-data`, and `gates`)
 
-Execute Lab 3, Lab 7, and Gate `G8` (including the negative blocking proof `--defect instrumental_reason`) from the workspace root:
+Execute Lab 3, Lab 7, and Gate `G8` (including the dedicated negative blocking proof `--defect instrumental_reason`, one of the 21 defect proofs) from the workspace root:
 
 ~~~bash
 cargo run --release --bin labs -- --lenses

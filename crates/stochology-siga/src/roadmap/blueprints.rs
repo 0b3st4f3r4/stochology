@@ -69,7 +69,7 @@ impl MultimodalCorrelatedFusionAudit {
         }
     }
 
-    /// Canonical 5-senses benchmark (text, audio, image, video, telemetry) where 4 clean sensors carry
+    /// Assumed: canonical 5-senses benchmark (text, audio, image, video, telemetry) where 4 clean sensors carry
     /// $+4.5\text{ dB}$ each, shared pre-training correlation is $\rho = 0.45$, and the 5th sensor suffers
     /// a $+35.0\text{ dB}$ adversarial/glitch spike clipped at $w_{\max} = 6.0\text{ dB}$.
     pub fn canonical_five_senses_benchmark() -> Self {
@@ -142,7 +142,7 @@ impl PreMortemCounterfactualRootCauseAudit {
         }
     }
 
-    /// Canonical Pre-Mortem & Counterfactual Root-Cause benchmark.
+    /// Assumed: canonical Pre-Mortem & Counterfactual Root-Cause benchmark.
     pub fn canonical_benchmark() -> Self {
         Self::evaluate(0.84, 0.12, 0.76, 0.14, 125_000.0, 18_500.0, 4.2)
     }

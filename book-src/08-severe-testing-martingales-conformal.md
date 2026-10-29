@@ -221,7 +221,7 @@ Why does a nonnegative test martingale $E\_t = \prod\_{i=1}^t L\_i$ ($E\_0 = 1$,
 
 Use the interactive Ville martingale vs. optional-stopping laboratory below to compare `aGRAPA`/`GRO` anytime-valid evidence $E\_t$ against the false-positive inflation of repeated $z$-test peeking:
 
-<div class="stoch-lab" data-lab="ville-savi-conformal" data-chapter="08-severe-testing-martingales-conformal" data-title="Chapter 8 Lab: Ville Martingale e-Process (E_t) vs. Optional-Stopping Peeking Inflation" data-cli="cargo run --release --bin gates -- --defect peeking"></div>
+<div class="stoch-lab" data-lab="ville-savi-conformal" data-chapter="08-severe-testing-martingales-conformal.html" data-title="Chapter 8 Lab: Ville Martingale e-Process (E_t) vs. Optional-Stopping Peeking Inflation" data-cli="cargo run --release --bin gates -- --defect peeking"></div>
 
 
 ---
@@ -229,10 +229,10 @@ Use the interactive Ville martingale vs. optional-stopping laboratory below to c
 ## Computational Audit in Rust
 
 Every method introduced in this chapter is implemented in pure Rust across the workspace:
-- **Multiplicity & *e-Processes* (`crates/stochology-core/src/card.rs`, `crates/stochology-siga/src/roadmap.rs`):** Audits `specifications_tried_k`, `e_process_trajectory`, and Ville's threshold $E\_t \ge K / \alpha$.
+- **Multiplicity & *e-Processes* (`crates/stochology-core/src/card/`, `crates/stochology-siga/src/roadmap/`):** Audits `attempt_counter_k`, `findings` (`registered`, `used`, `unused`), `e_process_multiplicity`, and Ville's threshold $E\_t / K \ge 1 / \alpha$.
 - **Cluster ICC & Moulton-Campbell (`crates/stochology-core/src/invariants.rs`):** Computes $\tilde{m}$, exceedance ICC $\rho\_I(p)$, and $n\_{\mathrm{eff}}(p)$.
-- **SBC Rank Uniformity (`crates/stochology-siga/src/funnel.rs`):** Evaluates the $\chi^2$ rank statistic in Filter 3.
-- **Weighted Conformal (`ExTRA-WCP-T`) & Label Shift (`BBSE`, `MLLS`, `DFM`, `OTTER`) (`crates/stochology-governance/src/drift.rs`):** Executes live drift adaptation and circuit breaking.
+- **SBC Rank Uniformity (`crates/stochology-siga/src/funnel/`):** Evaluates the $\chi^2$ rank statistic in Filter 3.
+- **Weighted Conformal (`ExTRA-WCP-T`) & Label Shift (`BBSE`, `MLLS`, `DFM`, `OTTER`) (`crates/stochology-governance/src/drift/`):** Executes live drift adaptation and circuit breaking.
 
 Run Labs 4, 5, and 6 to verify these mechanisms:
 

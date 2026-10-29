@@ -30,11 +30,11 @@ pub struct SchellingPhaseTransitionAudit {
     pub grid_size: usize,
     /// Initial random same-group neighbor fraction before dynamics ($\approx 0.50$).
     pub initial_similarity_fraction: f64,
-    /// Sub-critical tolerance threshold $\tau_{\text{low}}$ (e.g., $0.125 = 1/8$).
+    /// Assumed: sub-critical tolerance threshold $\tau_{\text{low}}$ ($0.125 = 1/8$).
     pub low_threshold_tau: f64,
     /// Equilibrium same-group neighbor fraction under $\tau_{\text{low}}$ (remains integrated $\approx 0.50\text{–}0.58$).
     pub integrated_similarity_at_low_tau: f64,
-    /// Mild, non-hostile tolerance threshold $\tau_{\text{mild}}$ (e.g., $0.375 = 3/8$, tolerating $62.5\%$ out-group).
+    /// Assumed: mild, non-hostile tolerance threshold $\tau_{\text{mild}}$ ($0.375 = 3/8$, tolerating $62.5\%$ out-group).
     pub mild_threshold_tau: f64,
     /// Emergent macroscopic same-group neighbor fraction under $\tau_{\text{mild}}$ ($\ge 0.78$).
     pub emergent_segregation_at_mild_tau: f64,
@@ -197,8 +197,8 @@ impl SchellingSegregationModel {
         rounds
     }
 
-    /// Audits the macroscopic phase transition between sub-critical tolerance ($\tau = 0.125$)
-    /// and mild tolerance ($\tau = 0.375$, where every agent tolerates $62.5\%$ out-group neighbors).
+    /// Assumed: audits the macroscopic phase transition between sub-critical tolerance ($\tau = 0.125$)
+    /// and mild tolerance ($\tau = 0.375$, where every agent tolerates $62.5\%$ out-group neighbors) on a $16\times 16$ grid with $15\%$ vacancies.
     pub fn audit_phase_transition(seed: u64) -> SchellingPhaseTransitionAudit {
         let grid_size = 16;
         let low_tau = 0.125;

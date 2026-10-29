@@ -7,15 +7,15 @@ pub mod ontology;
 pub mod performativity;
 pub mod provenance;
 
-pub use jensen::{empirical_crps, NonlinearSummary};
+pub use jensen::{NonlinearSummary, empirical_crps};
 pub use missingness::{ManskiBounds, MengAudit, RubinMultipleImputationAudit};
 pub use ontology::{
-    apply_cromwell_floor, laplace_succession, respects_cromwell, DpiOperationalStage, Layer,
-    UncertaintyClass,
+    DpiOperationalStage, Layer, UncertaintyClass, apply_cromwell_floor, laplace_succession,
+    respects_cromwell,
 };
 pub use performativity::{
-    empirical_wasserstein_1, GoodhartTaxonomyAudit, GoodhartVariant, PerformativeDiagnostic,
-    PerformativeSystem,
+    GoodhartTaxonomyAudit, GoodhartVariant, PerformativeDiagnostic, PerformativeSystem,
+    empirical_wasserstein_1,
 };
 pub use provenance::{ClaimProvenanceClass, EpistemicPkmProvenanceAudit};
 

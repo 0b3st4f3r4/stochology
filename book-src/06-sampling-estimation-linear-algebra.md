@@ -233,7 +233,7 @@ Two additional foundational statistical primitives in `stochology_core::rng` pro
 1. **Welford-Terriberry Single-Pass 4th-Order Moments (`OnlineMoments`):**
    Computing variance as $\frac{1}{n}\sum x\_i^2 - \bar{x}^2$ suffers catastrophic floating-point cancellation when $\bar{x}^2 \gg \sigma^2$. Instead, `OnlineMoments` updates the running mean $\bar{x}\_n$ and centered power sums $M\_{2,n}, M\_{3,n}, M\_{4,n}$ in a single $\mathcal{O}(1)$-memory pass using $\delta = x\_n - \bar{x}\_{n-1}$ and $\delta\_n = \delta / n$:
    $$M\_{2,n} = M\_{2,n-1} + \delta(\delta - \delta\_n)(n-1), \qquad \text{Skewness } \hat{\gamma}\_1 = \frac{\sqrt{n}\,M\_3}{M\_2^{3/2}}, \qquad \text{Excess Kurtosis } \hat{\gamma}\_2 = \frac{n M\_4}{M\_2^2} - 3$$
-   From these moments, the **Jarque-Bera normality test statistic** $\mathrm{JB} = \frac{n}{6}\left(\hat{\gamma}\_1^2 + \frac{1}{4}\hat{\gamma}\_2^2\right)$ audits whether Gaussian tail assumptions are falsified (on `djia_1885_2023.csv`, $\hat{\gamma}\_2 = 17.8$ and $\mathrm{JB} = 502\text{,}551$).
+   From these moments, the **Jarque-Bera normality test statistic** $\mathrm{JB} = \frac{n}{6}\left(\hat{\gamma}\_1^2 + \frac{1}{4}\hat{\gamma}\_2^2\right)$ audits whether Gaussian tail assumptions are falsified (measured on `djia_1885_2023.csv`, $n = 37\text{,}930$ trading days: $\hat{\gamma}\_2 = 17.8$ and $\mathrm{JB} = 502\text{,}551$).
 
 2. **Hans R. Künsch's (1989) Moving-Block Bootstrap (`block_bootstrap_ci`):**
    Standard Efron bootstrap resamples individual rows $x\_i$ independently with replacement, destroying temporal autocorrelation $\rho\_k$ and severely understating standard errors. Künsch's moving-block bootstrap slices the time series into overlapping contiguous blocks $B\_j = (x\_j, \dots, x\_{j+\ell-1})$ of length $\ell \sim n^{1/3}$ and resamples whole blocks using `SplitMix64` (`seed = 2026`), preserving within-block dependence structure.
@@ -242,7 +242,7 @@ Two additional foundational statistical primitives in `stochology_core::rng` pro
 
 Experiment with sample size $n$, error equicorrelation $\rho$, and structural bias $\delta(x)$ in the interactive OLS vs. Cholesky-GLS laboratory below:
 
-<div class="stoch-lab" data-lab="ols-cholesky-gls" data-chapter="06-sampling-estimation-linear-algebra" data-title="Chapter 6 Lab: OLS Orthogonal Projection, Correlated Errors &amp; Cholesky GLS" data-cli="cargo run --release --bin labs -- --uncertainty"></div>
+<div class="stoch-lab" data-lab="ols-cholesky-gls" data-chapter="06-sampling-estimation-linear-algebra.html" data-title="Chapter 6 Lab: OLS Orthogonal Projection, Correlated Errors &amp; Cholesky GLS" data-cli="cargo run --release --bin labs -- --uncertainty"></div>
 
 
 ---
@@ -252,7 +252,7 @@ Experiment with sample size $n$, error equicorrelation $\rho$, and structural bi
 In [`crates/stochology-core/src/uncertainty.rs`](../crates/stochology-core/src/uncertainty.rs), you can inspect the exact zero-dependency Rust implementations of the linear-algebra and estimation primitives introduced in this chapter:
 - **`cholesky_decompose(matrix, n)`:** Computes the lower-triangular factor $L$ such that $\Sigma = L L^\top$, returning `None` if any diagonal pivot $\le 10^{-12}$.
 - **`cholesky_solve(l, b, n)`:** Executes forward substitution ($L\mathbf{z} = \mathbf{b}$) followed by backward substitution ($L^\top \boldsymbol{\alpha} = \mathbf{z}$) in $\mathcal{O}(n^2)$ time.
-- **`rbf_kernel(x1, x2, sigma_delta, length_scale)`:** Evaluates $k(x\_1, x\_2)$ and builds the regularized Gram matrix $\Sigma = K + \sigma\_n^2 I$.
+- **`KennedyOHaganDiscrepancy::kernel(x1, x2)` (`fit_exact_cholesky` & `calibrate_empirical_bayes`):** Evaluates the Squared-Exponential kernel $k(x\_1, x\_2)$, builds the regularized Gram matrix $\Sigma = K + \sigma\_n^2 I$, and maximizes the exact log-marginal likelihood.
 
 Run Lab 2 to see OLS bias vs. Cholesky-based GLS/GP calibration in action:
 

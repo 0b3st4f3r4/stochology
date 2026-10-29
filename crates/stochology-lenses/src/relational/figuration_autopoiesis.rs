@@ -106,6 +106,7 @@ pub struct DissipativeAutopoieticAudit {
 }
 
 impl DissipativeAutopoieticAudit {
+    /// Assumed: chemostatted Brusselator reservoir parameters ($A = 1.2, B = 2.8, k_{\mathrm{rev}} = 0.08, dt = 0.02$).
     /// Simulates a far-from-equilibrium dissipative vortex / autopoietic metabolic network over `steps` time steps
     /// by integrating the open-system Prigogine Brusselator chemical reaction network ($\varnothing \rightleftharpoons X$,
     /// $B + X \rightleftharpoons Y + D$, $2X + Y \rightleftharpoons 3X$) via 4th-order Runge-Kutta (RK4) and evaluating

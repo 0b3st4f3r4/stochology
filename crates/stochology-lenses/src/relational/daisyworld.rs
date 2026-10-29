@@ -13,17 +13,17 @@
 /// - Population replicator ODEs: $\frac{d\alpha_i}{dt} = \alpha_i (\beta(T_i) x - \gamma)$
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct DaisyworldSystem {
-    /// Bare ground albedo $A_g$ (canonical $0.50$).
+    /// Informative: bare ground albedo $A_g$ ($0.50$, Watson & Lovelock 1983, *Tellus B* 35:284–289).
     pub albedo_bare_ground: f64,
-    /// Black daisy albedo $A_b$ (canonical $0.25$, absorbs radiation and warms locally).
+    /// Informative: black daisy albedo $A_b$ ($0.25$, absorbs radiation and warms locally; Watson & Lovelock 1983).
     pub albedo_black: f64,
-    /// White daisy albedo $A_w$ (canonical $0.75$, reflects radiation and cools locally).
+    /// Informative: white daisy albedo $A_w$ ($0.75$, reflects radiation and cools locally; Watson & Lovelock 1983).
     pub albedo_white: f64,
-    /// Local thermal redistribution parameter $q$ ($^\circ\mathrm{C}$, canonical $20.0$).
+    /// Informative: local thermal redistribution parameter $q$ ($20.0\,^\circ\mathrm{C}$, Watson & Lovelock 1983).
     pub heat_transfer_q: f64,
-    /// Constant mortality rate $\gamma$ (canonical $0.30$).
+    /// Informative: constant mortality rate $\gamma$ ($0.30$, Watson & Lovelock 1983).
     pub mortality_gamma: f64,
-    /// Biological optimal growth temperature $T_{\mathrm{opt}}$ ($^\circ\mathrm{C}$, canonical $22.5$).
+    /// Informative: biological optimal growth temperature $T_{\mathrm{opt}}$ ($22.5\,^\circ\mathrm{C}$, Watson & Lovelock 1983).
     pub optimal_temp_c: f64,
     /// Ratio $S_0 / \sigma$ ($\mathrm{K}^4$) calibrated so bare ground at $L = 1.0$ is at $22.5\,^\circ\mathrm{C}$.
     pub solar_flux_over_sigma_k4: f64,
@@ -43,18 +43,18 @@ pub struct DaisyworldEquilibriumPoint {
     pub lifeless_bare_temp_c: f64,
 }
 
-/// Complete audit of cybernetic planetary homeostasis across stellar luminosity $L \in [0.70, 1.60]$.
+/// Complete audit of cybernetic planetary homeostasis across stellar luminosity $L \in [0.78, 1.60]$.
 #[derive(Debug, Clone, PartialEq)]
 pub struct DaisyworldHomeostasisAudit {
-    /// Early faint-sun equilibrium ($L = 0.72$), where black daisies dominate and warm the planet toward $22.5\,^\circ\mathrm{C}$.
+    /// Early faint-sun equilibrium ($L = 0.78$), where black daisies dominate and warm the planet toward $22.5\,^\circ\mathrm{C}$.
     pub faint_sun_point: DaisyworldEquilibriumPoint,
     /// Present-sun coexistence equilibrium ($L = 1.00$).
     pub present_sun_point: DaisyworldEquilibriumPoint,
-    /// Bright-sun equilibrium ($L = 1.25$), where white daisies dominate and cool the planet toward $22.5\,^\circ\mathrm{C}$.
+    /// Bright-sun equilibrium ($L = 1.22$), where white daisies dominate and cool the planet toward $22.5\,^\circ\mathrm{C}$.
     pub bright_sun_point: DaisyworldEquilibriumPoint,
     /// Extreme stellar forcing point ($L = 1.60$) beyond the upper absorbing survival barrier ($\alpha_b = \alpha_w = 0$).
     pub post_collapse_point: DaisyworldEquilibriumPoint,
-    /// Mean absolute deviation $|T_e - 22.5\,^\circ\mathrm{C}|$ with life across the homeostatic band $L \in [0.72, 1.28]$.
+    /// Mean absolute deviation $|T_e - 22.5\,^\circ\mathrm{C}|$ with life across the homeostatic band $L \in [0.78, 1.22]$.
     pub homeostatic_mean_abs_error_c: f64,
     /// Mean absolute deviation $|T_{\text{lifeless}} - 22.5\,^\circ\mathrm{C}|$ on a dead planet over the same band.
     pub lifeless_mean_abs_error_c: f64,
@@ -71,7 +71,7 @@ impl Default for DaisyworldSystem {
 }
 
 impl DaisyworldSystem {
-    /// Returns the canonical Watson & Lovelock (1983) *Daisyworld* parameterization.
+    /// Informative: returns the canonical Watson & Lovelock (1983, *Tellus B* 35:284–289) *Daisyworld* parameterization.
     pub fn canonical() -> Self {
         let t_opt_k = 22.5_f64 + 273.0;
         let albedo_bare = 0.50;
@@ -134,7 +134,7 @@ impl DaisyworldSystem {
         for _ in 0..steps {
             let (k1b, k1w) = rhs(alpha_b, alpha_w);
             let (k2b, k2w) = rhs(alpha_b + 0.5 * dt * k1b, alpha_w + 0.5 * dt * k1w);
-            let (k3b, k3w) = rhs(alpha_b + 0.5 * dt * k2b, alpha_w + 0.5 * dt * k2y_fix(k2w));
+            let (k3b, k3w) = rhs(alpha_b + 0.5 * dt * k2b, alpha_w + 0.5 * dt * k2w);
             let (k4b, k4w) = rhs(alpha_b + dt * k3b, alpha_w + dt * k3w);
             alpha_b = (alpha_b + (dt / 6.0) * (k1b + 2.0 * k2b + 2.0 * k3b + k4b)).clamp(0.0, 1.0);
             alpha_w = (alpha_w + (dt / 6.0) * (k1w + 2.0 * k2w + 2.0 * k3w + k4w))
@@ -201,9 +201,4 @@ impl DaisyworldSystem {
             homeostasis_verified: verified,
         }
     }
-}
-
-#[inline]
-fn k2y_fix(val: f64) -> f64 {
-    val
 }

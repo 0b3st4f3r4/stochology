@@ -98,8 +98,8 @@ impl SimpsonCausalParadoxAudit {
         }
     }
 
-    /// Canonical kidney-stone / clinical triage benchmark (Charig et al. 1986; Pearl 2009, Table 6.1):
-    /// $N = 700$ patients ($350$ per arm), where $Z=0$ is small stones and $Z=1$ is large stones.
+    /// Informative: canonical kidney-stone / clinical triage benchmark transcribed from Charig et al. (1986, *BMJ* 292:879–882)
+    /// and Pearl (2009, *Causality*, Table 6.1): $N = 700$ patients ($350$ per arm), where $Z=0$ is small stones and $Z=1$ is large stones.
     pub fn canonical_pearl_benchmark() -> Self {
         Self::evaluate_counts((234, 270), (55, 80), (81, 87), (192, 263))
     }

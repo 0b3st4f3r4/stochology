@@ -4,13 +4,13 @@
 //! - Axis 3 (`GenerativeRagLlmJudgeCompressionAudit`): 4-stage RAG `DpiMarkovChain`, `LLM-as-a-Judge` (`PPI`), Conformal FinOps Cascade, and Outlier-Protected Quantization
 
 use crate::acceptance::NamedCheck;
-use crate::decision::{brier_score, CostLossRule, LlmJudgePpiRectifier};
+use crate::decision::{CostLossRule, LlmJudgePpiRectifier, brier_score};
 use crate::information::DpiMarkovChain;
 use crate::invariance::{CausalEnvironment, ShapleyCausalAudit};
 use crate::tail::expected_shortfall_99;
 use stochology_core::{
-    mean, sample_variance, KennedyOHaganDiscrepancy, ManskiBounds, Rng,
-    RubinMultipleImputationAudit,
+    KennedyOHaganDiscrepancy, ManskiBounds, Rng, RubinMultipleImputationAudit, mean,
+    sample_variance,
 };
 
 /// Axis 1: Minsky & Papert (1969) Computational Geometry (`XOR`, Parity Order Theorem 3.1.1,

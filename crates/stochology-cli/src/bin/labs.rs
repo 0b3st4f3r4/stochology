@@ -5,7 +5,7 @@ mod labs_mod;
 
 use crate::labs_mod::ALL_LABS;
 use std::env;
-use std::path::Path;
+use stochology_cli::resolve_workspace_root;
 
 fn print_usage() {
     println!(
@@ -21,10 +21,8 @@ fn main() {
         std::process::exit(2);
     }
     let mode = args.first().map(|s| s.as_str()).unwrap_or("--all");
-    let root = Path::new(env!("CARGO_MANIFEST_DIR"))
-        .parent()
-        .and_then(|p| p.parent())
-        .expect("workspace root");
+    let root_buf = resolve_workspace_root();
+    let root = root_buf.as_path();
 
     if mode == "--help" || mode == "-h" {
         print_usage();

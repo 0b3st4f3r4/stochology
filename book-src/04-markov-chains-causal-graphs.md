@@ -220,7 +220,7 @@ Furthermore, for any target node $Y$ in a DAG, its **Markov Blanket** $\mathrm{M
 
 Use the interactive Markov contraction and Pearl `do-calculus` simulator below to observe Dobrushin total-variation contraction $\eta\_{\mathrm{TV}}^t$ alongside confounding and Berkson collider bias:
 
-<div class="stoch-lab" data-lab="markov-dag-do" data-chapter="04-markov-chains-causal-graphs" data-title="Chapter 4 Lab: Markov Contraction (η_TV), Pearl do(X=x) &amp; Berkson Collider Guard" data-cli="cargo run --release --bin labs -- --lenses"></div>
+<div class="stoch-lab" data-lab="markov-dag-do" data-chapter="04-markov-chains-causal-graphs.html" data-title="Chapter 4 Lab: Markov Contraction (η_TV), Pearl do(X=x) &amp; Berkson Collider Guard" data-cli="cargo run --release --bin labs -- --lenses"></div>
 
 
 ---
@@ -229,8 +229,8 @@ Use the interactive Markov contraction and Pearl `do-calculus` simulator below t
 
 The building blocks of this chapter power the pure-Rust engines in [`crates/stochology-lenses`](../crates/stochology-lenses/src/lib.rs) and [`crates/stochology-siga`](../crates/stochology-siga/src/lib.rs):
 - **`DpiMarkovChain` (`crates/stochology-lenses/src/information.rs`):** Constructs row-stochastic matrices $W\_1, W\_2$ for 3-step Markov chains $X \to Y \to Z$ and verifies contraction constants.
-- **`TimeErgodicitySummary` (`crates/stochology-lenses/src/time.rs`):** Simulates multiplicative trajectories and measures the Itô volatility drain $-\frac{1}{2}\sigma^2$.
-- **`evaluate_filter_2_independence_and_blanket` (`crates/stochology-siga/src/funnel.rs`):** Enforces Markov Blanket hygiene and rejects any model that conditions on a Berkson collider (`colliders_conditioned == 0`).
+- **`TimeKellyDiagnostic` (`crates/stochology-lenses/src/time.rs`):** Simulates multiplicative trajectories and measures the Itô volatility drain $-\frac{1}{2}\sigma^2$.
+- **`FunnelCandidate`, `FunnelResult` & `evaluate_four_filter_funnel` (`crates/stochology-siga/src/funnel/mod.rs`):** Enforces Markov Blanket hygiene and rejects any model that conditions on a Berkson collider (`colliders_conditioned_on == 0`).
 
 Run Lab 3 and Lab 5 to inspect these mechanisms in action:
 

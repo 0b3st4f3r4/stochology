@@ -2,7 +2,7 @@
 //! and Formal Verification of the Four Ontological Axioms of the Stock.
 
 use crate::acceptance::NamedCheck;
-use stochology_core::{mean, sample_variance, Rng};
+use stochology_core::{Rng, mean, sample_variance};
 
 /// Canonical L3 leaf counts across the 11 L1 primary axes and 32 L2 secondary sub-axes of the
 /// 150-node Stochology conceptual tree ($1 + 11 + 32 + 106 = 150$ total nodes).

@@ -7,18 +7,18 @@ use stochology_cli::{
     load_lalonde_nsw_cps, load_oot_ood_flight_reserves, load_toronto_arrests_prevalences,
 };
 use stochology_core::{
-    verify_resolution_phi5, ChouldechovaAudit, ExceedanceDesignEffect, InfoGapOption, ManskiBounds,
-    PerformativeSystem, Rng, DEFAULT_SEED,
+    ChouldechovaAudit, DEFAULT_SEED, ExceedanceDesignEffect, InfoGapOption, ManskiBounds,
+    PerformativeSystem, Rng, verify_resolution_phi5,
 };
 use stochology_governance::{
-    query_with_bitemporal_clock, BitemporalRecord, MurphyCorpCircuitBreaker, TemporalVault,
+    BitemporalRecord, MurphyCorpCircuitBreaker, TemporalVault, query_with_bitemporal_clock,
 };
-use stochology_lenses::acceptance::{SimulatedSynthesis, ACCEPTANCE_SEEDS};
+use stochology_lenses::acceptance::{ACCEPTANCE_SEEDS, SimulatedSynthesis};
 use stochology_lenses::analog::{
     AnalogWaveComputingSynthesis, GerstgrasserAccumulateAudit, SyntheticDataPolicy,
 };
 use stochology_lenses::critical::CriticalStochasticRationalitySynthesis;
-use stochology_lenses::decision::{brier_score, MurphyDiagram};
+use stochology_lenses::decision::{MurphyDiagram, brier_score};
 use stochology_lenses::machine::{AlmostPerfectMachine, AuthenticModelForm};
 use stochology_lenses::society::CoupledPublicPrivateSocietySynthesis;
 use stochology_lenses::stocks::StocharyConjecturalCyberneticSynthesis;
@@ -205,15 +205,29 @@ pub fn run_negative_proof(root: &Path, defect: &str) -> ! {
         "analog_wall" => {
             let unshielded_analog =
                 AnalogWaveComputingSynthesis::evaluate_with_mode(DEFAULT_SEED, false);
-            if !unshielded_analog.all_five_axes_verified
+            let fails_all_dev_seeds = ACCEPTANCE_SEEDS.iter().all(|&s| {
+                let u = AnalogWaveComputingSynthesis::evaluate_with_mode(s, false);
+                !u.all_five_axes_verified
+                    && !u.von_neumann_and_collapse.axis1_verified
+                    && !u.aimc_analog_wall_hp_inv.axis3_verified
+            });
+            if fails_all_dev_seeds
+                && !unshielded_analog.all_five_axes_verified
                 && !unshielded_analog.von_neumann_and_collapse.axis1_verified
                 && !unshielded_analog.aimc_analog_wall_hp_inv.axis3_verified
             {
                 eprintln!(
                     "NEGATIVE PROOF [analog_wall] BLOCKED SUCCESSFULLY: unshielded analog accuracy at sigma=0.60 collapsed to {:.1}%, 1-step LP-INV relative error {:.4} > 1e-7 without HP-INV refinement, and unanchored synthetic variance retention collapsed to {:.2}",
-                    unshielded_analog.aimc_analog_wall_hp_inv.nat_accuracy_at_sigma_060 * 100.0,
-                    unshielded_analog.aimc_analog_wall_hp_inv.pku_hp_inv_final_relative_error,
-                    unshielded_analog.von_neumann_and_collapse.neurosymbolic_anchored_variance_retention
+                    unshielded_analog
+                        .aimc_analog_wall_hp_inv
+                        .nat_accuracy_at_sigma_060
+                        * 100.0,
+                    unshielded_analog
+                        .aimc_analog_wall_hp_inv
+                        .pku_hp_inv_final_relative_error,
+                    unshielded_analog
+                        .von_neumann_and_collapse
+                        .neurosymbolic_anchored_variance_retention
                 );
                 std::process::exit(1);
             }
@@ -231,12 +245,24 @@ pub fn run_negative_proof(root: &Path, defect: &str) -> ! {
                 eprintln!(
                     "NEGATIVE PROOF [instrumental_reason] BLOCKED SUCCESSFULLY on all {} development seeds through seed-dependent claims (identities closed on every seed): at seed 2026 truncated-Gaussian VaR99 breached on {:.1}% of fresh draws, RRM excess performative risk={:.3}, Stochastic Parrot counterfactual MSE={:.2}, unconstrained recursion rule satisfaction={:.0}%, raw drifted readout accuracy={:.0}%, one-shot HP-INV error={:.1e}",
                     ACCEPTANCE_SEEDS.len(),
-                    reified.adorno_non_identical_and_reification.deployed_var99_holdout_exceedance * 100.0,
-                    reified.adorno_non_identical_and_reification.deployed_performative_excess_risk,
-                    reified.marcuse_rouvroy_stochastic_parrot.deployed_counterfactual_mse,
-                    reified.dialectical_overcoming.deployed_rule_satisfaction_rate * 100.0,
+                    reified
+                        .adorno_non_identical_and_reification
+                        .deployed_var99_holdout_exceedance
+                        * 100.0,
+                    reified
+                        .adorno_non_identical_and_reification
+                        .deployed_performative_excess_risk,
+                    reified
+                        .marcuse_rouvroy_stochastic_parrot
+                        .deployed_counterfactual_mse,
+                    reified
+                        .dialectical_overcoming
+                        .deployed_rule_satisfaction_rate
+                        * 100.0,
                     reified.dialectical_overcoming.a_ecc_drift_recovery_accuracy * 100.0,
-                    reified.dialectical_overcoming.pku_40nm_rram_24bit_hp_inv_error
+                    reified
+                        .dialectical_overcoming
+                        .pku_40nm_rram_24bit_hp_inv_error
                 );
                 std::process::exit(1);
             }
@@ -255,17 +281,43 @@ pub fn run_negative_proof(root: &Path, defect: &str) -> ! {
                 eprintln!(
                     "NEGATIVE PROOF [stochary_cybernetics] BLOCKED SUCCESSFULLY on all {} development seeds through seed-dependent claims (identities closed on every seed): at seed 2026 panic-order Bullwhip={:.2}x, full-exposure Peters growth={:+.4}, always-act VOI match={}, Rung-1 effect={:.2} (true 2.80), untransported effect error={:.2}, simulated queue wait at u=0.985={:.1} h, Ivanov fill rate={:.2}, TTS/TTR={:.2}, uncertified WDRO disappointment={:+.2}, persistence-model R2={:.2}, raw judge noise={:.3}, factor-omitting PLAT r_s={:.2}",
                     ACCEPTANCE_SEEDS.len(),
-                    unshielded.topology_and_stock_axioms.low_pass_buffered_variance_ratio,
-                    unshielded.topology_and_stock_axioms.ergodic_buffered_time_growth_rate,
-                    unshielded.powell_friston_causal_engine.deployed_policy_choices_match_voi,
-                    unshielded.powell_friston_causal_engine.pearl_front_door_identified_effect,
-                    unshielded.powell_friston_causal_engine.pearl_transportability_error,
-                    unshielded.strategic_stock_plant.supply_chain_physics.kingman_vut_buffered_vs_cliff_wait_hours.0,
-                    unshielded.strategic_stock_plant.supply_chain_physics.ivanov_ripple_effect_viability_service_rate,
-                    unshielded.strategic_stock_plant.simchi_levi_tts_to_ttr_ratio,
-                    unshielded.strategic_stock_plant.wdro_robust_oos_disappointment,
-                    unshielded.cybernetic_vsm_and_pate.conant_ashby_regulator_homomorphism_r2,
-                    unshielded.cybernetic_vsm_and_pate.kahneman_judgment_noise_before_and_after.1,
+                    unshielded
+                        .topology_and_stock_axioms
+                        .low_pass_buffered_variance_ratio,
+                    unshielded
+                        .topology_and_stock_axioms
+                        .ergodic_buffered_time_growth_rate,
+                    unshielded
+                        .powell_friston_causal_engine
+                        .deployed_policy_choices_match_voi,
+                    unshielded
+                        .powell_friston_causal_engine
+                        .pearl_front_door_identified_effect,
+                    unshielded
+                        .powell_friston_causal_engine
+                        .pearl_transportability_error,
+                    unshielded
+                        .strategic_stock_plant
+                        .supply_chain_physics
+                        .kingman_vut_buffered_vs_cliff_wait_hours
+                        .0,
+                    unshielded
+                        .strategic_stock_plant
+                        .supply_chain_physics
+                        .ivanov_ripple_effect_viability_service_rate,
+                    unshielded
+                        .strategic_stock_plant
+                        .simchi_levi_tts_to_ttr_ratio,
+                    unshielded
+                        .strategic_stock_plant
+                        .wdro_robust_oos_disappointment,
+                    unshielded
+                        .cybernetic_vsm_and_pate
+                        .conant_ashby_regulator_homomorphism_r2,
+                    unshielded
+                        .cybernetic_vsm_and_pate
+                        .kahneman_judgment_noise_before_and_after
+                        .1,
                     unshielded.cybernetic_vsm_and_pate.plat_spearman_and_ks.0
                 );
                 std::process::exit(1);
@@ -295,17 +347,40 @@ pub fn run_negative_proof(root: &Path, defect: &str) -> ! {
                 eprintln!(
                     "NEGATIVE PROOF [triadic_technium] BLOCKED SUCCESSFULLY on all {} development seeds through seed-dependent claims (identities closed on every seed): at seed 2026 tanh Helmholtz residual={:.3}, one-shot BlockAMC residual={:.1e}, naive H-matrix err={:.2e}, uncompensated PCM drift MSE={:.3}, Fickian CTRW err={:.1}%, plain-LS ECC acc={:.2}, OLS ATE RMSE={:.3}, rational Weyl D*={:.3}, random-Fourier DFM err={:.3}, classify-and-count KL={:.4}, RRM gap to theta_PO={:.3}",
                     ACCEPTANCE_SEEDS.len(),
-                    unshielded_triad.complex_wave_gabor_helmholtz.deployed_helmholtz_residual_rel_mse,
-                    unshielded_triad.complex_real_isomorphism_hmatrix.two_stage_block_amc_16x16_relative_error,
-                    unshielded_triad.complex_real_isomorphism_hmatrix.hmatrix_deployed_relative_error,
-                    unshielded_triad.fractional_ctrw_analog_ecc.deployed_pcm_drift_mse,
-                    unshielded_triad.fractional_ctrw_analog_ecc.deployed_ctrw_spread_prediction_rel_error * 100.0,
-                    unshielded_triad.fractional_ctrw_analog_ecc.analog_ecc_ume_recovery_accuracy,
-                    unshielded_triad.multifractal_pdhte_rag_collapse.deployed_ate_rmse,
-                    unshielded_triad.weyl_torus_hermite_mehler_dfm.deployed_weyl_discrepancy,
-                    unshielded_triad.weyl_torus_hermite_mehler_dfm.deployed_dfm_l2_error,
-                    unshielded_triad.weyl_torus_hermite_mehler_dfm.deployed_label_shift_kl,
-                    unshielded_triad.sna_rlhf_fhrr_cohomology_technium.deployed_performative_gap_to_opt
+                    unshielded_triad
+                        .complex_wave_gabor_helmholtz
+                        .deployed_helmholtz_residual_rel_mse,
+                    unshielded_triad
+                        .complex_real_isomorphism_hmatrix
+                        .two_stage_block_amc_16x16_relative_error,
+                    unshielded_triad
+                        .complex_real_isomorphism_hmatrix
+                        .hmatrix_deployed_relative_error,
+                    unshielded_triad
+                        .fractional_ctrw_analog_ecc
+                        .deployed_pcm_drift_mse,
+                    unshielded_triad
+                        .fractional_ctrw_analog_ecc
+                        .deployed_ctrw_spread_prediction_rel_error
+                        * 100.0,
+                    unshielded_triad
+                        .fractional_ctrw_analog_ecc
+                        .analog_ecc_ume_recovery_accuracy,
+                    unshielded_triad
+                        .multifractal_pdhte_rag_collapse
+                        .deployed_ate_rmse,
+                    unshielded_triad
+                        .weyl_torus_hermite_mehler_dfm
+                        .deployed_weyl_discrepancy,
+                    unshielded_triad
+                        .weyl_torus_hermite_mehler_dfm
+                        .deployed_dfm_l2_error,
+                    unshielded_triad
+                        .weyl_torus_hermite_mehler_dfm
+                        .deployed_label_shift_kl,
+                    unshielded_triad
+                        .sna_rlhf_fhrr_cohomology_technium
+                        .deployed_performative_gap_to_opt
                 );
                 std::process::exit(1);
             }
@@ -426,17 +501,39 @@ pub fn run_negative_proof(root: &Path, defect: &str) -> ! {
                 eprintln!(
                     "NEGATIVE PROOF [strategic_accommodation] BLOCKED SUCCESSFULLY on all {} development seeds through seed-dependent claims (identities closed on every seed): at seed 2026 diameter-limited connectivity acc={:.2}, homogeneous voter Brier={:.3}, Rung-1 symptom SHAP do-MSE={:.2}, single-mean imputation var retention={:.2}, naive i.i.d. clustered power={:.2}, uncalibrated LLM-Judge err={:.3}, clipped INT4 ES99 retention={:.2}, unbuffered hub survival={:.2}, rank-reversed AHP portfolio val={:.2}, L2 Kalman glitch RMSE={:.2}, certainty-equivalent MPC survival={:.2}",
                     ACCEPTANCE_SEEDS.len(),
-                    unshielded_strat.minsky_papert_society_of_mind.deployed_connectivity_accuracy,
-                    unshielded_strat.minsky_papert_society_of_mind.deployed_ensemble_brier,
-                    unshielded_strat.shapley_rubin_mi_doe.deployed_shap_intervention_mse,
-                    unshielded_strat.shapley_rubin_mi_doe.deployed_imputation_variance_retention,
-                    unshielded_strat.shapley_rubin_mi_doe.deployed_clustered_doe_power,
-                    unshielded_strat.generative_rag_llm_judge_compression.deployed_llm_judge_abs_error,
-                    unshielded_strat.generative_rag_llm_judge_compression.deployed_quantization_es99_retention,
-                    unshielded_strat.complex_network_hub_contagion.deployed_airspace_survival,
-                    unshielded_strat.multi_criteria_ahp_regulatory_pkm.deployed_portfolio_realized_value,
-                    unshielded_strat.robust_kalman_closed_loop_control.deployed_kalman_state_rmse,
-                    unshielded_strat.robust_kalman_closed_loop_control.deployed_lap_survival_rate
+                    unshielded_strat
+                        .minsky_papert_society_of_mind
+                        .deployed_connectivity_accuracy,
+                    unshielded_strat
+                        .minsky_papert_society_of_mind
+                        .deployed_ensemble_brier,
+                    unshielded_strat
+                        .shapley_rubin_mi_doe
+                        .deployed_shap_intervention_mse,
+                    unshielded_strat
+                        .shapley_rubin_mi_doe
+                        .deployed_imputation_variance_retention,
+                    unshielded_strat
+                        .shapley_rubin_mi_doe
+                        .deployed_clustered_doe_power,
+                    unshielded_strat
+                        .generative_rag_llm_judge_compression
+                        .deployed_llm_judge_abs_error,
+                    unshielded_strat
+                        .generative_rag_llm_judge_compression
+                        .deployed_quantization_es99_retention,
+                    unshielded_strat
+                        .complex_network_hub_contagion
+                        .deployed_airspace_survival,
+                    unshielded_strat
+                        .multi_criteria_ahp_regulatory_pkm
+                        .deployed_portfolio_realized_value,
+                    unshielded_strat
+                        .robust_kalman_closed_loop_control
+                        .deployed_kalman_state_rmse,
+                    unshielded_strat
+                        .robust_kalman_closed_loop_control
+                        .deployed_lap_survival_rate
                 );
                 std::process::exit(1);
             }
@@ -454,13 +551,29 @@ pub fn run_negative_proof(root: &Path, defect: &str) -> ! {
                 eprintln!(
                     "NEGATIVE PROOF [coupled_society] BLOCKED SUCCESSFULLY on all {} development seeds through seed-dependent claims (identities closed on every seed): at seed 2026 event-time MNAR RRM closed-loop firm survival={:.3} (Coupling DiD gain={:+.3}, CRRA welfare DiD={:+.4}), Stiglitz-Weiss uncollateralized pooling survival={:.3} (Bester gain={:+.3}), proportional-rebate VCG Ostrom commons stock S_T/K={:.3} (disjoint-cohort gain={:+.3})",
                     ACCEPTANCE_SEEDS.len(),
-                    unshielded_soc.h1a_regulator_coupling.naive_closed_loop.terminal_firm_survival_rate,
-                    unshielded_soc.h1a_regulator_coupling.deployed_coupling_did_firm_survival,
-                    unshielded_soc.h1a_regulator_coupling.deployed_coupling_did_crra_welfare,
-                    unshielded_soc.h1b_credit_screening.point_lambda_050.stiglitz_weiss_pooling_survival,
-                    unshielded_soc.h1b_credit_screening.deployed_survival_gain_lambda_050,
-                    unshielded_soc.h2_vcg_commons.proportional_rebate_vcg_stock_ratio,
-                    unshielded_soc.h2_vcg_commons.deployed_commons_stock_gain_over_rebate
+                    unshielded_soc
+                        .h1a_regulator_coupling
+                        .naive_closed_loop
+                        .terminal_firm_survival_rate,
+                    unshielded_soc
+                        .h1a_regulator_coupling
+                        .deployed_coupling_did_firm_survival,
+                    unshielded_soc
+                        .h1a_regulator_coupling
+                        .deployed_coupling_did_crra_welfare,
+                    unshielded_soc
+                        .h1b_credit_screening
+                        .point_lambda_050
+                        .stiglitz_weiss_pooling_survival,
+                    unshielded_soc
+                        .h1b_credit_screening
+                        .deployed_survival_gain_lambda_050,
+                    unshielded_soc
+                        .h2_vcg_commons
+                        .proportional_rebate_vcg_stock_ratio,
+                    unshielded_soc
+                        .h2_vcg_commons
+                        .deployed_commons_stock_gain_over_rebate
                 );
                 std::process::exit(1);
             }

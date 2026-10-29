@@ -10,7 +10,7 @@ pub use corp_murphy::{
     CorpPavDecomposition, CorpRocMurphyTriptych, ExactCoinCalibrationBenchmark, MurphyDiagram,
 };
 pub use cost_loss::{
-    brier_score, critical_cost_loss_threshold, logarithmic_score, quantile_score, CostLossRule,
+    CostLossRule, brier_score, critical_cost_loss_threshold, logarithmic_score, quantile_score,
 };
 
 #[cfg(test)]

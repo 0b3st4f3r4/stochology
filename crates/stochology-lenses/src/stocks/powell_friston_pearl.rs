@@ -2,8 +2,8 @@
 //! and the preposterior value of information, and Judea Pearl's `do-Calculus` (Front-Door, Mediation, Transportability).
 
 use crate::acceptance::NamedCheck;
-use stochology_core::math::linalg::ols_slope;
 use stochology_core::Rng;
+use stochology_core::math::linalg::ols_slope;
 
 /// Warren Powell's 4 Universal Meta-Classes of Sequential Decision Policies + Hybrid Class.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

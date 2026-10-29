@@ -3,54 +3,99 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="text-scale" content="scale" />
   <meta name="color-scheme" content="light dark" />
-  <title>Stochology Embedded Sandbox (/lab/embed)</title>
+  <title>Stochology Embedded Sandbox (/lab/embed · seed = 2026)</title>
   <link rel="icon" href="../../favicon.svg" />
+  <script>
+    (function () {
+      var VALID = ["light", "rust", "navy", "coal", "ayu"];
+      var stored = null;
+      try {
+        stored = localStorage.getItem("mdbook-theme");
+      } catch (e) {}
+      var params = new URLSearchParams(window.location.search);
+      var qTheme = params.get("theme");
+      var theme = "light";
+      if (qTheme === "dark") {
+        theme = "navy";
+      } else if (qTheme === "light") {
+        theme = "light";
+      } else if (qTheme && VALID.indexOf(qTheme) !== -1) {
+        theme = qTheme;
+      } else if (stored && VALID.indexOf(stored) !== -1) {
+        theme = stored;
+      } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        theme = "navy";
+      }
+      var root = document.documentElement;
+      for (var i = 0; i < VALID.length; i++) {
+        root.classList.remove(VALID[i]);
+      }
+      root.classList.add(theme);
+    })();
+  </script>
   <link rel="stylesheet" href="../../theme/book.css" />
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 0.9rem 1.1rem;
+      padding: 0.75rem 0.95rem;
       font-family: "Inter", system-ui, -apple-system, sans-serif;
       background: var(--elevated, #ffffff);
       color: var(--ink, #0f172a);
+      line-height: 1.45;
+      scrollbar-gutter: stable;
     }
     .embed-top {
       display: flex;
-      align-items: center;
+      align-items: safe center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
       border-bottom: 1px solid var(--border, #cbd5e1);
-      padding-bottom: 0.55rem;
-      margin-bottom: 0.75rem;
+      padding-block-end: 0.5rem;
+      margin-block-end: 0.65rem;
+    }
+    .embed-title-group {
+      display: flex;
+      align-items: safe center;
+      flex-wrap: wrap;
+      gap: 0.45rem;
     }
     .embed-tag {
       font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       font-weight: 800;
       color: var(--emerald, #059669);
     }
+    .embed-actions {
+      display: flex;
+      align-items: safe center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
     .embed-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.85rem;
-    }
-    @media (max-width: 680px) {
-      .embed-grid { grid-template-columns: 1fr; }
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+      gap: 0.75rem;
     }
     .embed-box {
       background: var(--surface, #f1f5f9);
       border: 1px solid var(--border, #cbd5e1);
       border-radius: 8px;
-      padding: 0.7rem 0.85rem;
+      padding: 0.65rem 0.8rem;
       font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       overflow-x: auto;
+      min-block-size: 7.5rem;
     }
-    .embed-box h5 {
-      margin: 0 0 0.45rem;
-      font-size: 0.72rem;
+    .embed-box h2 {
+      margin: 0 0 0.4rem;
+      font-size: 0.71rem;
+      font-weight: 800;
       text-transform: uppercase;
+      letter-spacing: 0.04em;
       color: var(--sky, #0284c7);
     }
     pre {
@@ -61,47 +106,101 @@
   </style>
 </head>
 <body>
-  <div class="embed-top">
-    <span class="embed-tag" id="embed-header">SANDBOX /lab/embed · postMessage("stochology:lab:state") · seed = 2026</span>
-    <a id="embed-full-link" href="../index.html" target="_blank" rel="noopener noreferrer" class="stoch-lab-btn">Full Screen /lab ↗</a>
-  </div>
-  <div class="embed-grid">
-    <div class="embed-box">
-      <h5>Live Parameter State Vector (Φ₁)</h5>
+  <header class="embed-top">
+    <div class="embed-title-group">
+      <span class="embed-tag" id="embed-header">SANDBOX /lab/embed · postMessage("stochology:lab:state") · seed = 2026</span>
+      <span class="stoch-lab-verdict-badge" id="embed-verdict-badge" data-status="approved" hidden></span>
+    </div>
+    <div class="embed-actions">
+      <button type="button" id="embed-copy-btn" class="stoch-lab-btn">Copy State JSON</button>
+      <a id="embed-full-link" href="../index.html" target="_blank" rel="noopener noreferrer" class="stoch-lab-btn stoch-lab-btn-primary">Full Screen /lab ↗</a>
+    </div>
+  </header>
+  <main class="embed-grid" aria-label="Audited sandbox telemetry">
+    <section class="embed-box" aria-labelledby="embed-state-heading">
+      <h2 id="embed-state-heading">Live Parameter State Vector (Φ₁)</h2>
       <pre id="embed-state-json"></pre>
-    </div>
-    <div class="embed-box">
-      <h5>Audited Telemetry &amp; CLI Verification</h5>
+    </section>
+    <section class="embed-box" aria-labelledby="embed-metrics-heading">
+      <h2 id="embed-metrics-heading">Audited Telemetry &amp; CLI Verification</h2>
       <pre id="embed-metrics-json"></pre>
-    </div>
-  </div>
+    </section>
+  </main>
   <script>
     (function () {
+      var VALID = ["light", "rust", "navy", "coal", "ayu"];
       var statePre = document.getElementById("embed-state-json");
       var metricsPre = document.getElementById("embed-metrics-json");
       var headerEl = document.getElementById("embed-header");
+      var verdictEl = document.getElementById("embed-verdict-badge");
       var fullLink = document.getElementById("embed-full-link");
+      var copyBtn = document.getElementById("embed-copy-btn");
+      var latestPayload = null;
+
+      function setEmbedTheme(themeName, isDark) {
+        var root = document.documentElement;
+        if (themeName && VALID.indexOf(themeName) !== -1) {
+          for (var k = 0; k < VALID.length; k++) root.classList.remove(VALID[k]);
+          root.classList.add(themeName);
+          return;
+        }
+        if (isDark) {
+          if (!root.classList.contains("navy") && !root.classList.contains("coal") && !root.classList.contains("ayu")) {
+            for (var i = 0; i < VALID.length; i++) root.classList.remove(VALID[i]);
+            root.classList.add("navy");
+          }
+        } else {
+          if (!root.classList.contains("light") && !root.classList.contains("rust")) {
+            for (var j = 0; j < VALID.length; j++) root.classList.remove(VALID[j]);
+            root.classList.add("light");
+          }
+        }
+      }
 
       function renderFromQuery() {
         var params = {};
         var q = window.location.search.substring(1).split("&");
         for (var i = 0; i < q.length; i++) {
           var kv = q[i].split("=");
-          if (kv.length === 2) {
+          if (kv.length === 2 && kv[0]) {
             params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
           }
         }
-        var mod = params.module || "jensen-crps";
-        headerEl.textContent = "SANDBOX /lab/embed · module=" + mod + " · seed=2026";
+        var mod = params.module || params.lab || "jensen-crps";
+        var seed = parseInt(params.seed, 10);
+        if (!isFinite(seed) || seed <= 0) seed = 2026;
+        headerEl.textContent = "SANDBOX /lab/embed · module=" + mod + " · seed=" + seed;
         fullLink.href = "../index.html" + window.location.search;
+        latestPayload = params;
         statePre.textContent = JSON.stringify(params, null, 2);
         metricsPre.textContent = "Listening for live slider events via postMessage(\"stochology:lab:state\")...";
       }
 
       window.addEventListener("message", function (ev) {
         var d = ev.data;
-        if (!d || d.type !== "stochology:lab:state") return;
+        if (!d) return;
+        if (d.type === "stochology:theme") {
+          setEmbedTheme(d.theme, !!d.dark);
+          return;
+        }
+        if (d.type !== "stochology:lab:state") return;
+        if (d.theme || typeof d.dark === "boolean") {
+          setEmbedTheme(d.theme, d.dark);
+        }
         headerEl.textContent = "SANDBOX /lab/embed · module=" + d.module + " · seed=" + d.seed + " (LIVE SYNC)";
+        if (d.verdict && d.verdict.label) {
+          verdictEl.hidden = false;
+          verdictEl.setAttribute("data-status", d.verdict.ok ? "approved" : "blocked");
+          verdictEl.textContent = (d.verdict.ok ? "● " : "▲ ") + d.verdict.label;
+        }
+        latestPayload = {
+          module: d.module,
+          seed: d.seed,
+          verdict: d.verdict || null,
+          state: d.state,
+          metrics: d.metrics || [],
+          cli: d.cli || ""
+        };
         statePre.textContent = JSON.stringify({ module: d.module, seed: d.seed, state: d.state }, null, 2);
         var lines = [];
         if (d.metrics) {
@@ -115,9 +214,18 @@
         metricsPre.textContent = lines.join("\n");
       });
 
+      copyBtn.addEventListener("click", function () {
+        var text = JSON.stringify(latestPayload || {}, null, 2);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () {
+            copyBtn.textContent = "Copied JSON ✓";
+            setTimeout(function () { copyBtn.textContent = "Copy State JSON"; }, 1400);
+          });
+        }
+      });
+
       renderFromQuery();
     })();
   </script>
 </body>
 </html>
-

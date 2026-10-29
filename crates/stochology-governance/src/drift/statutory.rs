@@ -164,7 +164,7 @@ impl CloudLocalLoraArchitectureAudit {
         }
     }
 
-    /// Canonical Cloud API vs. Local `QLoRA` architecture benchmark.
+    /// Assumed: canonical Cloud API vs. Local `QLoRA` architecture benchmark.
     pub fn canonical_benchmark() -> Self {
         let spectrum = [4.0, 2.8, 1.9, 1.2, 0.45, 0.25, 0.15, 0.08];
         Self::evaluate(1_200.0, 2_400.0, 0.60, 4.50, 3.2, 140.0, &spectrum, 4)

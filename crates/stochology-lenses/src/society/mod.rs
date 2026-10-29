@@ -14,11 +14,10 @@ pub use sfc_matrix::*;
 
 use crate::acceptance::{MultiSeedAcceptance, NamedCheck};
 use stochology_core::{
-    BridgePerformativity, CausalLadder, DataAndAuditContract, DecisionMakerQuestion,
+    BridgePerformativity, CausalLadder, DEFAULT_SEED, DataAndAuditContract, DecisionMakerQuestion,
     DecisionRuleAndScope, DominantEvent, EpistemologicalCard, EpistemologicalHeader,
     FieldAuthorship, FindingsRegistry, InfoGapRobustness, Layer, MurphyCorpDecomposition,
     NoisePhysics, UncertaintyBudgetAndAuthorship, UncertaintyClass, UnitAndMargin, VarianceBudget,
-    DEFAULT_SEED,
 };
 
 /// Complete Coupled Public-Private Stock-Flow Consistent (SFC) Society Synthesis (`CoupledPublicPrivateSocietySynthesis`).
@@ -120,10 +119,10 @@ impl CoupledPublicPrivateSocietySynthesis {
                 unit_and_margin: UnitAndMargin {
                     independent_unit: "Administrative demographic-educational cohort cluster (age x schooling cell across households)".into(),
                     nominal_sample_size_n: 15_992,
-                    weighted_cluster_mean_m_tilde: "m_tilde = m_bar * (1 + CV^2) = 133.27 * 1.240 = 165.25 (Moulton-Campbell, CV = 0.490)".into(),
-                    threshold_exceedance_icc: "rho_I(0.90) = 0.1420 -> DEFF_exceedance = 24.32".into(),
-                    effective_sample_size_n_eff: 657,
-                    unit_margin_of_error: "+/- 3.8 percentage points over 657 effective demographic-educational cohort units".into(),
+                    weighted_cluster_mean_m_tilde: "m_tilde = m_bar * (1 + CV^2) = 24.53 * 3.899 = 95.65 (Moulton-Campbell unequal administrative cell sizes)".into(),
+                    threshold_exceedance_icc: "rho_I(0.90) = 0.0961 -> DEFF_exceedance = 10.10".into(),
+                    effective_sample_size_n_eff: 1_583,
+                    unit_margin_of_error: "+/- 1.8 percentage points over 1,583 effective demographic-educational cohort units (652 administrative cohort clusters)".into(),
                 },
                 noise_physics: NoisePhysics {
                     stochastic_regime: "Non-ergodic balance-sheet cascade with Pareto supply-chain shocks (alpha = 2.25) and CRRA (gamma = 2.0) consumption curvature".into(),
@@ -210,7 +209,7 @@ impl CoupledPublicPrivateSocietySynthesis {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::acceptance::{is_deterministic, ACCEPTANCE_SEEDS, MIN_CLAIM_PASS_RATE};
+    use crate::acceptance::{ACCEPTANCE_SEEDS, MIN_CLAIM_PASS_RATE, is_deterministic};
 
     #[test]
     fn coupled_society_preregistered_card_and_hash_seal_verify() {

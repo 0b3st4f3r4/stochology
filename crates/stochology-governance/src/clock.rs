@@ -42,10 +42,10 @@ pub fn query_with_bitemporal_clock(
     let mut leaked_future_timestamp = false;
 
     for r in records {
-        assert!(
-            r.t_availability >= r.t_event,
-            "physical law violation: t_availability cannot precede t_event"
-        );
+        if r.t_availability < r.t_event {
+            leaked_future_timestamp = true;
+            continue;
+        }
         if enforce_bitemporal_filter {
             if r.t_availability <= cutoff_tau {
                 let canary_val = if r.t_availability_canary <= cutoff_tau {

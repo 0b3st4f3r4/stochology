@@ -15,10 +15,10 @@ pub mod statutory;
 
 pub use circuit_breaker::{DriftRegime, MurphyCorpCircuitBreaker};
 pub use conformal::AdaptiveConformalInference;
-pub use covariate::{fit_covariate_drift_extra_wcp, CovariateDriftResult};
+pub use covariate::{CovariateDriftResult, fit_covariate_drift_extra_wcp};
 pub use label_shift::{
-    adjust_posterior_for_label_shift, estimate_label_shift_four_methods,
-    fit_calibrated_logistic_1d, LabelShiftDiagnostic,
+    LabelShiftDiagnostic, adjust_posterior_for_label_shift, estimate_label_shift_four_methods,
+    fit_calibrated_logistic_1d,
 };
 pub use pccp_plat::{
     EvaluatedCompetenceCriterion, PlatTrafficLightZone, PredeterminedChangeControlPlan,

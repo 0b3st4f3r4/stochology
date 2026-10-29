@@ -1,11 +1,38 @@
 //! Empirical CSV dataset loaders (`data/*.csv`) and YAML Card / SHA-256 manifest readers.
 
 use crate::csv::CsvTable;
+use crate::error::CliError;
 use std::collections::BTreeMap;
 use std::fs;
-use std::path::Path;
-use stochology_core::{apply_cromwell_floor, EpistemologicalCard};
+use std::path::{Path, PathBuf};
+use stochology_core::{EpistemologicalCard, apply_cromwell_floor};
 use stochology_lenses::CausalEnvironment;
+
+/// Resolves the workspace/distribution root directory containing `data/SHA256SUMS` and `cards/*.yaml`.
+///
+/// Checks, in order:
+/// 1. `std::env::current_dir()` if `data/SHA256SUMS` exists there;
+/// 2. Ancestor directories of `std::env::current_exe()` if `data/SHA256SUMS` exists there (for prebuilt release archives);
+/// 3. Compile-time `CARGO_MANIFEST_DIR/../..` fallback.
+pub fn resolve_workspace_root() -> PathBuf {
+    if let Ok(cwd) = std::env::current_dir() {
+        if cwd.join("data/SHA256SUMS").is_file() {
+            return cwd;
+        }
+    }
+    if let Ok(exe) = std::env::current_exe() {
+        for ancestor in exe.ancestors().skip(1) {
+            if ancestor.join("data/SHA256SUMS").is_file() {
+                return ancestor.to_path_buf();
+            }
+        }
+    }
+    Path::new(env!("CARGO_MANIFEST_DIR"))
+        .parent()
+        .and_then(|p| p.parent())
+        .expect("workspace root")
+        .to_path_buf()
+}
 
 /// Paths of the 4 canonical Epistemological Cards on disk (`cards/*.yaml`).
 pub const CANONICAL_CARD_PATHS: [&str; 4] = [
@@ -20,10 +47,18 @@ pub fn load_cards_from_disk(root_dir: &Path) -> Result<Vec<(String, Epistemologi
     let mut out = Vec::with_capacity(CANONICAL_CARD_PATHS.len());
     for rel_path in CANONICAL_CARD_PATHS {
         let full_path = root_dir.join(rel_path);
-        let content = fs::read_to_string(&full_path)
-            .map_err(|e| format!("Failed to read '{}': {e}", full_path.display()))?;
-        let card = EpistemologicalCard::from_yaml(&content)
-            .map_err(|e| format!("Failed to parse '{rel_path}': {e}"))?;
+        let content = fs::read_to_string(&full_path).map_err(|e| {
+            String::from(CliError::Io {
+                path: full_path.display().to_string(),
+                message: e.to_string(),
+            })
+        })?;
+        let card = EpistemologicalCard::from_yaml_typed(&content).map_err(|error| {
+            String::from(CliError::ParseCard {
+                path: rel_path.to_string(),
+                error,
+            })
+        })?;
         out.push((rel_path.to_string(), card));
     }
     Ok(out)
@@ -32,8 +67,12 @@ pub fn load_cards_from_disk(root_dir: &Path) -> Result<Vec<(String, Epistemologi
 /// Reads `data/SHA256SUMS` and returns a map of `relative_path -> expected_sha256`.
 pub fn load_sha256sums_manifest(root_dir: &Path) -> Result<BTreeMap<String, String>, String> {
     let path = root_dir.join("data/SHA256SUMS");
-    let content = fs::read_to_string(&path)
-        .map_err(|e| format!("Failed to read '{}': {e}", path.display()))?;
+    let content = fs::read_to_string(&path).map_err(|e| {
+        String::from(CliError::Io {
+            path: path.display().to_string(),
+            message: e.to_string(),
+        })
+    })?;
     let mut map = BTreeMap::new();
     for line in content.lines() {
         let trimmed = line.trim();

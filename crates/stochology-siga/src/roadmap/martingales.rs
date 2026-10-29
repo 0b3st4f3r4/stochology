@@ -108,18 +108,30 @@ impl EvidenceProcess {
     ) -> Self {
         assert!(null_mean_m0 > 0.0 && null_mean_m0 < 1.0);
         assert!(alt_mean_q1 > 0.0 && alt_mean_q1 < 1.0);
+        if !null_mean_m0.is_finite()
+            || !alt_mean_q1.is_finite()
+            || observations_01
+                .iter()
+                .any(|&x| !x.is_finite() || !(0.0..=1.0).contains(&x))
+        {
+            let k_adj = attempt_counter_k.max(1);
+            let alpha = alpha_level.clamp(1e-6, 0.5);
+            return Self {
+                alpha_level: alpha,
+                ville_rejection_threshold: 1.0 / alpha,
+                trajectory_e_t: vec![0.0; observations_01.len()],
+                final_e_value: 0.0,
+                attempt_counter_k: k_adj,
+                multiplicity_adjusted_e_value: 0.0,
+                rejects_null_hypothesis: false,
+            };
+        }
         let c = 0.75;
         let raw_lambda = (alt_mean_q1 - null_mean_m0) / (null_mean_m0 * (1.0 - null_mean_m0));
         let lambda = raw_lambda.clamp(-c / (1.0 - null_mean_m0), c / null_mean_m0);
         let l_ratios: Vec<f64> = observations_01
             .iter()
-            .map(|&x| {
-                if x.is_finite() && (0.0..=1.0).contains(&x) {
-                    1.0 + lambda * (x - null_mean_m0)
-                } else {
-                    1.0
-                }
-            })
+            .map(|&x| 1.0 + lambda * (x - null_mean_m0))
             .collect();
         Self::evaluate(&l_ratios, alpha_level, attempt_counter_k)
     }

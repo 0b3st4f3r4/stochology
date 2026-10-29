@@ -224,18 +224,18 @@ reducing single-step amplitude drift from $\mathcal{O}((\omega h)^2)$ to $\mathc
 
 Use the interactive ODE and Brusselator simulator below to compare Forward Euler's parasitic energy explosion against `RK4` and explore the Hopf bifurcation threshold $B > 1 + A^2$:
 
-<div class="stoch-lab" data-lab="rk4-hopf-brusselator" data-chapter="05-dynamical-systems-odes-waves" data-title="Chapter 5 Lab: Forward Euler vs. RK4 Phase Integrator &amp; Hopf Bifurcation" data-cli="cargo run --release --bin labs -- --lenses"></div>
+<div class="stoch-lab" data-lab="rk4-hopf-brusselator" data-chapter="05-dynamical-systems-odes-waves.html" data-title="Chapter 5 Lab: Forward Euler vs. RK4 Phase Integrator &amp; Hopf Bifurcation" data-cli="cargo run --release --bin labs -- --lenses"></div>
 
 
 ---
 
 ## Computational Audit in Rust
 
-All dynamical, thermodynamic, and wave-equation solvers built on these foundations live in [`crates/stochology-lenses/src/relational.rs`](../crates/stochology-lenses/src/relational.rs) and [`crates/stochology-lenses/src/analog.rs`](../crates/stochology-lenses/src/analog.rs):
-- **`PrigogineBrusselatorAudit` (`relational.rs`):** Integrates the 2D Brusselator ODE system via `RK4` and evaluates Schnakenberg's internal entropy production $d\_i S / dt > 0$.
-- **`LovelockDaisyworldAudit` (`relational.rs`):** Integrates the coupled Daisyworld biosphere-albedo ODEs via `RK4`.
-- **`ContinuousOdeLtcIsomorphismAudit` (`analog.rs`):** Integrates the 2nd-order RLC / Mass-Spring-Damper ODE and Liquid Time-Constant (`LTC`) neural ODE via `RK4`.
-- **`WavePhysicsSirenRnnAudit` (`analog.rs`):** Compares `SIREN` $\sin(\omega\_0 x)$ against `ReLU` on the 2nd-order Helmholtz PDE and integrates the 2nd-order damped nonlinear Wave PDE.
+All dynamical, thermodynamic, and wave-equation solvers built on these foundations live in [`crates/stochology-lenses/src/relational/mod.rs`](../crates/stochology-lenses/src/relational/mod.rs) and [`crates/stochology-lenses/src/analog/mod.rs`](../crates/stochology-lenses/src/analog/mod.rs):
+- **`DissipativeAutopoieticAudit` (`relational/mod.rs`):** Integrates the 2D Brusselator ODE system via `RK4` and evaluates Schnakenberg's internal entropy production $d\_i S / dt > 0$.
+- **`DaisyworldSystem` (`relational/mod.rs`):** Integrates the coupled Daisyworld biosphere-albedo ODEs via `RK4`.
+- **`NativeOdeIsomorphismAudit` (`analog/mod.rs`):** Integrates the 2nd-order RLC / Mass-Spring-Damper ODE and Liquid Time-Constant (`LTC`) neural ODE via `RK4`.
+- **`WaveInterferenceLearningAudit` (`analog/mod.rs`):** Compares `SIREN` $\sin(\omega\_0 x)$ against `ReLU` on the 2nd-order Helmholtz PDE and integrates the 2nd-order damped nonlinear Wave PDE.
 
 Run Gate `G8` and Lab 3 to inspect these continuous systems:
 

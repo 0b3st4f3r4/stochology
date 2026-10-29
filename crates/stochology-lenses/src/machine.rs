@@ -15,13 +15,13 @@
 //!      operational authenticity criterion $A(\text{model})$.
 
 use crate::decision::CorpPavDecomposition;
-use crate::information::{fano_error_floor, DpiMarkovChain, SdpiHierarchy};
+use crate::information::{DpiMarkovChain, SdpiHierarchy, fano_error_floor};
 use crate::invariance::{
-    hidden_confounding_threshold_lambda_star, run_nonlinear_icp_nile, CausalEnvironment,
+    CausalEnvironment, hidden_confounding_threshold_lambda_star, run_nonlinear_icp_nile,
 };
 use stochology_core::{
-    apply_cromwell_floor, is_valid_sha256_hex, mean, sample_std, sha256_hex, InfoGapOption,
-    KennedyOHaganDiscrepancy, MengAudit, NonlinearSummary, Rng,
+    InfoGapOption, KennedyOHaganDiscrepancy, MengAudit, NonlinearSummary, Rng,
+    apply_cromwell_floor, is_valid_sha256_hex, mean, sample_std, sha256_hex,
 };
 
 /// Audit of the 5 formal properties (`P1`–`P5`) required for an $(\varepsilon, \delta)$-Almost-Perfect Machine `M = (T, Φ, θ)`.

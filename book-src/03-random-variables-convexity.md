@@ -205,7 +205,7 @@ Once we refuse to collapse a random variable $X$ into a lone mean, we need a way
 ### 1. Vertical Distance: Continuous Ranked Probability Score ($\mathrm{CRPS}$)
 Suppose a forecaster issues a full predictive CDF $F(x) = P(X \le x)$, and nature subsequently reveals the actual scalar outcome $y \in \mathbb{R}$. Nature's outcome can itself be written as a step-function CDF $\mathbf{1}\{x \ge y\}$ that jumps from $0$ to $1$ at $x = y$.
 
-The **Continuous Ranked Probability Score** (`crps_empirical` in `crates/stochology-core/src/layers.rs`) integrates the squared vertical gap between the forecast CDF $F(x)$ and nature's step function across the entire real line:
+The **Continuous Ranked Probability Score** (`empirical_crps` in `crates/stochology-core/src/layers/`) integrates the squared vertical gap between the forecast CDF $F(x)$ and nature's step function across the entire real line:
 
 $$\mathrm{CRPS}(F, y) = \int\_{-\infty}^{\infty} \left(F(x) - \mathbf{1}\{x \ge y\}\right)^2 dx = \mathbb{E}\_F[|X - y|] - \frac{1}{2}\mathbb{E}\_F[|X - X'|]$$
 
@@ -216,7 +216,7 @@ where $X, X'$ are independent draws from $F$. The right-hand representation spli
 ### 2. Horizontal Distance: Wasserstein-1 ($W\_1$, Earth Mover's Distance) and Lipschitz Functions
 Suppose we need to compare two full probability distributions $P$ (with CDF $F$) and $Q$ (with CDF $G$), such as the distribution of commuter behavior *before* vs. *after* a navigation app changes its routing model.
 
-If we think of $P$ and $Q$ as two piles of earth of total mass $1$, the **Wasserstein-1 distance** $W\_1(P, Q)$ (`wasserstein_1d` in `crates/stochology-core/src/layers.rs`) is the minimum physical work (mass $\times$ horizontal distance moved) required to reshape pile $P$ into pile $Q$. In one dimension, Vallender's theorem proves that this equals the area between their quantile functions (or equivalently between their CDFs):
+If we think of $P$ and $Q$ as two piles of earth of total mass $1$, the **Wasserstein-1 distance** $W\_1(P, Q)$ (`empirical_wasserstein_1` in `crates/stochology-core/src/layers/`) is the minimum physical work (mass $\times$ horizontal distance moved) required to reshape pile $P$ into pile $Q$. In one dimension, Vallender's theorem proves that this equals the area between their quantile functions (or equivalently between their CDFs):
 
 $$W\_1(P, Q) = \int\_0^1 \left|F^{-1}(u) - G^{-1}(u)\right| du = \int\_{-\infty}^{\infty} |F(x) - G(x)|\,dx$$
 
@@ -240,7 +240,7 @@ Two foundational identities connect quantiles, expectations, and proper scoring 
    Subtracting two CDFs $F$ and $G$ immediately proves **Vallender's Theorem (1973)**: the vertical area between two CDFs $\int\_{-\infty}^\infty |F(x) - G(x)|\,dx$ and the horizontal area between their quantile curves $\int\_0^1 |F^{-1}(u) - G^{-1}(u)|\,du$ are **geometrically identical**—both equal the 1D Wasserstein-1 distance $W\_1(P, Q)$.
 
 2. **Exact $\mathcal{O}(n \log n)$ Order-Statistic Decomposition of $\mathrm{CRPS}$:**
-   Given $n$ sorted ensemble forecast draws $x\_{(1)} \le x\_{(2)} \le \dots \le x\_{(n)}$, a naive evaluation of $\frac{1}{2n^2}\sum\_{i=1}^n\sum\_{j=1}^n |x\_i - x\_j|$ requires $\mathcal{O}(n^2)$ operations. However, because $x\_{(i)} \ge x\_{(j)}$ whenever $i > j$, each sorted element $x\_{(i)}$ appears with a positive sign $(i - 1)$ times and with a negative sign $(n - i)$ times, reducing the double sum to a single linear pass after sorting (`exact_loo_empirical_crps` in `crates/stochology-core/src/layers.rs`):
+   Given $n$ sorted ensemble forecast draws $x\_{(1)} \le x\_{(2)} \le \dots \le x\_{(n)}$, a naive evaluation of $\frac{1}{2n^2}\sum\_{i=1}^n\sum\_{j=1}^n |x\_i - x\_j|$ requires $\mathcal{O}(n^2)$ operations. However, because $x\_{(i)} \ge x\_{(j)}$ whenever $i > j$, each sorted element $x\_{(i)}$ appears with a positive sign $(i - 1)$ times and with a negative sign $(n - i)$ times, reducing the double sum to a single linear pass after sorting (`exact_loo_empirical_crps` in `crates/stochology-core/src/layers/`):
    $$\frac{1}{2n^2}\sum\_{i=1}^n\sum\_{j=1}^n |x\_i - x\_j| = \frac{1}{n^2}\sum\_{i=1}^n (2i - n - 1)\,x\_{(i)}$$
 
 <figure class="stoch-figure">
@@ -285,7 +285,7 @@ Two foundational identities connect quantiles, expectations, and proper scoring 
   <text x="596" y="202" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="700">5. q_50     — Rank-robust median (immune to single spike)</text>
   <text x="596" y="226" fill="var(--amber)" class="mono" font-size="11.5" font-weight="700">6. q_95     — 95th percentile upper-tail congestion/loss</text>
   <text x="596" y="250" fill="var(--sky)" class="mono" font-size="11.5" font-weight="700">7. CRPS     — Strictly proper full-CDF calibration score</text>
-  <text x="596" y="286" fill="var(--ink)" class="mono" font-size="11.5" font-weight="700">Bank Calls (n=27,716): Δ_J = +9.03×10⁶ · CRPS = 9.06×10⁷</text>
+  <text x="596" y="286" fill="var(--ink)" class="mono" font-size="10.8" font-weight="700">bank_calls.csv (measured): Δ_J=+9.03×10⁶ calls²/d (≈0.85% f(E[X])) · CRPS=9.06×10⁷</text>
   </svg>
   <figcaption><strong>Figure 3.2 — Geometric proof of Jensen's Inequality via secant chords and supporting tangent lines, paired with the mandatory 7-number `NonlinearSummary` audited in Gate G6.</strong></figcaption>
 </figure>
@@ -294,18 +294,17 @@ Two foundational identities connect quantiles, expectations, and proper scoring 
 
 Explore how input dispersion $\delta$ and payoff curvature $c$ interact to amplify Jensen's Gap $\Delta\_J = \mathbb{E}[f(X)] - f(\mathbb{E}[X])$ in real time:
 
-<div class="stoch-lab" data-lab="jensen-crps" data-chapter="03-random-variables-convexity" data-title="Chapter 3 Lab: Convexity, Secant Geometry &amp; Jensen's Gap (Δ_J) Explorer" data-cli="cargo run --release --bin labs -- --layers"></div>
+<div class="stoch-lab" data-lab="jensen-crps" data-chapter="03-random-variables-convexity.html" data-title="Chapter 3 Lab: Convexity, Secant Geometry &amp; Jensen's Gap (Δ_J) Explorer" data-cli="cargo run --release --bin labs -- --layers"></div>
 
 
 ---
 
 ## Computational Audit in Rust
 
-All four building blocks are implemented in pure Rust in [`crates/stochology-core/src/layers.rs`](../crates/stochology-core/src/layers.rs):
-- **`QuantileSummary::from_samples(&samples)`:** Sorts $n$ observations, computes $\mathbb{E}[X]$, $q\_{0.05}$, $q\_{0.50}$, $q\_{0.95}$, and validates order invariants.
-- **`JensenAudit::evaluate(&samples, f, name)`:** Computes $f(\mathbb{E}[X])$, $\mathbb{E}[f(X)]$, and Jensen's Gap $\Delta\_J = \mathbb{E}[f(X)] - f(\mathbb{E}[X])$, alongside the full `QuantileSummary` of both $X$ and $f(X)$.
-- **`crps_empirical(&forecast_samples, y_observed)`:** Evaluates the exact $\mathcal{O}(n \log n)$ empirical $\mathrm{CRPS}$ integral from sorted ensemble draws.
-- **`wasserstein_1d(&samples_p, &samples_q)`:** Computes the exact 1D Earth Mover's distance $W\_1(P, Q)$ between two empirical distributions.
+All four building blocks are implemented in pure Rust in [`crates/stochology-core/src/layers/mod.rs`](../crates/stochology-core/src/layers/mod.rs):
+- **`NonlinearSummary::evaluate(&samples, f, observed_outcomes)`:** Sorts $n$ observations, computes $\mathbb{E}[X]$, $f(\mathbb{E}[X])$, $\mathbb{E}[f(X)]$, Jensen's Gap $\Delta\_J = \mathbb{E}[f(X)] - f(\mathbb{E}[X])$, the median, $q\_{0.05}$, $q\_{0.95}$, and the empirical $\mathrm{CRPS}$.
+- **`empirical_crps(&forecast_samples, y_observed)` & `exact_loo_empirical_crps(&samples)`:** Evaluate the exact $\mathcal{O}(n \log n)$ empirical and leave-one-out $\mathrm{CRPS}$ integrals from sorted ensemble draws.
+- **`empirical_wasserstein_1(&samples_p, &samples_q)`:** Computes the exact 1D Earth Mover's distance $W\_1(P, Q)$ between two empirical distributions.
 
 Run Lab 1 to execute these primitives on synthetic and empirical distributions:
 

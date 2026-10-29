@@ -6,12 +6,12 @@ pub mod nile_irm;
 pub mod shapley_causal;
 
 pub use icp::{
-    chow_invariance_f_stat, cinelli_hazlett_robustness_value,
-    hidden_confounding_threshold_lambda_star, run_icp, second_order_worst_case_loss,
-    second_order_worst_case_loss_full, CausalEnvironment, IcpResult, PearlRung,
+    CausalEnvironment, IcpResult, PearlRung, chow_invariance_f_stat,
+    cinelli_hazlett_robustness_value, hidden_confounding_threshold_lambda_star, run_icp,
+    second_order_worst_case_loss, second_order_worst_case_loss_full,
 };
 pub(crate) use nile_irm::expand_nonlinear_basis_1d;
-pub use nile_irm::{run_nonlinear_icp_nile, NonlinearIcpNileResult};
+pub use nile_irm::{NonlinearIcpNileResult, run_nonlinear_icp_nile};
 pub use shapley_causal::ShapleyCausalAudit;
 
 #[cfg(test)]

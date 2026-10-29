@@ -76,7 +76,7 @@ What happens when even the list of possible outcomes or the functional form of t
   <figcaption><strong>Figure 2.1 — Andy Stirling's 2x2 Diagnostic Matrix of Uncertainty</strong></figcaption>
 </figure>
 
-In 1921, economist **Frank Knight** drew the classic boundary between measurable **Risk** (Column 1) and unmeasurable **Uncertainty** (Column 2 and Row 2). In the Stochology Protocol (`crates/stochology-core/src/uncertainty.rs` and `card.rs`), every Epistemological Card must declare its dominant uncertainty class from four formal types:
+In 1921, economist **Frank Knight** drew the classic boundary between measurable **Risk** (Column 1) and unmeasurable **Uncertainty** (Column 2 and Row 2). In the Stochology Protocol (`crates/stochology-core/src/layers/`, `uncertainty.rs`, and `card/`), every Epistemological Card must declare its dominant uncertainty class from four formal types:
 
 | Protocol Type (`uncertainty`) | Primary Layer | Mathematical Mechanism in the Protocol | Operational Remedy |
 | --- | --- | --- | --- |
@@ -89,13 +89,13 @@ In 1921, economist **Frank Knight** drew the classic boundary between measurable
 
 ## 2.2 Parametric Epistemic Uncertainty: Laplace's Rule of Succession
 
-Suppose an insurer examines $n = 36$ consecutive months of fire-reinsurance records (as happened in the 1986–1988 window of `danish_fire.csv`) and observes $s = 0$ claims exceeding $50\text{ million DKK}$. What is the probability $p$ that a catastrophic claim will strike next month?
+Suppose an insurer examines $n = 36$ consecutive months of fire-reinsurance records (measured in the 1986–1988 window of `danish_fire.csv`) and observes $s = 0$ claims exceeding $50\text{ million DKK}$. What is the probability $p$ that a catastrophic claim will strike next month?
 
 A naive frequentist plug-in estimator computes:
 
 $$\hat{p}\_{\text{naive}} = \frac{s}{n} = \frac{0}{36} = 0.00$$
 
-Reporting $\hat{p} = 0$ violates Prohibition 4 (Cromwell's Rule): it confuses *"it did not happen in this 36-month window"* with *"it is physically impossible."* If an underwriter believes $p = 0$, any finite premium looks like free money, encouraging infinite leverage and guaranteeing eventual ruin (which arrived in August 1989 with a $152.4\text{M DKK}$ fire loss).
+Reporting $\hat{p} = 0$ violates Prohibition 4 (Cromwell's Rule): it confuses *"it did not happen in this 36-month window"* with *"it is physically impossible."* If an underwriter believes $p = 0$, any finite premium looks like free money, encouraging infinite leverage and guaranteeing eventual ruin (which arrived in August 1989 with a $152.4\text{M DKK}$ fire loss, measured in `danish_fire.csv`).
 
 In 1774, **Pierre-Simon Laplace** addressed this small-sample collapse, framing it as the probability that the sun will rise tomorrow given that it has risen $n$ times in a row. Starting from a uniform $\mathrm{Beta}(1, 1)$ prior over the unknown probability $\theta \in [0, 1]$ and observing $s$ successes in $n$ independent Bernoulli trials, the posterior distribution is $\mathrm{Beta}(s + 1, n - s + 1)$, whose expectation is **Laplace's Rule of Succession**:
 
@@ -115,7 +115,7 @@ Each of the Six Directed Pairs introduced in [Chapter 1](01-layers-six-pairs.md)
 | **1. World Models ($L\_1 \to L\_2$)** | `epistemic_specification` & `MNAR` Selection | Meng's Data Defect Index `DDI`, non-parametric `ManskiBounds` / `lee_trimming_bounds`, and anchored `KennedyOHaganDiscrepancy` $\delta(x)$. |
 | **2. Model Worlds ($L\_2 \to L\_1$)** | `aleatory` & `epistemic_parameter` | Seeded null models on `SplitMix64` (`seed = 2026`) with `MonteCarloSplitTreeAudit`, Talts `sbc_rank_chi2`, and multi-seed acceptance (`SynthesisAcceptance` in `stochology_lenses::acceptance`: every claim must pass on $\ge 95\%$ of the 20 development seeds and of the 200 sealed confirmation seeds; the one-sided Clopper-Pearson bound is only reported). |
 | **3. Decision Models ($L\_2 \to L\_3$)** | `aleatory` & `epistemic_parameter` | `NonlinearSummary` (Jensen's Gap plus the strictly proper leave-one-out `empirical_crps`, computed by `exact_loo_empirical_crps`), isotonic `CorpPavDecomposition`, and anytime-valid `SaviConfidenceSequence`. |
-| **4. Model Decisions ($L\_3 \to L\_2$)** | Stirling Quadrant 3 (**Ambiguity**) | The attempt counter `attempt_counter_k` $K \ge 1$, named `DiscardedAtomRecord` entries, and SHA-256 pre-registration of the `EpistemologicalCard`. |
+| **4. Model Decisions ($L\_3 \to L\_2$)** | Stirling Quadrant 3 (**Ambiguity**) | The attempt counter `attempt_counter_k` $K \ge 1$, named `DiscardedAtomRecord` entries, SHA-256 pre-registration of the `EpistemologicalCard`, and its `who_pays_for_error` field audited against `ChouldechovaAudit`. |
 | **5. World Decisions ($L\_3 \to L\_1$)** | Strategic / Endogenous Shift | `PerformativeSystem` ($\theta\_{\mathrm{PS}}$ vs. $\theta\_{\mathrm{PO}}$), RRM contraction $\frac{\varepsilon\beta}{\gamma} < 1$, and `GoodhartTaxonomyAudit`. |
 | **6. Decision Worlds ($L\_1 \to L\_3$)** | `knightian` (Stirling Quadrant 4 **Ignorance**) | The declared Stirling-Walker class with `InfoGapOption` ($\hat{\alpha}, \hat{\beta}$) and Sniedovich's global Wald Maximin floor, `ExceedanceDesignEffect` $n\_{\mathrm{eff}}(p)$, and `verify_resolution_phi5` ($\Phi\_5$). |
 

@@ -1,0 +1,87 @@
+name: Publish Crates to crates.io & GitHub Release
+
+on:
+  push:
+    tags:
+      - "v[0-9]*.[0-9]*.[0-9]*"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run full verification and cargo publish --dry-run without publishing to crates.io"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Verify Protocol & Publish to crates.io
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Toolchain pinned in rust-toolchain.toml
+        run: rustup show
+
+      - name: Verify tag matches workspace version in Cargo.toml
+        run: |
+          WORKSPACE_VERSION="$(sed -nE 's/^version = "([^"]+)"/\1/p' Cargo.toml | head -n 1)"
+          echo "Workspace version: v${WORKSPACE_VERSION}"
+          if [ "${GITHUB_REF_TYPE}" = "tag" ] && [ "${GITHUB_REF_NAME}" != "v${WORKSPACE_VERSION}" ]; then
+            echo "ERROR: pushed tag '${GITHUB_REF_NAME}' does not match Cargo.toml version 'v${WORKSPACE_VERSION}'" >&2
+            exit 1
+          fi
+
+      - name: Mandatory Stochology verification suite (AGENTS.md §V)
+        run: ./scripts/verify.sh
+
+      - name: Verify crate packaging metadata
+        run: |
+          cargo package -p stochology-core
+          cargo package --list -p stochology-core -p stochology-lenses -p stochology-siga -p stochology-governance -p stochology-cli
+          cargo publish --workspace --dry-run
+
+      - name: Publish crates to crates.io (Topological Order)
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && !inputs.dry_run)
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: |
+          if [ -z "${CARGO_REGISTRY_TOKEN:-}" ]; then
+            echo "ERROR: CARGO_REGISTRY_TOKEN secret is not configured in repository settings." >&2
+            exit 1
+          fi
+          cargo publish -p stochology-core
+          cargo publish -p stochology-lenses
+          cargo publish -p stochology-siga
+          cargo publish -p stochology-governance
+          cargo publish -p stochology-cli --no-verify
+
+      - name: Package release binaries (labs & gates) and create GitHub Release
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          ARCHIVE="stochology-${TAG}-x86_64-unknown-linux-gnu.tar.gz"
+          mkdir -p dist/"stochology-${TAG}"
+          cp -r target/release/labs target/release/gates data cards LICENSE README.md CITATION.cff dist/"stochology-${TAG}"/
+          tar -C dist -czf "${ARCHIVE}" "stochology-${TAG}"
+          sha256sum "${ARCHIVE}" > "${ARCHIVE}.sha256"
+          if ! gh release view "${TAG}" >/dev/null 2>&1; then
+            gh release create "${TAG}" "${ARCHIVE}" "${ARCHIVE}.sha256" \
+              --title "Stochology Protocol ${TAG}" \
+              --generate-notes
+          else
+            gh release upload "${TAG}" "${ARCHIVE}" "${ARCHIVE}.sha256" --clobber
+          fi
+
