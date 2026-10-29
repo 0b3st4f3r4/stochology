@@ -1,0 +1,80 @@
+# Pre-Registration Specification for Coupled Public-Private Society Synthesis (Invariant Phi_3)
+# Frozen BEFORE writing crates/stochology-lenses/src/society.rs
+# Card attempt_counter_K = 1 (Acceptance Registry entry K = 6, virgin confirmation block 9_000_200..=9_000_399)
+
+id: "coupled_public_private_sfc_society"
+layer: "L3"
+uncertainty: "knightian"
+
+decision_maker_question:
+  who_decides: "Macroprudential & Fiscal Stabilization Council Director"
+  altered_action: "Switch fiscal-stabilization rule to bitemporal Manski Minimax-Regret + oracle-free PerfGD and route Clarke VCG pivot surplus to the disjoint-cohort buffer within each shift/epoch cycle when vulnerability exceeds p* = 0.12000"
+  question: "Does closed-loop Stock-Flow Consistent (SFC) coupling between private balance sheets, bitemporal/MNAR public observation, and performative fiscal/credit rules amplify pro-cyclical insolvency and Green-Laffont rebate leakage beyond open-loop partial equilibrium?"
+
+fixed_null_model_parameters_assumed:
+  closed_economy_boundary: true
+  households_n_h: 120
+  firms_n_f: 30
+  horizon_epochs_t: 60
+  shock_epoch_t0: 10
+  pareto_shock_alpha: 2.25
+  pareto_shock_scale_x_m: 0.18
+  shocked_firm_fraction_f_shock: 0.25
+  bitemporal_reporting_lag_delta_t: 2
+  mnar_selection_correlation_rho_ry: -0.15
+  mnar_observed_fraction_f_obs: 0.75
+  crra_risk_aversion_gamma: 2.0
+  bester_success_prob_good: 0.92
+  bester_success_prob_bad: 0.65
+  bester_collateral_recovery_kappa: 0.80
+  bester_good_fraction_grid: [0.50, 0.88]
+  vcg_cohort_size_grid_m: [4, 8, 16, 32]
+  vcg_public_good_cost_per_capita: 0.85
+  development_seeds: "2026..=2045"
+  virgin_confirmation_seeds_k6: "9000200..=9000399"
+  min_claim_pass_rate: 0.95
+
+preregistered_identities_all_modes:
+  - "sfc_bilinear_row_and_column_zero_sum_error < 1e-12"
+  - "kalecki_levy_and_godley_three_balances_error < 1e-12"
+  - "phi1_agent_iteration_order_permutation_linf_diff == 0.0"
+  - "vcg_disjoint_cohort_dsic_exact_zero_and_same_cohort_positive_at_m4"
+
+preregistered_claims_assumed_targets:
+  - name: "society.h1a.closed_loop_coupling_did_firm_survival_above_0.06"
+    ablation_factor: "Single factor: Regulator (bitemporal + Manski Minimax Regret + oracle-free finite-diff PerfGD) vs (event-time point estimate + damped RRM), holding Carroll buffer-stock households, Basel III CCyB, and Bester credit constant"
+    metric: "(Surv(shielded, closed) - Surv(naive, closed)) - (Surv(shielded, open) - Surv(naive, open)) >= 0.06"
+  - name: "society.h1a.closed_loop_coupling_did_crra_welfare_above_0.04"
+    ablation_factor: "Single factor: Same H1a regulator ablation on Jensen-penalized CRRA (gamma=2.0) household welfare"
+    metric: "(Welfare(shielded, closed) - Welfare(naive, closed)) - (Welfare(shielded, open) - Welfare(naive, open)) >= 0.04"
+  - name: "society.h1b.bester_collateral_screening_beats_stiglitz_weiss_pooling_by_0.08"
+    ablation_factor: "Single factor: Bank credit mechanism (Bester 1985 collateral menu with existence switch vs Stiglitz-Weiss 1981 pooling rationed cap), holding public regulator and Basel III CCyB constant"
+    metric: "Closed-loop solvent firm survival gain >= 0.08 at lambda_good = 0.50 <= lambda* and >= 0.0 at lambda_good = 0.88 > lambda*"
+  - name: "society.h2.det.same_cohort_buffer_leakage_decays_as_inv_m"
+    ablation_factor: "Single factor: VCG surplus destination across M in {4, 8, 16, 32} (proportional rebate vs same-cohort buffer vs disjoint-cohort buffer)"
+    metric: "eps_disjoint(M) < 1e-12 && eps_same(4) > 1e-3 && eps_same(32) <= 0.28 * eps_same(4) && eps_rebate(32) > 3.0 * eps_same(32)"
+  - name: "society.h2.disjoint_cohort_vcg_commons_stock_beats_rebate_by_0.10"
+    ablation_factor: "Single factor: Disjoint-cohort VCG buffer vs proportional-rebate VCG on Ostrom renewable commons stock S_T / K_cap, holding aGRAPA monitoring identical"
+    metric: "S_T/K_cap(disjoint) - S_T/K_cap(rebate) >= 0.10"
+
+negative_defect_proof:
+  cli_flag: "--defect coupled_society"
+  capiba_pillar: "A — Auditing (21st negative proof: 3+4+2+3+2+7 = 21)"
+  blocking_criterion: "On all 20 development seeds (2026..=2045), evaluate_with_mode(seed, false) keeps all_identities_closed == true while failing stochastic claims (!is_deterministic), exiting with code 1"
+
+data_and_audit_contract:
+  dataset_path: "data/cps_observational.csv"
+  dataset_sha256: "e357e728bfefa729ff880377aca072aa01563a4b412d956dcf70f2539446cdf5"
+  null_model: "crates/stochology-lenses/src/society.rs#CoupledPublicPrivateSocietySynthesis"
+  critical_threshold_p_star: 0.12000
+  preregistration_payload: "stochology_prereg_v1|id=coupled_public_private_sfc_society|layer=L3|unit=Administrative demographic-educational cohort cluster (age x schooling cell across households)|dataset=data/cps_observational.csv|sha256=e357e728bfefa729ff880377aca072aa01563a4b412d956dcf70f2539446cdf5|null=crates/stochology-lenses/src/society.rs#CoupledPublicPrivateSocietySynthesis|p_star=0.12000"
+  preregistration_hash: "82e6cf8431de6e6a7fbad2417d7dacaf49cc1723c1759252079e0c850815008a"
+  attempt_counter_K: 1
+  field_authorship:
+    null_model: "inference"
+    decision_rule: "decision"
+    adversarial_reviewer: "independent_adversarial_auditor"
+  findings:
+    registered: 5
+    used: 0
+    unused: []
