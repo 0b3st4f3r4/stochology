@@ -67,15 +67,16 @@ To make hiding impossible, the Stochology Protocol establishes **Four Golden Pro
 
 ### Why Prose Fails in Multi-Agent and Institutional Systems
 
-When human teams or autonomous AI agents communicate through free natural language, two well-documented pathologies emerge:
+While the software industry celebrates multi-agent pipelines in which Large Language Models converse in fluent English or Portuguese paragraphs, putting autonomous agents to talk in free natural language is an engineering failure. When human teams or autonomous AI agents communicate through unstructured prose, three well-documented pathologies emerge:
 - **Adjective Laundering:** Uncertain guesses in the first stage (*"the data weakly suggest, under strong stationarity assumptions..."*) are summarized by the second stage as established facts (*"based on the verified trend..."*).
-- **Sycophancy Cascades:** In multi-agent LLM architectures, downstream agents defer to the confident tone of upstream agents rather than recomputing the variance budget, SHA-256 data hash, or cost-loss threshold.
+- **Sycophancy Cascades:** In multi-agent LLM architectures, downstream agents defer to the rhetorical confidence of upstream agents rather than recomputing the variance budget, SHA-256 data hash, or cost-loss threshold.
+- **Masking Correlational Shortcuts ("Stochastic Parrots"):** Behind fluent syntax, an upstream agent can rely on a surface token proxy ($P(w_t \mid w_{1:t-1})$, Pearl Rung 1 `1-See`) that looks accurate on passive holdout data. In the simulated toy world of `MarcuseRouvroyStochasticParrotAudit` (Chapter 12, `seed = 2026`; not a measurement on any language model), such a proxy predictor scores $\mathrm{MSE}_{e_0} = 0.012$ yet collapses by three orders of magnitude under a simulated intervention ($\mathrm{MSE}_{\mathrm{do}(X)} = 19.13$, whereas an agent anchored to the invariant causal core $\hat{S}^{\ast} = [0]$ via `run_nonlinear_icp_nile` retains $\mathrm{MSE}_{\mathrm{do}(X)} = 0.012$).
 
 ### The Structural Remedy: Typed Epistemological Cards
 
-Under **Prohibition 1**, all communication between agents or modules transits **exclusively through structured Epistemological Cards** (`EpistemologicalCard` in `crates/stochology-core/src/card.rs`), serialized in strict YAML (`cards/*.yaml`) and validated by `EpistemologicalCard::audit()`.
+Under **Prohibition 1**, all communication between agents or modules transits **exclusively through structured Epistemological Cards** (`EpistemologicalCard` in `crates/stochology-core/src/card.rs`), serialized in strict YAML (`cards/*.yaml`) and validated in pure Rust by `EpistemologicalCard::audit()`.
 
-A fixed schema defeats adjective laundering because **an empty or inconsistent slot cannot hide behind an eloquent verb.** If an agent wants to recommend an action in a YAML card, the parser forces the agent to fill in:
+A fixed typed schema is the only antidote to adjective laundering because **an empty or inconsistent slot for effective sample size, Jensen's Gap ($\Delta_J$), or economic threshold ($p^{\ast} = \frac{C}{\eta L}$) cannot hide behind an eloquent verb.** If an agent wants to recommend an action in a YAML card, the parser forces the agent to fill in:
 - the exact SHA-256 hash of the dataset (`dataset_sha256`);
 - the true independent unit and Moulton-Campbell effective sample size (`effective_sample_size_n_eff`);
 - all seven numbers of the nonlinear summary (`f_at_mean`, `mean_of_f`, `jensen_gap`, `median`, `q05`, `q95`, `crps`);

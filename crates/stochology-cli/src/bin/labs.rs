@@ -455,7 +455,7 @@ fn lab_lenses(root: &Path) {
         (&probs, &outcomes),
     );
     println!(
-        "  [Stochary-Conjectural & Cybernetics] Tree150(H1={:.4}, J1={:.4}, H2={:.4}, J2={:.4}, orphans={}) | Axioms(LowPass={:.2} vs Bullwhip={:.2}x, Peters_g={:+.4} vs Kelly_sim={:+.4}, TailVega={:+.1} vs JIT={:+.1}, rho1={:.2}) | Powell(theta*={:.2}, CFA_gain=+{:.1}), VOI(ambiguous probe={:.3}<act={:.3}, resolved probe={:.3}>act={:.3}, match={}), Pearl(FD={:+.2}, transport_err={:.3}) | Scarf(s*={:.0}, S*={:.0}), TTS/TTR={:.2} (REI_red={:.0}%), CVaR95={:.1}, WDRO_disapp={:+.2} vs naive={:+.2} | SupplyChain(GG1_Wq={:.2}h vs Kingman={:.2}h, cliff_sim={:.1}h, Sterman_SL_damp={:.2}, GravesWillems_MEIO=-{:.0}%, Eppen_tail_surge={:.2}x, TBS_save=-{:.0}%, Ivanov_fill={:.0}%) | VSM(ConantAshby_R2={:.3}, Noise={:.3}->{:.3}, PLAT r_s={:.2}/D_KS={:.3}, Algedonic={}, PATE_Q3_alarm={}) | Emp5CSVs(BankLP={:.2}, FireWDRO={:+.1}, VicReserveCov={:.2}, discarded={:?}) | identities={} | verified={}",
+        "  [Stochary-Conjectural & Cybernetics] Tree150(H1={:.4}, J1={:.4}, H2={:.4}, J2={:.4}, orphans={}) | Axioms(LowPass={:.2} vs Bullwhip={:.2}x, Peters_g={:+.4} vs Kelly_sim={:+.4}, TailVega={:+.1} vs JIT={:+.1}, rho1={:.2}) | Powell(theta*={:.2}, CFA_gain={:+.1}), VOI(ambiguous probe={:.3}<act={:.3}, resolved probe={:.3}>act={:.3}, match={}), Pearl(FD={:+.2}, transport_err={:.3}) | Scarf(s*={:.0}, S*={:.0}), TTS/TTR={:.2} (REI_red={:.0}%), CVaR95={:.1}, WDRO_disapp={:+.2} vs naive={:+.2} | SupplyChain(GG1_Wq={:.2}h vs Kingman={:.2}h, cliff_sim={:.1}h, Sterman_SL_damp={:.2}, GravesWillems_saving={:.0}%, Eppen_tail_surge={:.2}x, TBS_saving={:.0}%, Ivanov_fill={:.0}%) | VSM(ConantAshby_R2={:.3}, Noise={:.3}->{:.3}, PLAT r_s={:.2}/D_KS={:.3}, Algedonic={}, PATE_Q3_alarm={}) | Emp5CSVs(BankLP={:.2}, FireWDRO={:+.1}, VicReserveCov={:.3}/{:.3}, discarded={:?}) | identities={} | verified={}",
         stoch_syn.topology_and_stock_axioms.shannon_entropy_l1_bits,
         stoch_syn.topology_and_stock_axioms.balance_index_j_l1,
         stoch_syn.topology_and_stock_axioms.shannon_entropy_l2_bits,
@@ -501,7 +501,8 @@ fn lab_lenses(root: &Path) {
         stoch_syn.cybernetic_vsm_and_pate.pate_q3_jackpot_algedonic_alarm_triggered,
         emp_stoch.bank_calls_low_pass_variance_ratio,
         emp_stoch.danish_fire_naive_vs_wdro_disappointment.1,
-        emp_stoch.vic_elec_reserve_excursion_coverage,
+        emp_stoch.vic_elec_reserve_excursion_coverage.0,
+        emp_stoch.vic_elec_reserve_excursion_coverage.1,
         emp_stoch.discarded_findings,
         stoch_syn.all_identities_closed,
         stoch_syn.all_four_axes_verified && emp_stoch.empirical_stochary_verified
@@ -637,7 +638,7 @@ fn lab_siga(root: &Path) {
     let (epic_sepsis, stoch_triage) =
         AlertFatigueAudit::canonical_epic_sepsis_vs_stochological_gate();
     println!(
-        "  [Filter 3 SHELF Beta Fit & Step 6 GRAPA] Beta(alpha={:.2}, beta={:.2}, CDF_RMSE={:.4}) | GRAPA E_35={:.2} (rejects_H0={}) | [Bridge L2->L3 AlertFatigueAudit (10 bit/s & Turing Decibans)] EpicSepsis(PPV={:.1}%, FP/TP={:.1}, approved={}) vs Stochological(PPV={:.1}%, W={:+.2} dB, load={:.1} bit/s <= 10, approved={})",
+        "  [Filter 3 SHELF Beta Fit & Step 6 GRAPA] Beta(alpha={:.2}, beta={:.2}, CDF_RMSE={:.4}) | GRAPA E_35={:.2} (rejects_H0={}) | [Bridge L2->L3 AlertFatigueAudit (10 bit/s & Turing Decibans)] EpicSepsis(PPV={:.1}%, FP/TP={:.1}, approved={}) vs StochologicalTarget(assumed TPR/FPR, PPV={:.1}%, W={:+.2} dB, load={:.1} bit/s <= 10, approved={})",
         shelf_a,
         shelf_b,
         shelf_rmse,

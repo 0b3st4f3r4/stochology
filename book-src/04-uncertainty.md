@@ -128,7 +128,7 @@ In a 2001 paper in the *Journal of the Royal Statistical Society*, **Marc Kenned
 
 $$y(x) = \underbrace{\eta(x, \theta)}\_{\text{Simulator ($L\_2$)}} + \underbrace{\delta(x)}\_{\text{Structural Discrepancy}} + \underbrace{\varepsilon}\_{\text{Aleatory Noise ($L\_1$)}}, \qquad \delta(x) \sim \mathcal{GP}\bigl(m(x),  k(x, x')\bigr)$$
 
-Here $\delta(x) \sim \mathcal{GP}(m(x), k(x, x'))$ denotes a **Gaussian Process ($\mathcal{GP}$)**, a probability distribution over smooth unknown functions. Instead of assuming that the missing physics $\delta(x)$ is a specific polynomial, a $\mathcal{GP}$ specifies only a prior mean function $m(x)$ (typically $0$) and a **covariance kernel** $k(x, x')$, such as the squared-exponential kernel:
+Here $\delta(x) \sim \mathcal{GP}(m(x), k(x, x'))$ denotes a **Gaussian Process ($\mathcal{GP}$)**, a probability distribution over smooth unknown functions. Instead of assuming that the missing physics $\delta(x)$ is a specific polynomial, a $\mathcal{GP}$ specifies only a prior mean function $m(x)$ (typically $0$; `KennedyOHaganDiscrepancy` uses $m \equiv 0$) and a **covariance kernel** $k(x, x')$, such as the squared-exponential kernel:
 
 $$k(x, x') = \sigma\_\delta^2 \exp\left(-\frac{(x - x')^2}{2\ell^2}\right)$$
 

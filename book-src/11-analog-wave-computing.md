@@ -78,7 +78,7 @@ When the human token stock ($\sim 300\text{ trillion tokens}$) saturates and gen
 $$P\_{g}(x) \propto \hat{P}\_{g-1}(x)^{\gamma\_{\text{temp}}}, \qquad \gamma\_{\text{temp}} > 1$$
 
 the tails of the distribution vanish exponentially:
-- In `VonNeumannModelCollapseAudit::evaluate(2026, true)`, after $G = 8$ unanchored synthetic generations, the variance retention ratio drops to $\frac{\sigma\_G^2}{\sigma\_0^2} = 0.001 < 0.25$ and the Kullback-Leibler divergence reaches $D\_{\mathrm{KL}}(P\_0 \parallel P\_G) = 1.20\text{ nats} > 0.60\text{ nats}$.
+- In `VonNeumannModelCollapseAudit::evaluate(2026, true)`, after $G = 8$ unanchored synthetic generations, the variance retention ratio drops to $\frac{\sigma\_G^2}{\sigma\_0^2} \approx 5.9 \times 10^{-6} < 0.25$ and the Kullback-Leibler divergence reaches $D\_{\mathrm{KL}}(P\_0 \parallel P\_G) = 8.25\text{ nats} > 0.60\text{ nats}$. These are `seed = 2026` values: across the 20 acceptance seeds the KL claim holds everywhere, but retention below $0.25$ holds on only 75% of them, so Gate `G8` reports the retention claim as discarded (Chapter 12).
 - When coupled with **Gibram Raul's software remedy (Neurosymbolic Constraint Projection + Physical Anchoring)**, which enforces formal symmetry and conservation rules alongside anchored physical observations, variance retention stays at $\frac{\sigma\_G^2}{\sigma\_0^2} = 0.95 > 0.90$ and $D\_{\mathrm{KL}}(P\_0 \parallel P\_G) = 0.0015\text{ nats} < 0.02\text{ nats}$.
 
 ---
@@ -194,7 +194,7 @@ Audited through **Lens 1 (`DpiMarkovChain`)** and **Property `P2` ($\delta$-suff
 
 $$I(W; Z\_{\text{conscious}}) = 0.4288\text{ nats} \le I(W; Y\_{\text{ganglion}}) = 0.5623\text{ nats} \le I(W; X\_{\text{retina}}) = 0.7601\text{ nats}$$
 
-The retina and cortex discard $99.9999994\%$ of raw pixel entropy while retaining **$56.4\%$ of the actionable mutual information** about $W$. Moreover, `SensoryDpiOrganoidHybridAudit` couples this **Zheng & Meister (2024/2025) $10\text{ bit/s}$ conscious bottleneck** directly to Bridge $L\_2 \to L\_3$ via `AlertFatigueAudit`: requiring a Turing-Good additive evidence threshold of **$W \ge +12.61\text{ decibans}$** (`turing_bombe_threshold_decibans`) raises clinical and operational Positive Predictive Value from the Epic Sepsis failure mode (**$\mathrm{PPV} = 0.120$**) to **$\mathrm{PPV} = 0.563$** (`epic_sepsis_vs_stochological_ppv`), keeping operator cognitive load at $3.2\text{ bit/s} \le 10\text{ bit/s}$.
+The retina and cortex discard $99.9999994\%$ of raw pixel entropy while retaining **$56.4\%$ of the actionable mutual information** about $W$. Moreover, `SensoryDpiOrganoidHybridAudit` couples this **Zheng & Meister (2024/2025) $10\text{ bit/s}$ conscious bottleneck** directly to Bridge $L\_2 \to L\_3$ via `AlertFatigueAudit`: requiring a Turing-Good additive evidence threshold of **$W \ge +12.61\text{ decibans}$** (`turing_bombe_threshold_decibans`) contrasts the measured Epic Sepsis failure mode (**$\mathrm{PPV} = 0.120$**, Wong et al. 2021) with an assumed, unmeasured design operating point ($\mathrm{TPR} = 0.82$, $\mathrm{FPR} = 0.045$) that would reach **$\mathrm{PPV} = 0.563$** (`epic_sepsis_vs_stochological_ppv`) at an operator cognitive load of $3.2\text{ bit/s} \le 10\text{ bit/s}$.
 
 ### Comparing Post-Digital Substrates (2025–2026)
 

@@ -83,7 +83,7 @@ While **Stochology** names the scientific discipline, the operational and auditi
 
 The name **CAPIBA** is a tribute to **Lourenço da Fonseca Barbosa (Capiba)** (Surubim, Pernambuco, 28 October 1904 – Recife, Pernambuco, 31 December 1997). Across a century of Brazilian intellectual and musical life, Capiba practiced two crafts that rarely meet in the same person: by day, a career official at the *Banco do Brasil* (admitted by public competitive examination in 1930), working amid ledgers, clearing balances, and institutional risk; by night and by vocation, the master of Pernambucan *frevo* and a central composer of Ariano Suassuna's *Movimento Armorial*. In the physics of the street carnival of Recife, *frevo* (from *ferver*, to boil, a turbulent, non-equilibrium brass polyphony) lives on the edge of kinetic instability, and the *passista* dances across that turbulence without falling by wielding the *sombrinha* (umbrella) as a dynamic pendulum counterweight. Ledgers and syncopation, rigorous accounting and high-volatility equilibrium: that pairing captures the spirit of this treatise.
 
-### The Six Mnemonic Pillars of the CAPIBA Protocol and the 18 Disjoint Defect Proofs
+### The Six Mnemonic Pillars of the CAPIBA Protocol and the 19 Disjoint Defect Proofs
 
 To give students and auditors an immediate mental map of the entire treatise, the **CAPIBA Protocol** partitions every epistemological check across **six orthogonal pillars (`C-A-P-I-B-A`)**. Together, these six pillars partition all **19 negative defect proofs** (`3 + 4 + 2 + 3 + 2 + 5 = 19`) enforced by the `gates` binary:
 
@@ -98,13 +98,13 @@ To give students and auditors an immediate mental map of the entire treatise, th
 
 ```mermaid
 flowchart LR
-    subgraph CAPIBA["THE CAPIBA PROTOCOL (What Is Verified: 6 Pillars → 8 Gates → 18 Defects)"]
+    subgraph CAPIBA["THE CAPIBA PROTOCOL (What Is Verified: 6 Pillars → 8 Gates → 19 Defects)"]
         C1["C · Calibrated (3)"]
         A1["A · Anytime-valid (4)"]
         P1["P · Performative-aware (2)"]
         I1["I · Invariant (3)"]
         B1["B · Bitemporal (2)"]
-        A2["A · Auditing (4)"]
+        A2["A · Auditing (5)"]
     end
     subgraph SIGA["THE 8-STEP SIGA ROADMAP (How Verification Runs)"]
         S["S · Survey Layer & Bridge (Steps 1–2)"]
@@ -353,6 +353,18 @@ To enforce these three questions in code, the protocol establishes **Four Golden
 - **Prohibition 2 (No Lone Mean):** Under nonlinear payoffs, multiplicative dynamics, or heavy tails, reporting only the mean $\mathbb{E}[X]$ or $f(\mathbb{E}[X])$ is forbidden.
 - **Prohibition 3 (No Confusing Fit with Performative Validity):** Low predictive error on a passive holdout set never proves that deploying the model will not deform the environment ($L\_3 \to L\_1$).
 - **Prohibition 4 (No Dogmatic Extremes and No Omitted Attempts):** Probabilities of $0\%$ and $100\%$ are banned (Cromwell's Rule), out-of-sample forecasts must be audited via the isotonic **CORP-Murphy** decomposition, and the counter of attempted specifications $K \ge 1$ must be declared.
+
+### 5.1. Five Canonical Operational Failure Modes and Their CAPIBA Antidotes
+
+Across industrial, clinical, and financial deployments, five recurring pathologies illustrate why an auditable epistemological machine is necessary:
+
+| # | Operational Failure Mode | Quantitative Pathology (simulated at `seed = 2026` unless a literature source is named) | CAPIBA Antidote & Treatise Location |
+| :---: | --- | --- | --- |
+| **1** | **Adjective Laundering in Free-Text Multi-Agent Pipelines** | Upstream rhetorical fluency can mask surface-correlational "Stochastic Parrots" ($P(w_t \mid w_{1:t-1})$). In a simulated toy world (not a measurement on language models), a proxy predictor's passive holdout error $\mathrm{MSE}_{e_0} = 0.012$ explodes by three orders of magnitude to $\mathrm{MSE}_{\mathrm{do}(X)} = 19.13$ under a simulated intervention; prose has no field in which that gap must be reported. | **Prohibition 1 (`EpistemologicalCard::audit()`):** Bans unstructured inter-agent prose; an empty Moulton-Campbell $n_{\mathrm{eff}}(p)$, Jensen's Gap $\Delta_J$, or threshold $p^* = \frac{C}{\eta L}$ cannot hide behind an eloquent verb (**Chapters 12, 15, 17**). |
+| **2** | **Outcome Bias & The Unshattered Porcelain Cup (`PATE` Quadrants `Q2` vs. `Q3`)** | Outcome-only committees (`classify_outcome_only`) reward an unbuffered Just-in-Time team (`Q3`: $\mathrm{TTS}/\mathrm{TTR} = 0.45 < 1.0, \mathrm{REL}_{\mathrm{CORP}} = 0.085, \sigma = 0.24$) that hit record profit by pure luck, while punishing a calibrated, buffered team (`Q2`: $\mathrm{TTS}/\mathrm{TTR} = 1.33 \ge 1.0, \mathrm{REL}_{\mathrm{CORP}} = 0.004, \sigma = 0.03$) hit by an exogenous tail storm in $\mathrm{UNC}_0$. | **Telic-Scopic Audit Matrix (`PateQuadrant::classify`):** Separates internal *Telos* from external *Skopos*, institutionalizes Cicero and Alexander of Aphrodisias's exoneration (*facere omnia quae possit*) in `Q2`, and fires VSM Channel `S3*`'s Algedonic alarm in `Q3` to block fragility bonuses (**Chapter 13**). |
+| **3** | **Alert Fatigue Across the $10\text{ bit/s}$ Conscious Bottleneck (Bridge $L_2 \to L_3$)** | While the retinal cones of the $20\text{ W}$ human brain transduce $1.6 \times 10^9\text{ bit/s}$, the sensory funnel compresses it by $1.6 \times 10^8 : 1$ to a $10\text{ bit/s}$ conscious ceiling (Zheng & Meister). In its external validation (Wong et al. 2021), the Epic Sepsis Model ($\mathrm{AUC} = 0.63, \mathrm{PPV} = 0.120$, alarming on $18\%$ of hospitalizations) produced $88\%$ false alarms ($7.33\text{ FA/TP}$, $W = +2.86\text{ dB}$), which under an assumed shift burst is a $12.6\text{ bit/s} > 10\text{ bit/s}$ load. | **CORP-Calibrated Deciban Triage (`AlertFatigueAudit`):** Requires additive Turing-Good evidence before an alarm reaches the operator; an assumed, unmeasured design operating point ($\mathrm{TPR} = 0.82, \mathrm{FPR} = 0.045$, $W = +12.61\text{ dB}$) would give $\mathrm{PPV} = 0.563 \ge p^* = 0.20$ ($0.78\text{ FA/TP}$) and a $3.2\text{ bit/s} \le 10\text{ bit/s}$ load (**Chapters 11, 18**). |
+| **4** | **The "Boeing 299" Pre-Flight Failure (Training Dead-on-Arrival Models)** | Teams spend GPU budgets before checking whether $\mathrm{EVPI} > C_{\text{total}}$, whether *Homo clausus* clustering shrinks $n = 500$ individuals by $\mathrm{DEFF} = 5.81\times$ down to $n_{\mathrm{eff}}(0.90) = 86.0$, whether inference passes synthetic SBC $\chi^2$, or whether the test vault is sealed. | **The 4 Eliminatory Filters (`stochology_siga::funnel`):** Evaluates Economic/Resolution ($\Phi_5$), Moulton-Campbell/Collider ($\Phi_2$), SBC/SHELF ($\Phi_1$), and SHA-256/Cross-Authorship/Exit ($\Phi_3, \Phi_4$) with immediate short-circuiting (**Chapter 18**). |
+| **5** | **The Material Collapse Triad of Brute-Force Binary AI** | Brute-force scaling faces three walls reported in the literature (informative values, not computed here): exhaustion of $\sim 300\text{T}$ human tokens (2026–2032, Epoch AI) + synthetic autophagy (`Replace` diverging linearly as $\frac{\sigma^2 d}{T-d-1}n$), Horowitz's $711\times$ DRAM-to-FP32 energy asymmetry ($640\text{ pJ}$ vs. $0.9\text{ pJ}$, alongside the IEA projection of $945\text{ TWh}$ data-center demand by 2030), and Ferran Alia's analog noise cliff ($98\% \to 25\%$ at $\sigma = 0.80$). | **Post-Digital Wave & Neurosymbolic Synthesis:** Accumulate-with-constraints preserves the Basel asymptote $\le \frac{\sigma^2 d}{T-d-1}\frac{\pi^2}{6}$ and, in simulation, keeps symmetry and $\sigma_G^2/\sigma_0^2 \ge 0.90$ in $100\%$ of 200 constrained runs ($0.95$ at `seed = 2026`), paired with PKU 24-bit `HP-INV` RRAM ($7\text{ W}$, $100\times$ less system power than a $700\text{ W}$ H100), `SIREN` ($40\times$ wave compression), and Tsinghua `ACCEL` ($74\text{,}800\text{ TOPS/W}$, informative) (**Chapters 11, 12, 13**). |
 
 ---
 

@@ -654,10 +654,15 @@ impl AlertFatigueAudit {
     /// Canonical comparison between the failed Epic Sepsis Model (Wong et al., *JAMA Internal Medicine* 2021:
     /// $\mathrm{AUC} = 0.63$, $\mathrm{TPR} = 0.33$, $\mathrm{PPV} = 0.12$, $18\%$ hospitalization alarm rate,
     /// $\approx 7.33$ false alarms per true case) and a CORP-calibrated Stochological triage gate.
+    ///
+    /// The two sides are not symmetric evidence: the Epic operating point is a published external validation,
+    /// whereas the Stochological operating point ($\mathrm{TPR} = 0.82$, $\mathrm{FPR} = 0.045$) is an *assumed
+    /// design target* that was never measured on the Wong et al. cohort. The comparison verifies that the audit
+    /// rejects the measured operating point and accepts one meeting its thresholds; it is not a performance claim.
     pub fn canonical_epic_sepsis_vs_stochological_gate() -> (Self, Self) {
-        // Epic Sepsis Model (Wong et al. 2021): prevalence ~6.6%, TPR = 0.33, FPR = 0.171 -> PPV = 0.120, W = +2.86 dB
+        // Epic Sepsis Model (Wong et al. 2021, measured): prevalence ~6.6%, TPR = 0.33, FPR = 0.171 -> PPV = 0.120, W = +2.86 dB
         let epic_sepsis = Self::evaluate(0.066, 0.33, 0.171, 0.20, 18.0, 42.0, false);
-        // Stochological CORP-calibrated multi-signal gate (3 independent channels summing deciban weights):
+        // Stochological CORP-calibrated multi-signal gate (3 independent channels summing deciban weights), ASSUMED operating point:
         // TPR = 0.82, FPR = 0.045 -> LR+ = 18.22 (W = +12.61 dB), PPV = 0.563 >= p* = 0.20, cognitive load = 3.2 bit/s <= 10 bit/s
         let stochological_gate = Self::evaluate(0.066, 0.82, 0.045, 0.20, 4.0, 48.0, true);
         (epic_sepsis, stochological_gate)
