@@ -320,7 +320,7 @@ fn anchored_se_kernel(x1: f64, x2: f64, sigma_delta: f64, ell2: f64) -> f64 {
 }
 
 /// Solves a symmetric positive-definite linear system $A x = b$ via exact Cholesky decomposition $A = L L^\top$.
-fn solve_spd_system(a: &[Vec<f64>], b: &[f64]) -> Vec<f64> {
+pub fn solve_spd_system(a: &[Vec<f64>], b: &[f64]) -> Vec<f64> {
     let l = cholesky_decompose(a);
     cholesky_solve(&l, b)
 }

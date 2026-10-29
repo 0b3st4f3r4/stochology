@@ -9,6 +9,7 @@ pub mod information;
 pub mod invariance;
 pub mod machine;
 pub mod relational;
+pub mod society;
 pub mod stocks;
 pub mod strategic;
 pub mod tail;
@@ -17,9 +18,10 @@ pub mod triad;
 
 pub use acceptance::{
     canonical_registry_lines, confirmation_seeds, evaluate_all_syntheses, is_deterministic,
-    verify_registry_content, MultiSeedAcceptance, NamedCheck, SynthesisAcceptance,
-    ACCEPTANCE_REGISTRY_PATH, ACCEPTANCE_SEEDS, CLAIM_DEFINING_SOURCES, CONFIRMATION_SEED_RANGE,
-    MIN_CLAIM_PASS_RATE,
+    society_confirmation_seeds, verify_registry_content, MultiSeedAcceptance, NamedCheck,
+    SimulatedSynthesis, SynthesisAcceptance, SynthesisAxisAudit, ACCEPTANCE_REGISTRY_PATH,
+    ACCEPTANCE_SEEDS, CLAIM_DEFINING_SOURCES, CONFIRMATION_SEED_RANGE, MIN_CLAIM_PASS_RATE,
+    SOCIETY_CONFIRMATION_SEED_RANGE,
 };
 pub use analog::{
     AimcAnalogWallHpInvAudit, AnalogWaveComputingSynthesis, EmpiricalWaveAnalogAudit,
@@ -54,6 +56,11 @@ pub use relational::{
     DaisyworldEquilibriumPoint, DaisyworldHomeostasisAudit, DaisyworldSystem,
     DissipativeAutopoieticAudit, RelationalComplexSystemsSynthesis, RelationalFigurationAudit,
     SchellingCell, SchellingPhaseTransitionAudit, SchellingSegregationModel,
+};
+pub use society::{
+    BesterScreeningPointAudit, CoupledPublicPrivateSocietySynthesis, EmpiricalCoupledSocietyAudit,
+    H1aRegulatorCouplingAblation, H1bCreditScreeningAblation, H2VcgGreenLaffontCommonsAblation,
+    SfcCellSummary, SfcFlowMatrix, VcgCohortRegimePoint, COUPLED_SOCIETY_PREREGISTRATION_HASH,
 };
 pub use stocks::{
     rockafellar_uryasev_cvar, CyberneticVsmAndPateGovernanceAudit,

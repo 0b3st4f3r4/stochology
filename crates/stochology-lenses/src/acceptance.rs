@@ -24,8 +24,11 @@ pub const ACCEPTANCE_SEEDS: [u64; 20] = [
     2042, 2043, 2044, 2045,
 ];
 
-/// First and last confirmation seed (200 seeds, disjoint from every seed used for development or review).
+/// First and last confirmation seed for K=3..5 (200 seeds, disjoint from every seed used for development or review).
 pub const CONFIRMATION_SEED_RANGE: (u64, u64) = (9_000_000, 9_000_199);
+
+/// Virgin confirmation seed block for K=6 (`society`, 200 seeds `9_000_200..=9_000_399`, never used prior to freezing `society`).
+pub const SOCIETY_CONFIRMATION_SEED_RANGE: (u64, u64) = (9_000_200, 9_000_399);
 
 /// Minimum fraction of seeds on which each stochastic gated claim must pass (19 of 20 development seeds, 190 of 200 confirmation seeds).
 pub const MIN_CLAIM_PASS_RATE: f64 = 0.95;
@@ -34,33 +37,390 @@ pub const MIN_CLAIM_PASS_RATE: f64 = 0.95;
 pub const ACCEPTANCE_REGISTRY_PATH: &str = "data/preregistration/acceptance_registry.txt";
 
 /// Source files whose bytes define the gated claims (thresholds, sample sizes, generating constants, and the methods they call).
-/// This is the transitive closure of the modules the four syntheses use (checked by a unit test); only `relational.rs` and
-/// `core/src/card.rs` are outside it. Any edit to these files changes the registry and requires re-sealing under human review.
-pub const CLAIM_DEFINING_SOURCES: [&str; 19] = [
+/// This is the transitive closure of the modules the five syntheses use (checked by a unit test); only `relational/` and
+/// `core/src/card/` are outside it. Any edit to these files changes the registry and requires re-sealing under human review.
+pub const CLAIM_DEFINING_SOURCES: [&str; 60] = [
     "crates/stochology-lenses/src/acceptance.rs",
-    "crates/stochology-lenses/src/critical.rs",
-    "crates/stochology-lenses/src/stocks.rs",
-    "crates/stochology-lenses/src/triad.rs",
-    "crates/stochology-lenses/src/strategic.rs",
-    "crates/stochology-lenses/src/analog.rs",
-    "crates/stochology-lenses/src/machine.rs",
-    "crates/stochology-lenses/src/invariance.rs",
-    "crates/stochology-lenses/src/tail.rs",
-    "crates/stochology-lenses/src/decision.rs",
+    "crates/stochology-lenses/src/analog/empirical.rs",
+    "crates/stochology-lenses/src/analog/mod.rs",
+    "crates/stochology-lenses/src/analog/model_collapse.rs",
+    "crates/stochology-lenses/src/analog/ode_aimc.rs",
+    "crates/stochology-lenses/src/analog/solvers.rs",
+    "crates/stochology-lenses/src/analog/wave_organoid.rs",
+    "crates/stochology-lenses/src/critical/adorno_marcuse.rs",
+    "crates/stochology-lenses/src/critical/collapse_overcoming.rs",
+    "crates/stochology-lenses/src/critical/empirical.rs",
+    "crates/stochology-lenses/src/critical/mod.rs",
+    "crates/stochology-lenses/src/decision/ahp_ppi.rs",
+    "crates/stochology-lenses/src/decision/corp_murphy.rs",
+    "crates/stochology-lenses/src/decision/cost_loss.rs",
+    "crates/stochology-lenses/src/decision/mod.rs",
     "crates/stochology-lenses/src/information.rs",
-    "crates/stochology-lenses/src/time.rs",
+    "crates/stochology-lenses/src/invariance/icp.rs",
+    "crates/stochology-lenses/src/invariance/mod.rs",
+    "crates/stochology-lenses/src/invariance/nile_irm.rs",
+    "crates/stochology-lenses/src/invariance/shapley_causal.rs",
     "crates/stochology-lenses/src/lib.rs",
-    "crates/stochology-core/src/layers.rs",
-    "crates/stochology-core/src/uncertainty.rs",
-    "crates/stochology-core/src/rng.rs",
+    "crates/stochology-lenses/src/machine.rs",
+    "crates/stochology-lenses/src/society/empirical.rs",
+    "crates/stochology-lenses/src/society/h1a_regulator.rs",
+    "crates/stochology-lenses/src/society/h1b_bester.rs",
+    "crates/stochology-lenses/src/society/h2_vcg_commons.rs",
+    "crates/stochology-lenses/src/society/mod.rs",
+    "crates/stochology-lenses/src/society/sfc_matrix.rs",
+    "crates/stochology-lenses/src/stocks/cybernetic_vsm_pate.rs",
+    "crates/stochology-lenses/src/stocks/empirical.rs",
+    "crates/stochology-lenses/src/stocks/mod.rs",
+    "crates/stochology-lenses/src/stocks/powell_friston_pearl.rs",
+    "crates/stochology-lenses/src/stocks/supply_chain_plant.rs",
+    "crates/stochology-lenses/src/stocks/topology_axioms.rs",
+    "crates/stochology-lenses/src/strategic/contagion_ahp_kalman.rs",
+    "crates/stochology-lenses/src/strategic/empirical.rs",
+    "crates/stochology-lenses/src/strategic/minsky_shapley_rag.rs",
+    "crates/stochology-lenses/src/strategic/mod.rs",
+    "crates/stochology-lenses/src/tail.rs",
+    "crates/stochology-lenses/src/time.rs",
+    "crates/stochology-lenses/src/triad/ctrw_pdhte.rs",
+    "crates/stochology-lenses/src/triad/empirical.rs",
+    "crates/stochology-lenses/src/triad/helmholtz_hmatrix.rs",
+    "crates/stochology-lenses/src/triad/mod.rs",
+    "crates/stochology-lenses/src/triad/weyl_sna_rlhf.rs",
     "crates/stochology-core/src/invariants.rs",
-    "crates/stochology-core/src/sha256.rs",
+    "crates/stochology-core/src/layers/jensen.rs",
+    "crates/stochology-core/src/layers/missingness.rs",
+    "crates/stochology-core/src/layers/mod.rs",
+    "crates/stochology-core/src/layers/ontology.rs",
+    "crates/stochology-core/src/layers/performativity.rs",
+    "crates/stochology-core/src/layers/provenance.rs",
     "crates/stochology-core/src/lib.rs",
+    "crates/stochology-core/src/math/complex.rs",
+    "crates/stochology-core/src/math/linalg.rs",
+    "crates/stochology-core/src/math/mod.rs",
+    "crates/stochology-core/src/math/stats.rs",
+    "crates/stochology-core/src/rng.rs",
+    "crates/stochology-core/src/sha256.rs",
+    "crates/stochology-core/src/uncertainty.rs",
 ];
 
-/// The 200 confirmation seeds.
+/// Composite audit contract for an individual axis or hypothesis within a simulated synthesis.
+pub trait SynthesisAxisAudit {
+    /// Named claim checks gated by this axis.
+    fn claims(&self) -> &[NamedCheck];
+    /// Claims removed from the gate after failing multi-seed acceptance.
+    fn discarded_claims(&self) -> &[NamedCheck] {
+        &[]
+    }
+    /// True if all algebraic/numerical identities of this axis close.
+    fn identities_closed(&self) -> bool;
+    /// True if identities close and all gated claims pass.
+    fn verified(&self) -> bool {
+        self.identities_closed() && self.claims().iter().all(|c| c.1)
+    }
+}
+
+/// Template-Method contract for a multi-axis simulated synthesis evaluated across development and confirmation seeds.
+pub trait SimulatedSynthesis: Sized + Send + Sync {
+    /// Short registry label (`critical`, `stocks`, `triad`, `strategic`, `society`).
+    const LABEL: &'static str;
+    /// Confirmation seed range `(first_seed, last_seed)` for this synthesis.
+    const CONFIRMATION_RANGE: (u64, u64) = CONFIRMATION_SEED_RANGE;
+
+    /// Evaluates the synthesis at `seed` in shielded (`true`) or naive/defect (`false`) mode.
+    fn evaluate_with_mode(seed: u64, shielded: bool) -> Self;
+
+    /// Evaluates the canonical shielded synthesis at `seed`.
+    fn evaluate_canonical(seed: u64) -> Self {
+        Self::evaluate_with_mode(seed, true)
+    }
+
+    /// All gated claims across all axes, in declaration order.
+    fn claim_checks(&self) -> Vec<NamedCheck>;
+
+    /// Claims removed from the gate after failing multi-seed acceptance.
+    fn discarded_claim_checks(&self) -> Vec<NamedCheck>;
+
+    /// True if every axis's identity checks close.
+    fn all_identities_closed(&self) -> bool;
+
+    /// True if identities close and all axes pass.
+    fn all_axes_verified(&self) -> bool;
+
+    /// Per-claim pass rates over `seeds` in the given mode.
+    fn multi_seed_acceptance(seeds: &[u64], shielded: bool) -> MultiSeedAcceptance {
+        MultiSeedAcceptance::evaluate(seeds, |seed| {
+            let syn = Self::evaluate_with_mode(seed, shielded);
+            (syn.claim_checks(), syn.all_identities_closed())
+        })
+    }
+
+    /// Evaluates development and confirmation acceptance for this synthesis.
+    fn evaluate_synthesis_acceptance() -> SynthesisAcceptance {
+        let confirmation: Vec<u64> =
+            (Self::CONFIRMATION_RANGE.0..=Self::CONFIRMATION_RANGE.1).collect();
+        let names = |claims: Vec<NamedCheck>| claims.into_iter().map(|c| c.0).collect::<Vec<_>>();
+        let syn0 = Self::evaluate_canonical(ACCEPTANCE_SEEDS[0]);
+        SynthesisAcceptance {
+            label: Self::LABEL,
+            gated: names(syn0.claim_checks()),
+            discarded: names(syn0.discarded_claim_checks()),
+            development: Self::multi_seed_acceptance(&ACCEPTANCE_SEEDS, true),
+            confirmation: MultiSeedAcceptance::evaluate(&confirmation, |seed| {
+                let syn = Self::evaluate_canonical(seed);
+                let mut all = syn.claim_checks();
+                all.extend(syn.discarded_claim_checks());
+                (all, syn.all_identities_closed())
+            }),
+        }
+    }
+
+    /// Verifies that in unshielded (`false`) mode, every development seed closes all identities,
+    /// fails overall verification, and fails at least one seed-dependent claim.
+    fn verify_negative_defect_all_dev_seeds() -> bool {
+        ACCEPTANCE_SEEDS.iter().all(|&seed| {
+            let naive = Self::evaluate_with_mode(seed, false);
+            naive.all_identities_closed()
+                && !naive.all_axes_verified()
+                && naive
+                    .claim_checks()
+                    .iter()
+                    .any(|&(name, ok)| !ok && !is_deterministic(name))
+        })
+    }
+}
+
+macro_rules! impl_axis_audit {
+    ($ty:ty, $verified_field:ident) => {
+        impl SynthesisAxisAudit for $ty {
+            fn claims(&self) -> &[NamedCheck] {
+                &self.claims
+            }
+            fn identities_closed(&self) -> bool {
+                self.identities_closed
+            }
+            fn verified(&self) -> bool {
+                self.$verified_field
+            }
+        }
+    };
+    ($ty:ty, $verified_field:ident, with_discarded) => {
+        impl SynthesisAxisAudit for $ty {
+            fn claims(&self) -> &[NamedCheck] {
+                &self.claims
+            }
+            fn discarded_claims(&self) -> &[NamedCheck] {
+                &self.discarded_claims
+            }
+            fn identities_closed(&self) -> bool {
+                self.identities_closed
+            }
+            fn verified(&self) -> bool {
+                self.$verified_field
+            }
+        }
+    };
+}
+
+impl_axis_audit!(
+    crate::critical::AdornoNonIdenticalReificationAudit,
+    axis1_verified,
+    with_discarded
+);
+impl_axis_audit!(
+    crate::critical::MarcuseRouvroyStochasticParrotAudit,
+    axis2_verified
+);
+impl SynthesisAxisAudit for crate::critical::MaterialCollapseTriadAudit {
+    fn claims(&self) -> &[NamedCheck] {
+        &self.claims
+    }
+    fn identities_closed(&self) -> bool {
+        true
+    }
+    fn verified(&self) -> bool {
+        self.axis3_verified
+    }
+}
+impl_axis_audit!(
+    crate::critical::DialecticalOvercomingSynthesisAudit,
+    axis4_verified
+);
+
+impl_axis_audit!(
+    crate::stocks::TopologyAndFourStockAxiomsAudit,
+    axis1_verified
+);
+impl_axis_audit!(
+    crate::stocks::PowellFristonCausalEngineAudit,
+    axis2_verified
+);
+impl_axis_audit!(
+    crate::stocks::StrategicStockPlantResilienceAudit,
+    axis3_verified,
+    with_discarded
+);
+impl_axis_audit!(
+    crate::stocks::CyberneticVsmAndPateGovernanceAudit,
+    axis4_verified,
+    with_discarded
+);
+
+impl_axis_audit!(crate::triad::ComplexWaveGaborHelmholtzAudit, axis1_verified);
+impl_axis_audit!(
+    crate::triad::ComplexRealIsomorphismHMatrixAudit,
+    axis2_verified
+);
+impl_axis_audit!(crate::triad::FractionalCtrwAnalogEccAudit, axis3_verified);
+impl_axis_audit!(
+    crate::triad::MultifractalPdhteRagCollapseAudit,
+    axis4_verified
+);
+impl_axis_audit!(
+    crate::triad::WeylTorusHermiteMehlerDfmAudit,
+    axis5_verified,
+    with_discarded
+);
+impl_axis_audit!(
+    crate::triad::SnaRlhfFhrrCohomologyTechniumAudit,
+    axis6_verified
+);
+
+impl_axis_audit!(
+    crate::strategic::MinskyPapertGeometrySocietyOfMindAudit,
+    axis1_verified
+);
+impl_axis_audit!(
+    crate::strategic::ShapleyCausalRubinMiDoeAudit,
+    axis2_verified,
+    with_discarded
+);
+impl_axis_audit!(
+    crate::strategic::GenerativeRagLlmJudgeCompressionAudit,
+    axis3_verified
+);
+impl_axis_audit!(
+    crate::strategic::ComplexNetworkHubContagionAudit,
+    axis4_verified
+);
+impl_axis_audit!(
+    crate::strategic::MultiCriteriaAhpRegulatoryPkmAudit,
+    axis5_verified
+);
+impl_axis_audit!(
+    crate::strategic::RobustKalmanClosedLoopControlAudit,
+    axis6_verified
+);
+
+impl_axis_audit!(crate::society::H1aRegulatorCouplingAblation, h1a_verified);
+impl_axis_audit!(crate::society::H1bCreditScreeningAblation, h1b_verified);
+impl_axis_audit!(
+    crate::society::H2VcgGreenLaffontCommonsAblation,
+    h2_verified
+);
+
+impl SimulatedSynthesis for crate::critical::CriticalStochasticRationalitySynthesis {
+    const LABEL: &'static str = "critical";
+    fn evaluate_with_mode(seed: u64, shielded: bool) -> Self {
+        Self::evaluate_with_mode(seed, shielded)
+    }
+    fn claim_checks(&self) -> Vec<NamedCheck> {
+        Self::claim_checks(self)
+    }
+    fn discarded_claim_checks(&self) -> Vec<NamedCheck> {
+        Self::discarded_claim_checks(self)
+    }
+    fn all_identities_closed(&self) -> bool {
+        self.all_identities_closed
+    }
+    fn all_axes_verified(&self) -> bool {
+        self.all_four_axes_verified
+    }
+}
+
+impl SimulatedSynthesis for crate::stocks::StocharyConjecturalCyberneticSynthesis {
+    const LABEL: &'static str = "stocks";
+    fn evaluate_with_mode(seed: u64, shielded: bool) -> Self {
+        Self::evaluate_with_mode(seed, shielded)
+    }
+    fn claim_checks(&self) -> Vec<NamedCheck> {
+        Self::claim_checks(self)
+    }
+    fn discarded_claim_checks(&self) -> Vec<NamedCheck> {
+        Self::discarded_claim_checks(self)
+    }
+    fn all_identities_closed(&self) -> bool {
+        self.all_identities_closed
+    }
+    fn all_axes_verified(&self) -> bool {
+        self.all_four_axes_verified
+    }
+}
+
+impl SimulatedSynthesis for crate::triad::ComplexFractalToroidalTechniumSynthesis {
+    const LABEL: &'static str = "triad";
+    fn evaluate_with_mode(seed: u64, shielded: bool) -> Self {
+        Self::evaluate_with_mode(seed, shielded)
+    }
+    fn claim_checks(&self) -> Vec<NamedCheck> {
+        Self::claim_checks(self)
+    }
+    fn discarded_claim_checks(&self) -> Vec<NamedCheck> {
+        Self::discarded_claim_checks(self)
+    }
+    fn all_identities_closed(&self) -> bool {
+        self.all_identities_closed
+    }
+    fn all_axes_verified(&self) -> bool {
+        self.all_six_bridges_verified
+    }
+}
+
+impl SimulatedSynthesis for crate::strategic::StrategicAiAccommodationSynthesis {
+    const LABEL: &'static str = "strategic";
+    fn evaluate_with_mode(seed: u64, shielded: bool) -> Self {
+        Self::evaluate_with_mode(seed, shielded)
+    }
+    fn claim_checks(&self) -> Vec<NamedCheck> {
+        Self::claim_checks(self)
+    }
+    fn discarded_claim_checks(&self) -> Vec<NamedCheck> {
+        Self::discarded_claim_checks(self)
+    }
+    fn all_identities_closed(&self) -> bool {
+        self.all_identities_closed
+    }
+    fn all_axes_verified(&self) -> bool {
+        self.all_six_axes_verified
+    }
+}
+
+impl SimulatedSynthesis for crate::society::CoupledPublicPrivateSocietySynthesis {
+    const LABEL: &'static str = "society";
+    const CONFIRMATION_RANGE: (u64, u64) = SOCIETY_CONFIRMATION_SEED_RANGE;
+    fn evaluate_with_mode(seed: u64, shielded: bool) -> Self {
+        Self::evaluate_with_mode(seed, shielded)
+    }
+    fn claim_checks(&self) -> Vec<NamedCheck> {
+        Self::claim_checks(self)
+    }
+    fn discarded_claim_checks(&self) -> Vec<NamedCheck> {
+        Self::discarded_claim_checks(self)
+    }
+    fn all_identities_closed(&self) -> bool {
+        self.all_identities_closed
+    }
+    fn all_axes_verified(&self) -> bool {
+        self.all_axes_verified
+    }
+}
+
+/// The 200 confirmation seeds for K=3..5 (`9_000_000..=9_000_199`).
 pub fn confirmation_seeds() -> Vec<u64> {
     (CONFIRMATION_SEED_RANGE.0..=CONFIRMATION_SEED_RANGE.1).collect()
+}
+
+/// The 200 virgin confirmation seeds for K=6 (`society`, `9_000_200..=9_000_399`).
+pub fn society_confirmation_seeds() -> Vec<u64> {
+    (SOCIETY_CONFIRMATION_SEED_RANGE.0..=SOCIETY_CONFIRMATION_SEED_RANGE.1).collect()
 }
 
 /// True if the claim is declared seed-independent (its name contains `.det.`).
@@ -228,7 +588,7 @@ pub fn clopper_pearson_lower(k: u64, n: u64, alpha: f64) -> f64 {
 /// Development and confirmation acceptance of one simulated synthesis.
 #[derive(Debug, Clone, PartialEq)]
 pub struct SynthesisAcceptance {
-    /// Synthesis label used in the registry (`critical`, `stocks`, `triad`).
+    /// Synthesis label used in the registry (`critical`, `stocks`, `triad`, `strategic`, `society`).
     pub label: &'static str,
     /// Names of the gated claims.
     pub gated: Vec<&'static str>,
@@ -263,75 +623,19 @@ impl SynthesisAcceptance {
     }
 }
 
-/// Evaluates development and confirmation acceptance of the four simulated syntheses (grounded/shielded mode).
+/// Evaluates development and confirmation acceptance of the five simulated syntheses (grounded/shielded mode).
 pub fn evaluate_all_syntheses() -> Vec<SynthesisAcceptance> {
     use crate::critical::CriticalStochasticRationalitySynthesis as Critical;
+    use crate::society::CoupledPublicPrivateSocietySynthesis as Society;
     use crate::stocks::StocharyConjecturalCyberneticSynthesis as Stocks;
     use crate::strategic::StrategicAiAccommodationSynthesis as Strategic;
     use crate::triad::ComplexFractalToroidalTechniumSynthesis as Triad;
-    let confirmation = confirmation_seeds();
-    let names = |claims: Vec<NamedCheck>| claims.into_iter().map(|c| c.0).collect::<Vec<_>>();
-    let both = |mut gated: Vec<NamedCheck>, discarded: Vec<NamedCheck>| {
-        gated.extend(discarded);
-        gated
-    };
-    let c0 = Critical::evaluate_canonical(ACCEPTANCE_SEEDS[0]);
-    let s0 = Stocks::evaluate_canonical(ACCEPTANCE_SEEDS[0]);
-    let t0 = Triad::evaluate_canonical(ACCEPTANCE_SEEDS[0]);
-    let st0 = Strategic::evaluate_canonical(ACCEPTANCE_SEEDS[0]);
     vec![
-        SynthesisAcceptance {
-            label: "critical",
-            gated: names(c0.claim_checks()),
-            discarded: names(c0.discarded_claim_checks()),
-            development: Critical::multi_seed_acceptance(&ACCEPTANCE_SEEDS, true),
-            confirmation: MultiSeedAcceptance::evaluate(&confirmation, |seed| {
-                let syn = Critical::evaluate_canonical(seed);
-                (
-                    both(syn.claim_checks(), syn.discarded_claim_checks()),
-                    syn.all_identities_closed,
-                )
-            }),
-        },
-        SynthesisAcceptance {
-            label: "stocks",
-            gated: names(s0.claim_checks()),
-            discarded: names(s0.discarded_claim_checks()),
-            development: Stocks::multi_seed_acceptance(&ACCEPTANCE_SEEDS, true),
-            confirmation: MultiSeedAcceptance::evaluate(&confirmation, |seed| {
-                let syn = Stocks::evaluate_canonical(seed);
-                (
-                    both(syn.claim_checks(), syn.discarded_claim_checks()),
-                    syn.all_identities_closed,
-                )
-            }),
-        },
-        SynthesisAcceptance {
-            label: "triad",
-            gated: names(t0.claim_checks()),
-            discarded: names(t0.discarded_claim_checks()),
-            development: Triad::multi_seed_acceptance(&ACCEPTANCE_SEEDS, true),
-            confirmation: MultiSeedAcceptance::evaluate(&confirmation, |seed| {
-                let syn = Triad::evaluate_canonical(seed);
-                (
-                    both(syn.claim_checks(), syn.discarded_claim_checks()),
-                    syn.all_identities_closed,
-                )
-            }),
-        },
-        SynthesisAcceptance {
-            label: "strategic",
-            gated: names(st0.claim_checks()),
-            discarded: names(st0.discarded_claim_checks()),
-            development: Strategic::multi_seed_acceptance(&ACCEPTANCE_SEEDS, true),
-            confirmation: MultiSeedAcceptance::evaluate(&confirmation, |seed| {
-                let syn = Strategic::evaluate_canonical(seed);
-                (
-                    both(syn.claim_checks(), syn.discarded_claim_checks()),
-                    syn.all_identities_closed,
-                )
-            }),
-        },
+        Critical::evaluate_synthesis_acceptance(),
+        Stocks::evaluate_synthesis_acceptance(),
+        Triad::evaluate_synthesis_acceptance(),
+        Strategic::evaluate_synthesis_acceptance(),
+        Society::evaluate_synthesis_acceptance(),
     ]
 }
 
@@ -347,6 +651,10 @@ pub fn canonical_registry_lines(
         format!(
             "confirmation_seeds {}..={}",
             CONFIRMATION_SEED_RANGE.0, CONFIRMATION_SEED_RANGE.1
+        ),
+        format!(
+            "confirmation_seeds_society {}..={}",
+            SOCIETY_CONFIRMATION_SEED_RANGE.0, SOCIETY_CONFIRMATION_SEED_RANGE.1
         ),
         format!("min_claim_pass_rate {MIN_CLAIM_PASS_RATE:.2}"),
     ];
@@ -455,10 +763,34 @@ mod tests {
         assert!(verify_registry_content("a\nb\nextra\n", &expected).is_err());
     }
 
+    fn collect_rs_files(dir: &Path, workspace: &Path) -> Vec<String> {
+        let mut out = Vec::new();
+        for entry in std::fs::read_dir(dir).expect("read dir") {
+            let entry = entry.expect("dir entry");
+            let path = entry.path();
+            if path.is_dir() {
+                out.extend(collect_rs_files(&path, workspace));
+            } else if path.extension().is_some_and(|e| e == "rs") {
+                let rel = path
+                    .strip_prefix(workspace)
+                    .expect("workspace prefix")
+                    .to_string_lossy()
+                    .replace('\\', "/");
+                out.push(rel);
+            }
+        }
+        out.sort();
+        out
+    }
+
     #[test]
     fn test_claim_defining_sources_cover_the_module_closure() {
         let lenses_dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("src");
-        let workspace = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let workspace = Path::new(env!("CARGO_MANIFEST_DIR"))
+            .parent()
+            .expect("crates dir")
+            .parent()
+            .expect("workspace root");
         let modules = |text: &str| -> Vec<String> {
             let mut found = Vec::new();
             let mut rest = text;
@@ -491,40 +823,45 @@ mod tests {
             "stocks".to_string(),
             "triad".to_string(),
             "strategic".to_string(),
+            "society".to_string(),
             "acceptance".to_string(),
         ];
         let mut closure: Vec<String> = Vec::new();
+        let mut closure_files: Vec<String> = Vec::new();
         while let Some(module) = queue.pop() {
-            let path = lenses_dir.join(format!("{module}.rs"));
-            if closure.contains(&module) || !path.exists() {
+            if module.is_empty() || closure.contains(&module) {
                 continue;
             }
-            let text = std::fs::read_to_string(&path).expect("read lenses module");
+            let file_path = lenses_dir.join(format!("{module}.rs"));
+            let dir_path = lenses_dir.join(&module);
+            let module_files = if file_path.exists() {
+                vec![format!("crates/stochology-lenses/src/{module}.rs")]
+            } else if dir_path.is_dir() {
+                collect_rs_files(&dir_path, workspace)
+            } else {
+                continue;
+            };
             let card_path = ["card", "::"].concat();
-            assert!(
-                !text.contains(&card_path),
-                "{module} references core card module"
-            );
-            queue.extend(modules(&text));
+            for rel in &module_files {
+                let text =
+                    std::fs::read_to_string(workspace.join(rel)).expect("read lenses module");
+                assert!(
+                    !text.contains(&card_path),
+                    "{rel} references core card module"
+                );
+                queue.extend(modules(&text));
+            }
             closure.push(module);
+            closure_files.extend(module_files);
         }
-        for module in &closure {
-            let rel = format!("crates/stochology-lenses/src/{module}.rs");
+        for rel in &closure_files {
             assert!(
                 CLAIM_DEFINING_SOURCES.contains(&rel.as_str()),
                 "{rel} is used by a synthesis but not sealed"
             );
         }
-        for entry in
-            std::fs::read_dir(workspace.join("crates/stochology-core/src")).expect("core src")
-        {
-            let name = entry
-                .expect("dir entry")
-                .file_name()
-                .into_string()
-                .expect("utf-8 name");
-            let rel = format!("crates/stochology-core/src/{name}");
-            if name != "card.rs" {
+        for rel in collect_rs_files(&workspace.join("crates/stochology-core/src"), workspace) {
+            if !rel.starts_with("crates/stochology-core/src/card/") {
                 assert!(
                     CLAIM_DEFINING_SOURCES.contains(&rel.as_str()),
                     "{rel} is not sealed"

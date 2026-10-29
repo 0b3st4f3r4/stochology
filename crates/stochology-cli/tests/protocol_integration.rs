@@ -2,7 +2,7 @@ use std::path::PathBuf;
 use std::process::Command;
 
 use stochology_cli::{
-    compute_unclamped_cluster_permutation_null, load_cards_from_disk,
+    all_defect_names, compute_unclamped_cluster_permutation_null, load_cards_from_disk,
     verify_card_against_empirical_data,
 };
 use stochology_core::card::EpistemologicalCard;
@@ -252,28 +252,7 @@ fn cli_binaries_handle_help_and_defects_correctly() {
         audit_stdout.contains("Statutory Compliance (EU AI Act Arts. 9/10/14/15 & LGPD Art. 20)")
     );
 
-    for defect in [
-        "cromwell",
-        "phi5",
-        "moulton",
-        "performativity",
-        "sniedovich",
-        "clock",
-        "vault",
-        "concept_drift",
-        "chouldechova",
-        "machine",
-        "analog_wall",
-        "instrumental_reason",
-        "stochary_cybernetics",
-        "peeking",
-        "brier_dominance",
-        "var_underreport",
-        "lee_point_estimate",
-        "replace_collapse",
-        "triadic_technium",
-        "strategic_accommodation",
-    ] {
+    for defect in all_defect_names() {
         let out = Command::new(gates_bin)
             .args(["--defect", defect])
             .current_dir(&root)

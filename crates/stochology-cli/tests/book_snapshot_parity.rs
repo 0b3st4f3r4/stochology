@@ -2,7 +2,7 @@
 //! `book-src/*.md` must appear verbatim (trimmed) in the output that the current code prints.
 //!
 //! Quoted output lines are recognized by their trimmed prefix: `[`, `NEGATIVE PROOF`, `=== `, or `Out of every`.
-//! The collected output is `labs --all`, `gates`, and `gates --defect <name>` for each of the 20 negative proofs.
+//! The collected output is `labs --all`, `gates`, and `gates --defect <name>` for each of the 21 negative proofs.
 
 use std::collections::HashSet;
 use std::fs;
@@ -10,29 +10,7 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::thread;
 
-/// The 20 negative defect proofs, in the order run by `scripts/verify.sh`.
-const DEFECTS: [&str; 20] = [
-    "cromwell",
-    "phi5",
-    "moulton",
-    "performativity",
-    "sniedovich",
-    "clock",
-    "vault",
-    "concept_drift",
-    "chouldechova",
-    "machine",
-    "analog_wall",
-    "instrumental_reason",
-    "stochary_cybernetics",
-    "peeking",
-    "brier_dominance",
-    "var_underreport",
-    "lee_point_estimate",
-    "replace_collapse",
-    "triadic_technium",
-    "strategic_accommodation",
-];
+use stochology_cli::all_defect_names;
 
 /// Trimmed prefixes that mark a fenced-block line as quoted `labs`/`gates` output.
 const QUOTED_OUTPUT_PREFIXES: [&str; 4] = ["[", "NEGATIVE PROOF", "=== ", "Out of every"];
@@ -58,7 +36,7 @@ fn run_capture(bin: &'static str, args: Vec<String>, root: PathBuf) -> String {
     text
 }
 
-/// Collects the trimmed output lines of `labs --all`, `gates`, and the 20 `gates --defect <name>` runs.
+/// Collects the trimmed output lines of `labs --all`, `gates`, and the 21 `gates --defect <name>` runs.
 fn collect_output_lines(root: &Path) -> HashSet<String> {
     let labs_bin: &'static str = env!("CARGO_BIN_EXE_labs");
     let gates_bin: &'static str = env!("CARGO_BIN_EXE_gates");
@@ -66,7 +44,7 @@ fn collect_output_lines(root: &Path) -> HashSet<String> {
         (labs_bin, vec!["--all".to_string()]),
         (gates_bin, Vec::new()),
     ];
-    for defect in DEFECTS {
+    for defect in all_defect_names() {
         invocations.push((gates_bin, vec!["--defect".to_string(), defect.to_string()]));
     }
     // The invocations are independent and deterministic (`seed = 2026`), so they run concurrently.

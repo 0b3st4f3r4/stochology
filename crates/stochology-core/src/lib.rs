@@ -3,16 +3,19 @@
 pub mod card;
 pub mod invariants;
 pub mod layers;
+pub mod math;
 pub mod rng;
 pub mod sha256;
 pub mod uncertainty;
 
 pub use card::{
-    BridgePerformativity, CausalLadder, ContractViolation, DataAndAuditContract,
-    DecisionMakerQuestion, DecisionRuleAndScope, DominantEvent, EpistemologicalCard,
+    BridgePerformativity, CardParseError, CardSpecification, CausalLadder,
+    ChouldechovaRatioMetrics, ContractViolation, DataAndAuditContract, DecisionMakerQuestion,
+    DecisionRuleAndScope, DominantEvent, EProcessMetrics, EpistemologicalCard,
     EpistemologicalHeader, FieldAuthorship, FindingsRegistry, InfoGapRobustness,
-    MissingnessMechanism, MurphyCorpDecomposition, NoisePhysics, UncertaintyBudgetAndAuthorship,
-    UnitAndMargin, VarianceBudget,
+    MissingnessMechanism, MoultonClusterMetrics, MurphyCorpDecomposition, NoisePhysics,
+    NonlinearSummaryMetrics, PerformativeDivergenceMetrics, RrmContractionMetrics,
+    UncertaintyBudgetAndAuthorship, UnitAndMargin, VarianceBudget, CANONICAL_CARD_SPECIFICATIONS,
 };
 pub use invariants::{
     prospective_clustered_mde, verify_resolution_phi5, ChouldechovaAudit, ExceedanceDesignEffect,
@@ -24,6 +27,11 @@ pub use layers::{
     GoodhartTaxonomyAudit, GoodhartVariant, Layer, ManskiBounds, MengAudit, NonlinearSummary,
     PerformativeDiagnostic, PerformativeSystem, RubinMultipleImputationAudit, UncertaintyClass,
 };
+pub use math::{
+    average_ranks, dot_product, empirical_wasserstein_1_grid, invert_matrix, l2_norm, mat_mul,
+    mat_vec_mul, ols_slope, pearson_correlation, solve_linear_system, spearman_rank_correlation,
+    two_sample_ks_distance, univariate_ols_fit, Complex64,
+};
 pub use rng::{
     block_bootstrap_ci, mean, median, median_absolute_deviation, quantile, quantile_sorted,
     sample_std, sample_variance, MonteCarloSplitTreeAudit, OnlineMoments, Rng, SplitMix64,
@@ -33,6 +41,6 @@ pub use sha256::{
     hmac_sha256_bytes, hmac_sha256_hex, is_valid_sha256_hex, sha256_bytes, sha256_hex,
 };
 pub use uncertainty::{
-    cholesky_decompose, cholesky_log_det, cholesky_solve, InfoGapEvaluation, InfoGapOption,
-    KennedyOHaganDiscrepancy,
+    cholesky_decompose, cholesky_log_det, cholesky_solve, solve_spd_system, InfoGapEvaluation,
+    InfoGapOption, KennedyOHaganDiscrepancy,
 };
