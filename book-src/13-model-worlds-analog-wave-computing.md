@@ -1,4 +1,4 @@
-# 11. Physical, Analog, and Wave-Interference Computing
+# 13. Physical Model Worlds
 
 ## The Jumping Rope and the 700-Watt Furnace
 
@@ -48,18 +48,18 @@ In `crates/stochology-lenses/src/analog.rs`, the Stochology Protocol formalizes 
   <text x="600" y="254" fill="var(--muted)" class="mono" font-size="11.5">1.6×10⁸ : 1 Compression · DPI I(W;Z) ≤ I(W;Y) ≤ I(W;X) · 56.4% Actionable Info Retained</text>
   <text x="600" y="276" fill="var(--muted)" class="mono" font-size="11.5">Organoid CL1 Rack (925 W) vs Hybrid Analog/Photonic (PKU 7 W · ACCEL 74.8 PetaOPS/W)</text>
   </svg>
-  <figcaption><strong>Figure 11.1 — The Five-Axis Physical, Analog, and Wave-Interference Computing Synthesis (`stochology_lenses::analog`)</strong></figcaption>
+  <figcaption><strong>Figure 13.1 — The Five-Axis Physical, Analog, and Wave-Interference Computing Synthesis (`stochology_lenses::analog`)</strong></figcaption>
 </figure>
 
 ---
 
-## 11.1 Axis 1: The von Neumann Bottleneck, Macro-Energy Scaling, and Recursive Model Collapse (`VonNeumannModelCollapseAudit`)
+## 13.1 Axis 1: The von Neumann Bottleneck, Macro-Energy Scaling, and Recursive Model Collapse (`VonNeumannModelCollapseAudit`)
 
 ### Macro-Energy Trajectory and Mark Horowitz's Microarchitectural Hierarchy
 
 According to the International Energy Agency (IEA, *Energy and AI*, 2025–2026), global data-center electricity demand rose by $80\%$ from **$269.1\text{ TWh}$ in 2020** to **$485.1\text{ TWh}$ in 2025** ($\approx 1.5\%$ of global electricity, growing $17\%$ in 2025 alone, with AI-focused facilities growing $50\%$). In the IEA base case, demand nearly doubles to **$945\text{ TWh}$ by 2030** (exceeding the annual electricity consumption of Japan) and reaches **$1\text{,}200\text{ TWh}$ by 2035**, with acute regional grid concentration ($23\%$ of all metered electricity in Ireland in 2025 and $25.6\%$ in Virginia).
 
-At the transistor level, **Mark Horowitz** (Stanford University, ISSCC 2014, *Computing's Energy Problem* for a $45\text{ nm}$ CMOS node) measured the energy hierarchy that explains why digital GPUs burn $700\text{ W}$ ($>1\text{,}100\text{ W}$ with cooling):
+At the transistor level, **Mark Horowitz** (Stanford University, ISSCC 2014, *Computing's Energy Problem* for a $45\text{ nm}$ CMOS node) measured the energy hierarchy below (literature, informative). We set it side by side with the reported board power of a current data-center GPU, $700\text{ W}$ for an Nvidia H100 ($>1\text{,}100\text{ W}$ with cooling; literature, informative), without claiming that Horowitz's per-operation figures explain that board power:
 
 | Operation ($45\text{ nm}$ CMOS Reference) | Energy Cost ($E$) | Relative Multiplier vs. Int32 Add ($0.1\text{ pJ}$) | Relative Multiplier vs. FP32 Add ($0.9\text{ pJ}$) |
 | :--- | :---: | :---: | :---: |
@@ -78,12 +78,12 @@ When the human token stock ($\sim 300\text{ trillion tokens}$) saturates and gen
 $$P\_{g}(x) \propto \hat{P}\_{g-1}(x)^{\gamma\_{\text{temp}}}, \qquad \gamma\_{\text{temp}} > 1$$
 
 the tails of the distribution vanish exponentially:
-- In `VonNeumannModelCollapseAudit::evaluate(2026, true)`, after $G = 8$ unanchored synthetic generations, the variance retention ratio drops to $\frac{\sigma\_G^2}{\sigma\_0^2} \approx 5.9 \times 10^{-6} < 0.25$ and the Kullback-Leibler divergence reaches $D\_{\mathrm{KL}}(P\_0 \parallel P\_G) = 8.25\text{ nats} > 0.60\text{ nats}$. These are `seed = 2026` values: across the 20 acceptance seeds the KL claim holds everywhere, but retention below $0.25$ holds on only 75% of them, so Gate `G8` reports the retention claim as discarded (Chapter 12).
+- In `VonNeumannModelCollapseAudit::evaluate(2026, true)`, after $G = 8$ unanchored synthetic generations, the variance retention ratio drops to $\frac{\sigma\_G^2}{\sigma\_0^2} \approx 5.9 \times 10^{-6} < 0.25$ and the Kullback-Leibler divergence reaches $D\_{\mathrm{KL}}(P\_0 \parallel P\_G) = 8.25\text{ nats} > 0.60\text{ nats}$. These are `seed = 2026` values: across the 20 acceptance seeds the KL claim holds everywhere, but retention below $0.25$ holds on only 75% of them, so Gate `G8` reports the retention claim as discarded (Chapter 18).
 - When coupled with **Gibram Raul's software remedy (Neurosymbolic Constraint Projection + Physical Anchoring)**, which enforces formal symmetry and conservation rules alongside anchored physical observations, variance retention stays at $\frac{\sigma\_G^2}{\sigma\_0^2} = 0.95 > 0.90$ and $D\_{\mathrm{KL}}(P\_0 \parallel P\_G) = 0.0015\text{ nats} < 0.02\text{ nats}$.
 
 ---
 
-## 11.2 Axis 2: Native Differential Equation Isomorphism: Mass-Spring-Damper $\leftrightarrow$ RLC Analog Circuit & Liquid ODEs (`NativeOdeIsomorphismAudit`)
+## 13.2 Axis 2: Native Differential Equation Isomorphism: Mass-Spring-Damper $\leftrightarrow$ RLC Analog Circuit & Liquid ODEs (`NativeOdeIsomorphismAudit`)
 
 In classical mechanics, a mass $m$ attached to a spring of stiffness $k$ with viscous damping $c$ under external force $F(t)$ obeys Newton's second-order linear differential equation:
 
@@ -110,7 +110,7 @@ In `NativeOdeIsomorphismAudit::evaluate()`, integrating both systems via 4th-ord
 
 ---
 
-## 11.3 Axis 3: AIMC Crossbars, The "Analog Wall" Threshold Cliff vs. Noise-Aware Training, and Peking University's 24-Bit `HP-INV` Solver (`AimcAnalogWallHpInvAudit`)
+## 13.3 Axis 3: AIMC Crossbars, The "Analog Wall" Threshold Cliff vs. Noise-Aware Training, and Peking University's 24-Bit `HP-INV` Solver (`AimcAnalogWallHpInvAudit`)
 
 ### Analog Crossbar Multiplication via Ohm's and Kirchhoff's Laws
 
@@ -125,7 +125,7 @@ In an **Analog In-Memory Computing (AIMC) Crossbar Array**, an $N \times M$ weig
 
 Physical crossbars suffer from device-to-device programming variation, thermal and telegraph read noise ($\xi\_{ij} \sim \mathcal{N}(0, \sigma^2)$), and PCM thermodynamic **resistance drift** ($G(t) = G\_0 (t/t\_0)^{-\nu}$). As shown by Ferran Alia (2026) and audited in `AimcAnalogWallHpInvAudit`, when a neural network trained deterministically on digital hardware is transferred onto noisy analog crossbars, accuracy hits a nonlinear **threshold cliff**:
 - For $\sigma \le 0.10$, accuracy remains stable ($\ge 96\%$).
-- Above $\sigma = 0.10$, noise compounds across layers: at $\sigma = 0.60$, standard digital accuracy drops to **$35.0\%$**, with a positive convex Jensen's Gap $\Delta\_J = \mathbb{E}[f(\xi)] - f(\mathbb{E}[\xi]) = +0.409 > 0.15$ (enforcing **Prohibition 2**).
+- Above $\sigma = 0.10$, noise compounds across layers: at $\sigma = 0.60$, standard digital accuracy drops to **$35.0\%$** (simulated, `seed = 2026`; `labs` prints `AIMC_sigma0.6(std=35.0% vs NAT=63.5%)` from the shielded run). The negative proof `--defect analog_wall` prints a different figure, $37.7\%$, because it runs the unshielded configuration: with NAT disabled, the second crossbar channel reuses the standard model's noise level with its own noise draws, so $37.7\%$ is a second simulated replicate of the unprotected model rather than a contradiction of $35.0\%$. The standard curve also shows a positive convex Jensen's Gap $\Delta\_J = \mathbb{E}[f(\xi)] - f(\mathbb{E}[\xi]) = +0.409 > 0.15$ (enforcing **Prohibition 2**).
 - Under **Noise-Aware Training (NAT)**, which injects expected hardware noise $\tilde{G}\_{ij} = G\_{ij} + \xi\_{ij}$ during every forward pass of gradient descent so the optimizer settles into wide, noise-tolerant basins, accuracy at $\sigma = 0.60$ holds at **$63.5\%$** (a **$+28.5\text{ percentage-point}$ resilience gain**), while Analog Error-Correcting Codes (**A-ECC**) recover **$97.5\%$** accuracy under power-law resistance drift.
 
 ### Peking University's (*Nature Electronics*, Oct 2025) 24-Bit `HP-INV` Iterative Solver
@@ -140,7 +140,7 @@ At each iteration $k = 1, 2, \dots, K$:
 
 $$\Delta\mathbf{x}^{(k)} = C\_{\mathrm{LP}}\,\mathbf{r}^{(k-1)}, \qquad \mathbf{x}^{(k)} = \mathbf{x}^{(k-1)} + \Delta\mathbf{x}^{(k)}, \qquad \mathbf{r}^{(k)} = \mathbf{r}^{(k-1)} - \mathrm{HP\_MVM}\bigl(A\_{\text{24bit}}, \Delta\mathbf{x}^{(k)}\bigr)$$
 
-Because the spectral radius of the error iteration matrix $M = I - A C\_{\mathrm{LP}}$ satisfies $\rho(M) \ll 1$, the relative residual error $\frac{\lVert A\mathbf{x}^{(k)} - \mathbf{b}\rVert\_2}{\lVert\mathbf{b}\rVert\_2}$ contracts exponentially: in `AimcAnalogWallHpInvAudit`, a 1-step `LP-INV` yields a coarse relative error of $3.54 \times 10^{-2}$, but within **$7 \le 10$ iterations** `HP-INV` reaches **$8.70 \times 10^{-12} < 10^{-7}$** (surpassing FP32 precision; the reported system power is **$7\text{ W}$ vs. $700\text{ W}$** for an Nvidia H100, i.e. **$100\times$ lower power**, with a reported **$1\text{,}000\times$ speedup** — literature figures, informative, not computed here and not an energy-per-operation comparison).
+Because the spectral radius of the error iteration matrix $M = I - A C\_{\mathrm{LP}}$ satisfies $\rho(M) \ll 1$, the relative residual error $\frac{\lVert A\mathbf{x}^{(k)} - \mathbf{b}\rVert\_2}{\lVert\mathbf{b}\rVert\_2}$ contracts exponentially: in `AimcAnalogWallHpInvAudit` (simulated, `seed = 2026`, $16 \times 16$ system), the unshielded configuration run by `--defect analog_wall` stops after a single step and prints a `1-step LP-INV relative error 0.0530`, whereas the shielded `labs` run, allowed up to 10 refinement iterations, reaches **$8.70 \times 10^{-12} < 10^{-7}$ in 7 iterations** (`PKU_HP_INV_err=8.70e-12 (7 iters`) (surpassing FP32 precision; the reported system power is **$7\text{ W}$ vs. $700\text{ W}$** for an Nvidia H100, i.e. **$100\times$ lower power**, with a reported **$1\text{,}000\times$ speedup** — literature figures, informative, not computed here and not an energy-per-operation comparison).
 
 ### Recursive $4\times 4$ Block Matrix Partitioning (`BlockAMC`) and `ABNAT / HaLoRA` Attention Stability
 
@@ -154,7 +154,7 @@ When Transformer self-attention projections ($Q = X W\_Q, K = X W\_K, V = X W\_V
 
 ---
 
-## 11.4 Axis 4: Wave-Interference Learning: Gibram Raul's Phase-Amplitude Encoding, `SIREN`, and Stanford's Wave-Physics Analog RNN (`WaveInterferenceLearningAudit`)
+## 13.4 Axis 4: Wave-Interference Learning: Gibram Raul's Phase-Amplitude Encoding, `SIREN`, and Stanford's Wave-Physics Analog RNN (`WaveInterferenceLearningAudit`)
 
 ### Sinusoidal Representation Networks (`SIREN`) vs. Pixel Grids and ReLU on the Helmholtz PDE
 
@@ -183,7 +183,7 @@ When different wave classes (e.g., vowel formants or optical wavefronts) are inj
 
 ---
 
-## 11.5 Axis 5: The 20-Watt Brain Sensory Funnel (`DpiMarkovChain`) and the Post-Digital Ecosystem (`SensoryDpiOrganoidHybridAudit`)
+## 13.5 Axis 5: The 20-Watt Brain Sensory Funnel (`DpiMarkovChain`) and the Post-Digital Ecosystem (`SensoryDpiOrganoidHybridAudit`)
 
 The biological brain operates on **$20\text{ W}$** because its wetware is event-driven, clockless, and preceded by an **information-theoretic sensory funnel**:
 1. **Stage 1: Retinal Photoreceptors ($X\_{\text{retina}}$):** $6\text{ million}$ retinal cones transduce raw optical input at **$1.6\text{ Gb/s}$** ($1.6 \times 10^9\text{ bit/s}$).
@@ -201,7 +201,7 @@ The retina and cortex discard $99.9999994\%$ of raw pixel entropy while retainin
 | Post-Digital Paradigm | Representative Systems (2025–2026) | Energy & Throughput Profile | Operational Scope & Engineering Bottlenecks |
 | :--- | :--- | :--- | :--- |
 | **1. Digital von Neumann GPU** | Nvidia H100 / Blackwell | $700\text{ W}$–$1\text{,}100+\text{ W}$; $640\text{ pJ}$ DRAM read bottleneck | Universal programmability & exact FP32/BF16, but constrained by the Memory Wall and $945\text{ TWh}$ grid ceiling. |
-| **2. Electronic AIMC (RRAM / PCM / Charge)** | PKU $40\text{ nm}$ RRAM (`HP-INV`), IBM `HERMES` (PCM), EnCharge `EN100` ($8.25\text{ W}$), Mythic `M1/M2` | $12.4$ to $120\text{ TOPS/W}$; $14\times$ to $100\times$ power reduction; $1\text{,}000\times$ MIMO speedup | Eliminates weight movement via Ohm/Kirchhoff; requires **NAT**, **A-ECC**, or **`HP-INV` bit-slicing** to defeat the Analog Wall, plus digital coprocessors for LayerNorm/Softmax. |
+| **2. Electronic AIMC (RRAM / PCM / Charge)** | PKU $40\text{ nm}$ RRAM (`HP-INV`), IBM `HERMES` (PCM), EnCharge `EN100` ($8.25\text{ W}$), Mythic `M1/M2` | Reported, informative (not computed here): $12.4$ to $120\text{ TOPS/W}$; $14\times$ to $100\times$ lower power; a $1\text{,}000\times$ MIMO speedup reported for `HP-INV` by Sun Zhong and colleagues (Zuo, Wang, Luo et al., *Nature Electronics*, 2025) | Eliminates weight movement via Ohm/Kirchhoff; requires **NAT**, **A-ECC**, or **`HP-INV` bit-slicing** to defeat the Analog Wall, plus digital coprocessors for LayerNorm/Softmax. |
 | **3. Photonic & Diffractive Wave (`D²NN` / MZI)** | Tsinghua `ACCEL` (*Nature* 2023) & `Taichi` (*Science* 2024) | $160\text{ TOPS/W}$ (`Taichi`) to **$74\text{,}800\text{ TOPS/W}$** (`ACCEL`); $72\text{ ns}$ latency | Encodes **phase ($\phi$) and amplitude ($A$)** at the speed of light without pixel ADCs; ideal for ultra-fast vision and wave-interference front-ends. |
 | **4. Biological Organoid Wetware** | Cortical Labs `CL1` (\$35k, Mar 2025) & FinalSpark `Neuroplatform` (\$500/mo) | $20\text{ W}$ biological brain vs. **$850\text{–}1\text{,}000\text{ W}$ life-support rack** (30 `CL1` units) | Event-driven plasticity (*DishBrain* Pong in 5 min), but limited to $6\text{ months}$–$200\text{ days}$ lifespan, low repeatable bit-rate ($\sim 1\text{ ms}$ spikes), no clean reset, and bioethics governance. |
 
@@ -220,7 +220,7 @@ Suppose generation $g = 1$ estimates a linear parameter $\hat{\theta}\_1$ from $
 
 Simulate recursive synthetic training (`Accumulate` $\le \pi^2/6$ vs. `Replace` linear divergence) and Peking University's 24-bit `HP-INV` iterative RRAM solver in the interactive laboratory below:
 
-<div class="stoch-lab" data-lab="analog-hpinv-collapse" data-chapter="11-analog-wave-computing" data-title="Chapter 11 Lab: Basel π²/6 Accumulation Bound &amp; PKU 24-Bit HP-INV RRAM Solver" data-cli="cargo run --release --bin gates -- --defect replace_collapse"></div>
+<div class="stoch-lab" data-lab="analog-hpinv-collapse" data-chapter="13-model-worlds-analog-wave-computing" data-title="Chapter 13 Lab: Basel π²/6 Accumulation Bound &amp; PKU 24-Bit HP-INV RRAM Solver" data-cli="cargo run --release --bin gates -- --defect replace_collapse"></div>
 
 
 ---
@@ -250,4 +250,3 @@ And running the negative defect proof (`cargo run --release --bin gates -- --def
 - **AIMC, NAT, and PKU 24-Bit `HP-INV` (Axis 3):** Analog crossbars compute matrix-vector products in $\mathcal{O}(1)$ via Ohm's and Kirchhoff's laws; **Noise-Aware Training (NAT)** and **Peking University's 40nm RRAM `HP-INV`** (`LP-INV` + bit-sliced `HP-MVM`) overcome the Analog Wall to reach 24-bit (FP32) precision ($8.70 \times 10^{-12}$ error in $7$ iterations, simulated) at a reported $100\times$ lower system power ($7\text{ W}$ vs. $700\text{ W}$, informative).
 - **Wave-Interference Learning (Axis 4):** Encoding **phase ($\phi$) and amplitude ($A$)** via `SIREN` ($\sin(\omega\_0 W x + b)$) and **Stanford's Wave-Physics Analog RNN** compresses signals $40\times$, preserves exact second-order Helmholtz derivatives, and routes wave energy at up to $74.8\text{ PetaOPS/W}$ (`ACCEL`).
 - **The 20-Watt Brain Funnel & Hybrid Future (Axis 5):** Biological sensory processing compresses $1.6\text{ Gb/s}$ retinal input to $10\text{ bit/s}$ conscious decisions ($1.6 \times 10^8 : 1$) while preserving actionable mutual information under the Data Processing Inequality, pointing toward **hybrid analog-digital, physically conscious architectures**.
-

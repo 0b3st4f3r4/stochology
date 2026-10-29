@@ -141,7 +141,7 @@
 
   <div class="lab-layout">
     <aside class="lab-sidebar" id="lab-sidebar">
-      <div class="lab-sidebar-heading">Interactive Modules (14)</div>
+      <div class="lab-sidebar-heading">Interactive Modules (16)</div>
       <div id="lab-module-list"></div>
     </aside>
 
@@ -162,19 +162,21 @@
     (function () {
       var MODULES = [
         { id: "gigerenzer-bayes", label: "00. Gigerenzer Tree & Decibans", chapter: "00-preface.html" },
-        { id: "jensen-crps", label: "01. Convexity, Jensen Gap & CRPS", chapter: "01-random-variables-convexity.html" },
-        { id: "meng-performativity", label: "02. Meng Law & Performative RRM", chapter: "02-layers.html" },
-        { id: "ols-cholesky-gls", label: "03. Cholesky GLS & Effective n", chapter: "03-sampling-estimation-linear-algebra.html" },
-        { id: "koh-infogap-wald", label: "04. Kennedy-O'Hagan GP & Info-Gap", chapter: "04-uncertainty.html" },
-        { id: "markov-dag-do", label: "05. DAG Colliders & NILE/ICP", chapter: "05-markov-chains-causal-graphs.html" },
-        { id: "lenses-kelly-tail-corp", label: "06. Five Lenses: Kelly, Hill & CORP", chapter: "06-lenses.html" },
-        { id: "spectral-telgarsky-deff", label: "07–08. Telgarsky 2^D & Gram d_eff", chapter: "08-machine.html" },
-        { id: "rk4-hopf-brusselator", label: "09–10. RK4 Brusselator & Daisyworld", chapter: "10-relational-ontology.html" },
-        { id: "analog-hpinv-collapse", label: "11–12. Analog HP-INV & Basel π²/6", chapter: "11-analog-wave-computing.html" },
-        { id: "stochary-kingman-triad", label: "13. Kingman VUT, Stocks & Triad", chapter: "13-stochary-conjectural-cybernetics.html" },
-        { id: "ville-savi-conformal", label: "14, 18, 23. Ville e-Process & SAVI", chapter: "14-severe-testing-martingales-conformal.html" },
-        { id: "invariants-moulton-chouldechova", label: "15–17. Moulton DEFF & Chouldechova", chapter: "16-invariants.html" },
-        { id: "governance-bitemporal-drift", label: "19–20. Bitemporal Clock & Drift", chapter: "19-governance.html" }
+        { id: "jensen-crps", label: "03. Convexity, Jensen Gap & CRPS", chapter: "03-random-variables-convexity.html" },
+        { id: "meng-performativity", label: "10, 19. Meng Law & Performative RRM", chapter: "10-world-models-missingness-bounds.html" },
+        { id: "ols-cholesky-gls", label: "06. Cholesky GLS & Effective n", chapter: "06-sampling-estimation-linear-algebra.html" },
+        { id: "koh-infogap-wald", label: "11, 20. Kennedy-O'Hagan GP & Info-Gap", chapter: "20-decision-worlds-regime.html" },
+        { id: "markov-dag-do", label: "04. DAG Colliders & NILE/ICP", chapter: "04-markov-chains-causal-graphs.html" },
+        { id: "lenses-kelly-tail-corp", label: "09. Five Lenses: Kelly, Hill & CORP", chapter: "09-lenses.html" },
+        { id: "spectral-telgarsky-deff", label: "07, 11. Telgarsky 2^D & Gram d_eff", chapter: "11-world-models-discrepancy-authentic-form.html" },
+        { id: "rk4-hopf-brusselator", label: "05, 22. RK4 Brusselator & Daisyworld", chapter: "22-relational-ontology.html" },
+        { id: "analog-hpinv-collapse", label: "13, 18. Analog HP-INV & Basel π²/6", chapter: "13-model-worlds-analog-wave-computing.html" },
+        { id: "stochary-kingman-triad", label: "14, 23. Kingman VUT, Stocks & Triad", chapter: "23-stochary-conjectural-cybernetics.html" },
+        { id: "ville-savi-conformal", label: "08, 16, 27. Ville e-Process & SAVI", chapter: "08-severe-testing-martingales-conformal.html" },
+        { id: "invariants-moulton-chouldechova", label: "15, 17, 20. Moulton DEFF & Chouldechova", chapter: "20-decision-worlds-regime.html" },
+        { id: "governance-bitemporal-drift", label: "21, 25. Bitemporal Clock & Drift", chapter: "21-decision-worlds-governance.html" },
+        { id: "strategic-shap-ppi-ahp", label: "11, 12, 15, 16. Causal SHAP, PPI & AHP", chapter: "12-model-worlds-simulation-acceptance.html" },
+        { id: "kalman-control-hub-contagion", label: "19, 21, 22. Huber-Kalman, Tube-MPC & Hub Buffers", chapter: "19-world-decisions-performativity.html" }
       ];
 
       function parseQuery() {

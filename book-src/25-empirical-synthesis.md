@@ -1,4 +1,4 @@
-# 20. Transversal Empirical Synthesis Across All 13 Real Datasets (Lab 7)
+# 25. Transversal Empirical Synthesis Across All 13 Real Datasets (Lab 7)
 
 
 ## Six High-Stakes Empirical Domains
@@ -52,7 +52,7 @@ Every byte of these 13 CSV files is cryptographically locked in `data/SHA256SUMS
   <text x="786" y="242" fill="var(--muted)" class="mono" font-size="11">Lei-Candès ≥ 0.802 / 0.828 / 0.693</text>
   <text x="786" y="264" fill="var(--muted)" class="mono" font-size="11">H1 Vault = OpenedApproved (BS=0.1783)</text>
   </svg>
-  <figcaption><strong>Figure 20.1 — Synoptic Map of All 13 Real Empirical Datasets &amp; 4 Canonical Cards in Laboratory 7</strong></figcaption>
+  <figcaption><strong>Figure 25.1 — Synoptic Map of All 13 Real Empirical Datasets &amp; 4 Canonical Cards in Laboratory 7</strong></figcaption>
 </figure>
 
 ---
@@ -62,7 +62,7 @@ Every byte of these 13 CSV files is cryptographically locked in `data/SHA256SUMS
 - **The Real-World Problem:** In the 1970s, the U.S. National Supported Work (NSW) demonstration randomly assigned disadvantaged workers to a job-training program (`nsw_experimental.csv`, $n = 445$, with $260$ controls). In a landmark 1986 *American Economic Review* paper, economist **Robert LaLonde** asked: *What happens if we replace the randomized control group with a massive observational survey of non-experimental U.S. workers from the Current Population Survey (`cps_observational.csv`, $n = 15\text{,}992$)?* This exact structural problem recurs today in **Digital Public Infrastructure (DPI) and Civil-Defense / Social-Protection Triage (`card_04_dpi_civil_defense_triage.yaml`)**, where municipal mobile-app self-registration registries ($n = 15\text{,}992$ across $652$ census-tract clusters) suffer `MNAR` digital-divide selection bias relative to randomized door-to-door ground-truth audits (`nsw_experimental.csv`).
 - **The Naive Mistake:** A naive analyst looks at $n = 15\text{,}992$, computes a tiny standard error $\sigma / \sqrt{15\text{,}992}$, and trusts the observational regression or uncalibrated mobile-app triage score.
 - **The Stochology Audit (Bridge $L\_1 \to L\_2$, Invariants $\Phi\_2, \Phi\_3, \Phi\_4$, and `PublicInfrastructureCard04Audit`):**
-  Applying **Meng's Identity** (Chapter 2) between the observational CPS registry and the experimental NSW benchmark reveals a selection correlation of **$\rho\_{R,Y} = +0.1334$**. That filter on Bridge $L\_1 \to L\_2$ shrinks $n = 15\text{,}992$ down to an effective sample size of **$n\_{\mathrm{eff,Meng}} = 2\text{,}842.70$**, removing over $13\text{,}000$ apparent observations. Meanwhile, **Manski's non-parametric `MNAR` bounds** bracket the true population outcome within **$[5\text{,}463.2,\ 13\text{,}835.3]$**, **David Lee's (2009) sharp trimming bounds** bracket the always-responder effect within **$[838.7,\ 2\text{,}007.2]$**, Moulton-Campbell cluster correlation ($\tilde{m} = 95.65, \rho\_I(0.90) = 0.0961, \mathrm{DEFF} = 10.10$) yields **$n\_{\mathrm{eff}}(0.90) = 1\text{,}583$**, and because $p = 0.17059 > p^{\ast} = \frac{1\text{,}800}{0.75 \times 20\text{,}000} = 0.12000$ with Chouldechova $\mathrm{FPR}\_A / \mathrm{FPR}\_B = 1.23\times$ (`KMR_var_gap = 0.0960`), `card_04` approves **`protect`**.
+  Applying **Meng's Identity** (Chapter 10) between the observational CPS registry and the experimental NSW benchmark reveals a selection correlation of **$\rho\_{R,Y} = +0.1334$**. That filter on Bridge $L\_1 \to L\_2$ shrinks $n = 15\text{,}992$ down to an effective sample size of **$n\_{\mathrm{eff,Meng}} = 2\text{,}842.70$**, removing over $13\text{,}000$ apparent observations. Meanwhile, **Manski's non-parametric `MNAR` bounds** bracket the true population outcome within **$[5\text{,}463.2,\ 13\text{,}835.3]$**, **David Lee's (2009) sharp trimming bounds** bracket the always-responder effect within **$[838.7,\ 2\text{,}007.2]$**, Moulton-Campbell cluster correlation ($\tilde{m} = 95.65, \rho\_I(0.90) = 0.0961, \mathrm{DEFF} = 10.10$) yields **$n\_{\mathrm{eff}}(0.90) = 1\text{,}583$**, and because $p = 0.17059 > p^{\ast} = \frac{1\text{,}800}{0.75 \times 20\text{,}000} = 0.12000$ with Chouldechova $\mathrm{FPR}\_A / \mathrm{FPR}\_B = 1.23\times$ (`KMR_var_gap = 0.0960`), `card_04` approves **`protect`**.
 
 ---
 
@@ -91,9 +91,9 @@ Every byte of these 13 CSV files is cryptographically locked in `data/SHA256SUMS
 
 - **The Real-World Problem:** `danish_fire.csv` contains $n = 2\text{,}167$ industrial fire insurance losses in millions of Danish Kroner (1980–1990, McNeil 1997; Embrechts, Klüppelberg & Mikosch 1997). `vic_elec.csv` contains $n = 52\text{,}608$ half-hourly electricity demand readings (in MW) from Victoria, Australia.
 - **The Naive Mistake:** Computing sample standard deviation $s\_n$ on fire losses and pricing reinsurance layers using Gaussian normal tables.
-- **The Stochology Audit (Lens 3 — Scale and Tail & Ch. 6 — Wave-Analog Computing):**
+- **The Stochology Audit (Lens 3 — Scale and Tail & Ch. 13 — Wave-Analog Computing):**
   - On **`danish_fire.csv`**, Hill's tail-index estimator yields **$\hat{\alpha}\_{\mathrm{Hill}} = 1.6009 \pm 0.1601$**. Because $1 < \hat{\alpha} \le 2$, the data inhabit the **`FiniteMeanInfiniteVariance`** regime: the population variance is mathematically infinite, the $99\text{th}$ percentile reaches **$q\_{99} = 26.04\text{M DKK}$** (against a median of only $1.778\text{M DKK}$), and the effective tail sample size is only **`tail_n_eff` $= 13.9$**.
-  - On **`vic_elec.csv`** ($n = 52\text{,}608$), Hill's estimator confirms a steep upper tail ($\hat{\alpha} = 14.8090$, `FiniteMeanAndVariance`) with extreme summer heatwave peak demand reaching **$q\_{99} = 6\text{,}981.5\text{ MW}$**. Furthermore, coupling a $336$-point weekly slice of `vic_elec.csv` to the **Empirical Wave-Analog Audit** (Chapter 11) compresses the half-hourly demand wave by **$14.0\times$** into $24$ harmonic coefficients ($R^2 = 0.88$) and solves the $6 \times 6$ Gram normal equation via Peking University's 24-bit **`HP-INV`** loop (`LP-INV` 3-bit RRAM + bit-sliced `HP-MVM`) to relative error **$4.39 \times 10^{-16}$**.
+  - On **`vic_elec.csv`** ($n = 52\text{,}608$), Hill's estimator confirms a steep upper tail ($\hat{\alpha} = 14.8090$, `FiniteMeanAndVariance`) with extreme summer heatwave peak demand reaching **$q\_{99} = 6\text{,}981.5\text{ MW}$**. Furthermore, coupling a $336$-point weekly slice of `vic_elec.csv` to the **Empirical Wave-Analog Audit** (Chapter 13) compresses the half-hourly demand wave by **$14.0\times$** into $24$ harmonic coefficients ($R^2 = 0.88$) and solves the $6 \times 6$ Gram normal equation via Peking University's 24-bit **`HP-INV`** loop (`LP-INV` 3-bit RRAM + bit-sliced `HP-MVM`) to relative error **$4.39 \times 10^{-16}$**.
 
 ---
 
@@ -112,7 +112,7 @@ Every byte of these 13 CSV files is cryptographically locked in `data/SHA256SUMS
 ## Case Study 6: Aviation Drift & Vaults — Five Flight Datasets (`nyc_flights_2013/2023`, H1 Reserves, `houston_flights_2011.csv` $\to$ `card_03`)
 
 - **The Real-World Problem:** An airline operations control center in New York (`nyc_flights_2013.csv`, $n = 138\text{,}375$ flights, $n\_{\mathrm{eff}} = 1\text{,}364$ after clustering by daily airport-weather waves) uses `card_03_nyc_flights_holding.yaml` to decide whether to hold connecting aircraft ($p^{\ast} = 0.06000, p = 0.09800 \implies \text{protect}$). The model must survive a ten-year temporal jump to `nyc_flights_2023.csv`, sealed out-of-time H1 vaults (`nyc_flights_2013_h1.csv`, `nyc_flights_2023_h1.csv`), and an out-of-domain geographic transfer to Texas (`houston_flights_2011.csv`).
-- **The Stochology Audit (Chapter 19 Governance, Vault & Drift):**
+- **The Stochology Audit (Chapter 21 Governance, Vault & Drift):**
   - **Covariate Drift (`ExTRA-WCP-T`) & Lei-Candès Bounds:** Exponential-tilt conformal adaptation maintains guaranteed coverage floors across all three shifts:
     - NYC $2013 \to 2023$: **$\text{Lei-Candès bound} \ge 0.802$**;
     - Sealed H1 Out-of-Time Reserve $2013 \to 2023$: **$\text{Lei-Candès bound} \ge 0.828$**;
@@ -181,7 +181,7 @@ Explore the multi-dataset drift and bitemporal synthesis audited in Laboratory 7
 ## Exercises
 
 1. **(Cross-Domain Comparison — $n$ vs. $n\_{\mathrm{eff}}$)** Compare the nominal sample size $n$ and the effective sample size $n\_{\mathrm{eff}}$ across three datasets in Lab 7: `cps_observational.csv` ($n = 15\text{,}992 \to n\_{\mathrm{eff}} = 2\text{,}842.7$), `bank_calls.csv` ($n = 27\text{,}716 \to n\_{\mathrm{eff}} = 980.7$), and `nyc_flights_2013.csv` ($n = 138\text{,}375 \to n\_{\mathrm{eff}} = 1\text{,}364$). Explain which mechanism reduced $n$ in `cps_observational.csv` (Bridge $L\_1 \to L\_2$) versus which mechanism reduced $n$ in `bank_calls.csv` and `nyc_flights_2013.csv` ($\Phi\_2$).
-2. **(Comparison of Actions Across Cards)** Why does `card_01` (Atlantic hurricanes, $p = 0.09800$) conclude `do_not_protect`, whereas `card_03` (NYC flight holding, with the same event probability $p = 0.09800$) concludes `protect`? What does this prove about separating probability estimation ($L\_2$) from cost-loss valuation ($L\_3$)?
+2. **(Comparison of Actions Across Cards)** Why does `card_01` (Atlantic hurricanes, $p = 0.0977$) conclude `do_not_protect`, whereas `card_03` (NYC flight holding, with a nearly identical event probability $p = 0.0981$) concludes `protect`? What does this prove about separating probability estimation ($L\_2$) from cost-loss valuation ($L\_3$)?
 
 <details>
 <summary><strong>Analytical &amp; Computational Solutions (Click to Expand)</strong></summary>
@@ -190,9 +190,15 @@ Explore the multi-dataset drift and bitemporal synthesis audited in Laboratory 7
    - In **`cps_observational.csv`**, $n = 15\text{,}992$ shrinks to $n\_{\mathrm{eff}} = 2\text{,}842.7$ due to **unadjusted selection bias ($\rho\_{R,Y} = +0.1334$)** on Bridge $L\_1 \to L\_2$ (Xiao-Li Meng's Identity).
    - In **`bank_calls.csv`** ($n = 27\text{,}716 \to n\_{\mathrm{eff}}(0.90) = 980.7$, $\mathrm{DEFF} = 28.26$) and **`nyc_flights_2013.csv`** ($n = 138\text{,}375 \to n\_{\mathrm{eff}} = 1\text{,}364$), the reduction is caused by **within-cluster tail dependence ($\rho\_I(p) > 0$, Invariant $\Phi\_2$)** across calendar days and synoptic weather waves (Moulton-Campbell design effect).
 2. **Comparison of Actions Across Cards (`card_01` vs. `card_03`):**
-   Both cards have the exact same calibrated event probability $p = 0.09800$ ($9.8\%$) in Layer $L\_2$. However, in Layer $L\_3$:
-   - For **`card_01`** (coastal evacuation), $C = USD 12\text{,}000, L = USD 125\text{,}000, \eta = 0.80 \implies p^{\ast} = \frac{12\text{,}000}{100\text{,}000} = 0.12000$ ($12.0\%$). Since $p = 0.09800 \le p^{\ast} = 0.12000$, the optimal action is **`do_not_protect`**.
-   - For **`card_03`** (holding connecting aircraft), $C = USD 720, L = USD 15\text{,}000, \eta = 0.80 \implies p^{\ast} = \frac{720}{12\text{,}000} = 0.06000$ ($6.0\%$). Since $p = 0.09800 > p^{\ast} = 0.06000$, the optimal action is **`protect`**.
-   This proves that **the exact same probability forecast in $L\_2$ rationally triggers opposite actions in $L\_3$ depending on the asymmetric cost-loss ratio $p^{\ast} = \frac{C}{\eta L}$.**
+   Both cards declare almost the same calibrated event probability ($p = 0.0977$ vs. $p = 0.0981$, about $9.8\%$). However, their cost-loss valuations differ (values as declared in the cards):
+   - For **`card_01`** (coastal evacuation), $C = 3\text{,}600, L = 30\text{,}000, \eta = 1.0 \implies p^{\ast} = \frac{3\text{,}600}{30\text{,}000} = 0.12000$ ($12.0\%$). Since $p = 0.0977 \le p^{\ast} = 0.12000$, the optimal action is **`do_not_protect`**.
+   - For **`card_03`** (holding connecting aircraft), $C = 1\text{,}500, L = 25\text{,}000, \eta = 1.0 \implies p^{\ast} = \frac{1\text{,}500}{25\text{,}000} = 0.06000$ ($6.0\%$). Since $p = 0.0981 > p^{\ast} = 0.06000$, the optimal action is **`protect`**.
+   This shows that **practically the same probability forecast rationally triggers opposite actions depending on the asymmetric cost-loss ratio $p^{\ast} = \frac{C}{\eta L}$.**
 
 </details>
+
+## Summary
+
+- **Laboratory 7 (`labs --real-data`)** executes the complete closed-loop CAPIBA Protocol end-to-end across all 13 real CSV datasets in `data/*.csv` and all four canonical YAML Epistemological Cards in `cards/*.yaml`.
+- **Two distinct mechanisms shrink nominal $n$ to effective $n\_{\mathrm{eff}}$:** unadjusted selection correlation $\rho\_{R,Y} \neq 0$ on Bridge $L\_1 \to L\_2$ (Meng's Identity in `cps_observational.csv`) and within-cluster tail dependence $\rho\_I(p) > 0$ across operational shifts ($\Phi\_2$ Moulton-Campbell in `bank_calls.csv`, `atlantic_storms.csv`, and `nyc_flights_2013.csv`).
+- **Nearly identical calibrated probabilities rationally trigger opposite actions in $L\_3$** (`card_01` vs. `card_03`) once evaluated against each domain's asymmetric cost-loss threshold $p^{\ast} = \frac{C}{\eta L}$.

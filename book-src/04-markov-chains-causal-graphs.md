@@ -1,4 +1,4 @@
-# 5. Markov Chains, Stochastic Time, and Causal Graphs (DAGs)
+# 4. Markov Chains, Stochastic Time, and Causal Graphs (DAGs)
 
 
 ## When Controlling for a Variable Invents a Fake Disease
@@ -96,12 +96,12 @@ Three structural mechanisms govern how information, time, and causal interventio
   <text x="814" y="338" fill="var(--rose)" font-size="10.5" font-weight="700">Conditioning on C OPENS the path and invents</text>
   <text x="814" y="354" fill="var(--rose)" font-size="10.5" font-weight="700">spurious correlation between independent X &amp; Y!</text>
   </svg>
-  <figcaption>Figure 5.1 — The three structural pillars of Markov chains, stochastic time, and causal graphs: (1) Memoryless Markov chains X → Y → Z and row-stochastic matrices W; (2) Quadratic variation (ΔW_t)² = Δt and multiplicative volatility drain; and (3) The three elementary DAG junctions (Chain, Fork/Confounder, and Collider/Berkson).</figcaption>
+  <figcaption>Figure 4.1 — The three structural pillars of Markov chains, stochastic time, and causal graphs: (1) Memoryless Markov chains X → Y → Z and row-stochastic matrices W; (2) Quadratic variation (ΔW_t)² = Δt and multiplicative volatility drain; and (3) The three elementary DAG junctions (Chain, Fork/Confounder, and Collider/Berkson).</figcaption>
 </figure>
 
 ---
 
-## 5.1 Conditional Independence and Markov Chains ($X \to Y \to Z$)
+## 4.1 Conditional Independence and Markov Chains ($X \to Y \to Z$)
 
 ### What Does Conditional Independence Mean?
 Recall from the Preface that two random variables $X$ and $Z$ are marginally independent ($X \perp\!\!\!\perp Z$) if $P(X = x, Z = z) = P(X = x)P(Z = z)$.
@@ -127,7 +127,7 @@ $$\mathbf{q} = \mathbf{p} W \qquad \left(q\_j = \sum\_{i=1}^m p\_i W\_{ij}\right
 
 And across a two-step Markov chain $X \xrightarrow{W\_1} Y \xrightarrow{W\_2} Z$, the composite transition matrix from $X$ to $Z$ is the matrix product $W\_{12} = W\_1 W\_2$ (**Chapman-Kolmogorov Equation**).
 
-### Worked Example 5.1: How a Noisy Channel Mixes Distributions Together
+### Worked Example 4.1: How a Noisy Channel Mixes Distributions Together
 Consider a binary communication channel (or noisy sensor) with symmetric flip error $\varepsilon = 0.20$:
 
 $$W = \begin{bmatrix} 0.80 & 0.20 \\ 0.20 & 0.80 \end{bmatrix}$$
@@ -137,11 +137,11 @@ After passing through $W$:
 - $\mathbf{q} = \mathbf{p}W = (0.80, 0.20)$
 - $\mathbf{q}' = \mathbf{p}'W = (0.20, 0.80)$
 
-Now the Total Variation distance between $\mathbf{q}$ and $\mathbf{q}'$ has shrunk to $|0.80 - 0.20| = \mathbf{0.60} = 1 - 2\varepsilon$. Every noisy Markov step $W$ blends rows together, irreversibly contracting the distinguishability of distributions. In Chapter 6 (Lens 1), this matrix property yields the **Data Processing Inequality (DPI)** and the exact hierarchy of **Strong Contraction Constants** ($\eta\_{\chi^2}(W) \le \eta\_{\mathrm{KL}}(W) \le \eta\_{\mathrm{TV}}(W)$).
+Now the Total Variation distance between $\mathbf{q}$ and $\mathbf{q}'$ has shrunk to $|0.80 - 0.20| = \mathbf{0.60} = 1 - 2\varepsilon$. Every noisy Markov step $W$ blends rows together, irreversibly contracting the distinguishability of distributions. In Chapter 9 (Lens 1), this matrix property yields the **Data Processing Inequality (DPI)** and the exact hierarchy of **Strong Contraction Constants** ($\eta\_{\chi^2}(W) \le \eta\_{\mathrm{KL}}(W) \le \eta\_{\mathrm{TV}}(W)$).
 
 ---
 
-## 5.2 Multiplicative Compounding and the $(\Delta W\_t)^2 = \Delta t$ Rule of Stochastic Time
+## 4.2 Multiplicative Compounding and the $(\Delta W\_t)^2 = \Delta t$ Rule of Stochastic Time
 
 ### Why Arithmetic Averages Lie About Multiplicative Trajectories
 In an **additive** game, if you win $+\$50$ on Monday and lose $-\$50$ on Tuesday, your net change is $+50 - 50 = \$0$.
@@ -155,7 +155,7 @@ Compare the two averages:
 - Your **arithmetic average return** per day is $\frac{+50\% + (-50\%)}{2} = \mathbf{0.0\%}$.
 - Yet your actual wealth dropped by **$-25\%$** in two days (a geometric compounding rate of $\sqrt{1.50 \times 0.50} - 1 = \sqrt{0.75} - 1 \approx -13.4\%$ per day).
 
-This divergence occurs because multiplication is linear in **logarithms**: $\ln(W\_T / W\_0) = \sum\_{t=1}^T \ln(1 + r\_t)$. As shown in Chapter 1, the function $f(x) = \ln(1 + x)$ is **strictly concave** ($f''(x) = -\frac{1}{(1+x)^2} < 0$). By our second-order Taylor expansion of Jensen's Inequality around $r = \mu$:
+This divergence occurs because multiplication is linear in **logarithms**: $\ln(W\_T / W\_0) = \sum\_{t=1}^T \ln(1 + r\_t)$. As shown in Chapter 3, the function $f(x) = \ln(1 + x)$ is **strictly concave** ($f''(x) = -\frac{1}{(1+x)^2} < 0$). By our second-order Taylor expansion of Jensen's Inequality around $r = \mu$:
 
 $$\mathbb{E}[\ln(1 + r)] \approx \mu - \frac{1}{2}\sigma^2$$
 
@@ -176,15 +176,15 @@ $$\Delta W\_t = \pm \sqrt{\Delta t} \implies (\Delta W\_t)^2 = \left(\pm\sqrt{\D
 
 $$df(X\_t) = f'(X\_t)\,dX\_t + \frac{1}{2}f''(X\_t)\,(dX\_t)^2$$
 
-This equation, which follows directly from $(\pm\sqrt{\Delta t})^2 = \Delta t$, is **Itô's Lemma**, which we use in Chapter 6 (Lens 2) to derive exact time-average growth rates, optimal Kelly fractions, and absorbing ruin probabilities.
+This equation, which follows directly from $(\pm\sqrt{\Delta t})^2 = \Delta t$, is **Itô's Lemma**, which we use in Chapter 9 (Lens 2) to derive exact time-average growth rates, optimal Kelly fractions, and absorbing ruin probabilities.
 
 ---
 
-## 5.3 Directed Acyclic Graphs (DAGs): Chains, Forks, Colliders, and $\mathrm{do}(X = x)$
+## 4.3 Directed Acyclic Graphs (DAGs): Chains, Forks, Colliders, and $\mathrm{do}(X = x)$
 
 To represent cause-and-effect relationships mathematically without falling into Berkson's Paradox or confounding bias, Judea Pearl formulated causal structure as a **Directed Acyclic Graph (DAG)** $G = (V, E)$, where each node is a variable and each directed arrow $A \to B$ means that $A$ is a direct physical mechanism entering the structural equation $B = f\_B(A, \dots, \varepsilon\_B)$.
 
-Every causal graph, regardless of size, is built out of **three elementary 3-node junctions** (illustrated in Panel 3 of Figure 5.1):
+Every causal graph, regardless of size, is built out of **three elementary 3-node junctions** (illustrated in Panel 3 of Figure 4.1):
 
 | Junction | Graph Structure | Real-World Example | Marginal State (Before Conditioning) | Effect of Conditioning on Middle Node | Operational Rule |
 | --- | --- | --- | --- | --- | --- |
@@ -201,7 +201,7 @@ When the confounder $U$ is observed, Pearl's **Back-Door Adjustment Formula** co
 
 $$P(Y = y \mid \mathrm{do}(X = x)) = \sum\_u P(Y = y \mid X = x, U = u) \, P(U = u)$$
 
-When $U$ is partially unobserved or we have data across multiple environments $e \in \mathcal{E}$ (such as different seasons, hospitals, or experimental vs. observational cohorts), Chapter 6 (Lens 4) shows how **Invariant Causal Prediction (ICP)**, **Rosenbaum's $\Lambda^\ast$**, and **Cinelli-Hazlett's Robustness Value $RV\_q$** audit causal claims under environmental shifts and hidden confounding.
+When $U$ is partially unobserved or we have data across multiple environments $e \in \mathcal{E}$ (such as different seasons, hospitals, or experimental vs. observational cohorts), Chapter 9 (Lens 4) shows how **Invariant Causal Prediction (ICP)**, **Rosenbaum's $\Lambda^\ast$**, and **Cinelli-Hazlett's Robustness Value $RV\_q$** audit causal claims under environmental shifts and hidden confounding.
 
 ### Judea Pearl's Three Rules of `do-Calculus` and the Markov Blanket
 
@@ -220,7 +220,7 @@ Furthermore, for any target node $Y$ in a DAG, its **Markov Blanket** $\mathrm{M
 
 Use the interactive Markov contraction and Pearl `do-calculus` simulator below to observe Dobrushin total-variation contraction $\eta\_{\mathrm{TV}}^t$ alongside confounding and Berkson collider bias:
 
-<div class="stoch-lab" data-lab="markov-dag-do" data-chapter="05-markov-chains-causal-graphs" data-title="Chapter 5 Lab: Markov Contraction (η_TV), Pearl do(X=x) &amp; Berkson Collider Guard" data-cli="cargo run --release --bin labs -- --lenses"></div>
+<div class="stoch-lab" data-lab="markov-dag-do" data-chapter="04-markov-chains-causal-graphs" data-title="Chapter 4 Lab: Markov Contraction (η_TV), Pearl do(X=x) &amp; Berkson Collider Guard" data-cli="cargo run --release --bin labs -- --lenses"></div>
 
 
 ---
@@ -249,3 +249,8 @@ cargo run --release --bin labs -- --siga
    - Now filter to the $3$ rows where the bell rang ($C = 1$): compute $P(Y = 1 \mid X = 0, C = 1)$ vs. $P(Y = 1 \mid X = 1, C = 1)$, and show that conditioning on the collider $C = 1$ creates a negative correlation $\rho\_{X, Y \mid C=1} = -0.50$.
 3. **Arithmetic vs. Geometric Compounding:** An asset alternates deterministically between $+60\%$ in odd years and $-40\%$ in even years. Compute its arithmetic average annual return vs. its 2-year multiplier $(1.60 \times 0.60)$, and determine how much wealth remains after $20$ years starting from $\$1\text{,}000$.
 
+## Summary
+
+- **Row-stochastic Markov kernels** $W$ contract state distributions at a rate bounded by Dobrushin's total-variation coefficient $\eta\_{\mathrm{TV}}(W) \le 1$, enforcing the **Data Processing Inequality** across processing pipelines.
+- **Multiplicative dynamics** suffer from the **Itô volatility drain** $g\_{\text{time}} = \mu\_{\text{ens}} - \frac{1}{2}\sigma^2$, separating the ensemble average from the time-average trajectory of a single agent.
+- **Pearl's Causal Ladder** separates observational conditioning $P(Y \mid X = x)$ (Rung 1) from graph-surgery intervention $P(Y \mid \mathrm{do}(X = x))$ (Rung 2), while **Filter 2** bans conditioning on common-effect colliders (Berkson's paradox).

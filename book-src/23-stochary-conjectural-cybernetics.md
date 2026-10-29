@@ -1,4 +1,4 @@
-# 13. Stochary-Conjectural Synthesis, Ontological Stock Axioms, Supply-Chain Physics, and Cybernetic Governance
+# 23. Stochary-Conjectural Synthesis, Ontological Stock Axioms, Supply-Chain Physics, and Cybernetic Governance
 
 ## The Archer's Target ($\sigma\tau\acute{o}\chi\omicron\varsigma$), the Fragile Just-in-Time Chain, and the $+50\% / -40\%$ Ruin Trap
 
@@ -51,12 +51,12 @@ In `crates/stochology-lenses/src/stocks.rs`, the Stochology Protocol formalizes 
   <text x="600" y="288" fill="var(--muted)" class="mono" font-size="11.5">Kahneman Noise: 0.225 → 0.042 · PATE Q2 Exonerated · Q3 Jackpot Triggers S3* Alarm</text>
   <text x="600" y="310" fill="var(--muted)" class="mono" font-size="11.5">5 CSVs: DJIA Drain 1.45% · Bank LP 0.18 · Fire WDRO -25.4 · Vic Reserve 0.907 / 0.880 swapped (discarded) · Storms OOS Telos &lt; 0</text>
   </svg>
-  <figcaption><strong>Figure 13.1 — The Four-Axis Synthesis of Stochary-Conjectural Science, Ontological Stock Axioms, Supply-Chain Physics, and Cybernetic Governance (`stochology_lenses::stocks`)</strong></figcaption>
+  <figcaption><strong>Figure 23.1 — The Four-Axis Synthesis of Stochary-Conjectural Science, Ontological Stock Axioms, Supply-Chain Physics, and Cybernetic Governance (`stochology_lenses::stocks`)</strong></figcaption>
 </figure>
 
 ---
 
-## 13.1 Axis 1: Morphological Audit of the 150-Node Conceptual Graph and the Four Ontological Axioms of the Stock (`TopologyAndFourStockAxiomsAudit`)
+## 23.1 Axis 1: Morphological Audit of the 150-Node Conceptual Graph and the Four Ontological Axioms of the Stock (`TopologyAndFourStockAxiomsAudit`)
 
 ## A. Information-Theoretic Audit of the 150-Node Conceptual Architecture (`CONCEPTUAL_TREE_SUBAXIS_LEAVES`)
 
@@ -113,7 +113,7 @@ A stock ($S_t$) is an ontological primitive rather than a passive accounting res
 
 ---
 
-## 13.2 Axis 2: Sequential Decision Meta-Classes (Powell), Active Inference ($G(\pi)$, Friston), and Causal `do-Calculus` (Pearl) (`PowellFristonCausalEngineAudit`)
+## 23.2 Axis 2: Sequential Decision Meta-Classes (Powell), Active Inference ($G(\pi)$, Friston), and Causal `do-Calculus` (Pearl) (`PowellFristonCausalEngineAudit`)
 
 ### A. Warren Powell's 4 Universal Meta-Classes of Sequential Decision Policies (`PowellPolicyClass`)
 
@@ -152,7 +152,7 @@ recovers **$\hat{\beta}\_{\text{Front-Door}} = +2.81$** (within $0.01$ of the $+
 
 ---
 
-## 13.3 Axis 3: Asset Stock Accumulation, Supply-Chain Physics, Scarf's $K$-Convexity, $\mathrm{TTS}/\mathrm{TTR}$, and Wasserstein DRO (`StrategicStockPlantResilienceAudit` & `SupplyChainPhysicsAudit`)
+## 23.3 Axis 3: Asset Stock Accumulation, Supply-Chain Physics, Scarf's $K$-Convexity, $\mathrm{TTS}/\mathrm{TTR}$, and Wasserstein DRO (`StrategicStockPlantResilienceAudit` & `SupplyChainPhysicsAudit`)
 
 ### A. Ingemar Dierickx & Karel Cool's (1989) 5 Laws of Strategic Asset Stock Accumulation
 
@@ -202,7 +202,7 @@ To eliminate Gaussian tail blindness and the *Optimizer's Curse* (Smith & Winkle
 
 ---
 
-## 13.4 Axis 4: Cybernetic Governance (`VSM`), Judgment Noise Hygiene, and the Telic-Scopic Audit Protocol (`PATE`) (`CyberneticVsmAndPateGovernanceAudit`)
+## 23.4 Axis 4: Cybernetic Governance (`VSM`), Judgment Noise Hygiene, and the Telic-Scopic Audit Protocol (`PATE`) (`CyberneticVsmAndPateGovernanceAudit`)
 
 ### A. Ashby's Requisite Variety, Conant-Ashby's Good Regulator, and Stafford Beer's Viable System Model (`VSM`)
 
@@ -238,106 +238,6 @@ Consider how **Outcome Bias** (Baron & Hershey 1988) destroys hyper-optimized or
 
 ---
 
-## 13.5 The Triadic Mathematical & Physical Synthesis ($\mathbb{C} \times \text{Fractals} \times \mathbb{T}^d$), the Technium / Technosphere Ontology, and the Spring-and-Horizon Spiral (`stochology_lenses::triad`)
-
-The module `stochology_lenses::triad` (`ComplexFractalToroidalTechniumSynthesis` and 5-CSV real coupler `EmpiricalTriadicTechniumAudit`) unites six mathematical-physical bridges across the complex plane ($\mathbb{C}$), fractal self-similarity and anomalous scaling, and compact toroidal manifolds ($\mathbb{T}^d = (S^1)^d$), coupled to the evolutionary ontology of the **Technium / Technosphere**. Every bridge separates three kinds of quantities. **Claim checks** compare the *deployed* method with simulated ground truth; in `shielded = false` mode the naive method is actually run, so `--defect triadic_technium` blocks on the naive outputs. **Identity checks** (`identities_closed`) are algebraic closures that hold in both modes. **Informative constants** transcribed from the literature are reported and never gated. Claims that fail their pre-registered tolerance are recorded as **discarded findings** (Prohibition 4) instead of being approved.
-
-### Foundational Intuition: Why Complex Numbers ($\mathbb{C}$), Fractals, and Tori ($\mathbb{T}^d$) Form One Coherent Triad
-
-Before inspecting the six bridges, notice why these three mathematical structures naturally complete one another:
-1. **The Complex Plane ($\mathbb{C}$ — Amplitude and Phase Together):**
-   By **Euler's Formula**, $z = r e^{i\theta} = r(\cos\theta + i\sin\theta)$, a single complex number stores both **energy/magnitude** ($r = |z| \ge 0$) and **angular phase/timing** ($\theta = \arg(z) \in S^1$). Multiplying two complex numbers multiplies their magnitudes and *adds* their phases ($r\_1 e^{i\theta\_1}\cdot r\_2 e^{i\theta\_2} = r\_1 r\_2 e^{i(\theta\_1+\theta\_2)}$). Furthermore, every complex number $a + ib$ is algebraically isomorphic to the $2\times 2$ real rotation-scaling matrix $\begin{pmatrix}a & -b\\ b & a\end{pmatrix}$, allowing complex wave/MIMO systems to execute natively on real analog RRAM crossbars (`Bridge 2`).
-2. **Fractals and Fractional Calculus (Scale-Invariance and Power-Law Memory):**
-   Whereas smooth textbook calculus assumes thin-tailed Gaussian jumps ($\Delta x \sim (\Delta t)^{1/2}$) and exponential relaxation ($e^{-t/\tau}$), real physical defects in amorphous oxides (`RRAM`/`PCM`), turbulent atmosphere tracks, and financial volatility cascades exhibit **power-law waiting times** $\psi(t) \sim t^{-1-\beta}$ and **heavy-tailed Lévy jumps** ($\sim |x|^{-1-\alpha}$). This produces **fractional subdiffusion** ($\partial\_t^\beta p = D\partial\_x^\alpha p$, spreading as $t^{\beta/\alpha}$) and multifractal scaling (`Bridges 3 & 4`).
-3. **The $d$-Dimensional Torus ($\mathbb{T}^d = (S^1)^d = (\mathbb{R}/\mathbb{Z})^d$ — Compact Phase Recurrence Without Overflow):**
-   As phase $\theta(t) = (\omega\_1 t, \dots, \omega\_d t) \bmod 1$ winds around the unit circle in each coordinate, a trajectory can evolve forever inside a bounded, compact state space without diverging to infinity. When the rotation increment $\gamma$ is an irrational multiple of the golden ratio $\phi^{-1} = \frac{\sqrt{5}-1}{2}$ (Weyl's equidistribution theorem), the trajectory fills the torus uniformly (`SplitMix64` / `LXM` in `Bridge 5`), and high-dimensional phase vectors $\mathbf{z} \in \mathbb{T}^D \subset \mathbb{C}^D$ bind symbolic concepts via exact unitary phase addition (`FHRR`, `GC-VSA`, and `RoPE` in `Bridge 6`).
-
-<figure class="stoch-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="1140" height="330" viewBox="0 0 1140 330" fill="none" role="img" aria-labelledby="title-fig-13b-triad">
-  <title id="title-fig-13b-triad">The Six-Bridge Triadic Synthesis Across the Complex Plane (C), Fractals, and the d-Torus (T^d) Coupled to the Technosphere</title>
-  <defs>
-    <style>text { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; } .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; }</style>
-  </defs>
-  <rect x="1" y="1" width="1138" height="328" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
-  <!-- Row 1: Bridges 1, 2, 3 -->
-  <rect x="20" y="20" width="354" height="134" rx="11" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2"/>
-  <text x="36" y="44" fill="var(--sky)" class="mono" font-size="10.5" font-weight="800">BRIDGE 1 · ℂ WAVE PHYSICS &amp; GABOR INRs</text>
-  <text x="36" y="68" fill="var(--ink)" font-size="13.5" font-weight="800">2D Helmholtz PDE &amp; Adjoint Photonics</text>
-  <text x="36" y="92" fill="var(--muted)" class="mono" font-size="11">WIRE/LSSA Gabor res = 1.0×10⁻¹¹ vs tanh 0.609</text>
-  <text x="36" y="112" fill="var(--muted)" class="mono" font-size="11">Improved SIREN {sin,cos} = 1.6×10⁻¹⁵</text>
-  <text x="36" y="132" fill="var(--muted)" class="mono" font-size="11">Hughes-Fan Adjoint grad err = 9.21×10⁻¹⁰</text>
-
-  <rect x="393" y="20" width="354" height="134" rx="11" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2"/>
-  <text x="409" y="44" fill="var(--violet)" class="mono" font-size="10.5" font-weight="800">BRIDGE 2 · ℂ ↔ FRACTALS &amp; H-MATRICES</text>
-  <text x="409" y="68" fill="var(--ink)" font-size="13.5" font-weight="800">ℂⁿˣⁿ ↪ ℝ²ⁿˣ²ⁿ BlockAMC &amp; Hackbusch</text>
-  <text x="409" y="92" fill="var(--muted)" class="mono" font-size="11">Isomorphism id_err = 1.12×10⁻¹⁶</text>
-  <text x="409" y="112" fill="var(--muted)" class="mono" font-size="11">2-Stage BlockAMC+HP-INV = 1.53×10⁻¹⁰</text>
-  <text x="409" y="132" fill="var(--muted)" class="mono" font-size="11">Admissible H-Matrix rank-3 = 9.6×10⁻⁶</text>
-
-  <rect x="766" y="20" width="354" height="134" rx="11" fill="var(--elevated)" stroke="var(--amber)" stroke-width="2"/>
-  <text x="782" y="44" fill="var(--amber)" class="mono" font-size="10.5" font-weight="800">BRIDGE 3 · FRACTAL CTRW &amp; ANALOG ECC</text>
-  <text x="782" y="68" fill="var(--ink)" font-size="13.5" font-weight="800">G₀ = 2e²/h = 77.48 μS &amp; Roth Codes</text>
-  <text x="782" y="92" fill="var(--muted)" class="mono" font-size="11">PCM drift comp MSE: 0.359 → 0.0019</text>
-  <text x="782" y="112" fill="var(--muted)" class="mono" font-size="11">CTRW subdiffusion spread = 2.80× (16^β/α)</text>
-  <text x="782" y="132" fill="var(--muted)" class="mono" font-size="11">Trimmed Analog ECC recovery = 100% (h₈=28.74)</text>
-
-  <!-- Row 2: Bridges 4, 5, 6 -->
-  <rect x="20" y="174" width="354" height="134" rx="11" fill="var(--elevated)" stroke="var(--rose)" stroke-width="2"/>
-  <text x="36" y="198" fill="var(--rose)" class="mono" font-size="10.5" font-weight="800">BRIDGE 4 · SCALING &amp; TAILWELSCH-DML</text>
-  <text x="36" y="222" fill="var(--ink)" font-size="13.5" font-weight="800">Refusal Gate, Welsch-IRLS &amp; Basel π²/6</text>
-  <text x="36" y="246" fill="var(--muted)" class="mono" font-size="11">Bounded-tail refusal gate (&lt; 0.70) active</text>
-  <text x="36" y="266" fill="var(--muted)" class="mono" font-size="11">TailWelsch-DML ATE RMSE: 0.200 → 0.048 (-76%)</text>
-  <text x="36" y="286" fill="var(--muted)" class="mono" font-size="11">Accumulate Σg⁻² = 1.5274 &lt; π²/6 = 1.6449</text>
-
-  <rect x="393" y="174" width="354" height="134" rx="11" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2"/>
-  <text x="409" y="198" fill="var(--emerald)" class="mono" font-size="10.5" font-weight="800">BRIDGE 5 · 𝕋ᵈ WEYL TORUS &amp; RKHS DFM</text>
-  <text x="409" y="222" fill="var(--ink)" font-size="13.5" font-weight="800">Z/16Z Cycle, Golden Weyl &amp; Label Shift</text>
-  <text x="409" y="246" fill="var(--muted)" class="mono" font-size="11">x₀=2026 mod 16=10 full 16-state cycle</text>
-  <text x="409" y="266" fill="var(--muted)" class="mono" font-size="11">Golden Weyl D*₂₅₆ = 0.0074 vs 1/8 = 0.125</text>
-  <text x="409" y="286" fill="var(--muted)" class="mono" font-size="11">Hermite-Mehler DFM L₂ = 0.0136 vs RFF 0.104</text>
-
-  <rect x="766" y="174" width="354" height="134" rx="11" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2"/>
-  <text x="782" y="198" fill="var(--sky)" class="mono" font-size="10.5" font-weight="800">BRIDGE 6 · SNA, FHRR, LTC &amp; TECHNIUM</text>
-  <text x="782" y="222" fill="var(--ink)" font-size="13.5" font-weight="800">Strange Nonchaotic Torus &amp; Fused LTC</text>
-  <text x="782" y="246" fill="var(--muted)" class="mono" font-size="11">SNA λ = -0.045 &lt; 0, roughness μ = 0.53 &gt; 0.15</text>
-  <text x="782" y="266" fill="var(--muted)" class="mono" font-size="11">LTC Fused |x| ≤ 1.33 at Δt=2.5 vs Euler 6.6×10¹⁴</text>
-  <text x="782" y="286" fill="var(--muted)" class="mono" font-size="11">FHRR T¹²⁸ unbind = 0.66 · GC-VSA = 7.1×10⁻¹⁵</text>
-  </svg>
-  <figcaption><strong>Figure 13.2 — The Six-Bridge Triadic Mathematical &amp; Physical Synthesis (`stochology_lenses::triad`) audited in Gate G8 and `--defect triadic_technium`.</strong></figcaption>
-</figure>
-
-1. **Bridge 1 ($\mathbb{C}$ — Complex Gabor INRs on the 2D Helmholtz PDE & Adjoint *In-Situ* Photonic Backpropagation — `ComplexWaveGaborHelmholtzAudit`):**
-   - Solves $(\nabla\_h^2 + k^2)\Phi = q\_h$ at $k = 12$ on an $81 \times 81$ five-point grid. A complex Gabor atom (`WIRE`, $\psi(x) = \exp(i\omega x - |s\_0 r|^2)$) whose frequency is learned by 60 gradient-ascent steps from $\omega\_0 = k/2$ (`LSSA`-style spectral adaptation, frequency error $7.7 \times 10^{-7}$) leaves a relative residual of **$1.0 \times 10^{-11}$**, against **$0.609$** for a spectrally-biased real `tanh` dictionary fitted by least squares.
-   - Because the target lies in the Gabor class, this claim checks frequency learning. The `Improved SIREN` $\{\sin, \cos\}$ pair fits every phase of $e^{-s\_0^2x^2}\cos(kx + \varphi)$ (worst residual $1.6 \times 10^{-15}$); that is a trigonometric identity, checked under `identities_closed`, and the single-phase failure at $\varphi = 0$ (residual $1.0$) is informative. `MIRE`'s reported PSNR gain is carried as an informative literature value.
-   - Identity: Hughes, Minkov, Shi & Fan's (*Optica* 2018) adjoint gradient $\mathrm{Re}\{k\_0^2 E\_{\mathrm{fwd}} E\_{\mathrm{adj}}\}$ matches central finite differences to $9.21 \times 10^{-10}$.
-2. **Bridge 2 ($\mathbb{C} \leftrightarrow \text{Fractals}$ — Complex-to-Real Isomorphism, Two-Stage `BlockAMC`, & Hierarchical Compression — `ComplexRealIsomorphismHMatrixAudit`):**
-   - Identity: the complex $4 \times 4$ inverse recovered from $\mathcal{I}(A) = \begin{pmatrix}\mathrm{Re}(A) & -\mathrm{Im}(A)\\ \mathrm{Im}(A) & \mathrm{Re}(A)\end{pmatrix}$ closes to $1.12 \times 10^{-16}$.
-   - Two-stage `BlockAMC` with 10 24-bit `HP-INV` refinements solves the $16 \times 16$ real (8x8 complex MIMO) system to **$1.53 \times 10^{-10}$**; one-shot inversion stops at $5.7 \times 10^{-2}$. The 16-tile count and the $+48.83\%$ area / $+40\%$ energy gains are informative.
-   - Rank-3 hierarchical approximation of $K\_{ij} = 1/(y\_j - x\_i)$ over a near (inadmissible) and a far ($\eta = 1$ admissible) source cluster: compressing only admissible blocks gives relative Frobenius error **$9.6 \times 10^{-6}$**; compressing every block diverges ($62.0$). The closed-form storage $(2p+1)n$ ($144$ vs. $256$ at $p = 4$) is informative.
-3. **Bridge 3 ($\text{Fractals} \leftrightarrow \mathbb{R}^n$ — $G\_0$, PCM Drift, Simulated `CTRW`, & Analog ECC — `FractionalCtrwAnalogEccAudit`):**
-   - Identity: $G\_0 = \frac{2e^2}{h} = 77.48\,\mu\text{S}$ from the exact SI constants.
-   - State-aware drift compensation with $\hat{\nu}\_i$ estimated from one noisy read at $t/t\_0 = 10$ brings the PCM drift MSE at $t/t\_0 = 10^4$ from $0.359$ to **$0.0019$**.
-   - A simulated Montroll-Weiss `CTRW` (2000 walkers, Pareto waiting times $\beta = 0.70$, Chambers-Mallows-Stuck $\alpha = 1.75$ jumps) spreads by **$2.80\times$** between $t$ and $16t$: the anomalous prediction $16^{\beta/\alpha} = 3.03$ is within $8.2\%$, the Fickian prediction $16^{1/2} = 4$ misses by $42.8\%$.
-   - Residual-trimmed least squares recovers $100\%$ of 100 analog codewords corrupted by LME noise plus two unlimited-magnitude errors; plain least squares recovers $0\%$. Roth's $[10, 2]$ $m$-height profile ($h\_8 = 28.74$) and the polygonal sector $\pi/2n$ are informative.
-4. **Bridge 4 ($\text{Fractals} \leftrightarrow \text{Scaling Laws}$ — Multifractal Cascade, `PDHTE+JK`, `TailWelsch-DML`, & the $\pi^2/6$ Bound — `MultifractalPdhteRagCollapseAudit`):**
-   - The deployed pipeline refuses tail extrapolation on bounded thin-tailed data (accepted plateau fraction $< 0.70$), and Welsch-IRLS cuts the ATE RMSE under two-sided Pareto ($\alpha = 1.65$) noise from $0.200$ (OLS) to **$0.048$** ($-75.9\%$).
-   - Identity: $\sum\_{g=1}^8 g^{-2} = 1.527422 < \frac{\pi^2}{6}$ (`Replace` value $8.0$ informative). The `RAG Collapse` shares are informative literature values.
-   - **Discarded findings:** on 8 simulated depth-14 log-normal cascades the partition-function curvature is $\hat{\tau}'' = -0.117$ against the theoretical $-\sigma^2\ln b = -0.180$, a gap of $0.063$ above the pre-registered $0.06$; and `PDHTE+JK` estimates $\hat{\xi} = 0.438$ against single-$k$ DEdH $0.445$ on a Hall-Welsh sample with $\xi = 0.50$, so it neither meets the $0.05$ tolerance nor beats the naive estimator at `seed = 2026`.
-5. **Bridge 5 ($\mathbb{T}^d \leftrightarrow \mathbb{C}$ — Preface Cycle, Weyl Torus, Hermite-Mehler `DFM`, & Label-Shift Priors — `WeylTorusHermiteMehlerDfmAudit`):**
-   - Identities: the preface cycle $x\_{t+1} = (5x\_t + 3)\bmod 16$ from $x\_0 = 2026 \bmod 16 = 10$ (`[10, 5, 12, 15, 14, 9, 0, 3, 2, 13, 4, 7, 6, 1, 8, 11, 10]`) and the Mercer mass $\sum\_{c \le 64}(1-\rho)\rho^c = 1 - \rho^{65}$.
-   - Golden Weyl rotation reaches star discrepancy $D\_{256}^\ast = 0.0074$ (rational step $1/8$: $0.125$); `mixGamma` keeps $\ge 24$ bit transitions by construction ($25$ here; an identity), against $1$ for unmixed odd increments.
-   - Under $10\%$ contamination at $x = 4.5$, `DFM` with 4 Hermite-Mehler features recovers $\alpha^\ast = (0.55, 0.35)$ with $L\_2$ error **$0.0136$**; 4 random Fourier features give $0.104$.
-   - With an overconfident, biased classifier $\sigma(4x - 0.5)$, `MLLS+BCTS` estimates the target prior $q = 0.72$ with $D\_{\mathrm{KL}} = 3.1 \times 10^{-4}$, hard `BBSE` with $4.0 \times 10^{-5}$, and classify-and-count with $2.3 \times 10^{-2}$. `BBSE` is the better estimator on this draw. After replacing an undamped Newton step that diverged on most seeds with a damped, convergence-tested `BCTS` fit, `MLLS+BCTS` meets the $10^{-3}$ KL claim on 90% of the 20 acceptance seeds, so that claim is discarded rather than approved.
-6. **Bridge 6 ($\mathbb{C} \times \text{Fractals} \times \mathbb{T}^d$ — Forced-Logistic `SNA`, `RLHF` Loop, `PerfGD`, `FHRR`/`GC-VSA`, `LTC` Fused Solver, & Technium Heuristics — `SnaRlhfFhrrCohomologyTechniumAudit`):**
-   - The forced logistic map $x\_{n+1} = 3.0\,x\_n(1 - x\_n) + 0.1553\sin(2\pi\theta\_n)$ on the golden torus has Lyapunov exponent $\lambda = -0.045 < 0$ and phase-sensitivity growth $\mu = 0.53 > 0.15$, and two initial conditions synchronize exactly: the strange-nonchaotic signature. The undelayed 3-stage `RLHF` loop damps with $6$ sign flips, and its $(1.2, 0.7, 0.6)$ variant has non-consensus spectral radius $\sqrt{0.48} = 0.6928$.
-   - Oracle-free `PerfGD` on `PerformativeSystem` converges to $\theta\_{\mathrm{PO}}$ (ratio $1.0000$); Repeated Risk Minimization stops at $\theta\_{\mathrm{PS}} = \frac{5}{6}\theta\_{\mathrm{PO}}$. The `LTC` Fused Solver stays bounded ($\max|x| = 1.33 \le A = 2$) at the stiff step $\Delta t = 2.5$ where explicit Euler explodes ($6.6 \times 10^{14}$); the bound is a theorem for positive conductance and is checked as an identity. Bundled `FHRR` unbinding on $\mathbb{T}^{128}$ keeps cosine $0.66$.
-   - Identities: Schnakenberg $\Pi = 3.96 > 0$, exact phasor unbinding, `GC-VSA` path closure ($7.1 \times 10^{-15}$), and the Taleb-Douady signs $H(x, \Delta) < 0$ (concave) / $> 0$ (convex). Arthur's combinatorial growth factor, Hasani's trajectory lengths, the $1.42$ grid-scale ratio, and a polar-angle circular-coordinate baseline are informative. Perea's persistent-cohomology coordinates and Haff's Six Rules are cited, not computed.
-   - **Discarded finding:** the companion polynomial $z(z - 1 + \delta)(z - 1 + \gamma)(z - 1 + \eta) = \delta\gamma\eta$ of the one-step-lagged loop has non-consensus spectral radius $0.818 < 1$, so the claim that a feedback lag destabilizes this `RLHF` loop is refuted.
-
-The real-data coupler approves the `vic_elec.csv` wave $R^2$, the `danish_fire.csv` `PDHTE+JK` tail index ($\hat{\xi} = 0.640$, plateau $\mathrm{CV} < 0.25$), the `djia_1885_2023.csv` scaling curvature ($-0.099 < 0$), and the `LTC` boundedness identity on `bank_calls.csv`. It records one more **discarded finding**: the out-of-time Hermite-Mehler `DFM` estimate of the second-half `atlantic_storms.csv` hurricane prior is $0.269$ against a realized $0.226$, outside the pre-registered $0.03$, so the label-shift assumption does not hold across the two halves of the record.
-
----
-
 ## Computational Audit in Rust and 5-CSV Empirical Coupler
 
 ## Running the Stochary-Conjectural & Cybernetic Audit (`labs --lenses`, `labs --real-data`, and `gates`)
@@ -367,8 +267,7 @@ NEGATIVE PROOF [stochary_cybernetics] BLOCKED SUCCESSFULLY on all 20 development
 
 Use the interactive Stochary, Supply-Chain Physics, and Triadic laboratory below to test how Kingman's VUT utilization cliff $W\_q \propto \frac{u}{1-u}$, Peters's $+50\%/-40\%$ buffer reserve $1-f$, and Sterman's supply-line accounting $\beta\_{SL}$ govern non-ergodic survival:
 
-<div class="stoch-lab" data-lab="stochary-kingman-triad" data-chapter="13-stochary-conjectural-cybernetics" data-title="Chapter 13 Lab: Stochary Buffers, Kingman VUT Cliff &amp; Triadic (ℂ × Fractals × 𝕋ᵈ) Synthesis" data-cli="cargo run --release --bin gates -- --defect stochary_cybernetics"></div>
-
+<div class="stoch-lab" data-lab="stochary-kingman-triad" data-chapter="23-stochary-conjectural-cybernetics" data-title="Chapter 23 Lab: Stochary Buffers, Kingman VUT Cliff &amp; Triadic (ℂ × Fractals × 𝕋ᵈ) Synthesis" data-cli="cargo run --release --bin gates -- --defect stochary_cybernetics"></div>
 
 ---
 
@@ -378,3 +277,9 @@ Use the interactive Stochary, Supply-Chain Physics, and Triadic laboratory below
 2. **Kingman's VUT Cliff and Sterman's Supply Line (`SupplyChainPhysicsAudit`):** Using Kingman's equation, compute why raising utilization from $u = 0.82$ to $u = 0.985$ multiplies queue wait time by $14.4\times$ ($1.84\text{ h} \to 26.53\text{ h}$). Next, explain why ignoring the in-transit Supply Line ($SL\_t$, $\beta\_{SL} = 0.05$) in Sterman's Beer Game produces $50\times$ larger order variance than full pipeline accounting ($\beta\_{SL} = 1.00$).
 3. **Echelon Decoupling vs. Tail-Correlated Risk Pooling (`SupplyChainPhysicsAudit` & `bank_calls.csv`):** Show how Graves & Willems's Guaranteed-Service Model (`GSM`) decoupling points reduce multi-echelon safety stock cost by $55.1\%$, and derive why Eppen's Square-Root Law ($\sigma/\sqrt{N}$) underestimates required safety stock by $3.71\times$ when $N = 16$ regional nodes experience a correlated crisis ($\rho\_I(p) = 0.85$).
 4. **Cicero's *Telos/Skopos* Distinction and the `PATE` Matrix (`CyberneticVsmAndPateGovernanceAudit` & `atlantic_storms.csv`):** Using the isotonic CORP-Murphy decomposition $\mathrm{BS} = \mathrm{REL}\_{\mathrm{CORP}} - \mathrm{RES}\_{\mathrm{CORP}} + \mathrm{UNC}\_0$, explain why an operator in Quadrant `Q2` (low $\mathrm{REL}\_{\mathrm{CORP}}$, high $\mathrm{RES}\_{\mathrm{CORP}}$, $\mathrm{TTS} \ge \mathrm{TTR}$, but an adverse realization in $\mathrm{UNC}\_0$) must be exonerated, whereas an operator in Quadrant `Q3` (high $\mathrm{REL}\_{\mathrm{CORP}}$, $\mathrm{TTS} < \mathrm{TTR}$, but a lucky outcome) must trigger an immediate `S3*` Algedonic intervention.
+
+## Summary
+
+- **The Four Ontological Axioms of the Stock** prove that physical and financial buffers act as low-pass filters against Bullwhip amplification, restore ergodicity under multiplicative volatility drains (`djia_1885_2023.csv`), and convert concave fragility into positive Tail Vega.
+- **Supply-Chain Physics** (`SupplyChainPhysicsAudit`) unites Kingman's VUT utilization cliff, Sterman's supply-line accounting, Graves-Willems decoupling points, and Ivanov's Viable Supply Chain (`TTS >= TTR`) with Wasserstein Distributionally Robust Optimization (`WDRO`).
+- **Cybernetic VSM and the 4-Quadrant `PATE` Matrix** separate decision quality (*Skopos*, measured by isotonic $\mathrm{REL}\_{\mathrm{CORP}}$ and $\mathrm{TTS}/\mathrm{TTR}$) from lucky or unlucky realizations (*Telos*, $\mathrm{UNC}\_0$), while recording refuted empirical hypotheses in `discarded_findings` (`--defect stochary_cybernetics`).

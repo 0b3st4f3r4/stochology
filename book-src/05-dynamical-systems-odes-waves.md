@@ -1,4 +1,4 @@
-# 9. Differential Equations, Runge-Kutta (RK4), Non-Equilibrium Thermodynamics, and Wave Superposition
+# 5. Differential Equations, Runge-Kutta (RK4), Non-Equilibrium Thermodynamics, and Wave Superposition
 
 
 ## Why the Planet's Weather and Your Ear's Cochlea Do Not Use Binary Long Division
@@ -67,12 +67,12 @@ Continuous physical and biological substrates (such as Prigogine's Brusselator c
   <text x="800" y="370" fill="var(--muted)" font-size="11.5">• Constructive (Δφ = 0): amplitudes add (2A)</text>
   <text x="800" y="390" fill="var(--muted)" font-size="11.5">• Destructive (Δφ = π): amplitudes cancel (0)</text>
   </svg>
-  <figcaption>Figure 9.1 — Continuous dynamical systems, non-equilibrium thermodynamics, and wave superposition: (1) Why Forward Euler spirals outward on oscillators while 4th-order Runge-Kutta (RK4) preserves phase-space orbits; (2) Open thermodynamic systems and mechanical-electrical ODE isomorphism; and (3) Wave superposition and why sin(ω₀ x) is an eigenfunction of the second derivative operator.</figcaption>
+  <figcaption>Figure 5.1 — Continuous dynamical systems, non-equilibrium thermodynamics, and wave superposition: (1) Why Forward Euler spirals outward on oscillators while 4th-order Runge-Kutta (RK4) preserves phase-space orbits; (2) Open thermodynamic systems and mechanical-electrical ODE isomorphism; and (3) Wave superposition and why sin(ω₀ x) is an eigenfunction of the second derivative operator.</figcaption>
 </figure>
 
 ---
 
-## 9.1 Dynamical Systems and Ordinary Differential Equations (ODEs)
+## 5.1 Dynamical Systems and Ordinary Differential Equations (ODEs)
 
 ### From Rates of Change to State-Space Vectors
 Whenever a physical, biological, or economic state $\mathbf{x}(t) = (x\_1(t), \dots, x\_d(t))^\top \in \mathbb{R}^d$ evolves continuously in time, its instantaneous velocity vector is the time derivative $\dot{\mathbf{x}}(t) = \frac{d\mathbf{x}}{dt}$. An **autonomous system of first-order Ordinary Differential Equations (ODEs)** specifies this velocity as a function of the current state:
@@ -86,7 +86,7 @@ We can solve a second-order ODE with a standard first-order solver by introducin
 
 $$\frac{d}{dt}\begin{bmatrix} x \\ v \end{bmatrix} = \begin{bmatrix} v \\ \frac{1}{m}\left(F(t) - c v - k x\right) \end{bmatrix}$$
 
-A mechanical mass-spring-damper and an electrical RLC circuit (used in Chapter 11) share the same state-space structure:
+A mechanical mass-spring-damper and an electrical RLC circuit (used in Chapter 13) share the same state-space structure:
 
 | Physical Role | Mechanical Mass-Spring-Damper | Electrical Series RLC Circuit | Mathematical Term |
 | --- | --- | --- | --- |
@@ -100,7 +100,7 @@ Because both physical systems obey the **exact same differential equation**, mea
 
 ---
 
-## 9.2 Fixed Points, Jacobian Stability, and Hopf Bifurcations (Limit Cycles)
+## 5.2 Fixed Points, Jacobian Stability, and Hopf Bifurcations (Limit Cycles)
 
 ### Equilibrium (Fixed) Points and Linearization
 A state $\mathbf{x}^\ast \in \mathbb{R}^d$ where all rates of change vanish simultaneously,
@@ -120,11 +120,11 @@ $$\lambda\_{1,2} = \frac{\tau \pm \sqrt{\tau^2 - 4\Delta}}{2}$$
 When $\Delta > 0$ and $\tau^2 < 4\Delta$, the eigenvalues are a complex-conjugate pair $\lambda\_{1,2} = \alpha \pm i\omega$ with real part $\alpha = \frac{\tau}{2}$:
 1. **When $\tau = \mathrm{tr}(J) < 0$ ($\alpha < 0$):** Perturbations decay as $e^{\alpha t}\cos(\omega t)$, spiraling **inward** to a **stable equilibrium** (like a damped pendulum coming to rest).
 2. **When $\tau = \mathrm{tr}(J) > 0$ ($\alpha > 0$):** Perturbations grow as $e^{\alpha t}\cos(\omega t)$, spiraling **outward** away from the unstable fixed point. If nonlinear terms bound the system at large amplitudes, the outward spiral settles onto a self-sustained periodic orbit called a **Limit Cycle**.
-3. **Hopf Bifurcation ($\tau = \mathrm{tr}(J) = 0$):** The threshold where $\mathrm{tr}(J)$ crosses from negative to positive (turning a static equilibrium into a rhythmic oscillation such as the heartbeat, circadian rhythm, or Prigogine's Brusselator chemical oscillator at $B > 1 + A^2$ in Chapter 10) is a **Hopf Bifurcation**.
+3. **Hopf Bifurcation ($\tau = \mathrm{tr}(J) = 0$):** The threshold where $\mathrm{tr}(J)$ crosses from negative to positive (turning a static equilibrium into a rhythmic oscillation such as the heartbeat, circadian rhythm, or Prigogine's Brusselator chemical oscillator at $B > 1 + A^2$ in Chapter 22) is a **Hopf Bifurcation**.
 
 ---
 
-## 9.3 Numerical Integration: Why Forward Euler Fails and How `RK4` Works
+## 5.3 Numerical Integration: Why Forward Euler Fails and How `RK4` Works
 
 When an ODE $\dot{\mathbf{x}} = \mathbf{f}(t, \mathbf{x})$ has no closed-form analytical solution, numerical integrators step from $\mathbf{x}\_n \approx \mathbf{x}(t\_n)$ to $\mathbf{x}\_{n+1} \approx \mathbf{x}(t\_n + h)$ over a small step size $h = \Delta t$.
 
@@ -137,7 +137,7 @@ Consider the pure harmonic oscillator $\dot{x} = v, \; \dot{v} = -x$, whose true
 
 $$x\_{n+1}^2 + v\_{n+1}^2 = (x\_n + h v\_n)^2 + (v\_n - h x\_n)^2 = (1 + h^2)(x\_n^2 + v\_n^2) > x\_n^2 + v\_n^2$$
 
-Every Forward Euler step multiplies the energy by $(1 + h^2) > 1$, causing the trajectory to spiral outward (Panel 1 of Figure 9.1) with global error $\mathcal{O}(h)$.
+Every Forward Euler step multiplies the energy by $(1 + h^2) > 1$, causing the trajectory to spiral outward (Panel 1 of Figure 5.1) with global error $\mathcal{O}(h)$.
 
 ### The Classical 4th-Order Runge-Kutta (`RK4`) Algorithm
 To cancel out first-, second-, and third-order curvature errors without needing higher derivatives of $\mathbf{f}$, Carl Runge and Wilhelm Kutta designed a 4-stage probe across the interval $[t\_n, t\_n + h]$:
@@ -159,7 +159,7 @@ Because the midpoint slopes $\mathbf{k}\_2, \mathbf{k}\_3$ receive double weight
 
 ---
 
-## 9.4 Open Non-Equilibrium Thermodynamics ($dS = d\_e S + d\_i S$)
+## 5.4 Open Non-Equilibrium Thermodynamics ($dS = d\_e S + d\_i S$)
 
 Ilya Prigogine (1977 Nobel Prize) showed how a living cell, a biosphere, or a chemical clock can organize itself into rhythmic patterns without violating the Second Law of Thermodynamics. He divided the total entropy change $dS$ of an **open system** (a system that exchanges energy and matter with its surroundings) into two parts:
 
@@ -174,7 +174,7 @@ Whenever the outward export of entropy exceeds internal production ($d\_e S < -d
 
 ---
 
-## 9.5 Wave Superposition, Interference, and the Wave / Helmholtz PDEs
+## 5.5 Wave Superposition, Interference, and the Wave / Helmholtz PDEs
 
 ### Amplitude, Frequency, Phase, and Superposition
 A continuous harmonic wave in space $x$ and time $t$ is written as:
@@ -224,7 +224,7 @@ reducing single-step amplitude drift from $\mathcal{O}((\omega h)^2)$ to $\mathc
 
 Use the interactive ODE and Brusselator simulator below to compare Forward Euler's parasitic energy explosion against `RK4` and explore the Hopf bifurcation threshold $B > 1 + A^2$:
 
-<div class="stoch-lab" data-lab="rk4-hopf-brusselator" data-chapter="09-dynamical-systems-odes-waves" data-title="Chapter 9 Lab: Forward Euler vs. RK4 Phase Integrator &amp; Hopf Bifurcation" data-cli="cargo run --release --bin labs -- --lenses"></div>
+<div class="stoch-lab" data-lab="rk4-hopf-brusselator" data-chapter="05-dynamical-systems-odes-waves" data-title="Chapter 5 Lab: Forward Euler vs. RK4 Phase Integrator &amp; Hopf Bifurcation" data-cli="cargo run --release --bin labs -- --lenses"></div>
 
 
 ---
@@ -252,3 +252,8 @@ cargo run --release --bin gates
 2. **Hopf Bifurcation of the Brusselator:** For the Brusselator reactions $\dot{X} = A - (B + 1)X + X^2 Y$ and $\dot{Y} = BX - X^2 Y$, verify that $(X^\ast, Y^\ast) = (A, B/A)$ is the unique fixed point ($\dot{X} = \dot{Y} = 0$). Compute the $2 \times 2$ Jacobian matrix $J(X^\ast, Y^\ast) = \begin{bmatrix} B - 1 & A^2 \\ -B & -A^2 \end{bmatrix}$ and show that $\det(J) = A^2 > 0$ and $\mathrm{tr}(J) = B - 1 - A^2$, proving that the fixed point loses stability and enters a limit cycle precisely when $B > 1 + A^2$.
 3. **Constructive vs. Destructive Interference:** Compute the superposition $u(t) = 3\sin(\omega t) + 3\sin(\omega t + \Delta\phi)$ at $\omega t = \pi/2$ for (a) $\Delta\phi = 0$, (b) $\Delta\phi = \pi/2$, and (c) $\Delta\phi = \pi$.
 
+## Summary
+
+- **Fourth-Order Runge-Kutta (`RK4`)** eliminates the parasitic $\mathcal{O}((\omega h)^2)$ energy drift of Forward Euler by combining four stage slopes per step with $\mathcal{O}(h^4)$ global accuracy.
+- **Jacobian trace and determinant** govern local stability and **Hopf bifurcations** ($B > 1 + A^2$ in the Brusselator), where a fixed point gives way to a self-sustaining limit cycle.
+- **Wave interference and periodic `SIREN` activations** preserve second-order spatial derivatives $\nabla^2 u$ required by Helmholtz and wave PDEs where piecewise-linear `ReLU` networks vanish almost everywhere.

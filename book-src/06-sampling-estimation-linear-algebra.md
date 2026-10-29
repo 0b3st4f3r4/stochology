@@ -1,4 +1,4 @@
-# 3. Sampling, Matrix Algebra, Estimation, and Regression
+# 6. Sampling, Matrix Algebra, Estimation, and Regression
 
 
 ## When Ten Thousand Data Points Give You Zero New Information About the Bias
@@ -68,12 +68,12 @@ Diagnosing and curing parameter pseudo-convergence requires separating within-re
   <text x="800" y="346" fill="var(--muted)" font-size="11.5">• Never compute Σ⁻¹ explicitly (numerically unstable)</text>
   <text x="800" y="368" fill="var(--muted)" font-size="11.5">• Diagonal nugget σ_n² I guarantees κ(Σ) is well-posed</text>
   </svg>
-  <figcaption>Figure 3.1 — The mathematical bridge from sample statistics to structural uncertainty: (1) The √n law and Eve's Law of Total Variance; (2) Least-squares estimation as orthogonal projection onto the design column space; and (3) Positive-definite kernel covariance matrices solved via Cholesky factorization Σ = L Lᵀ.</figcaption>
+  <figcaption>Figure 6.1 — The mathematical bridge from sample statistics to structural uncertainty: (1) The √n law and Eve's Law of Total Variance; (2) Least-squares estimation as orthogonal projection onto the design column space; and (3) Positive-definite kernel covariance matrices solved via Cholesky factorization Σ = L Lᵀ.</figcaption>
 </figure>
 
 ---
 
-## 3.1 From Finite Samples to the $\sqrt{n}$ Law and Eve's Law of Total Variance
+## 6.1 From Finite Samples to the $\sqrt{n}$ Law and Eve's Law of Total Variance
 
 ### Why Averaging $n$ Independent Measurements Shrinks Noise by $\sqrt{n}$
 Let $X\_1, X\_2, \dots, X\_n$ be **independent and identically distributed (i.i.d.)** random variables with mean $\mu = \mathbb{E}[X\_i]$ and finite variance $\sigma^2 = \mathrm{Var}(X\_i) < \infty$. Consider the sample mean $\bar{X}\_n = \frac{1}{n}\sum\_{i=1}^n X\_i$:
@@ -89,7 +89,7 @@ Taking the square root gives the **Standard Error of the Mean**:
 $$\mathrm{SE}(\bar{X}\_n) = \frac{\sigma}{\sqrt{n}}$$
 
 This leads to two classical results:
-- **Law of Large Numbers (LLN):** As $n \to \infty$, $\mathrm{Var}(\bar{X}\_n) = \sigma^2 / n \to 0$, so $\bar{X}\_n$ converges in probability to $\mu$ (provided $\sigma^2 < \infty$; as we will see in Chapter 6, heavy-tailed Pareto processes with $\alpha \le 2$ violate this).
+- **Law of Large Numbers (LLN):** As $n \to \infty$, $\mathrm{Var}(\bar{X}\_n) = \sigma^2 / n \to 0$, so $\bar{X}\_n$ converges in probability to $\mu$ (provided $\sigma^2 < \infty$; as we will see in Chapter 9, heavy-tailed Pareto processes with $\alpha \le 2$ violate this).
 - **Central Limit Theorem (CLT):** When finite-variance independent perturbations are summed and scaled by $\sqrt{n}$, the standardized error $Z\_n = \frac{\bar{X}\_n - \mu}{\sigma / \sqrt{n}}$ converges in distribution to a Standard Gaussian $\mathcal{N}(0, 1)$ with density $\phi(z) = \frac{1}{\sqrt{2\pi}}e^{-z^2/2}$.
 
 ### Eve's Law (The Law of Total Variance)
@@ -106,11 +106,11 @@ $$\begin{aligned}
 &= \underbrace{\mathbb{E}\_\theta\!\left[\mathrm{Var}(Y \mid \theta)\right]}\_{\text{Average Within-Regime Variance}} + \underbrace{\mathrm{Var}\_\theta\!\left(\mathbb{E}[Y \mid \theta]\right)}\_{\text{Variance Between Regime Means}}
 \end{aligned}$$
 
-This identity is known as **Eve's Law** (or the **Law of Total Variance**). In Chapter 4, it provides the mathematical boundary between **Aleatoric Uncertainty** ($\mathbb{E}[\mathrm{Var}(Y \mid \theta)]$, the irreducible physical scatter inside a known regime) and **Epistemic Uncertainty** ($\mathrm{Var}(\mathbb{E}[Y \mid \theta])$, our reducible ignorance about the true regime $\theta$).
+This identity is known as **Eve's Law** (or the **Law of Total Variance**). In Chapter 2, it provides the mathematical boundary between **Aleatoric Uncertainty** ($\mathbb{E}[\mathrm{Var}(Y \mid \theta)]$, the irreducible physical scatter inside a known regime) and **Epistemic Uncertainty** ($\mathrm{Var}(\mathbb{E}[Y \mid \theta])$, our reducible ignorance about the true regime $\theta$).
 
 ---
 
-## 3.2 Applied Matrix Algebra: Positive-Definite Covariance Matrices and Cholesky Factorization
+## 6.2 Applied Matrix Algebra: Positive-Definite Covariance Matrices and Cholesky Factorization
 
 When we observe a vector of $n$ measurements $\mathbf{y} = (y\_1, y\_2, \dots, y\_n)^\top \in \mathbb{R}^n$, their joint second-order structure is captured by an $n \times n$ **Covariance Matrix** $\Sigma$:
 
@@ -159,7 +159,7 @@ Once we have $L$, two operations simplify:
 
 ---
 
-## 3.3 From Ordinary Least Squares (OLS) to Generalized Least Squares (GLS) and Likelihood
+## 6.3 From Ordinary Least Squares (OLS) to Generalized Least Squares (GLS) and Likelihood
 
 ### Ordinary Least Squares (OLS) as Orthogonal Projection
 Suppose we model a vector of observations $\mathbf{y} \in \mathbb{R}^n$ as a linear combination of $p$ known feature columns collected in an $n \times p$ design matrix $X$:
@@ -174,7 +174,7 @@ Setting the gradient with respect to $\boldsymbol{\theta}$ equal to zero gives t
 
 $$\nabla\_{\boldsymbol{\theta}} S(\boldsymbol{\theta}) = -2 X^\top (\mathbf{y} - X\hat{\boldsymbol{\theta}}\_{\mathrm{OLS}}) = \mathbf{0} \implies X^\top X \hat{\boldsymbol{\theta}}\_{\mathrm{OLS}} = X^\top \mathbf{y}$$
 
-Geometrically, $X^\top(\mathbf{y} - X\hat{\boldsymbol{\theta}}\_{\mathrm{OLS}}) = \mathbf{0}$ (shown in Panel 2 of Figure 3.1) means that the shortest distance from $\mathbf{y}$ to the subspace spanned by the columns of $X$ occurs when the residual vector $\mathbf{r} = \mathbf{y} - X\hat{\boldsymbol{\theta}}\_{\mathrm{OLS}}$ is **strictly perpendicular (orthogonal)** to every column of $X$. Solving for $\hat{\boldsymbol{\theta}}\_{\mathrm{OLS}}$ gives:
+Geometrically, $X^\top(\mathbf{y} - X\hat{\boldsymbol{\theta}}\_{\mathrm{OLS}}) = \mathbf{0}$ (shown in Panel 2 of Figure 6.1) means that the shortest distance from $\mathbf{y}$ to the subspace spanned by the columns of $X$ occurs when the residual vector $\mathbf{r} = \mathbf{y} - X\hat{\boldsymbol{\theta}}\_{\mathrm{OLS}}$ is **strictly perpendicular (orthogonal)** to every column of $X$. Solving for $\hat{\boldsymbol{\theta}}\_{\mathrm{OLS}}$ gives:
 
 $$\hat{\boldsymbol{\theta}}\_{\mathrm{OLS}} = (X^\top X)^{-1} X^\top \mathbf{y}$$
 
@@ -196,7 +196,7 @@ If the residual vector $\mathbf{r} = \mathbf{y} - X\boldsymbol{\theta}$ follows 
 
 $$p(\mathbf{y} \mid \boldsymbol{\theta}, \Sigma) = \frac{1}{(2\pi)^{n/2} |\Sigma|^{1/2}} \exp\!\left(-\frac{1}{2} \mathbf{r}^\top \Sigma^{-1} \mathbf{r}\right)$$
 
-Taking the natural logarithm gives the **Log-Marginal Likelihood** objective that we maximize in Chapter 4:
+Taking the natural logarithm gives the **Log-Marginal Likelihood** objective that we maximize in Chapter 11:
 
 $$\ln p(\mathbf{y} \mid \boldsymbol{\theta}, \Sigma) = -\frac{1}{2}\underbrace{\mathbf{r}^\top \Sigma^{-1} \mathbf{r}}\_{\text{Data Fit Penalty}} - \frac{1}{2}\underbrace{\ln|\Sigma|}\_{\text{Complexity Penalty}} - \frac{n}{2}\ln(2\pi)$$
 
@@ -204,7 +204,7 @@ The Gaussian log-likelihood balances data fit ($\mathbf{r}^\top \Sigma^{-1} \mat
 
 ---
 
-## 3.4 Kernel Functions $k(x, x')$ as Continuous Similarity Tables
+## 6.4 Kernel Functions $k(x, x')$ as Continuous Similarity Tables
 
 How do we construct the covariance matrix $\Sigma$ when we suspect that a physical simulator has a smooth, unknown structural error $\delta(x)$?
 
@@ -218,7 +218,7 @@ This kernel has two hyperparameters:
 1. **Amplitude $\sigma\_\delta^2 = k(x, x)$:** When $x = x'$, $\exp(0) = 1$, so $k(x, x) = \sigma\_\delta^2 = \mathrm{Var}(\delta(x))$ is the marginal variance (vertical scale) of the structural discrepancy.
 2. **Length-scale $\ell > 0$:** Controls how rapidly similarity decays with horizontal distance $|x - x'|$. When $|x - x'| \ll \ell$, $k(x, x') \approx \sigma\_\delta^2$ (errors move together); when $|x - x'| \gg \ell$, $k(x, x') \to 0$ (errors become independent).
 
-Adding independent sensor measurement noise $\sigma\_n^2$ on the diagonal ($i = j$) produces the exact total covariance matrix used by Kennedy and O'Hagan's Gaussian Process in Chapter 4:
+Adding independent sensor measurement noise $\sigma\_n^2$ on the diagonal ($i = j$) produces the exact total covariance matrix used by Kennedy and O'Hagan's Gaussian Process in Chapter 11:
 
 $$\Sigma\_{ij} = K\_{ij} + \sigma\_n^2 \delta\_{ij} = \sigma\_\delta^2 \exp\!\left(-\frac{(x\_i - x\_j)^2}{2\ell^2}\right) + \sigma\_n^2 \mathbf{1}\{i = j\}$$
 
@@ -226,7 +226,7 @@ Adding the positive "nugget" $\sigma\_n^2 I$ shifts every eigenvalue of $K$ upwa
 
 ---
 
-## 3.5 Streaming High-Order Moments (`OnlineMoments`) and Künsch's Moving-Block Bootstrap
+## 6.5 Streaming High-Order Moments (`OnlineMoments`) and Künsch's Moving-Block Bootstrap
 
 Two additional foundational statistical primitives in `stochology_core::rng` protect estimation when datasets are massive ($n > 10^5$) or serially correlated across time:
 
@@ -242,7 +242,7 @@ Two additional foundational statistical primitives in `stochology_core::rng` pro
 
 Experiment with sample size $n$, error equicorrelation $\rho$, and structural bias $\delta(x)$ in the interactive OLS vs. Cholesky-GLS laboratory below:
 
-<div class="stoch-lab" data-lab="ols-cholesky-gls" data-chapter="03-sampling-estimation-linear-algebra" data-title="Chapter 3 Lab: OLS Orthogonal Projection, Correlated Errors &amp; Cholesky GLS" data-cli="cargo run --release --bin labs -- --uncertainty"></div>
+<div class="stoch-lab" data-lab="ols-cholesky-gls" data-chapter="06-sampling-estimation-linear-algebra" data-title="Chapter 6 Lab: OLS Orthogonal Projection, Correlated Errors &amp; Cholesky GLS" data-cli="cargo run --release --bin labs -- --uncertainty"></div>
 
 
 ---
@@ -266,8 +266,13 @@ cargo run --release --bin labs -- --uncertainty
    - Compute the average within-regime (aleatoric) variance $\mathbb{E}[\mathrm{Var}(Y \mid \theta)]$.
    - Compute the between-regime (epistemic) variance $\mathrm{Var}(\mathbb{E}[Y \mid \theta])$.
    - Sum them to find the total marginal variance $\mathrm{Var}(Y)$.
-2. **Cholesky Forward and Backward Substitution:** Using the $2 \times 2$ Cholesky factor $L = \begin{bmatrix} 2 & 0 \\ 1 & 2 \end{bmatrix}$ from Worked Example 3.2 (where $\Sigma = \begin{bmatrix} 4 & 2 \\ 2 & 5 \end{bmatrix}$) and right-hand side $\mathbf{r} = \begin{bmatrix} 6 \\ 11 \end{bmatrix}$:
+2. **Cholesky Forward and Backward Substitution:** Using the $2 \times 2$ Cholesky factor $L = \begin{bmatrix} 2 & 0 \\ 1 & 2 \end{bmatrix}$ from Worked Example 6.2 (where $\Sigma = \begin{bmatrix} 4 & 2 \\ 2 & 5 \end{bmatrix}$) and right-hand side $\mathbf{r} = \begin{bmatrix} 6 \\ 11 \end{bmatrix}$:
    - Solve $L\mathbf{z} = \mathbf{r}$ by forward substitution for $\mathbf{z} = (z\_1, z\_2)^\top$.
    - Solve $L^\top \boldsymbol{\alpha} = \mathbf{z}$ by backward substitution for $\boldsymbol{\alpha} = (\alpha\_1, \alpha\_2)^\top$, and check that $\Sigma \boldsymbol{\alpha} = \mathbf{r}$ and $\ln|\Sigma| = 2(\ln 2 + \ln 2) = \ln 16$.
 3. **Ghost Parameter Bias under OLS:** Suppose a 1D linear model assumes $y = \theta x$ (through the origin) on inputs $x = (1, 2, 3)^\top$, but the true physical world obeys $y = 2x - 0.5 x^2$ (so $\theta^\ast = 2$ and $\delta(x) = -0.5 x^2$). Compute $\hat{\theta}\_{\mathrm{OLS}} = \frac{\sum x\_i y\_i}{\sum x\_i^2}$ by hand and show that OLS estimates $\hat{\theta}\_{\mathrm{OLS}} = 2 - \frac{18}{14} \approx 0.714$, missing the true linear slope $\theta^\ast = 2$ by more than $64\%$.
 
+## Summary
+
+- **Ordinary Least Squares (OLS)** projects outcomes orthogonally onto the design column space under i.i.d. homoscedastic noise, but suffers from understated standard errors under cluster correlation and **ghost parameter bias** when structural discrepancy $\delta(x)$ is omitted.
+- **Cholesky decomposition ($\Sigma = LL^\top$)** solves Generalized Least Squares (GLS) and Gaussian Process log-marginal-likelihood equations exactly in $\mathcal{O}(n^3)$ without forming an explicit matrix inverse $\Sigma^{-1}$.
+- **Cluster design effects (`DEFF`)** and **Moulton-Campbell effective sample size** $n\_{\mathrm{eff}}(p)$ prevent pseudo-replication when observations arrive in correlated operational clusters ($\Phi\_2$).

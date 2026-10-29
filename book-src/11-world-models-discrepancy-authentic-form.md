@@ -1,5 +1,4 @@
-# 8. The Almost-Perfect Machine and First-Class Authentic Model Form
-
+# 11. Structural Discrepancy and Authentic Form
 
 ## Clever Hans, the Horse That Could Count
 
@@ -20,7 +19,7 @@ This chapter addresses two questions for the Stochology Protocol:
 
 ---
 
-## 8.1 The $(\varepsilon, \delta)$-Almost-Perfect Machine $M = (T, \Phi, \theta)$
+## 11.1 The $(\varepsilon, \delta)$-Almost-Perfect Machine $M = (T, \Phi, \theta)$
 
 ### Foundations: Anatomy of a Learning Machine
 
@@ -74,7 +73,7 @@ In `crates/stochology-lenses/src/machine.rs`, `AlmostPerfectMachine` audits whet
   <text x="923" y="126" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11.5">• Barron Rate ≤ C_f² / W</text>
   <text x="923" y="152" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11.5">• Minimax MSE ≈ σ²W / n</text>
 </svg>
-  <figcaption><strong>Figure 8.1 — Architecture Pipeline of the Almost-Perfect Machine M = (T, Φ, θ)</strong></figcaption>
+  <figcaption><strong>Figure 11.1 — Architecture Pipeline of the Almost-Perfect Machine M = (T, Φ, θ)</strong></figcaption>
 </figure>
 
 ### Property P1: Universal Barron Density and Escaping the Curse of Dimensionality
@@ -135,7 +134,53 @@ Two boundary cases show how $d\_{\mathrm{eff}}(G)$ behaves:
 
 ---
 
-## 8.2 First-Class Authentic Model Form ($\delta(x) + \hat{S}^{\ast}$)
+## 11.2 Structural Epistemic Uncertainty: Kennedy-O'Hagan Discrepancy ($\delta(x)$)
+
+### The Trap of Parameter Pseudo-Convergence
+
+Now consider a deeper danger in $L\_2$. Suppose an engineer or economist builds a mechanistic computer simulator $\eta(x, \theta)$ to predict a physical system $y(x)$ across control inputs $x$, where $\theta$ represents a physical constant (for instance, thermal conductivity, aerodynamic drag, or risk aversion).
+
+In reality, **no mathematical model $\eta(x, \theta)$ captures $100\%$ of the real world's physics.** There is always a missing physical term, a **structural discrepancy** $\delta(x)$ separating the true generating process of the World ($L\_1$) from the idealized simulator ($L\_2$).
+
+If we ignore $\delta(x)$ and calibrate the model by minimizing ordinary least squares $\sum\_{i=1}^n \bigl(y\_i - \eta(x\_i, \theta)\bigr)^2$, three failures follow:
+1. **Biased Physical Parameters (Pseudo-Convergence):** The optimizer forces the physical knob $\theta$ away from its true physical value $\theta\_{\text{true}}$ toward a distorted value $\hat{\theta}\_{\text{naive}}$ that tries to soak up the missing curve $\delta(x)$ inside the training domain.
+2. **False Confidence:** As $n$ grows, the standard error around $\hat{\theta}\_{\text{naive}}$ shrinks as $1/\sqrt{n}$. The analyst becomes $99.9\%$ confident in a wrong parameter.
+3. **Extrapolation Collapse:** The moment the decision-maker uses $\eta(x, \hat{\theta}\_{\text{naive}})$ at a new operational point $x\_{\text{extrap}}$ outside the training range, the distorted parameter $\hat{\theta}\_{\text{naive}}$ and the unmodeled discrepancy $\delta(x\_{\text{extrap}})$ stop canceling each other out, producing a large prediction error with tiny nominal error bars.
+
+### Marc Kennedy and Anthony O'Hagan's (2001) Solution
+
+In a 2001 paper in the *Journal of the Royal Statistical Society*, **Marc Kennedy and Anthony O'Hagan** addressed this problem by treating the model's structural flaw as a first-class mathematical object:
+
+$$y(x) = \underbrace{\eta(x, \theta)}\_{\text{Simulator ($L\_2$)}} + \underbrace{\delta(x)}\_{\text{Structural Discrepancy}} + \underbrace{\varepsilon}\_{\text{Aleatory Noise ($L\_1$)}}, \qquad \delta(x) \sim \mathcal{GP}\bigl(m(x),  k(x, x')\bigr)$$
+
+Here $\delta(x) \sim \mathcal{GP}(m(x), k(x, x'))$ denotes a **Gaussian Process ($\mathcal{GP}$)**, a probability distribution over smooth unknown functions. Instead of assuming that the missing physics $\delta(x)$ is a specific polynomial, a $\mathcal{GP}$ specifies only a prior mean function $m(x)$ (typically $0$; `KennedyOHaganDiscrepancy` uses $m \equiv 0$) and a **covariance kernel** $k(x, x')$, such as the squared-exponential kernel:
+
+$$k(x, x') = \sigma\_\delta^2 \exp\left(-\frac{(x - x')^2}{2\ell^2}\right)$$
+
+This kernel encodes two properties:
+- If two inputs $x$ and $x'$ are close together ($|x - x'| \ll \ell$), the simulator's structural errors $\delta(x)$ and $\delta(x')$ must be similar (highly correlated).
+- If a new query point $x\_{\text{extrap}}$ moves far away from all previously observed training data ($|x\_{\text{extrap}} - x\_i| \gg \ell$), the correlation drops toward zero and the predictive variance automatically inflates back to $\sigma\_\delta^2$, **warning the decision-maker that the model is extrapolating outside its training support.**
+
+### Why Boundary Anchoring Matters
+
+There is one identifiability trap in the raw Kennedy-O'Hagan equation: if $\delta(x)$ can be *any* curve, how can the data tell the difference between changing $\theta$ inside $\eta(x, \theta)$ and changing $\delta(x)$? Without an identifiability constraint, $\theta$ and $\delta(x)$ are confounded (Brynjarsdóttir & O'Hagan, 2014).
+
+In `KennedyOHaganDiscrepancy` (`crates/stochology-core/src/uncertainty.rs`), the protocol enforces **anchor constraints** (known physical boundary regimes, such as low-excitation anchor points $x\_0$ where the idealized law $\eta(x, \theta)$ holds closely and $\delta(x\_0) \approx 0$). Anchoring breaks the collinearity between $\eta(x, \theta)$ and $\delta(x)$:
+- The anchor regime pins down the true physical parameter $\theta$ without distortion;
+- The Gaussian Process $\delta(x)$ absorbs the nonlinear structural departure away from the anchor;
+- Out-of-domain predictions carry widened uncertainty bands.
+
+### Exact Cholesky Factorization and Empirical Bayes Type-II Maximum Likelihood
+
+To select the Gaussian Process hyperparameters (the correlation length-scale $\ell$ and the discrepancy amplitude $\sigma\_\delta$) without hand-tuning, `crates/stochology-core/src/uncertainty.rs` factorizes the covariance matrix $\Sigma = K\_\delta(X, X; \ell, \sigma\_\delta) + \sigma\_n^2 I$ via exact lower-triangular **Cholesky decomposition** $\Sigma = L L^\top$ (`cholesky_decompose`, `cholesky_solve`, `cholesky_log_det`). Given residual vector $r = y - \eta(X, \hat{\theta})$, `KennedyOHaganDiscrepancy::log_marginal_likelihood` evaluates the exact Gaussian Process **Log Marginal Likelihood (Type-II MLE)**:
+
+$$\ln p(y \mid X, \hat{\theta}, \ell, \sigma\_\delta) = \underbrace{-\frac{1}{2} r^\top (K\_\delta + \sigma\_n^2 I)^{-1} r}\_{\text{Data Fit}} \underbrace{- \sum\_{i=1}^n \ln L\_{ii}}\_{\text{Occam's Razor Complexity Penalty } (-\frac{1}{2}\ln|\Sigma|)} - \frac{n}{2}\ln(2\pi)$$
+
+The Cholesky log-determinant term $-\frac{1}{2}\ln|\Sigma| = -\sum\_{i=1}^n \ln L\_{ii}$ acts as an automatic **Bayesian Occam's Razor**, penalizing overly wiggly kernels ($\ell \to 0$) while the quadratic form $-\frac{1}{2}r^\top\Sigma^{-1}r$ penalizes underfitting (`KennedyOHaganDiscrepancy::calibrate_empirical_bayes`).
+
+---
+
+## 11.3 First-Class Authentic Model Form ($\delta(x) + \hat{S}^{\ast}$)
 
 Even when a machine $M = (T, \Phi, \theta)$ is well-conditioned (`P1`–`P5`), it can still act like Clever Hans if one of its atoms captures a regime-specific spurious correlation rather than an invariant causal mechanism.
 
@@ -164,6 +209,9 @@ $$y(x) = \underbrace{f\_{\hat{S}^{\ast}}\bigl(x\_{\hat{S}^{\ast}}, \theta\_{\hat
    The boolean certificate `authentic == true` is granted if and only if all five operational gates hold simultaneously:
    $$A(\text{model}) = c\_1(\text{Invariance of } \hat{S}^{\ast}) \land c\_2(\text{Anchored GP } \delta(x)) \land c\_3(\text{Named Discarded Atoms}) \land c\_4(\text{6 Identities Closed}) \land c\_5(\text{OOT/OOD Survival})$$
 
+5. **Causal vs. Observational Shapley XAI Attribution (`ShapleyCausalAudit`) & GP Expected Improvement (`EI`):**
+   In `crates/stochology-lenses/src/invariance.rs`, `ShapleyCausalAudit` contrasts Rung-1 observational Shapley attributions $\phi\_j^{\text{obs}}$ (computed from a single-environment OLS fit; they satisfy exact efficiency $\sum\_{j=1}^p \phi\_j = \hat{f}(x) - \mathbb{E}[\hat{f}(X)]$ to machine precision yet put causal credit on a downstream symptom $X\_2 = wY + \varepsilon\_2$) against Rung-2 **Causal / `do`-Shapley attributions** $\phi\_j^{\mathrm{do}}$ restricted to the ICP invariant parent set $\hat{S}^{\ast}$. In `ShapleyCausalRubinMiDoeAudit` (Axis 2 of the strategic synthesis taught in [Chapter 12](12-model-worlds-simulation-acceptance.md); filing it under World Models is the book's authorial mapping; simulated, `seed = 2026`, three environments of 240 units on the graph $X\_0 \to Y \to X\_2$ with a null $X\_1$), intervening on the feature ranked first by each method gives a counterfactual $\mathrm{MSE}$ of $0.000$ for `do`-Shapley versus $0.14$ for Rung-1 Shapley (`SHAP_do_MSE=0.000 vs 0.14`). The companion figure on `atlantic_storms.csv` (`Storms_SHAP_p0=1.00`, `EmpiricalStrategicAccommodationAudit`) is not an estimated attribution: nonlinear ICP/NILE on the measured storm environments only decides whether the pressure feature enters $\hat{S}^{\ast}$, after which the code assigns hard-coded coefficients $(1, 0, 0)$, so the pressure share is $1.00$ by construction. The Gaussian-process check that accompanies this axis is likewise a ratio, not an optimization run: the anchored Kennedy-O'Hagan GP has a posterior standard deviation $50.2$ times larger at an extrapolation point far from the design ($x = 2.6$) than at one next to it ($x = 0.02$) (`GP_EI_ratio=50.2`, deterministic). That ratio is the $\sigma(x)\phi(Z)$ term through which the **Expected Improvement** acquisition $\mathrm{EI}(x) = (\mu(x) - f^+)\Phi(Z) + \sigma(x)\phi(Z) \ge 0$ rewards exploration; no Bayesian-optimization loop and no grid-search comparison are run.
+
 ```mermaid
 flowchart LR
     RAW["Candidate Dictionary Φ(x)\n(e.g. Intensity + Lat Proxy)"]
@@ -187,8 +235,7 @@ flowchart LR
 
 Test Property `P4` (Telgarsky $2^D$ compositional efficiency), Property `P5` (Gram effective dimension $d\_{\mathrm{eff}} \ge 0.80 W$), and `AuthenticModelForm` approval in Gate `G8`:
 
-<div class="stoch-lab" data-lab="spectral-telgarsky-deff" data-chapter="08-machine" data-title="Chapter 8 Lab: Almost-Perfect Machine M=(T,Φ,θ) &amp; Gate G8 Authenticity Audit" data-cli="cargo run --release --bin gates -- --defect machine"></div>
-
+<div class="stoch-lab" data-lab="spectral-telgarsky-deff" data-chapter="11-world-models-discrepancy-authentic-form" data-title="Chapter 11 Lab: Almost-Perfect Machine M=(T,Φ,θ) &amp; Gate G8 Authenticity Audit" data-cli="cargo run --release --bin gates -- --defect machine"></div>
 
 ---
 
@@ -210,6 +257,22 @@ These outputs connect the five machine properties to the invariance audit:
 - The 8-atom orthonormal Hermite-Fourier dictionary achieves uniform supremum error $0.0234$ under Barron norm $C\_f = 5.60$ (`P1`), loses only $\Delta\_{\mathrm{DPI}} = 0.0297\text{ nats}$ in representation compression (`P2`), matches the minimax noise floor (`P3`), generates $2^6 = 64$ linear regions ($5.3\times$ shallow efficiency, `P4`), and attains Gram effective dimension $d\_{\mathrm{eff}} = 8.00 / 8$ (`P5`).
 - On `atlantic_storms.csv`, `AuthenticModelForm` retains only the invariant thermodynamic core $\hat{S}^{\ast} = [0]$ (`Storms_nonlinear_NILE_IRM = 0.0011`, Chow $F = 0.18$) and explicitly quarantines and logs the non-invariant proxy `atom_1_regime_shifted_lat_proxy` (`0.1072`, Chow $F = 23\text{,}437.0$). When `--defect machine` injects a spurious non-invariant atom into $\hat{S}^{\ast}$ or breaks Gram orthogonality, Gate `G8` halts execution with exit code `1`.
 
+Run Laboratory 2 from your terminal to see both the Kennedy-O'Hagan Gaussian Process calibration and the Info-Gap + Sniedovich safeguard in action:
+
+~~~bash
+cargo run --release --bin labs -- --uncertainty
+~~~
+
+~~~text
+=== LAB 2: KENNEDY-O'HAGAN GP DISCREPANCY AND INFO-GAP + SNIEDOVICH ===
+  [Kennedy-O'Hagan GP] theta_true=0.800 | without_GP=0.6454 (bias=0.1546, extrap_err=0.2022) | with_GP=0.7865 (bias=0.0135, extrap_err=0.0324) | EB_Cholesky(ell*=3.60, sigma*=1.00, LML=+27.27)
+~~~
+
+Walk through the Kennedy-O'Hagan laboratory experiment above (the companion Info-Gap + Sniedovich output line of Lab 2 is audited in [Chapter 20](20-decision-worlds-regime.md)):
+1. **In `[Kennedy-O'Hagan GP]`**, the true physical parameter is $\theta\_{\text{true}} = 0.800$, but the physical world includes a nonlinear structural discrepancy $\delta(x)$ absent from the bare model $\eta(x, \theta)$.
+   - **Without the GP discrepancy**, ordinary least squares twists the physical parameter down to $\hat{\theta} = 0.6454$ (a parameter bias of $0.1546$) and suffers an out-of-domain extrapolation error of $0.2022$.
+   - **With the anchored Kennedy-O'Hagan GP $\delta(x) \sim \mathcal{GP}(0, k)$**, the estimator recovers $\hat{\theta} = 0.7865$ (cutting parameter bias more than $11$-fold to $0.0135$), reduces extrapolation error more than $6$-fold to $0.0324$, and selects Empirical Bayes hyperparameters $(\ell^{\ast} = 3.60,\ \sigma\_\delta^{\ast} = 1.00)$ maximizing the Cholesky log marginal likelihood ($\mathrm{LML} = +27.27$).
+
 ## Exercises
 
 1. **(Concept: Clever Hans vs. Authentic Form)** A credit-scoring startup adds "phone battery percentage at the moment of loan application" to its gradient-boosted tree and sees validation $\mathrm{AUC}$ rise by $+0.015$.
@@ -218,6 +281,7 @@ These outputs connect the five machine properties to the invariance audit:
 2. **(Calculation: Gram Effective Dimension)** Suppose a $W = 4$ feature dictionary has Gram matrix eigenvalues $\lambda = (3.7, 0.1, 0.1, 0.1)$. Compute $\mathrm{tr} G$, $\lVert G \rVert\_F^2 = \sum \lambda\_j^2$, and the effective dimension $d\_{\mathrm{eff}} = \frac{(\mathrm{tr} G)^2}{\lVert G \rVert\_F^2}$. Does this dictionary pass Property `P5` ($d\_{\mathrm{eff}} \ge 0.80 W = 3.20$)? Why or why not?
 3. **(Calculation: Telgarsky Regions)** How many affine linear regions $2^D$ does a sawtooth network of depth $D = 8$ generate, and what is its efficiency ratio $2^D / (2D)$ compared to a shallow network?
 4. **(Laboratory: Defect Proof)** Run `cargo run --release --bin gates -- --defect machine` and inspect why Gate `G8` rejects a machine whose discarded atoms are hidden or whose Gram matrix is rank-deficient.
+5. **(Concept — Kennedy-O'Hagan)** Explain in your own words why collecting $100\text{,}000$ additional observations *worsens* overconfidence when a mechanistic simulator $\eta(x, \theta)$ is calibrated without a structural discrepancy term $\delta(x)$.
 
 <details>
 <summary><strong>Analytical &amp; Computational Solutions (Click to Expand)</strong></summary>
@@ -233,6 +297,7 @@ These outputs connect the five machine properties to the invariance audit:
 3. **Telgarsky Regions Calculation:**
    At depth $D = 8$, $N\_{\text{regions}} = 2^8 = 256$ affine linear pieces using $2D = 16$ elementary parameters, giving an efficiency ratio of $\frac{256}{16} = 16.0\times \ge 4.0$.
 4. **Machine Defect Proof:** Running `cargo run --release --bin gates -- --defect machine` triggers `[G8 BLOCKED]` when `P1`–`P5` or `AuthenticModelForm` fails and exits with code `1`.
+5. **Kennedy-O'Hagan Pseudo-Convergence:** Without $\delta(x)$, ordinary least squares projects the true function $\eta(x, \theta\_{\text{true}}) + \delta(x)$ onto the misspecified parametric family $\eta(x, \theta)$. As $n \to 100\text{,}000$, the parameter standard error shrinks as $O(n^{-1/2}) \to 0$ around the biased pseudo-parameter $\theta^{\ast} \neq \theta\_{\text{true}}$, yielding vanishing nominal error bars around a structurally wrong curve.
 
 </details>
 
@@ -240,3 +305,4 @@ These outputs connect the five machine properties to the invariance audit:
 
 - An **$(\varepsilon, \delta)$-Almost-Perfect Machine $M = (T, \Phi, \theta)$** requires universal Barron density (`P1`), DPI $\delta$-sufficiency (`P2`), Fano/minimax rate optimality (`P3`), Telgarsky $2^D$ compositional depth efficiency (`P4`), and Gram effective dimension $d\_{\mathrm{eff}} \ge 0.80 W$ (`P5`).
 - The **First-Class Authentic Model Form ($\delta(x) + \hat{S}^{\ast}$)** pairs the invariant causal core $\hat{S}^{\ast}$ with an anchored Kennedy-O'Hagan discrepancy $\delta(x)$, explicitly names every discarded spurious atom (`DiscardedAtomRecord`), verifies simultaneous closure of the **6 numerical identities**, and enforces the 5-part criterion $A(\text{model})$.
+- **Kennedy-O'Hagan Structural Discrepancy** ($y(x) = \eta(x, \theta) + \delta(x) + \varepsilon$ with anchored $\mathcal{GP}$) prevents parameter pseudo-convergence and extrapolation overconfidence.

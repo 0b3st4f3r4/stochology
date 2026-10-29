@@ -73,7 +73,7 @@ This chapter builds basis functions that are **strictly perpendicular (orthonorm
 
 ## 7.1 Functions as Vectors: Inner Products and Orthonormal Bases in $L^2$
 
-In Chapter 1, we saw that two vectors $\mathbf{u}, \mathbf{v} \in \mathbb{R}^n$ are **orthogonal** ($\mathbf{u} \perp \mathbf{v}$) if their dot product $\langle \mathbf{u}, \mathbf{v} \rangle = \sum\_{i=1}^n u\_i v\_i = 0$, and **orthonormal** if they also have unit length $\|\mathbf{u}\|\_2 = 1$.
+In Chapter 3, we saw that two vectors $\mathbf{u}, \mathbf{v} \in \mathbb{R}^n$ are **orthogonal** ($\mathbf{u} \perp \mathbf{v}$) if their dot product $\langle \mathbf{u}, \mathbf{v} \rangle = \sum\_{i=1}^n u\_i v\_i = 0$, and **orthonormal** if they also have unit length $\|\mathbf{u}\|\_2 = 1$.
 
 The same geometry extends to **continuous functions** $f(x)$ and $g(x)$. Define the **$L^2(P\_X)$ inner product** between two functions $f, g$ as the expected value of their product when $X$ is drawn from distribution $P\_X$:
 
@@ -93,15 +93,15 @@ Expanding an unknown target function $f(x) = \sum\_{k=0}^K c\_k \psi\_k(x)$ in a
 
 ### Three Canonical Orthonormal Families Used in Stochology
 Depending on the domain of $X$, three orthonormal families appear repeatedly across this book:
-1. **Probabilists' Orthonormal Hermite Polynomials (for Gaussian-like $Z \sim \mathcal{N}(0, 1)$, used in Chapter 6 Lens 4 for Nonlinear ICP / NILE):**
+1. **Probabilists' Orthonormal Hermite Polynomials (for Gaussian-like $Z \sim \mathcal{N}(0, 1)$, used in Chapter 9 Lens 4 for Nonlinear ICP / NILE):**
    Starting from $1, z, z^2, z^3$ and applying Gram-Schmidt orthogonalization against the standard Gaussian density gives:
    $$\psi\_0(z) = 1, \quad \psi\_1(z) = z, \quad \psi\_2(z) = \frac{z^2 - 1}{\sqrt{2}}, \quad \psi\_3(z) = \frac{z^3 - 3z}{\sqrt{6}}$$
    We can verify orthogonality of $\psi\_0$ and $\psi\_2$ directly: since $\mathbb{E}[Z^2] = 1$, $\mathbb{E}[\psi\_0(Z)\psi\_2(Z)] = \frac{\mathbb{E}[Z^2] - 1}{\sqrt{2}} = 0$.
-2. **Chebyshev Polynomials $T\_k(x) = \cos(k \arccos x)$ on $[-1, 1]$ (used in Chapter 8 for Authentic Symbolic Forms):**
+2. **Chebyshev Polynomials $T\_k(x) = \cos(k \arccos x)$ on $[-1, 1]$ (used in Chapter 11 for Authentic Symbolic Forms):**
    By the trigonometric identity $\cos((k+1)\theta) + \cos((k-1)\theta) = 2\cos\theta \cos(k\theta)$, they obey the exact 3-term recurrence:
    $$T\_0(x) = 1, \quad T\_1(x) = x, \quad T\_2(x) = 2x^2 - 1, \quad T\_{k+1}(x) = 2x T\_k(x) - T\_{k-1}(x)$$
    Unlike raw powers $x^k$ that bunch up near $\pm 1$ and blow up outside the interval, every Chebyshev polynomial $T\_k(x)$ oscillates evenly between $-1$ and $+1$ across $[-1, 1]$.
-3. **Fourier Sinusoids $\cos(\omega x), \sin(\omega x)$ (used in Chapters 8 and 11 for Barron spaces and `SIREN` wave networks):**
+3. **Fourier Sinusoids $\cos(\omega x), \sin(\omega x)$ (used in Chapters 11 and 13 for Barron spaces and `SIREN` wave networks):**
    Different frequencies $\omega \ne \omega'$ are orthogonal over a period, decomposing any signal into amplitude, frequency, and phase.
 
 ---
@@ -174,7 +174,7 @@ Le Cam's two-point method establishes a lower bound on $\mathcal{R}\_n^\ast(\The
 
 $$\inf\_{\hat{\theta}} \sup\_{\theta \in \Theta} \mathbb{E}\_\theta\!\left[\|\hat{\theta}(D\_n) - \theta\|\_2^2\right] \ge c \, \frac{d\,\sigma^2}{n}$$
 
-Together, orthonormal bases in $L^2$, compositional folding $2^D$, spectral effective dimension $d\_{\mathrm{eff}}$, and minimax information floors provide the tools needed in Chapter 8 to construct the **$(\varepsilon, \delta)$-Almost-Perfect Machine** and **First-Class Authentic Model Form**.
+Together, orthonormal bases in $L^2$, compositional folding $2^D$, spectral effective dimension $d\_{\mathrm{eff}}$, and minimax information floors provide the tools needed in Chapter 11 to construct the **$(\varepsilon, \delta)$-Almost-Perfect Machine** and **First-Class Authentic Model Form**.
 
 ### Parseval's Identity, the Eckart-Young-Mirsky SVD Theorem, and Spectral Bias
 
@@ -188,7 +188,7 @@ Two classical theorems explain why orthonormal bases and singular value decompos
 2. **The Eckart-Young-Mirsky Low-Rank Approximation Theorem (1936):**
    Given any matrix $A \in \mathbb{R}^{n \times m}$ with singular value decomposition $A = \sum\_{k=1}^r \sigma\_k \mathbf{u}\_k \mathbf{v}\_k^\top$ ($\sigma\_1 \ge \sigma\_2 \ge \dots \ge \sigma\_r > 0$), the best rank-$k$ approximation $A^{(k)} = \sum\_{j=1}^k \sigma\_j \mathbf{u}\_j \mathbf{v}\_j^\top$ minimizes both the spectral norm and Frobenius norm error simultaneously:
    $$\min\_{\mathrm{rank}(B) \le k} \|A - B\|\_2 = \|A - A^{(k)}\|\_2 = \sigma\_{k+1}, \qquad \min\_{\mathrm{rank}(B) \le k} \|A - B\|\_F = \sqrt{\sum\_{j=k+1}^r \sigma\_j^2}$$
-   This theorem directly powers both our Gram effective-dimension audit $d\_{\mathrm{eff}}(G)$ and Wolfgang Hackbusch's Hierarchical Matrices ($\mathcal{H}$-Matrices) in Chapter 13.
+   This theorem directly powers both our Gram effective-dimension audit $d\_{\mathrm{eff}}(G)$ and Wolfgang Hackbusch's Hierarchical Matrices ($\mathcal{H}$-Matrices) in Chapter 14.
 
 ### Interactive Laboratory (`/lab`)
 
@@ -223,3 +223,8 @@ cargo run --release --bin labs -- --lenses
    - Show that $d\_{\mathrm{eff}}(G) = \frac{10^2}{82} \approx 1.22$, revealing that despite having $3$ nominal features, the representation effectively uses only $1.22$ dimensions.
 3. **Telgarsky Sawtooth Counting:** Trace the iterated tent map $\Delta(\Delta(x))$ on $x \in \{0, 0.25, 0.50, 0.75, 1.0\}$ where $\Delta(x) = 1 - |2x - 1|$. How many times does $\Delta(\Delta(x))$ cross the horizontal line $y = 0.5$? How many crossings does $\Delta^{\circ 10}(x)$ have?
 
+## Summary
+
+- **Orthonormal bases** (Gram-Schmidt and probabilists' Hermite polynomials $\psi\_k(z)$) decouple projections across features and expose nonlinear regime shifts in `run_nonlinear_icp_nile`.
+- **Telgarsky's depth separation ($2^D$)** shows that compositional depth $D$ multiplies linear oscillation regions exponentially where shallow networks require exponential width.
+- **Gram effective dimension** $d\_{\mathrm{eff}}(G) = \frac{(\mathrm{tr}\,G)^2}{\|G\|\_F^2}$ measures how many orthogonal representation directions remain active after accounting for collinearity and spectral decay.

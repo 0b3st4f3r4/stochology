@@ -1,4 +1,4 @@
-# 1. Random Variables, Expectations, Quantiles, and Convexity
+# 3. Random Variables, Expectations, Quantiles, and Convexity
 
 ## The River With an Average Depth of One Meter
 
@@ -77,16 +77,16 @@ Resolving this discrepancy requires four mathematical primitives:
   <text x="800" y="372" fill="var(--muted)" font-size="11.5">• W₁ measures physical earth-moving cost</text>
   <text x="800" y="392" fill="var(--muted)" font-size="11.5">• CRPS scores full predictive CDF against y</text>
   </svg>
-  <figcaption>Figure 1.1 — The three foundational building blocks connecting elementary probability to ontological auditing: (1) Empirical CDFs and order-statistic quantiles; (2) Covariance and Pearson correlation as the cosine of centered vectors; and (3) Wasserstein-1 horizontal transport vs. CRPS vertical calibration.</figcaption>
+  <figcaption>Figure 3.1 — The three foundational building blocks connecting elementary probability to ontological auditing: (1) Empirical CDFs and order-statistic quantiles; (2) Covariance and Pearson correlation as the cosine of centered vectors; and (3) Wasserstein-1 horizontal transport vs. CRPS vertical calibration.</figcaption>
 </figure>
 
 ---
 
-## 1.1 From Outcomes to Random Variables, CDFs, and Quantiles
+## 3.1 From Outcomes to Random Variables, CDFs, and Quantiles
 
 Discrete events $A \subseteq \Omega$ ("the storm hits," "the test is positive") are only the starting point; in engineering and science, observations are numerical measurements: wind speed in knots, queue wait time in seconds, financial loss in millions of krone.
 
-### Definition 1.1 (Random Variable and Cumulative Distribution Function)
+### Definition 3.1 (Random Variable and Cumulative Distribution Function)
 A **random variable** $X: \Omega \to \mathbb{R}$ is a deterministic rule that assigns a real number $X(\omega)$ to every elementary outcome $\omega \in \Omega$. Its complete probabilistic law is captured by its **Cumulative Distribution Function (CDF)** $F\_X: \mathbb{R} \to [0, 1]$:
 
 $$F\_X(x) = P(\{\omega \in \Omega : X(\omega) \le x\}) = P(X \le x)$$
@@ -110,7 +110,7 @@ Inverting $\hat{F}\_n$ gives the **$\alpha$-quantile** $q\_\alpha = F\_X^{-1}(\a
 - **$q\_{0.50}$ (Median):** Exactly half the probability mass lies below and half above.
 - **$q\_{0.95}$ (95th percentile):** $95\%$ of observations fall below, and $5\%$ exceed this threshold (upper tail).
 
-### Worked Example 1.1: Why the Median Ignores Catastrophic Outliers while the Mean Explodes
+### Worked Example 3.1: Why the Median Ignores Catastrophic Outliers while the Mean Explodes
 Consider five daily server latency readings (in ms):
 
 $$x = [10, \; 12, \; 14, \; 16, \; 18]$$
@@ -127,7 +127,7 @@ $$x' = [10, \; 12, \; 14, \; 16, \; 1\text{,}018]$$
 
 ---
 
-## 1.2 Expectation, Variance, Covariance, and Pearson Correlation
+## 3.2 Expectation, Variance, Covariance, and Pearson Correlation
 
 ### Expectation as a Weighted Sum (Linear Operator)
 For a discrete random variable taking values $x\_1, \dots, x\_k$ with probabilities $p\_i = P(X = x\_i)$ (or a continuous random variable with density $p(x) = F'\_X(x)$), the **expectation** (or expected value) is the probability-weighted center of mass:
@@ -163,11 +163,11 @@ By the Cauchy-Schwarz Inequality ($|\langle \tilde{\mathbf{x}}, \tilde{\mathbf{y
 
 ---
 
-## 1.3 Nonlinear Functions, Convexity, and the Derivation of Jensen's Inequality
+## 3.3 Nonlinear Functions, Convexity, and the Derivation of Jensen's Inequality
 
 When $f$ is curved, $\mathbb{E}[f(X)]$ almost never equals $f(\mathbb{E}[X])$.
 
-### Definition 1.2 (Convex Function)
+### Definition 3.2 (Convex Function)
 A function $f: \mathbb{R} \to \mathbb{R}$ is **convex** if, for every pair of points $x\_1, x\_2 \in \mathbb{R}$ and every weight $\lambda \in [0, 1]$, the straight chord (secant line) connecting $(x\_1, f(x\_1))$ and $(x\_2, f(x\_2))$ lies **on or above** the graph of $f$:
 
 $$\lambda f(x\_1) + (1 - \lambda) f(x\_2) \ge f\!\left(\lambda x\_1 + (1 - \lambda) x\_2\right)$$
@@ -198,7 +198,7 @@ $$\Delta\_J = \mathbb{E}[f(X)] - f(\mathbb{E}[X]) \approx \frac{1}{2} f''(\mu)\,
 
 ---
 
-## 1.4 Comparing Full Distributions: CRPS vs. Wasserstein-1 ($W\_1$) and Lipschitz Continuity
+## 3.4 Comparing Full Distributions: CRPS vs. Wasserstein-1 ($W\_1$) and Lipschitz Continuity
 
 Once we refuse to collapse a random variable $X$ into a lone mean, we need a way to measure the error of a probabilistic forecast $F(x)$ or the distance between two distributions $P$ and $Q$.
 
@@ -287,14 +287,14 @@ Two foundational identities connect quantiles, expectations, and proper scoring 
   <text x="596" y="250" fill="var(--sky)" class="mono" font-size="11.5" font-weight="700">7. CRPS     — Strictly proper full-CDF calibration score</text>
   <text x="596" y="286" fill="var(--ink)" class="mono" font-size="11.5" font-weight="700">Bank Calls (n=27,716): Δ_J = +9.03×10⁶ · CRPS = 9.06×10⁷</text>
   </svg>
-  <figcaption><strong>Figure 1.2 — Geometric proof of Jensen's Inequality via secant chords and supporting tangent lines, paired with the mandatory 7-number `NonlinearSummary` audited in Gate G6.</strong></figcaption>
+  <figcaption><strong>Figure 3.2 — Geometric proof of Jensen's Inequality via secant chords and supporting tangent lines, paired with the mandatory 7-number `NonlinearSummary` audited in Gate G6.</strong></figcaption>
 </figure>
 
 ### Interactive Laboratory (`/lab`)
 
 Explore how input dispersion $\delta$ and payoff curvature $c$ interact to amplify Jensen's Gap $\Delta\_J = \mathbb{E}[f(X)] - f(\mathbb{E}[X])$ in real time:
 
-<div class="stoch-lab" data-lab="jensen-crps" data-chapter="01-random-variables-convexity" data-title="Chapter 1 Lab: Convexity, Secant Geometry &amp; Jensen's Gap (Δ_J) Explorer" data-cli="cargo run --release --bin labs -- --layers"></div>
+<div class="stoch-lab" data-lab="jensen-crps" data-chapter="03-random-variables-convexity" data-title="Chapter 3 Lab: Convexity, Secant Geometry &amp; Jensen's Gap (Δ_J) Explorer" data-cli="cargo run --release --bin labs -- --layers"></div>
 
 
 ---
@@ -321,3 +321,8 @@ cargo run --release --bin labs -- --layers
 2. **Cosine Geometry of Correlation:** Construct two centered vectors $\tilde{\mathbf{x}} = (-1, 0, 1)$ and $\tilde{\mathbf{y}} = (1, -2, 1)$ in $\mathbb{R}^3$. Show that their dot product $\langle \tilde{\mathbf{x}}, \tilde{\mathbf{y}} \rangle = 0$ ($\rho\_{X,Y} = 0$, zero linear correlation) even though $\tilde{y}\_i = 3\tilde{x}\_i^2 - 2$ is a deterministic quadratic function of $\tilde{x}\_i$. What does this teach about the difference between *uncorrelated* ($\rho = 0$) and *independent*?
 3. **Wasserstein-1 vs. CRPS:** Suppose Forecast A predicts a deterministic value $x = 10$ (all mass at $10$), Forecast B predicts a uniform distribution on $[8, 12]$, and the true outcome is $y = 10$. Which forecast has a smaller $\mathrm{CRPS}(F, 10)$? Now suppose the true outcome is $y = 12$: compute $\mathrm{CRPS}(F\_A, 12)$ vs. $\mathrm{CRPS}(F\_B, 12)$ and explain why ensemble spread protects against tail surprises.
 
+## Summary
+
+- **Order statistics and quantiles** ($q\_{05}, q\_{50}, q\_{95}$) remain stable under heavy-tailed shocks that distort sample means and variances.
+- **Jensen's Inequality** guarantees that for any convex cost or payoff $f$, $\mathbb{E}[f(X)] \ge f(\mathbb{E}[X])$, making **Jensen's Gap** $\Delta\_J = \mathbb{E}[f(X)] - f(\mathbb{E}[X])$ a mandatory audit quantity (`PROHIBITION_2`).
+- **Continuous Ranked Probability Score ($\mathrm{CRPS}$)** and **1D Wasserstein distance ($W\_1$)** evaluate the entire predictive distribution against realized outcomes rather than collapsing forecasts to a single point.

@@ -1,4 +1,4 @@
-# 10. Relational Ontology and Complex Systems
+# 22. Relational Ontology and Complex Systems
 
 
 ## Peer Gynt's Onion, Cuvier's Whirlpool, and Douglas Adams's Puddle
@@ -56,12 +56,12 @@ In `crates/stochology-lenses/src/relational.rs`, the Stochology Protocol transla
   <text x="786" y="252" fill="var(--muted)" class="mono" font-size="11.5">Rejects Mirowski static equilibrium</text>
   <text x="786" y="274" fill="var(--muted)" class="mono" font-size="11.5">All 6 Relational Axes Verified = true</text>
   </svg>
-  <figcaption><strong>Figure 10.1 — The Six-Layer Relational Ontological Stack &amp; Complex Systems Audit (`stochology_lenses::relational`)</strong></figcaption>
+  <figcaption><strong>Figure 22.1 — The Six-Layer Relational Ontological Stack &amp; Complex Systems Audit (`stochology_lenses::relational`)</strong></figcaption>
 </figure>
 
 ---
 
-## 10.1 Axis 1: Relational Vacuity (*Śūnyatā*), Indra's Net, RQM, and OSR
+## 22.1 Axis 1: Relational Vacuity (*Śūnyatā*), Indra's Net, RQM, and OSR
 
 ### Philosophical and Physical Foundations
 
@@ -85,7 +85,7 @@ All of the predictive power resides in the **relation (the edge)** and none in t
 
 ---
 
-## 10.2 Axis 2: Process Ontology, Dissipative Structures, and Autopoiesis
+## 22.2 Axis 2: Process Ontology, Dissipative Structures, and Autopoiesis
 
 ### Foundations: From Static Equilibrium to Open-System Thermodynamics
 
@@ -126,7 +126,7 @@ coupled with chemostat boundary entropy export $d\_e S / dt < -d\_i S / dt$, yie
 
 ---
 
-## 10.3 Axis 3: Heteropathic Emergence and Schelling's Segregation Cascade
+## 22.3 Axis 3: Heteropathic Emergence and Schelling's Segregation Cascade
 
 ### Foundations: *More Is Different* and Nonlinear Composition
 
@@ -156,7 +156,7 @@ This result underpins structural accounts in sociology (**Eduardo Bonilla-Silva'
 
 ---
 
-## 10.4 Axis 4: *Homo clausus* vs. *Homines aperti* and Figurational Coupling
+## 22.4 Axis 4: *Homo clausus* vs. *Homines aperti* and Figurational Coupling
 
 In *The Civilizing Process* (1939) and *What Is Sociology?* (1970), sociologist **Norbert Elias** identified the central blind spot of modern social and behavioral science as the myth of ***Homo clausus*** ("the closed human"), the image of the individual as a sealed box standing "inside" while "society" stands outside like an external wall. Against *Homo clausus*, Elias proposed ***Homines aperti*** ("open, interdependent pluralities of humans") bound together in dynamic **figurations** (like dancers in a mobile court dance, where the steps of one dancer cannot be understood by filming them in an empty room).
 
@@ -166,7 +166,7 @@ In the Stochology Protocol, the *Homo clausus* fallacy produces two mathematical
 
 ---
 
-## 10.5 Axis 5: Cybernetic Co-Evolution (*Triple Helix*) and *Daisyworld* Homeostasis
+## 22.5 Axis 5: Cybernetic Co-Evolution (*Triple Helix*) and *Daisyworld* Homeostasis
 
 ### Foundations: Lewontin's Triple Helix, Giddens, and Lovelock's *Daisyworld*
 
@@ -205,7 +205,7 @@ Across solar luminosity $L$, this cybernetic loop unfolds in four stages:
 
 ---
 
-## 10.6 Axis 6: The Six-Layer Ontological Stack and Complexity Economics
+## 22.6 Axis 6: The Six-Layer Ontological Stack and Complexity Economics
 
 Historian of economics **Philip Mirowski** (*More Heat than Light*, 1989) documented how late-nineteenth-century neoclassical economists (Walras, Jevons, Edgeworth) copied the equations of 1860s closed-system static potential energy physics line by line, substituting "utility" for potential energy and assuming a frictionless, history-free, atomistic equilibrium. **Edgar Morin**, **W. Brian Arthur**, and **Eric Beinhocker** contrasted this reductionist paradigm against the **Six-Layer Relational Ontological Stack** audited in Axis 6:
 
@@ -234,7 +234,7 @@ flowchart TD
 
 Explore the Brusselator non-equilibrium limit cycle ($B > 1 + A^2$) and `RK4` phase-space integration in the interactive laboratory below:
 
-<div class="stoch-lab" data-lab="rk4-hopf-brusselator" data-chapter="10-relational-ontology" data-title="Chapter 10 Lab: Prigogine Brusselator Hopf Limit Cycle &amp; Open-System RK4 Dynamics" data-cli="cargo run --release --bin labs -- --lenses"></div>
+<div class="stoch-lab" data-lab="rk4-hopf-brusselator" data-chapter="22-relational-ontology" data-title="Chapter 22 Lab: Prigogine Brusselator Hopf Limit Cycle &amp; Open-System RK4 Dynamics" data-cli="cargo run --release --bin labs -- --lenses"></div>
 
 
 ---
@@ -279,4 +279,4 @@ cargo run --release --bin labs -- --lenses
 - **Axis 3 (Heteropathic Emergence & Schelling):** Non-hostile micro-preferences ($\tau = 0.375$) trigger nonlinear tipping cascades into macro-segregation ($82.4\%$), proving that *More Is Different*.
 - **Axis 4 (*Homo clausus* vs. *Homines aperti*):** Treating interdependent humans as isolated atoms commits Moulton-Campbell pseudoreplication ($\mathrm{DEFF} = 5.81\times$) and ignores Stackelberg performativity ($\theta\_{\mathrm{PO}} > \theta\_{\mathrm{PS}}$).
 - **Axis 5 (*Daisyworld* Co-Evolution):** Coupled replicator-radiative feedback stabilizes planetary temperature near $22.5 ^\circ\mathrm{C}$ ($\mathrm{MAE} = 1.52 ^\circ\mathrm{C}$) without teleology until the absorbing catastrophe boundary ($L = 1.60$).
-- **Axis 6 (The 6-Layer Ontological Stack):** Aligns physical, thermodynamic, biological, psychological, sociological, and economic layers under a single auditable synthesis (`verified = true`).
+- **Axis 6 (The 6-Layer Ontological Stack) and a related network audit:** Aligns physical, thermodynamic, biological, psychological, sociological, and economic layers under a single auditable synthesis (`verified = true`). A related network audit lives in Axis 4 of the strategic synthesis, `ComplexNetworkHubContagionAudit` (`crates/stochology-lenses/src/strategic.rs`; reading it on Pair $L\_3 \to L\_1$ is an authorial mapping): on a 12-node hub-and-spoke graph (two hubs, ten spokes, Fiedler $\lambda\_2 = 0.362$, degree heterogeneity $\langle k^2\rangle/\langle k\rangle > \langle k\rangle$), a delay shock at one hub leaves $0.85$ of nodes on time when the hub schedule carries buffer slack versus $0.00$ without it, and on a 20-node clustered ring Centola's threshold-2 complex contagion reaches full adoption ($1.00$) from two adjacent seeds versus $0.10$ from two distant seeds (`Hub_survival=0.85 vs 0.00`, simulated, `seed = 2026`; `Centola_adopt=1.00 vs 0.10`, deterministic).

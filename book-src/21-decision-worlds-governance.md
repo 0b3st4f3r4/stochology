@@ -1,4 +1,4 @@
-# 19. Bitemporal Governance, Vault, and the Four Regimes of Drift
+# 21. Decision Worlds over Time
 
 
 ## The Time-Traveler Backtest and the Overused Vault
@@ -34,7 +34,7 @@ And once the model is finally live in production, the physical world itself begi
 
 ---
 
-## 19.1 Bitemporal Clock ($t\_{\text{disp}} \ge t\_{\text{ev}}$) and the Synthetic Canary (`stochology_governance::clock`)
+## 21.1 Bitemporal Clock ($t\_{\text{disp}} \ge t\_{\text{ev}}$) and the Synthetic Canary (`stochology_governance::clock`)
 
 ### Enforcing Physical Causality in Data Pipelines
 
@@ -57,7 +57,7 @@ To verify that a feature-engineering pipeline has not leaked future target infor
 
 ---
 
-## 19.2 The Single-Opening Temporal Vault (`stochology_governance::vault`)
+## 21.2 The Single-Opening Temporal Vault (`stochology_governance::vault`)
 
 To prevent adaptive overfitting on holdout data, `TemporalVault` wraps out-of-time (`nyc_flights_2013_h1.csv`, `nyc_flights_2023_h1.csv`) and out-of-domain (`houston_flights_2011.csv`) evaluation reserves inside a state machine governed by three irreversible rules:
 
@@ -102,10 +102,10 @@ To prevent adaptive overfitting on holdout data, `TemporalVault` wraps out-of-ti
   <text x="804" y="331" text-anchor="middle" fill="var(--muted)" font-size="11.5">Requires brand-new untouched future vault</text>
   <rect x="820" y="102" width="256" height="68" rx="10" fill="var(--rose-bg)" stroke="var(--rose)" stroke-width="2"/>
   <text x="948" y="130" text-anchor="middle" fill="var(--rose)" class="mono" font-size="11.5" font-weight="800">ANY 2ND open_once()</text>
-  <text x="948" y="152" text-anchor="middle" fill="var(--ink)" class="mono" font-size="11" font-weight="700">VaultReopenError (G7)</text>
+  <text x="948" y="152" text-anchor="middle" fill="var(--ink)" class="mono" font-size="11" font-weight="700">IllegalReopeningAttempt (G7)</text>
   <line x1="790" y1="154" x2="814" y2="142" stroke="var(--rose)" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#v-rose)"/>
 </svg>
-  <figcaption><strong>Figure 19.1 — State Machine of the Single-Opening Temporal Vault</strong></figcaption>
+  <figcaption><strong>Figure 21.1 — State Machine of the Single-Opening Temporal Vault</strong></figcaption>
 </figure>
 
 1. **Cryptographic Pre-Registration Seal and Keyed `HMAC-SHA256` Authentication:** A vault can be constructed only with a valid 64-character lowercase hexadecimal SHA-256 hash sealing the model weights, feature pipeline, and acceptance threshold *before* the vault is touched, paired with an **RFC 2104 Keyed `HMAC-SHA256` authentication tag** (`hmac_sha256_hex` in `crates/stochology-core/src/sha256.rs`). On `open_once()`, `TemporalVault` recomputes the SHA-256 digest of the stored outcomes and pre-registration ID, immediately returning `Err(VaultError::SealTampered)` if a single bit was mutated after sealing.
@@ -114,7 +114,7 @@ To prevent adaptive overfitting on holdout data, `TemporalVault` wraps out-of-ti
 
 ---
 
-## 19.3 The Four Regimes of Production Drift and the Murphy-CORP Circuit Breaker
+## 21.3 The Four Regimes of Production Drift and the Murphy-CORP Circuit Breaker
 
 ### Foundations: Factoring the Joint Distribution $P(X, Y)$
 
@@ -135,7 +135,7 @@ This gives rise to **Four Distinct Regimes of Production Drift**, each requiring
 
 ### The Murphy-CORP Circuit Breaker
 
-The PAV isotonic decomposition from Lens 5 (Chapter 6) separates a repairable shift (Regimes 2 & 3) from **Concept Drift** (Regime 4):
+The PAV isotonic decomposition from Lens 5 (Chapter 9) separates a repairable shift (Regimes 2 & 3) from **Concept Drift** (Regime 4):
 
 $$\mathrm{BS} = \mathrm{REL}\_{\mathrm{CORP}} - \mathrm{RES}\_{\mathrm{CORP}} + \mathrm{UNC}\_0$$
 
@@ -144,7 +144,7 @@ $$\mathrm{BS} = \mathrm{REL}\_{\mathrm{CORP}} - \mathrm{RES}\_{\mathrm{CORP}} + 
 
 ---
 
-## 19.4 Adapting to Covariate Drift: `ExTRA-WCP-T` and the Lei & Candès Bound
+## 21.4 Adapting to Covariate Drift: `ExTRA-WCP-T` and the Lei & Candès Bound
 
 When covariates shift ($Q\_X \neq P\_X$) while $P(Y \mid X)$ remains invariant, standard conformal prediction intervals lose their coverage guarantee because test points are drawn from $Q\_X$ rather than $P\_X$.
 
@@ -165,7 +165,7 @@ In `fit_covariate_drift_extra_wcp` (`crates/stochology-governance/src/drift.rs`)
 
 ---
 
-## 19.5 Adapting to Label Shift: The Four Canonical Estimators (`BBSE`, `MLLS/SLD`, `DFM`, `OTTER`)
+## 21.5 Adapting to Label Shift: The Four Canonical Estimators (`BBSE`, `MLLS/SLD`, `DFM`, `OTTER`)
 
 Now consider **Label Shift**: disease prevalence or delay base rate shifts from source prior $p\_Y = P(Y = 1)$ to an unknown target prior $q\_Y = Q(Y = 1)$, while $P(X \mid Y = y) = Q(X \mid Y = y)$ holds. We can estimate the new target base rate $q\_Y$ in live production **before a single new ground-truth label $Y$ arrives**.
 
@@ -184,7 +184,7 @@ $$Q(Y = 1 \mid X = x) = \frac{\frac{\hat{q}\_Y}{p\_Y}  p(x)}{\frac{\frac{\hat{q}
 
 ---
 
-## 19.6 Predetermined Change Control Plan (`PCCP`), Profit & Loss Attribution Test (`PLAT`), and Evaluated Competence
+## 21.6 Predetermined Change Control Plan (`PCCP`), Profit & Loss Attribution Test (`PLAT`), and Evaluated Competence
 
 To prevent unauthorized post-hoc model mutation or silent P&L divergence when an adaptive model updates its weights or thresholds in production, `crates/stochology-governance/src/drift.rs` unifies regulatory change control from medical AI (**FDA Predetermined Change Control Plan, `PCCP`**) and quantitative finance (**Basel III / FRTB MAR33 Profit and Loss Attribution Test, `PLAT`**) with Stafford Beer's **VSM Algedonic Channel**:
 
@@ -256,7 +256,7 @@ Why does the simple online update $\alpha\_{t+1} = \alpha\_t + \gamma(\alpha - \
     <text x="700" y="114" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10">r_s &lt; 0.70 or D_KS &gt; 0.12</text>
     <text x="840" y="250" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">Spearman Rank Alignment r_s → (y-axis: KS Distance D_KS)</text>
   </svg>
-  <figcaption><strong>Figure 19.2 — Bitemporal Causality Plane (t_ev ≤ t_disp ≤ τ) and the PLAT Spearman–Kolmogorov-Smirnov Traffic-Light Gate</strong></figcaption>
+  <figcaption><strong>Figure 21.2 — Bitemporal Causality Plane (t_ev ≤ t_disp ≤ τ) and the PLAT Spearman–Kolmogorov-Smirnov Traffic-Light Gate</strong></figcaption>
 </figure>
 
 ---
@@ -326,3 +326,5 @@ And in Laboratory 7 (`labs --real-data`), the out-of-time H1 flight vaults (`nyc
 - **The Single-Opening Temporal Vault (`TemporalVault`)** seals pre-registered evaluations with SHA-256, permits only a single opening (`0 -> 1`), and automatically downgrades failed confirmations to exploratory status.
 - **The Murphy-CORP Circuit Breaker** separates repairable Covariate/Label shift ($\Delta\mathrm{REL}\_{\mathrm{CORP}} > \tau\_{\mathrm{REL}}$) from fatal Concept Drift ($\Delta\mathrm{RES}\_{\mathrm{CORP}} < -\tau\_{\mathrm{RES}}$).
 - **Covariate Drift** is adapted via exponential-tilt **`ExTRA-WCP-T`** bounded by **Lei & Candès's** $1 - \alpha - d\_{\mathrm{TV}}(P\_X, Q\_X)$, while **Label Shift** is estimated across **`BBSE`**, **`MLLS/SLD`**, **`DFM`**, and **`OTTER`**.
+- **Regulatory Proxy Checklist (`RegulatoryComplianceAudit` in `crates/stochology-governance/src/drift.rs`) & Robust Closed-Loop Control (`RobustKalmanControlAudit` in `crates/stochology-lenses/src/time.rs`):** `RegulatoryComplianceAudit` is an **operational proxy checklist**, not a statutory compliance certificate: it maps four numeric conditions onto **EU AI Act Articles 9, 10, 14, and 15** and **Brazilian LGPD Article 20** (Info-Gap $\hat{\alpha} > 0$ with a Wald floor; Meng/Manski/Lee bounds and $n\_{\mathrm{eff}} \ge 100$; load $\le 10\text{ bit/s}$, $W \ge 10\text{ dB}$ and a natural-frequency memo; $\mathrm{REL}\_{\mathrm{CORP}} \le 0.02$, `PCCP` approval and a declared error-bearer). Its inputs are partly assumed or hard-coded: in the strategic synthesis (`MultiCriteriaAhpRegulatoryPkmAudit`) the checked values are the assumed `AlertFatigueAudit` design point ($3.2\text{ bit/s}$, $12.61\text{ dB}$, $\mathrm{REL} = 0.004$), and in `gates --audit-card` the call passes $\hat{\alpha} = 1.25$ and two `true` flags as constants and floors the deciban weight at $10\text{ dB}$; no dataset makes it pass. `RobustKalmanControlAudit` pairs a Joseph-form covariance update with **Huber-clipped innovations** (a Kalman filter that down-weights standardized innovations beyond a threshold $c$) and compares a tube-buffered control margin with a certainty-equivalent one. In the strategic synthesis (Axis 6) the Huber filter reaches state $\mathrm{RMSE} = 0.189$ vs. $1.47$ for the Gaussian $L\_2$ Kalman filter under large simulated spikes, and lap survival is $1.00$ (tube) vs. $0.59$ (certainty-equivalent) (simulated, `seed = 2026`, `labs --all`); on `vic_elec.csv` it tracks the first 400 half-hourly demand values with a simulated $+4\text{,}500\text{ MW}$ glitch injected every 20 slots at $\mathrm{RMSE} = 138.9\text{ MW}$ vs. $619.3\text{ MW}$ (measured series + simulated glitches).
+- **Cloud API vs. Local `LoRA / QLoRA` Unit Economics & Spectral Truncation (`CloudLocalLoraArchitectureAudit` in `crates/stochology-governance/src/drift.rs`):** Deterministic token break-even $V\_{\text{naive}}^{\ast} = C\_{\text{fixed}}/(c\_{\text{API}} - c\_{\text{local}})$ ignores Kingman queueing congestion ($\frac{u}{1-u}\frac{c\_a^2 + c\_s^2}{2}$) when local GPU utilization approaches $u = 0.96$; **Tailored Base-Surge (`TBS`)** hybrid routing (serving $78\%$ base load locally at $u\_{\text{base}} = 0.75$ and spilling burst peaks to Cloud API) beats both pure-API and overloaded pure-local monthly cost, while choosing `LoRA` rank $r \ge \lceil d\_{\mathrm{eff}}(G)\rceil$ retains $98.9\%$ of the task update Frobenius energy ($\sum\_{i\le r}\sigma\_i^2 / \|\Delta W\|\_F^2$) with exact Eckart-Young Pythagorean closure.

@@ -1,4 +1,4 @@
-# 6. The Five Transversal Lenses
+# 9. The Five Transversal Lenses
 
 
 ## Five Domain Failures Sharing One Mathematical Root
@@ -15,7 +15,7 @@ These five audits form **the Five Transversal Lenses** (`crates/stochology-lense
 
 ---
 
-## 6.1 Lens 1: Information (`stochology_lenses::information`)
+## 9.1 Lens 1: Information (`stochology_lenses::information`)
 
 ### Foundations: Surprise, Entropy, KL Divergence, and Mutual Information
 
@@ -66,7 +66,7 @@ By alternating between the variational posterior $Q^{(t)}(w \mid x) \propto P\_W
 
 ---
 
-## 6.2 Lens 2: Time and Survival (`stochology_lenses::time`)
+## 9.2 Lens 2: Time and Survival (`stochology_lenses::time`)
 
 ### Foundations: Ergodicity Breaking and Itô's Variance Drain
 
@@ -108,7 +108,7 @@ Whenever negative tail jumps exist, $f\_{\text{emp}}^{\ast} < f\_{\text{Merton}}
 
 ---
 
-## 6.3 Lens 3: Scale and Tail (`stochology_lenses::tail`)
+## 9.3 Lens 3: Scale and Tail (`stochology_lenses::tail`)
 
 ### Foundations: Thin Tails vs. Power Laws and Moment Existence Regimes
 
@@ -145,7 +145,7 @@ To cross-check Hill's Pareto estimator across all three Extreme Value Theory (EV
 
 ---
 
-## 6.4 Lens 4: Structure and Invariance (`stochology_lenses::invariance`)
+## 9.4 Lens 4: Structure and Invariance (`stochology_lenses::invariance`)
 
 ### Foundations: Pearl's Causal Ladder, Confounders, and Berkson Colliders
 
@@ -199,7 +199,7 @@ To see why $P(Y \mid X = x)$ (Rung 1) differs from $P(Y \mid \mathrm{do}(X = x))
   <text x="836" y="244" text-anchor="middle" fill="var(--rose)" font-size="12.5" font-weight="750">NEVER condition on B! (Banned by Filter 2)</text>
   <text x="836" y="266" text-anchor="middle" fill="var(--muted)" font-size="11.5">Conditioning on common effect B opens Berkson bias</text>
 </svg>
-  <figcaption><strong>Figure 6.1 — Confounder (Common Cause) vs. Berkson Collider (Common Effect)</strong></figcaption>
+  <figcaption><strong>Figure 9.1 — Confounder (Common Cause) vs. Berkson Collider (Common Effect)</strong></figcaption>
 </figure>
 
 1. **The Confounder ($X \leftarrow C \to Y$):** Variable $C$ (say, outdoor summer temperature) causes both ice-cream sales ($X$) and swimming-pool drownings ($Y$). In passive data, $X$ and $Y$ are strongly correlated. If you ban ice cream ($\mathrm{do}(X = 0)$), drownings do not drop at all. To identify the causal effect of $X$ on $Y$, you **must condition on the confounder $C$** to block the back-door path.
@@ -229,7 +229,7 @@ In addition, `crates/stochology-lenses/src/invariance.rs` provides two classic e
 
 ---
 
-## 6.5 Lens 5: Decision and Calibration (`stochology_lenses::decision`)
+## 9.5 Lens 5: Decision and Calibration (`stochology_lenses::decision`)
 
 ### Foundations: The Cost-Loss Boundary ($p^{\ast}$) and Value of Perfect Information ($\mathrm{EVPI}$)
 
@@ -360,14 +360,14 @@ Two forecasters $A$ and $B$ can have nearly identical aggregate Brier Scores whi
   <text x="784" y="294" fill="var(--muted)" class="mono" font-size="11">Atlantic Storms: id_err = 1.53×10⁻¹⁴</text>
   <text x="784" y="314" fill="var(--muted)" class="mono" font-size="11">Gate G6 blocks non-dominant Brier rank</text>
   </svg>
-  <figcaption><strong>Figure 6.2 — Quantitative synthesis across Lenses 2, 3, and 5: (Left) DJIA time-growth parabola vs. ensemble drift; (Center) log-log Pareto power-law tail on Copenhagen Re fire losses; (Right) Murphy elementary score diagram and CORP-PAV dominance.</strong></figcaption>
+  <figcaption><strong>Figure 9.2 — Quantitative synthesis across Lenses 2, 3, and 5: (Left) DJIA time-growth parabola vs. ensemble drift; (Center) log-log Pareto power-law tail on Copenhagen Re fire losses; (Right) Murphy elementary score diagram and CORP-PAV dominance.</strong></figcaption>
 </figure>
 
 ### Interactive Laboratory (`/lab`)
 
 Use the interactive Five-Lenses simulator below to explore how drift $\mu$, volatility $\sigma$, leverage $f$, and Pareto tail exponent $\alpha$ shape long-run survival versus ruin:
 
-<div class="stoch-lab" data-lab="lenses-kelly-tail-corp" data-chapter="06-lenses" data-title="Chapter 6 Lab: Itô Variance Drain, Kelly Leverage Curve g(f) &amp; Pareto Tail Regimes" data-cli="cargo run --release --bin labs -- --lenses"></div>
+<div class="stoch-lab" data-lab="lenses-kelly-tail-corp" data-chapter="09-lenses" data-title="Chapter 9 Lab: Itô Variance Drain, Kelly Leverage Curve g(f) &amp; Pareto Tail Regimes" data-cli="cargo run --release --bin labs -- --lenses"></div>
 
 
 ---

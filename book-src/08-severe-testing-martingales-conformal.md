@@ -1,4 +1,4 @@
-# 14. Severe Testing, Multiplicity, Martingales (e-Processes), and Conformal Prediction
+# 8. Severe Testing, Multiplicity, Martingales (e-Processes), and Conformal Prediction
 
 
 ## The Scientist Who Peeked Every Morning Until the Coin Confessed
@@ -75,12 +75,12 @@ Algorithmic refutation of optional stopping, multiplicity fishing, pseudoreplica
   <text x="800" y="366" fill="var(--muted)" font-size="11.5">• SBC Rank Histogram: checks if Bayesian/MC</text>
   <text x="800" y="386" fill="var(--muted)" font-size="11.5">  sampler recovers synthetic truth uniformly.</text>
   </svg>
-  <figcaption>Figure 14.1 — The four inferential safeguards of severe testing and sequential governance: (1) Multiplicity inflation across K specifications and the 5 statistical errors; (2) Anytime-valid betting martingales (e-processes) and Ville's Inequality; and (3) Distribution-free Conformal Prediction and production shift algebra.</figcaption>
+  <figcaption>Figure 8.1 — The four inferential safeguards of severe testing and sequential governance: (1) Multiplicity inflation across K specifications and the 5 statistical errors; (2) Anytime-valid betting martingales (e-processes) and Ville's Inequality; and (3) Distribution-free Conformal Prediction and production shift algebra.</figcaption>
 </figure>
 
 ---
 
-## 14.1 Severe Testing, Multiplicity ($K$), and the Five Statistical Errors
+## 8.1 Severe Testing, Multiplicity ($K$), and the Five Statistical Errors
 
 ### Karl Popper and Deborah Mayo's Severity Principle
 A high correlation $R^2$ or a small training error cannot validate a scientific claim $C$ on its own, since an overparameterized curve can fit almost any dataset. Karl Popper and philosopher of statistics Deborah Mayo formulated the **Severity Requirement**:
@@ -89,7 +89,7 @@ A high correlation $R^2$ or a small training error cannot validate a scientific 
 
 ### The Five Canonical Statistical Errors
 In introductory textbooks, students learn only **Type I Error** ($\alpha$, false positive: rejecting a true null $H\_0$) and **Type II Error** ($\beta$, false negative: failing to reject a false null $H\_0$). In operational reality, three additional errors cause far more damage:
-1. **Type III Error (A. W. Kimball, 1957):** Computing the *mathematically exact answer to the wrong operational question*, such as predicting **annual** average hospital bed demand with $99\%$ precision when the nursing supervisor has to staff **8-hour shifts** (enforced by Boundary Invariant $\Phi\_5$ in Chapter 16).
+1. **Type III Error (A. W. Kimball, 1957):** Computing the *mathematically exact answer to the wrong operational question*, such as predicting **annual** average hospital bed demand with $99\%$ precision when the nursing supervisor has to staff **8-hour shifts** (enforced by Boundary Invariant $\Phi\_5$ in Chapter 20).
 2. **Type S Error (Sign Error, Gelman & Tuerlinckx, 2000):** Claiming with "statistical significance" that an intervention's effect is **positive** when the true causal effect is **negative**.
 3. **Type M Error (Magnitude / Exaggeration Ratio, Gelman & Carlin, 2014):** When the effective sample size $n\_{\mathrm{eff}}$ is small and noise $\sigma$ is large, the only estimates $\hat{\theta}$ that cross the significance filter $|\hat{\theta}| > 1.96\,\mathrm{SE}$ are those lucky draws where random noise happened to be huge. Consequently, conditioning on "statistically significant" findings exaggerates the true effect size by $3\times$ to $10\times$ (**the Winner's Curse**).
 
@@ -101,15 +101,15 @@ Suppose a team tests $K$ independent candidate hypotheses or feature specificati
 
 $$\alpha\_{\text{family}}(K) = 1 - (1 - \alpha)^K$$
 
-For $\alpha = 0.05$ and $K = 20$ silent attempts, $\alpha\_{\text{family}}(20) = 1 - 0.95^{20} = \mathbf{64.15\%}$. To keep the family-wise error rate below $\alpha$, **Šidák / Bonferroni correction** requires dividing the per-test threshold by $K$ ($\alpha\_k = \alpha / K$) or multiplying the required *e-value* threshold by $K$ (which is why Chapter 15's `PROHIBITION_4` requires declaring `specifications_tried_k` and `discarded_findings` in every YAML Card).
+For $\alpha = 0.05$ and $K = 20$ silent attempts, $\alpha\_{\text{family}}(20) = 1 - 0.95^{20} = \mathbf{64.15\%}$. To keep the family-wise error rate below $\alpha$, **Šidák / Bonferroni correction** requires dividing the per-test threshold by $K$ ($\alpha\_k = \alpha / K$) or multiplying the required *e-value* threshold by $K$ (which is why Chapter 17's `PROHIBITION_4` requires declaring `specifications_tried_k` and `discarded_findings` in every YAML Card).
 
 ---
 
-## 14.2 Testing by Betting: Martingales, *e-Processes* ($E\_t$), and Ville's Inequality
+## 8.2 Testing by Betting: Martingales, *e-Processes* ($E\_t$), and Ville's Inequality
 
 To monitor a live model or sequential experiment continuously over time $t = 1, 2, 3, \dots$ **without invalidating the false-positive guarantee when peeking or stopping early**, game-theoretic statistics (Jean Ville, 1939; Glenn Shafer; Aaditya Ramdas) replaces fixed-sample $p$-values with **Testing by Betting**:
 
-### Definition 14.1 (*e-Value* and Cumulative *e-Process*)
+### Definition 8.1 (*e-Value* and Cumulative *e-Process*)
 An **e-variable** (evidence variable) at step $i$ is a non-negative random variable $L\_i \ge 0$ whose expected value under the null hypothesis $H\_0$ is at most $1$:
 
 $$\mathbb{E}\_{H\_0}\!\left[L\_i \;\middle|\; \mathcal{F}\_{i-1}\right] \le 1$$
@@ -132,11 +132,11 @@ $$P\_{H\_0}\!\left(\sup\_{t \ge 1} E\_t \ge \frac{1}{\alpha}\right) \le \alpha$$
 > **Intuition of Ville's Inequality:** In a fair casino ($H\_0$), if you walk in with $E\_0 = \$1$, the probability that your bankroll **ever** touches $\$20$ ($1/\alpha$ for $\alpha = 0.05$) at *any* moment in your life (even if you peek after every single spin of the wheel and quit the instant you hit $\$20$) is **at most $1/20 = 5\%$**.
 > Conversely, if the null hypothesis $H\_0$ is **false** and the alternative $H\_1$ is true ($\mathbb{E}\_{H\_1}[\ln L\_i] > 0$), then $E\_t = \exp(\sum\_{i=1}^t \ln L\_i)$ grows **exponentially** to $+\infty$, crossing $1/\alpha = 20$ rapidly.
 
-This is why the Stochology Protocol (Chapters 15, 17, and 18) uses cumulative *e-processes* $E\_t = \prod L\_i$ as its official sequential evidence engine.
+This is why the Stochology Protocol (Chapters 16 and 17) uses cumulative *e-processes* $E\_t = \prod L\_i$ as its official sequential evidence engine.
 
 ---
 
-## 14.3 Cluster Dependence (Intra-Class Correlation $\rho$) and Simulation-Based Calibration (SBC)
+## 8.3 Cluster Dependence (Intra-Class Correlation $\rho$) and Simulation-Based Calibration (SBC)
 
 ### Why Clustered Rows Are Not Independent: Variance Components and ICC ($\rho$)
 Suppose we collect $n = 1\text{,}000$ observations grouped into $G = 10$ clusters of size $m = 100$ each (e.g., $100$ flights at each of $10$ airports, or $100$ patients in each of $10$ hospitals).
@@ -161,7 +161,7 @@ $$\mathrm{Var}(\bar{Y}) = \frac{1}{G}\left(\sigma\_b^2 + \frac{\sigma\_w^2}{m}\r
 
 The factor $\mathrm{DEFF} = 1 + (m - 1)\rho$ shows how quickly cluster dependence erodes precision:
 - Even a small intra-cluster correlation $\rho = 0.05$ with cluster size $m = 100$ produces $\mathrm{DEFF} = 1 + 99(0.05) = 5.95$, shrinking your **effective sample size** from $n = 1\text{,}000$ down to $n\_{\mathrm{eff}} = \frac{n}{1 + (m-1)\rho} = \frac{1000}{5.95} \approx \mathbf{168}$.
-- In Chapter 16 ($\Phi\_2$), we extend this derivation to unequal cluster sizes $\tilde{m} = \bar{m}(1 + \mathrm{CV}^2)$ (**Moulton-Campbell Correction**) and tail threshold exceedances $\rho\_I(p)$.
+- In Chapter 20 ($\Phi\_2$), we extend this derivation to unequal cluster sizes $\tilde{m} = \bar{m}(1 + \mathrm{CV}^2)$ (**Moulton-Campbell Correction**) and tail threshold exceedances $\rho\_I(p)$.
 
 ### Simulation-Based Calibration (SBC, Cook, Gelman & Rubin / Talts et al.)
 Before running a Bayesian or Monte Carlo inference engine on real data, we can verify that the inference code itself is unbiased through a three-step synthetic loop:
@@ -174,11 +174,11 @@ Before running a Bayesian or Monte Carlo inference engine on real data, we can v
 - If the rank histogram is **$\cup$-shaped** (piling up at the extremes $0$ and $M$), the posterior intervals are **too narrow (overconfident)**.
 - If the rank histogram is **$\cap$-shaped** (piling up in the middle), the posterior is **underconfident**.
 - If it is **tilted left or right**, the estimator is **systematically biased**.
-Filter 3 of the Eliminatory Funnel (Chapter 18) enforces this uniformity via a $\chi^2$ goodness-of-fit test on the SBC rank histogram.
+Filter 3 of the Eliminatory Funnel (Chapter 12) enforces this uniformity via a $\chi^2$ goodness-of-fit test on the SBC rank histogram.
 
 ---
 
-## 14.4 Distribution-Free Conformal Prediction and Shift Algebra
+## 8.4 Distribution-Free Conformal Prediction and Shift Algebra
 
 ### Split Conformal Prediction (Guaranteed Finite-Sample Coverage)
 We can wrap any point predictor $\hat{f}(x)$ in a prediction interval $\hat{C}(X\_{n+1})$ that contains the true future outcome $Y\_{n+1}$ at least $1 - \alpha$ (say $90\%$) of the time **without assuming Gaussian residuals or a correctly specified model**.
@@ -191,16 +191,16 @@ Vladimir Vovk and colleagues showed that **exchangeability** (where every permut
 $$\hat{C}(x\_{n+1}) = \left[\hat{f}(x\_{n+1}) - \hat{q}, \quad \hat{f}(x\_{n+1}) + \hat{q}\right] \implies P\!\left(Y\_{n+1} \in \hat{C}(X\_{n+1})\right) \ge 1 - \alpha$$
 
 ### What Happens When the Production Distribution Shifts? (Covariate vs. Label Shift)
-In live deployment (Chapter 19), the target environment $Q(X, Y)$ often diverges from the training environment $P(X, Y)$ in one of two structured ways (corresponding to the two ways of factoring $P(X, Y)$):
+In live deployment (Chapter 21), the target environment $Q(X, Y)$ often diverges from the training environment $P(X, Y)$ in one of two structured ways (corresponding to the two ways of factoring $P(X, Y)$):
 
 1. **Covariate Drift ($P(X, Y) = P(X)P(Y \mid X)$ where $Q(X) \ne P(X)$ but $Q(Y \mid X) = P(Y \mid X)$):**
-   The input demographics or weather distribution $Q(X)$ changes, while the physical conditional law $P(Y \mid X)$ stays invariant. Ryan Tibshirani et al. (2019) proved that weighting each calibration score $s\_i$ by the density ratio $w(X\_i) = \frac{dQ}{dP}(X\_i)$ (**Weighted Conformal Prediction**) restores coverage, and Lihua Lei & Emmanuel Candès proved that under an estimated tilt weight $\hat{w}$, coverage degrades by at most the Total Variation distance $d\_{\mathrm{TV}}$ (`ExTRA-WCP-T` in Chapter 19):
+   The input demographics or weather distribution $Q(X)$ changes, while the physical conditional law $P(Y \mid X)$ stays invariant. Ryan Tibshirani et al. (2019) proved that weighting each calibration score $s\_i$ by the density ratio $w(X\_i) = \frac{dQ}{dP}(X\_i)$ (**Weighted Conformal Prediction**) restores coverage, and Lihua Lei & Emmanuel Candès proved that under an estimated tilt weight $\hat{w}$, coverage degrades by at most the Total Variation distance $d\_{\mathrm{TV}}$ (`ExTRA-WCP-T` in Chapter 21):
    $$P\_Q\!\left(Y\_{n+1} \in \hat{C}(X\_{n+1})\right) \ge 1 - \alpha - d\_{\mathrm{TV}}$$
 2. **Label Shift ($P(X, Y) = P(Y)P(X \mid Y)$ where $Q(Y) \ne P(Y)$ but $Q(X \mid Y) = P(X \mid Y)$):**
    In causal diagnostic problems ($Y \to X$, where disease $Y$ causes symptoms $X$), an epidemic can jump the base rate $Q(Y = 1)$ from $5\%$ to $40\%$ while the symptom profile given the disease $P(X \mid Y)$ stays identical.
    If we let $C\_{jk} = P(\hat{Y} = j \mid Y = k)$ be the source **confusion matrix** and $\mathbf{q}\_{\text{pred}} = Q(\hat{Y} = j)$ be the vector of predicted class frequencies observed in the new target environment, the Law of Total Probability gives the linear system:
    $$\mathbf{q}\_{\text{pred}} = C \, \boldsymbol{\pi}\_Q \implies \hat{\boldsymbol{\pi}}\_Q = C^{-1} \mathbf{q}\_{\text{pred}}$$
-   Solving this equation (via `BBSE`, `MLLS/SLD`, `DFM`, or `OTTER` Optimal Transport in Chapter 19) recovers the new target prevalence $\boldsymbol{\pi}\_Q$ **without needing a single new ground-truth label in production**.
+   Solving this equation (via `BBSE`, `MLLS/SLD`, `DFM`, or `OTTER` Optimal Transport in Chapter 21) recovers the new target prevalence $\boldsymbol{\pi}\_Q$ **without needing a single new ground-truth label in production**.
 
 ### Step-by-Step Proof of Jean Ville's (1939) Maximal Inequality and Model-Free `GREE` VaR/ES E-Backtesting
 
@@ -215,13 +215,13 @@ Why does a nonnegative test martingale $E\_t = \prod\_{i=1}^t L\_i$ ($E\_0 = 1$,
 2. **Model-Free `GREE` E-Backtesting for Value-at-Risk and Expected Shortfall (`VarEsEBacktest`):**
    Following Wang, Wang & Ziegel (2022/2025), we can audit any reported $(1-\alpha)$-$\mathrm{VaR}$ forecast $v\_t$ and Expected Shortfall forecast $s\_t > v\_t$ against realized losses $L\_t$ without distributional assumptions using the elementaryExpected Shortfall e-statistic:
    $$e\_t^{\mathrm{ES}}(L\_t; v\_t, s\_t) = \frac{(L\_t - v\_t)\_+}{\alpha(s\_t - v\_t)}$$
-   Under a truthful risk report ($\mathbb{E}[(L\_t - v\_t)\_+] \le \alpha(s\_t - v\_t)$), $\mathbb{E}[e\_t^{\mathrm{ES}}] \le 1$, so the betting martingale $M\_t = \prod\_{i=1}^t \bigl(1 - \lambda\_i + \lambda\_i e\_i^{\mathrm{ES}}\bigr)$ is a valid test supermartingale (`--defect var_underreport` in Gate `G7`).
+   Under a truthful risk report ($\mathbb{E}[(L\_t - v\_t)\_+] \le \alpha(s\_t - v\_t)$), $\mathbb{E}[e\_t^{\mathrm{ES}}] \le 1$, so the betting martingale $M\_t = \prod\_{i=1}^t \bigl(1 - \lambda\_i + \lambda\_i e\_i^{\mathrm{ES}}\bigr)$ is a valid test supermartingale (`--defect var_underreport` in Gate `G6`).
 
 ### Interactive Laboratory (`/lab`)
 
 Use the interactive Ville martingale vs. optional-stopping laboratory below to compare `aGRAPA`/`GRO` anytime-valid evidence $E\_t$ against the false-positive inflation of repeated $z$-test peeking:
 
-<div class="stoch-lab" data-lab="ville-savi-conformal" data-chapter="14-severe-testing-martingales-conformal" data-title="Chapter 14 Lab: Ville Martingale e-Process (E_t) vs. Optional-Stopping Peeking Inflation" data-cli="cargo run --release --bin gates -- --defect peeking"></div>
+<div class="stoch-lab" data-lab="ville-savi-conformal" data-chapter="08-severe-testing-martingales-conformal" data-title="Chapter 8 Lab: Ville Martingale e-Process (E_t) vs. Optional-Stopping Peeking Inflation" data-cli="cargo run --release --bin gates -- --defect peeking"></div>
 
 
 ---
@@ -248,3 +248,8 @@ cargo run --release --bin labs -- --governance
 2. **Ville's Inequality and *e-Processes*:** Suppose a sequential test produces likelihood ratios $L\_1 = 2.0, \; L\_2 = 1.8, \; L\_3 = 1.5, \; L\_4 = 4.0$. Compute the cumulative *e-process* trajectory $E\_1, E\_2, E\_3, E\_4$ ($E\_t = \prod\_{i=1}^t L\_i$). At which step $t$ does $E\_t$ cross the $\alpha = 0.05$ Ville threshold $1/\alpha = 20.0$?
 3. **Split Conformal Quantile by Hand:** Suppose a held-out calibration set of $n = 9$ observations produces sorted absolute residuals $s\_{(1..9)} = [0.2, 0.5, 0.8, 1.1, 1.4, 1.7, 2.1, 2.8, 4.5]$. For target coverage $1 - \alpha = 0.80$ ($\alpha = 0.20$), compute the index $k = \lceil (9 + 1)(0.80) \rceil = 8$, find $\hat{q} = s\_{(8)}$, and write the $80\%$ conformal prediction interval when $\hat{f}(x\_{10}) = 10.0$.
 
+## Summary
+
+- **Mayo's Severity Principle** and `PROHIBITION_4` require recording the specification counter $K \ge 1$ and penalizing evidence across all attempted models.
+- **Ville's Inequality and `aGRAPA`/`GRO` betting martingales** ($E\_t = \prod\_{i=1}^t (1 + \lambda\_i X\_i)$) provide anytime-valid inference and `SAVI` confidence sequences that remain valid under continuous operational monitoring (`--defect peeking`).
+- **Distribution-free conformal prediction** (`ExTRA-WCP-T` and online `ACI`) and **model-free `GREE` VaR/ES e-backtesting** (`VarEsEBacktest`) audit tail coverage and risk reports without parametric normality assumptions.

@@ -1,4 +1,4 @@
-# 12. Critical Theory of Stochastic Rationality and Algorithmic Governmentality
+# 18. Critical Theory of Stochastic Rationality and Algorithmic Governmentality
 
 ## The Procrustean Bell Curve, the One-Dimensional Parrot, and the 945-Terawatt-Hour Furnace
 
@@ -12,7 +12,7 @@ Across the twentieth and twenty-first centuries, the **Frankfurt School of Criti
 2. **The One-Dimensional Parrot (Marcuse, Rouvroy, and Autoregressive LLMs):** In *One-Dimensional Man* (1964), Herbert Marcuse warned that operationalism flattens human language: words lose their normative tension between *what is* (empirical fact) and *what ought to be* (rational concept) and become standardized behavioral triggers. Six decades later, **Large Language Models (LLMs)** realized Marcuse's diagnosis literally: instead of modeling the causal laws of the physical world ($L\_1$) or the formal rules of logic ($L\_2$), autoregressive models compute the conditional probability of the next token ($P(w\_t \mid w\_1, w\_2, \dots, w\_{t-1})$) from surface correlations across large corpora, while **Algorithmic Governmentality** (Rouvroy & Berns) preempts human behavior through correlation without asking for cause or meaning.
 3. **The Material and Thermodynamic Collapse of Brute-Force Statistics:** When instrumental stochastic reason closes upon itself inside binary digital silicon, it hits three physical walls simultaneously:
    - **Informational Autophagy ("AI Contaminating AI"):** Exhausting the finite global stock of public human text ($\sim 300\text{ trillion tokens}$ between **2026 and 2032**, per Epoch AI) and feeding models with synthetic outputs of other models collapses tail variance ($\sigma\_G^2 / \sigma\_0^2 \to 0$) into tautological regression toward the mean;
-   - **Binary Abstraction and the Thermodynamic Wall:** Compressing the continuous physical spectrum between $0$ and $1$ into binary logic gates forces data centers to burn $640\text{ pJ}$ per DRAM weight read versus $0.9\text{ pJ}$ per FP32 addition ($711\times$), driving individual GPUs to $700\text{ W}$ ($>1\text{,}100\text{ W}$ cooled) and global data centers toward **$945\text{ TWh}$ by 2030**;
+   - **Binary Abstraction and the Thermodynamic Wall:** In Horowitz's (2014) 45 nm CMOS energy table, one off-chip DRAM weight read costs $640\text{ pJ}$ versus $0.9\text{ pJ}$ per FP32 addition ($711\times$; literature constant, informative). Set side by side with it, and with no causal link computed here, are two further literature figures: individual data-center GPUs rated at $700\text{ W}$ ($>1\text{,}100\text{ W}$ cooled) and projections of global data-center demand near **$945\text{ TWh}$ by 2030**;
    - **The Return of Material Contingency ("The Analog Wall"):** When engineers move from binary determinism to Analog In-Memory Computing (AIMC) crossbars ($I\_j = \sum\_i V\_i G\_{ij}$ via Ohm's and Kirchhoff's laws), thermal and telegraph noise in physical matter triggers **Ferran Alia's (2026) threshold cliff**, dropping standard digitally trained accuracy from $\sim 98\%$ at $\sigma \le 0.10$ down to $83\%$ ($\sigma = 0.20$), $64\%$ ($\sigma = 0.40$), $39\%$ ($\sigma = 0.60$), and random guessing at $\sigma = 0.80$.
 
 In `crates/stochology-lenses/src/critical.rs`, the Stochology Protocol formalizes this synthesis into **four executable, quantitatively audited axes** (`seed = 2026`) plus a four-dataset empirical coupler (`EmpiricalCriticalRationalityAudit`), enforced in Lab 3 (`labs --lenses`), Lab 7 (`labs --real-data`), Gate `G8`, and the negative blocking proof `gates -- --defect instrumental_reason`.
@@ -43,14 +43,14 @@ In `crates/stochology-lenses/src/critical.rs`, the Stochology Protocol formalize
   <text x="600" y="206" fill="var(--emerald)" class="mono" font-size="11" font-weight="800">AXIS 4 · DIALECTICAL, NEUROSYMBOLIC &amp; WAVE OVERCOMING</text>
   <text x="600" y="232" fill="var(--ink)" font-size="15" font-weight="800">Logical Rules, Noise Coexistence &amp; Continuous Wave Physics</text>
   <text x="600" y="258" fill="var(--muted)" class="mono" font-size="11.5">Neurosymbolic Rules: 25% → 100% (σ²_G/σ²_0 = 0.95) · NAT 63.5% · A-ECC 97.5%</text>
-  <text x="600" y="280" fill="var(--muted)" class="mono" font-size="11.5">PKU 24-bit HP-INV (8.7×10⁻¹² @ 7W) · SIREN 40× · Tsinghua ACCEL 74.8 PetaOPS/W</text>
+  <text x="600" y="280" fill="var(--muted)" class="mono" font-size="11.5">PKU 24-bit HP-INV (sim. 8.7×10⁻¹²; lit. 7 W) · SIREN 40× · Tsinghua ACCEL 74.8 PetaOPS/W</text>
   </svg>
-  <figcaption><strong>Figure 12.1 — The Four-Axis Synthesis of Critical Theory of Stochastic Rationality &amp; Material Overcoming (`stochology_lenses::critical`)</strong></figcaption>
+  <figcaption><strong>Figure 18.1 — The Four-Axis Synthesis of Critical Theory of Stochastic Rationality &amp; Material Overcoming (`stochology_lenses::critical`)</strong></figcaption>
 </figure>
 
 ---
 
-## 12.1 Axis 1: Adorno & Horkheimer: The Mathematization of Thought, Liquidation of the "Non-Identical" (*Nichtidentische*), and Eternalization of the Present (`AdornoNonIdenticalReificationAudit`)
+## 18.1 Axis 1: Adorno & Horkheimer: The Mathematization of Thought, Liquidation of the "Non-Identical" (*Nichtidentische*), and Eternalization of the Present (`AdornoNonIdenticalReificationAudit`)
 
 ### Three Epistemological Mutations of Positivist Calculation
 
@@ -73,7 +73,7 @@ The audit runs both optimizers: Repeated Risk Minimization settles at $\theta\_{
 
 ---
 
-## 12.2 Axis 2: Herbert Marcuse's Operational Closure, Algorithmic Governmentality, and "Stochastic Parrots" (`MarcuseRouvroyStochasticParrotAudit`)
+## 18.2 Axis 2: Herbert Marcuse's Operational Closure, Algorithmic Governmentality, and "Stochastic Parrots" (`MarcuseRouvroyStochasticParrotAudit`)
 
 ### Operational Language Closure and Next-Token Autoregression
 
@@ -89,7 +89,7 @@ $$\frac{\mathrm{FPR}\_A}{\mathrm{FPR}\_B} = \frac{p\_A / (1 - p\_A)}{p\_B / (1 -
 
 ---
 
-## 12.3 Axis 3: The Material & Thermodynamic Collapse of Instrumental Stochastic Reason (`MaterialCollapseTriadAudit`)
+## 18.3 Axis 3: The Material & Thermodynamic Collapse of Instrumental Stochastic Reason (`MaterialCollapseTriadAudit`)
 
 When instrumental stochastic rationality scales brute-force statistical correlation on binary digital hardware, its epistemological contradictions materialize as **three physical and informational walls**:
 
@@ -122,7 +122,7 @@ When engineering moves from binary determinism to **Analog In-Memory Computing (
 
 ---
 
-## 12.4 Axis 4: Dialectical Overcoming: From Blind Statistical Approximation to Logical and Physical Consciousness (`DialecticalOvercomingSynthesisAudit`)
+## 18.4 Axis 4: Dialectical Overcoming: From Blind Statistical Approximation to Logical and Physical Consciousness (`DialecticalOvercomingSynthesisAudit`)
 
 To overcome both positivist tautology and the thermodynamic and noise walls, the solutions synthesized by Gibram Raul and recent hardware designs converge on **three reconciliations**:
 
@@ -130,7 +130,7 @@ To overcome both positivist tautology and the thermodynamic and noise walls, the
 2. **In Training and Silicon (Coexistence with Physical Noise via `NAT`, `A-ECC`, and Peking University's 24-Bit `HP-INV`):**
    - **Noise-Aware Training (`NAT`):** Injecting expected hardware noise $\tilde{G}\_{ij} = G\_{ij} + \xi\_{ij}$ during digital training preserves **$63.5\%$ accuracy** at $\sigma = 0.60$ (versus $35.0\%\text{–}39.0\%$ for standard training). The crossbar model in `crate::analog` represents `NAT` as an assumed reduction of effective conductance noise, not as a trained network, so this figure is informative;
    - **Analog Error-Correcting Codes (`A-ECC`):** On the same simulated drifted readouts, a calibration column that compensates the power-law drift raises accuracy from **$39\%$** (raw drift) to **$100\%$**;
-   - **Bit-Sliced Iterative Refinement (`HP-INV`, Sun Zhong et al., Peking University, *Nature Electronics* Oct 2025):** Combines a closed-loop $40\text{ nm}$ CMOS $\mathrm{TaO}\_x$ 3-bit RRAM Low-Precision Inversion circuit (`LP-INV`, $\sim 120\text{ ns}$) with bit-sliced 24-bit High-Precision Matrix-Vector Multiplication (`HP-MVM`, $\sim 60\text{ ns}$) to reach **24-bit fixed-point / FP32 precision** (relative residual error **$8.70 \times 10^{-12} < 10^{-7}$** in $7 \le 10$ iterations, against $5.3 \times 10^{-2}$ for one-shot inversion) at **$7\text{ W}$** (a reported $100\times$ lower system power than a $700\text{ W}$ Nvidia H100 and a reported $1\text{,}000\times$ speedup; literature figures, informative, not computed here).
+   - **Bit-Sliced Iterative Refinement (`HP-INV`, Zuo, Sun et al., Peking University, *Nature Electronics* Oct 2025; see Chapter 28, Section VI):** Combines a closed-loop $40\text{ nm}$ CMOS $\mathrm{TaO}\_x$ 3-bit RRAM Low-Precision Inversion circuit (`LP-INV`, $\sim 120\text{ ns}$) with bit-sliced 24-bit High-Precision Matrix-Vector Multiplication (`HP-MVM`, $\sim 60\text{ ns}$) to reach **24-bit fixed-point / FP32 precision** (relative residual error **$8.70 \times 10^{-12} < 10^{-7}$** in $7 \le 10$ iterations, against $5.3 \times 10^{-2}$ for one-shot inversion) at **$7\text{ W}$** (a reported $100\times$ lower system power than a $700\text{ W}$ Nvidia H100 and a reported $1\text{,}000\times$ speedup; literature figures, informative, not computed here).
 3. **In Representation (Continuous Physics and Wave-Interference Learning):**
    - **Gibram Raul's Phase-and-Amplitude Wave Encoding & `SIREN` (Sitzmann et al., NeurIPS 2020):** Instead of discretizing space pixel by pixel, `SIREN` ($\phi\_i(\mathbf{x}) = \sin(\omega\_0 \mathbf{W}\_i \mathbf{x} + \mathbf{b}\_i)$, where weights are angular frequencies and biases are phase offsets) compresses a 480-pixel field by **$40\times$** ($14\times$ on real `vic_elec.csv` with $R^2 = 0.88$) and solves the 2nd-order Helmholtz wave PDE with Laplacian $\mathrm{MSE} = 1.3 \times 10^{-27}$ (versus $2\text{,}580.3$ for piecewise-linear ReLU where $\mathrm{ReLU}''(x) = 0$ a.e.), alongside exact RLC $\leftrightarrow$ Mass-Spring ODE isomorphism ($< 10^{-14}$), **Stanford's Wave-Physics Analog RNN** ($99.9\%$ interference routing selectivity), and **Tsinghua University's `ACCEL` diffractive photonic processor** (**$74.8\text{ PetaOPS/W} = 74\text{,}800\text{ TOPS/W}$** at $72\text{ ns}$ frame latency).
 
@@ -143,7 +143,7 @@ flowchart LR
     end
     subgraph OVER["DIALECTICAL OVERCOMING (Axis 4 · Gate G8)"]
         O1["Software: Neurosymbolic Logic\n+ AuthenticModelForm δ(x) + S*\n100% Rule Satisfaction"]
-        O2["Silicon: NAT + A-ECC +\nPKU 24-Bit HP-INV RRAM\n8.70×10⁻¹² Rel. Error at 7W"]
+        O2["Silicon: NAT + A-ECC +\nPKU 24-Bit HP-INV RRAM\n8.70×10⁻¹² Rel. Error (sim.)\n7 W (literature)"]
         O3["Physics: SIREN & Wave RNN\n+ Photonic ACCEL\n74,800 TOPS/W"]
     end
     A1 --> O1
@@ -156,7 +156,7 @@ flowchart LR
 
 Explore informational autophagy (`Replace` vs. `Accumulate`) and analog noise compensation in the interactive laboratory below:
 
-<div class="stoch-lab" data-lab="analog-hpinv-collapse" data-chapter="12-critical-stochastic-rationality" data-title="Chapter 12 Lab: Informational Autophagy vs. Neurosymbolic/HP-INV Overcoming" data-cli="cargo run --release --bin gates -- --defect instrumental_reason"></div>
+<div class="stoch-lab" data-lab="analog-hpinv-collapse" data-chapter="18-critical-stochastic-rationality" data-title="Chapter 18 Lab: Informational Autophagy vs. Neurosymbolic/HP-INV Overcoming" data-cli="cargo run --release --bin gates -- --defect instrumental_reason"></div>
 
 
 ---
@@ -195,3 +195,8 @@ NEGATIVE PROOF [instrumental_reason] BLOCKED SUCCESSFULLY on all 20 development 
 3. **Rouvroy's Algorithmic Preemption and Chouldechova's Identity (`toronto_arrests.csv`):** Derive why equalizing Positive Predictive Value ($\mathrm{PPV} = 0.65$) and False-Negative Rate ($\mathrm{FNR} = 0.25$) across two groups with historical base rates $p\_A \neq p\_B$ forces $\mathrm{FPR}\_A / \mathrm{FPR}\_B = 5.13\times$ on `toronto_arrests.csv`. Why does treating this ratio as a neutral statistical forecast reify the historical present?
 4. **From Material Collapse to Neurosymbolic & Wave Overcoming:** Trace how the three material bottlenecks in `MaterialCollapseTriadAudit` (300T token exhaustion, $711\times$ DRAM energy wall, and Ferran Alia's $\sigma > 0.10$ noise cliff) are resolved jointly by Gibram Raul's neurosymbolic constraints, `NAT` + Peking University's 24-bit `HP-INV`, and `SIREN` / Stanford Wave-RNN phase-amplitude wave computing.
 
+## Summary
+
+- **Adorno & Horkheimer's critique of the liquidation of the *Non-Identical*** ($\Delta\_{\text{Nichtidentische}}$) maps directly onto `PROHIBITION_2` and `KennedyOHaganDiscrepancy`: truncating heavy-tailed observations as "Gaussian outliers" erases $69.3\%$ of empirical $\mathrm{ES}\_{0.99}$ on `danish_fire.csv`.
+- **Marcuse's operational closure** and **Rouvroy & Berns's algorithmic governmentality** explain why ungrounded autoregressive predictors ("Stochastic Parrots") fail under causal intervention (`run_nonlinear_icp_nile`) and why uncalibrated historical base rates perpetuate demographic disparities (`ChouldechovaAudit`).
+- **Dialectical overcoming** in `CriticalStochasticRationalitySynthesis` couples neurosymbolic logical constraints, `GerstgrasserAccumulateAudit` data accumulation, noise-aware 24-bit `HP-INV`, and `SIREN` wave physics (`--defect instrumental_reason`).

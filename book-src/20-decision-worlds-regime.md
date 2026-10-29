@@ -1,5 +1,4 @@
-# 16. The Five Boundary Invariants ($\Phi\_1$ to $\Phi\_5$)
-
+# 20. The Regime of the Decision
 
 ## Five Hundred Fish in Two Tanks, and One Hundred Coin Tossers
 
@@ -54,7 +53,7 @@ To prevent these errors from ever entering production, the Stochology Protocol e
   <text x="1021" y="138" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11">No R₀ annual/monthly</text>
   <text x="1021" y="162" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11">for shift/daily acts</text>
   </svg>
-  <figcaption><strong>Figure 16.1 — The Five Boundary Invariants (Φ = Φ₁ · Φ₂ · Φ₃ · Φ₄ · Φ₅)</strong></figcaption>
+  <figcaption><strong>Figure 20.1 — The Five Boundary Invariants (Φ = Φ₁ · Φ₂ · Φ₃ · Φ₄ · Φ₅)</strong></figcaption>
 </figure>
 
 ---
@@ -71,17 +70,7 @@ To prevent these errors from ever entering production, the Stochology Protocol e
 
 ---
 
-## 16.1 Invariant $\Phi\_1$ — Simulability and the Generative Null Model
-
-Every Epistemological Card declares both `seed_and_environment` (`seed = 2026`, `SplitMix64`) and an executable `null_model` *before* fitting parameters for three reasons:
-
-1. **Defeating Denominator Illusions:** As the Miller-Sanjurjo hot-hand discovery proved, intuitive mental guesses about "what pure chance looks like" under complex stopping rules, sliding windows, or cluster structures are frequently biased. Writing an executable null generator in code and running it with `seed = 2026` reveals the true distribution of the test statistic when the claim is false.
-2. **Synthetic Injection Recovery:** Before trusting an estimator on messy real data where the truth is unknown, $\Phi\_1$ requires knowing that the estimator can recover a known parameter $\theta\_{\text{true}}$ injected into simulated data (formalized via Simulation-Based Calibration in Chapters 14 and 18).
-3. **Lock-Free Splittable Streams for Parallel Fork-Join Monte Carlo (`SplitMix64::split` & `MonteCarloSplitTreeAudit`):** When a simulation branches across parallel Monte Carlo trees or isolated subagents, sharing a mutable RNG state introduces lock contention and execution-order race conditions, while naive seed offsets (`seed + i`) risk inter-stream correlation. Following **Guy Steele, Doug Lea, and Christine Flood (OOPSLA 2014)** and **Guy Steele & Sebastiano Vigna (OOPSLA 2021, LXM)**, `SplitMix64::split(stream_id)` and `split_fork_join_pair(branch_tag)` derive deterministic, lock-free child streams by hashing the parent state mixed with `stream_id` via Stafford's `Mix13` avalanche finalizer and assigning a distinct odd Weyl additive constant $\gamma = \mathrm{mix64}(\text{stream\_id} \oplus \text{GOLDEN\_GAMMA}) \mid 1$. Audited in `MonteCarloSplitTreeAudit::evaluate_canonical(2026)`, 16 parallel fork-join streams of $1\text{,}024$ draws each exhibit zero state collisions, maximum pairwise correlation $< 0.12$, and bit-for-bit order-independent reproducibility (`all_checks_passed = true`).
-
----
-
-## 16.2 Invariant $\Phi\_2$ — The Independent Unit, Moulton-Campbell Correction, and Tail Exceedance
+## 20.1 Invariant $\Phi\_2$ — The Independent Unit, Moulton-Campbell Correction, and Tail Exceedance
 
 ### Step-by-Step Derivation: From Intraclass Correlation to Tail Exceedance $n\_{\mathrm{eff}}(p)$
 
@@ -114,41 +103,20 @@ Inside cluster $j$, any two observations share a common cluster shock, inducing 
 ### The Operational Weighting Gap (The Inspection Paradox)
 
 Invariant $\Phi\_2$ also audits a cousin of cluster correlation (`OperationalWeightingGap`): **who are you averaging over: the calendar day or the arriving customer?**
-Recall the emergency clinic from Chapter 2: on calm days, $5$ patients/hour arrive and wait $3.6\text{ min}$; on surge days, $11$ patients/hour arrive and wait $55\text{ min}$.
+Recall the hypothetical municipal health clinic from Chapter 1 (invented figures): on calm days, $5$ patients/hour arrive and wait $3.6\text{ min}$; on surge days, $11$ patients/hour arrive and wait $55\text{ min}$.
 - Averaged **by day**, calm and surge days weigh $50\%$ each.
 - Averaged **by patient**, $\frac{11}{5 + 11} = 68.75\%$ of all human beings arrive on the surge day.
 This is the **Inspection Paradox** (length-biased sampling): sampling by arriving user always weights high-volume clusters by $m\_j / \bar{m}$, opening a positive gap whenever cluster outcome $Y\_j$ correlates with cluster volume $m\_j$.
 
----
+### Filter 2 — Cluster Independence ($\Phi\_2$) and Causal Hygiene
 
-## 16.3 Invariant $\Phi\_3$ — Severe Testing, Error Taxonomy, Missingness, and Pre-Registration
-
-### Deborah Mayo's Severity Principle and the Five Types of Statistical Error
-
-Philosopher of statistics **Deborah Mayo** formulated the core criterion that distinguishes a genuine empirical test from a hollow confirmation ritual:
-
-> **The Severity Principle:** Data $x\_0$ provide genuine evidence for a claim $H$ *only if* $H$ passes a test $T$ that had a very high probability of refuting $H$ if $H$ were false.
-
-If a bridge inspector tests whether a steel cable can support a $40$-ton truck by placing a $2$-kilogram brick on it and announcing *"The cable did not snap! Hypothesis confirmed!"*, the cable passed a test of **zero severity**.
-
-To audit severity across operational dimensions, Stochology expands the textbook Neyman-Pearson error table (`Type I` and `Type II`) to **five distinct statistical failure modes**:
-
-| Error Type | Classic Author | What Goes Wrong | Protocol Defense |
-| --- | --- | --- | --- |
-| **Type I ($\alpha$)** | Neyman & Pearson | **False Positive:** Claiming an effect exists when the null hypothesis ($H\_0$) is actually true. | Executable Null Model ($\Phi\_1$), Attempt Counter $K$, and anytime-valid *e-process* $E\_t / K \ge 1/\alpha$. |
-| **Type II ($\beta$)** | Neyman & Pearson | **False Negative:** Failing to detect a real effect because the sample size or test power is too small. | Moulton-Campbell $n\_{\mathrm{eff}}(p) \ge n\_{\min}$ (Filter 2) and cost-loss threshold $p^{\ast} = \frac{C}{\eta L}$. |
-| **Type III** | Kimball (1957), Mosteller | **Wrong Question:** Giving the right mathematical answer to the wrong operational question or wrong ontological layer. | Decision-Maker Question header (`who_decides`, `altered_action`) and $\Phi\_5$ resolution check. |
-| **Type S (Sign)** | Gelman & Carlin (2014) | **Wrong Direction:** Claiming with "statistical significance" that an intervention helps when it actually harms. | Anchored Kennedy-O'Hagan GP ($\delta(x)$), Manski bounds, and multi-environment ICP ($\hat{S}^{\ast}$). |
-| **Type M (Magnitude)** | Gelman & Carlin (2014) | **Exaggeration Ratio (Winner's Curse):** Conditioning on crossing a noisy significance threshold inflates the estimated effect size by $2\times$ to $10\times$. | Out-of-sample CORP-Murphy PAV decomposition and Single-Opening Temporal Vault (`TemporalVault`). |
-
-To seal $\Phi\_3$ cryptographically, every Epistemological Card must carry:
-1. An explicit Rubin missingness classification (`MCAR`, `MAR`, or `MNAR`) paired with Meng's Identity and Manski bounds;
-2. A declared rung on Pearl's Causal Ladder (`1-See`, `2-Act`, or `3-Imagine`) alongside its `identification_strategy` and explicit `untestable_assumption` (remembering Nancy Cartwright's dictum: *"No causes in, no causes out"*);
-3. A **64-character lowercase hexadecimal SHA-256 pre-registration digest** (`preregistration_hash`, verified in pure Rust by `stochology_core::sha256` under FIPS 180-4) sealing the pre-analysis design payload before the test vault is opened.
+Filter 2 audits Bridge $L\_1 \to L\_2$ and Lens 4:
+1. Using the Moulton-Campbell unequal-cluster formula $\tilde{m} = \bar{m}(1 + \mathrm{CV}^2)$ and the tail-exceedance intraclass correlation $\rho\_I(p)$, is the effective sample size large enough to support inference ($n\_{\mathrm{eff}}(p) = \frac{n}{1 + (\tilde{m}-1)\rho\_I(p)} \ge n\_{\min}$)? This blocks the ***Homo clausus* pseudoreplication fallacy** (`ExceedanceDesignEffect::benchmark_pseudoreplication_500_to_86` in `crates/stochology-core/src/invariants.rs`, Chapter 22), where $n = 500$ grouped observations with $\tilde{m} = 25.0$ and tail $\rho\_I(0.90) = 0.2005$ suffer a design effect of **$\mathrm{DEFF} = 5.81\times$**, collapsing the true independent sample size to only **$n\_{\mathrm{eff}}(0.90) = 86.0$ degrees of freedom**.
+2. Has the analyst mapped the **Markov Blanket** of the target variable (its direct causal parents, direct causal children, and co-parents), and verified that **zero conditioning occurs on a Berkson collider** (`conditioned_on_collider == false`)?
 
 ---
 
-## 16.4 Invariant $\Phi\_4$ — Scope, Algorithmic Fairness (Chouldechova's Trilemma), and the Exit Clause
+## 20.2 Invariant $\Phi\_4$ — Scope, Algorithmic Fairness (Chouldechova's Trilemma), and the Exit Clause
 
 ### Step-by-Step Derivation of Alexandra Chouldechova's (2017) Impossibility Identity
 
@@ -186,7 +154,7 @@ Because no algorithm can repeal Bayes' theorem, Invariant $\Phi\_4$ requires eve
 
 ---
 
-## 16.5 Invariant $\Phi\_5$ — Question Resolution Alignment
+## 20.3 Invariant $\Phi\_5$ — Question Resolution Alignment
 
 Finally, **Invariant $\Phi\_5$ (`verify_resolution_phi5`)** guards the temporal and spatial scale of the data against the scale of the action.
 
@@ -243,8 +211,103 @@ Any attempt to answer a shift, hourly, or daily operational question with coarse
     <text x="822" y="182" fill="var(--amber)" class="mono" font-size="11" font-weight="800">Locked Ratio = 5.13× | KMR ΔVar = 0.0960</text>
     <text x="845" y="268" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">Equalizing PPV = 0.65 &amp; FNR = 0.25 locks FPR_A / FPR_B to base-rate odds</text>
   </svg>
-  <figcaption><strong>Figure 16.2 — Quantitative Audit of Invariants Φ₂ (Moulton-Campbell Tail Design Effect) and Φ₄ (Chouldechova &amp; KMR Impossibility Frontier)</strong></figcaption>
+  <figcaption><strong>Figure 20.2 — Quantitative Audit of Invariants Φ₂ (Moulton-Campbell Tail Design Effect) and Φ₄ (Chouldechova &amp; KMR Impossibility Frontier)</strong></figcaption>
 </figure>
+
+---
+
+## 20.4 Knightian Uncertainty: Info-Gap Decision Theory and Sniedovich's Safeguard
+
+### Foundations: Decision Criteria When Probabilities Cannot Be Trusted
+
+What should an agent ($L\_3$) do when operating in the right-hand column of the Stirling Matrix, where probability distributions over future states of the world $u \in \mathcal{U}$ do not exist or cannot be trusted?
+
+Classical decision theory offers four rules, illustrated by **David van Dantzig (1956)** after the 1953 North Sea flood prompted the Netherlands to redesign the height of its coastal dikes:
+
+| Classical Criterion | Mathematical Rule (Reward $R(q, u)$) | Epistemological Posture |
+| --- | --- | --- |
+| **1. Abraham Wald (Maximin)** | $\max\_q \min\_{u \in \mathcal{U}} R(q, u)$ | **Maximum Pessimism:** Judge each decision $q$ by its absolute worst possible outcome across the entire universe of states $\mathcal{U}$. |
+| **2. Leonard Savage (Minimax Regret)** | $\min\_q \max\_{u \in \mathcal{U}} \bigl[\max\_{q'} R(q', u) - R(q, u)\bigr]$ | **Regret Avoidance:** Minimize the worst possible hindsight difference between what you did and what you *wish* you had done had you known $u$. |
+| **3. Pierre-Simon Laplace (Insufficient Reason)** | $\max\_q \frac{1}{|\mathcal{U}|}\sum\_{u \in \mathcal{U}} R(q, u)$ | **Uniform Ignorance:** Treat all listed states as equally probable. |
+| **4. Leonid Hurwicz ($\lambda$-Optimism)** | $\max\_q \bigl[\lambda \max\_u R(q, u) + (1-\lambda)\min\_u R(q, u)\bigr]$ | **Declared Compromise:** Weight the best and worst cases by a declared optimism index $\lambda \in [0, 1]$. |
+
+### Yakov Ben-Haim's Info-Gap Decision Theory
+
+In engineering design and operational resilience, **Yakov Ben-Haim** proposed **Info-Gap Decision Theory** as a way to navigate severe uncertainty when you have a nominal (best-guess) model $\tilde{u}$ that you know may be wrong, and a critical survival requirement $r\_c$ (the minimum reward $R(q, u) \ge r\_c$ the system needs to avoid disaster).
+
+Instead of fixing a single uncertainty set, Info-Gap surrounds the nominal model $\tilde{u}$ with a nested family of uncertainty balls $\mathcal{U}(\alpha, \tilde{u})$ indexed by an **uncertainty horizon $\alpha \ge 0$**:
+
+$$\mathcal{U}(\alpha, \tilde{u}) = \bigl\lbrace   u : \lVert u - \tilde{u} \rVert \le \alpha  \bigr \rbrace$$
+
+When $\alpha = 0$, the ball contains only the nominal guess $\tilde{u}$. As $\alpha$ grows, the ball expands to allow larger and larger departures from $\tilde{u}$. Info-Gap then defines two horizons for each candidate decision $q$:
+
+1. **The Robustness Horizon ($\hat{\alpha}(q, r\_c)$, Immunity to Failure):**
+   $$\hat{\alpha}(q, r\_c) = \max\left\lbrace  \alpha \ge 0 : \min\_{u \in \mathcal{U}(\alpha, \tilde{u})} R(q, u) \ge r\_c  \right\rbrace$$
+   In plain words: *How wrong can our nominal model $\tilde{u}$ be (how large can $\alpha$ get) before decision $q$ risks violating the survival threshold $r\_c$?* A larger $\hat{\alpha}$ means more robustness.
+
+2. **The Opportuneness Horizon ($\hat{\beta}(q, r\_w)$, Propensity for Windfall):**
+   $$\hat{\beta}(q, r\_w) = \min\left\lbrace  \alpha \ge 0 : \max\_{u \in \mathcal{U}(\alpha, \tilde{u})} R(q, u) \ge r\_w  \right\rbrace$$
+   In plain words: *What is the smallest departure $\alpha$ from the nominal model needed to make an ambitious windfall reward $r\_w > r\_c$ possible?* A smaller $\hat{\beta}$ means windfall requires less luck.
+
+A central theorem of Info-Gap is the **Zero-ing Property**: if you demand a critical reward $r\_c$ equal to what the nominal model predicts ($r\_c = R(q, \tilde{u})$), your robustness horizon is identically zero ($\hat{\alpha}(q, R(q, \tilde{u})) = 0$). **Optimizing for the nominal model buys zero robustness against model error.** To gain positive robustness ($\hat{\alpha} > 0$), you must step back from nominal optimality and *satisfice*.
+
+### Moshe Sniedovich's Critique ("No-Man's Land") and the Global Wald Safeguard
+
+In a series of mathematical papers (2007–2012), operations researcher **Moshe Sniedovich** identified a structural flaw in unguarded Info-Gap analysis. Because $\hat{\alpha}(q, r\_c)$ expands outward from a single local point $\tilde{u}$ and stops looking the instant a curve crosses $r\_c$, **Info-Gap is blind to what happens at $\alpha > \hat{\alpha}(q, r\_c)$**, a region Sniedovich called **"No-Man's Land."**
+
+Raw Info-Gap can easily recommend a fragile option:
+- Suppose **Option A (Fragile Turkey)** performs well near the nominal guess $\tilde{u}$ and stays above $r\_c = 100$ up to $\hat{\alpha}\_A = 1.60$, but at $\alpha = 2.0$ its performance plunges off a cliff to $-450$ (total systemic ruin).
+- Suppose **Option B (Robust Engineering)** has a slightly smaller local crossing or a modest trade-off near $\tilde{u}$, or stays above $r\_c$ up to $\hat{\alpha}\_B = 3.50$, and even under the worst conceivable state in the entire physical universe $\mathcal{U}\_{\text{global}}$, its reward never drops below $+45.0$.
+
+If $\tilde{u}$ is severely misspecified (the definition of Knightian uncertainty), reality may easily lie outside $\mathcal{U}(\hat{\alpha}, \tilde{u})$. An algorithm that checks only local robustness around a wrong guess $\tilde{u}$ is performing a **local maximin** around a fiction while ignoring global catastrophe.
+
+To prevent this failure, `InfoGapOption` (`crates/stochology-core/src/uncertainty.rs`) enforces **Sniedovich's Global Maximin Safeguard**:
+
+<figure class="stoch-figure">
+  <svg xmlns="http://www.w3.org/2000/svg" width="1100" height="400" viewBox="0 0 1100 400" fill="none" role="img" aria-labelledby="title-fig-02-infogap">
+  <title id="title-fig-02-infogap">Info-Gap Robustness Horizon versus Sniedovich's No-Man's Land and the Global Wald Maximin Safeguard</title>
+  <defs>
+  <marker id="axis-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+  <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--muted)"/>
+  </marker>
+  <style>text { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; } .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; }</style>
+  </defs>
+  <rect x="1" y="1" width="1098" height="398" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
+  <rect x="410" y="28" width="650" height="300" rx="10" fill="var(--rose-bg)" opacity="0.58"/>
+  <text x="735" y="56" text-anchor="middle" fill="var(--rose)" class="mono" font-size="12.5" font-weight="800" letter-spacing="0.04em">SNIEDOVICH'S "NO-MAN'S LAND" (α &gt; α̂_A = 1.60)</text>
+  <text x="735" y="78" text-anchor="middle" fill="var(--muted)" font-size="11.5">Uninspected by local Info-Gap; policed by Global Wald Maximin Floor</text>
+  <line x1="110" y1="336" x2="110" y2="20" stroke="var(--muted)" stroke-width="2" marker-end="url(#axis-arrow)"/>
+  <line x1="110" y1="236" x2="1068" y2="236" stroke="var(--muted)" stroke-width="2" marker-end="url(#axis-arrow)"/>
+  <text x="98" y="34" text-anchor="end" fill="var(--ink)" font-size="12.5" font-weight="700">Reward R(q, u)</text>
+  <text x="735" y="378" text-anchor="middle" fill="var(--ink)" font-size="12.5" font-weight="700">Uncertainty Horizon α →</text>
+  <line x1="110" y1="156" x2="1060" y2="156" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6 4"/>
+  <text x="98" y="160" text-anchor="end" fill="var(--sky)" class="mono" font-size="11.5" font-weight="700">r_c = 100</text>
+  <line x1="110" y1="196" x2="1060" y2="196" stroke="var(--emerald)" stroke-width="1.8" stroke-dasharray="3 3"/>
+  <text x="98" y="200" text-anchor="end" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="700">Wald +45</text>
+  <text x="98" y="240" text-anchor="end" fill="var(--muted)" class="mono" font-size="11.5" font-weight="600">0</text>
+  <text x="98" y="320" text-anchor="end" fill="var(--rose)" class="mono" font-size="11.5" font-weight="700">-450</text>
+  <line x1="410" y1="156" x2="410" y2="336" stroke="var(--rose)" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="410" y="356" text-anchor="middle" fill="var(--rose)" class="mono" font-size="11.5" font-weight="700">α̂_A = 1.60</text>
+  <line x1="745" y1="156" x2="745" y2="236" stroke="var(--emerald)" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="745" y="258" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="700">α̂_B = 3.50</text>
+  <path d="M 110 100 C 310 110, 550 136, 745 156 C 845 167, 945 182, 1040 188" fill="none" stroke="var(--emerald)" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="745" cy="156" r="5.5" fill="var(--surface)" stroke="var(--emerald)" stroke-width="3"/>
+  <text x="735" y="122" text-anchor="middle" fill="var(--emerald)" font-size="12.5" font-weight="800">Option B — Robust Satisficing (Global Min ≥ +45.0 · APPROVED)</text>
+  <path d="M 110 56 C 235 70, 338 112, 410 156 C 465 194, 520 308, 600 316 L 1030 316" fill="none" stroke="var(--rose)" stroke-width="3.2" stroke-dasharray="8 5" stroke-linecap="round"/>
+  <circle cx="410" cy="156" r="5.5" fill="var(--surface)" stroke="var(--rose)" stroke-width="3"/>
+  <text x="128" y="50" fill="var(--rose)" font-size="12.5" font-weight="800">Option A — Fragile Nominal Turkey</text>
+  <text x="745" y="298" text-anchor="middle" fill="var(--rose)" font-size="12.5" font-weight="800">Catastrophic Collapse to -450 (BLOCKED by Gate G6!)</text>
+</svg>
+  <figcaption><strong>Figure 20.3 — Info-Gap Robustness Curve vs. Sniedovich's No-Man's Land and the Global Wald Safeguard</strong></figcaption>
+</figure>
+
+Every decision under Knightian uncertainty must pass **three simultaneous checks**:
+1. **Zero-ing Audit:** $\hat{\alpha}(q, R(q, \tilde{u})) = 0$ is verified algebraically;
+2. **Positive Local Robustness:** $\hat{\alpha}(q, r\_c) > 0$ at the declared critical threshold $r\_c$;
+3. **Global Wald Maximin Safeguard:** Across the entire physically admissible state space $\mathcal{U}\_{\text{global}}$ (including all states outside $\mathcal{U}(\hat{\alpha}, \tilde{u})$), the global worst-case payoff must stay above the catastrophic ruin floor:
+   $$\min\_{u \in \mathcal{U}\_{\text{global}}} R(q, u) \ge r\_{\text{Wald, min}}$$
+
+Any option that violates the global Wald floor in No-Man's Land is automatically rejected (`Gate G6` and `--defect sniedovich`).
 
 ---
 
@@ -257,6 +320,10 @@ Experiment interactively with the Moulton-Campbell unequal-cluster design effect
      data-title="Invariants Φ₂ &amp; Φ₄: Moulton-Campbell n_eff(p) &amp; Chouldechova Trilemma"
      data-subtitle="Vary cluster CV, tail ICC ρ_I(p), and group base rates (p_A, p_B) to inspect DEFF(p) and FPR_A / FPR_B">
 </div>
+
+Adjust the critical survival requirement $r\_c$, the tail drop in Sniedovich's "No-Man's Land," and the Kennedy-O'Hagan GP boundary anchor weight in the interactive laboratory below:
+
+<div class="stoch-lab" data-lab="koh-infogap-wald" data-chapter="20-decision-worlds-regime" data-title="Chapter 20 Lab: Kennedy-O'Hagan GP Discrepancy &amp; Info-Gap + Sniedovich Wald Floor" data-cli="cargo run --release --bin labs -- --uncertainty"></div>
 
 ---
 
@@ -275,6 +342,19 @@ cargo run --release --bin labs -- --invariants
   [Phi4: Chouldechova on toronto_arrests.csv] p_A=0.3926 vs p_B=0.1119 -> equalizing PPV=0.65 & FNR=0.25 forces FPR_A=0.2610 vs FPR_B=0.0509 (ratio=5.13x, KMR_var_gap=0.0960)
 ~~~
 
+~~~bash
+cargo run --release --bin labs -- --uncertainty
+~~~
+
+Next, inspect the Info-Gap + Sniedovich output line of Laboratory 2 (whose companion Kennedy-O'Hagan GP line was audited in [Chapter 11](11-world-models-discrepancy-authentic-form.md)):
+
+~~~text
+=== LAB 2: KENNEDY-O'HAGAN GP DISCREPANCY AND INFO-GAP + SNIEDOVICH ===
+  [Info-Gap + Sniedovich] fragile_nominal_turkey: alpha_hat=1.60, zero_ing=0.0, Wald=-450.0, approved=false | robust_satisficing_wald: alpha_hat=3.50, beta_hat=2.13, Wald=45.0, approved=true
+~~~
+
+2. **In `[Info-Gap + Sniedovich]`**, the `fragile_nominal_turkey` option boasts a positive local robustness horizon $\hat{\alpha} = 1.60$, yet collapses to $\text{Wald} = -450.0$ in No-Man's Land and is blocked (`approved = false`). The `robust_satisficing_wald` option achieves $\hat{\alpha} = 3.50$, opportuneness $\hat{\beta} = 2.13$, and a positive global Wald floor of $+45.0$, earning approval (`approved = true`).
+
 Three negative defect proofs test these invariants directly:
 - `cargo run --release --bin gates -- --defect phi5` injects a monthly aggregate dataset against a daily/shift decision and verifies that Gate `G5` halts with exit code `1`.
 - `cargo run --release --bin gates -- --defect moulton` injects a pseudoreplicated card that ignores cluster inflation and verifies that Gate `G2` halts with exit code `1`.
@@ -286,8 +366,8 @@ Three negative defect proofs test these invariants directly:
    - *(a)* Compute the Moulton-Campbell effective cluster size $\tilde{m} = \bar{m}(1 + \mathrm{CV}^2)$.
    - *(b)* If the threshold exceedance ICC at $p = 0.90$ is $\rho\_I(0.90) = 0.10$, compute the Kish design effect (using $\bar{m}$), the Moulton-Campbell design effect (using $\tilde{m}$), and the true effective sample size $n\_{\mathrm{eff}}(0.90)$.
 2. **(Calculation — Chouldechova's Trilemma $\Phi\_4$)** In a medical triage algorithm, Group A has disease prevalence $p\_A = 0.25$ and Group B has prevalence $p\_B = 0.05$. If the triage score is calibrated so that $\mathrm{PPV}\_A = \mathrm{PPV}\_B = 0.50$ and $\mathrm{FNR}\_A = \mathrm{FNR}\_B = 0.20$, compute $\mathrm{FPR}\_A$, $\mathrm{FPR}\_B$, and the ratio $\mathrm{FPR}\_A / \mathrm{FPR}\_B$.
-3. **(Concept — Severity and Error Types $\Phi\_3$)** An analyst runs a noisy pilot study ($n = 20$) and finds that a new teaching method raises test scores by $+35\%$ ($p = 0.048$). When the ministry of education rolls the method out to $50\text{,}000$ students, the true effect turns out to be $+2\%$. Which of the five error types (`Type I`, `Type II`, `Type III`, `Type S`, `Type M`) did the pilot study commit, and why did conditioning on $p < 0.05$ in a small noisy sample guarantee it?
-4. **(Concept — Question Resolution $\Phi\_5$)** Why can an electric utility whose annual generation exceeds annual demand by $+25\%$ still suffer rolling blackouts on a hot August afternoon? Which invariant blocks using annual totals to plan peaking turbine capacity?
+3. **(Concept — Question Resolution $\Phi\_5$)** Why can an electric utility whose annual generation exceeds annual demand by $+25\%$ still suffer rolling blackouts on a hot August afternoon? Which invariant blocks using annual totals to plan peaking turbine capacity?
+4. **(Laboratory — Sniedovich Negative Proof)** Run `cargo run --release --bin gates -- --defect sniedovich` and verify that deploying an option that violates the global Wald floor in No-Man's Land is blocked with exit code `1`.
 
 <details>
 <summary><strong>Analytical &amp; Computational Solutions (Click to Expand)</strong></summary>
@@ -301,17 +381,15 @@ Three negative defect proofs test these invariants directly:
    - $\mathrm{FPR}\_A = \frac{0.25}{0.75} \times \frac{1 - 0.50}{0.50} \times (1 - 0.20) = \frac{1}{3} \times 1.0 \times 0.80 \approx 0.2667$ ($26.67\%$).
    - $\mathrm{FPR}\_B = \frac{0.05}{0.95} \times \frac{1 - 0.50}{0.50} \times (1 - 0.20) = \frac{1}{19} \times 1.0 \times 0.80 \approx 0.0421$ ($4.21\%$).
    - Ratio: $\frac{\mathrm{FPR}\_A}{\mathrm{FPR}\_B} = \frac{1/3}{1/19} = \frac{19}{3} \approx 6.33\times$.
-3. **Severity and Error Types ($\Phi\_3$):**
-   The pilot study committed a **Type M (Magnitude / Exaggeration) Error** (Gelman & Carlin, 2014). When true power is low and standard error $\mathrm{SE}$ is large (say, $\mathrm{SE} = 16\%$ while true effect is $+2\%$), the only random draws that can cross $|\hat{\beta}| > 1.96\,\mathrm{SE} \approx 31.4\%$ are extreme upward noise fluctuations ($> 15\times$ the true effect).
-4. **Question Resolution ($\Phi\_5$):**
+3. **Question Resolution ($\Phi\_5$):**
    Electricity cannot be trivially stored across seasons at grid scale; supply must match demand at **sub-hourly / 5-minute resolution** (`vic_elec.csv`). Annual totals ($R\_0$) smooth out peak air-conditioning surges. **Invariant $\Phi\_5$ (`verify_resolution_phi5`)** blocks answering a sub-hourly operational dispatch decision with annual aggregates.
+4. **Sniedovich Negative Proof:** Running `cargo run --release --bin gates -- --defect sniedovich` prints `NEGATIVE PROOF [sniedovich] BLOCKED SUCCESSFULLY: collapse in No-Man's Land (Wald=-500)` and exits with code `1`.
 
 </details>
 
 ## Summary
 
-- **$\Phi\_1$ (Simulability):** Every claim requires `seed = 2026` (`SplitMix64`) and an executable generative null model.
-- **$\Phi\_2$ (Independent Unit):** Discounts nominal sample size $n$ for unequal cluster sizes ($\tilde{m} = \bar{m}(1 + \mathrm{CV}^2)$) and tail clustering ($\rho\_I(p)$), yielding $n\_{\mathrm{eff}}(p) = \frac{n}{1 + (\tilde{m}-1)\rho\_I(p)}$.
-- **$\Phi\_3$ (Severe Testing & Missingness):** Enforces Rubin's missingness taxonomy, Meng's Identity, Manski bounds, Pearl's Causal Ladder rung, and a 64-hex SHA-256 pre-registration seal.
+- **$\Phi\_2$ (Independent Unit & Prospective Clustered DoE):** Discounts nominal sample size $n$ for unequal cluster sizes ($\tilde{m} = \bar{m}(1 + \mathrm{CV}^2)$) and tail clustering ($\rho\_I(p)$), yielding $n\_{\mathrm{eff}}(p) = \frac{n}{1 + (\tilde{m}-1)\rho\_I(p)}$, and sizes prospective cluster-randomized experiments via `prospective_clustered_mde` ($\mathrm{MDE}\_{\text{clustered}} = \mathrm{MDE}\_{\text{iid}}\sqrt{\mathrm{DEFF}}$, raising simulated power from $0.17$ under naive i.i.d. sizing to $0.90$ under DEFF-aware sizing in Axis 2 of the strategic synthesis (`ShapleyCausalRubinMiDoeAudit`, `Clustered_Power=0.90` vs. naive `0.17`, simulated, `seed = 2026`), and inflating the required MDE by $5.32\times$ across the $164$ days of measured `bank_calls.csv`).
 - **$\Phi\_4$ (Scope, Fairness & Exit):** Audits Chouldechova's algebraic identity $\mathrm{FPR}\_g = \frac{p\_g}{1-p\_g}\frac{1-\mathrm{PPV}\_g}{\mathrm{PPV}\_g}(1-\mathrm{FNR}\_g)$, names who pays for false positives and false negatives, bounds scope, and sets a numeric exit clause.
 - **$\Phi\_5$ (Resolution Alignment):** Blocks coarse temporal or spatial aggregates from answering fine-grained operational decisions ($R\_{\text{data}} \ge R\_{\text{decision}}$).
+- **Info-Gap Decision Theory coupled with Sniedovich's Global Maximin Safeguard** measures local robustness ($\hat{\alpha}$) and opportuneness ($\hat{\beta}$) while guaranteeing a global Wald worst-case floor across No-Man's Land.

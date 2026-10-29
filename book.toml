@@ -8,6 +8,7 @@ src = "book-src"
 build-dir = "book"
 
 [output.html]
+no-section-label = true
 hash-files = false
 cname = "stochology.org"
 site-url = "https://stochology.org/"
@@ -27,3 +28,29 @@ boost-hierarchy = 2
 [output.html.fold]
 enable = true
 level = 2
+
+# Old chapter slugs (24-chapter edition) -> chapter that now holds most of their content.
+[output.html.redirect]
+"/01-random-variables-convexity.html" = "03-random-variables-convexity.html"
+"/02-layers.html" = "01-layers-six-pairs.html"
+"/03-sampling-estimation-linear-algebra.html" = "06-sampling-estimation-linear-algebra.html"
+"/04-uncertainty.html" = "02-uncertainty-typology.html"
+"/05-markov-chains-causal-graphs.html" = "04-markov-chains-causal-graphs.html"
+"/06-lenses.html" = "09-lenses.html"
+"/08-machine.html" = "11-world-models-discrepancy-authentic-form.html"
+"/09-dynamical-systems-odes-waves.html" = "05-dynamical-systems-odes-waves.html"
+"/10-relational-ontology.html" = "22-relational-ontology.html"
+"/11-analog-wave-computing.html" = "13-model-worlds-analog-wave-computing.html"
+"/12-critical-stochastic-rationality.html" = "18-critical-stochastic-rationality.html"
+"/13-stochary-conjectural-cybernetics.html" = "23-stochary-conjectural-cybernetics.html"
+"/14-severe-testing-martingales-conformal.html" = "08-severe-testing-martingales-conformal.html"
+"/15-prohibitions.html" = "01-layers-six-pairs.html"
+"/16-invariants.html" = "20-decision-worlds-regime.html"
+"/17-card.html" = "17-model-decisions-card-preregistration.html"
+"/18-funnel-siga.html" = "24-funnel-siga.html"
+"/19-governance.html" = "21-decision-worlds-governance.html"
+"/20-empirical-synthesis.html" = "25-empirical-synthesis.html"
+"/21-architecture.html" = "26-architecture.html"
+"/22-cards.html" = "17-model-decisions-card-preregistration.html"
+"/23-verification.html" = "27-verification.html"
+"/24-sources.html" = "28-sources.html"
