@@ -78,14 +78,14 @@ Stochology restores the full loop: **the noisy world that generates the observat
 ### Dedication and the Name of the Protocol: **The CAPIBA Protocol**
 
 While **Stochology** names the scientific discipline, the operational and auditing architecture formalized in this treatise is named the **CAPIBA Protocol** (*Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol*):
-- **CAPIBA** defines the **six mnemonic pillars** of what is audited across the eight epistemological gates (`G1`–`G8`) and their twenty negative defect proofs (`--defect`);
+- **CAPIBA** defines the **six mnemonic pillars** of what is audited across the eight epistemological gates (`G1`–`G8`) and their twenty-one negative defect proofs (`--defect`);
 - **SIGA** (*Survey, Interrogate, Generate, Act*) defines the **eight-step operational roadmap** of how a decision-maker and auditor traverse the cycle from raw observation to action.
 
 The name **CAPIBA** is a tribute to **Lourenço da Fonseca Barbosa (Capiba)** (Surubim, Pernambuco, 28 October 1904 – Recife, Pernambuco, 31 December 1997). Across a century of Brazilian intellectual and musical life, Capiba practiced two crafts that rarely meet in the same person: by day, a career official at the *Banco do Brasil* (admitted by public competitive examination in 1930), working amid ledgers, clearing balances, and institutional risk; by night and by vocation, the master of Pernambucan *frevo* and a central composer of Ariano Suassuna's *Movimento Armorial*. In the physics of the street carnival of Recife, *frevo* (from *ferver*, to boil, a turbulent, non-equilibrium brass polyphony) lives on the edge of kinetic instability, and the *passista* dances across that turbulence without falling by wielding the *sombrinha* (umbrella) as a dynamic pendulum counterweight. Ledgers and syncopation, rigorous accounting and high-volatility equilibrium: that pairing captures the spirit of this treatise.
 
-### The Six Mnemonic Pillars of the CAPIBA Protocol and the 20 Disjoint Defect Proofs
+### The Six Mnemonic Pillars of the CAPIBA Protocol and the 21 Disjoint Defect Proofs
 
-To give students and auditors an immediate mental map of the entire treatise, the **CAPIBA Protocol** partitions every epistemological check across **six orthogonal pillars (`C-A-P-I-B-A`)**. Together, these six pillars partition all **20 negative defect proofs** (`3 + 4 + 2 + 3 + 2 + 6 = 20`) enforced by the `gates` binary:
+To give students and auditors an immediate mental map of the entire treatise, the **CAPIBA Protocol** partitions every epistemological check across **six orthogonal pillars (`C-A-P-I-B-A`)**. Together, these six pillars partition all **21 negative defect proofs** (`3 + 4 + 2 + 3 + 2 + 7 = 21`) enforced by the `gates` binary:
 
 | Pillar | Verification Axis | Primary Mathematical & Rust Primitives | Gates | Disjoint Negative Defect Proofs (`--defect`) |
 | :---: | --- | --- | :---: | --- |
@@ -94,17 +94,17 @@ To give students and auditors an immediate mental map of the entire treatise, th
 | **P** — **Performative-aware** | Endogenous feedback loops $L_3 \to L_1$, Goodhart collapse, and synthetic recursion | `PerformativeSystem` ($\theta_{\mathrm{PS}}$ vs. Stackelberg $\theta_{\mathrm{PO}}$, `PerfGD`, $r_{\mathrm{RRM}} = \frac{\varepsilon\beta}{\gamma} < 1$), `GoodhartTaxonomyAudit`, and `GerstgrasserAccumulateAudit` ($\le c\pi^2/6$) | `G6/G8` | `performativity`, `replace_collapse` (2) |
 | **I** — **Invariant** | Structural stability across regimes, missingness bounds, and severe uncertainty | `MengAudit` (`ddc`/`DDI`), `ManskiBounds` + Lee (2009) trimming & tipping point $\Delta^*$, Hermite `run_nonlinear_icp_nile`, `KennedyOHaganDiscrepancy`, `InfoGapOption` + Sniedovich Wald floor, and `AuthenticModelForm` | `G3/G6/G8` | `lee_point_estimate`, `sniedovich`, `machine` (3) |
 | **B** — **Bitemporal** | Causality of event vs. availability clocks and cryptographic holdout seals | `BitemporalRecord` ($t_{\text{disp}} \ge t_{\text{ev}}$), synthetic canary $I(\text{Canary}; Y)=0$, single-opening `HMAC-SHA256` `TemporalVault`, `PredeterminedChangeControlPlan`, and `ProfitLossAttributionTest` | `G7` | `clock`, `vault` (2) |
-| **A** — **Auditing** | Eliminatory funnel, fairness trilemmas, analog/wave physics, cybernetics, and triadic synthesis | 4-Filter Funnel, `ChouldechovaAudit`, `AlertFatigueAudit`, `AnalogWaveComputingSynthesis` (`HP-INV`), `CriticalStochasticRationalitySynthesis`, `StocharyConjecturalCyberneticSynthesis`, `ComplexFractalToroidalTechniumSynthesis`, and `StrategicAiAccommodationSynthesis` | `G4/G8` | `chouldechova`, `analog_wall`, `instrumental_reason`, `stochary_cybernetics`, `triadic_technium`, `strategic_accommodation` (6) |
+| **A** — **Auditing** | Eliminatory funnel, fairness trilemmas, analog/wave physics, cybernetics, triadic synthesis, and coupled SFC society | 4-Filter Funnel, `ChouldechovaAudit`, `AlertFatigueAudit`, `AnalogWaveComputingSynthesis` (`HP-INV`), `CriticalStochasticRationalitySynthesis`, `StocharyConjecturalCyberneticSynthesis`, `ComplexFractalToroidalTechniumSynthesis`, `StrategicAiAccommodationSynthesis`, and `CoupledPublicPrivateSocietySynthesis` | `G4/G8` | `chouldechova`, `analog_wall`, `instrumental_reason`, `stochary_cybernetics`, `triadic_technium`, `strategic_accommodation`, `coupled_society` (7) |
 
 ```mermaid
 flowchart LR
-    subgraph CAPIBA["THE CAPIBA PROTOCOL (What Is Verified: 6 Pillars → 8 Gates → 20 Defects)"]
+    subgraph CAPIBA["THE CAPIBA PROTOCOL (What Is Verified: 6 Pillars → 8 Gates → 21 Defects)"]
         C1["C · Calibrated (3)"]
         A1["A · Anytime-valid (4)"]
         P1["P · Performative-aware (2)"]
         I1["I · Invariant (3)"]
         B1["B · Bitemporal (2)"]
-        A2["A · Auditing (6)"]
+        A2["A · Auditing (7)"]
     end
     subgraph SIGA["THE 8-STEP SIGA ROADMAP (How Verification Runs)"]
         S["S · Survey Layer & Bridge (Steps 1–2)"]
@@ -336,7 +336,7 @@ Anyone in the world who starts from $x\_0 = 7$ will obtain the exact sequence $6
 However, you must keep three concepts separate:
 1. **Reproducibility:** Running the same code on the same dataset with `seed = 2026` produces the exact same floating-point output on every machine. The fixed seed guarantees this floor.
 2. **Replicability:** Collecting a *new* dataset in a *new* hospital, city, or year and observing that the scientific conclusion still holds. No random seed can buy replicability; only invariant causal structure (Chapters 4 and 9) and out-of-time/out-of-domain governance (Chapter 21) can test it.
-3. **Validity:** Whether the mathematical equation in the code actually measures what the claim says it measures. A fixed seed reproduces a wrong formula just as faithfully as a right one. For that reason, our protocol combines fixed-seed reproducibility with **algebraic identity closure**, **multi-seed acceptance over 20 development seeds plus 200 sealed confirmation seeds**, and **20 negative defect proofs** (Chapter 27).
+3. **Validity:** Whether the mathematical equation in the code actually measures what the claim says it measures. A fixed seed reproduces a wrong formula just as faithfully as a right one. For that reason, our protocol combines fixed-seed reproducibility with **algebraic identity closure**, **multi-seed acceptance over 20 development seeds plus 200 sealed confirmation seeds**, and **21 negative defect proofs** (Chapter 27).
 
 ---
 
@@ -378,7 +378,7 @@ At any moment, a single command in the terminal executes the complete verificati
 scripts/verify.sh
 ~~~
 
-This command checks code formatting (`cargo fmt`), enforces zero compiler or linter warnings (`cargo clippy -- -D warnings`), executes all unit and integration tests (`cargo test`), runs all seven methodological and empirical laboratories (`labs --all`), verifies that the eight epistemological gates approve the canonical system (`gates` exiting with `0`), and proves that all twenty injected methodological defects are caught and blocked (`gates -- --defect <name>` exiting with `1`).
+This command checks code formatting (`cargo fmt`), enforces zero compiler or linter warnings (`cargo clippy -- -D warnings`), executes all unit and integration tests (`cargo test`), runs all seven methodological and empirical laboratories (`labs --all`), verifies that the eight epistemological gates approve the canonical system (`gates` exiting with `0`), and proves that all twenty-one injected methodological defects are caught and blocked (`gates -- --defect <name>` exiting with `1`).
 
 ---
 
