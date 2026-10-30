@@ -29,11 +29,11 @@
   <path d="M 93.70 95.70 A 42 42 0 0 1 34.41 95.80" stroke="var(--logo-crimson, #e11d48)" stroke-width="3.2" stroke-linecap="round"/>
   <path d="M 40.83 96.67 L 33.79 95.18 L 36.01 102.02" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
   <polygon points="64,24 100.37,87 27.63,87" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.55"/>
-  <path id="stoch-logo-tail-fill" d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84 L 96 86 L 31 86 Z" fill="url(#logo-tail)"/>
-  <path id="stoch-logo-tail-stroke" d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84" stroke="var(--logo-ink)" stroke-width="2.2" stroke-linecap="round"/>
-  <line id="stoch-logo-cross-h" x1="41" y1="66.65" x2="87" y2="66.65" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.2" stroke-dasharray="4 3" stroke-linecap="round"/>
-  <line id="stoch-logo-cross-v" x1="72" y1="39" x2="72" y2="86" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.2" stroke-dasharray="4 3" stroke-linecap="round"/>
-  <circle id="stoch-logo-cross-dot" cx="72" cy="66.65" r="3.6" fill="var(--logo-gold, #f59e0b)" stroke="var(--logo-node-bg)" stroke-width="1.4"/>
+  <path d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84 L 96 86 L 31 86 Z" fill="url(#logo-tail)"/>
+  <path d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84" stroke="var(--logo-ink)" stroke-width="2.2" stroke-linecap="round"/>
+  <line x1="41" y1="66.65" x2="87" y2="66.65" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.2" stroke-dasharray="4 3" stroke-linecap="round"/>
+  <line x1="72" y1="39" x2="72" y2="86" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.2" stroke-dasharray="4 3" stroke-linecap="round"/>
+  <circle cx="72" cy="66.65" r="3.6" fill="var(--logo-gold, #f59e0b)" stroke="var(--logo-node-bg)" stroke-width="1.4"/>
   <circle cx="64" cy="24" r="7.5" fill="var(--logo-node-bg)" stroke="var(--logo-blue, #2563eb)" stroke-width="3"/>
   <circle cx="64" cy="24" r="3" fill="var(--logo-blue, #2563eb)"/>
   <circle cx="27.63" cy="87" r="7.5" fill="var(--logo-node-bg)" stroke="var(--logo-green, #10b981)" stroke-width="3"/>
@@ -43,34 +43,10 @@
   </g>
   <g transform="translate(148, 0)">
   <text x="0" y="62" fill="var(--logo-ink)" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="42" font-weight="800" letter-spacing="2.5">STOCHOLOGY</text>
-  <line x1="2" y1="90" x2="468" y2="90" stroke="url(#logo-ring)" stroke-width="1.5" stroke-opacity="0.75"/>
-  <text x="2" y="106.5" textLength="302" lengthAdjust="spacing" fill="var(--logo-meta)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="11.5" font-weight="600" letter-spacing="0.8">L₁ → L₂ → L₃ → L₁  |  Φ₁–Φ₅  |  G1–G8  |</text>
-  <g id="stoch-svg-seed-group" class="stoch-svg-seed-group">
-  <rect id="stoch-svg-seed-box" x="310" y="93" width="158" height="20" rx="5" fill="var(--elevated-bg, rgba(16, 185, 129, 0.12))" stroke="var(--logo-green, #10b981)" stroke-width="1.2"/>
-  <text id="stoch-svg-seed-fallback" x="389" y="106.5" text-anchor="middle" fill="var(--logo-green, #10b981)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="11.5" font-weight="700" letter-spacing="0.6">SEED = <tspan id="stoch-svg-seed-tspan">2026</tspan> ✎</text>
-  <foreignObject x="310" y="93" width="158" height="20" class="stoch-svg-seed-fo"><div xmlns="http://www.w3.org/1999/xhtml" class="stoch-svg-seed-inline"><label for="stoch-svg-seed-input" class="stoch-svg-seed-label">SEED =</label><input id="stoch-svg-seed-input" name="seed" class="stoch-svg-seed-input" type="text" inputmode="numeric" pattern="[0-9]*" enterkeyhint="done" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="9" value="2026" aria-describedby="stoch-seed-bar-status" title="Click or type to change the active SplitMix64 seed on the home page" /><span class="stoch-svg-seed-edit-icon" aria-hidden="true">✎</span></div></foreignObject>
-  </g>
+  <line x1="2" y1="86" x2="468" y2="86" stroke="url(#logo-ring)" stroke-width="1.5" stroke-opacity="0.75"/>
+  <text x="2" y="103" fill="var(--logo-meta)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="11.5" font-weight="600" letter-spacing="0.8">L₁ → L₂ → L₃ → L₁  |  Φ₁–Φ₅  |  G1–G8  |  SEED = 2026</text>
   </g>
 </svg>
-  <figcaption class="stoch-seed-bar" id="stoch-seed-bar">
-    <div class="stoch-seed-bar-top">
-      <div class="stoch-seed-bar-field">
-        <label for="stoch-home-seed-input" class="stoch-seed-bar-label">Φ₁ Seed (editable in SVG above or here):</label>
-        <input id="stoch-home-seed-input" name="home_seed" class="stoch-seed-bar-input" type="number" inputmode="numeric" enterkeyhint="done" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" min="1" max="999999999" step="1" value="2026" aria-describedby="stoch-seed-bar-status" />
-      </div>
-      <div class="stoch-seed-bar-presets" role="group" aria-label="Deterministic seed presets">
-        <button type="button" class="stoch-seed-pill" data-seed-preset="2026" aria-pressed="true" title="Canonical textbook and CLI default (DEFAULT_SEED = 2026)">2026 · Canonical</button>
-        <button type="button" class="stoch-seed-pill" data-seed-preset="31" aria-pressed="false" title="Shaped application profile seed (examples/clay/card_clay_night_shift_overflow.yaml)">31 · Clay Profile</button>
-        <button type="button" class="stoch-seed-pill" data-seed-preset="2035" aria-pressed="false" title="Development multi-seed acceptance block (2026..=2045)">2035 · Dev Block</button>
-        <button type="button" class="stoch-seed-pill" data-seed-preset="9000000" aria-pressed="false" title="Sealed confirmation seed block (9_000_000..=9_000_399)">9000000 · Confirm</button>
-        <button type="button" class="stoch-seed-pill" id="stoch-seed-step-btn" title="Step to next deterministic seed">🎲 +1 Seed</button>
-      </div>
-    </div>
-    <div class="stoch-seed-bar-code" id="stoch-seed-bar-status">
-      <span class="stoch-seed-draw-readout" id="stoch-seed-draw-readout"><code>SplitMix64::new(2026).next_u64()</code> → <code>0xdb9c559891948d23</code> (u₁ = 0.8579)</span>
-      <span class="stoch-seed-code-note">Configurable in code: <code id="stoch-seed-rust-inline">SplitMix64::new(2026)</code> (<a href="../crates/stochology-core/src/rng.rs"><code>rng.rs</code></a>) or <code id="stoch-seed-yaml-inline">protocol_profile.seed: 2026</code> (<a href="#41-changing-the-seed-in-code-and-in-application-profiles-kernel-vs-clay">see §4.1 ↓</a>)</span>
-    </div>
-  </figcaption>
 </figure>
 
 # Preface: The Invisible Target and the Foundations of Stochology
@@ -78,7 +54,7 @@
 <div class="stoch-hero" role="region" aria-label="Treatise overview and quick navigation">
   <div class="stoch-hero-badges">
     <span class="stoch-hero-badge" data-tone="sky">CAPIBA PROTOCOL · 6 PILLARS</span>
-    <span class="stoch-hero-badge" id="stoch-hero-seed-badge" data-tone="emerald" title="Click to edit the active SplitMix64 seed in the SVG emblem">Φ₁ SPLITMIX64 · SEED = 2026 (EDITABLE)</span>
+    <span class="stoch-hero-badge" data-tone="emerald">Φ₁ SPLITMIX64 · SEED = 2026</span>
     <span class="stoch-hero-badge" data-tone="amber">8 GATES (G1–G8) · 27 DEFECT PROOFS</span>
     <span class="stoch-hero-badge" data-tone="violet">13 DATASETS · 16 INTERACTIVE LABS</span>
   </div>
@@ -384,46 +360,6 @@ cargo run --release --bin gates -- --audit-card examples/clay/card_clay_night_sh
 
 3. **Across Multi-Seed Acceptance Sweeps (`crates/stochology-lenses/src/acceptance.rs`):**
    To prove that no scientific claim in this repository is a brittle fluke of `seed = 2026`, Gate `G8` automatically evaluates every simulated synthesis across **20 development seeds (`2026..=2045`)** and **200 sealed confirmation seeds (`9_000_000..=9_000_199` and `9_000_200..=9_000_399`)**, requiring at least a $95\%$ pass rate on both sets (`data/preregistration/acceptance_registry.txt`).
-
-<div id="stoch-preface-seed-inspector" class="stoch-seed-inspector" role="region" aria-label="Live SplitMix64 Seed and Code Inspector">
-  <div class="stoch-seed-inspector-head">
-    <strong>Live <code>SplitMix64</code> Seed &amp; Code Inspector (Synced with SVG Emblem Above)</strong>
-    <span class="stoch-seed-inspector-sub">Edit <code>SEED = …</code> inside the SVG at the top of the page to inspect its exact 64-bit draws and copy the corresponding Rust / YAML configuration.</span>
-  </div>
-  <div class="stoch-seed-inspector-grid">
-    <div class="stoch-seed-inspector-card">
-      <div class="stoch-seed-inspector-kicker">RUST CALL SITE (<code>crates/stochology-core/src/rng.rs</code>)</div>
-      <pre><code id="stoch-inspector-rust-code">let mut rng = SplitMix64::new(2026);
-let u1 = rng.next_f64(); // 0.8578542296281548
-let child = rng.split(1);</code></pre>
-    </div>
-    <div class="stoch-seed-inspector-card">
-      <div class="stoch-seed-inspector-kicker">CARD PROFILE (<code>protocol_profile.seed</code> IN YAML)</div>
-      <pre><code id="stoch-inspector-yaml-code">protocol_profile:
-  name: "custom_application_profile"
-  seed: 2026 # Sealed into preregistration_hash</code></pre>
-    </div>
-  </div>
-  <div class="stoch-seed-inspector-table-wrap">
-    <table class="stoch-seed-inspector-table">
-      <thead>
-        <tr>
-          <th>Draw ($t$)</th>
-          <th>Generator Call</th>
-          <th>64-Bit State Output (<code>u64</code> Hex)</th>
-          <th>Uniform Draw $u_t \in [0, 1)$</th>
-          <th>Substream <code>.split(t)</code> First Draw</th>
-        </tr>
-      </thead>
-      <tbody id="stoch-inspector-draws-tbody">
-        <tr><td>1</td><td><code>rng.next_u64()</code></td><td><code>0xdb9c559891948d23</code></td><td><code>0.85785423</code></td><td><code>0.60619645</code></td></tr>
-        <tr><td>2</td><td><code>rng.next_u64()</code></td><td><code>0x78bc927ded35455d</code></td><td><code>0.47162738</code></td><td><code>0.15928321</code></td></tr>
-        <tr><td>3</td><td><code>rng.next_u64()</code></td><td><code>0xaad71e75cde2b88e</code></td><td><code>0.66734496</code></td><td><code>0.75257274</code></td></tr>
-        <tr><td>4</td><td><code>rng.next_u64()</code></td><td><code>0x59fb3b2cf97f1d96</code></td><td><code>0.35148973</code></td><td><code>0.21469102</code></td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
 
 ---
 
