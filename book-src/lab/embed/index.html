@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en" class="light js">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,40 +10,57 @@
   <script>
     (function () {
       var VALID = ["light", "rust", "navy", "coal", "ayu"];
-      var stored = null;
-      try {
-        stored = localStorage.getItem("mdbook-theme");
-      } catch (e) {}
-      var params = new URLSearchParams(window.location.search);
-      var qTheme = params.get("theme");
-      var theme = "light";
-      if (qTheme === "dark") {
-        theme = "navy";
-      } else if (qTheme === "light") {
-        theme = "light";
-      } else if (qTheme && VALID.indexOf(qTheme) !== -1) {
-        theme = qTheme;
-      } else if (stored && VALID.indexOf(stored) !== -1) {
-        theme = stored;
-      } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        theme = "navy";
+      function resolveMainTheme() {
+        var stored = null;
+        try {
+          stored = localStorage.getItem("mdbook-theme");
+          if (stored && stored.charAt(0) === '"' && stored.charAt(stored.length - 1) === '"') {
+            stored = stored.slice(1, -1);
+          }
+        } catch (e) {}
+        if (stored && VALID.indexOf(stored) !== -1) {
+          return stored;
+        }
+        try {
+          var host = (window.parent && window.parent !== window) ? window.parent : window.opener;
+          if (host && host.document && host.document.documentElement) {
+            var hostCl = host.document.documentElement.classList;
+            for (var h = 0; h < VALID.length; h++) {
+              if (hostCl.contains(VALID[h])) return VALID[h];
+            }
+          }
+        } catch (e) {}
+        var params = new URLSearchParams(window.location.search);
+        var qTheme = params.get("theme");
+        if (qTheme === "dark") return "navy";
+        if (qTheme === "light") return "light";
+        if (qTheme && VALID.indexOf(qTheme) !== -1) return qTheme;
+        if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "navy";
+        }
+        return "light";
       }
+      var theme = resolveMainTheme();
       var root = document.documentElement;
       for (var i = 0; i < VALID.length; i++) {
         root.classList.remove(VALID[i]);
       }
       root.classList.add(theme);
+      root.classList.add("js");
     })();
   </script>
   <link rel="stylesheet" href="../../theme/book.css" />
   <style>
     * { box-sizing: border-box; }
+    html,
+    body {
+      background: var(--elevated, #ffffff);
+      color: var(--ink, #0f172a);
+    }
     body {
       margin: 0;
       padding: 0.75rem 0.95rem;
       font-family: "Inter", system-ui, -apple-system, sans-serif;
-      background: var(--elevated, #ffffff);
-      color: var(--ink, #0f172a);
       line-height: 1.45;
       scrollbar-gutter: stable;
     }
@@ -137,8 +154,35 @@
       var copyBtn = document.getElementById("embed-copy-btn");
       var latestPayload = null;
 
+      function resolveMainTheme() {
+        var stored = null;
+        try {
+          stored = localStorage.getItem("mdbook-theme");
+          if (stored && stored.charAt(0) === '"' && stored.charAt(stored.length - 1) === '"') {
+            stored = stored.slice(1, -1);
+          }
+        } catch (e) {}
+        if (stored && VALID.indexOf(stored) !== -1) {
+          return stored;
+        }
+        try {
+          var host = (window.parent && window.parent !== window) ? window.parent : window.opener;
+          if (host && host.document && host.document.documentElement) {
+            var hostCl = host.document.documentElement.classList;
+            for (var h = 0; h < VALID.length; h++) {
+              if (hostCl.contains(VALID[h])) return VALID[h];
+            }
+          }
+        } catch (e) {}
+        if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "navy";
+        }
+        return "light";
+      }
+
       function setEmbedTheme(themeName, isDark) {
         var root = document.documentElement;
+        root.classList.add("js");
         if (themeName && VALID.indexOf(themeName) !== -1) {
           for (var k = 0; k < VALID.length; k++) root.classList.remove(VALID[k]);
           root.classList.add(themeName);
@@ -156,6 +200,34 @@
           }
         }
       }
+
+      function syncEmbedThemeFromMainPage() {
+        var t = resolveMainTheme();
+        setEmbedTheme(t, t === "navy" || t === "coal" || t === "ayu");
+      }
+
+      window.addEventListener("storage", function (e) {
+        if (!e || !e.key || e.key === "mdbook-theme") {
+          syncEmbedThemeFromMainPage();
+        }
+      });
+
+      if (window.matchMedia) {
+        var mq = window.matchMedia("(prefers-color-scheme: dark)");
+        if (mq.addEventListener) {
+          mq.addEventListener("change", syncEmbedThemeFromMainPage);
+        }
+      }
+
+      try {
+        if (window.parent && window.parent !== window && window.parent.document && typeof MutationObserver !== "undefined") {
+          var parentObs = new MutationObserver(syncEmbedThemeFromMainPage);
+          parentObs.observe(window.parent.document.documentElement, {
+            attributes: true,
+            attributeFilter: ["class"]
+          });
+        }
+      } catch (e) {}
 
       function renderFromQuery() {
         var params = {};

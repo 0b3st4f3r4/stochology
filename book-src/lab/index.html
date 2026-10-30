@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en" class="light js">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,37 +10,55 @@
   <script>
     (function () {
       var VALID = ["light", "rust", "navy", "coal", "ayu"];
-      var stored = null;
-      try {
-        stored = localStorage.getItem("mdbook-theme");
-      } catch (e) {}
-      var params = new URLSearchParams(window.location.search);
-      var qTheme = params.get("theme");
-      var theme = "light";
-      if (qTheme === "dark") {
-        theme = "navy";
-      } else if (qTheme && VALID.indexOf(qTheme) !== -1) {
-        theme = qTheme;
-      } else if (stored && VALID.indexOf(stored) !== -1) {
-        theme = stored;
-      } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        theme = "navy";
+      function resolveMainTheme() {
+        var stored = null;
+        try {
+          stored = localStorage.getItem("mdbook-theme");
+          if (stored && stored.charAt(0) === '"' && stored.charAt(stored.length - 1) === '"') {
+            stored = stored.slice(1, -1);
+          }
+        } catch (e) {}
+        if (stored && VALID.indexOf(stored) !== -1) {
+          return stored;
+        }
+        try {
+          var host = (window.parent && window.parent !== window) ? window.parent : window.opener;
+          if (host && host.document && host.document.documentElement) {
+            var hostCl = host.document.documentElement.classList;
+            for (var h = 0; h < VALID.length; h++) {
+              if (hostCl.contains(VALID[h])) return VALID[h];
+            }
+          }
+        } catch (e) {}
+        var params = new URLSearchParams(window.location.search);
+        var qTheme = params.get("theme");
+        if (qTheme === "dark") return "navy";
+        if (qTheme && VALID.indexOf(qTheme) !== -1) return qTheme;
+        if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "navy";
+        }
+        return "light";
       }
+      var theme = resolveMainTheme();
       var root = document.documentElement;
       for (var i = 0; i < VALID.length; i++) {
         root.classList.remove(VALID[i]);
       }
       root.classList.add(theme);
+      root.classList.add("js");
     })();
   </script>
   <link rel="stylesheet" href="../theme/book.css" />
   <style>
     * { box-sizing: border-box; }
+    html,
+    body {
+      background: var(--bg, var(--canvas, #f8fafc));
+      color: var(--fg, var(--ink, #0f172a));
+    }
     body {
       margin: 0;
       font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      background: var(--canvas, #f8fafc);
-      color: var(--ink, #0f172a);
       min-block-size: 100dvh;
       display: flex;
       flex-direction: column;
@@ -97,10 +115,6 @@
       align-items: safe center;
       gap: 0.5rem;
       flex-wrap: wrap;
-    }
-    .lab-theme-select {
-      appearance: auto;
-      padding-inline: 0.55rem;
     }
     .lab-layout {
       display: grid;
@@ -353,15 +367,6 @@
       <h1>Stochology Interactive Laboratory (seed = 2026)</h1>
     </div>
     <div class="lab-top-actions">
-      <label for="lab-theme-select" class="visually-hidden">Color theme</label>
-      <select id="lab-theme-select" class="stoch-lab-btn lab-theme-select">
-        <option value="light">Theme: Light</option>
-        <option value="rust">Theme: Rust</option>
-        <option value="navy">Theme: Navy (Dark)</option>
-        <option value="coal">Theme: Coal (Dark)</option>
-        <option value="ayu">Theme: Ayu (Dark)</option>
-      </select>
-      <button type="button" id="theme-toggle-btn" class="stoch-lab-btn">Toggle Dark / Light</button>
       <a href="../index.html" class="stoch-lab-btn stoch-lab-btn-primary">← Back to Textbook</a>
     </div>
   </header>
@@ -622,34 +627,49 @@
       var mobileDrawerBtn = document.getElementById("lab-mobile-drawer-btn");
       var mobileActiveLabel = document.getElementById("lab-mobile-active-label");
       var sidebarEl = document.getElementById("lab-sidebar");
-      var themeSelect = document.getElementById("lab-theme-select");
-      var themeToggleBtn = document.getElementById("theme-toggle-btn");
 
       var activeModuleId = "gigerenzer-bayes";
       var activePillar = "ALL";
       var registry = window.STOCHOLOGY_LAB_REGISTRY || {};
 
-      function getCurrentTheme() {
-        var root = document.documentElement;
-        for (var i = 0; i < VALID_THEMES.length; i++) {
-          if (root.classList.contains(VALID_THEMES[i])) return VALID_THEMES[i];
+      function resolveMainTheme() {
+        var stored = null;
+        try {
+          stored = localStorage.getItem("mdbook-theme");
+          if (stored && stored.charAt(0) === '"' && stored.charAt(stored.length - 1) === '"') {
+            stored = stored.slice(1, -1);
+          }
+        } catch (e) {}
+        if (stored && VALID_THEMES.indexOf(stored) !== -1) {
+          return stored;
+        }
+        try {
+          var host = (window.parent && window.parent !== window) ? window.parent : window.opener;
+          if (host && host.document && host.document.documentElement) {
+            var hostCl = host.document.documentElement.classList;
+            for (var h = 0; h < VALID_THEMES.length; h++) {
+              if (hostCl.contains(VALID_THEMES[h])) return VALID_THEMES[h];
+            }
+          }
+        } catch (e) {}
+        var params = new URLSearchParams(window.location.search);
+        var qTheme = params.get("theme");
+        if (qTheme === "dark") return "navy";
+        if (qTheme && VALID_THEMES.indexOf(qTheme) !== -1) return qTheme;
+        if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "navy";
         }
         return "light";
       }
 
-      function applyTheme(theme, persist) {
+      function applyTheme(theme) {
         if (VALID_THEMES.indexOf(theme) === -1) theme = "light";
         var root = document.documentElement;
         for (var i = 0; i < VALID_THEMES.length; i++) {
           root.classList.remove(VALID_THEMES[i]);
         }
         root.classList.add(theme);
-        if (themeSelect) themeSelect.value = theme;
-        if (persist) {
-          try {
-            localStorage.setItem("mdbook-theme", theme);
-          } catch (e) {}
-        }
+        root.classList.add("js");
         var frames = document.querySelectorAll(".stoch-lab-iframe");
         for (var f = 0; f < frames.length; f++) {
           if (frames[f].contentWindow) {
@@ -663,32 +683,42 @@
         }
       }
 
-      applyTheme(getCurrentTheme(), false);
+      function syncThemeFromMainPage() {
+        applyTheme(resolveMainTheme());
+      }
 
-      themeSelect.addEventListener("change", function () {
-        applyTheme(themeSelect.value, true);
+      syncThemeFromMainPage();
+
+      window.addEventListener("storage", function (e) {
+        if (!e || !e.key || e.key === "mdbook-theme") {
+          syncThemeFromMainPage();
+        }
       });
 
-      themeToggleBtn.addEventListener("click", function () {
-        var cur = getCurrentTheme();
-        var next = DARK_THEMES[cur] ? "light" : "navy";
-        applyTheme(next, true);
+      window.addEventListener("focus", syncThemeFromMainPage);
+      document.addEventListener("visibilitychange", function () {
+        if (!document.hidden) {
+          syncThemeFromMainPage();
+        }
       });
 
       if (window.matchMedia) {
         var mq = window.matchMedia("(prefers-color-scheme: dark)");
         if (mq.addEventListener) {
-          mq.addEventListener("change", function (e) {
-            var hasStored = false;
-            try {
-              hasStored = !!localStorage.getItem("mdbook-theme");
-            } catch (err) {}
-            if (!hasStored) {
-              applyTheme(e.matches ? "navy" : "light", false);
-            }
-          });
+          mq.addEventListener("change", syncThemeFromMainPage);
         }
       }
+
+      try {
+        var hostWin = (window.parent && window.parent !== window) ? window.parent : window.opener;
+        if (hostWin && hostWin.document && hostWin.document.documentElement && typeof MutationObserver !== "undefined") {
+          var hostObs = new MutationObserver(syncThemeFromMainPage);
+          hostObs.observe(hostWin.document.documentElement, {
+            attributes: true,
+            attributeFilter: ["class"]
+          });
+        }
+      } catch (e) {}
 
       mobileDrawerBtn.addEventListener("click", function () {
         var isOpen = sidebarEl.classList.toggle("is-open");

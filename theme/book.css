@@ -231,8 +231,9 @@
    ========================================================================== */
 
 .light,
-html:not(.js) {
+:where(html:not(.js)) {
   --color-scheme: light;
+  color-scheme: light;
   --bg: #f8fafc;
   --fg: #0f172a;
   --surface-bg: #ffffff;
@@ -310,6 +311,7 @@ html:not(.js) {
 
 .rust {
   --color-scheme: light;
+  color-scheme: light;
   --bg: #f6f3ec;
   --fg: #1c1917;
   --logo-ink: #1c1917;
@@ -386,6 +388,7 @@ html:not(.js) {
 
 .navy {
   --color-scheme: dark;
+  color-scheme: dark;
   --bg: #070b14;
   --fg: #e2e8f0;
   --surface-bg: #0f1626;
@@ -463,6 +466,7 @@ html:not(.js) {
 
 .coal {
   --color-scheme: dark;
+  color-scheme: dark;
   --bg: #090d16;
   --fg: #e5e7eb;
   --fg-muted: #9ca3af;
@@ -538,6 +542,7 @@ html:not(.js) {
 
 .ayu {
   --color-scheme: dark;
+  color-scheme: dark;
   --bg: #0b0e14;
   --fg: #e6e1cf;
   --fg-muted: #949ca5;
@@ -612,10 +617,33 @@ html:not(.js) {
 }
 
 @media (prefers-color-scheme: dark) {
-  html:not(.js) {
+  :where(html:not(.js)) {
     --color-scheme: dark;
+    color-scheme: dark;
     --bg: #070b14;
     --fg: #e2e8f0;
+    --surface-bg: #0f1626;
+    --elevated-bg: #162036;
+    --fg-muted: #94a3b8;
+    --border-subtle: #152036;
+    --brand-accent: #38bdf8;
+    --brand-accent-secondary: #fb7185;
+    --canvas: #0f1626;
+    --ink: #e2e8f0;
+    --muted: #94a3b8;
+    --surface: #0f1626;
+    --elevated: #162036;
+    --border: #1e2d4a;
+    --sky: #38bdf8;
+    --sky-bg: #0c2644;
+    --violet: #fb7185;
+    --violet-bg: #3b101d;
+    --emerald: #34d399;
+    --emerald-bg: #092e26;
+    --amber: #fbbf24;
+    --amber-bg: #362407;
+    --rose: #fb7185;
+    --rose-bg: #3b101d;
     --sidebar-bg: #0b1120;
     --sidebar-fg: #cbd5e1;
     --sidebar-active: #38bdf8;

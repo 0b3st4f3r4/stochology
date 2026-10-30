@@ -1103,10 +1103,9 @@
   }
 
   function buildLabDeepLink(moduleKey, state, chapter, seedVal) {
-    var themeParam = getActiveThemeName();
     var sNum = parseInt(seedVal, 10);
     if (!isFinite(sNum) || sNum <= 0) sNum = 2026;
-    var params = ["module=" + encodeURIComponent(moduleKey), "seed=" + sNum, "theme=" + encodeURIComponent(themeParam)];
+    var params = ["module=" + encodeURIComponent(moduleKey), "seed=" + sNum];
     if (chapter) {
       var normChap = String(chapter).trim();
       if (normChap && !/\.html$/i.test(normChap)) normChap += ".html";
@@ -1586,6 +1585,18 @@
     if (typeof MutationObserver !== "undefined") {
       var themeObs = new MutationObserver(function () {
         if (iframeWrap.classList.contains("active")) {
+          if (iframe.contentWindow) {
+            try {
+              iframe.contentWindow.postMessage(
+                {
+                  type: "stochology:theme",
+                  theme: getActiveThemeName(),
+                  dark: isDarkThemeActive()
+                },
+                "*"
+              );
+            } catch (_e) {}
+          }
           renderState();
         }
       });
