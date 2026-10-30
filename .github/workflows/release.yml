@@ -11,6 +11,11 @@ on:
         required: false
         default: true
         type: boolean
+      yank_on_conflict:
+        description: "If this version is already on crates.io with different content, yank it (crates.io never accepts the same version twice: bump Cargo.toml afterwards)"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -51,20 +56,48 @@ jobs:
           cargo package --list -p stochology-core -p stochology-lenses -p stochology-siga -p stochology-governance -p stochology-cli
           cargo publish --workspace --dry-run
 
+      # A re-pushed tag (for example after rewriting history) must never re-upload a version:
+      # crates.io versions are immutable, and yanking does not free the number. The guard skips
+      # crates whose published content is identical and, on a content conflict, yanks only when
+      # asked (workflow_dispatch input, or repository variable STOCHOLOGY_YANK_ON_REWRITE=true on
+      # tag pushes) and then fails so the version gets bumped.
+      - name: Release guard (re-pushed tag vs. crates.io)
+        id: guard
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+          YANK_ON_CONFLICT: ${{ (github.event_name == 'workflow_dispatch' && inputs.yank_on_conflict) || (github.event_name == 'push' && vars.STOCHOLOGY_YANK_ON_REWRITE == 'true') }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        run: ./scripts/release_guard.sh
+
       - name: Publish crates to crates.io (Topological Order)
         if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && !inputs.dry_run)
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+          TO_PUBLISH: ${{ steps.guard.outputs.publish }}
+          ALREADY_PUBLISHED: ${{ steps.guard.outputs.identical }}
         run: |
+          if [ -n "${ALREADY_PUBLISHED}" ]; then
+            echo "Already on crates.io with identical content (skipped): ${ALREADY_PUBLISHED}"
+          fi
+          if [ -z "${TO_PUBLISH}" ]; then
+            echo "Nothing new to publish to crates.io."
+            exit 0
+          fi
           if [ -z "${CARGO_REGISTRY_TOKEN:-}" ]; then
             echo "ERROR: CARGO_REGISTRY_TOKEN secret is not configured in repository settings." >&2
             exit 1
           fi
-          cargo publish -p stochology-core
-          cargo publish -p stochology-lenses
-          cargo publish -p stochology-siga
-          cargo publish -p stochology-governance
-          cargo publish -p stochology-cli --no-verify
+          for crate in stochology-core stochology-lenses stochology-siga stochology-governance stochology-cli; do
+            case " ${TO_PUBLISH} " in
+              *" ${crate} "*) ;;
+              *) continue ;;
+            esac
+            if [ "${crate}" = "stochology-cli" ]; then
+              cargo publish -p "${crate}" --no-verify
+            else
+              cargo publish -p "${crate}"
+            fi
+          done
 
       - name: Package release binaries (labs & gates) and create GitHub Release
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
