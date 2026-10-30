@@ -316,62 +316,7 @@ decision_rule_and_scope:
 
     /// Parses an Epistemological Card from the YAML template returning a typed [`CardParseError`].
     pub fn from_yaml_typed(yaml: &str) -> Result<Self, CardParseError> {
-        let mut map: BTreeMap<String, String> = BTreeMap::new();
-        let mut stack: Vec<(usize, String)> = Vec::new();
-        let mut unused: Vec<String> = Vec::new();
-
-        for raw_line in yaml.lines() {
-            let trimmed = raw_line.trim();
-            if trimmed.is_empty() || trimmed.starts_with('#') {
-                continue;
-            }
-            let indent = raw_line.len() - raw_line.trim_start().len();
-            if let Some(rest) = trimmed.strip_prefix("- ") {
-                while let Some(&(last_indent, _)) = stack.last() {
-                    if indent < last_indent {
-                        stack.pop();
-                    } else {
-                        break;
-                    }
-                }
-                let current_path = stack
-                    .iter()
-                    .map(|(_, s)| s.as_str())
-                    .collect::<Vec<_>>()
-                    .join(".");
-                if current_path == "data_and_audit_contract.findings.unused" {
-                    unused.push(unquote(rest));
-                }
-                continue;
-            }
-            while let Some(&(last_indent, _)) = stack.last() {
-                if indent <= last_indent {
-                    stack.pop();
-                } else {
-                    break;
-                }
-            }
-            if let Some((k, v)) = trimmed.split_once(':') {
-                let key = k.trim().to_string();
-                let val = v.trim();
-                if val.is_empty() {
-                    stack.push((indent, key));
-                } else if val == "[]" {
-                    // Explicit empty inline sequence
-                } else {
-                    let mut full_path = stack
-                        .iter()
-                        .map(|(_, s)| s.as_str())
-                        .collect::<Vec<_>>()
-                        .join(".");
-                    if !full_path.is_empty() {
-                        full_path.push('.');
-                    }
-                    full_path.push_str(&key);
-                    map.insert(full_path, unquote(val));
-                }
-            }
-        }
+        let (map, unused) = flatten_yaml(yaml);
 
         let req = |k: &str| -> Result<String, CardParseError> {
             map.get(k)
@@ -578,6 +523,68 @@ decision_rule_and_scope:
     pub fn from_yaml(yaml: &str) -> Result<Self, String> {
         Self::from_yaml_typed(yaml).map_err(|e| e.to_string())
     }
+}
+
+/// Flattens the indentation-scoped YAML subset used by cards into dotted-path keys, returning the map
+/// and the items of `data_and_audit_contract.findings.unused` (the only sequence the card format has).
+pub(crate) fn flatten_yaml(yaml: &str) -> (BTreeMap<String, String>, Vec<String>) {
+    let mut map: BTreeMap<String, String> = BTreeMap::new();
+    let mut stack: Vec<(usize, String)> = Vec::new();
+    let mut unused: Vec<String> = Vec::new();
+
+    for raw_line in yaml.lines() {
+        let trimmed = raw_line.trim();
+        if trimmed.is_empty() || trimmed.starts_with('#') {
+            continue;
+        }
+        let indent = raw_line.len() - raw_line.trim_start().len();
+        if let Some(rest) = trimmed.strip_prefix("- ") {
+            while let Some(&(last_indent, _)) = stack.last() {
+                if indent < last_indent {
+                    stack.pop();
+                } else {
+                    break;
+                }
+            }
+            let current_path = stack
+                .iter()
+                .map(|(_, s)| s.as_str())
+                .collect::<Vec<_>>()
+                .join(".");
+            if current_path == "data_and_audit_contract.findings.unused" {
+                unused.push(unquote(rest));
+            }
+            continue;
+        }
+        while let Some(&(last_indent, _)) = stack.last() {
+            if indent <= last_indent {
+                stack.pop();
+            } else {
+                break;
+            }
+        }
+        if let Some((k, v)) = trimmed.split_once(':') {
+            let key = k.trim().to_string();
+            let val = v.trim();
+            if val.is_empty() {
+                stack.push((indent, key));
+            } else if val == "[]" {
+                // Explicit empty inline sequence
+            } else {
+                let mut full_path = stack
+                    .iter()
+                    .map(|(_, s)| s.as_str())
+                    .collect::<Vec<_>>()
+                    .join(".");
+                if !full_path.is_empty() {
+                    full_path.push('.');
+                }
+                full_path.push_str(&key);
+                map.insert(full_path, unquote(val));
+            }
+        }
+    }
+    (map, unused)
 }
 
 fn format_yaml_decimal_min1(v: f64) -> String {

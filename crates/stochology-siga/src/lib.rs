@@ -13,5 +13,5 @@ pub use roadmap::{
     AlertFatigueAudit, EvidenceProcess, MultimodalCorrelatedFusionAudit,
     NaturalFrequencyMemorandum, PreMortemCounterfactualRootCauseAudit, SaviConfidenceSequence,
     SigaExecutionReport, VarEsEBacktest, run_full_siga_roadmap, run_full_siga_roadmap_empirical,
-    simulate_sbc_beta_binomial_ranks,
+    run_full_siga_roadmap_empirical_with_profile, simulate_sbc_beta_binomial_ranks,
 };

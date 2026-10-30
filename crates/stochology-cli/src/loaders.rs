@@ -66,7 +66,16 @@ pub fn load_cards_from_disk(root_dir: &Path) -> Result<Vec<(String, Epistemologi
 
 /// Reads `data/SHA256SUMS` and returns a map of `relative_path -> expected_sha256`.
 pub fn load_sha256sums_manifest(root_dir: &Path) -> Result<BTreeMap<String, String>, String> {
-    let path = root_dir.join("data/SHA256SUMS");
+    load_sha256_manifest_at(root_dir, "data/SHA256SUMS")
+}
+
+/// Reads the SHA-256 manifest at `root_dir.join(rel_manifest)` (a profile's `dataset_manifest`) and
+/// returns a map of `relative_path -> expected_sha256`.
+pub fn load_sha256_manifest_at(
+    root_dir: &Path,
+    rel_manifest: &str,
+) -> Result<BTreeMap<String, String>, String> {
+    let path = root_dir.join(rel_manifest);
     let content = fs::read_to_string(&path).map_err(|e| {
         String::from(CliError::Io {
             path: path.display().to_string(),

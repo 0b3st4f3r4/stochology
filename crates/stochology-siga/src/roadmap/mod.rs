@@ -17,7 +17,7 @@ pub use blueprints::{MultimodalCorrelatedFusionAudit, PreMortemCounterfactualRoo
 pub use martingales::{EvidenceProcess, SaviConfidenceSequence, VarEsEBacktest};
 pub use runner::{
     SigaExecutionReport, run_full_siga_roadmap, run_full_siga_roadmap_empirical,
-    simulate_sbc_beta_binomial_ranks,
+    run_full_siga_roadmap_empirical_with_profile, simulate_sbc_beta_binomial_ranks,
 };
 
 #[cfg(test)]

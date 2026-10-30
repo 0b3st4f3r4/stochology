@@ -205,9 +205,19 @@ impl EProcessMetrics {
     /// True if $K \ge 1$, $E_t > 0$, threshold $\ge 20$, and $E_t / K \ge \text{threshold}$.
     #[inline]
     pub fn rejects_under_multiplicity(&self, attempt_counter_k: usize) -> bool {
+        self.rejects_under_multiplicity_at(attempt_counter_k, 20.0)
+    }
+
+    /// As [`Self::rejects_under_multiplicity`] with a profile's minimum $1/\alpha$ in place of $20$.
+    #[inline]
+    pub fn rejects_under_multiplicity_at(
+        &self,
+        attempt_counter_k: usize,
+        min_inverse_alpha: f64,
+    ) -> bool {
         attempt_counter_k >= 1
             && self.terminal_e_value > 0.0
-            && self.rejection_threshold >= 20.0
+            && self.rejection_threshold >= min_inverse_alpha
             && (self.terminal_e_value / (attempt_counter_k as f64)) >= self.rejection_threshold
     }
 }
@@ -238,7 +248,13 @@ impl ChouldechovaRatioMetrics {
     /// True if $|\mathrm{FPR}_A/\mathrm{FPR}_B - 1| > 10^{-3}$.
     #[inline]
     pub fn is_non_unit_ratio(&self) -> bool {
-        (self.fpr_ratio_a_over_b - 1.0).abs() > 1e-3
+        self.is_non_unit_ratio_beyond(1e-3)
+    }
+
+    /// True if $|\mathrm{FPR}_A/\mathrm{FPR}_B - 1| > \text{tolerance}$.
+    #[inline]
+    pub fn is_non_unit_ratio_beyond(&self, tolerance: f64) -> bool {
+        (self.fpr_ratio_a_over_b - 1.0).abs() > tolerance
     }
 }
 

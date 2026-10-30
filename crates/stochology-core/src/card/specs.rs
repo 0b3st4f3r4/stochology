@@ -3,39 +3,55 @@
 
 use crate::invariants::verify_resolution_phi5;
 use crate::layers::respects_cromwell;
-use crate::rng::DEFAULT_SEED;
 use crate::sha256::is_valid_sha256_hex;
 
 use super::model::{ContractViolation, EpistemologicalCard, MissingnessMechanism};
+use super::profile::{AppliedWaiver, AuditReport, ProtocolProfile, WAIVABLE_INSTRUMENTS};
 use super::value_objects::{extract_number_after, parse_m_tilde, parse_seed_from_env};
 
 /// Composable specification rule evaluated during [`EpistemologicalCard::audit`].
+///
+/// Implement at least one of the two methods: each defaults to the other, `check` under
+/// [`ProtocolProfile::canonical`].
 pub trait CardSpecification: Sync {
-    /// Appends any [`ContractViolation`]s detected on `card` to `violations`.
-    fn check(&self, card: &EpistemologicalCard, violations: &mut Vec<ContractViolation>);
+    /// Appends any [`ContractViolation`]s detected on `card` under the canonical profile.
+    fn check(&self, card: &EpistemologicalCard, violations: &mut Vec<ContractViolation>) {
+        self.check_with(card, &ProtocolProfile::canonical(), violations);
+    }
+
+    /// Appends any [`ContractViolation`]s detected on `card` under the application's `profile`.
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        _profile: &ProtocolProfile,
+        violations: &mut Vec<ContractViolation>,
+    ) {
+        self.check(card, violations);
+    }
 }
 
 /// Step 2 of SIGA & Prohibition 1: 3-part decision-maker question (`who_decides`, `altered_action`, `question`).
 pub struct Step2QuestionSpec;
 
 impl CardSpecification for Step2QuestionSpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let q = &card.decision_maker_question;
         let dm_lower = q.who_decides.trim().to_ascii_lowercase();
         let dm_tokens: Vec<&str> = dm_lower
             .split(|c: char| !c.is_ascii_alphanumeric())
             .filter(|t| !t.is_empty())
             .collect();
-        let forbidden_dm_tokens = [
-            "system",
-            "team",
-            "generic",
-            "analyst",
-            "model",
-            "ai",
-            "algorithm",
-        ];
-        if dm_tokens.len() < 2 || dm_tokens.iter().any(|t| forbidden_dm_tokens.contains(t)) {
+        let forbidden_dm_tokens = &profile.forbidden_decision_maker_tokens;
+        if dm_tokens.len() < 2
+            || dm_tokens
+                .iter()
+                .any(|t| forbidden_dm_tokens.iter().any(|f| f == t))
+        {
             v.push(ContractViolation {
                 gate_code: "STEP2_DECISION_MAKER",
                 description: "who_decides cannot be empty or generic".into(),
@@ -60,16 +76,19 @@ impl CardSpecification for Step2QuestionSpec {
 pub struct Prohibition2LoneMeanSpec;
 
 impl CardSpecification for Prohibition2LoneMeanSpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let nl = card
             .epistemological_header
             .nonlinearity
             .to_ascii_lowercase();
         let mut nl_missing_term = false;
-        for term in [
-            "f(e[x])", "e[f(x)]", "jensen", "median", "q05", "q95", "crps",
-        ] {
-            if !nl.contains(term) {
+        for term in &profile.lone_mean_terms {
+            if !nl.contains(term.as_str()) {
                 nl_missing_term = true;
                 v.push(ContractViolation {
                     gate_code: "PROHIBITION_2_LONE_MEAN",
@@ -98,7 +117,12 @@ impl CardSpecification for Prohibition2LoneMeanSpec {
 pub struct Prohibition3PerformativitySpec;
 
 impl CardSpecification for Prohibition3PerformativitySpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        _profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let perf = &card
             .epistemological_header
             .noise_physics
@@ -146,17 +170,23 @@ impl CardSpecification for Prohibition3PerformativitySpec {
     }
 }
 
-/// Invariant $\Phi_1$: Simulability (`seed=2026` and executable `null_model`).
+/// Invariant $\Phi_1$: Simulability (the profile's seed, canonically `seed=2026`, and executable `null_model`).
 pub struct Phi1SimulabilitySpec;
 
 impl CardSpecification for Phi1SimulabilitySpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let seed_env = &card.data_and_audit_contract.seed_and_environment;
-        if parse_seed_from_env(seed_env) != Some(DEFAULT_SEED) {
+        if parse_seed_from_env(seed_env) != Some(profile.seed) {
             v.push(ContractViolation {
                 gate_code: "PHI1_SEED",
                 description: format!(
-                    "seed_and_environment must declare canonical 'seed={DEFAULT_SEED}'"
+                    "seed_and_environment must declare the profile's 'seed={}'",
+                    profile.seed
                 ),
             });
         }
@@ -179,7 +209,12 @@ impl CardSpecification for Phi1SimulabilitySpec {
 pub struct Phi2IndependentUnitSpec;
 
 impl CardSpecification for Phi2IndependentUnitSpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        _profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let um = &card.epistemological_header.unit_and_margin;
         let u_lower = um.independent_unit.trim().to_ascii_lowercase();
         if u_lower.is_empty()
@@ -244,19 +279,25 @@ impl CardSpecification for Phi2IndependentUnitSpec {
 pub struct Phi3ProvenanceAndMissingnessSpec;
 
 impl CardSpecification for Phi3ProvenanceAndMissingnessSpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let ds_path = card.data_and_audit_contract.dataset_path.trim();
         let ds_sha = card.data_and_audit_contract.dataset_sha256.trim();
-        if !ds_path.starts_with("data/")
+        if !ds_path.starts_with(profile.dataset_root.as_str())
             || !ds_path.ends_with(".csv")
             || ds_path.contains("..")
             || !is_valid_sha256_hex(ds_sha)
         {
             v.push(ContractViolation {
                 gate_code: "PHI3_DATASET_PROVENANCE",
-                description:
-                    "dataset_path must point to 'data/*.csv' and dataset_sha256 must be a valid 64-hex SHA-256"
-                        .into(),
+                description: format!(
+                    "dataset_path must point to '{}*.csv' and dataset_sha256 must be a valid 64-hex SHA-256",
+                    profile.dataset_root
+                ),
             });
         }
         let mm_raw = &card.data_and_audit_contract.missingness_mechanism;
@@ -278,11 +319,11 @@ impl CardSpecification for Phi3ProvenanceAndMissingnessSpec {
         }
         if !is_valid_sha256_hex(&card.data_and_audit_contract.preregistration_hash)
             || card.data_and_audit_contract.preregistration_hash
-                != card.compute_preregistration_hash()
+                != profile.preregistration_hash_for(card)
         {
             v.push(ContractViolation {
                 gate_code: "PHI3_PREREGISTRATION_HASH",
-                description: "preregistration_hash must be a valid 64-character SHA-256 matching compute_preregistration_payload()"
+                description: "preregistration_hash must be a valid 64-character SHA-256 matching the profile's preregistration_payload_for(card)"
                     .into(),
             });
         }
@@ -322,7 +363,12 @@ impl CardSpecification for Phi3ProvenanceAndMissingnessSpec {
 pub struct VarianceBudgetAndDominantEventSpec;
 
 impl CardSpecification for VarianceBudgetAndDominantEventSpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let vb = &card.uncertainty_budget_and_authorship.variance_budget;
         let sum_var = vb.inputs + vb.parameters + vb.covariance;
         let gp_lower = vb.structural_discrepancy_gp.to_ascii_lowercase();
@@ -355,10 +401,16 @@ impl CardSpecification for VarianceBudgetAndDominantEventSpec {
                 ),
             });
         }
-        if !dom.cost_share.is_finite() || dom.cost_share < 0.50 || dom.cost_share > 1.0 {
+        if !dom.cost_share.is_finite()
+            || dom.cost_share < profile.min_dominant_cost_share
+            || dom.cost_share > 1.0
+        {
             v.push(ContractViolation {
                 gate_code: "DOMINANT_EVENT_COST_SHARE",
-                description: "dominant_event.cost_share must be finite and in [0.50, 1.0]".into(),
+                description: format!(
+                    "dominant_event.cost_share must be finite and in [{:.2}, 1.0]",
+                    profile.min_dominant_cost_share
+                ),
             });
         }
     }
@@ -368,7 +420,12 @@ impl CardSpecification for VarianceBudgetAndDominantEventSpec {
 pub struct InfoGapSniedovichSpec;
 
 impl CardSpecification for InfoGapSniedovichSpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        _profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let ig = &card.uncertainty_budget_and_authorship.info_gap_robustness;
         let alpha_hat_lower = ig.robustness_horizon_alpha_hat.to_ascii_lowercase();
         let safeguard_lower = ig.global_maximin_safeguard.to_ascii_lowercase();
@@ -393,7 +450,12 @@ impl CardSpecification for InfoGapSniedovichSpec {
 pub struct Filter4CrossAuthorshipSpec;
 
 impl CardSpecification for Filter4CrossAuthorshipSpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        _profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let auth = &card.uncertainty_budget_and_authorship.field_authorship;
         if auth.null_model.trim().is_empty()
             || auth.decision_rule.trim().is_empty()
@@ -416,7 +478,12 @@ impl CardSpecification for Filter4CrossAuthorshipSpec {
 pub struct Prohibition4CromwellAndEProcessSpec;
 
 impl CardSpecification for Prohibition4CromwellAndEProcessSpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let dr = &card.decision_rule_and_scope;
         if !dr.event_probability_p.is_finite()
             || !dr.base_rate_floor_epsilon.is_finite()
@@ -442,13 +509,16 @@ impl CardSpecification for Prohibition4CromwellAndEProcessSpec {
         if !card
             .data_and_audit_contract
             .parsed_e_process_metrics()
-            .is_some_and(|m| m.rejects_under_multiplicity(k))
+            .is_some_and(|m| {
+                m.rejects_under_multiplicity_at(k, profile.e_process_min_inverse_alpha)
+            })
         {
             v.push(ContractViolation {
                 gate_code: "PROHIBITION_4_E_PROCESS",
-                description:
-                    "e_process_multiplicity must declare finite E_t with E_t / K >= 1/alpha >= 20.0"
-                        .into(),
+                description: format!(
+                    "e_process_multiplicity must declare finite E_t with E_t / K >= 1/alpha >= {:.1}",
+                    profile.e_process_min_inverse_alpha
+                ),
             });
         }
     }
@@ -458,7 +528,12 @@ impl CardSpecification for Prohibition4CromwellAndEProcessSpec {
 pub struct Lens5MurphyCorpAndFindingsSpec;
 
 impl CardSpecification for Lens5MurphyCorpAndFindingsSpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let mc = &card.data_and_audit_contract.murphy_corp_decomposition;
         let bs_reconstructed =
             mc.miscalibration_rel_mcb - mc.resolution_res_dsc + mc.base_uncertainty_unc0;
@@ -470,7 +545,8 @@ impl CardSpecification for Lens5MurphyCorpAndFindingsSpec {
             || mc.resolution_res_dsc <= 0.0
             || mc.base_uncertainty_unc0 <= 0.0
             || mc.miscalibration_rel_mcb >= mc.resolution_res_dsc
-            || (mc.total_score_brier_or_crps - bs_reconstructed).abs() > 1e-4
+            || (mc.total_score_brier_or_crps - bs_reconstructed).abs()
+                > profile.murphy_corp_tolerance
         {
             v.push(ContractViolation {
                 gate_code: "LENS5_MURPHY_CORP",
@@ -497,7 +573,12 @@ impl CardSpecification for Lens5MurphyCorpAndFindingsSpec {
 pub struct Lens5CostLossBoundarySpec;
 
 impl CardSpecification for Lens5CostLossBoundarySpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let dr = &card.decision_rule_and_scope;
         if !dr.protection_cost_c.is_finite()
             || !dr.event_loss_l.is_finite()
@@ -515,7 +596,7 @@ impl CardSpecification for Lens5CostLossBoundarySpec {
         } else {
             let expected_p_star =
                 dr.protection_cost_c / (dr.mitigation_efficacy_eta * dr.event_loss_l);
-            if (dr.critical_threshold_p_star - expected_p_star).abs() > 1e-3 {
+            if (dr.critical_threshold_p_star - expected_p_star).abs() > profile.p_star_tolerance {
                 v.push(ContractViolation {
                     gate_code: "LENS5_THRESHOLD_P_STAR",
                     description: format!(
@@ -546,11 +627,16 @@ impl CardSpecification for Lens5CostLossBoundarySpec {
 pub struct Phi4ChouldechovaAndScopeSpec;
 
 impl CardSpecification for Phi4ChouldechovaAndScopeSpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let dr = &card.decision_rule_and_scope;
         if !dr
             .parsed_chouldechova_metrics()
-            .is_some_and(|m| m.is_non_unit_ratio())
+            .is_some_and(|m| m.is_non_unit_ratio_beyond(profile.chouldechova_ratio_tolerance))
         {
             v.push(ContractViolation {
                 gate_code: "PHI4_CHOULDECHOVA",
@@ -579,10 +665,19 @@ impl CardSpecification for Phi4ChouldechovaAndScopeSpec {
 pub struct Phi5ResolutionSpec;
 
 impl CardSpecification for Phi5ResolutionSpec {
-    fn check(&self, card: &EpistemologicalCard, v: &mut Vec<ContractViolation>) {
+    fn check_with(
+        &self,
+        card: &EpistemologicalCard,
+        profile: &ProtocolProfile,
+        v: &mut Vec<ContractViolation>,
+    ) {
         let um = &card.epistemological_header.unit_and_margin;
         let q = &card.decision_maker_question;
-        if !verify_resolution_phi5(&um.independent_unit, &q.altered_action) {
+        let resolution_ok = match &profile.resolution {
+            Some(vocab) => vocab.verify_resolution(&um.independent_unit, &q.altered_action),
+            None => verify_resolution_phi5(&um.independent_unit, &q.altered_action),
+        };
+        if !resolution_ok {
             v.push(ContractViolation {
                 gate_code: "PHI5_RESOLUTION",
                 description:
@@ -613,14 +708,61 @@ pub const CANONICAL_CARD_SPECIFICATIONS: &[&dyn CardSpecification] = &[
 
 impl EpistemologicalCard {
     /// Audits the Epistemological Card against the 4 Prohibitions and the 5 Boundary Invariants ($\Phi_1$–$\Phi_5$)
-    /// by running every rule in [`CANONICAL_CARD_SPECIFICATIONS`].
+    /// by running every rule in [`CANONICAL_CARD_SPECIFICATIONS`] under [`ProtocolProfile::canonical`].
     pub fn audit(&self) -> Result<(), Vec<ContractViolation>> {
-        let mut violations = Vec::new();
+        self.audit_with(&ProtocolProfile::canonical()).map(|_| ())
+    }
+
+    /// Audits the card under an application's [`ProtocolProfile`]: every rule runs with the profile's
+    /// numbers and vocabulary; violations of an admissibly waived instrument are moved into the
+    /// returned [`AuditReport`] instead of being dropped, and defective waivers are violations.
+    pub fn audit_with(
+        &self,
+        profile: &ProtocolProfile,
+    ) -> Result<AuditReport, Vec<ContractViolation>> {
+        let mut violations: Vec<ContractViolation> = profile
+            .waiver_defects(self)
+            .into_iter()
+            .map(|(gate_code, description)| ContractViolation {
+                gate_code,
+                description,
+            })
+            .collect();
+        let mut applied_waivers: Vec<AppliedWaiver> = WAIVABLE_INSTRUMENTS
+            .iter()
+            .filter_map(|i| {
+                let w = profile.waiver_for(i.gate_code)?;
+                profile
+                    .waiver_defects_of(self, w)
+                    .is_empty()
+                    .then(|| AppliedWaiver {
+                        gate_code: w.gate_code.clone(),
+                        principle: i.principle,
+                        reason: w.reason.trim().to_string(),
+                        suppressed: Vec::new(),
+                    })
+            })
+            .collect();
+
+        let mut raw = Vec::new();
         for spec in CANONICAL_CARD_SPECIFICATIONS {
-            spec.check(self, &mut violations);
+            spec.check_with(self, profile, &mut raw);
         }
+        for violation in raw {
+            match applied_waivers
+                .iter_mut()
+                .find(|w| w.gate_code == violation.gate_code)
+            {
+                Some(waiver) => waiver.suppressed.push(violation.description),
+                None => violations.push(violation),
+            }
+        }
+
         if violations.is_empty() {
-            Ok(())
+            Ok(AuditReport {
+                profile_name: profile.name.clone(),
+                applied_waivers,
+            })
         } else {
             Err(violations)
         }

@@ -29,6 +29,10 @@ for card in cards/card_0*.yaml; do
     cargo run --release --bin gates -- --audit-card "$card" >/dev/null
     echo "  [OK] Portable external card audit (--audit-card $card) passed"
 done
+for card in examples/*/card_*.yaml; do
+    cargo run --release --bin gates -- --audit-card "$card" >/dev/null
+    echo "  [OK] Shaped application card audit under its own protocol_profile (--audit-card $card) passed"
+done
 
 for defect in cromwell phi5 moulton performativity sniedovich clock vault concept_drift chouldechova machine analog_wall instrumental_reason stochary_cybernetics peeking brier_dominance var_underreport lee_point_estimate replace_collapse triadic_technium strategic_accommodation coupled_society; do
     set +e
@@ -44,7 +48,7 @@ for defect in cromwell phi5 moulton performativity sniedovich clock vault concep
 done
 
 echo ">>> [6/6] Verifying doc-to-code symbol parity, CAPIBA Protocol contract, and release tag hygiene..."
-for sym in SplitMix64 DpiOperationalStage MengAudit data_defect_correlation_ddc data_defect_index_ddi law_of_large_populations_z ManskiBounds lee_trimming_bounds lee_tipping_point_delta PerformativeSystem perfgd_trajectory ChouldechovaAudit disparate_impact_fpr_ratio minmax_penalty_disparity CorpPavDecomposition compute_logarithmic MurphyDiagram CorpRocMurphyTriptych SaviConfidenceSequence gro_betting VarEsEBacktest GerstgrasserAccumulateAudit SyntheticDataPolicy AlertFatigueAudit PredeterminedChangeControlPlan ProfitLossAttributionTest EvaluatedCompetenceCriterion ComplexFractalToroidalTechniumSynthesis EmpiricalTriadicTechniumAudit RubinMultipleImputationAudit ShapleyCausalAudit SaatyAhpRankReversalAudit LlmJudgePpiRectifier RobustKalmanControlAudit RegulatoryComplianceAudit EpistemicPkmProvenanceAudit StrategicAiAccommodationSynthesis EmpiricalStrategicAccommodationAudit prospective_ppi_gold_sample_size ppi_effective_sample_size_multiplier SimpsonCausalParadoxAudit LongContextDpiDilutionAudit MultimodalCorrelatedFusionAudit PreMortemCounterfactualRootCauseAudit CloudLocalLoraArchitectureAudit CoupledPublicPrivateSocietySynthesis EmpiricalCoupledSocietyAudit SfcFlowMatrix H1aRegulatorCouplingAblation H1bCreditScreeningAblation H2VcgGreenLaffontCommonsAblation; do
+for sym in SplitMix64 DpiOperationalStage MengAudit data_defect_correlation_ddc data_defect_index_ddi law_of_large_populations_z ManskiBounds lee_trimming_bounds lee_tipping_point_delta PerformativeSystem perfgd_trajectory ChouldechovaAudit disparate_impact_fpr_ratio minmax_penalty_disparity CorpPavDecomposition compute_logarithmic MurphyDiagram CorpRocMurphyTriptych SaviConfidenceSequence gro_betting VarEsEBacktest GerstgrasserAccumulateAudit SyntheticDataPolicy AlertFatigueAudit PredeterminedChangeControlPlan ProfitLossAttributionTest EvaluatedCompetenceCriterion ComplexFractalToroidalTechniumSynthesis EmpiricalTriadicTechniumAudit RubinMultipleImputationAudit ShapleyCausalAudit SaatyAhpRankReversalAudit LlmJudgePpiRectifier RobustKalmanControlAudit RegulatoryComplianceAudit EpistemicPkmProvenanceAudit StrategicAiAccommodationSynthesis EmpiricalStrategicAccommodationAudit prospective_ppi_gold_sample_size ppi_effective_sample_size_multiplier SimpsonCausalParadoxAudit LongContextDpiDilutionAudit MultimodalCorrelatedFusionAudit PreMortemCounterfactualRootCauseAudit CloudLocalLoraArchitectureAudit CoupledPublicPrivateSocietySynthesis EmpiricalCoupledSocietyAudit SfcFlowMatrix H1aRegulatorCouplingAblation H1bCreditScreeningAblation H2VcgGreenLaffontCommonsAblation ProtocolProfile ColumnMappedCsvStrategy; do
     if ! grep -q "$sym" "docs/PROTOCOL.md"; then
         echo "ERROR: docs/PROTOCOL.md omits canonical symbol '$sym'!" >&2
         exit 1
@@ -54,7 +58,7 @@ for sym in SplitMix64 DpiOperationalStage MengAudit data_defect_correlation_ddc 
         exit 1
     fi
 done
-echo "  [OK] docs/PROTOCOL.md <-> Rust codebase symbol parity verified (51 canonical symbols)"
+echo "  [OK] docs/PROTOCOL.md <-> Rust codebase symbol parity verified (53 canonical symbols)"
 for ch in $(grep -oE '\]\([a-z0-9-]+\.md\)' "book-src/SUMMARY.md" | sed -E 's/^\]\((.*)\)$/\1/' | sort -u); do
     if [ ! -f "book-src/$ch" ]; then
         echo "ERROR: book-src/SUMMARY.md cites non-existent book-src chapter '$ch'!" >&2
@@ -203,6 +207,12 @@ if ! sha256sum -c --quiet data/SHA256SUMS; then
     echo "ERROR: data/SHA256SUMS does not match the files it seals!" >&2
     exit 1
 fi
+for manifest in examples/*/SHA256SUMS; do
+    if ! sha256sum -c --quiet "$manifest"; then
+        echo "ERROR: '$manifest' does not match the shaped-application dataset it seals!" >&2
+        exit 1
+    fi
+done
 if git rev-parse --verify -q HEAD >/dev/null; then
     head_csv="$(git show HEAD:data/SHA256SUMS | grep '\.csv$' || true)"
     work_csv="$(grep '\.csv$' data/SHA256SUMS || true)"

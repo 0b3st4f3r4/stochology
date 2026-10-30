@@ -1,7 +1,8 @@
 //! Portable Epistemological Card auditing (`gates --audit-card <card.yaml>`).
 
 use std::path::Path;
-use stochology_cli::evaluate_empirical_card_severe_test;
+use stochology_cli::evaluate_empirical_card_severe_test_with_profile;
+use stochology_core::card::{AuditReport, ProtocolProfile};
 use stochology_core::{EpistemologicalCard, MissingnessMechanism};
 use stochology_governance::{CloudLocalLoraArchitectureAudit, RegulatoryComplianceAudit};
 use stochology_siga::{
@@ -44,14 +45,28 @@ pub fn run_audit_card(root: &Path, card_arg: &str) -> Result<(), String> {
         .map_err(|e| format!("Failed to read card '{}': {e}", full_path.display()))?;
     let card = EpistemologicalCard::from_yaml(&yaml_content)
         .map_err(|e| format!("Failed to parse YAML card '{}': {e}", full_path.display()))?;
-    card.audit().map_err(|violations| {
+    let profile = ProtocolProfile::from_card_yaml(&yaml_content)
+        .map_err(|e| {
+            format!(
+                "Failed to parse protocol_profile of '{}': {e}",
+                full_path.display()
+            )
+        })?
+        .unwrap_or_else(ProtocolProfile::canonical);
+    let report = card.audit_with(&profile).map_err(|violations| {
         format!(
-            "Card '{}' failed EpistemologicalCard::audit(): {:?}",
-            card.id, violations
+            "Card '{}' failed EpistemologicalCard::audit_with(profile '{}'): {:?}",
+            card.id, profile.name, violations
         )
     })?;
+    let waived = |gate_code: &str| {
+        report
+            .applied_waivers
+            .iter()
+            .any(|w| w.gate_code == gate_code)
+    };
 
-    let (emp, siga_rep) = evaluate_empirical_card_severe_test(root, &card)?;
+    let (emp, siga_rep) = evaluate_empirical_card_severe_test_with_profile(root, &card, &profile)?;
     let (tpr, fpr) = emp.confusion_tpr_fpr_at_p_star;
     let p_star = card.decision_rule_and_scope.critical_threshold_p_star;
     let alert_audit =
@@ -72,11 +87,12 @@ pub fn run_audit_card(root: &Path, card_arg: &str) -> Result<(), String> {
     let ig = &card.uncertainty_budget_and_authorship.info_gap_robustness;
     let alpha_hat = parse_alpha_hat_from_declaration(&ig.robustness_horizon_alpha_hat);
     let safeguard_lower = ig.global_maximin_safeguard.to_ascii_lowercase();
-    let sniedovich_ok = safeguard_lower.contains("wald")
-        && safeguard_lower.contains("reversible")
-        && !safeguard_lower.contains("irreversible")
-        && !safeguard_lower.contains("no-man's land")
-        && !safeguard_lower.contains("-999");
+    let sniedovich_ok = waived("INFO_GAP_SNIEDOVICH")
+        || (safeguard_lower.contains("wald")
+            && safeguard_lower.contains("reversible")
+            && !safeguard_lower.contains("irreversible")
+            && !safeguard_lower.contains("no-man's land")
+            && !safeguard_lower.contains("-999"));
     let mm_ok =
         MissingnessMechanism::from_prefix(&card.data_and_audit_contract.missingness_mechanism)
             .is_some()
@@ -86,10 +102,11 @@ pub fn run_audit_card(root: &Path, card_arg: &str) -> Result<(), String> {
                 .identification_strategy
                 .to_ascii_lowercase()
                 .contains("markov blanket");
-    let chouldechova_ok = card
-        .decision_rule_and_scope
-        .parsed_chouldechova_metrics()
-        .is_some_and(|m| m.is_non_unit_ratio());
+    let chouldechova_ok = waived("PHI4_CHOULDECHOVA")
+        || card
+            .decision_rule_and_scope
+            .parsed_chouldechova_metrics()
+            .is_some_and(|m| m.is_non_unit_ratio_beyond(profile.chouldechova_ratio_tolerance));
 
     let statutory = RegulatoryComplianceAudit::evaluate(
         alpha_hat,
@@ -117,6 +134,7 @@ pub fn run_audit_card(root: &Path, card_arg: &str) -> Result<(), String> {
         card.data_and_audit_contract.seed_and_environment,
         card.data_and_audit_contract.attempt_counter_k
     );
+    print_profile_block(&profile, &report);
     println!(
         "  [1] 4-Filter Funnel: approved={}, EVPI={:.1}, n_eff(q90)={}, SBC chi2={:.2}",
         siga_rep.funnel_result.approved_all_filters,
@@ -189,4 +207,57 @@ pub fn run_audit_card(root: &Path, card_arg: &str) -> Result<(), String> {
         card.id
     );
     Ok(())
+}
+
+/// Prints the Protocol Profile the card was audited under: every parameter is an `Assumed:` input
+/// (`AGENTS.md` §II.C), and every waiver is shown with its principle, reason, and suppressed findings.
+fn print_profile_block(profile: &ProtocolProfile, report: &AuditReport) {
+    if profile.is_canonical() {
+        println!(
+            "  [0] Protocol Profile: canonical (CAPIBA defaults, seed={})",
+            profile.seed
+        );
+        return;
+    }
+    let st = &profile.severe_test;
+    println!(
+        "  [0] Protocol Profile '{}' (Assumed: pre-registered application parameters) — {}",
+        profile.name, profile.rationale
+    );
+    println!(
+        "      seed={}, 1/alpha>={:.1}, tol(p*)={}, tol(Murphy)={}, min cost share={:.2}, dataset root='{}', manifest='{}', Phi5 vocabulary={}",
+        profile.seed,
+        profile.e_process_min_inverse_alpha,
+        profile.p_star_tolerance,
+        profile.murphy_corp_tolerance,
+        profile.min_dominant_cost_share,
+        profile.dataset_root,
+        profile.dataset_manifest,
+        if profile.resolution.is_some() {
+            "application"
+        } else {
+            "canonical"
+        }
+    );
+    println!(
+        "      severe test: permutations={}, SBC={}x(0..={}), Ville blocks={}, null p<{}, Funnel volume={}, cost={}, n_eff>={}, SBC chi2<={}",
+        st.permutation_replications,
+        st.sbc_replications,
+        st.sbc_max_rank,
+        st.ville_blocks,
+        st.null_p_threshold,
+        st.decision_volume_units,
+        st.total_modeling_cost,
+        st.minimum_required_n_eff,
+        st.sbc_chi2_critical
+    );
+    for w in &report.applied_waivers {
+        println!(
+            "      waiver {} (principle {} stays binding): {} — suppressed {} finding(s)",
+            w.gate_code,
+            w.principle.code(),
+            w.reason,
+            w.suppressed.len()
+        );
+    }
 }

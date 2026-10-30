@@ -2,7 +2,8 @@
 //! `book-src/*.md` must appear verbatim (trimmed) in the output that the current code prints.
 //!
 //! Quoted output lines are recognized by their trimmed prefix: `[`, `NEGATIVE PROOF`, `=== `, or `Out of every`.
-//! The collected output is `labs --all`, `gates`, and `gates --defect <name>` for each of the 21 negative proofs.
+//! The collected output is `labs --all`, `gates`, `gates --defect <name>` for each of the 21 negative proofs, and
+//! `gates --audit-card` on the shaped application of `examples/clay/` (Protocol Profile worked example).
 
 use std::collections::HashSet;
 use std::fs;
@@ -36,13 +37,21 @@ fn run_capture(bin: &'static str, args: Vec<String>, root: PathBuf) -> String {
     text
 }
 
-/// Collects the trimmed output lines of `labs --all`, `gates`, and the 21 `gates --defect <name>` runs.
+/// Collects the trimmed output lines of `labs --all`, `gates`, the 21 `gates --defect <name>` runs, and the
+/// shaped-application `gates --audit-card` run.
 fn collect_output_lines(root: &Path) -> HashSet<String> {
     let labs_bin: &'static str = env!("CARGO_BIN_EXE_labs");
     let gates_bin: &'static str = env!("CARGO_BIN_EXE_gates");
     let mut invocations: Vec<(&'static str, Vec<String>)> = vec![
         (labs_bin, vec!["--all".to_string()]),
         (gates_bin, Vec::new()),
+        (
+            gates_bin,
+            vec![
+                "--audit-card".to_string(),
+                "examples/clay/card_clay_night_shift_overflow.yaml".to_string(),
+            ],
+        ),
     ];
     for defect in all_defect_names() {
         invocations.push((gates_bin, vec!["--defect".to_string(), defect.to_string()]));

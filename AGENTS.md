@@ -1,6 +1,6 @@
 # AGENTS.md — Governance, Engineering, and Orchestration Contract (Stochology — The CAPIBA Protocol)
 
-This file is the binding contract for any agent or contributor working in this repository. The system built here is an **auditable epistemological machine**: claim, generating process, executable null model, and severe test live in the same place, with a fixed seed (`seed = 2026`), a structured Epistemological Card, and algorithmic gates that reject flawed claims. The final reader of the output is a **human** (decision-maker, student, instructor, or auditor).
+This file is the binding contract for any agent or contributor working in this repository. The system built here is an **auditable epistemological machine**: claim, generating process, executable null model, and severe test live in the same place, with a fixed seed (canonically `seed = 2026`), a structured Epistemological Card, and algorithmic gates that reject flawed claims. The final reader of the output is a **human** (decision-maker, student, instructor, or auditor).
 
 This repository implements the **CAPIBA Protocol** (*Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol*, the scientific and operational auditing protocol of **Stochology**) in **pure Rust (zero external dependencies)**:
 
@@ -21,7 +21,7 @@ This repository implements the **CAPIBA Protocol** (*Calibrated, Anytime-valid, 
 
 | Invariant | Formal Requirement | Code Location |
 | --- | --- | --- |
-| $\Phi_1$ — Simulability | Fixed seed (`seed = 2026`, `SplitMix64`), lock-free `.split(stream_id)` / `.split_fork_join_pair(branch_tag)` substreams (`MonteCarloSplitTreeAudit`), and executable null model before any fitting | `crates/stochology-core/src/rng.rs` & `card/` |
+| $\Phi_1$ — Simulability | Fixed seed declared before fitting (canonical `seed = 2026`; a `ProtocolProfile` pre-registers its own, §II.D), `SplitMix64`, lock-free `.split(stream_id)` / `.split_fork_join_pair(branch_tag)` substreams (`MonteCarloSplitTreeAudit`), and executable null model before any fitting | `crates/stochology-core/src/rng.rs` & `card/` |
 | $\Phi_2$ — Independent Unit | Margin over the true independent unit; Moulton-Campbell correction for unequal clusters $\tilde{m} = \bar{m}(1 + \mathrm{CV}^2)$, threshold exceedance ICC $\rho_I(p)$, and $n_{\mathrm{eff}}(p) = \frac{n}{1 + (\tilde{m}-1)\rho_I(p)}$ | `crates/stochology-core/src/invariants.rs` (`ExceedanceDesignEffect`, `OperationalWeightingGap`) |
 | $\Phi_3$ — Severe Test & Missingness | Explicit Rubin missingness classification (`MCAR`, `MAR`, `MNAR`), Meng's Identity ($\rho_{R,Y}$), non-parametric Manski bounds, SHA-256 pre-registration, and Pearl's Ladder rung | `crates/stochology-core/src/layers/`, `sha256.rs` & `card/` |
 | $\Phi_4$ — Scope, Fairness & Exit | Economic boundary $p^* = \frac{C}{\eta L}$, algebraic audit of Chouldechova's trilemma ($\mathrm{FPR}_A / \mathrm{FPR}_B$ under unequal base rates), and automatic numeric exit clause | `crates/stochology-core/src/invariants.rs` (`ChouldechovaAudit`) & `card/` |
@@ -50,7 +50,7 @@ Every quantitative claim that leaves the code — in `book-src/`, `docs/PROTOCOL
 | --- | --- | --- |
 | **Measured** | Computed by the code on a real dataset in `data/*.csv` | Name the dataset (e.g. `danish_fire.csv`) |
 | **Simulated** | Output of a seeded generative model | Say "simulated" and give the seed; if `G8` reports the claim in `discarded_claims`, say it is discarded |
-| **Assumed** | A hand-set input or design target (e.g. the Stochological operating point $\mathrm{TPR} = 0.82$, $\mathrm{FPR} = 0.045$ in `AlertFatigueAudit`) | Say "assumed"; never present it as a result |
+| **Assumed** | A hand-set input or design target (e.g. the Stochological operating point $\mathrm{TPR} = 0.82$, $\mathrm{FPR} = 0.045$ in `AlertFatigueAudit`), including every `protocol_profile` parameter (§II.D) | Say "assumed"; never present it as a result |
 | **Literature (informative)** | A constant transcribed from a source and not computed (Horowitz's $640\text{ pJ}$, the IEA's $945\text{ TWh}$, Epoch AI's $300\text{T}$ tokens, Ferran Alia's noise curve, Tsinghua `ACCEL`) | Cite the source and mark it informative |
 
 Rules, each derived from an audited failure:
@@ -65,6 +65,23 @@ Rules, each derived from an audited failure:
 8. Numbers in the book must match what the current code prints; regenerate quoted `labs`/`gates` output blocks instead of editing them by hand.
 
 `stochology-adversary` applies this table to every derived text before publication (claim, provenance class, source location, verdict); `stochology-scribe` applies it to `book-src/` and `docs/`; `stochology-modeler` tags transcribed constants `Informative:` and hand-set inputs `Assumed:` in doc comments.
+
+### II.D. Kernel and Clay — Protocol Profiles
+
+The Four Prohibitions and $\Phi_1$–$\Phi_5$ bind as **principles**, together with their **mechanisms**: a declared seed, a manifest-sealed dataset, the SHA-256 pre-registration, $K \ge 1$, findings conservation, Cromwell's interval, the CORP-Murphy identity, cross-authorship, and a scope with a numeric exit. These are the kernel. The numbers and vocabulary used to check them are **clay**. An application shapes them in the optional `protocol_profile` section of its card (`ProtocolProfile`, `crates/stochology-core/src/card/profile.rs`; specification in `docs/PROTOCOL.md` §1.6). The shapeable items are:
+- the seed and $1/\alpha$;
+- the tolerances;
+- the $\Phi_5$ and lone-mean vocabularies;
+- the dataset root, manifest, and column mapping;
+- the replication counts and Funnel thresholds.
+
+The rules are:
+
+1. A non-canonical profile is sealed into `preregistration_hash`. Recalibrating it after seeing data breaks `PHI3_PREREGISTRATION_HASH`.
+2. A profile may waive only the instruments in `WAIVABLE_INSTRUMENTS` (`PHI4_CHOULDECHOVA`, `INFO_GAP_SNIEDOVICH`, `PROHIBITION_3_RRM_CONTRACTION`). Each waiver needs its admissibility condition and a written reason. Every waiver is reported with the findings it suppressed.
+3. Every profile parameter is **Assumed** (§II.C).
+4. The canonical profile reproduces the pre-profile thresholds exactly. `G1`–`G8` and the 21 negative proofs run under it; shaped applications are audited with `gates -- --audit-card <card.yaml>` (worked example: `examples/clay/`, simulated, seed 31).
+5. Moving the seed or the $\Phi_5$ vocabulary inside the sealed sources (`rng.rs`, `invariants.rs`) is out of scope for profiles and requires a re-seal under human review.
 
 ---
 
@@ -132,7 +149,7 @@ This contract is model- and harness-agnostic. It governs any autonomous coding a
    - **`stochology-scribe` (`.agents/agents/stochology-scribe.md`, `inherit` mode):** Keeps documentary and pedagogical parity between exported Rust symbols, `docs/PROTOCOL.md`, `book-src/appendix-protocol.md`, and the 27-chapter book with Appendices A–E (`book-src/SUMMARY.md`, `book-src/00-preface.md`..`27-empirical-synthesis.md`, `book-src/appendix-*.md`), including claim provenance (§II.C) and numeric parity with current `labs`/`gates` output.
 3. **Terminal Execution Policy & Cryptographic Pre-Registration Protection ($\Phi_3$):**
    - **Allow List (Autonomous Execution):** `scripts/verify.sh`, `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test`, `cargo run --release --bin labs -- --all`, and `cargo run --release --bin gates` (plus `--defect <name>`).
-   - **Request Review (Mandatory Human Confirmation via Inline Diff):** Any modification to `data/SHA256SUMS`, `cards/*.yaml`, or `crates/stochology-governance/src/vault.rs` (`TemporalVault`, enforced by `.agents/scripts/phi3_cryptographic_gate.sh` and `.agents/hooks.json`) requires human review so no agent mutates pre-registration seals or increments the attempt counter $K \ge 1$ unrecorded.
+   - **Request Review (Mandatory Human Confirmation via Inline Diff):** Any modification to `data/SHA256SUMS`, `cards/*.yaml`, `examples/*/SHA256SUMS`, `examples/*/card_*.yaml` (shaped applications and their `protocol_profile` seals), or `crates/stochology-governance/src/vault.rs` (`TemporalVault`, enforced by `.agents/scripts/phi3_cryptographic_gate.sh` and `.agents/hooks.json`) requires human review so no agent mutates pre-registration seals or increments the attempt counter $K \ge 1$ unrecorded.
 
 ---
 
@@ -159,6 +176,7 @@ cargo run --release --bin labs -- --siga                        # Lab 5: 4-Filte
 cargo run --release --bin labs -- --governance                  # Lab 6: Bitemporal Clock, Vault, and 4 Regimes of Drift
 cargo run --release --bin labs -- --real-data                   # Lab 7: Transversal Synthesis across all 13 CSVs & 4 YAML Cards
 cargo run --release --bin gates                                 # The 8 Epistemological Gates (G1-G8): exits with 0
+cargo run --release --bin gates -- --audit-card examples/clay/card_clay_night_shift_overflow.yaml  # Shaped application under its own protocol_profile: exits with 0
 cargo run --release --bin gates -- --defect cromwell            # Negative proof (Cromwell's Rule): exits with 1
 cargo run --release --bin gates -- --defect phi5                # Negative proof (Phi5 Resolution): exits with 1
 cargo run --release --bin gates -- --defect moulton             # Negative proof (Moulton Pseudoreplication): exits with 1
@@ -193,6 +211,7 @@ git tag --list                                                      # SemVer rel
 | Rust Apparatus | `crates/stochology-core`, `crates/stochology-lenses`, `crates/stochology-siga`, `crates/stochology-governance`, `crates/stochology-cli` | 5 pure-Rust crates (zero external dependencies), 2024 edition |
 | Epistemological Cards | `cards/card_01_atlantic_storms_evacuation.yaml`, `cards/card_02_bank_queue_staffing.yaml`, `cards/card_03_nyc_flights_holding.yaml`, `cards/card_04_dpi_civil_defense_triage.yaml` | 4 canonical cards anchored to `data/*.csv` and audited in `gates` and `labs --siga` |
 | Textbook | `book-src/SUMMARY.md`, `book-src/00-preface.md`..`27-empirical-synthesis.md`, `book-src/appendix-*.md` | Preface, 27 chapters in 7 parts (I The Act of Conjecture; II The Five Laws of the Real, tools by layer; III–V the three axes World ⇄ Model, Model ⇄ Decision, Decision ⇄ World, each split into its forward and reverse pair plus an axis synthesis; VI Cross-Pair Syntheses; VII Operation), and Appendices A–E (architecture, verification, sources, full specification, course syllabus) |
+| Shaped Applications (Protocol Profiles) | `examples/clay/card_clay_night_shift_overflow.yaml`, `examples/clay/night_shift_overflow.csv`, `examples/clay/SHA256SUMS` | Worked example of a pre-registered `protocol_profile` (simulated, seed 31) audited by `gates -- --audit-card` and `crates/stochology-cli/tests/clay_profile.rs` |
 | Multi-Agent Governance Harness | `.agents/agents/{stochology-modeler,stochology-adversary,stochology-scribe}.md`, `.agents/rules/AGENTS.md`, `.agents/skills/stochology-protocol/SKILL.md`, `.agents/hooks.json` | Model-agnostic 3-subagent harness (Filter 4 separation of authorship), $\Phi_3$ cryptographic hook, and terminal execution policy |
 | Empirical Datasets | `data/*.csv` (`danish_fire.csv`, `bank_calls.csv`, `nsw_experimental.csv`, `cps_observational.csv`, `djia_1885_2023.csv`, `atlantic_storms.csv`, `toronto_arrests.csv`, `nyc_flights_2013.csv`, `nyc_flights_2023.csv`, `vic_elec.csv`; plus sealed out-of-time/out-of-domain reserves `nyc_flights_2013_h1.csv`, `nyc_flights_2023_h1.csv`, `houston_flights_2011.csv`) | Preserved and exercised by the laboratories |
 | Verification | `scripts/verify.sh` | Complete positive and negative test suite |

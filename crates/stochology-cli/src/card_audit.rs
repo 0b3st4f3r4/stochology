@@ -3,17 +3,19 @@
 
 use crate::csv::CsvTable;
 use crate::error::CliError;
-use crate::loaders::load_sha256sums_manifest;
+use crate::loaders::load_sha256_manifest_at;
 use std::collections::BTreeMap;
 use std::fs;
 use std::path::Path;
+use stochology_core::card::{DatasetColumns, JensenLoss, ProtocolProfile};
 use stochology_core::{
-    DEFAULT_SEED, EpistemologicalCard, ExceedanceDesignEffect, NonlinearSummary, Rng,
-    apply_cromwell_floor, mean, sha256_hex,
+    EpistemologicalCard, ExceedanceDesignEffect, NonlinearSummary, Rng, apply_cromwell_floor, mean,
+    sha256_hex,
 };
 use stochology_lenses::CorpPavDecomposition;
 use stochology_siga::{
-    SigaExecutionReport, run_full_siga_roadmap_empirical, simulate_sbc_beta_binomial_ranks,
+    SigaExecutionReport, run_full_siga_roadmap_empirical_with_profile,
+    simulate_sbc_beta_binomial_ranks,
 };
 
 /// Empirical ground-truth metrics computed directly from a card's declared `data/*.csv` file.
@@ -323,6 +325,97 @@ impl CardDatasetStrategy for CpsObservationalCardStrategy {
     }
 }
 
+/// Dataset strategy for an application's own CSV, driven by the `dataset_columns` of its
+/// [`ProtocolProfile`] instead of a hand-written extractor: rows are grouped into independent clusters
+/// by the `cluster` column, forecasts come from `forecast` (floored by Cromwell's `epsilon`), binary
+/// outcomes from `outcome`, and the Jensen summary applies the profile's loss to `value`, fitted on the
+/// first 80% of rows and scored out-of-sample on the last 20%.
+pub struct ColumnMappedCsvStrategy<'a> {
+    pub columns: &'a DatasetColumns,
+    pub cromwell_epsilon: f64,
+}
+
+impl ColumnMappedCsvStrategy<'_> {
+    /// Extracts clusters, forecasts, outcomes and the Jensen summary, or explains which column is unusable.
+    pub fn extract(&self, csv_content: &str) -> Result<ExtractedCardDataset, String> {
+        let header = csv_content.lines().next().unwrap_or_default();
+        let names: Vec<&str> = header.split(',').map(str::trim).collect();
+        let index_of = |col: &str| -> Result<usize, String> {
+            names
+                .iter()
+                .position(|n| *n == col)
+                .ok_or_else(|| format!("dataset_columns names '{col}', absent from the CSV header"))
+        };
+        let (ci, fi, oi, vi) = (
+            index_of(&self.columns.cluster)?,
+            index_of(&self.columns.forecast)?,
+            index_of(&self.columns.outcome)?,
+            index_of(&self.columns.value)?,
+        );
+        let table = CsvTable::from_string(csv_content.to_string());
+        let mut by_cluster: BTreeMap<String, Vec<(f64, f64, f64)>> = BTreeMap::new();
+        let mut values = Vec::new();
+        for (line, row) in table.rows().enumerate() {
+            let (Some(c), Some(p), Some(y), Some(x)) = (
+                row.str_at(ci),
+                row.f64_at(fi),
+                row.f64_at(oi),
+                row.f64_at(vi),
+            ) else {
+                return Err(format!(
+                    "CSV data row {} is incomplete or non-numeric",
+                    line + 1
+                ));
+            };
+            if !(0.0..=1.0).contains(&p) || (y != 0.0 && y != 1.0) {
+                return Err(format!(
+                    "CSV data row {}: forecast must lie in [0, 1] and outcome must be 0 or 1",
+                    line + 1
+                ));
+            }
+            let p = apply_cromwell_floor(p, self.cromwell_epsilon);
+            by_cluster.entry(c.to_string()).or_default().push((p, y, x));
+            values.push(x);
+        }
+        if by_cluster.len() < 2 || values.len() < 10 {
+            return Err("column-mapped dataset needs at least 2 clusters and 10 rows".into());
+        }
+        let split = values.len() * 4 / 5;
+        let loss = self.columns.jensen_loss;
+        let f_second = match loss {
+            JensenLoss::Square => 2.0,
+            JensenLoss::Exp => mean(&values[..split]).exp(),
+            JensenLoss::Hinge => 0.0,
+        };
+        let jensen = NonlinearSummary::evaluate_out_of_sample(
+            &values[..split],
+            &values[split..],
+            |x| loss.apply(x),
+            f_second,
+        );
+        let clusters_raw = by_cluster
+            .values()
+            .map(|v| v.iter().map(|r| r.2).collect())
+            .collect();
+        let cluster_probs: Vec<Vec<f64>> = by_cluster
+            .values()
+            .map(|v| v.iter().map(|r| r.0).collect())
+            .collect();
+        let cluster_outcomes: Vec<Vec<f64>> = by_cluster
+            .values()
+            .map(|v| v.iter().map(|r| r.1).collect())
+            .collect();
+        Ok(ExtractedCardDataset {
+            clusters_raw,
+            jensen,
+            probs: cluster_probs.concat(),
+            outcomes: cluster_outcomes.concat(),
+            cluster_probs,
+            cluster_outcomes,
+        })
+    }
+}
+
 const CARD_DATASET_STRATEGIES: [&dyn CardDatasetStrategy; 4] = [
     &AtlanticStormsCardStrategy,
     &BankCallsCardStrategy,
@@ -478,6 +571,18 @@ pub fn compute_empirical_dataset_audit(
     root_dir: &Path,
     card: &EpistemologicalCard,
 ) -> Result<EmpiricalDatasetAudit, String> {
+    compute_empirical_dataset_audit_with_profile(root_dir, card, &ProtocolProfile::canonical())
+}
+
+/// As [`compute_empirical_dataset_audit`] under an application's [`ProtocolProfile`]: the dataset is
+/// checked against the profile's `dataset_manifest`, read through [`ColumnMappedCsvStrategy`] when it
+/// is not one of the canonical four, and the SBC, permutation null and Ville e-values use the
+/// profile's seed and replication counts.
+pub fn compute_empirical_dataset_audit_with_profile(
+    root_dir: &Path,
+    card: &EpistemologicalCard,
+    profile: &ProtocolProfile,
+) -> Result<EmpiricalDatasetAudit, String> {
     let rel_csv = card.data_and_audit_contract.dataset_path.trim();
     let full_csv = root_dir.join(rel_csv);
     let raw_bytes = fs::read(&full_csv).map_err(|e| {
@@ -488,7 +593,7 @@ pub fn compute_empirical_dataset_audit(
     })?;
     let actual_sha256 = sha256_hex(&raw_bytes);
 
-    let manifest = load_sha256sums_manifest(root_dir)?;
+    let manifest = load_sha256_manifest_at(root_dir, &profile.dataset_manifest)?;
     let Some(manifest_sha) = manifest.get(rel_csv) else {
         return Err(String::from(CliError::ManifestMismatch {
             dataset_path: rel_csv.to_string(),
@@ -513,11 +618,29 @@ pub fn compute_empirical_dataset_audit(
 
     let p_star = card.decision_rule_and_scope.critical_threshold_p_star;
 
-    let strategy = CARD_DATASET_STRATEGIES
+    let extracted = match CARD_DATASET_STRATEGIES
         .iter()
         .find(|s| s.dataset_path() == rel_csv)
-        .ok_or_else(|| String::from(CliError::UnsupportedDataset(rel_csv.to_string())))?;
-
+    {
+        Some(strategy) => strategy.extract(root_dir, &content),
+        None => {
+            let columns = profile
+                .dataset_columns
+                .as_ref()
+                .ok_or_else(|| String::from(CliError::UnsupportedDataset(rel_csv.to_string())))?;
+            ColumnMappedCsvStrategy {
+                columns,
+                cromwell_epsilon: card.decision_rule_and_scope.base_rate_floor_epsilon,
+            }
+            .extract(&content)
+            .map_err(|detail| {
+                String::from(CliError::EmpiricalMismatch {
+                    card_id: card.id.clone(),
+                    detail,
+                })
+            })?
+        }
+    };
     let ExtractedCardDataset {
         clusters_raw,
         jensen,
@@ -525,7 +648,8 @@ pub fn compute_empirical_dataset_audit(
         outcomes,
         cluster_probs,
         cluster_outcomes,
-    } = strategy.extract(root_dir, &content);
+    } = extracted;
+    let st = &profile.severe_test;
 
     let deff = ExceedanceDesignEffect::from_clustered_observations(&clusters_raw, 0.90);
     let n_eff_rounded = deff.n_effective_p.round() as usize;
@@ -536,9 +660,9 @@ pub fn compute_empirical_dataset_audit(
     let alpha_prior = (20.0 * p_star.clamp(0.01, 0.99)).max(0.5);
     let beta_prior = (20.0 * (1.0 - p_star.clamp(0.01, 0.99))).max(0.5);
     let sbc_ranks = simulate_sbc_beta_binomial_ranks(
-        DEFAULT_SEED,
-        200,
-        49,
+        profile.seed,
+        st.sbc_replications,
+        st.sbc_max_rank,
         alpha_prior,
         beta_prior,
         n_eff_rounded.clamp(20, 120),
@@ -547,10 +671,10 @@ pub fn compute_empirical_dataset_audit(
     let (t_obs, null_samples) = compute_unclamped_cluster_permutation_null(
         &cluster_probs,
         &cluster_outcomes,
-        DEFAULT_SEED,
-        200,
+        profile.seed,
+        st.permutation_replications,
     );
-    let ville_e_values = compute_ville_betting_e_values(&probs, &outcomes, 30);
+    let ville_e_values = compute_ville_betting_e_values(&probs, &outcomes, st.ville_blocks);
 
     Ok(EmpiricalDatasetAudit {
         dataset_path: rel_csv.to_string(),
@@ -580,13 +704,24 @@ pub fn verify_card_against_empirical_data(
     root_dir: &Path,
     card: &EpistemologicalCard,
 ) -> Result<(EmpiricalDatasetAudit, SigaExecutionReport), String> {
-    if let Err(violations) = card.audit() {
+    verify_card_against_empirical_data_with_profile(root_dir, card, &ProtocolProfile::canonical())
+}
+
+/// As [`verify_card_against_empirical_data`] under an application's [`ProtocolProfile`]
+/// ([`EpistemologicalCard::audit_with`], the profile-sealed pre-registration payload, and
+/// [`run_full_siga_roadmap_empirical_with_profile`]).
+pub fn verify_card_against_empirical_data_with_profile(
+    root_dir: &Path,
+    card: &EpistemologicalCard,
+    profile: &ProtocolProfile,
+) -> Result<(EmpiricalDatasetAudit, SigaExecutionReport), String> {
+    if let Err(violations) = card.audit_with(profile) {
         return Err(String::from(CliError::ContractAudit {
             card_id: card.id.clone(),
             violations,
         }));
     }
-    let emp = compute_empirical_dataset_audit(root_dir, card)?;
+    let emp = compute_empirical_dataset_audit_with_profile(root_dir, card, profile)?;
 
     if card.data_and_audit_contract.dataset_sha256.trim() != emp.dataset_sha256 {
         return Err(String::from(CliError::EmpiricalMismatch {
@@ -712,9 +847,10 @@ pub fn verify_card_against_empirical_data(
         }));
     }
 
-    let plan_payload = card.compute_preregistration_payload();
-    let siga_rep = run_full_siga_roadmap_empirical(
+    let plan_payload = profile.preregistration_payload_for(card);
+    let siga_rep = run_full_siga_roadmap_empirical_with_profile(
         card,
+        profile,
         &plan_payload,
         &emp.sbc_ranks,
         emp.observed_test_statistic,
@@ -747,4 +883,13 @@ pub fn evaluate_empirical_card_severe_test(
     card: &EpistemologicalCard,
 ) -> Result<(EmpiricalDatasetAudit, SigaExecutionReport), String> {
     verify_card_against_empirical_data(root_dir, card)
+}
+
+/// As [`evaluate_empirical_card_severe_test`] under an application's [`ProtocolProfile`].
+pub fn evaluate_empirical_card_severe_test_with_profile(
+    root_dir: &Path,
+    card: &EpistemologicalCard,
+    profile: &ProtocolProfile,
+) -> Result<(EmpiricalDatasetAudit, SigaExecutionReport), String> {
+    verify_card_against_empirical_data_with_profile(root_dir, card, profile)
 }

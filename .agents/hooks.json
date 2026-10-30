@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'PAYLOAD=$(cat || true); if printf \"%s\" \"$PAYLOAD\" | grep -Eq \"(data/SHA256SUMS|cards/[^\\\"]*\\.yaml|crates/stochology-governance/src/vault\\.rs)\"; then printf \"{\\\"decision\\\":\\\"force_ask\\\",\\\"reason\\\":\\\"Invariant Phi_3 Cryptographic Gate: Modifying data/SHA256SUMS, cards/*.yaml, or TemporalVault (vault.rs) requires explicit human inline-diff approval.\\\"}\\n\"; else printf \"{\\\"decision\\\":\\\"allow\\\"}\\n\"; fi'"
+            "command": "bash -c 'PAYLOAD=$(cat || true); if printf \"%s\" \"$PAYLOAD\" | grep -Eq \"(data/SHA256SUMS|cards/[^\\\"]*\\.yaml|crates/stochology-governance/src/vault\\.rs|examples/[^\\\"]*/(SHA256SUMS|card_[^\\\"]*\\.yaml))\"; then printf \"{\\\"decision\\\":\\\"force_ask\\\",\\\"reason\\\":\\\"Invariant Phi_3 Cryptographic Gate: Modifying data/SHA256SUMS, cards/*.yaml, examples/*/SHA256SUMS, examples/*/card_*.yaml, or TemporalVault (vault.rs) requires explicit human inline-diff approval.\\\"}\\n\"; else printf \"{\\\"decision\\\":\\\"allow\\\"}\\n\"; fi'"
           }
         ]
       }

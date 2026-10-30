@@ -3,6 +3,7 @@
 use super::alert_fatigue::NaturalFrequencyMemorandum;
 use super::martingales::EvidenceProcess;
 use crate::funnel::{FunnelCandidate, FunnelResult, evaluate_four_filter_funnel};
+use stochology_core::card::ProtocolProfile;
 use stochology_core::{EpistemologicalCard, Rng};
 
 /// Full end-to-end execution report of the 8-Step SIGA Operational Roadmap.
@@ -178,7 +179,35 @@ pub fn run_full_siga_roadmap_empirical(
     e_values_sequence: &[f64],
     empirical_confusion_tpr_fpr: (f64, f64),
 ) -> SigaExecutionReport {
-    let card_audit_ok = card.audit().is_ok();
+    run_full_siga_roadmap_empirical_with_profile(
+        card,
+        &ProtocolProfile::canonical(),
+        preregistered_plan_text,
+        sbc_rank_samples,
+        observed_test_statistic,
+        null_distribution_samples,
+        e_values_sequence,
+        empirical_confusion_tpr_fpr,
+    )
+}
+
+/// As [`run_full_siga_roadmap_empirical`] under an application's [`ProtocolProfile`]: Step 1 audits the
+/// card with [`EpistemologicalCard::audit_with`], and the Funnel volumes, the $n_{\mathrm{eff}}$ floor, the
+/// SBC $\chi^2$ critical value, the null $p$-value threshold, and the e-process $\alpha$ come from
+/// `profile`. The order of the 4 Filters and of the 8 Steps is part of the kernel and does not change.
+#[allow(clippy::too_many_arguments)]
+pub fn run_full_siga_roadmap_empirical_with_profile(
+    card: &EpistemologicalCard,
+    profile: &ProtocolProfile,
+    preregistered_plan_text: &str,
+    sbc_rank_samples: &[f64],
+    observed_test_statistic: f64,
+    null_distribution_samples: &[f64],
+    e_values_sequence: &[f64],
+    empirical_confusion_tpr_fpr: (f64, f64),
+) -> SigaExecutionReport {
+    let card_audit_ok = card.audit_with(profile).is_ok();
+    let st = &profile.severe_test;
 
     let id_strat = card
         .epistemological_header
@@ -219,17 +248,17 @@ pub fn run_full_siga_roadmap_empirical(
         protection_cost_c: card.decision_rule_and_scope.protection_cost_c,
         event_loss_l: card.decision_rule_and_scope.event_loss_l,
         efficacy_eta: card.decision_rule_and_scope.mitigation_efficacy_eta,
-        decision_volume_units: 100.0,
-        total_modeling_cost: 500.0,
+        decision_volume_units: st.decision_volume_units,
+        total_modeling_cost: st.total_modeling_cost,
         effective_tail_n_eff_p: card
             .epistemological_header
             .unit_and_margin
             .effective_sample_size_n_eff as f64,
-        minimum_required_n_eff: 50.0,
+        minimum_required_n_eff: st.minimum_required_n_eff,
         markov_blanket_mapped,
         conditions_on_collider_berkson,
         sbc_rank_histogram: sbc_bins,
-        sbc_chi2_critical: 9.49,
+        sbc_chi2_critical: st.sbc_chi2_critical,
         shelf_quartiles_q25_q50_q75: (q25, q50, q75),
         physical_domain_bounds: (eps, 1.0 - eps),
         preregistered_plan_text: preregistered_plan_text.to_string(),
@@ -264,7 +293,7 @@ pub fn run_full_siga_roadmap_empirical(
     // Step 6: Sequential e-process with multiplicity K
     let e_proc = EvidenceProcess::evaluate(
         e_values_sequence,
-        0.05,
+        profile.e_process_alpha(),
         card.data_and_audit_contract.attempt_counter_k,
     );
 
@@ -288,7 +317,7 @@ pub fn run_full_siga_roadmap_empirical(
         .noise_physics
         .absorbing_states
         .is_empty(); // Step 4: Noise physics, Kelly, performativity
-    let s5 = funnel.filter_3_approved && null_p < 0.05; // Step 5: Executable null, SBC, SHELF
+    let s5 = funnel.filter_3_approved && null_p < st.null_p_threshold; // Step 5: Executable null, SBC, SHELF
     let s6 = funnel.filter_4_approved && e_proc.rejects_null_hypothesis; // Step 6: SHA-256, cross-authorship, e-process
     let s7 = !card.decision_rule_and_scope.declared_act.is_empty(); // Step 7: CORP-PAV + p* = C/(eta*L)
     let s8 =

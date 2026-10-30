@@ -55,7 +55,7 @@ impl fmt::Display for CliError {
                 expected_sha256: Some(manifest_sha),
             } => write!(
                 f,
-                "Dataset '{dataset_path}' SHA-256 ({actual_sha256}) diverges from data/SHA256SUMS ({manifest_sha})"
+                "Dataset '{dataset_path}' SHA-256 ({actual_sha256}) diverges from its SHA-256 manifest ({manifest_sha})"
             ),
             Self::ManifestMismatch {
                 dataset_path,
@@ -63,11 +63,11 @@ impl fmt::Display for CliError {
                 expected_sha256: None,
             } => write!(
                 f,
-                "Dataset '{dataset_path}' is missing from data/SHA256SUMS"
+                "Dataset '{dataset_path}' is missing from its SHA-256 manifest"
             ),
             Self::UnsupportedDataset(other) => write!(
                 f,
-                "Unsupported primary card dataset path '{other}' (expected atlantic_storms, bank_calls, nyc_flights_2013, or cps_observational)"
+                "Unsupported primary card dataset path '{other}' (expected atlantic_storms, bank_calls, nyc_flights_2013, or cps_observational, or a protocol_profile with dataset_columns)"
             ),
             Self::EmpiricalMismatch { card_id, detail } => {
                 write!(f, "Card '{card_id}' {detail}")

@@ -9,10 +9,11 @@ pub mod error;
 pub mod loaders;
 
 pub use card_audit::{
-    CardDatasetStrategy, EmpiricalDatasetAudit, ExtractedCardDataset,
-    compute_empirical_dataset_audit, compute_unclamped_cluster_permutation_null,
-    compute_ville_betting_e_values, evaluate_empirical_card_severe_test,
-    verify_card_against_empirical_data,
+    CardDatasetStrategy, ColumnMappedCsvStrategy, EmpiricalDatasetAudit, ExtractedCardDataset,
+    compute_empirical_dataset_audit, compute_empirical_dataset_audit_with_profile,
+    compute_unclamped_cluster_permutation_null, compute_ville_betting_e_values,
+    evaluate_empirical_card_severe_test, evaluate_empirical_card_severe_test_with_profile,
+    verify_card_against_empirical_data, verify_card_against_empirical_data_with_profile,
 };
 pub use csv::{CsvRow, CsvTable};
 pub use defects::{ALL_DEFECTS, CapibaPillar, DefectDescriptor, all_defect_names};
@@ -22,8 +23,9 @@ pub use loaders::{
     CANONICAL_CARD_PATHS, load_atlantic_storms_decade_environments, load_atlantic_storms_forecasts,
     load_bank_call_clusters, load_cards_from_disk, load_cps_cohort_clusters, load_danish_fire,
     load_djia_returns, load_flight_stream, load_lalonde_nsw_cps, load_nyc_flights_2013_2023,
-    load_nyc_flights_cascade_2013_2023, load_oot_ood_flight_reserves, load_sha256sums_manifest,
-    load_toronto_arrests_prevalences, load_vic_elec_demand, resolve_workspace_root,
+    load_nyc_flights_cascade_2013_2023, load_oot_ood_flight_reserves, load_sha256_manifest_at,
+    load_sha256sums_manifest, load_toronto_arrests_prevalences, load_vic_elec_demand,
+    resolve_workspace_root,
 };
 
 #[cfg(test)]

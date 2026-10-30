@@ -1,9 +1,11 @@
 //! Structured Epistemological Card (`EpistemologicalCard`, §2.3),
 //! zero-dependency YAML parser/serializer, typed Value Objects, and Specification Pattern validator
-//! (`audit()`) enforcing the 4 Prohibitions and the 5 Boundary Invariants ($\Phi_1$ to $\Phi_5$).
+//! (`audit()`) enforcing the 4 Prohibitions and the 5 Boundary Invariants ($\Phi_1$ to $\Phi_5$), and the
+//! pre-registered [`ProtocolProfile`] through which an application calibrates them (`audit_with()`).
 
 pub mod canonical;
 pub mod model;
+pub mod profile;
 pub mod specs;
 pub mod value_objects;
 pub mod yaml;
@@ -14,6 +16,11 @@ pub use model::{
     EpistemologicalHeader, FieldAuthorship, FindingsRegistry, InfoGapRobustness,
     MissingnessMechanism, MurphyCorpDecomposition, NoisePhysics, UncertaintyBudgetAndAuthorship,
     UnitAndMargin, VarianceBudget,
+};
+pub use profile::{
+    AppliedWaiver, AuditReport, DatasetColumns, InstrumentWaiver, JensenLoss, KernelPrinciple,
+    ProfileParseError, ProtocolProfile, ResolutionVocabulary, SevereTestParameters,
+    WAIVABLE_INSTRUMENTS, WaivableInstrument,
 };
 pub use specs::{
     CANONICAL_CARD_SPECIFICATIONS, CardSpecification, Filter4CrossAuthorshipSpec,

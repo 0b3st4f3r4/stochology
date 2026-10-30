@@ -262,7 +262,8 @@ The final section governs Bridge $L\_2 \to L\_3$ and Invariant $\Phi\_4$:
 1. **Cost-Loss Parameters and Threshold Verification:**
    Declares `event_probability_p` ($p$), `base_rate_floor_epsilon` ($\varepsilon\_{\text{floor}}$), `protection_cost_C` ($C > 0$), `event_loss_L` ($L > 0$), `mitigation_efficacy_eta` ($\eta \in (0, 1]$), `critical_threshold_p_star` ($p^{\ast}$), and `declared_act` (`"protect"` or `"do_not_protect"`).
    - **Audit Check:** Recomputes $\frac{C}{\eta L}$ and verifies:
-     $$\left|p^{\ast} - \frac{C}{\eta L}\right| \le 10^{-4}$$
+     $$\left|p^{\ast} - \frac{C}{\eta L}\right| \le 10^{-3}$$
+     (the canonical tolerance; an application's `protocol_profile` may declare its own `p_star_tolerance`, §17.15)
      and verifies that `declared_act` is `"protect"` **if and only if** $p > p^{\ast}$ (and `"do_not_protect"` if and only if $p \le p^{\ast}$).
 2. **`scope_statement`, `who_pays_for_error`, and `exit_clause`:**
    Enforces explicit operational boundaries, Chouldechova error-bearer attribution, and a numeric circuit-breaker exit rule.
@@ -452,6 +453,20 @@ This card governs daily mobile-outreach and emergency-relief dispatch across $n 
 {{#include ../cards/card_04_dpi_civil_defense_triage.yaml}}
 ~~~
 
+## 17.15 The Optional Sixth Section: `protocol_profile` (Kernel and Clay)
+
+The five sections above are the same for every application, but the numbers they are checked against need not be. A card may carry a sixth section, `protocol_profile`, parsed into `ProtocolProfile` (`crates/stochology-core/src/card/profile.rs`), that recalibrates the **clay** of the protocol while leaving its **kernel** intact ([Appendix D](appendix-protocol.md), §1.6):
+
+- **Kernel (never changes):** the four Prohibitions and $\Phi\_1$–$\Phi\_5$ as principles, with their mechanisms. A seed is declared and must equal the profile's; the dataset sits inside a SHA-256 manifest; the pre-registration seal, $K \ge 1$, findings conservation, Cromwell's interval, the CORP-Murphy identity, and cross-authorship all apply.
+- **Clay (pre-registered per application, all *Assumed*):**
+  - `seed`, `e_process_min_inverse_alpha`, and the tolerances (`p_star_tolerance`, `murphy_corp_tolerance`, `chouldechova_ratio_tolerance`, `min_dominant_cost_share`);
+  - the vocabularies (`resolution.*` for $\Phi\_5$, `lone_mean_terms`, `forbidden_decision_maker_tokens`);
+  - the data location (`dataset_root`, `dataset_manifest`, `dataset_columns`);
+  - the severe-test replications and Funnel thresholds (`severe_test.*`).
+- **Waivers:** only `PHI4_CHOULDECHOVA` (no action split across groups with distinct base rates), `INFO_GAP_SNIEDOVICH` (uncertainty class not `knightian`), and `PROHIBITION_3_RRM_CONTRACTION` (a `passive` agent) can be waived, each with a written reason. Any other waiver is `PROFILE_KERNEL_WAIVER`. A waived instrument is reported, with the findings it suppressed, in the `AuditReport` returned by `EpistemologicalCard::audit_with`.
+
+Without the section, `audit()` applies `ProtocolProfile::canonical()`. That profile reproduces exactly the thresholds quoted in §17.2–§17.6, which is why the four canonical cards keep their pre-registration hashes. With the section, the profile's fingerprint enters the pre-registration payload (§17.7): **the clay is shaped before the data are opened, and the seal records its shape.** Chapter 26 (§26.3) walks through a shaped application end to end.
+
 ---
 
 ## Interactive Laboratory (`/lab`)
@@ -513,5 +528,6 @@ cargo run --release --bin gates
 - **Prohibition 1** bans unstructured free prose between modules/agents, requiring all claims to travel as validated YAML `EpistemologicalCard` structs.
 - The **Epistemological Card (`EpistemologicalCard`)** is the universal unit of communication in the Stochology Protocol.
 - Its five sections (`decision_maker_question`, `epistemological_header`, `uncertainty_budget_and_authorship`, `data_and_audit_contract`, `decision_rule_and_scope`) enforce Prohibitions 1–4 and Invariants $\Phi\_1$–$\Phi\_5$.
+- An optional sixth section, `protocol_profile`, pre-registers the application's numbers and vocabulary (the clay) without touching the principles and mechanisms (the kernel); `EpistemologicalCard::audit_with` enforces it, and `audit()` applies the canonical profile.
 - `EpistemologicalCard::audit()` verifies internal algebraic closure across Jensen's Gap, Moulton-Campbell $n\_{\mathrm{eff}}(p)$, variance-budget unity, CORP-Murphy PAV decomposition, findings conservation, SHA-256 integrity, and the cost-loss decision rule $p \gtrless p^{\ast} = \frac{C}{\eta L}$.
 - **Epistemic PKM & Provenance Auditing (`EpistemicPkmProvenanceAudit` & `ClaimProvenanceClass` in `crates/stochology-core/src/layers/`):** Enforces in executable Rust that every quantitative claim in a knowledge graph or executive synthesis carries a provenance class (`ClaimProvenanceClass::{Measured, Simulated, Assumed, LiteratureInformative, UnanchoredLlmSynthesis}`; the variants carry no payload, and a `Measured` node must additionally be anchored to a verified dataset SHA-256), blocking unanchored "Second Brain" note accumulation when untagged or unverified claims are injected (`MultiCriteriaAhpRegulatoryPkmAudit` in Gate `G8`).
