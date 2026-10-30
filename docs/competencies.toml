@@ -1,0 +1,377 @@
+# Competency DAG of the Stochology course (authorial pedagogical frame over the book, like docs/SYLLABUS.md).
+#
+# Each [node.<id>] is one competency, stated as what the reader can do, with the chapters that teach it,
+# its prerequisites (edges of an acyclic graph), its pair or layer, its depth (core | full), a positive
+# evidence command, and at most one negative proof (`gates -- --defect <name>`, expected exit 1).
+# Edges follow the chapters' own cross-references where they exist and the syllabus order elsewhere;
+# they must form a transitive reduction and never point forward in the book.
+#
+# A pathway is the prerequisite closure of the node that carries a negative proof: 21 proofs, 21 pathways.
+# There are no reader-role tracks: a reader picks the pathways of the proofs they need. [practicum.thread]
+# lists the cross-cutting competencies of Part VII that run across every pathway.
+# Rendered blocks in book-src/00-preface.md and docs/SYLLABUS.md are generated from this file;
+# regenerate them with `cargo test -p stochology-cli --test competency_dag -- --ignored`.
+
+[node.layers_six_pairs]
+title = Separate World, Model, and Decision, and name the six ordered pairs
+chapters = 01
+requires =
+pair = L1 · L2 · L3
+depth = core
+evidence = cargo run --release --bin gates
+defect =
+
+[node.uncertainty_typing]
+title = Type uncertainty as aleatory, parametric, structural, or Knightian
+chapters = 02
+requires = layers_six_pairs
+pair = L1 · L2 · L3
+depth = core
+evidence = cargo run --release --bin labs -- --uncertainty
+defect = sniedovich
+
+[node.natural_frequencies]
+title = Translate probabilities into natural frequencies and decibans
+chapters = 02
+requires = layers_six_pairs
+pair = L3
+depth = core
+evidence = cargo run --release --bin labs -- --siga
+defect =
+
+[node.convexity_jensen]
+title = Reason with quantiles and Jensen's inequality instead of the mean
+chapters = 03
+requires = layers_six_pairs
+pair = L1
+depth = core
+evidence = cargo run --release --bin labs -- --layers
+defect =
+
+[node.markov_dags]
+title = Read Markov chains, stochastic time, and causal DAGs
+chapters = 04
+requires = convexity_jensen
+pair = L1
+depth = core
+evidence = cargo run --release --bin labs -- --lenses
+defect =
+
+[node.dynamics_odes]
+title = Integrate open dynamical systems with RK4 and read entropy production
+chapters = 05
+requires = convexity_jensen
+pair = L1
+depth = full
+evidence = cargo run --release --bin labs -- --all
+defect =
+
+[node.sampling_unit]
+title = Find the independent unit and estimate through a sampling design
+chapters = 06
+requires = uncertainty_typing, convexity_jensen
+pair = L2
+depth = core
+evidence = cargo run --release --bin labs -- --invariants
+defect =
+
+[node.approximation_spectral]
+title = Bound what a finite model can approximate with bases, spectra, and minimax rates
+chapters = 07
+requires = sampling_unit
+pair = L2
+depth = core
+evidence = cargo run --release --bin labs -- --lenses
+defect =
+
+[node.severe_testing]
+title = Test severely and keep evidence valid under continuous monitoring
+chapters = 08
+requires = sampling_unit
+pair = L3
+depth = core
+evidence = cargo run --release --bin labs -- --siga
+defect = peeking
+
+[node.var_es_backtest]
+title = Backtest VaR and Expected Shortfall with e-values
+chapters = 08
+requires = severe_testing
+pair = L3
+depth = core
+evidence = cargo run --release --bin gates
+defect = var_underreport
+
+[node.lens_information]
+title = Apply the Information lens: data processing inequality, contraction, and Fano's floor
+chapters = 09
+requires = markov_dags
+pair = transversal
+depth = core
+evidence = cargo run --release --bin labs -- --lenses
+defect =
+
+[node.lens_time]
+title = Apply the Time lens: Itô variance drain, Kelly fraction, and ruin
+chapters = 09
+requires = markov_dags
+pair = transversal
+depth = core
+evidence = cargo run --release --bin labs -- --lenses
+defect =
+
+[node.lens_tail]
+title = Apply the Tail lens: Hill index, moment regimes, and tail quantiles
+chapters = 09
+requires = sampling_unit
+pair = transversal
+depth = core
+evidence = cargo run --release --bin labs -- --lenses
+defect =
+
+[node.lens_invariance]
+title = Apply the Invariance lens: ICP and nonlinear NILE across environments
+chapters = 09
+requires = markov_dags, approximation_spectral
+pair = transversal
+depth = core
+evidence = cargo run --release --bin labs -- --lenses
+defect =
+
+[node.lens_decision]
+title = Apply the Decision lens: cost-loss boundary, EVPI, and CORP-Murphy decomposition
+chapters = 09
+requires = convexity_jensen, natural_frequencies
+pair = transversal
+depth = core
+evidence = cargo run --release --bin labs -- --lenses
+defect = brier_dominance
+
+[node.missingness_bounds]
+title = Bound what the world did not show: Meng's identity, Rubin's classes, Manski and Lee bounds
+chapters = 10
+requires = sampling_unit
+pair = L1 → L2
+depth = core
+evidence = cargo run --release --bin labs -- --layers
+defect = lee_point_estimate
+
+[node.authentic_form]
+title = Separate structural core from residual: Kennedy-O'Hagan discrepancy and Authentic Model Form
+chapters = 11
+requires = lens_information, lens_invariance
+pair = L1 → L2
+depth = core
+evidence = cargo run --release --bin labs -- --uncertainty
+defect = machine
+
+[node.seeds_acceptance]
+title = Build seeded null models and accept claims across many seeds
+chapters = 12
+requires = severe_testing, missingness_bounds, authentic_form
+pair = L2 → L1
+depth = core
+evidence = cargo run --release --bin gates
+defect =
+
+[node.analog_wave]
+title = Audit physical computing worlds: the analog wall, noise-aware training, and wave solvers
+chapters = 13
+requires = dynamics_odes, seeds_acceptance
+pair = L2 → L1
+depth = full
+evidence = cargo run --release --bin labs -- --all
+defect = analog_wall
+
+[node.triadic]
+title = Test the triadic synthesis of phase, fractal scale, and toroidal recurrence
+chapters = 14
+requires = analog_wave, lens_tail
+pair = L1 ⇄ L2
+depth = full
+evidence = cargo run --release --bin gates
+defect = triadic_technium
+
+[node.curvature_scoring]
+title = Score curved consequences: Jensen's gap, CRPS, proper scores, and the Cromwell floor
+chapters = 15
+requires = lens_decision
+pair = L2 → L3
+depth = core
+evidence = cargo run --release --bin labs -- --layers
+defect = cromwell
+
+[node.thresholds_evidence]
+title = Turn calibrated probability into action within the human attention budget
+chapters = 16
+requires = curvature_scoring, severe_testing
+pair = L2 → L3
+depth = core
+evidence = cargo run --release --bin labs -- --siga
+defect =
+
+[node.card_preregistration]
+title = Put the analyst's choices on record: card, attempt counter, and SHA-256 pre-registration
+chapters = 17
+requires = missingness_bounds, thresholds_evidence
+pair = L3 → L2
+depth = core
+evidence = cargo run --release --bin gates -- --audit-card cards/card_01_atlantic_storms_evacuation.yaml
+defect =
+
+[node.critical_rationality]
+title = Expose what instrumental stochastic reason silences: amputated tails and correlational parrots
+chapters = 18
+requires = card_preregistration, lens_tail, lens_invariance
+pair = L2 ⇄ L3
+depth = full
+evidence = cargo run --release --bin gates
+defect = instrumental_reason
+
+[node.performativity]
+title = Separate performative stability from optimality and audit RRM contraction and Goodhart
+chapters = 19
+requires = lens_decision, markov_dags, severe_testing
+pair = L3 → L1
+depth = core
+evidence = cargo run --release --bin labs -- --layers
+defect = performativity
+
+[node.synthetic_recursion]
+title = Keep recursive training anchored: Accumulate versus Replace
+chapters = 19
+requires = performativity, seeds_acceptance
+pair = L3 → L1
+depth = full
+evidence = cargo run --release --bin gates
+defect = replace_collapse
+
+[node.clustering_neff]
+title = Count tail information in clusters: Moulton-Campbell n_eff(p)
+chapters = 20
+requires = lens_tail
+pair = L1 → L3
+depth = core
+evidence = cargo run --release --bin labs -- --invariants
+defect = moulton
+
+[node.resolution_phi5]
+title = Match the question's resolution to the decision unit (Phi5)
+chapters = 20
+requires = clustering_neff
+pair = L1 → L3
+depth = core
+evidence = cargo run --release --bin labs -- --invariants
+defect = phi5
+
+[node.fairness]
+title = Name who pays for error under Chouldechova's impossibility
+chapters = 20
+requires = thresholds_evidence
+pair = L1 → L3
+depth = core
+evidence = cargo run --release --bin labs -- --invariants
+defect = chouldechova
+
+[node.bitemporal_clock]
+title = Keep event time and availability time apart with a synthetic canary
+chapters = 21
+requires = severe_testing, lens_information
+pair = L1 → L3
+depth = core
+evidence = cargo run --release --bin labs -- --governance
+defect = clock
+
+[node.temporal_vault]
+title = Open a sealed out-of-time reserve exactly once
+chapters = 21
+requires = bitemporal_clock, card_preregistration
+pair = L1 → L3
+depth = core
+evidence = cargo run --release --bin labs -- --governance
+defect = vault
+
+[node.drift_adaptation]
+title = Detect and adapt to covariate, label, and concept drift
+chapters = 21
+requires = bitemporal_clock, curvature_scoring, lens_invariance
+pair = L1 → L3
+depth = full
+evidence = cargo run --release --bin labs -- --governance
+defect = concept_drift
+
+[node.relational_complex]
+title = Model relations and open systems: Brusselator, Schelling, and Daisyworld
+chapters = 22
+requires = dynamics_odes, lens_information
+pair = L3 ⇄ L1
+depth = full
+evidence = cargo run --release --bin labs -- --all
+defect =
+
+[node.stocks_cybernetics]
+title = Govern with stocks and buffers, and judge process apart from outcome
+chapters = 23
+requires = lens_time, performativity, relational_complex
+pair = L3 ⇄ L1
+depth = full
+evidence = cargo run --release --bin gates
+defect = stochary_cybernetics
+
+[node.strategic_accommodation]
+title = Repair the six AI shortcuts across all six ordered pairs
+chapters = 24
+requires = seeds_acceptance, card_preregistration, performativity, clustering_neff
+pair = all six pairs
+depth = full
+evidence = cargo run --release --bin gates
+defect = strategic_accommodation
+
+[node.coupled_society]
+title = Close the stock-flow loop between a public regulator and private credit
+chapters = 25
+requires = stocks_cybernetics, missingness_bounds, fairness
+pair = L3 ⇄ L1
+depth = full
+evidence = cargo run --release --bin gates
+defect = coupled_society
+
+[node.funnel_siga]
+title = Prune a question through the 4 Filters and run the 8-step SIGA Roadmap
+chapters = 26
+requires = resolution_phi5, seeds_acceptance, temporal_vault
+pair = all six pairs
+depth = core
+evidence = cargo run --release --bin labs -- --siga
+defect =
+
+[node.protocol_profiles]
+title = Shape the protocol's clay for a new application with a pre-registered profile
+chapters = 17, 26
+requires = funnel_siga
+pair = all six pairs
+depth = full
+evidence = cargo run --release --bin gates -- --audit-card examples/clay/card_clay_night_shift_overflow.yaml
+defect =
+
+[node.empirical_synthesis]
+title = Face every lens and bridge with the 13 real datasets
+chapters = 27
+requires = funnel_siga
+pair = all six pairs
+depth = core
+evidence = cargo run --release --bin labs -- --real-data
+defect =
+
+[node.verification_suite]
+title = Run the gates, the negative proofs, and the full verification suite
+chapters = A, B
+requires = seeds_acceptance
+pair = all six pairs
+depth = core
+evidence = scripts/verify.sh
+defect =
+
+[practicum.thread]
+summary = Cross-cutting practice that runs across every pathway: prune the question, shape the protocol, face the real data, and verify.
+nodes = funnel_siga, protocol_profiles, empirical_synthesis, verification_suite

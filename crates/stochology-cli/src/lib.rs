@@ -2,6 +2,7 @@
 //! auditor (`CardDatasetStrategy`), CAPIBA defect registry (`ALL_DEFECTS`), and un-clamped cluster-permutation severe test (`seed = 2026`).
 
 pub mod card_audit;
+pub mod competencies;
 pub mod csv;
 pub mod defects;
 pub mod dpi_card04;
@@ -14,6 +15,10 @@ pub use card_audit::{
     compute_unclamped_cluster_permutation_null, compute_ville_betting_e_values,
     evaluate_empirical_card_severe_test, evaluate_empirical_card_severe_test_with_profile,
     verify_card_against_empirical_data, verify_card_against_empirical_data_with_profile,
+};
+pub use competencies::{
+    BookChapter, BookIndex, CompetencyDag, CompetencyDepth, CompetencyNode, Pathway,
+    PracticumThread, replace_marked_block,
 };
 pub use csv::{CsvRow, CsvTable};
 pub use defects::{ALL_DEFECTS, CapibaPillar, DefectDescriptor, all_defect_names};

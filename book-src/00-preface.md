@@ -65,40 +65,76 @@
     <a class="stoch-hero-btn" href="#preface-lab-widget">Try In-Page Bayes &amp; Deciban Lab ↓</a>
     <a class="stoch-hero-btn" href="appendix-protocol.html">Full Protocol Specification</a>
   </div>
-  <div class="stoch-pathway-grid" role="list" aria-label="Reading pathways by role">
-    <div class="stoch-pathway-card" role="listitem" data-role="decision">
-      <div class="stoch-pathway-kicker">PATHWAY 1 · DECISION-MAKER &amp; EXECUTIVE</div>
-      <h4>Act Under Severe Uncertainty</h4>
-      <p>Focus on the Three Structural Questions, the Four Golden Prohibitions, Gigerenzer Natural-Frequency Trees, and institutional governance (<code>PATE</code> Telos/Skopos &amp; <code>PLAT</code>).</p>
+  <div class="stoch-pathway-grid" role="list" aria-label="Twenty-one pathways grouped by CAPIBA pillar">
+<!-- competency-pillars:begin -->
+    <div class="stoch-pathway-card" role="listitem" data-pillar="calibrated">
+      <div class="stoch-pathway-kicker">PILLAR C · CALIBRATED</div>
+      <p>3 pathways · 14 competencies</p>
       <div class="stoch-pathway-links">
-        <a href="01-layers-six-pairs.html">Ch 1 · Layers &amp; Prohibitions</a>
-        <a href="16-decision-models-thresholds-evidence.html">Ch 16 · Thresholds &amp; Triage</a>
-        <a href="21-decision-worlds-governance.html">Ch 21 · Bitemporal Governance</a>
-        <a href="26-funnel-siga.html">Ch 24 · Funnel &amp; SIGA</a>
+        <a href="09-lenses.html">⊥ brier_dominance</a>
+        <a href="15-decision-models-curvature-scoring.html">⊥ cromwell</a>
+        <a href="21-decision-worlds-governance.html">⊥ concept_drift</a>
       </div>
     </div>
-    <div class="stoch-pathway-card" role="listitem" data-role="student">
-      <div class="stoch-pathway-kicker">PATHWAY 2 · STUDENT &amp; INSTRUCTOR</div>
-      <h4>Master the 6-Part Curriculum</h4>
-      <p>Traverse the 27 chapters from probability, convexity, and causal DAGs through the Five Transversal Lenses and the Six Ordered Pairs with live interactive sliders.</p>
+    <div class="stoch-pathway-card" role="listitem" data-pillar="anytime">
+      <div class="stoch-pathway-kicker">PILLAR A · ANYTIME-VALID</div>
+      <p>4 pathways · 9 competencies</p>
       <div class="stoch-pathway-links">
-        <a href="02-uncertainty-typology.html">Ch 2 · Uncertainty Typology</a>
-        <a href="03-random-variables-convexity.html">Ch 3 · Convexity &amp; Jensen</a>
-        <a href="09-lenses.html">Ch 9 · Five Lenses</a>
-        <a href="lab/index.html?seed=2026">Explore All 16 Labs ↗</a>
+        <a href="08-severe-testing-martingales-conformal.html">⊥ peeking</a>
+        <a href="08-severe-testing-martingales-conformal.html">⊥ var_underreport</a>
+        <a href="20-decision-worlds-regime.html">⊥ moulton</a>
+        <a href="20-decision-worlds-regime.html">⊥ phi5</a>
       </div>
     </div>
-    <div class="stoch-pathway-card" role="listitem" data-role="auditor">
-      <div class="stoch-pathway-kicker">PATHWAY 3 · AUDITOR &amp; ENGINEER</div>
-      <h4>Verify the Cryptographic &amp; Rust Suite</h4>
-      <p>Inspect Boundary Invariants (Φ₁–Φ₅), YAML Epistemological Cards, SHA-256 pre-registration seals, and the 8 algorithmic gates plus 21 negative defect proofs.</p>
+    <div class="stoch-pathway-card" role="listitem" data-pillar="performative">
+      <div class="stoch-pathway-kicker">PILLAR P · PERFORMATIVE-AWARE</div>
+      <p>2 pathways · 16 competencies</p>
       <div class="stoch-pathway-links">
-        <a href="17-model-decisions-card-preregistration.html">Ch 17 · Cards &amp; Pre-Reg</a>
-        <a href="27-empirical-synthesis.html">Ch 25 · Empirical Lab 7</a>
-        <a href="appendix-a-architecture.html">Ch 26 · Rust Architecture</a>
-        <a href="appendix-b-verification.html">Ch 27 · Gates &amp; 21 Defects</a>
+        <a href="19-world-decisions-performativity.html">⊥ performativity</a>
+        <a href="19-world-decisions-performativity.html">⊥ replace_collapse</a>
       </div>
     </div>
+    <div class="stoch-pathway-card" role="listitem" data-pillar="invariant">
+      <div class="stoch-pathway-kicker">PILLAR I · INVARIANT</div>
+      <p>3 pathways · 10 competencies</p>
+      <div class="stoch-pathway-links">
+        <a href="02-uncertainty-typology.html">⊥ sniedovich</a>
+        <a href="10-world-models-missingness-bounds.html">⊥ lee_point_estimate</a>
+        <a href="11-world-models-discrepancy-authentic-form.html">⊥ machine</a>
+      </div>
+    </div>
+    <div class="stoch-pathway-card" role="listitem" data-pillar="bitemporal">
+      <div class="stoch-pathway-kicker">PILLAR B · BITEMPORAL</div>
+      <p>2 pathways · 15 competencies</p>
+      <div class="stoch-pathway-links">
+        <a href="21-decision-worlds-governance.html">⊥ clock</a>
+        <a href="21-decision-worlds-governance.html">⊥ vault</a>
+      </div>
+    </div>
+    <div class="stoch-pathway-card" role="listitem" data-pillar="auditing">
+      <div class="stoch-pathway-kicker">PILLAR A · AUDITING</div>
+      <p>7 pathways · 30 competencies</p>
+      <div class="stoch-pathway-links">
+        <a href="13-model-worlds-analog-wave-computing.html">⊥ analog_wall</a>
+        <a href="14-triadic-synthesis.html">⊥ triadic_technium</a>
+        <a href="18-critical-stochastic-rationality.html">⊥ instrumental_reason</a>
+        <a href="20-decision-worlds-regime.html">⊥ chouldechova</a>
+        <a href="23-stochary-conjectural-cybernetics.html">⊥ stochary_cybernetics</a>
+        <a href="24-strategic-ai-accommodation.html">⊥ strategic_accommodation</a>
+        <a href="25-coupled-society-sfc.html">⊥ coupled_society</a>
+      </div>
+    </div>
+    <div class="stoch-pathway-card" role="listitem" data-pillar="practicum">
+      <div class="stoch-pathway-kicker">PRACTICUM THREAD</div>
+      <p>Cross-cutting practice that runs across every pathway: prune the question, shape the protocol, face the real data, and verify.</p>
+      <div class="stoch-pathway-links">
+        <a href="26-funnel-siga.html">Prune a question through the 4 Filters and run the 8-step SIGA Roadmap</a>
+        <a href="26-funnel-siga.html">Shape the protocol's clay for a new application with a pre-registered profile</a>
+        <a href="27-empirical-synthesis.html">Face every lens and bridge with the 13 real datasets</a>
+        <a href="appendix-b-verification.html">Run the gates, the negative proofs, and the full verification suite</a>
+      </div>
+    </div>
+<!-- competency-pillars:end -->
   </div>
   <nav class="stoch-toc-strip" aria-label="On this page">
     <span class="stoch-toc-label">In This Preface:</span>
@@ -110,6 +146,7 @@
     <a href="#5-the-three-structural-questions-and-the-four-prohibitions">§5 Questions, Prohibitions &amp; Failures</a>
     <a href="#6-end-to-end-algorithmic-verification">§6 Verification CLI</a>
     <a href="#7-interactive-experimentation-in-lab">§7 Interactive /lab</a>
+    <a href="#8-reading-by-competency-one-graph-twenty-one-pathways">§8 Competency Graph &amp; 21 Pathways</a>
   </nav>
 </div>
 
@@ -333,6 +370,184 @@ Reading equations on a static page is never enough to build physical intuition f
 Try the interactive Gigerenzer Natural-Frequency & Turing Deciban Laboratory below:
 
 <div id="preface-lab-widget" class="stoch-lab" data-lab="gigerenzer-bayes" data-chapter="00-preface.html" data-title="Preface Lab: Gigerenzer Natural-Frequency Tree &amp; Turing Deciban Updater" data-cli="cargo run --release --bin labs -- --siga"></div>
+
+---
+
+## 8. Reading by Competency: One Graph, Twenty-One Pathways
+
+This book has no reader-role tracks. It is organized as an **acyclic graph of competencies**. Each competency states what the reader can do, names the chapters that teach it, and lists the competencies it requires. Each one is evidenced by a runnable command, and some also by a negative proof. The graph lives in one data file, `docs/competencies.toml`; this section, the cards at the top of the preface, and Appendix E are generated from it.
+
+A **pathway** is everything a single negative proof depends on. Take the competency that carries `gates -- --defect <name>`, gather all of its prerequisites, and read them in an order that never meets a competency before its prerequisites. There are 21 negative proofs, so there are **21 pathways**, each ending at a test that must exit with code `1`. Choose the proofs you need; the union of their pathways is your reading plan. The **practicum thread** (the Funnel and SIGA Roadmap, Protocol Profiles, the real-data synthesis, and the verification suite) runs across all of them. The Core and Full tracks of the course are not paths but a depth tag on each competency. A pathway is Core when every competency in it is Core.
+
+The graph is an authorial pedagogical frame over the book, like the course syllabus; it is not part of the protocol. It is held to the same discipline as the code. `crates/stochology-cli/tests/competency_dag.rs` and `CompetencyDag::audit` verify that:
+- the graph is acyclic;
+- no edge points to a chapter read later, and the edges form a transitive reduction;
+- a Core competency never requires a Full one;
+- every chapter is taught by some competency;
+- each of the 21 proofs closes exactly one distinct pathway;
+- each pathway's depth and Movement agree with `docs/SYLLABUS.md`.
+
+In the graph below, dashed boxes are Full competencies and thick boxes carry a negative proof (⊥).
+
+<!-- competency-dag:begin -->
+```mermaid
+flowchart TB
+  subgraph part0["Part I"]
+    layers_six_pairs["Separate World, Model, and Decision, and name the six ordered pairs<br/><small>Ch 1</small>"]
+    uncertainty_typing["Type uncertainty as aleatory, parametric, structural, or Knightian<br/><small>Ch 2 · ⊥ sniedovich</small>"]
+    natural_frequencies["Translate probabilities into natural frequencies and decibans<br/><small>Ch 2</small>"]
+  end
+  subgraph part1["Part II"]
+    convexity_jensen["Reason with quantiles and Jensen's inequality instead of the mean<br/><small>Ch 3</small>"]
+    markov_dags["Read Markov chains, stochastic time, and causal DAGs<br/><small>Ch 4</small>"]
+    dynamics_odes["Integrate open dynamical systems with RK4 and read entropy production<br/><small>Ch 5</small>"]
+    sampling_unit["Find the independent unit and estimate through a sampling design<br/><small>Ch 6</small>"]
+    approximation_spectral["Bound what a finite model can approximate with bases, spectra, and minimax rates<br/><small>Ch 7</small>"]
+    severe_testing["Test severely and keep evidence valid under continuous monitoring<br/><small>Ch 8 · ⊥ peeking</small>"]
+    var_es_backtest["Backtest VaR and Expected Shortfall with e-values<br/><small>Ch 8 · ⊥ var_underreport</small>"]
+    lens_information["Apply the Information lens: data processing inequality, contraction, and Fano's floor<br/><small>Ch 9</small>"]
+    lens_time["Apply the Time lens: Itô variance drain, Kelly fraction, and ruin<br/><small>Ch 9</small>"]
+    lens_tail["Apply the Tail lens: Hill index, moment regimes, and tail quantiles<br/><small>Ch 9</small>"]
+    lens_invariance["Apply the Invariance lens: ICP and nonlinear NILE across environments<br/><small>Ch 9</small>"]
+    lens_decision["Apply the Decision lens: cost-loss boundary, EVPI, and CORP-Murphy decomposition<br/><small>Ch 9 · ⊥ brier_dominance</small>"]
+  end
+  subgraph part2["Part III"]
+    missingness_bounds["Bound what the world did not show: Meng's identity, Rubin's classes, Manski and Lee bounds<br/><small>Ch 10 · ⊥ lee_point_estimate</small>"]
+    authentic_form["Separate structural core from residual: Kennedy-O'Hagan discrepancy and Authentic Model Form<br/><small>Ch 11 · ⊥ machine</small>"]
+    seeds_acceptance["Build seeded null models and accept claims across many seeds<br/><small>Ch 12</small>"]
+    analog_wave["Audit physical computing worlds: the analog wall, noise-aware training, and wave solvers<br/><small>Ch 13 · ⊥ analog_wall</small>"]
+    triadic["Test the triadic synthesis of phase, fractal scale, and toroidal recurrence<br/><small>Ch 14 · ⊥ triadic_technium</small>"]
+  end
+  subgraph part3["Part IV"]
+    curvature_scoring["Score curved consequences: Jensen's gap, CRPS, proper scores, and the Cromwell floor<br/><small>Ch 15 · ⊥ cromwell</small>"]
+    thresholds_evidence["Turn calibrated probability into action within the human attention budget<br/><small>Ch 16</small>"]
+    card_preregistration["Put the analyst's choices on record: card, attempt counter, and SHA-256 pre-registration<br/><small>Ch 17</small>"]
+    critical_rationality["Expose what instrumental stochastic reason silences: amputated tails and correlational parrots<br/><small>Ch 18 · ⊥ instrumental_reason</small>"]
+  end
+  subgraph part4["Part V"]
+    performativity["Separate performative stability from optimality and audit RRM contraction and Goodhart<br/><small>Ch 19 · ⊥ performativity</small>"]
+    synthetic_recursion["Keep recursive training anchored: Accumulate versus Replace<br/><small>Ch 19 · ⊥ replace_collapse</small>"]
+    clustering_neff["Count tail information in clusters: Moulton-Campbell n_eff(p)<br/><small>Ch 20 · ⊥ moulton</small>"]
+    resolution_phi5["Match the question's resolution to the decision unit (Phi5)<br/><small>Ch 20 · ⊥ phi5</small>"]
+    fairness["Name who pays for error under Chouldechova's impossibility<br/><small>Ch 20 · ⊥ chouldechova</small>"]
+    bitemporal_clock["Keep event time and availability time apart with a synthetic canary<br/><small>Ch 21 · ⊥ clock</small>"]
+    temporal_vault["Open a sealed out-of-time reserve exactly once<br/><small>Ch 21 · ⊥ vault</small>"]
+    drift_adaptation["Detect and adapt to covariate, label, and concept drift<br/><small>Ch 21 · ⊥ concept_drift</small>"]
+    relational_complex["Model relations and open systems: Brusselator, Schelling, and Daisyworld<br/><small>Ch 22</small>"]
+    stocks_cybernetics["Govern with stocks and buffers, and judge process apart from outcome<br/><small>Ch 23 · ⊥ stochary_cybernetics</small>"]
+  end
+  subgraph part5["Part VI"]
+    strategic_accommodation["Repair the six AI shortcuts across all six ordered pairs<br/><small>Ch 24 · ⊥ strategic_accommodation</small>"]
+    coupled_society["Close the stock-flow loop between a public regulator and private credit<br/><small>Ch 25 · ⊥ coupled_society</small>"]
+  end
+  subgraph part6["Part VII"]
+    funnel_siga["Prune a question through the 4 Filters and run the 8-step SIGA Roadmap<br/><small>Ch 26</small>"]
+    protocol_profiles["Shape the protocol's clay for a new application with a pre-registered profile<br/><small>Ch 17, Ch 26</small>"]
+    empirical_synthesis["Face every lens and bridge with the 13 real datasets<br/><small>Ch 27</small>"]
+  end
+  subgraph part7["Appendices"]
+    verification_suite["Run the gates, the negative proofs, and the full verification suite<br/><small>App. A, App. B</small>"]
+  end
+  layers_six_pairs --> uncertainty_typing
+  layers_six_pairs --> natural_frequencies
+  layers_six_pairs --> convexity_jensen
+  convexity_jensen --> markov_dags
+  convexity_jensen --> dynamics_odes
+  uncertainty_typing --> sampling_unit
+  convexity_jensen --> sampling_unit
+  sampling_unit --> approximation_spectral
+  sampling_unit --> severe_testing
+  severe_testing --> var_es_backtest
+  markov_dags --> lens_information
+  markov_dags --> lens_time
+  sampling_unit --> lens_tail
+  markov_dags --> lens_invariance
+  approximation_spectral --> lens_invariance
+  convexity_jensen --> lens_decision
+  natural_frequencies --> lens_decision
+  sampling_unit --> missingness_bounds
+  lens_information --> authentic_form
+  lens_invariance --> authentic_form
+  severe_testing --> seeds_acceptance
+  missingness_bounds --> seeds_acceptance
+  authentic_form --> seeds_acceptance
+  dynamics_odes --> analog_wave
+  seeds_acceptance --> analog_wave
+  analog_wave --> triadic
+  lens_tail --> triadic
+  lens_decision --> curvature_scoring
+  curvature_scoring --> thresholds_evidence
+  severe_testing --> thresholds_evidence
+  missingness_bounds --> card_preregistration
+  thresholds_evidence --> card_preregistration
+  card_preregistration --> critical_rationality
+  lens_tail --> critical_rationality
+  lens_invariance --> critical_rationality
+  lens_decision --> performativity
+  markov_dags --> performativity
+  severe_testing --> performativity
+  performativity --> synthetic_recursion
+  seeds_acceptance --> synthetic_recursion
+  lens_tail --> clustering_neff
+  clustering_neff --> resolution_phi5
+  thresholds_evidence --> fairness
+  severe_testing --> bitemporal_clock
+  lens_information --> bitemporal_clock
+  bitemporal_clock --> temporal_vault
+  card_preregistration --> temporal_vault
+  bitemporal_clock --> drift_adaptation
+  curvature_scoring --> drift_adaptation
+  lens_invariance --> drift_adaptation
+  dynamics_odes --> relational_complex
+  lens_information --> relational_complex
+  lens_time --> stocks_cybernetics
+  performativity --> stocks_cybernetics
+  relational_complex --> stocks_cybernetics
+  seeds_acceptance --> strategic_accommodation
+  card_preregistration --> strategic_accommodation
+  performativity --> strategic_accommodation
+  clustering_neff --> strategic_accommodation
+  stocks_cybernetics --> coupled_society
+  missingness_bounds --> coupled_society
+  fairness --> coupled_society
+  resolution_phi5 --> funnel_siga
+  seeds_acceptance --> funnel_siga
+  temporal_vault --> funnel_siga
+  funnel_siga --> protocol_profiles
+  funnel_siga --> empirical_synthesis
+  seeds_acceptance --> verification_suite
+  classDef full stroke-dasharray: 5 4
+  classDef proof stroke-width: 3px
+  class dynamics_odes,analog_wave,triadic,critical_rationality,synthetic_recursion,drift_adaptation,relational_complex,stocks_cybernetics,strategic_accommodation,coupled_society,protocol_profiles full
+  class uncertainty_typing,severe_testing,var_es_backtest,lens_decision,missingness_bounds,authentic_form,analog_wave,triadic,curvature_scoring,critical_rationality,performativity,synthetic_recursion,clustering_neff,resolution_phi5,fairness,bitemporal_clock,temporal_vault,drift_adaptation,stocks_cybernetics,strategic_accommodation,coupled_society proof
+```
+<!-- competency-dag:end -->
+
+<!-- competency-pathways:begin -->
+| # | Pathway (negative proof) | Pillar | Depth | Competencies | Route (chapters, in order) |
+| :-: | --- | --- | :-: | :-: | --- |
+| 1 | `sniedovich` — Type uncertainty as aleatory, parametric, structural, or Knightian | I · Invariant | Core | 2 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) |
+| 2 | `peeking` — Test severely and keep evidence valid under continuous monitoring | A · Anytime-valid | Core | 5 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) |
+| 3 | `var_underreport` — Backtest VaR and Expected Shortfall with e-values | A · Anytime-valid | Core | 6 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) |
+| 4 | `brier_dominance` — Apply the Decision lens: cost-loss boundary, EVPI, and CORP-Murphy decomposition | C · Calibrated | Core | 4 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 9](09-lenses.md) |
+| 5 | `lee_point_estimate` — Bound what the world did not show: Meng's identity, Rubin's classes, Manski and Lee bounds | I · Invariant | Core | 5 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 10](10-world-models-missingness-bounds.md) |
+| 6 | `machine` — Separate structural core from residual: Kennedy-O'Hagan discrepancy and Authentic Model Form | I · Invariant | Core | 9 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 9](09-lenses.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) |
+| 7 | `analog_wall` — Audit physical computing worlds: the analog wall, noise-aware training, and wave solvers | A · Auditing | Full | 14 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 5](05-dynamical-systems-odes-waves.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) → [Ch 12](12-model-worlds-simulation-acceptance.md) → [Ch 13](13-model-worlds-analog-wave-computing.md) |
+| 8 | `triadic_technium` — Test the triadic synthesis of phase, fractal scale, and toroidal recurrence | A · Auditing | Full | 16 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 5](05-dynamical-systems-odes-waves.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) → [Ch 12](12-model-worlds-simulation-acceptance.md) → [Ch 13](13-model-worlds-analog-wave-computing.md) → [Ch 14](14-triadic-synthesis.md) |
+| 9 | `cromwell` — Score curved consequences: Jensen's gap, CRPS, proper scores, and the Cromwell floor | C · Calibrated | Core | 5 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 9](09-lenses.md) → [Ch 15](15-decision-models-curvature-scoring.md) |
+| 10 | `instrumental_reason` — Expose what instrumental stochastic reason silences: amputated tails and correlational parrots | A · Auditing | Full | 16 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 17](17-model-decisions-card-preregistration.md) → [Ch 18](18-critical-stochastic-rationality.md) |
+| 11 | `performativity` — Separate performative stability from optimality and audit RRM contraction and Goodhart | P · Performative-aware | Core | 9 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 19](19-world-decisions-performativity.md) |
+| 12 | `replace_collapse` — Keep recursive training anchored: Accumulate versus Replace | P · Performative-aware | Full | 16 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) → [Ch 12](12-model-worlds-simulation-acceptance.md) → [Ch 19](19-world-decisions-performativity.md) |
+| 13 | `moulton` — Count tail information in clusters: Moulton-Campbell n_eff(p) | A · Anytime-valid | Core | 6 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 9](09-lenses.md) → [Ch 20](20-decision-worlds-regime.md) |
+| 14 | `phi5` — Match the question's resolution to the decision unit (Phi5) | A · Anytime-valid | Core | 7 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 9](09-lenses.md) → [Ch 20](20-decision-worlds-regime.md) |
+| 15 | `chouldechova` — Name who pays for error under Chouldechova's impossibility | A · Auditing | Core | 10 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 20](20-decision-worlds-regime.md) |
+| 16 | `clock` — Keep event time and availability time apart with a synthetic canary | B · Bitemporal | Core | 8 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 21](21-decision-worlds-governance.md) |
+| 17 | `vault` — Open a sealed out-of-time reserve exactly once | B · Bitemporal | Core | 15 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 17](17-model-decisions-card-preregistration.md) → [Ch 21](21-decision-worlds-governance.md) |
+| 18 | `concept_drift` — Detect and adapt to covariate, label, and concept drift | C · Calibrated | Full | 14 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 21](21-decision-worlds-governance.md) |
+| 19 | `stochary_cybernetics` — Govern with stocks and buffers, and judge process apart from outcome | A · Auditing | Full | 14 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 5](05-dynamical-systems-odes-waves.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 19](19-world-decisions-performativity.md) → [Ch 22](22-relational-ontology.md) → [Ch 23](23-stochary-conjectural-cybernetics.md) |
+| 20 | `strategic_accommodation` — Repair the six AI shortcuts across all six ordered pairs | A · Auditing | Full | 21 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) → [Ch 12](12-model-worlds-simulation-acceptance.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 17](17-model-decisions-card-preregistration.md) → [Ch 19](19-world-decisions-performativity.md) → [Ch 20](20-decision-worlds-regime.md) → [Ch 24](24-strategic-ai-accommodation.md) |
+| 21 | `coupled_society` — Close the stock-flow loop between a public regulator and private credit | A · Auditing | Full | 19 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 5](05-dynamical-systems-odes-waves.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 19](19-world-decisions-performativity.md) → [Ch 20](20-decision-worlds-regime.md) → [Ch 22](22-relational-ontology.md) → [Ch 23](23-stochary-conjectural-cybernetics.md) → [Ch 25](25-coupled-society-sfc.md) |
+<!-- competency-pathways:end -->
 
 <div class="stoch-next-card" role="region" aria-label="Next chapter progression">
   <div class="stoch-next-body">

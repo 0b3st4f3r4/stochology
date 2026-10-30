@@ -923,12 +923,20 @@ main a:not(.header):hover {
   min-inline-size: 0;
 }
 
-.stoch-pathway-card[data-role="student"] {
+/* Pathway cards are grouped by CAPIBA pillar (generated from docs/competencies.toml). */
+.stoch-pathway-card[data-pillar="anytime"],
+.stoch-pathway-card[data-pillar="bitemporal"] {
   border-block-start-color: var(--diag-emerald);
 }
 
-.stoch-pathway-card[data-role="auditor"] {
+.stoch-pathway-card[data-pillar="performative"],
+.stoch-pathway-card[data-pillar="practicum"] {
   border-block-start-color: var(--diag-amber);
+}
+
+.stoch-pathway-card[data-pillar="invariant"],
+.stoch-pathway-card[data-pillar="auditing"] {
+  border-block-start-color: var(--diag-violet);
 }
 
 .stoch-pathway-kicker {
@@ -940,12 +948,19 @@ main a:not(.header):hover {
   color: var(--diag-sky);
 }
 
-.stoch-pathway-card[data-role="student"] .stoch-pathway-kicker {
+.stoch-pathway-card[data-pillar="anytime"] .stoch-pathway-kicker,
+.stoch-pathway-card[data-pillar="bitemporal"] .stoch-pathway-kicker {
   color: var(--diag-emerald);
 }
 
-.stoch-pathway-card[data-role="auditor"] .stoch-pathway-kicker {
+.stoch-pathway-card[data-pillar="performative"] .stoch-pathway-kicker,
+.stoch-pathway-card[data-pillar="practicum"] .stoch-pathway-kicker {
   color: var(--diag-amber);
+}
+
+.stoch-pathway-card[data-pillar="invariant"] .stoch-pathway-kicker,
+.stoch-pathway-card[data-pillar="auditing"] .stoch-pathway-kicker {
+  color: var(--diag-violet);
 }
 
 .stoch-pathway-card h4 {

@@ -49,6 +49,170 @@ The Return is not a recipe: a tension often has more than one legitimate formali
 
 The abstraction is preserved in full in both tracks; only the technical depth of the Return changes.
 
+### 4.1. Competency Graph and the 21 Pathways
+
+The tracks above are a **depth tag**, not a route. The course itself is an acyclic graph of competencies (`docs/competencies.toml`, an authorial frame over the book). There are no reader-role tracks: a learner chooses the negative proofs they must be able to explain, and the union of those proofs' **pathways** is the reading plan. Each pathway is the prerequisite closure of the competency that carries one proof, so there are 21 of them, and each ends at a test that must exit with code `1`. The **Core track** is the union of the 13 Core pathways plus the Core practicum (the Funnel, the real-data synthesis, and the verification suite). The **Full track** adds the other 8 pathways and Protocol Profiles. The graph and the table below are generated from the data and checked by `crates/stochology-cli/tests/competency_dag.rs`: each pathway's depth and Movement must agree with §5–§6. Dashed boxes are Full competencies; thick boxes carry a negative proof (⊥).
+
+<!-- competency-dag:begin -->
+```mermaid
+flowchart TB
+  subgraph part0["Part I"]
+    layers_six_pairs["Separate World, Model, and Decision, and name the six ordered pairs<br/><small>Ch 1</small>"]
+    uncertainty_typing["Type uncertainty as aleatory, parametric, structural, or Knightian<br/><small>Ch 2 · ⊥ sniedovich</small>"]
+    natural_frequencies["Translate probabilities into natural frequencies and decibans<br/><small>Ch 2</small>"]
+  end
+  subgraph part1["Part II"]
+    convexity_jensen["Reason with quantiles and Jensen's inequality instead of the mean<br/><small>Ch 3</small>"]
+    markov_dags["Read Markov chains, stochastic time, and causal DAGs<br/><small>Ch 4</small>"]
+    dynamics_odes["Integrate open dynamical systems with RK4 and read entropy production<br/><small>Ch 5</small>"]
+    sampling_unit["Find the independent unit and estimate through a sampling design<br/><small>Ch 6</small>"]
+    approximation_spectral["Bound what a finite model can approximate with bases, spectra, and minimax rates<br/><small>Ch 7</small>"]
+    severe_testing["Test severely and keep evidence valid under continuous monitoring<br/><small>Ch 8 · ⊥ peeking</small>"]
+    var_es_backtest["Backtest VaR and Expected Shortfall with e-values<br/><small>Ch 8 · ⊥ var_underreport</small>"]
+    lens_information["Apply the Information lens: data processing inequality, contraction, and Fano's floor<br/><small>Ch 9</small>"]
+    lens_time["Apply the Time lens: Itô variance drain, Kelly fraction, and ruin<br/><small>Ch 9</small>"]
+    lens_tail["Apply the Tail lens: Hill index, moment regimes, and tail quantiles<br/><small>Ch 9</small>"]
+    lens_invariance["Apply the Invariance lens: ICP and nonlinear NILE across environments<br/><small>Ch 9</small>"]
+    lens_decision["Apply the Decision lens: cost-loss boundary, EVPI, and CORP-Murphy decomposition<br/><small>Ch 9 · ⊥ brier_dominance</small>"]
+  end
+  subgraph part2["Part III"]
+    missingness_bounds["Bound what the world did not show: Meng's identity, Rubin's classes, Manski and Lee bounds<br/><small>Ch 10 · ⊥ lee_point_estimate</small>"]
+    authentic_form["Separate structural core from residual: Kennedy-O'Hagan discrepancy and Authentic Model Form<br/><small>Ch 11 · ⊥ machine</small>"]
+    seeds_acceptance["Build seeded null models and accept claims across many seeds<br/><small>Ch 12</small>"]
+    analog_wave["Audit physical computing worlds: the analog wall, noise-aware training, and wave solvers<br/><small>Ch 13 · ⊥ analog_wall</small>"]
+    triadic["Test the triadic synthesis of phase, fractal scale, and toroidal recurrence<br/><small>Ch 14 · ⊥ triadic_technium</small>"]
+  end
+  subgraph part3["Part IV"]
+    curvature_scoring["Score curved consequences: Jensen's gap, CRPS, proper scores, and the Cromwell floor<br/><small>Ch 15 · ⊥ cromwell</small>"]
+    thresholds_evidence["Turn calibrated probability into action within the human attention budget<br/><small>Ch 16</small>"]
+    card_preregistration["Put the analyst's choices on record: card, attempt counter, and SHA-256 pre-registration<br/><small>Ch 17</small>"]
+    critical_rationality["Expose what instrumental stochastic reason silences: amputated tails and correlational parrots<br/><small>Ch 18 · ⊥ instrumental_reason</small>"]
+  end
+  subgraph part4["Part V"]
+    performativity["Separate performative stability from optimality and audit RRM contraction and Goodhart<br/><small>Ch 19 · ⊥ performativity</small>"]
+    synthetic_recursion["Keep recursive training anchored: Accumulate versus Replace<br/><small>Ch 19 · ⊥ replace_collapse</small>"]
+    clustering_neff["Count tail information in clusters: Moulton-Campbell n_eff(p)<br/><small>Ch 20 · ⊥ moulton</small>"]
+    resolution_phi5["Match the question's resolution to the decision unit (Phi5)<br/><small>Ch 20 · ⊥ phi5</small>"]
+    fairness["Name who pays for error under Chouldechova's impossibility<br/><small>Ch 20 · ⊥ chouldechova</small>"]
+    bitemporal_clock["Keep event time and availability time apart with a synthetic canary<br/><small>Ch 21 · ⊥ clock</small>"]
+    temporal_vault["Open a sealed out-of-time reserve exactly once<br/><small>Ch 21 · ⊥ vault</small>"]
+    drift_adaptation["Detect and adapt to covariate, label, and concept drift<br/><small>Ch 21 · ⊥ concept_drift</small>"]
+    relational_complex["Model relations and open systems: Brusselator, Schelling, and Daisyworld<br/><small>Ch 22</small>"]
+    stocks_cybernetics["Govern with stocks and buffers, and judge process apart from outcome<br/><small>Ch 23 · ⊥ stochary_cybernetics</small>"]
+  end
+  subgraph part5["Part VI"]
+    strategic_accommodation["Repair the six AI shortcuts across all six ordered pairs<br/><small>Ch 24 · ⊥ strategic_accommodation</small>"]
+    coupled_society["Close the stock-flow loop between a public regulator and private credit<br/><small>Ch 25 · ⊥ coupled_society</small>"]
+  end
+  subgraph part6["Part VII"]
+    funnel_siga["Prune a question through the 4 Filters and run the 8-step SIGA Roadmap<br/><small>Ch 26</small>"]
+    protocol_profiles["Shape the protocol's clay for a new application with a pre-registered profile<br/><small>Ch 17, Ch 26</small>"]
+    empirical_synthesis["Face every lens and bridge with the 13 real datasets<br/><small>Ch 27</small>"]
+  end
+  subgraph part7["Appendices"]
+    verification_suite["Run the gates, the negative proofs, and the full verification suite<br/><small>App. A, App. B</small>"]
+  end
+  layers_six_pairs --> uncertainty_typing
+  layers_six_pairs --> natural_frequencies
+  layers_six_pairs --> convexity_jensen
+  convexity_jensen --> markov_dags
+  convexity_jensen --> dynamics_odes
+  uncertainty_typing --> sampling_unit
+  convexity_jensen --> sampling_unit
+  sampling_unit --> approximation_spectral
+  sampling_unit --> severe_testing
+  severe_testing --> var_es_backtest
+  markov_dags --> lens_information
+  markov_dags --> lens_time
+  sampling_unit --> lens_tail
+  markov_dags --> lens_invariance
+  approximation_spectral --> lens_invariance
+  convexity_jensen --> lens_decision
+  natural_frequencies --> lens_decision
+  sampling_unit --> missingness_bounds
+  lens_information --> authentic_form
+  lens_invariance --> authentic_form
+  severe_testing --> seeds_acceptance
+  missingness_bounds --> seeds_acceptance
+  authentic_form --> seeds_acceptance
+  dynamics_odes --> analog_wave
+  seeds_acceptance --> analog_wave
+  analog_wave --> triadic
+  lens_tail --> triadic
+  lens_decision --> curvature_scoring
+  curvature_scoring --> thresholds_evidence
+  severe_testing --> thresholds_evidence
+  missingness_bounds --> card_preregistration
+  thresholds_evidence --> card_preregistration
+  card_preregistration --> critical_rationality
+  lens_tail --> critical_rationality
+  lens_invariance --> critical_rationality
+  lens_decision --> performativity
+  markov_dags --> performativity
+  severe_testing --> performativity
+  performativity --> synthetic_recursion
+  seeds_acceptance --> synthetic_recursion
+  lens_tail --> clustering_neff
+  clustering_neff --> resolution_phi5
+  thresholds_evidence --> fairness
+  severe_testing --> bitemporal_clock
+  lens_information --> bitemporal_clock
+  bitemporal_clock --> temporal_vault
+  card_preregistration --> temporal_vault
+  bitemporal_clock --> drift_adaptation
+  curvature_scoring --> drift_adaptation
+  lens_invariance --> drift_adaptation
+  dynamics_odes --> relational_complex
+  lens_information --> relational_complex
+  lens_time --> stocks_cybernetics
+  performativity --> stocks_cybernetics
+  relational_complex --> stocks_cybernetics
+  seeds_acceptance --> strategic_accommodation
+  card_preregistration --> strategic_accommodation
+  performativity --> strategic_accommodation
+  clustering_neff --> strategic_accommodation
+  stocks_cybernetics --> coupled_society
+  missingness_bounds --> coupled_society
+  fairness --> coupled_society
+  resolution_phi5 --> funnel_siga
+  seeds_acceptance --> funnel_siga
+  temporal_vault --> funnel_siga
+  funnel_siga --> protocol_profiles
+  funnel_siga --> empirical_synthesis
+  seeds_acceptance --> verification_suite
+  classDef full stroke-dasharray: 5 4
+  classDef proof stroke-width: 3px
+  class dynamics_odes,analog_wave,triadic,critical_rationality,synthetic_recursion,drift_adaptation,relational_complex,stocks_cybernetics,strategic_accommodation,coupled_society,protocol_profiles full
+  class uncertainty_typing,severe_testing,var_es_backtest,lens_decision,missingness_bounds,authentic_form,analog_wave,triadic,curvature_scoring,critical_rationality,performativity,synthetic_recursion,clustering_neff,resolution_phi5,fairness,bitemporal_clock,temporal_vault,drift_adaptation,stocks_cybernetics,strategic_accommodation,coupled_society proof
+```
+<!-- competency-dag:end -->
+
+<!-- competency-pathways:begin -->
+| # | Pathway (negative proof) | Pillar | Depth | Competencies | Route (chapters, in order) |
+| :-: | --- | --- | :-: | :-: | --- |
+| 1 | `sniedovich` — Type uncertainty as aleatory, parametric, structural, or Knightian | I · Invariant | Core | 2 | Ch 1 → Ch 2 |
+| 2 | `peeking` — Test severely and keep evidence valid under continuous monitoring | A · Anytime-valid | Core | 5 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 8 |
+| 3 | `var_underreport` — Backtest VaR and Expected Shortfall with e-values | A · Anytime-valid | Core | 6 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 8 |
+| 4 | `brier_dominance` — Apply the Decision lens: cost-loss boundary, EVPI, and CORP-Murphy decomposition | C · Calibrated | Core | 4 | Ch 1 → Ch 2 → Ch 3 → Ch 9 |
+| 5 | `lee_point_estimate` — Bound what the world did not show: Meng's identity, Rubin's classes, Manski and Lee bounds | I · Invariant | Core | 5 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 10 |
+| 6 | `machine` — Separate structural core from residual: Kennedy-O'Hagan discrepancy and Authentic Model Form | I · Invariant | Core | 9 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 9 → Ch 11 |
+| 7 | `analog_wall` — Audit physical computing worlds: the analog wall, noise-aware training, and wave solvers | A · Auditing | Full | 14 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 5 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 11 → Ch 12 → Ch 13 |
+| 8 | `triadic_technium` — Test the triadic synthesis of phase, fractal scale, and toroidal recurrence | A · Auditing | Full | 16 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 5 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 11 → Ch 12 → Ch 13 → Ch 14 |
+| 9 | `cromwell` — Score curved consequences: Jensen's gap, CRPS, proper scores, and the Cromwell floor | C · Calibrated | Core | 5 | Ch 1 → Ch 2 → Ch 3 → Ch 9 → Ch 15 |
+| 10 | `instrumental_reason` — Expose what instrumental stochastic reason silences: amputated tails and correlational parrots | A · Auditing | Full | 16 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 15 → Ch 16 → Ch 17 → Ch 18 |
+| 11 | `performativity` — Separate performative stability from optimality and audit RRM contraction and Goodhart | P · Performative-aware | Core | 9 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 8 → Ch 9 → Ch 19 |
+| 12 | `replace_collapse` — Keep recursive training anchored: Accumulate versus Replace | P · Performative-aware | Full | 16 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 11 → Ch 12 → Ch 19 |
+| 13 | `moulton` — Count tail information in clusters: Moulton-Campbell n_eff(p) | A · Anytime-valid | Core | 6 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 9 → Ch 20 |
+| 14 | `phi5` — Match the question's resolution to the decision unit (Phi5) | A · Anytime-valid | Core | 7 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 9 → Ch 20 |
+| 15 | `chouldechova` — Name who pays for error under Chouldechova's impossibility | A · Auditing | Core | 10 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 8 → Ch 9 → Ch 15 → Ch 16 → Ch 20 |
+| 16 | `clock` — Keep event time and availability time apart with a synthetic canary | B · Bitemporal | Core | 8 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 8 → Ch 9 → Ch 21 |
+| 17 | `vault` — Open a sealed out-of-time reserve exactly once | B · Bitemporal | Core | 15 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 8 → Ch 9 → Ch 10 → Ch 15 → Ch 16 → Ch 17 → Ch 21 |
+| 18 | `concept_drift` — Detect and adapt to covariate, label, and concept drift | C · Calibrated | Full | 14 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 15 → Ch 21 |
+| 19 | `stochary_cybernetics` — Govern with stocks and buffers, and judge process apart from outcome | A · Auditing | Full | 14 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 5 → Ch 6 → Ch 8 → Ch 9 → Ch 19 → Ch 22 → Ch 23 |
+| 20 | `strategic_accommodation` — Repair the six AI shortcuts across all six ordered pairs | A · Auditing | Full | 21 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 11 → Ch 12 → Ch 15 → Ch 16 → Ch 17 → Ch 19 → Ch 20 → Ch 24 |
+| 21 | `coupled_society` — Close the stock-flow loop between a public regulator and private credit | A · Auditing | Full | 19 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 5 → Ch 6 → Ch 8 → Ch 9 → Ch 10 → Ch 15 → Ch 16 → Ch 19 → Ch 20 → Ch 22 → Ch 23 → Ch 25 |
+<!-- competency-pathways:end -->
+
 ---
 
 ## 5. Schedule Overview
