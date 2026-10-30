@@ -2,6 +2,7 @@
   "use strict";
 
   var LAB_PATH = "/lab";
+  var REPO_URL = "https://github.com/0b3st4f3r4/stochology";
   var widgetInstanceCounter = 0;
 
   function getPathToRoot() {
@@ -1661,6 +1662,20 @@
     }
   }
 
+  // A link climbing one level above the site root points at a repository file outside the book
+  // (crates/, data/, docs/, AGENTS.md). Send it to GitHub; mdBook renamed ".md" to ".html".
+  function rewriteRepositoryLinks(root) {
+    var depth = (getPathToRoot().match(/\.\.\//g) || []).length;
+    var links = root.querySelectorAll('a[href^="../"]');
+    for (var i = 0; i < links.length; i++) {
+      var m = links[i].getAttribute("href").match(/^((?:\.\.\/)+)([^#]*)(#.*)?$/);
+      if (!m || m[1].length / 3 !== depth + 1) continue;
+      var path = m[2].replace(/\.html$/, ".md");
+      var kind = path === "" || path.charAt(path.length - 1) === "/" ? "tree" : "blob";
+      links[i].setAttribute("href", REPO_URL + "/" + kind + "/main/" + path + (m[3] || ""));
+    }
+  }
+
   function prepareDocumentForMathAndTables() {
     injectSkipLink();
     injectTopMenuLabButton();
@@ -1668,6 +1683,7 @@
     var root = document.querySelector("main") || document.body;
     if (!root) return;
 
+    rewriteRepositoryLinks(root);
     setupInteractiveLabs(root);
 
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
