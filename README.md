@@ -61,7 +61,7 @@ The repository brings together in a single verifiable workspace:
 │   ├── stochology-governance/                     # Bitemporal Clock, Single-Opening Vault, and Drift (ExTRA-WCP-T, BBSE, MLLS, DFM, OTTER)
 │   └── stochology-cli/                            # CLI binaries `labs` and `gates`
 ├── book.toml                                      # mdBook configuration
-├── book-src/                                      # The interactive textbook (mdBook): preface + 28 chapters in 6 parts — I Ontology, II Tools by Layer, III–V the axes World⇄Model, Model⇄Decision, Decision⇄World (forward pair, reverse pair, axis synthesis), VI Operation and Reference (see SUMMARY.md)
+├── book-src/                                      # The interactive textbook (mdBook): preface + 27 chapters in 7 parts — I The Act of Conjecture, II The Five Laws of the Real, III–V the axes World⇄Model, Model⇄Decision, Decision⇄World (forward pair, reverse pair, axis synthesis), VI Cross-Pair Syntheses, VII Operation — plus Appendices A–E (see SUMMARY.md)
 ├── theme/                                         # mdBook favicon/theme overrides
 ├── mathjax.js                                     # MathJax 3 bootstrap for $...$ / $$...$$ rendering
 └── scripts/

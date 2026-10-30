@@ -1,5 +1,7 @@
 # 13. Physical Model Worlds
 
+> **Three tempos.** **Detachment:** set aside the assumption that computation runs in an immaterial ether at no physical cost. **Abstraction:** models are embodied in machines bounded by energy, noise, and data (Model Worlds, $L\_2 \to L\_1$, reading frame). **Return:** RK4 ODE isomorphism, the analog wall and noise-aware training, `HP-INV`, and SIREN on the Helmholtz PDE. **Negative proof:** `gates -- --defect analog_wall` (exit `1`).
+
 ## The Jumping Rope and the 700-Watt Furnace
 
 A modern artificial intelligence data center draws tens of megawatts of electrical power, approaching the output of a hydroelectric turbine, to perform pattern-recognition tasks that the human brain executes continuously on **$20\text{ watts}$** (the power of a dim refrigerator bulb).
@@ -205,16 +207,9 @@ The retina and cortex discard $99.9999994\%$ of raw pixel entropy while retainin
 | **3. Photonic & Diffractive Wave (`D²NN` / MZI)** | Tsinghua `ACCEL` (*Nature* 2023) & `Taichi` (*Science* 2024) | $160\text{ TOPS/W}$ (`Taichi`) to **$74\text{,}800\text{ TOPS/W}$** (`ACCEL`); $72\text{ ns}$ latency | Encodes **phase ($\phi$) and amplitude ($A$)** at the speed of light without pixel ADCs; ideal for ultra-fast vision and wave-interference front-ends. |
 | **4. Biological Organoid Wetware** | Cortical Labs `CL1` (\$35k, Mar 2025) & FinalSpark `Neuroplatform` (\$500/mo) | $20\text{ W}$ biological brain vs. **$850\text{–}1\text{,}000\text{ W}$ life-support rack** (30 `CL1` units) | Event-driven plasticity (*DishBrain* Pong in 5 min), but limited to $6\text{ months}$–$200\text{ days}$ lifespan, low repeatable bit-rate ($\sim 1\text{ ms}$ spikes), no clean reset, and bioethics governance. |
 
-### Foundational Derivation: Why Synthetic `Accumulate` Converges to Euler's Basel Constant $\frac{\pi^2}{6}$ While `Replace` Diverges
+### Synthetic Recursion as an $L\_3 \to L\_1$ Mechanism
 
-Suppose generation $g = 1$ estimates a linear parameter $\hat{\theta}\_1$ from $n$ real physical observations with variance $\sigma^2 / n$. At each subsequent generation $g \ge 2$, the model generates $n$ new synthetic points $Y^{(g)} = X\hat{\theta}\_{g-1} + \varepsilon^{(g)}$:
-1. **Pure Synthetic Replacement (`SyntheticDataPolicy::Replace`, Shumailov et al. *Nature* 2024):**
-   Training generation $g$ *only* on the $n$ synthetic outputs of generation $g-1$ adds an independent variance increment $\frac{\sigma^2}{n}$ at every generation:
-   $$\mathrm{Var}\!\left(\hat{\theta}\_G^{\mathrm{Replace}}\right) = \frac{\sigma^2}{n}\sum\_{g=1}^G 1 = G \cdot \frac{\sigma^2}{n} \xrightarrow{G \to \infty} +\infty$$
-2. **Anchored Data Accumulation (`SyntheticDataPolicy::Accumulate`, Gerstgrasser et al. 2024; Dey & Donoho 2024):**
-   Retaining the original real dataset alongside all previous generations means generation $g$ fits on $g \cdot n$ total samples, scaling the fresh noise variance at step $g$ by $\frac{1}{g^2}$:
-   $$\mathrm{Var}\!\left(\hat{\theta}\_G^{\mathrm{Accum}}\right) \le \frac{\sigma^2}{n}\sum\_{g=1}^G \frac{1}{g^2} < \frac{\sigma^2}{n}\sum\_{g=1}^\infty \frac{1}{g^2} = \frac{\pi^2}{6}\,\frac{\sigma^2}{n} \approx 1.644934\,\frac{\sigma^2}{n}$$
-   This exact Basel ceiling (`GerstgrasserAccumulateAudit`) is enforced by simulation in **Gate `G8` (`--defect replace_collapse`)**.
+Feeding a model on its own synthetic outputs is a decision that moves the world the next generation learns from. The derivation of why `Accumulate` stays below the Basel-problem bound $\frac{\pi^2}{6}\,\frac{\sigma^2}{n}$ while `Replace` diverges linearly now lives with the other performative mechanisms in [Chapter 19](19-world-decisions-performativity.md), §19.3 (`GerstgrasserAccumulateAudit`, `--defect replace_collapse`).
 
 ### Interactive Laboratory (`/lab`)
 

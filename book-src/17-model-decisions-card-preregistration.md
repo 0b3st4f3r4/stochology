@@ -1,5 +1,7 @@
 # 17. The Analyst's Choices on Record
 
+> **Three tempos.** **Detachment:** set aside the analyst's choices as invisible background. **Abstraction:** every model carries the fingerprint of what was tried and narrated; unrecorded, prose launders adjectives (Model Decisions, $L\_3 \to L\_2$, reading frame). **Return:** the Epistemological Card, the attempt counter $K \ge 1$, discarded atoms, and SHA-256 pre-registration. **Negative proof:** none in this chapter; the tools here feed the proofs of later chapters.
+
 ## The Paragraph That Hid Three Fatal Flaws
 
 Imagine sitting on an operational risk committee at a retail bank. A consultant hands you a polished slide deck containing the following sentence:

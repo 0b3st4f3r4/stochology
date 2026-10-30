@@ -1,5 +1,7 @@
 # 11. Structural Discrepancy and Authentic Form
 
+> **Three tempos.** **Detachment:** set aside a good fit as proof that the model is right. **Abstraction:** an authentic model separates an invariant structural core from its specification residual (World Models, $L\_1 \to L\_2$). **Return:** Kennedy-O'Hagan discrepancy, the Authentic Model Form $\delta(x) + \hat{S}^\ast$, and the Almost-Perfect Machine. **Negative proof:** `gates -- --defect machine` (exit `1`).
+
 ## Clever Hans, the Horse That Could Count
 
 In Berlin at the turn of the twentieth century, a horse named **Clever Hans** became an international sensation. If his trainer asked, *"What is $7 + 5$?"*, Hans tapped his hoof twelve times and stopped. Commissions of veterinarians, circus trainers, and zoologists inspected the stable for hidden wires or trick signals and found none; Hans performed even when strangers asked the questions.

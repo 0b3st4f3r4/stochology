@@ -1,5 +1,6 @@
 # 7. Function Spaces, Orthonormal Bases, Spectral SVD, and Minimax Complexity
 
+> **Three tempos.** **Detachment:** set aside the idea that any function can be learned cheaply from enough data. **Abstraction:** representation has a cost: bases, spectra, and minimax rates set what a finite model can approximate. **Return:** function spaces, orthonormal bases, SVD, and minimax complexity. **Negative proof:** none in this chapter; the tools here feed the proofs of later chapters.
 
 ## A Million Parameters That Only Know Three Directions
 

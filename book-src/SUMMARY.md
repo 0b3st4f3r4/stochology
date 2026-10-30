@@ -2,11 +2,11 @@
 
 [Preface](00-preface.md)
 
-# Part I — Ontology
+# Part I — The Act of Conjecture: Ontology
 - [Three Layers, Six Pairs](01-layers-six-pairs.md)
 - [The Typology of Uncertainty](02-uncertainty-typology.md)
 
-# Part II — Tools by Layer
+# Part II — The Five Laws of the Real: Tools by Layer
 - [L₁ · World]()
     - [Random Variables, Expectations, Quantiles, and Convexity](03-random-variables-convexity.md)
     - [Markov Chains, Stochastic Time, and Causal Graphs (DAGs)](04-markov-chains-causal-graphs.md)
@@ -48,11 +48,17 @@
     - [Relational Ontology and Complex Systems](22-relational-ontology.md)
     - [Stochary-Conjectural Synthesis, Ontological Stock Axioms, and Cybernetic Governance](23-stochary-conjectural-cybernetics.md)
 
-# Part VI — Operation and Reference
-- [Eliminatory Funnel and SIGA Roadmap](24-funnel-siga.md)
-- [Transversal Empirical Synthesis (Lab 7)](25-empirical-synthesis.md)
-- [Architectural Mapping](26-architecture.md)
-- [Verification and Algorithmic Gates](27-verification.md)
-- [Empirical Data Sources](28-sources.md)
+# Part VI — Cross-Pair Syntheses
+- [Strategic AI Six-Pair Methodological Accommodation](24-strategic-ai-accommodation.md)
+- [Coupled Public-Private Stock-Flow Consistent Society](25-coupled-society-sfc.md)
 
-[Appendix — Full Specification](appendix-protocol.md)
+# Part VII — Operation
+- [Eliminatory Funnel and SIGA Roadmap](26-funnel-siga.md)
+- [Transversal Empirical Synthesis (Lab 7)](27-empirical-synthesis.md)
+
+# Appendices
+- [Appendix A — Architectural Mapping](appendix-a-architecture.md)
+- [Appendix B — Verification and Algorithmic Gates](appendix-b-verification.md)
+- [Appendix C — Empirical Data Sources](appendix-c-sources.md)
+- [Appendix D — Full Specification](appendix-protocol.md)
+- [Appendix E — Course Syllabus](appendix-e-syllabus.md)

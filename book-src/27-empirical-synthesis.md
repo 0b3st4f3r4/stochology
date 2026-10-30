@@ -1,5 +1,6 @@
-# 25. Transversal Empirical Synthesis Across All 13 Real Datasets (Lab 7)
+# 27. Transversal Empirical Synthesis Across All 13 Real Datasets (Lab 7)
 
+> **Three tempos.** **Detachment:** set aside trusting results seen only on simulated data. **Abstraction:** every lens, bridge, and invariant must also face the 13 real datasets and the 4 canonical cards. **Return:** Lab 7 across `data/*.csv`. **Negative proof:** none in this chapter; the tools here feed the proofs of later chapters.
 
 ## Six High-Stakes Empirical Domains
 
@@ -174,7 +175,7 @@ Explore the multi-dataset drift and bitemporal synthesis audited in Laboratory 7
 
 <div class="stoch-lab"
      data-lab="governance-bitemporal-drift"
-     data-chapter="25-empirical-synthesis.html"
+     data-chapter="27-empirical-synthesis.html"
      data-title="Lab 7 Transversal Synthesis: Multi-Regime Drift &amp; Temporal Vault"
      data-subtitle="Simulate NYC 2013→2023 covariate shift, Houston out-of-domain transfer, and CORP circuit breaking">
 </div>

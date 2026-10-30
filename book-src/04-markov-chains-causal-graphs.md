@@ -1,5 +1,6 @@
 # 4. Markov Chains, Stochastic Time, and Causal Graphs (DAGs)
 
+> **Three tempos.** **Detachment:** set aside reading correlations in data as if they were mechanisms. **Abstraction:** time and causation impose structure: states evolve along chains, and arrows in a graph say what an intervention can change. **Return:** Markov chains, stochastic time, and DAGs. **Negative proof:** none in this chapter; the tools here feed the proofs of later chapters.
 
 ## When Controlling for a Variable Invents a Fake Disease
 

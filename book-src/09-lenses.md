@@ -1,5 +1,6 @@
 # 9. The Five Transversal Lenses
 
+> **Three tempos.** **Detachment:** set aside information theory, stochastic processes, extreme values, causal inference, and decision theory as separate disciplines. **Abstraction:** five laws hold before any bridge is crossed: irreversibility of compression, non-ergodicity of time, dominance of the extreme, invariance under intervention, and consequential asymmetry. **Return:** DPI and Fano, Itô drain and Kelly, Hill and $\mathrm{ES}\_{0.99}$, ICP/NILE, cost-loss and CORP-Murphy. **Negative proof:** `gates -- --defect brier_dominance` (exit `1`).
 
 ## Five Domain Failures Sharing One Mathematical Root
 
@@ -107,6 +108,10 @@ $$f\_{\text{emp}}^{\ast} = \arg\max\_{0 \le f < f\_{\max}} \frac{1}{n}\sum\_{t=1
 Whenever negative tail jumps exist, $f\_{\text{emp}}^{\ast} < f\_{\text{Merton}}$ (`2.08 < 2.12` on DJIA), protecting the agent against Gaussian over-leverage.
 
 ---
+
+### Related Tool Outside the Time Lens: Robust State-Space Filtering
+
+Heavy-tailed shocks also break the Gaussian Kalman filter, whose $L\_2$ update lets one glitch drag the state estimate. The Huber innovation-weighted, Joseph-form filter (`RobustKalmanControlAudit`) lives in the strategic synthesis, not in `stochology_lenses::time`; linking it to the Time lens is an authorial reading. See [Chapter 24](24-strategic-ai-accommodation.md), §24.6.
 
 ## 9.3 Lens 3: Scale and Tail (`stochology_lenses::tail`)
 
@@ -228,6 +233,10 @@ In addition, `crates/stochology-lenses/src/invariance/` provides two classic eco
 - **Cinelli & Hazlett (2020) Omitted-Variable Bias Robustness Value (`cinelli_hazlett_robustness_value`):** Computes the exact partial-$R^2$ strength $RV\_q = \frac{1}{2}\bigl(\sqrt{f\_q^4 + 4 f\_q^2} - f\_q^2\bigr)$ (where $f\_q = q\cdot |t| / \sqrt{\mathrm{df}}$) that an unobserved confounder $U$ would need with *both* treatment $X$ and outcome $Y$ to reduce the estimated effect by fraction $q$.
 
 ---
+
+### Related Tool Outside the Invariance Lens: Interventional Attribution
+
+Observational feature attributions credit whatever co-varies with the outcome, including symptoms downstream of the cause. ICP-anchored `do`-Shapley (`ShapleyCausalAudit`) restores the causal ranking; it lives in the strategic synthesis, not in `stochology_lenses::invariance`, and linking it to this lens is an authorial reading. See [Chapter 24](24-strategic-ai-accommodation.md), §24.2.
 
 ## 9.5 Lens 5: Decision and Calibration (`stochology_lenses::decision`)
 

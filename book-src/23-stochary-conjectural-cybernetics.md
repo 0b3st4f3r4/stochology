@@ -1,5 +1,7 @@
 # 23. Stochary-Conjectural Synthesis, Ontological Stock Axioms, Supply-Chain Physics, and Cybernetic Governance
 
+> **Three tempos.** **Detachment:** set aside judging decisions by the luck of their outcomes. **Abstraction:** survival in non-ergodic systems joins aiming (*stókhos*) to stocks and buffers, and judges process (*Telos*) apart from outcome (*Skopos*) (Decision ⇄ World axis synthesis). **Return:** the four stock axioms, supply-chain physics, VSM `S3*`, and the PATE matrix. **Negative proof:** `gates -- --defect stochary_cybernetics` (exit `1`).
+
 ## The Archer's Target ($\sigma\tau\acute{o}\chi\omicron\varsigma$), the Fragile Just-in-Time Chain, and the $+50\% / -40\%$ Ruin Trap
 
 Hyper-optimized modern organizations (supply chains running on "zero idle inventory," trading desks maximizing expected ensemble returns, and autonomous AI workflows generating high-speed predictions) repeatedly break when hit by a single multi-day disruption.

@@ -74,13 +74,13 @@
         <a href="01-layers-six-pairs.html">Ch 1 · Layers &amp; Prohibitions</a>
         <a href="16-decision-models-thresholds-evidence.html">Ch 16 · Thresholds &amp; Triage</a>
         <a href="21-decision-worlds-governance.html">Ch 21 · Bitemporal Governance</a>
-        <a href="24-funnel-siga.html">Ch 24 · Funnel &amp; SIGA</a>
+        <a href="26-funnel-siga.html">Ch 24 · Funnel &amp; SIGA</a>
       </div>
     </div>
     <div class="stoch-pathway-card" role="listitem" data-role="student">
       <div class="stoch-pathway-kicker">PATHWAY 2 · STUDENT &amp; INSTRUCTOR</div>
       <h4>Master the 6-Part Curriculum</h4>
-      <p>Traverse the 28 chapters from probability, convexity, and causal DAGs through the Five Transversal Lenses and the Six Ordered Pairs with live interactive sliders.</p>
+      <p>Traverse the 27 chapters from probability, convexity, and causal DAGs through the Five Transversal Lenses and the Six Ordered Pairs with live interactive sliders.</p>
       <div class="stoch-pathway-links">
         <a href="02-uncertainty-typology.html">Ch 2 · Uncertainty Typology</a>
         <a href="03-random-variables-convexity.html">Ch 3 · Convexity &amp; Jensen</a>
@@ -94,9 +94,9 @@
       <p>Inspect Boundary Invariants (Φ₁–Φ₅), YAML Epistemological Cards, SHA-256 pre-registration seals, and the 8 algorithmic gates plus 21 negative defect proofs.</p>
       <div class="stoch-pathway-links">
         <a href="17-model-decisions-card-preregistration.html">Ch 17 · Cards &amp; Pre-Reg</a>
-        <a href="25-empirical-synthesis.html">Ch 25 · Empirical Lab 7</a>
-        <a href="26-architecture.html">Ch 26 · Rust Architecture</a>
-        <a href="27-verification.html">Ch 27 · Gates &amp; 21 Defects</a>
+        <a href="27-empirical-synthesis.html">Ch 25 · Empirical Lab 7</a>
+        <a href="appendix-a-architecture.html">Ch 26 · Rust Architecture</a>
+        <a href="appendix-b-verification.html">Ch 27 · Gates &amp; 21 Defects</a>
       </div>
     </div>
   </div>
@@ -252,129 +252,7 @@ The lesson for Stochology is operational: **every time a model is recalibrated, 
 
 ## 3. Foundations: Probability Without Mystery
 
-Before we examine complex models, we must be clear about the elementary building blocks of uncertainty: **probability**, **coherence**, **natural frequencies**, and **Bayes' theorem**.
-
-### Five Meanings Wearing the Same Number
-
-Suppose a meteorologist says: *"There is a 70% probability of rain tomorrow."* Depending on who speaks and how it was computed, that single number $0.70$ can carry five distinct meanings:
-
-| Interpretation | Founders | What "70%" Means | Primary Ontological Layer |
-| --- | --- | --- | --- |
-| **1. Classical** | Cardano, Laplace | Out of $10$ symmetric, equally possible configurations of the model, $7$ produce rain. | **Model ($L\_2$)** |
-| **2. Frequentist** | Venn, von Mises, Fisher | In a long historical sequence of days with identical atmospheric conditions, it rained on $70\%$ of them. | **World ($L\_1$)** |
-| **3. Propensity** | Peirce, Popper | The current physical state of the atmosphere has an objective physical disposition of strength $0.70$ to generate rain. | **World ($L\_1$)** |
-| **4. Logical / Evidential** | Keynes, Jeffreys, Carnap | Given the formal propositions in our evidence database, the rational degree of logical entailment for rain is $0.70$. | **Model ($L\_2$)** |
-| **5. Subjective / Personalist** | Ramsey, de Finetti, Savage | The decision-maker is willing to buy or sell a contract paying USD 1.00 if it rains for a fair price of USD 0.70. | **Agent ($L\_3$)** |
-
-Stochology does not force a philosophical war among these five interpretations. Instead, **it types every probability by the layer from which it came.** Many costly errors in courtrooms, hospitals, and trading desks happen when a number computed as a symmetry of a *Model* ($L\_2$) or a subjective hunch of an *Agent* ($L\_3$) is treated as a verified physical frequency of the *World* ($L\_1$).
-
-### Coherence and the Dutch Book
-
-Degrees of belief must obey the mathematical axioms of probability, namely that probabilities lie between $0$ and $1$, that mutually exclusive events add up ($P(A \cup B) = P(A) + P(B)$), and that totality sums to $1$.
-
-Frank Ramsey (1926) and Bruno de Finetti (1937) gave a concrete operational reason for these rules: **to avoid a Dutch Book**, a combination of bets that guarantees a sure loss no matter what happens in the real world.
-
-Imagine a friend who believes there is a $60\%$ chance it will rain tomorrow and a $50\%$ chance it will not rain. He is willing to buy a ticket that pays USD 1.00 if it rains for USD 0.60, and a second ticket that pays USD 1.00 if it does not rain for USD 0.50. You sell him both tickets and collect $USD 0.60 + USD 0.50 = USD 1.10$ upfront. Tomorrow, either it rains or it does not rain. In either case, exactly one of the two tickets wins, so you pay him back USD 1.00. Your friend has lost USD 0.10 with $100\%$ certainty before looking out the window.
-
-Yet Stochology emphasizes an asymmetry that elementary textbooks often miss: **internal coherence is cheap; external calibration against the World is expensive.** If your friend revises his beliefs to $60\%$ rain and $40\%$ no rain, no bookmaker can Dutch-book him in a single round because $0.60 + 0.40 = 1.00$. He is now internally coherent. But if he lives in a desert where it actually rains on only $5\%$ of days, anyone who knows the World ($L\_1$) will bankrupt him over time. Coherence only polices the Agent ($L\_3$); **calibration** polices the bridge between the Agent and the World.
-
-### Natural Frequencies vs. Percentages: Why Intuition Fails and How Trees Fix It
-
-Consider a classic clinical screening problem investigated by Gerd Gigerenzer and Ulrich Hoffrage (1995):
-- In a routine screening population, the prevalence of a condition is $1\%$.
-- If a patient has the condition, the diagnostic test is positive $90\%$ of the time (*sensitivity* $= 0.90$).
-- If a patient is healthy, the test still triggers a false alarm $9\%$ of the time (*false-positive rate* $= 0.09$, or *specificity* $= 0.91$).
-
-A patient receives a positive test result. What is the probability that she actually has the condition?
-
-When asked in percentages, most physicians and analysts guess "around $80\%$ or $90\%$," confusing the accuracy of the test given the disease, $P(\text{Positive} \mid \text{Disease}) = 0.90$, with the probability of the disease given the test, $P(\text{Disease} \mid \text{Positive})$.
-
-The confusion disappears when we replace abstract percentages with **Gigerenzer Natural Frequencies**, counting whole people in a concrete cohort of $10\text{,}000$ patients:
-
-<figure class="stoch-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="1080" height="410" viewBox="0 0 1080 410" fill="none" role="img" aria-labelledby="title-fig-00-gigerenzer">
-  <title id="title-fig-00-gigerenzer">Gigerenzer Natural-Frequency Tree: 10,000 Patients Screened</title>
-  <defs>
-  <marker id="g-sky" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
-  <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--sky)"/>
-  </marker>
-  <marker id="g-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
-  <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--amber)"/>
-  </marker>
-  <marker id="g-emerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
-  <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--emerald)"/>
-  </marker>
-  <style>text { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; } .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; }</style>
-  </defs>
-  <rect x="1" y="1" width="1078" height="408" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
-  <rect x="330" y="18" width="420" height="68" rx="10" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2.2"/>
-  <text x="540" y="48" text-anchor="middle" fill="var(--ink)" font-size="15.5" font-weight="800">10,000 Patients Screened</text>
-  <text x="540" y="70" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11.5">Representative Clinical Cohort (L₁)</text>
-  <line x1="450" y1="86" x2="285" y2="124" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#g-amber)"/>
-  <line x1="630" y1="86" x2="795" y2="124" stroke="var(--emerald)" stroke-width="2.2" marker-end="url(#g-emerald)"/>
-  <rect x="105" y="128" width="340" height="68" rx="10" fill="var(--amber-bg)" stroke="var(--amber)" stroke-width="2"/>
-  <text x="275" y="157" text-anchor="middle" fill="var(--ink)" font-size="15" font-weight="800">100 With Disease</text>
-  <text x="275" y="179" text-anchor="middle" fill="var(--amber)" class="mono" font-size="11.5" font-weight="700">Prevalence = 1.0%</text>
-  <rect x="635" y="128" width="340" height="68" rx="10" fill="var(--emerald-bg)" stroke="var(--emerald)" stroke-width="2"/>
-  <text x="805" y="157" text-anchor="middle" fill="var(--ink)" font-size="15" font-weight="800">9,900 Healthy</text>
-  <text x="805" y="179" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="700">Complement = 99.0%</text>
-  <line x1="215" y1="196" x2="145" y2="232" stroke="var(--amber)" stroke-width="2" marker-end="url(#g-amber)"/>
-  <line x1="335" y1="196" x2="405" y2="232" stroke="var(--amber)" stroke-width="2" marker-end="url(#g-amber)"/>
-  <line x1="745" y1="196" x2="675" y2="232" stroke="var(--emerald)" stroke-width="2" marker-end="url(#g-emerald)"/>
-  <line x1="865" y1="196" x2="935" y2="232" stroke="var(--emerald)" stroke-width="2" marker-end="url(#g-emerald)"/>
-  <rect x="20" y="236" width="244" height="72" rx="10" fill="var(--surface)" stroke="var(--amber)" stroke-width="2.2"/>
-  <text x="142" y="267" text-anchor="middle" fill="var(--ink)" font-size="14.5" font-weight="800">90 Test (+)</text>
-  <text x="142" y="290" text-anchor="middle" fill="var(--amber)" class="mono" font-size="11.5" font-weight="700">True Alarms (Sens 90%)</text>
-  <rect x="284" y="236" width="244" height="72" rx="10" fill="var(--elevated)" stroke="var(--border)" stroke-width="1.6"/>
-  <text x="406" y="267" text-anchor="middle" fill="var(--ink)" font-size="14.5" font-weight="700">10 Test (-)</text>
-  <text x="406" y="290" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11.5">Missed Cases (10%)</text>
-  <rect x="552" y="236" width="244" height="72" rx="10" fill="var(--surface)" stroke="var(--rose)" stroke-width="2.2"/>
-  <text x="674" y="267" text-anchor="middle" fill="var(--ink)" font-size="14.5" font-weight="800">891 Test (+)</text>
-  <text x="674" y="290" text-anchor="middle" fill="var(--rose)" class="mono" font-size="11.5" font-weight="700">False Alarms (FPR 9%)</text>
-  <rect x="816" y="236" width="244" height="72" rx="10" fill="var(--elevated)" stroke="var(--border)" stroke-width="1.6"/>
-  <text x="938" y="267" text-anchor="middle" fill="var(--ink)" font-size="14.5" font-weight="700">9,009 Test (-)</text>
-  <text x="938" y="290" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11.5">Clear (Spec 91%)</text>
-  <path d="M 142 308 C 142 338, 250 350, 310 354" stroke="var(--sky)" stroke-width="2.2" marker-end="url(#g-sky)"/>
-  <path d="M 674 308 C 674 334, 620 344, 585 348" stroke="var(--sky)" stroke-width="2.2" marker-end="url(#g-sky)"/>
-  <rect x="190" y="326" width="700" height="64" rx="10" fill="var(--sky-bg)" stroke="var(--sky)" stroke-width="2"/>
-  <text x="540" y="354" text-anchor="middle" fill="var(--ink)" font-size="13.5" font-weight="800">Total Positive Alarms: 90 + 891 = 981 Patients</text>
-  <text x="540" y="376" text-anchor="middle" fill="var(--sky)" class="mono" font-size="12" font-weight="700">Posterior P(Disease | +) = 90 / 981 ≈ 9.17% (about 1 in 11)</text>
-</svg>
-  <figcaption><strong>Figure 0.2 — Gigerenzer Natural-Frequency Tree: 10,000 Patients Screened</strong></figcaption>
-</figure>
-
-Two groups of patients received a positive test result:
-- $90$ sick patients tested positive;
-- $891$ healthy patients also tested positive ($9\%$ of $9\text{,}900$).
-- In total, $90 + 891 = 981$ patients hold a positive test slip in their hands.
-
-The fraction of those $981$ positive alarms who actually have the disease is:
-
-$$P(\text{Disease} \mid \text{Positive}) = \frac{90}{90 + 891} = \frac{90}{981} \approx 0.0917 \quad (\text{about } 1 \text{ in } 11)$$
-
-The percentage formula and the natural-frequency tree are mathematically identical, yet the natural-frequency tree makes the **base rate** ($100$ vs. $9\text{,}900$) visually inescapable. That is why Step 8 of the Stochology SIGA Roadmap (`crates/stochology-siga/src/roadmap/`) translates every operational model into an integer natural-frequency tree before presenting it to a human decision-maker.
-
-### Bayes' Rule in Odds and Turing's Decibans
-
-When we want to update beliefs across multiple pieces of evidence, the cleanest formulation of **Bayes' Theorem** is written in **odds** (the ratio of the probability that a hypothesis $H$ is true to the probability that it is false, $\neg H$):
-
-$$\underbrace{\frac{P(H \mid E)}{P(\neg H \mid E)}}\_{\text{Posterior Odds}} = \underbrace{\frac{P(E \mid H)}{P(E \mid \neg H)}}\_{\text{Likelihood Ratio } (\mathrm{LR})} \times \underbrace{\frac{P(H)}{P(\neg H)}}\_{\text{Prior Odds}}$$
-
-In our screening example:
-- The **Prior Odds** are $\frac{100}{9900} = \frac{1}{99}$.
-- The **Likelihood Ratio** of a positive test is $\mathrm{LR} = \frac{\text{Sensitivity}}{\text{False-Positive Rate}} = \frac{0.90}{0.09} = 10$.
-- Multiplying them gives the **Posterior Odds**: $10 \times \frac{1}{99} = \frac{10}{99}$ (which is $10$ sick patients for every $99$ healthy patients, or $\frac{10}{10 + 99} = \frac{10}{109} \approx 0.0917$).
-
-During World War II at Bletchley Park, Alan Turing and I. J. Good took one step further. By taking ten times the base-$10$ logarithm of the likelihood ratio, they defined the **deciban ($\mathrm{dB}$)** as the unit of weight of evidence:
-
-$$W(E) \triangleq 10 \log\_{10}\left(\frac{P(E \mid H)}{P(E \mid \neg H)}\right) \text{ decibans}$$
-
-The deciban is useful for students and auditors because logarithms turn multiplication into addition:
-- A likelihood ratio of $10:1$ adds $+10\text{ dB}$ of evidence.
-- A likelihood ratio of $100:1$ adds $+20\text{ dB}$ of evidence.
-- Starting from prior odds of $1:99$ ($\approx -19.96\text{ dB}$), a $+10\text{ dB}$ positive test brings us to $-9.96\text{ dB}$ (still roughly $1:10$ against).
-
-Turing's scale also exposes the trap of **redundant evidence**. Two positive tests are worth $+10\text{ dB} + 10\text{ dB} = +20\text{ dB}$ *only if the two tests are conditionally independent given the patient's state*. If two diagnostic tests fail for the same physical reason (for instance, dense tissue triggering the same imaging artifact twice), the second test carries far less than $+10\text{ dB}$ of fresh information. Confusing correlated repetitions with independent evidence is the root of **pseudoreplication**, which we formalize via Intra-Class Correlation (Chapter 8) and the Moulton-Campbell design effect ($\Phi\_2$) in Chapter 20.
+The elementary building blocks of uncertainty (the five meanings that can wear the same probability, coherence and the Dutch Book, natural-frequency trees, and Bayes' rule in odds with Turing's decibans) open Part I in [Chapter 2](02-uncertainty-typology.md), §2.1, where they serve as the first return from abstraction to formula.
 
 ---
 
@@ -398,7 +276,7 @@ Anyone in the world who starts from $x\_0 = 7$ will obtain the exact sequence $6
 However, you must keep three concepts separate:
 1. **Reproducibility:** Running the same code on the same dataset with `seed = 2026` produces the exact same floating-point output on every machine. The fixed seed guarantees this floor.
 2. **Replicability:** Collecting a *new* dataset in a *new* hospital, city, or year and observing that the scientific conclusion still holds. No random seed can buy replicability; only invariant causal structure (Chapters 4 and 9) and out-of-time/out-of-domain governance (Chapter 21) can test it.
-3. **Validity:** Whether the mathematical equation in the code actually measures what the claim says it measures. A fixed seed reproduces a wrong formula just as faithfully as a right one. For that reason, our protocol combines fixed-seed reproducibility with **algebraic identity closure**, **multi-seed acceptance over 20 development seeds plus 200 sealed confirmation seeds**, and **21 negative defect proofs** (Chapter 27).
+3. **Validity:** Whether the mathematical equation in the code actually measures what the claim says it measures. A fixed seed reproduces a wrong formula just as faithfully as a right one. For that reason, our protocol combines fixed-seed reproducibility with **algebraic identity closure**, **multi-seed acceptance over 20 development seeds plus 200 sealed confirmation seeds**, and **21 negative defect proofs** (Appendix B).
 
 ---
 
@@ -425,7 +303,7 @@ Across industrial, clinical, and financial deployments, five recurring pathologi
 | **1** | **Adjective Laundering in Free-Text Multi-Agent Pipelines** | Upstream rhetorical fluency can mask surface-correlational "Stochastic Parrots" ($P(w_t \mid w_{1:t-1})$). In a simulated toy world (not a measurement on language models), a proxy predictor's passive holdout error $\mathrm{MSE}_{e_0} = 0.012$ explodes by three orders of magnitude to $\mathrm{MSE}_{\mathrm{do}(X)} = 19.13$ under a simulated intervention; prose has no field in which that gap must be reported. | **Prohibition 1 (`EpistemologicalCard::audit()`):** Bans unstructured inter-agent prose; an empty Moulton-Campbell $n_{\mathrm{eff}}(p)$, Jensen's Gap $\Delta_J$, or threshold $p^* = \frac{C}{\eta L}$ cannot hide behind an eloquent verb (**Chapters 17, 18**). |
 | **2** | **Outcome Bias & The Unshattered Porcelain Cup (`PATE` Quadrants `Q2` vs. `Q3`)** | Outcome-only committees (`classify_outcome_only`) reward an unbuffered Just-in-Time team (`Q3`: $\mathrm{TTS}/\mathrm{TTR} = 0.45 < 1.0, \mathrm{REL}_{\mathrm{CORP}} = 0.085, \sigma = 0.24$) that hit record profit by pure luck, while punishing a calibrated, buffered team (`Q2`: $\mathrm{TTS}/\mathrm{TTR} = 1.33 \ge 1.0, \mathrm{REL}_{\mathrm{CORP}} = 0.004, \sigma = 0.03$) hit by an exogenous tail storm in $\mathrm{UNC}_0$. | **Telic-Scopic Audit Matrix (`PateQuadrant::classify`):** Separates internal *Telos* from external *Skopos*, institutionalizes Cicero and Alexander of Aphrodisias's exoneration (*facere omnia quae possit*) in `Q2`, and fires VSM Channel `S3*`'s Algedonic alarm in `Q3` to block fragility bonuses (**Chapter 23**). |
 | **3** | **Alert Fatigue Across the $10\text{ bit/s}$ Conscious Bottleneck (Bridge $L_2 \to L_3$)** | While the retinal cones of the $20\text{ W}$ human brain transduce $1.6 \times 10^9\text{ bit/s}$, the sensory funnel compresses it by $1.6 \times 10^8 : 1$ to a $10\text{ bit/s}$ conscious ceiling (Zheng & Meister). In its external validation (Wong et al. 2021), the Epic Sepsis Model ($\mathrm{AUC} = 0.63, \mathrm{PPV} = 0.120$, alarming on $18\%$ of hospitalizations) produced $88\%$ false alarms ($7.33\text{ FA/TP}$, $W = +2.86\text{ dB}$), which under an assumed shift burst is a $12.6\text{ bit/s} > 10\text{ bit/s}$ load. | **CORP-Calibrated Deciban Triage (`AlertFatigueAudit`):** Requires additive Turing-Good evidence before an alarm reaches the operator; an assumed, unmeasured design operating point ($\mathrm{TPR} = 0.82, \mathrm{FPR} = 0.045$, $W = +12.61\text{ dB}$) would give $\mathrm{PPV} = 0.563 \ge p^* = 0.20$ ($0.78\text{ FA/TP}$) and a $3.2\text{ bit/s} \le 10\text{ bit/s}$ load (**Chapters 13, 16**). |
-| **4** | **The "Boeing 299" Pre-Flight Failure (Training Dead-on-Arrival Models)** | Teams spend GPU budgets before checking whether $\mathrm{EVPI} > C_{\text{total}}$, whether *Homo clausus* clustering shrinks $n = 500$ individuals by $\mathrm{DEFF} = 5.81\times$ down to $n_{\mathrm{eff}}(0.90) = 86.0$, whether inference passes synthetic SBC $\chi^2$, or whether the test vault is sealed. | **The 4 Eliminatory Filters (`stochology_siga::funnel`):** Evaluates Economic/Resolution ($\Phi_5$), Moulton-Campbell/Collider ($\Phi_2$), SBC/SHELF ($\Phi_1$), and SHA-256/Cross-Authorship/Exit ($\Phi_3, \Phi_4$) with immediate short-circuiting (**Chapter 24**). |
+| **4** | **The "Boeing 299" Pre-Flight Failure (Training Dead-on-Arrival Models)** | Teams spend GPU budgets before checking whether $\mathrm{EVPI} > C_{\text{total}}$, whether *Homo clausus* clustering shrinks $n = 500$ individuals by $\mathrm{DEFF} = 5.81\times$ down to $n_{\mathrm{eff}}(0.90) = 86.0$, whether inference passes synthetic SBC $\chi^2$, or whether the test vault is sealed. | **The 4 Eliminatory Filters (`stochology_siga::funnel`):** Evaluates Economic/Resolution ($\Phi_5$), Moulton-Campbell/Collider ($\Phi_2$), SBC/SHELF ($\Phi_1$), and SHA-256/Cross-Authorship/Exit ($\Phi_3, \Phi_4$) with immediate short-circuiting (**Chapter 26**). |
 | **5** | **The Material Collapse Triad of Brute-Force Binary AI** | Brute-force scaling faces three walls reported in the literature (informative values, not computed here): exhaustion of $\sim 300\text{T}$ human tokens (2026–2032, Epoch AI) + synthetic autophagy (`Replace` diverging linearly as $\frac{\sigma^2 d}{T-d-1}n$), Horowitz's $711\times$ DRAM-to-FP32 energy asymmetry ($640\text{ pJ}$ vs. $0.9\text{ pJ}$, alongside the IEA projection of $945\text{ TWh}$ data-center demand by 2030), and Ferran Alia's analog noise cliff ($98\% \to 25\%$ at $\sigma = 0.80$). | **Post-Digital Wave & Neurosymbolic Synthesis:** Accumulate-with-constraints preserves the Basel asymptote $\le \frac{\sigma^2 d}{T-d-1}\frac{\pi^2}{6}$ and, in simulation, keeps symmetry and $\sigma_G^2/\sigma_0^2 \ge 0.90$ in $100\%$ of 200 constrained runs ($0.95$ at `seed = 2026`), paired with PKU 24-bit `HP-INV` RRAM ($7\text{ W}$, $100\times$ less system power than a $700\text{ W}$ H100), `SIREN` ($40\times$ wave compression), and Tsinghua `ACCEL` ($74\text{,}800\text{ TOPS/W}$, informative) (**Chapters 13, 14, 18**). |
 
 ---

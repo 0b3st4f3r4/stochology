@@ -55,17 +55,32 @@ for sym in SplitMix64 DpiOperationalStage MengAudit data_defect_correlation_ddc 
     fi
 done
 echo "  [OK] docs/PROTOCOL.md <-> Rust codebase symbol parity verified (51 canonical symbols)"
-for ch in $(grep -oE '[0-9]{2}-[a-z0-9-]+\.md' "book-src/SUMMARY.md" | sort -u); do
+for ch in $(grep -oE '\]\([a-z0-9-]+\.md\)' "book-src/SUMMARY.md" | sed -E 's/^\]\((.*)\)$/\1/' | sort -u); do
     if [ ! -f "book-src/$ch" ]; then
         echo "ERROR: book-src/SUMMARY.md cites non-existent book-src chapter '$ch'!" >&2
         exit 1
     fi
 done
-echo "  [OK] book-src/SUMMARY.md chapter references verified against book-src/*.md"
+echo "  [OK] book-src/SUMMARY.md chapter and appendix references verified against book-src/*.md"
+# Three-tempo chapter template (docs/SYLLABUS.md): every numbered chapter opens with Detachment, Abstraction, Return, and its negative proof.
+for ch in book-src/[0-9][0-9]-*.md; do
+    case "$ch" in book-src/00-preface.md) continue ;; esac
+    if ! sed -n '1,5p' "$ch" | grep -q '^> \*\*Three tempos\.\*\* \*\*Detachment:\*\*.*\*\*Abstraction:\*\*.*\*\*Return:\*\*.*\*\*Negative proof:\*\*'; then
+        echo "ERROR: '$ch' does not open with the three-tempo block (Detachment, Abstraction, Return, Negative proof)!" >&2
+        exit 1
+    fi
+done
+for inc in $(grep -ohE '\{\{#include [^}:]+' book-src/*.md | sed -E 's/^\{\{#include //'); do
+    if [ ! -f "book-src/$inc" ]; then
+        echo "ERROR: mdBook include target 'book-src/$inc' does not exist!" >&2
+        exit 1
+    fi
+done
+echo "  [OK] Three-tempo chapter template present in every numbered chapter; mdBook includes resolve"
 
 # Overclaim phrase blacklist (AGENTS.md II.C): audited overclaims must not return to derived texts.
 # AGENTS.md and .agents/ are excluded on purpose: they quote the rules. Patterns tolerate LaTeX ($20\text{ W}$, 100\times$).
-BLACKLIST_DOCS=(book-src/*.md docs/PROTOCOL.md README.md crates/*/README.md)
+BLACKLIST_DOCS=(book-src/*.md docs/PROTOCOL.md docs/SYLLABUS.md docs/syntheses/*.md README.md crates/*/README.md)
 BLACKLIST_PATTERNS=(
     'retinas?[[:space:]]+transduc'
     '20[- ]*(\\text\{[[:space:]]*)?W\}?\$?[- ]+human[[:space:]]+retina'
@@ -85,7 +100,7 @@ done
 if [ "$blacklist_failed" -ne 0 ]; then
     exit 1
 fi
-echo "  [OK] Overclaim phrase blacklist clean across book-src/*.md, docs/PROTOCOL.md, and README.md (${#BLACKLIST_PATTERNS[@]} patterns)"
+echo "  [OK] Overclaim phrase blacklist clean across book-src/*.md, docs/PROTOCOL.md, docs/SYLLABUS.md, docs/syntheses/*.md, and README.md (${#BLACKLIST_PATTERNS[@]} patterns)"
 
 # Cross-reference integrity: SUMMARY.md order, "Chapter N" bounds, and relative chapter links.
 summary_prefixes="$(grep -oE '\]\([0-9]{2}-[a-z0-9-]+\.md\)' book-src/SUMMARY.md | sed -E 's/^\]\(([0-9]{2}).*/\1/')"
@@ -128,7 +143,7 @@ if [ "$xref_failed" -ne 0 ]; then
 fi
 echo "  [OK] Cross-references verified (SUMMARY.md prefixes strictly increasing, 'Chapter N' <= $max_chapter, chapter & workspace links resolve)"
 
-# Epistemic ledger parity: book-src/28-sources.md must match data/SHA256SUMS and data/preregistration/acceptance_registry.txt
+# Epistemic ledger parity: book-src/appendix-c-sources.md must match data/SHA256SUMS and data/preregistration/acceptance_registry.txt
 reg_prefix="$(awk '$2 == "data/preregistration/acceptance_registry.txt" {print substr($1, 1, 12)}' data/SHA256SUMS)"
 soc_prefix="$(awk '$2 == "data/preregistration/coupled_society_preregistration.yaml" {print substr($1, 1, 12)}' data/SHA256SUMS)"
 reg_k="$(sed -nE 's/.*Acceptance Registry entry K = ([0-9]+).*/\1/p' data/preregistration/coupled_society_preregistration.yaml)"
@@ -136,12 +151,12 @@ reg_sources="$(grep -c '^source ' data/preregistration/acceptance_registry.txt)"
 reg_gated="$(grep -c '^gated ' data/preregistration/acceptance_registry.txt)"
 reg_discarded="$(grep -c '^discarded ' data/preregistration/acceptance_registry.txt)"
 for token in "${reg_prefix}..." "${soc_prefix}..." "K = ${reg_k}" "${reg_sources} claim-defining" "${reg_gated} approved" "${reg_discarded} synthetic"; do
-    if ! grep -Fq "$token" "book-src/28-sources.md"; then
-        echo "ERROR: 'book-src/28-sources.md' is out of sync with data/preregistration/acceptance_registry.txt (missing '$token')!" >&2
+    if ! grep -Fq "$token" "book-src/appendix-c-sources.md"; then
+        echo "ERROR: 'book-src/appendix-c-sources.md' is out of sync with data/preregistration/acceptance_registry.txt (missing '$token')!" >&2
         exit 1
     fi
 done
-echo "  [OK] book-src/28-sources.md synchronized with acceptance_registry.txt (K=$reg_k, sources=$reg_sources, gated=$reg_gated, discarded=$reg_discarded)"
+echo "  [OK] book-src/appendix-c-sources.md synchronized with acceptance_registry.txt (K=$reg_k, sources=$reg_sources, gated=$reg_gated, discarded=$reg_discarded)"
 
 # CAPIBA Protocol Contract Gate (6 mnemonic pillars -> gates & 21 disjoint negative defect proofs)
 CAPIBA_EN="Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol"

@@ -1,5 +1,6 @@
 # 21. Decision Worlds over Time
 
+> **Three tempos.** **Detachment:** set aside event time and availability time as the same clock. **Abstraction:** time is bitemporal and crossed by regime drift (Decision Worlds, $L\_1 \to L\_3$, reading frame). **Return:** the bitemporal clock and canary, the single-opening vault, and drift adaptation. **Negative proof:** `gates -- --defect clock`, `gates -- --defect vault`, `gates -- --defect concept_drift` (exit `1`).
 
 ## The Time-Traveler Backtest and the Overused Vault
 

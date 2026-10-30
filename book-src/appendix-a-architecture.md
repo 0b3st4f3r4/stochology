@@ -1,7 +1,7 @@
-# 26. Architectural Mapping of the Pure-Rust Apparatus
+# Appendix A — Architectural Mapping of the Pure-Rust Apparatus
 
 
-## 26.1 Why Pure Rust with Zero External Dependencies?
+## A.1 Why Pure Rust with Zero External Dependencies?
 
 Most scientific computing projects depend on hundreds of transitive third-party packages (`pip`, `npm`, or external crates). Over a five-year horizon, transitive dependencies suffer from **supply-chain drift**: an upstream linear-algebra routine changes its tie-breaking rule, a random-number library alters its normal-distribution sampler, or a YAML parser changes how it handles floating-point precision, silently breaking reproducibility.
 
@@ -12,7 +12,7 @@ To guarantee that `seed = 2026` produces the **exact same bit-for-bit mathematic
 
 ---
 
-## 26.2 The Five-Crate Workspace Architecture
+## A.2 The Five-Crate Workspace Architecture
 
 The repository is organized as a layered Cargo workspace where dependency arrows flow strictly downward from the CLI to the core crate:
 
@@ -70,7 +70,7 @@ The repository is organized as a layered Cargo workspace where dependency arrows
 
 ---
 
-## 26.3 Complete Mapping from Textbook Chapters to Rust Modules
+## A.3 Complete Mapping from Textbook Chapters to Rust Modules
 
 | Textbook Chapter & Protocol Section | Mathematical Concept / Governing Equation | Rust Module & Primary Types | Verification Command |
 | --- | --- | --- | --- |
@@ -97,18 +97,18 @@ The repository is organized as a layered Cargo workspace where dependency arrows
 
 ---
 
-## 26.4 Model-Agnostic Multi-Agent Governance Architecture (`AGENTS.md` & `.agents/`)
+## A.4 Model-Agnostic Multi-Agent Governance Architecture (`AGENTS.md` & `.agents/`)
 
 To enforce Filter 4's strict separation of authorship (`null_model` / `decision_rule` vs. `adversarial_reviewer`) and Invariant $\Phi\_3$'s cryptographic protection across any autonomous coding agent or multi-agent harness, the workspace defines three specialized subagents and a pre-tool cryptographic hook in `.agents/` alongside the root contract in `AGENTS.md`:
 
 1. **`stochology-modeler` (`.agents/agents/stochology-modeler.md`, Mode `branch`):** Operates in an isolated Git worktree to expand `stochology-core`, `stochology-lenses`, `stochology-siga`, and `stochology-governance` in pure Rust (`std` only) anchored to `SplitMix64` (`seed = 2026`).
 2. **`stochology-adversary` (`.agents/agents/stochology-adversary.md`, Mode `inherit`):** Acts as the independent VSM audit channel `S3*` and `adversarial_reviewer`, executing the 8 positive gates (`gates`) and all 21 negative defect proofs (`gates -- --defect <name>`).
-3. **`stochology-scribe` (`.agents/agents/stochology-scribe.md`, Mode `inherit`):** Maintains documentary and pedagogical parity across the Rust crates, `docs/PROTOCOL.md`, `book-src/appendix-protocol.md`, and the 28 chapters of `book-src/`.
+3. **`stochology-scribe` (`.agents/agents/stochology-scribe.md`, Mode `inherit`):** Maintains documentary and pedagogical parity across the Rust crates, `docs/PROTOCOL.md`, `book-src/appendix-protocol.md`, and the 27 chapters and Appendices A–E of `book-src/`.
 4. **Cryptographic Protection Hook (`.agents/hooks.json` & `.agents/scripts/phi3_cryptographic_gate.sh`):** Enforces autonomous execution (`Allow List`) for `scripts/verify.sh`, `cargo fmt`, `cargo clippy`, `cargo test`, `labs`, and `gates`, while requiring explicit human inline-diff approval (`Request Review` / `force_ask`) before any modification to `data/SHA256SUMS`, `cards/*.yaml`, or `crates/stochology-governance/src/vault.rs`.
 
 ---
 
-## 26.5 Interactive Playground Architecture (`/lab` Bridge on GitHub Pages)
+## A.5 Interactive Playground Architecture (`/lab` Bridge on GitHub Pages)
 
 Every chapter of the compiled textbook (`book/`) integrates directly with the **Stochology Interactive Laboratory (`/lab`)** via `book-src/lab/index.html`, `book-src/lab/embed/index.html`, `mathjax.js`, and `theme/book.css`:
 
@@ -132,7 +132,7 @@ sequenceDiagram
 
 <div class="stoch-lab"
      data-lab="spectral-telgarsky-deff"
-     data-chapter="26-architecture.html"
+     data-chapter="appendix-a-architecture.html"
      data-title="Workspace Architecture Lab: Almost-Perfect Machine M = (T, Φ, θ)"
      data-subtitle="Inspect Telgarsky depth 2^D, Gram effective dimension d_eff, and Barron rate across crates">
 </div>

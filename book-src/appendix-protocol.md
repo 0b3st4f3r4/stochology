@@ -1,3 +1,3 @@
-# Appendix — Full Specification
+# Appendix D — Full Specification
 
 {{#include ../docs/PROTOCOL.md}}
