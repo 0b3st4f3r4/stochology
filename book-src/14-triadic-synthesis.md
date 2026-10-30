@@ -1,5 +1,7 @@
 # 14. The Triadic Synthesis
 
+> **Three tempos.** **Detachment:** set aside treating phase, scale, and recurrence as unrelated tools. **Abstraction:** complex numbers, fractal scaling, and toroidal recurrence meet in one physical-computational synthesis (World ⇄ Model axis synthesis). **Return:** the triadic $\mathbb{C} \times \text{Fractals} \times \mathbb{T}^d$ identities and their naive baselines. **Negative proof:** `gates -- --defect triadic_technium` (exit `1`).
+
 ## When Phase, Scale, and Recurrence Meet in One Physical Machine
 
 Suppose an optical-analog radar processor must reconstruct a scattered wave field, invert an $8 \times 8$ complex MIMO channel on drifted resistive memory cells, and update a closed-loop controller without numerical overflow. Treating each step with standard real-valued, thin-tailed, unbounded Euclidean algebra breaks down: piecewise-linear activations erase the Helmholtz wave operator, resistive drift corrupts one-shot matrix inversion, heavy-tailed waiting times violate Gaussian diffusion, and explicit Euler integration explodes on stiff time steps. Resolving all four failures simultaneously requires uniting the **complex plane ($\mathbb{C}$)**, **fractal anomalous scaling**, and **compact toroidal phase manifolds ($\mathbb{T}^d$)**.

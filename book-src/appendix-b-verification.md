@@ -1,7 +1,7 @@
-# 27. Verification and Algorithmic Gates (`G1`–`G8` and 21 Negative Proofs)
+# Appendix B — Verification and Algorithmic Gates (`G1`–`G8` and 21 Negative Proofs)
 
 
-## 27.1 The Philosophy of Positive and Negative Verification
+## B.1 The Philosophy of Positive and Negative Verification
 
 In ordinary software engineering, a test suite checks that valid inputs produce the expected output (*positive testing*). In an **auditable epistemological machine**, positive testing alone is never enough.
 
@@ -15,7 +15,7 @@ scripts/verify.sh
 
 ---
 
-## 27.2 The Six Verification Stages of `scripts/verify.sh`
+## B.2 The Six Verification Stages of `scripts/verify.sh`
 
 1. **Formatting Check (`cargo fmt --all --check`):** Enforces canonical Rust formatting across all 5 crates.
 2. **Zero-Warning Static Analysis (`cargo clippy --workspace --all-targets -- -D warnings`):** Rejects any compiler or Clippy lint warning anywhere in library, binary, or test targets.
@@ -34,7 +34,7 @@ scripts/verify.sh
 
 ---
 
-## 27.3 The Eight Epistemological Gates (`G1` to `G8`)
+## B.3 The Eight Epistemological Gates (`G1` to `G8`)
 
 <figure class="stoch-figure">
   <svg xmlns="http://www.w3.org/2000/svg" width="1140" height="260" viewBox="0 0 1140 260" fill="none" role="img" aria-labelledby="title-fig-14-gates">
@@ -116,7 +116,7 @@ So a claim that holds 97% of the time is still refuted about 4% of the time, and
 
 ---
 
-## 27.4 The Twenty-One Negative Defect Proofs (`--defect`)
+## B.4 The Twenty-One Negative Defect Proofs (`--defect`)
 
 Each command below injects a targeted methodological defect and **must exit with code `1`**:
 
@@ -146,13 +146,13 @@ Each command below injects a targeted methodological defect and **must exit with
 
 ---
 
-## 27.5 Interactive Verification Gate Explorer (`/lab`)
+## B.5 Interactive Verification Gate Explorer (`/lab`)
 
 Simulate how sequential peeking, multiplicity $K$, and uncalibrated thresholds trigger the protocol's negative defect proofs:
 
 <div class="stoch-lab"
      data-lab="ville-savi-conformal"
-     data-chapter="27-verification.html"
+     data-chapter="appendix-b-verification.html"
      data-title="Gates G1–G8 &amp; Negative Defect Proof Simulator"
      data-subtitle="Inject optional-stopping peeking or multiplicity violations and observe immediate Gate rejection">
 </div>

@@ -1,6 +1,6 @@
 # Restructuring Plan — Book and Protocol
 
-> **Status: proposal, not applied.** Nothing in this plan has been executed. Each phase is a separate change set reviewed under Filter 4 (modeler authors, adversary audits, scribe keeps parity). Phases that touch `data/SHA256SUMS`, `cards/*.yaml`, `crates/stochology-governance/src/vault.rs`, or any of the 60 claim-defining files sealed in `data/preregistration/acceptance_registry.txt` require human review and a recorded re-seal (`AGENTS.md` §V.3).
+> **Status: Phases 0–4 applied; Phase 5 awaiting a maintainer decision.** See §7 for what was executed and where it differs from the proposal. Each phase is a separate change set reviewed under Filter 4 (modeler authors, adversary audits, scribe keeps parity). Phases that touch `data/SHA256SUMS`, `cards/*.yaml`, `crates/stochology-governance/src/vault.rs`, or any of the 60 claim-defining files sealed in `data/preregistration/acceptance_registry.txt` require human review and a recorded re-seal (`AGENTS.md` §V.3).
 
 ## 1. Goal
 
@@ -89,8 +89,20 @@ Each phase ends with `scripts/verify.sh` green (all 21 negative proofs `exit 1`,
 - `book-src/00-preface.md` keeps the CAPIBA expansion and the dedication checked by `verify.sh`; normative documents stay free of the preface's metaphorical vocabulary.
 - The three reverse pairs remain reading frames, not bridges (§II.C rule 7); the three-tempo cycle and the five Movements remain an authorial pedagogical extension.
 
-## 6. Open Decisions for the Maintainer
+## 6. Maintainer Decisions
 
-1. Approve renumbering (Phase 4) or keep chapter numbers stable and add Parts VI–VII as appendices only.
-2. Approve moving Tier 3 synthesis detail out of `AGENTS.md` into `docs/syntheses/`.
-3. Confirm that Phase 5 (code moves and re-seal) stays out of scope.
+1. Renumbering (Phase 4): **approved** and applied.
+2. Moving Tier 3 synthesis detail out of `AGENTS.md` into `docs/syntheses/`: **approved** and applied.
+3. Phase 5 (code moves and re-seal): **open**. The answer received ("de forma alguma") is ambiguous between "do not leave it out" and "do not do it"; nothing in Phase 5 has been executed.
+
+## 7. Execution Log (Phases 0–4)
+
+| Phase | Done | Deviation from §3–§4 |
+| :-: | --- | --- |
+| 0 | `scripts/verify.sh`: `docs/SYLLABUS.md` and `docs/syntheses/*.md` added to the overclaim blacklist; `SUMMARY.md` link check now covers appendices; new checks that every numbered chapter opens with the three-tempo block and that mdBook `{{#include}}` targets exist. | The 51-symbol parity loop was left on `docs/PROTOCOL.md` alone: every symbol still appears there (architecture table and registry). |
+| 1 | `docs/PROTOCOL.md` reorganized into §1 Kernel, §2 Lenses, §3 Six Pairs (with the pair map), §4 Operation, §5 Syntheses Registry, §6 Architecture; items 7–13 of the former §1.3 moved verbatim to `docs/syntheses/{relational,analog,critical,stocks,triad,strategic,society}.md`, each with the matching former `AGENTS.md` §III paragraph as "Contract Summary". `AGENTS.md` §III split into Tier 1 (lenses, uncertainty) and §III.B Tier 3 registry. | None. |
+| 2 | Preface §3 moved to Ch. 2 §2.1 (old §2.1–2.3 became §2.2–2.4); the Accumulate-vs.-Replace derivation moved from Ch. 13 and Ch. 18 to Ch. 19 §19.3, with pointers left behind; Ch. 9 gained authorial cross-references to Huber-Kalman and `do`-Shapley (Ch. 24). | The chapter template (B7) is implemented as a "Three tempos" opening block in every chapter (Detachment, Abstraction, Return, Negative proof), enforced by `verify.sh`. Existing chapter bodies were not re-sectioned, and a Provenance Ledger section exists only in the new Ch. 24–25. |
+| 3 | New Ch. 24 (Strategic AI Six-Pair Accommodation) and Ch. 25 (Coupled Society, promoted from §22.7). Quoted `labs`/`gates` lines are copied from current output and pass `book_snapshot_parity`. | None. |
+| 4 | Old Ch. 24–25 → Ch. 26–27 (Part VII Operation); old Ch. 26–28 → Appendices A–C; full specification → Appendix D; syllabus → Appendix E (an mdBook include of `docs/SYLLABUS.md`). `book.toml` redirects, `lab/index.html` slugs and labels, `README.md`, `AGENTS.md`, and `.agents/` updated. | `appendix-protocol.md` keeps its filename (only its title changed) to avoid churning references. |
+
+`scripts/verify.sh` passes end to end after Phases 0–4 (all 8 gates exit `0`, all 21 negative proofs exit `1`, `book_snapshot_parity` green). `mdbook build` was not run locally (the binary is not installed in this environment); the Pages workflow builds the book with mdBook 0.5.3.

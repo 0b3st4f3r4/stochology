@@ -1,5 +1,7 @@
 # 20. The Regime of the Decision
 
+> **Three tempos.** **Detachment:** set aside individuals and observations as isolated atoms. **Abstraction:** the world returns clustering, resolution limits, and fairness trade-offs to the decision (Decision Worlds, $L\_1 \to L\_3$, reading frame). **Return:** Moulton-Campbell $n\_{\mathrm{eff}}(p)$, $\Phi\_5$ resolution parity, and Chouldechova's impossibility. **Negative proof:** `gates -- --defect moulton`, `gates -- --defect phi5`, `gates -- --defect chouldechova` (exit `1`).
+
 ## Five Hundred Fish in Two Tanks, and One Hundred Coin Tossers
 
 In 1984, ecologist **Stuart Hurlbert** published a famous review of biological experiments that shocked the scientific community. Suppose a researcher wants to test whether a new water additive makes trout grow faster. She places $250$ trout into Tank A (with the additive) and $250$ trout into Tank B (without the additive). Six months later, she weighs all $500$ fish, runs a two-sample $t$-test with sample size $n = 500$ ($498$ degrees of freedom), and publishes a tiny $p$-value ($p = 0.0001$).

@@ -1,5 +1,7 @@
 # 12. Simulated Worlds: Null Models, Seeds, Multi-Seed Acceptance
 
+> **Three tempos.** **Detachment:** set aside trusting a single lucky run. **Abstraction:** a model returns to the world first as simulated worlds whose chance must be reproducible and tested across many seeds (Model Worlds, $L\_2 \to L\_1$, reading frame). **Return:** `SplitMix64` substreams, executable null models, and multi-seed acceptance. **Negative proof:** none in this chapter; the tools here feed the proofs of later chapters.
+
 ## Why Every Model Must First Build a Counterfactual World
 
 Before an aircraft wing enters a wind tunnel or a clinical trial enrolls its first patient, an engineer asks a generative question on **Pair $L\_2 \to L\_1$ (*Model Worlds*)**, a reverse pair that serves as a reading frame over existing code (seeded null models, `SplitMix64`, and multi-seed acceptance) rather than a new bridge: *If my model's assumptions were true, what kind of synthetic data would it generate, and could my estimation pipeline recover the known parameters I injected?* Without a deterministic, reproducible random number generator (`seed = 2026`, `SplitMix64`), a pre-registered generative null model, and a multi-seed acceptance protocol that separates development seeds from frozen confirmation seeds, simulation easily degenerates into cherry-picking a lucky random seed.

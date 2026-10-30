@@ -1,5 +1,6 @@
 # 8. Severe Testing, Multiplicity, Martingales (e-Processes), and Conformal Prediction
 
+> **Three tempos.** **Detachment:** set aside one-shot significance tests and fixed-sample intervals read after peeking. **Abstraction:** a claim deserves trust only if it survived a test that could have refuted it, and evidence must stay valid when monitored continuously. **Return:** severe testing, multiplicity, betting martingales (e-processes), confidence sequences, and conformal prediction. **Negative proof:** `gates -- --defect peeking`, `gates -- --defect var_underreport` (exit `1`).
 
 ## The Scientist Who Peeked Every Morning Until the Coin Confessed
 

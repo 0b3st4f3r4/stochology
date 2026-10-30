@@ -1,5 +1,7 @@
 # 2. The Typology of Uncertainty
 
+> **Three tempos.** **Detachment:** set aside the idea that "probability" is a single, self-evident number computed from past data. **Abstraction:** not-knowing comes in qualitatively distinct kinds, and every probability belongs to the layer that produced it. **Return:** the five interpretations typed by layer, the Dutch Book against calibration, natural-frequency trees and decibans, the law of total variance, Kennedy-O'Hagan discrepancy, and Info-Gap with the Sniedovich floor. **Negative proof:** `gates -- --defect sniedovich` (exit `1`).
+
 ## The Christmas Turkey and the Three Coins
 
 Bertrand Russell once told the parable of an inductive chicken, later retold by Nassim Nicholas Taleb as **the Christmas Turkey**. Every morning at 9:00 a.m. sharp, the farmer walks into the barn and fills the trough with corn.
@@ -20,7 +22,133 @@ To see why treating all "uncertainty" as a single concept fails, compare four si
 
 ---
 
-## 2.1 The Law of Total Variance and the Stirling Matrix
+## 2.1 Foundations: Probability Without Mystery
+
+Before we examine complex models, we must be clear about the elementary building blocks of uncertainty: **probability**, **coherence**, **natural frequencies**, and **Bayes' theorem**.
+
+### Five Meanings Wearing the Same Number
+
+Suppose a meteorologist says: *"There is a 70% probability of rain tomorrow."* Depending on who speaks and how it was computed, that single number $0.70$ can carry five distinct meanings:
+
+| Interpretation | Founders | What "70%" Means | Primary Ontological Layer |
+| --- | --- | --- | --- |
+| **1. Classical** | Cardano, Laplace | Out of $10$ symmetric, equally possible configurations of the model, $7$ produce rain. | **Model ($L\_2$)** |
+| **2. Frequentist** | Venn, von Mises, Fisher | In a long historical sequence of days with identical atmospheric conditions, it rained on $70\%$ of them. | **World ($L\_1$)** |
+| **3. Propensity** | Peirce, Popper | The current physical state of the atmosphere has an objective physical disposition of strength $0.70$ to generate rain. | **World ($L\_1$)** |
+| **4. Logical / Evidential** | Keynes, Jeffreys, Carnap | Given the formal propositions in our evidence database, the rational degree of logical entailment for rain is $0.70$. | **Model ($L\_2$)** |
+| **5. Subjective / Personalist** | Ramsey, de Finetti, Savage | The decision-maker is willing to buy or sell a contract paying USD 1.00 if it rains for a fair price of USD 0.70. | **Agent ($L\_3$)** |
+
+Stochology does not force a philosophical war among these five interpretations. Instead, **it types every probability by the layer from which it came.** Many costly errors in courtrooms, hospitals, and trading desks happen when a number computed as a symmetry of a *Model* ($L\_2$) or a subjective hunch of an *Agent* ($L\_3$) is treated as a verified physical frequency of the *World* ($L\_1$).
+
+### Coherence and the Dutch Book
+
+Degrees of belief must obey the mathematical axioms of probability, namely that probabilities lie between $0$ and $1$, that mutually exclusive events add up ($P(A \cup B) = P(A) + P(B)$), and that totality sums to $1$.
+
+Frank Ramsey (1926) and Bruno de Finetti (1937) gave a concrete operational reason for these rules: **to avoid a Dutch Book**, a combination of bets that guarantees a sure loss no matter what happens in the real world.
+
+Imagine a friend who believes there is a $60\%$ chance it will rain tomorrow and a $50\%$ chance it will not rain. He is willing to buy a ticket that pays USD 1.00 if it rains for USD 0.60, and a second ticket that pays USD 1.00 if it does not rain for USD 0.50. You sell him both tickets and collect $USD 0.60 + USD 0.50 = USD 1.10$ upfront. Tomorrow, either it rains or it does not rain. In either case, exactly one of the two tickets wins, so you pay him back USD 1.00. Your friend has lost USD 0.10 with $100\%$ certainty before looking out the window.
+
+Yet Stochology emphasizes an asymmetry that elementary textbooks often miss: **internal coherence is cheap; external calibration against the World is expensive.** If your friend revises his beliefs to $60\%$ rain and $40\%$ no rain, no bookmaker can Dutch-book him in a single round because $0.60 + 0.40 = 1.00$. He is now internally coherent. But if he lives in a desert where it actually rains on only $5\%$ of days, anyone who knows the World ($L\_1$) will bankrupt him over time. Coherence only polices the Agent ($L\_3$); **calibration** polices the bridge between the Agent and the World.
+
+### Natural Frequencies vs. Percentages: Why Intuition Fails and How Trees Fix It
+
+Consider a classic clinical screening problem investigated by Gerd Gigerenzer and Ulrich Hoffrage (1995):
+- In a routine screening population, the prevalence of a condition is $1\%$.
+- If a patient has the condition, the diagnostic test is positive $90\%$ of the time (*sensitivity* $= 0.90$).
+- If a patient is healthy, the test still triggers a false alarm $9\%$ of the time (*false-positive rate* $= 0.09$, or *specificity* $= 0.91$).
+
+A patient receives a positive test result. What is the probability that she actually has the condition?
+
+When asked in percentages, most physicians and analysts guess "around $80\%$ or $90\%$," confusing the accuracy of the test given the disease, $P(\text{Positive} \mid \text{Disease}) = 0.90$, with the probability of the disease given the test, $P(\text{Disease} \mid \text{Positive})$.
+
+The confusion disappears when we replace abstract percentages with **Gigerenzer Natural Frequencies**, counting whole people in a concrete cohort of $10\text{,}000$ patients:
+
+<figure class="stoch-figure">
+  <svg xmlns="http://www.w3.org/2000/svg" width="1080" height="410" viewBox="0 0 1080 410" fill="none" role="img" aria-labelledby="title-fig-00-gigerenzer">
+  <title id="title-fig-00-gigerenzer">Gigerenzer Natural-Frequency Tree: 10,000 Patients Screened</title>
+  <defs>
+  <marker id="g-sky" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+  <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--sky)"/>
+  </marker>
+  <marker id="g-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+  <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--amber)"/>
+  </marker>
+  <marker id="g-emerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+  <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--emerald)"/>
+  </marker>
+  <style>text { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; } .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; }</style>
+  </defs>
+  <rect x="1" y="1" width="1078" height="408" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
+  <rect x="330" y="18" width="420" height="68" rx="10" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2.2"/>
+  <text x="540" y="48" text-anchor="middle" fill="var(--ink)" font-size="15.5" font-weight="800">10,000 Patients Screened</text>
+  <text x="540" y="70" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11.5">Representative Clinical Cohort (L₁)</text>
+  <line x1="450" y1="86" x2="285" y2="124" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#g-amber)"/>
+  <line x1="630" y1="86" x2="795" y2="124" stroke="var(--emerald)" stroke-width="2.2" marker-end="url(#g-emerald)"/>
+  <rect x="105" y="128" width="340" height="68" rx="10" fill="var(--amber-bg)" stroke="var(--amber)" stroke-width="2"/>
+  <text x="275" y="157" text-anchor="middle" fill="var(--ink)" font-size="15" font-weight="800">100 With Disease</text>
+  <text x="275" y="179" text-anchor="middle" fill="var(--amber)" class="mono" font-size="11.5" font-weight="700">Prevalence = 1.0%</text>
+  <rect x="635" y="128" width="340" height="68" rx="10" fill="var(--emerald-bg)" stroke="var(--emerald)" stroke-width="2"/>
+  <text x="805" y="157" text-anchor="middle" fill="var(--ink)" font-size="15" font-weight="800">9,900 Healthy</text>
+  <text x="805" y="179" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="700">Complement = 99.0%</text>
+  <line x1="215" y1="196" x2="145" y2="232" stroke="var(--amber)" stroke-width="2" marker-end="url(#g-amber)"/>
+  <line x1="335" y1="196" x2="405" y2="232" stroke="var(--amber)" stroke-width="2" marker-end="url(#g-amber)"/>
+  <line x1="745" y1="196" x2="675" y2="232" stroke="var(--emerald)" stroke-width="2" marker-end="url(#g-emerald)"/>
+  <line x1="865" y1="196" x2="935" y2="232" stroke="var(--emerald)" stroke-width="2" marker-end="url(#g-emerald)"/>
+  <rect x="20" y="236" width="244" height="72" rx="10" fill="var(--surface)" stroke="var(--amber)" stroke-width="2.2"/>
+  <text x="142" y="267" text-anchor="middle" fill="var(--ink)" font-size="14.5" font-weight="800">90 Test (+)</text>
+  <text x="142" y="290" text-anchor="middle" fill="var(--amber)" class="mono" font-size="11.5" font-weight="700">True Alarms (Sens 90%)</text>
+  <rect x="284" y="236" width="244" height="72" rx="10" fill="var(--elevated)" stroke="var(--border)" stroke-width="1.6"/>
+  <text x="406" y="267" text-anchor="middle" fill="var(--ink)" font-size="14.5" font-weight="700">10 Test (-)</text>
+  <text x="406" y="290" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11.5">Missed Cases (10%)</text>
+  <rect x="552" y="236" width="244" height="72" rx="10" fill="var(--surface)" stroke="var(--rose)" stroke-width="2.2"/>
+  <text x="674" y="267" text-anchor="middle" fill="var(--ink)" font-size="14.5" font-weight="800">891 Test (+)</text>
+  <text x="674" y="290" text-anchor="middle" fill="var(--rose)" class="mono" font-size="11.5" font-weight="700">False Alarms (FPR 9%)</text>
+  <rect x="816" y="236" width="244" height="72" rx="10" fill="var(--elevated)" stroke="var(--border)" stroke-width="1.6"/>
+  <text x="938" y="267" text-anchor="middle" fill="var(--ink)" font-size="14.5" font-weight="700">9,009 Test (-)</text>
+  <text x="938" y="290" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11.5">Clear (Spec 91%)</text>
+  <path d="M 142 308 C 142 338, 250 350, 310 354" stroke="var(--sky)" stroke-width="2.2" marker-end="url(#g-sky)"/>
+  <path d="M 674 308 C 674 334, 620 344, 585 348" stroke="var(--sky)" stroke-width="2.2" marker-end="url(#g-sky)"/>
+  <rect x="190" y="326" width="700" height="64" rx="10" fill="var(--sky-bg)" stroke="var(--sky)" stroke-width="2"/>
+  <text x="540" y="354" text-anchor="middle" fill="var(--ink)" font-size="13.5" font-weight="800">Total Positive Alarms: 90 + 891 = 981 Patients</text>
+  <text x="540" y="376" text-anchor="middle" fill="var(--sky)" class="mono" font-size="12" font-weight="700">Posterior P(Disease | +) = 90 / 981 ≈ 9.17% (about 1 in 11)</text>
+</svg>
+  <figcaption><strong>Figure 0.2 — Gigerenzer Natural-Frequency Tree: 10,000 Patients Screened</strong></figcaption>
+</figure>
+
+Two groups of patients received a positive test result:
+- $90$ sick patients tested positive;
+- $891$ healthy patients also tested positive ($9\%$ of $9\text{,}900$).
+- In total, $90 + 891 = 981$ patients hold a positive test slip in their hands.
+
+The fraction of those $981$ positive alarms who actually have the disease is:
+
+$$P(\text{Disease} \mid \text{Positive}) = \frac{90}{90 + 891} = \frac{90}{981} \approx 0.0917 \quad (\text{about } 1 \text{ in } 11)$$
+
+The percentage formula and the natural-frequency tree are mathematically identical, yet the natural-frequency tree makes the **base rate** ($100$ vs. $9\text{,}900$) visually inescapable. That is why Step 8 of the Stochology SIGA Roadmap (`crates/stochology-siga/src/roadmap/`) translates every operational model into an integer natural-frequency tree before presenting it to a human decision-maker.
+
+### Bayes' Rule in Odds and Turing's Decibans
+
+When we want to update beliefs across multiple pieces of evidence, the cleanest formulation of **Bayes' Theorem** is written in **odds** (the ratio of the probability that a hypothesis $H$ is true to the probability that it is false, $\neg H$):
+
+$$\underbrace{\frac{P(H \mid E)}{P(\neg H \mid E)}}\_{\text{Posterior Odds}} = \underbrace{\frac{P(E \mid H)}{P(E \mid \neg H)}}\_{\text{Likelihood Ratio } (\mathrm{LR})} \times \underbrace{\frac{P(H)}{P(\neg H)}}\_{\text{Prior Odds}}$$
+
+In our screening example:
+- The **Prior Odds** are $\frac{100}{9900} = \frac{1}{99}$.
+- The **Likelihood Ratio** of a positive test is $\mathrm{LR} = \frac{\text{Sensitivity}}{\text{False-Positive Rate}} = \frac{0.90}{0.09} = 10$.
+- Multiplying them gives the **Posterior Odds**: $10 \times \frac{1}{99} = \frac{10}{99}$ (which is $10$ sick patients for every $99$ healthy patients, or $\frac{10}{10 + 99} = \frac{10}{109} \approx 0.0917$).
+
+During World War II at Bletchley Park, Alan Turing and I. J. Good took one step further. By taking ten times the base-$10$ logarithm of the likelihood ratio, they defined the **deciban ($\mathrm{dB}$)** as the unit of weight of evidence:
+
+$$W(E) \triangleq 10 \log\_{10}\left(\frac{P(E \mid H)}{P(E \mid \neg H)}\right) \text{ decibans}$$
+
+The deciban is useful for students and auditors because logarithms turn multiplication into addition:
+- A likelihood ratio of $10:1$ adds $+10\text{ dB}$ of evidence.
+- A likelihood ratio of $100:1$ adds $+20\text{ dB}$ of evidence.
+- Starting from prior odds of $1:99$ ($\approx -19.96\text{ dB}$), a $+10\text{ dB}$ positive test brings us to $-9.96\text{ dB}$ (still roughly $1:10$ against).
+
+Turing's scale also exposes the trap of **redundant evidence**. Two positive tests are worth $+10\text{ dB} + 10\text{ dB} = +20\text{ dB}$ *only if the two tests are conditionally independent given the patient's state*. If two diagnostic tests fail for the same physical reason (for instance, dense tissue triggering the same imaging artifact twice), the second test carries far less than $+10\text{ dB}$ of fresh information. Confusing correlated repetitions with independent evidence is the root of **pseudoreplication**, which we formalize via Intra-Class Correlation (Chapter 8) and the Moulton-Campbell design effect ($\Phi\_2$) in Chapter 20.
+
+## 2.2 The Law of Total Variance and the Stirling Matrix
 
 ### Separating Aleatory Noise from Epistemic Ignorance
 
@@ -87,7 +215,7 @@ In 1921, economist **Frank Knight** drew the classic boundary between measurable
 
 ---
 
-## 2.2 Parametric Epistemic Uncertainty: Laplace's Rule of Succession
+## 2.3 Parametric Epistemic Uncertainty: Laplace's Rule of Succession
 
 Suppose an insurer examines $n = 36$ consecutive months of fire-reinsurance records (measured in the 1986–1988 window of `danish_fire.csv`) and observes $s = 0$ claims exceeding $50\text{ million DKK}$. What is the probability $p$ that a catastrophic claim will strike next month?
 
@@ -106,7 +234,7 @@ This formula has three useful properties:
 - After $n = 36$ clean months with $s = 0$ hits, $\hat{p} = \frac{0 + 1}{36 + 2} = \frac{1}{38} \approx 0.0263$ ($2.63\%$ per month), remaining strictly above zero.
 - As sample size grows large ($n \to \infty$), the $+1$ and $+2$ pseudocounts wash out and $\frac{s+1}{n+2} \to \frac{s}{n}$ smoothly.
 
-## 2.3 Dominant Uncertainty Class Across the Six Directed Pairs
+## 2.4 Dominant Uncertainty Class Across the Six Directed Pairs
 
 Each of the Six Directed Pairs introduced in [Chapter 1](01-layers-six-pairs.md) is governed by a characteristic transition in the Stirling-Knight taxonomy:
 

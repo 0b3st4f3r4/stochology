@@ -1,5 +1,7 @@
 # 15. Curvature and Scoring
 
+> **Three tempos.** **Detachment:** set aside summarizing uncertainty by the expected mean. **Abstraction:** the map from world state to harm is curved, and catastrophe lives in the curvature (Decision Models, $L\_2 \to L\_3$). **Return:** Jensen's gap, CRPS, strictly proper scores, and the Cromwell floor. **Negative proof:** `gates -- --defect cromwell` (exit `1`).
+
 ## Why the Average Day Understates the Call Center's Cost
 
 Suppose a retail bank staffs its customer-service center for the "average business day" of $\mathbb{E}[X] = 32\text{,}664$ calls (`bank_calls.csv`). Suppose further, as an illustration, that the daily cost of congestion grows like the square of call volume, $f(x) = x^2$ (an assumed loss; the repository fits no queueing or abandonment model). Then the extra cost of a hypothetical $38\text{,}000$-call day is not cancelled by the saving on a $28\text{,}000$-call day. On the measured series the resulting Jensen's Gap is modest, $\Delta\_J \approx 0.85\%$ of $f(\mathbb{E}[X])$, but under curvature it is never zero, and its size depends on how sharply the true cost bends. Across **Bridge $L\_2 \to L\_3$ (*Decision Models*)**, compressing a full predictive distribution into a single point mean hides both **Jensen's curvature tax ($\Delta\_J$)** and distributional miscalibration.

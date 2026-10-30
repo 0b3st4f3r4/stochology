@@ -1,5 +1,6 @@
 # 5. Differential Equations, Runge-Kutta (RK4), Non-Equilibrium Thermodynamics, and Wave Superposition
 
+> **Three tempos.** **Detachment:** set aside the picture of computation as discrete symbol manipulation detached from physics. **Abstraction:** many systems are open, dissipative, and continuous; their models must respect dynamics, not only frequencies. **Return:** ODEs integrated by RK4, entropy production, and wave superposition. **Negative proof:** none in this chapter; the tools here feed the proofs of later chapters.
 
 ## Why the Planet's Weather and Your Ear's Cochlea Do Not Use Binary Long Division
 

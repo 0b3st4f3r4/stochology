@@ -1,5 +1,7 @@
 # 19. When the Decision Moves the World
 
+> **Three tempos.** **Detachment:** set aside the passive observer who believes forecasting does not change the world. **Abstraction:** acting through a model moves the world it models (World Decisions, $L\_3 \to L\_1$). **Return:** performative risk, $\theta\_{\mathrm{PS}}$ vs. $\theta\_{\mathrm{PO}}$, the RRM contraction condition, the four Goodhart variants, and Accumulate vs. Replace. **Negative proof:** `gates -- --defect performativity`, `gates -- --defect replace_collapse` (exit `1`).
+
 ## When the Forecast Changes the Weather It Predicts
 
 A meteorologist predicting tomorrow's rain does not change the clouds by publishing a forecast. A central bank predicting inflation, a navigation app predicting street congestion, or a municipal authority tying hospital funding to waiting-time targets operates in a fundamentally different regime: **publishing or acting on the model in Layer $L\_3$ causes agents in Layer $L\_1$ to change their behavior**, shifting the distribution of the world from $\mathcal{D}$ to $\mathcal{D}(\theta)$ across **Bridge $L\_3 \to L\_1$ (*World-Decisions*)**.
@@ -105,6 +107,30 @@ Under **Prohibition 3**, every model operating on Bridge $L\_3 \to L\_1$ must ex
   $$r\_{\mathrm{RRM}} = \frac{\varepsilon \beta}{\gamma} < 1$$
 
 If $r\_{\mathrm{RRM}} \ge 1$, `PerformativeSystem` and `EpistemologicalCard::audit()` reject the card immediately (`--defect performativity`), preventing an automated retraining loop from destabilizing the real-world environment.
+
+---
+
+## 19.3 Synthetic Self-Consumption: `Accumulate` vs. `Replace` (`GerstgrasserAccumulateAudit`)
+
+A deployed generative model that is retrained on what it generated is a decision acting on the world that the next model will observe. This is the recursive form of Bridge $L\_3 \to L\_1$: the data distribution of generation $g$ is induced by the parameters chosen at generation $g-1$.
+
+### Foundational Derivation: Why Synthetic `Accumulate` Converges to Euler's Basel Constant $\frac{\pi^2}{6}$ While `Replace` Diverges
+
+Suppose generation $g = 1$ estimates a linear parameter $\hat{\theta}\_1$ from $n$ real physical observations with variance $\sigma^2 / n$. At each subsequent generation $g \ge 2$, the model generates $n$ new synthetic points $Y^{(g)} = X\hat{\theta}\_{g-1} + \varepsilon^{(g)}$:
+1. **Pure Synthetic Replacement (`SyntheticDataPolicy::Replace`, Shumailov et al. *Nature* 2024):**
+   Training generation $g$ *only* on the $n$ synthetic outputs of generation $g-1$ adds an independent variance increment $\frac{\sigma^2}{n}$ at every generation:
+   $$\mathrm{Var}\!\left(\hat{\theta}\_G^{\mathrm{Replace}}\right) = \frac{\sigma^2}{n}\sum\_{g=1}^G 1 = G \cdot \frac{\sigma^2}{n} \xrightarrow{G \to \infty} +\infty$$
+2. **Anchored Data Accumulation (`SyntheticDataPolicy::Accumulate`, Gerstgrasser et al. 2024; Dey & Donoho 2024):**
+   Retaining the original real dataset alongside all previous generations means generation $g$ fits on $g \cdot n$ total samples, scaling the fresh noise variance at step $g$ by $\frac{1}{g^2}$:
+   $$\mathrm{Var}\!\left(\hat{\theta}\_G^{\mathrm{Accum}}\right) \le \frac{\sigma^2}{n}\sum\_{g=1}^G \frac{1}{g^2} < \frac{\sigma^2}{n}\sum\_{g=1}^\infty \frac{1}{g^2} = \frac{\pi^2}{6}\,\frac{\sigma^2}{n} \approx 1.644934\,\frac{\sigma^2}{n}$$
+   This exact Basel ceiling (`GerstgrasserAccumulateAudit`) is enforced by simulation in **Gate `G8` (`--defect replace_collapse`)**.
+
+### The Risk Form of the Theorem
+
+By **Gerstgrässer, Schaeffer, Dey, Rafailov, Koyejo & Donoho's (ICML 2024) Accumulate-vs.-Replace Theorem (`GerstgrasserAccumulateAudit` in `crates/stochology-lenses/src/analog/`, enforced by `--defect replace_collapse`)**, **replacing** real human data with synthetic data causes test risk to diverge linearly with generation count ($E\_n^{\mathrm{Replace}} = \frac{\sigma^2 d}{T - d - 1}\,n$), whereas **accumulating** real + constrained synthetic data bounds the excess risk uniformly across all generations by Euler's **Basel constant $\zeta(2) = \frac{\pi^2}{6} \approx 1.644934$**:
+  $$E\_n^{\mathrm{Accumulate}} = \frac{\sigma^2 d}{T - d - 1}\sum\_{g=1}^n \frac{1}{g^2} \le \frac{\sigma^2 d}{T - d - 1}\frac{\pi^2}{6} \qquad \left(\text{with }\sum\_{g=1}^8 g^{-2} = 1.527422 < \frac{\pi^2}{6}\right)$$
+
+The series $\sum\_g g^{-2}$ is the Basel problem (Euler, 1734); it is unrelated to the Basel III countercyclical capital buffer that appears in the coupled-society synthesis of Chapter 25.
 
 ---
 

@@ -1,5 +1,7 @@
 # 1. Three Layers, Six Pairs
 
+> **Three tempos.** **Detachment:** set aside treating a forecast, a dataset, and a decision as one undifferentiated "model". **Abstraction:** the World ($L\_1$), the Model ($L\_2$), and the Decision ($L\_3$) are distinct layers joined by six ordered pairs, each with its own failure mode. **Return:** the layer table, the six pairs, and the Four Prohibitions as executable contracts. **Negative proof:** none in this chapter; the tools here feed the proofs of later chapters.
+
 ## The Territory, the Map, and the Driver
 
 Imagine driving through an unfamiliar city during a heavy rainstorm. Three distinct realities are operating at the same time:

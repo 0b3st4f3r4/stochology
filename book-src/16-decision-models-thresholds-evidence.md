@@ -1,5 +1,7 @@
 # 16. From Probability to Action
 
+> **Three tempos.** **Detachment:** set aside the model as an end in itself. **Abstraction:** a probability is worth something only when it can change an action, and the signal must cross the narrow channel of human attention (Decision Models, $L\_2 \to L\_3$). **Return:** cost-loss thresholds, EVPI, decibans, alert fatigue, and anytime-valid evidence. **Negative proof:** none in this chapter; the tools here feed the proofs of later chapters.
+
 ## The Half-Million-Dollar Model That Could Never Change a Decision
 
 A regional hospital system hires a data-science team for USD 500,000 to build a machine-learning model predicting whether patients admitted with severe fever have a bacterial infection.
@@ -106,7 +108,7 @@ Explore the sequential `aGRAPA` betting martingale $E\_t = \prod (1 + \lambda\_i
 
 ## Computational Audit in Rust
 
-Run Laboratory 5 (`crates/stochology-siga/src/roadmap/`) to inspect the Filter 3 SHELF conjugate Beta fit, the Step 6 `aGRAPA` betting martingale $E\_{35}$, and the Bridge $L\_2 \to L\_3$ `AlertFatigueAudit` (the per-card SIGA execution lines of Lab 5 are audited in [Chapter 24](24-funnel-siga.md)):
+Run Laboratory 5 (`crates/stochology-siga/src/roadmap/`) to inspect the Filter 3 SHELF conjugate Beta fit, the Step 6 `aGRAPA` betting martingale $E\_{35}$, and the Bridge $L\_2 \to L\_3$ `AlertFatigueAudit` (the per-card SIGA execution lines of Lab 5 are audited in [Chapter 26](26-funnel-siga.md)):
 
 ~~~bash
 cargo run --release --bin labs -- --siga

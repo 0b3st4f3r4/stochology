@@ -1,5 +1,6 @@
 # 6. Sampling, Matrix Algebra, Estimation, and Regression
 
+> **Three tempos.** **Detachment:** set aside the belief that more rows mean more information. **Abstraction:** the independent unit, not the row, carries information; estimation is compression through a sampling design. **Return:** sampling, matrix algebra, estimation, and regression. **Negative proof:** none in this chapter; the tools here feed the proofs of later chapters.
 
 ## When Ten Thousand Data Points Give You Zero New Information About the Bias
 

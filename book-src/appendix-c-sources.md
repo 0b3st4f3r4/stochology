@@ -1,6 +1,6 @@
-# 28. Empirical Data Sources, Annotated Bibliography, and Honest Epistemic Ledger
+# Appendix C — Empirical Data Sources, Annotated Bibliography, and Honest Epistemic Ledger
 
-## 28.1 Provenance and Cryptographic Integrity of the 13 Empirical Datasets and the Sealed Pre-Registration Manifests
+## C.1 Provenance and Cryptographic Integrity of the 13 Empirical Datasets and the Sealed Pre-Registration Manifests
 
 All **13 empirical CSV files** in `data/*.csv` were retrieved from public scientific repositories, including the Rdatasets archive (`github.com/vincentarelbundock/Rdatasets`, commit `1dcc2bf5f955cc1224a3e1307256e1fe86b68dae`), CRAN packages (`fitdistrplus`, `nycflights13`, `nycflights23`, `hflights`), NOAA HURDAT2, AEMO Victoria, and Open Data Toronto. Alongside those 13 datasets, [`data/SHA256SUMS`](../data/SHA256SUMS) seals two pre-registration manifests — [`data/preregistration/acceptance_registry.txt`](../data/preregistration/acceptance_registry.txt) (`8ca47fcc956d...`, at attempt counter $K = 6$) and [`data/preregistration/coupled_society_preregistration.yaml`](../data/preregistration/coupled_society_preregistration.yaml) (`c6e5e78abbe9...`, $K = 6$) — which lock the SHA-256 hashes of the **60 claim-defining Rust source files**, the **20 development seeds** (`2026..=2045`), and the **200 confirmation seeds** (`9_000_000..=9_000_199` for `critical`, `stocks`, `triad`, and `strategic`, plus the virgin block `9_000_200..=9_000_399` for `society`).
 
@@ -26,7 +26,7 @@ Every digest in `data/SHA256SUMS` is verified at runtime by `stochology-cli` and
 
 ---
 
-## 28.2 Annotated Bibliography Across All 11 Thematic Pillars
+## C.2 Annotated Bibliography Across All 11 Thematic Pillars
 
 ### I. Epistemology, Induction, and Severe Testing
 - **Barbosa, Lourenço da Fonseca — "Capiba" (1904–1997).** Cultural patron of the **CAPIBA Protocol** (*Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol*, dedicated in `00-preface.md`).
@@ -184,7 +184,7 @@ flowchart TD
 
 ---
 
-## 28.3 Honest Epistemic Ledger: Provenance Classes, Informative Literature, and Refuted Claims ($K = 6$)
+## C.3 Honest Epistemic Ledger: Provenance Classes, Informative Literature, and Refuted Claims ($K = 6$)
 
 Under the Claim Provenance Discipline (`AGENTS.md` §II.C) and Prohibition 4, every quantitative claim in this treatise belongs to one of four explicit classes, and **every refuted hypothesis is kept permanently on record** rather than silently deleted:
 
@@ -224,7 +224,7 @@ Launch the full interactive sandbox across all 16 modules and empirical datasets
 
 <div class="stoch-lab"
      data-lab="lenses-kelly-tail-corp"
-     data-chapter="28-sources.html"
+     data-chapter="appendix-c-sources.html"
      data-title="Empirical Data Explorer: DJIA (1885–2023), Danish Fire &amp; NOAA Storms"
      data-subtitle="Cross-examine the primary empirical datasets audited across Laboratories 1–7">
 </div>

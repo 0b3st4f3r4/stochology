@@ -1,5 +1,7 @@
 # 3. Random Variables, Expectations, Quantiles, and Convexity
 
+> **Three tempos.** **Detachment:** set aside summarizing a random quantity by its mean. **Abstraction:** when consequences curve, the average of outcomes is not the outcome at the average (dominance of curvature). **Return:** random variables, quantiles, and Jensen's inequality. **Negative proof:** none in this chapter; the tools here feed the proofs of later chapters.
+
 ## The River With an Average Depth of One Meter
 
 A civil engineer is asked whether an infantry platoon, whose soldiers have an average height of $1.75\text{ m}$ and carry radio packs strapped at $1.40\text{ m}$, can safely wade across a river whose hydrographic bulletin reports:

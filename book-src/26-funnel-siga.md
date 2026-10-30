@@ -1,10 +1,12 @@
-# 24. Eliminatory Funnel and the 8-Step SIGA Roadmap
+# 26. Eliminatory Funnel and the 8-Step SIGA Roadmap
+
+> **Three tempos.** **Detachment:** set aside fitting first and asking whether the question was worth answering later. **Abstraction:** bad questions should be pruned before compute is spent; the funnel is the practicum that runs across every Movement. **Return:** the 4 Eliminatory Filters and the 8-step SIGA Roadmap. **Negative proof:** none in this chapter; the tools here feed the proofs of later chapters.
 
 ## Pruning Bad Questions Before Spending Compute
 
 In a conventional machine-learning organization, teams spend weeks training deep neural networks or running hyperparameter sweeps before asking whether the decision threshold $p^{\ast} = \frac{C}{\eta L}$ lies inside $(0, 1)$, whether the cluster-adjusted sample size $n\_{\mathrm{eff}}(p)$ can detect a meaningful effect, or whether the inference engine is calibrated on synthetic data. The **CAPIBA Protocol** reverses that order: every candidate project must first pass a short-circuiting **4-Filter Eliminatory Funnel** (`stochology_siga::funnel`) and then execute the **8-Step SIGA Operational Roadmap** (`stochology_siga::roadmap`).
 
-## 24.1 The "Boeing 299" Pre-Flight Checklist: The 4 Eliminatory Filters (`stochology_siga::funnel`)
+## 26.1 The "Boeing 299" Pre-Flight Checklist: The 4 Eliminatory Filters (`stochology_siga::funnel`)
 
 On 30 October 1935, at Wright Field in Ohio, the prototype of the Boeing Model 299 (forerunner of the B-17 Flying Fortress) crashed on takeoff and killed two crew members — including the chief test pilot — not because the four-engine aircraft had a mechanical defect, but because the machine had become *"too much airplane for one man to fly"* from memory alone (the crew had forgotten to release the elevator gust lock). Rather than abandoning the aircraft, test pilots introduced a brief, non-negotiable **pre-flight checklist**: if Step 1 fails, the engines never leave the tarmac.
 
@@ -69,7 +71,7 @@ Each of the four sequential gates in `evaluate_four_filter_funnel` (`crates/stoc
 
 ---
 
-## 24.2 The 8-Step SIGA Operational Roadmap (`stochology_siga::roadmap`)
+## 26.2 The 8-Step SIGA Operational Roadmap (`stochology_siga::roadmap`)
 
 Once a project survives all four filters of the Eliminatory Funnel, it executes the **8-Step SIGA Roadmap** across four phases (**S — Survey**, **I — Interrogate**, **G — Generate**, **A — Act**):
 
@@ -129,7 +131,7 @@ cargo run --release --bin gates -- --audit-card cards/card_01_atlantic_storms_ev
 
 Use the interactive Gigerenzer Natural-Frequency and Turing Deciban laboratory below to explore how Step 8 of the SIGA Roadmap translates calibrated probabilities and likelihood ratios into operational frequencies:
 
-<div class="stoch-lab" data-lab="gigerenzer-bayes" data-chapter="24-funnel-siga.html" data-title="Chapter 24 Lab: SIGA Step 8 Gigerenzer Natural-Frequency Tree &amp; Turing Deciban Memo" data-cli="cargo run --release --bin gates -- --audit-card cards/card_01_atlantic_storms_evacuation.yaml"></div>
+<div class="stoch-lab" data-lab="gigerenzer-bayes" data-chapter="26-funnel-siga.html" data-title="Chapter 26 Lab: SIGA Step 8 Gigerenzer Natural-Frequency Tree &amp; Turing Deciban Memo" data-cli="cargo run --release --bin gates -- --audit-card cards/card_01_atlantic_storms_evacuation.yaml"></div>
 
 ## Exercises
 
