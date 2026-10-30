@@ -4,7 +4,7 @@ This document specifies the **CAPIBA Protocol** (*Calibrated, Anytime-valid, Per
 
 ---
 
-> **Reading guide.** The protocol is organized in four tiers: **Tier 0 — Normative Kernel** (§1), **Tier 1 — Lenses and Uncertainty Typing** (§2), **Tier 2 — The Six Ordered Pairs** (§3), and **Tier 3 — Syntheses** (§5, full specifications in [`docs/syntheses/`](syntheses/)). §4 covers operation and §6 the architectural mapping. The course syllabus ([`docs/SYLLABUS.md`](SYLLABUS.md)) is an authorial pedagogical frame over this specification, not part of it.
+> **Reading guide.** The protocol is organized in four tiers: **Tier 0 — Normative Kernel** (§1), **Tier 1 — Lenses and Uncertainty Typing** (§2), **Tier 2 — The Six Ordered Pairs** (§3), and **Tier 3 — Syntheses** (§5, full specifications in [`docs/syntheses/`](../docs/syntheses/)). §4 covers operation and §6 the architectural mapping. The course syllabus ([`docs/SYLLABUS.md`](../docs/SYLLABUS.md)) is an authorial pedagogical frame over this specification, not part of it.
 
 ---
 
@@ -177,17 +177,17 @@ Module 7 (`cargo run --release --bin labs -- --real-data`) consolidates end-to-e
 
 ## 5. Syntheses Registry (Tier 3)
 
-Each synthesis is a self-contained module gated by `G8`. The five multi-seed syntheses must pass on at least 95% of the development seeds `2026..=2045` and of 200 sealed confirmation seeds; claims that fail are reported as `discarded_claims`. Counts below are **simulated** and printed by `cargo run --release --bin gates`. The full specification of each module is in [`docs/syntheses/`](syntheses/).
+Each synthesis is a self-contained module gated by `G8`. The five multi-seed syntheses must pass on at least 95% of the development seeds `2026..=2045` and of 200 sealed confirmation seeds; claims that fail are reported as `discarded_claims`. Counts below are **simulated** and printed by `cargo run --release --bin gates`. The full specification of each module is in [`docs/syntheses/`](../docs/syntheses/).
 
 | Synthesis | Module | Entry symbols | Real-data coupler and datasets (**measured**) | `G8` claims (gated / discarded) | Negative proof | Book | Specification |
 | --- | --- | --- | --- | :---: | --- | --- | --- |
-| Relational Ontology and Complex Systems | `relational/` | `RelationalComplexSystemsSynthesis` | none (simulated, `seed = 2026`) | single-seed audit | none | Ch. 22 | [relational](syntheses/relational.md) |
-| Physical, Analog, and Wave-Interference Computing | `analog/` | `AnalogWaveComputingSynthesis` | `EmpiricalWaveAnalogAudit` (`vic_elec.csv`) | single-seed audit | `analog_wall` | Ch. 13 | [analog](syntheses/analog.md) |
-| Critical Theory of Stochastic Rationality | `critical/` | `CriticalStochasticRationalitySynthesis` | `EmpiricalCriticalRationalityAudit` (`danish_fire.csv`, `toronto_arrests.csv`, `atlantic_storms.csv`, `vic_elec.csv`) | 16 / 3 | `instrumental_reason` | Ch. 18 | [critical](syntheses/critical.md) |
-| Stochary-Conjectural Cybernetics | `stocks/` | `StocharyConjecturalCyberneticSynthesis`, `SupplyChainPhysicsAudit` | `EmpiricalStocharyCyberneticAudit` (`djia_1885_2023.csv`, `bank_calls.csv`, `danish_fire.csv`, `vic_elec.csv`, `atlantic_storms.csv`) | 22 / 4 | `stochary_cybernetics` | Ch. 23 | [stocks](syntheses/stocks.md) |
-| Triadic Synthesis ($\mathbb{C} \times \text{Fractals} \times \mathbb{T}^d$) | `triad/` | `ComplexFractalToroidalTechniumSynthesis` | `EmpiricalTriadicTechniumAudit` (5 datasets) | 17 / 1 | `triadic_technium` | Ch. 14 | [triad](syntheses/triad.md) |
-| Strategic AI Six-Pair Accommodation | `strategic/` | `StrategicAiAccommodationSynthesis` | `EmpiricalStrategicAccommodationAudit` (`bank_calls.csv`, `danish_fire.csv`, `nsw_experimental.csv`, `cps_observational.csv`, `nyc_flights_2023_h1.csv`, `atlantic_storms.csv`, `vic_elec.csv`) | 15 / 2 | `strategic_accommodation` | Ch. 24 | [strategic](syntheses/strategic.md) |
-| Coupled Public-Private SFC Society | `society/` | `CoupledPublicPrivateSocietySynthesis`, `SfcFlowMatrix`, `H1aRegulatorCouplingAblation`, `H1bCreditScreeningAblation`, `H2VcgGreenLaffontCommonsAblation` | `EmpiricalCoupledSocietyAudit` (`cps_observational.csv`, `bank_calls.csv`, `danish_fire.csv`) | 4 / 1 | `coupled_society` | Ch. 25 | [society](syntheses/society.md) |
+| Relational Ontology and Complex Systems | `relational/` | `RelationalComplexSystemsSynthesis` | none (simulated, `seed = 2026`) | single-seed audit | none | Ch. 22 | [relational](../docs/syntheses/relational.md) |
+| Physical, Analog, and Wave-Interference Computing | `analog/` | `AnalogWaveComputingSynthesis` | `EmpiricalWaveAnalogAudit` (`vic_elec.csv`) | single-seed audit | `analog_wall` | Ch. 13 | [analog](../docs/syntheses/analog.md) |
+| Critical Theory of Stochastic Rationality | `critical/` | `CriticalStochasticRationalitySynthesis` | `EmpiricalCriticalRationalityAudit` (`danish_fire.csv`, `toronto_arrests.csv`, `atlantic_storms.csv`, `vic_elec.csv`) | 16 / 3 | `instrumental_reason` | Ch. 18 | [critical](../docs/syntheses/critical.md) |
+| Stochary-Conjectural Cybernetics | `stocks/` | `StocharyConjecturalCyberneticSynthesis`, `SupplyChainPhysicsAudit` | `EmpiricalStocharyCyberneticAudit` (`djia_1885_2023.csv`, `bank_calls.csv`, `danish_fire.csv`, `vic_elec.csv`, `atlantic_storms.csv`) | 22 / 4 | `stochary_cybernetics` | Ch. 23 | [stocks](../docs/syntheses/stocks.md) |
+| Triadic Synthesis ($\mathbb{C} \times \text{Fractals} \times \mathbb{T}^d$) | `triad/` | `ComplexFractalToroidalTechniumSynthesis` | `EmpiricalTriadicTechniumAudit` (5 datasets) | 17 / 1 | `triadic_technium` | Ch. 14 | [triad](../docs/syntheses/triad.md) |
+| Strategic AI Six-Pair Accommodation | `strategic/` | `StrategicAiAccommodationSynthesis` | `EmpiricalStrategicAccommodationAudit` (`bank_calls.csv`, `danish_fire.csv`, `nsw_experimental.csv`, `cps_observational.csv`, `nyc_flights_2023_h1.csv`, `atlantic_storms.csv`, `vic_elec.csv`) | 15 / 2 | `strategic_accommodation` | Ch. 24 | [strategic](../docs/syntheses/strategic.md) |
+| Coupled Public-Private SFC Society | `society/` | `CoupledPublicPrivateSocietySynthesis`, `SfcFlowMatrix`, `H1aRegulatorCouplingAblation`, `H1bCreditScreeningAblation`, `H2VcgGreenLaffontCommonsAblation` | `EmpiricalCoupledSocietyAudit` (`cps_observational.csv`, `bank_calls.csv`, `danish_fire.csv`) | 4 / 1 | `coupled_society` | Ch. 25 | [society](../docs/syntheses/society.md) |
 
 ---
 
