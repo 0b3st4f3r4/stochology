@@ -1,0 +1,102 @@
+id: "cold_chain_spoilage_dispatch"
+layer: "L2"
+uncertainty: "epistemic_parameter"
+
+decision_maker_question:
+  who_decides: "Cold-Chain Logistics Dispatch Supervisor"
+  altered_action: "Dispatch a refrigerated truck instead of the standard van for a route when the calibrated spoilage probability exceeds p*"
+  question: "Does the calibrated spoilage probability for this route's delivery exceed the cost-loss threshold p* = 0.25000?"
+
+epistemological_header:
+  generating_process: "Simulated logistic spoilage process with route random effects u_r ~ N(0, 0.5^2) and per-trip ambient temperature pressure z ~ N(0, 1) (SplitMix64, seed 40)"
+  nonlinearity: "f(E[X])=0.38, E[f(X)]=7.90, Jensen gap Delta_J=+7.52, median=4.04, q05=0.04, q95=30.58, CRPS=6.92"
+  unit_and_margin:
+    independent_unit: "route across daily cold-chain deliveries (cluster of days per route)"
+    nominal_sample_size_n: 952
+    weighted_cluster_mean_m_tilde: "m_tilde = m_bar * (1 + CV^2) = 31.73 * 1.041 = 33.02 (Moulton-Campbell, CV = 0.201)"
+    threshold_exceedance_icc: "rho_I(0.90) = 0.1678 -> DEFF_exceedance = 6.37"
+    effective_sample_size_n_eff: 149
+    unit_margin_of_error: "+/- 7.7 percentage points over 149 effective exceedance-adjusted route-days (30 routes)"
+  noise_physics:
+    stochastic_regime: "Bernoulli spoilage with logistic link and between-route heterogeneity (simulated)"
+    absorbing_states: "Cold-chain break: spoiled goods must be destroyed and the delivery rescheduled at full cost"
+    bridge_L3_L1_performativity:
+      agent_type: "passive"
+      wasserstein_sensitivity_epsilon: 0
+      rrm_convergence_condition: "eps * beta / gamma = 0.00 * 1.00 / 1.00 = 0.00 < 1 (strict contraction)"
+      stability_optimality_divergence: "passive agent: no Decision -> World feedback, theta_PS and theta_PO coincide"
+  causal_ladder:
+    pearl_rung: "2-Act"
+    identification_strategy: "Simulated intervention on truck dispatch; Markov blanket of spoilage mapped (route risk, ambient temperature) without collider conditioning"
+    untestable_assumption: "No unobserved surge shifting ambient temperature and dispatch at once (Lambda* <= 1.25)"
+
+uncertainty_budget_and_authorship:
+  variance_budget:
+    inputs: 0.50
+    parameters: 0.30
+    covariance: 0.20
+    structural_discrepancy_gp: "Gaussian Process delta(x) ~ GP(0, k_anchored(x,x')) for route-level logit discrepancy per Kennedy-O'Hagan"
+  dominant_event:
+    description: "Spoilage of a cold-chain delivery on a given route-day"
+    probability_p: 0.35294117647058826
+    base_rate_floor_epsilon: 0.001
+    cost_share: 0.85
+  info_gap_robustness:
+    critical_requirement_rc: "Fewer than 1 spoiled delivery per route per 20 route-days"
+    robustness_horizon_alpha_hat: "alpha_hat = 2.20 standard deviations of route risk tolerated without violating r_c"
+    opportuneness_horizon_beta_hat: "beta_hat = 0.80 deviations for windfall shelf-life extension r_w"
+    global_maximin_safeguard: "Wald global Maximin floor: at least one standby refrigerated truck on call, with reversible recall at the next dispatch window"
+  field_authorship:
+    null_model: "cold_chain_operations_modeling_group"
+    decision_rule: "logistics_dispatch_planning"
+    adversarial_reviewer: "independent_food_safety_auditor"
+
+data_and_audit_contract:
+  dataset_path: "examples/fleet/cold_chain_spoilage.csv"
+  dataset_sha256: "52355e0b8e16bfc8470ed7c3bd4c95a06e035d385340f8b5ba914b71127b9ecb"
+  missingness_mechanism: "MCAR (simulated dataset with no missing route-days; Meng correlation rho_R_Y = 0; Manski bounds closed)"
+  seed_and_environment: "seed=40; rustc=1.97; simulated dataset"
+  null_model: "crates/stochology-cli#evaluate_empirical_card_severe_test_with_profile"
+  preregistration_hash: "f48d142af746e5bfb83bdff280565fcba02b2820fab3052c1feda325f67a9528"
+  attempt_counter_K: 1
+  e_process_multiplicity: "Cumulative Ville e-process E_30 = 1511.5 (threshold 1/alpha = 40.0 for alpha = 0.025)"
+  murphy_corp_decomposition:
+    total_score_brier_or_crps: 0.15720
+    miscalibration_REL_MCB: 0.00510
+    resolution_RES_DSC: 0.07628
+    base_uncertainty_UNC0: 0.22837
+  findings:
+    registered: 2
+    used: 1
+    unused:
+      - "Day-of-week spoilage effect discarded: no incremental RES_CORP on the development half"
+
+decision_rule_and_scope:
+  event_probability_p: 0.35294117647058826
+  base_rate_floor_epsilon: 0.001
+  protection_cost_C: 150.0
+  event_loss_L: 1200.0
+  mitigation_efficacy_eta: 0.5
+  critical_threshold_p_star: 0.25000
+  declared_act: "protect"
+  scope_statement: "Worked example on simulated route-days; does not apply to pharmaceutical air freight or to any real cold-chain network"
+  who_pays_for_error: "Chouldechova instrument waived in protocol_profile: the action is allocated per route-day by forecast spoilage risk, not across customer groups with distinct base rates"
+  exit_clause: "Suspend automated refrigerated-truck dispatch if REL_CORP > 0.020 or RES_CORP < 0.020 over 14 consecutive route-days"
+
+protocol_profile:
+  name: "cold_chain_spoilage_dispatch"
+  rationale: "Route-level cold-chain dispatch asked in English; stricter anytime-valid evidence (1/alpha = 40); passive agent with no Decision -> World feedback; dataset kept outside data/ under its own manifest"
+  seed: 40
+  e_process_min_inverse_alpha: 40.0
+  dataset_root: "examples/fleet/"
+  dataset_manifest: "examples/fleet/SHA256SUMS"
+  dataset_columns:
+    cluster: "route"
+    forecast: "spoilage_prob"
+    outcome: "spoiled"
+    value: "loss_cost"
+    jensen_loss: "square"
+  severe_test:
+    permutation_replications: 500
+  waivers:
+    PHI4_CHOULDECHOVA: "The action is allocated per route-day by forecast spoilage risk; no protective action is split across customer groups with distinct base rates"
