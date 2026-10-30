@@ -1,6 +1,6 @@
-//! Real-data couplers of the six pillar-expansion instruments (`docs/research/pillar-expansion.md`):
-//! one instrument per CAPIBA pillar, each run on a sealed dataset in `data/` so that a protocol input
-//! moves from **Assumed** to **Measured**.
+//! Real-data couplers across the six CAPIBA pillars: one instrument per pillar, each run on a
+//! sealed dataset in `data/` so that a protocol input moves from **Assumed** to **Measured** or a
+//! protocol claim is tested out-of-sample.
 
 use std::path::Path;
 
@@ -18,9 +18,9 @@ use crate::loaders::{
     load_vic_elec_daily_peaks,
 };
 
-/// Same-weekday lags of the 4-member analog ensemble (§3 of the pre-registration).
+/// Same-weekday lags of the 4-member analog ensemble.
 pub const VIC_ELEC_ANALOG_LAGS: [usize; 4] = [7, 14, 21, 28];
-/// Relative bias and spread factor of the sharp-but-biased ensemble (`crps_miscalibration`, §3).
+/// Relative bias and spread factor of the sharp-but-biased ensemble (`crps_miscalibration`).
 pub const SHARP_BIASED_DISTORTION: (f64, f64) = (-0.03, 0.25);
 
 /// C — Calibrated: CORP decomposition of the CRPS of same-weekday analog ensembles for the daily
@@ -56,7 +56,7 @@ impl VicElecCrpsAudit {
     }
 }
 
-/// Assumed: FDR level of the carrier hypotheses and of the `multiplicity` simulation (§4).
+/// Assumed: FDR level of the carrier hypotheses and of the `multiplicity` simulation.
 pub const EBH_ALPHA: f64 = 0.05;
 
 /// A — Anytime-valid: e-BH across carriers flying from New York in both Aug–Dec 2013 and Aug–Dec 2023
@@ -314,9 +314,9 @@ impl TorontoMulticalibrationAudit {
     }
 }
 
-/// The six pillar-expansion audits on real data, evaluated together for `gates` and `labs`.
+/// The six CAPIBA pillar real-data audits, evaluated together for `gates` and `labs`.
 #[derive(Debug, Clone, PartialEq)]
-pub struct PillarExpansionAudit {
+pub struct CapibaPillarAudit {
     pub calibrated: VicElecCrpsAudit,
     pub anytime: FlightCarrierEbhAudit,
     pub performative: NswPerformativePowerAudit,
@@ -325,7 +325,7 @@ pub struct PillarExpansionAudit {
     pub auditing: TorontoMulticalibrationAudit,
 }
 
-impl PillarExpansionAudit {
+impl CapibaPillarAudit {
     pub fn evaluate(root: &Path) -> Result<Self, String> {
         Ok(Self {
             calibrated: VicElecCrpsAudit::evaluate(root),
@@ -401,9 +401,9 @@ mod tests {
     use crate::resolve_workspace_root;
 
     #[test]
-    fn pillar_expansion_audits_reproduce_the_measured_values() {
+    fn capiba_pillar_audits_reproduce_the_measured_values() {
         let root = resolve_workspace_root();
-        let audit = PillarExpansionAudit::evaluate(&root).expect("bounded payoffs");
+        let audit = CapibaPillarAudit::evaluate(&root).expect("bounded payoffs");
         assert!(
             audit.failed_checks().is_empty(),
             "{:?}",

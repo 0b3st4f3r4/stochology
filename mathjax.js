@@ -1320,6 +1320,23 @@
     });
     actions.appendChild(copyLinkBtn);
 
+    var zoomLabBtn = document.createElement("button");
+    zoomLabBtn.type = "button";
+    zoomLabBtn.className = "stoch-lab-btn";
+    zoomLabBtn.textContent = "⤢ Zoom SVG";
+    zoomLabBtn.setAttribute("aria-label", "Open SVG diagram in full-screen zoom modal");
+    zoomLabBtn.addEventListener("click", function () {
+      var currentSvg = stage.querySelector("svg");
+      if (currentSvg) {
+        openSvgZoomModal(
+          currentSvg,
+          customTitle + " (seed = " + activeSeed + ")",
+          customSubtitle || customPillar
+        );
+      }
+    });
+    actions.appendChild(zoomLabBtn);
+
     var embedBtn = document.createElement("button");
     embedBtn.type = "button";
     embedBtn.className = "stoch-lab-btn";
@@ -1392,6 +1409,16 @@
 
     var stage = document.createElement("div");
     stage.className = "stoch-lab-stage";
+    stage.addEventListener("click", function () {
+      var currentSvg = stage.querySelector("svg");
+      if (currentSvg) {
+        openSvgZoomModal(
+          currentSvg,
+          customTitle + " (seed = " + activeSeed + ")",
+          customSubtitle || customPillar
+        );
+      }
+    });
 
     var metricsGrid = document.createElement("div");
     metricsGrid.className = "stoch-lab-metrics";
@@ -1869,11 +1896,29 @@
       if (announceChange) {
         announcePolite("Active SplitMix64 seed updated to " + currentSeed);
       }
+
+      syncSeedInputWidths();
+    }
+
+    function syncSeedInputWidths() {
+      if (svgSeedInput) {
+        var sLen = String(svgSeedInput.value || currentSeed).length;
+        svgSeedInput.style.width = Math.min(9.6, Math.max(3.8, sLen + 0.8)) + "ch";
+      }
+      if (barSeedInput) {
+        var bLen = String(barSeedInput.value || currentSeed).length;
+        barSeedInput.style.width = Math.min(12.0, Math.max(6.0, bLen + 1.4)) + "ch";
+      }
     }
 
     if (svgSeedInput) {
       svgSeedInput.addEventListener("input", function () {
-        var v = parseInt(svgSeedInput.value, 10);
+        var cleaned = String(svgSeedInput.value || "").replace(/[^0-9]/g, "");
+        if (svgSeedInput.value !== cleaned) {
+          svgSeedInput.value = cleaned;
+        }
+        syncSeedInputWidths();
+        var v = parseInt(cleaned, 10);
         if (isFinite(v) && v > 0) {
           applyHomeSeed(v, svgSeedInput, false);
         }
@@ -1881,10 +1926,22 @@
       svgSeedInput.addEventListener("change", function () {
         applyHomeSeed(svgSeedInput.value, null, true);
       });
+      var seedGroup = root.querySelector("#stoch-svg-seed-group");
+      if (seedGroup) {
+        seedGroup.addEventListener("click", function (ev) {
+          if (ev.target !== svgSeedInput) {
+            svgSeedInput.focus();
+            if (typeof svgSeedInput.select === "function") {
+              svgSeedInput.select();
+            }
+          }
+        });
+      }
     }
 
     if (barSeedInput) {
       barSeedInput.addEventListener("input", function () {
+        syncSeedInputWidths();
         var v = parseInt(barSeedInput.value, 10);
         if (isFinite(v) && v > 0) {
           applyHomeSeed(v, barSeedInput, false);
@@ -1979,6 +2036,201 @@
     }
   }
 
+  var svgZoomDialogState = null;
+
+  function ensureSvgZoomDialog() {
+    if (svgZoomDialogState) return svgZoomDialogState;
+
+    var dialog = document.createElement("dialog");
+    dialog.id = "stoch-svg-zoom-dialog";
+    dialog.className = "stoch-svg-zoom-dialog";
+    dialog.setAttribute("closedby", "any");
+    dialog.setAttribute("aria-labelledby", "stoch-svg-zoom-title");
+
+    var header = document.createElement("div");
+    header.className = "stoch-svg-zoom-header";
+
+    var titleEl = document.createElement("h3");
+    titleEl.id = "stoch-svg-zoom-title";
+    titleEl.className = "stoch-svg-zoom-title";
+    titleEl.textContent = "SVG Architectural Diagram";
+    header.appendChild(titleEl);
+
+    var controls = document.createElement("div");
+    controls.className = "stoch-svg-zoom-controls";
+
+    var btnOut = document.createElement("button");
+    btnOut.type = "button";
+    btnOut.className = "stoch-svg-zoom-btn";
+    btnOut.textContent = "−";
+    btnOut.setAttribute("aria-label", "Zoom out SVG");
+
+    var btnReset = document.createElement("button");
+    btnReset.type = "button";
+    btnReset.className = "stoch-svg-zoom-btn";
+    btnReset.textContent = "100%";
+    btnReset.setAttribute("aria-label", "Reset SVG zoom to 100%");
+
+    var btnIn = document.createElement("button");
+    btnIn.type = "button";
+    btnIn.className = "stoch-svg-zoom-btn";
+    btnIn.textContent = "+";
+    btnIn.setAttribute("aria-label", "Zoom in SVG");
+
+    var closeForm = document.createElement("form");
+    closeForm.method = "dialog";
+    closeForm.className = "stoch-svg-zoom-close-form";
+    var btnClose = document.createElement("button");
+    btnClose.type = "submit";
+    btnClose.className = "stoch-svg-zoom-btn";
+    btnClose.textContent = "✕ Close";
+    btnClose.setAttribute("aria-label", "Close SVG zoom modal");
+    closeForm.appendChild(btnClose);
+
+    controls.appendChild(btnOut);
+    controls.appendChild(btnReset);
+    controls.appendChild(btnIn);
+    controls.appendChild(closeForm);
+    header.appendChild(controls);
+
+    var viewport = document.createElement("div");
+    viewport.className = "stoch-svg-zoom-viewport";
+    var stage = document.createElement("div");
+    stage.className = "stoch-svg-zoom-stage";
+    viewport.appendChild(stage);
+
+    var captionEl = document.createElement("div");
+    captionEl.className = "stoch-svg-zoom-caption";
+
+    dialog.appendChild(header);
+    dialog.appendChild(viewport);
+    dialog.appendChild(captionEl);
+    document.body.appendChild(dialog);
+
+    var zoomPct = 100;
+    function setZoomPct(nextPct) {
+      zoomPct = Math.max(50, Math.min(300, nextPct));
+      stage.style.inlineSize = zoomPct + "%";
+      btnReset.textContent = zoomPct + "%";
+    }
+
+    btnOut.addEventListener("click", function () {
+      setZoomPct(zoomPct - 25);
+    });
+    btnIn.addEventListener("click", function () {
+      setZoomPct(zoomPct + 25);
+    });
+    btnReset.addEventListener("click", function () {
+      setZoomPct(100);
+    });
+
+    if (typeof HTMLDialogElement !== "undefined" && !("closedBy" in HTMLDialogElement.prototype)) {
+      dialog.addEventListener("click", function (event) {
+        if (event.target === dialog) {
+          var rect = dialog.getBoundingClientRect();
+          var clickedOutside =
+            event.clientX < rect.left ||
+            event.clientX > rect.right ||
+            event.clientY < rect.top ||
+            event.clientY > rect.bottom;
+          if (clickedOutside && typeof dialog.close === "function") {
+            dialog.close();
+          }
+        }
+      });
+    }
+
+    svgZoomDialogState = {
+      dialog: dialog,
+      titleEl: titleEl,
+      stage: stage,
+      captionEl: captionEl,
+      setZoomPct: setZoomPct
+    };
+    return svgZoomDialogState;
+  }
+
+  function openSvgZoomModal(targetEl, titleText, captionText) {
+    if (!targetEl) return;
+    var modal = ensureSvgZoomDialog();
+    modal.titleEl.textContent = titleText || "SVG Architectural Diagram";
+    modal.captionEl.textContent = captionText || "";
+    modal.stage.innerHTML = "";
+
+    var clone = targetEl.cloneNode(true);
+    clone.removeAttribute("width");
+    clone.removeAttribute("height");
+    if (clone.style) {
+      clone.style.maxWidth = "none";
+      clone.style.width = "100%";
+      clone.style.height = "auto";
+    }
+    modal.stage.appendChild(clone);
+    modal.setZoomPct(100);
+
+    if (typeof modal.dialog.showModal === "function") {
+      if (!modal.dialog.open) {
+        modal.dialog.showModal();
+      }
+    } else {
+      modal.dialog.setAttribute("open", "open");
+    }
+  }
+
+  function setupSvgZoomModals(root) {
+    var figures = root.querySelectorAll("figure.stoch-figure:not(.stoch-logo-figure)");
+    for (var i = 0; i < figures.length; i++) {
+      (function (fig) {
+        if (fig.getAttribute("data-svg-zoom-ready") === "true") return;
+        fig.setAttribute("data-svg-zoom-ready", "true");
+
+        function resolveFigureTargetAndMeta() {
+          var target =
+            fig.querySelector("svg") ||
+            fig.querySelector('img[src$=".svg"]');
+          var cap = fig.querySelector("figcaption");
+          var strong = cap ? cap.querySelector("strong") : null;
+          var titleText = strong
+            ? strong.textContent.trim()
+            : fig.getAttribute("aria-label") ||
+              (target && target.getAttribute("aria-label")) ||
+              "SVG Architectural Diagram";
+          var captionText = cap ? cap.textContent.trim() : "";
+          return { target: target, titleText: titleText, captionText: captionText };
+        }
+
+        var actionsBar = document.createElement("div");
+        actionsBar.className = "stoch-figure-actions";
+
+        var zoomBtn = document.createElement("button");
+        zoomBtn.type = "button";
+        zoomBtn.className = "stoch-svg-zoom-trigger";
+        zoomBtn.textContent = "⤢ Zoom SVG";
+        zoomBtn.setAttribute("aria-label", "Open SVG diagram in full-screen zoom modal");
+        zoomBtn.addEventListener("click", function () {
+          var info = resolveFigureTargetAndMeta();
+          if (info.target) {
+            openSvgZoomModal(info.target, info.titleText, info.captionText);
+          }
+        });
+        actionsBar.appendChild(zoomBtn);
+        fig.insertBefore(actionsBar, fig.firstChild);
+
+        fig.addEventListener("click", function (ev) {
+          if (ev.target.closest("button, a, input, select, textarea, figcaption")) {
+            return;
+          }
+          if (ev.target.closest("svg") || ev.target.closest('img[src$=".svg"]')) {
+            var info = resolveFigureTargetAndMeta();
+            if (info.target) {
+              openSvgZoomModal(info.target, info.titleText, info.captionText);
+            }
+          }
+        });
+      })(figures[i]);
+    }
+  }
+
   // A link climbing one level above the site root points at a repository file outside the book
   // (crates/, data/, docs/, AGENTS.md). Send it to GitHub; mdBook renamed ".md" to ".html".
   function rewriteRepositoryLinks(root) {
@@ -2049,6 +2301,7 @@
     }
 
     setupMermaidDiagrams(root);
+    setupSvgZoomModals(root);
   }
 
   function isDarkThemeActive() {

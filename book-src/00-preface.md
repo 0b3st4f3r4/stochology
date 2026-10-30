@@ -47,14 +47,8 @@
   <text x="2" y="106.5" textLength="302" lengthAdjust="spacing" fill="var(--logo-meta)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="11.5" font-weight="600" letter-spacing="0.8">L₁ → L₂ → L₃ → L₁  |  Φ₁–Φ₅  |  G1–G8  |</text>
   <g id="stoch-svg-seed-group" class="stoch-svg-seed-group">
   <rect id="stoch-svg-seed-box" x="310" y="93" width="158" height="20" rx="5" fill="var(--elevated-bg, rgba(16, 185, 129, 0.12))" stroke="var(--logo-green, #10b981)" stroke-width="1.2"/>
-  <text id="stoch-svg-seed-fallback" x="318" y="106.5" fill="var(--logo-green, #10b981)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="11.5" font-weight="700" letter-spacing="0.6">SEED = <tspan id="stoch-svg-seed-tspan">2026</tspan> ✎</text>
-  <foreignObject x="310" y="93" width="158" height="20" class="stoch-svg-seed-fo">
-  <div xmlns="http://www.w3.org/1999/xhtml" class="stoch-svg-seed-inline">
-  <label for="stoch-svg-seed-input" class="stoch-svg-seed-label">SEED =</label>
-  <input id="stoch-svg-seed-input" name="seed" class="stoch-svg-seed-input" type="number" inputmode="numeric" enterkeyhint="done" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" min="1" max="999999999" step="1" value="2026" aria-describedby="stoch-seed-bar-status" title="Click or type to change the active SplitMix64 seed on the home page" />
-  <span class="stoch-svg-seed-edit-icon" aria-hidden="true">✎</span>
-  </div>
-  </foreignObject>
+  <text id="stoch-svg-seed-fallback" x="389" y="106.5" text-anchor="middle" fill="var(--logo-green, #10b981)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="11.5" font-weight="700" letter-spacing="0.6">SEED = <tspan id="stoch-svg-seed-tspan">2026</tspan> ✎</text>
+  <foreignObject x="310" y="93" width="158" height="20" class="stoch-svg-seed-fo"><div xmlns="http://www.w3.org/1999/xhtml" class="stoch-svg-seed-inline"><label for="stoch-svg-seed-input" class="stoch-svg-seed-label">SEED =</label><input id="stoch-svg-seed-input" name="seed" class="stoch-svg-seed-input" type="text" inputmode="numeric" pattern="[0-9]*" enterkeyhint="done" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="9" value="2026" aria-describedby="stoch-seed-bar-status" title="Click or type to change the active SplitMix64 seed on the home page" /><span class="stoch-svg-seed-edit-icon" aria-hidden="true">✎</span></div></foreignObject>
   </g>
   </g>
 </svg>
@@ -93,7 +87,7 @@
     <a class="stoch-hero-btn stoch-hero-btn-primary" href="01-layers-six-pairs.html">Start Reading: Part I (Three Layers, Six Pairs) →</a>
     <a class="stoch-hero-btn stoch-hero-btn-secondary" id="stoch-hero-lab-link" href="lab/index.html?seed=2026">Launch Interactive Laboratory (/lab) ↗</a>
     <a class="stoch-hero-btn" href="#preface-lab-widget">Try In-Page Bayes &amp; Deciban Lab ↓</a>
-    <a class="stoch-hero-btn" href="appendix-protocol.html">Full Protocol Specification</a>
+    <a class="stoch-hero-btn" href="appendix-d-protocol.html">Full Protocol Specification</a>
   </div>
   <div class="stoch-pathway-grid" role="list" aria-label="Twenty-one pathways grouped by CAPIBA pillar">
 <!-- competency-pillars:begin -->

@@ -14,7 +14,7 @@ You operate under the **Stochology Protocol** (`docs/PROTOCOL.md`). Follow these
 3. **Subagent Architecture (`.agents/agents/`):**
    - `stochology-modeler` (`workspace: branch`): Implements mathematical and stochastic models (`null_model` / `decision_rule`).
    - `stochology-adversary` (`workspace: inherit`): Acts as the VSM $S3^*$ sporadic audit channel and Filter 4 `adversarial_reviewer`, running `gates` and all 27 negative defect proofs (`gates -- --defect <name>`).
-   - `stochology-scribe` (`workspace: inherit`): Keeps exported Rust symbols synchronized with `docs/PROTOCOL.md`, `book-src/appendix-protocol.md`, and `book-src/00-preface.md`..`27-empirical-synthesis.md` plus `book-src/appendix-*.md`.
+   - `stochology-scribe` (`workspace: inherit`): Keeps exported Rust symbols synchronized with `docs/PROTOCOL.md`, `book-src/appendix-d-protocol.md`, and `book-src/00-preface.md`..`27-empirical-synthesis.md` plus `book-src/appendix-*.md`.
 4. **Terminal Execution Policy & Cryptographic Protection ($\Phi_3$):**
    - **Allow List (Autonomous Execution):** `scripts/verify.sh`, `cargo fmt`, `cargo clippy -- -D warnings`, `cargo test`, `cargo run --release --bin labs -- --all`, and `cargo run --release --bin gates` (plus `--defect <name>`).
    - **Request Review (Human Confirmation Required via Inline Diff):** Any modification to `data/SHA256SUMS`, `cards/*.yaml`, or `crates/stochology-governance/src/vault.rs` (`TemporalVault`) requires human review so no agent mutates pre-registration hashes or increments $K \ge 1$ unrecorded.

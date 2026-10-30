@@ -133,7 +133,7 @@ $\mathrm{UNC}$ is the score of the climatology, so a forecast beats climatology 
   [G6] C: CORP-CRPS on vic_elec.csv daily peaks (analog ensemble): CRPS=356.0 = MCB 32.9 - DSC 119.7 + UNC 442.7 MW -> admissible
 ~~~
 
-Shift that ensemble down by $3\%$ and shrink its spread to a quarter. The lone CRPS still prefers it to climatology; the decomposition does not. (This distortion was chosen after the pre-registered one, $-8\%$, turned out to lose to climatology outright; ten combinations were tried and all are recorded, `docs/research/pillar-expansion.md`, D2.)
+Shift that ensemble down by $3\%$ and shrink its spread to a quarter. The lone CRPS still prefers it to climatology; the decomposition does not. (This distortion was chosen at $K = 10$ over $\{-8, -5, -4, -3, -2\}\% \times \{0.25, 0.5\}$ after the pre-registered $-8\%$ turned out to lose to climatology outright.)
 
 ~~~text
 NEGATIVE PROOF [crps_miscalibration] BLOCKED SUCCESSFULLY: sharp-biased vic_elec ensemble beats climatology on the lone CRPS (422.8 < UNC 442.7 MW) but CORP MCB=74.9 exceeds DSC/2=47.4

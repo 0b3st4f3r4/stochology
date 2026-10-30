@@ -57,7 +57,7 @@ pub enum MulticalibrationVerdict {
 }
 
 impl MulticalibrationAudit {
-    /// Assumed: largest admissible calibration gap α (§8 of `docs/research/pillar-expansion.md`).
+    /// Assumed: largest admissible calibration gap α.
     pub const TOLERANCE: f64 = 0.05;
     /// Assumed: smallest audited cell.
     pub const MIN_CELL: usize = 30;

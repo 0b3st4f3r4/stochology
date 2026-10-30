@@ -79,7 +79,7 @@ pub struct EpsilonDeclarationAudit {
 }
 
 impl PerformativePowerAudit {
-    /// Assumed: label permutations of the noise-floor test (§5 of `docs/research/pillar-expansion.md`).
+    /// Assumed: label permutations of the noise-floor test.
     pub const PERMUTATIONS: usize = 999;
     /// Assumed: within-arm bootstrap resamples of the lower bound.
     pub const BOOTSTRAPS: usize = 999;

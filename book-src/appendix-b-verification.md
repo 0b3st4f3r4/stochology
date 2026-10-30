@@ -118,7 +118,7 @@ So a claim that holds 97% of the time is still refuted about 4% of the time, and
 
 ## B.4 The Twenty-Seven Negative Defect Proofs (`--defect`)
 
-Each command below injects a targeted methodological defect, or (for the six pillar-expansion proofs) recomputes the positive gate's detector on the defect scenario, and **must exit with code `1`**:
+Each command below injects a targeted methodological defect or evaluates the positive gate's detector on the corresponding defect scenario, and **must exit with code `1`**:
 
 | Command (`cargo run --release --bin gates -- ...`) | Injected Pathology | Blocking Gate & Mechanism |
 | --- | --- | --- |
@@ -189,5 +189,5 @@ cargo run --release --bin gates -- --defect subgroup_miscalibration
 ## Summary
 
 - **Eight Epistemological Gates (`G1`–`G8`)** enforce the Four Prohibitions, Five Boundary Invariants ($\Phi\_1$–$\Phi\_5$), and multi-seed synthesis acceptance (`data/preregistration/acceptance_registry.txt` sealed in `data/SHA256SUMS`), exiting with code `0` only when every check closes.
-- **Twenty-Seven Negative Defect Proofs (`--defect <name>`)** inject specific methodological failures (or, for the six pillar-expansion proofs, evaluate the defect scenario directly) across all six `C-A-P-I-B-A` pillars and verify that `gates` blocks each violation with exit code `1`.
+- **Twenty-Seven Negative Defect Proofs (`--defect <name>`)** inject specific methodological failures or evaluate the corresponding defect scenarios across all six `C-A-P-I-B-A` pillars and verify that `gates` blocks each violation with exit code `1`.
 - **Portable Card Auditing (`gates -- --audit-card <card.yaml>`)** and **`scripts/verify.sh`** provide a single-command audit of code formatting, compiler/Clippy hygiene, unit and snapshot-parity tests, all 7 laboratories, all 8 gates, all 27 negative proofs, and textbook synchronization.

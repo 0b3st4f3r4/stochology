@@ -32,7 +32,7 @@ pub struct AnchoredSample {
 }
 
 impl AnchorRegressionAudit {
-    /// Assumed: shift strengths audited (§6 of `docs/research/pillar-expansion.md`).
+    /// Assumed: shift strengths audited.
     pub const GAMMA_GRID: [f64; 5] = [1.0, 2.0, 5.0, 10.0, 100.0];
     /// Assumed: primary shift strength.
     pub const PRIMARY_GAMMA: f64 = 5.0;

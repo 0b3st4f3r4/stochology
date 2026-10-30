@@ -455,7 +455,7 @@ This card governs daily mobile-outreach and emergency-relief dispatch across $n 
 
 ## 17.15 The Optional Sixth Section: `protocol_profile` (Kernel and Clay)
 
-The five sections above are the same for every application, but the numbers they are checked against need not be. A card may carry a sixth section, `protocol_profile`, parsed into `ProtocolProfile` (`crates/stochology-core/src/card/profile.rs`), that recalibrates the **clay** of the protocol while leaving its **kernel** intact ([Appendix D](appendix-protocol.md), §1.6):
+The five sections above are the same for every application, but the numbers they are checked against need not be. A card may carry a sixth section, `protocol_profile`, parsed into `ProtocolProfile` (`crates/stochology-core/src/card/profile.rs`), that recalibrates the **clay** of the protocol while leaving its **kernel** intact ([Appendix D](appendix-d-protocol.md), §1.6):
 
 - **Kernel (never changes):** the four Prohibitions and $\Phi\_1$–$\Phi\_5$ as principles, with their mechanisms. A seed is declared and must equal the profile's; the dataset sits inside a SHA-256 manifest; the pre-registration seal, $K \ge 1$, findings conservation, Cromwell's interval, the CORP-Murphy identity, and cross-authorship all apply.
 - **Clay (pre-registered per application, all *Assumed*):**

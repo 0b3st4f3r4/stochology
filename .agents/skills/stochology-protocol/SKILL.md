@@ -13,7 +13,7 @@ Use this skill when extending, auditing, or documenting the **Stochology Protoco
 2. **Adversarial Audit (`stochology-adversary`, `inherit` mode — VSM $S3^*$):**
    Run `cargo run --release --bin gates` (must exit `0`) and all 27 negative defect proofs `cargo run --release --bin gates -- --defect <name>` (each must exit `1`), checking `IdentityClosureAudit` in Gate `G8`.
 3. **Documentary Synchronization (`stochology-scribe`, `inherit` mode):**
-   Update `docs/PROTOCOL.md`, `book-src/appendix-protocol.md`, and the matching chapters in `book-src/`, regenerating quoted `labs`/`gates` output and labelling every number's provenance (`AGENTS.md` §II.C).
+   Update `docs/PROTOCOL.md`, `book-src/appendix-d-protocol.md`, and the matching chapters in `book-src/`, regenerating quoted `labs`/`gates` output and labelling every number's provenance (`AGENTS.md` §II.C).
 4. **Derived-Text Audit (`stochology-adversary`):**
    Before publishing any text derived from Stochology (summary, post, slides, notebook remix), audit each claim's provenance class — measured, simulated, assumed, or literature/informative — against the code and current output.
 

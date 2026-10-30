@@ -1,7 +1,7 @@
 //! Positive epistemological gate evaluators (`G1` through `G8`) and acceptance registry verification.
 
 use std::path::Path;
-use stochology_cli::pillars::PillarExpansionAudit;
+use stochology_cli::pillars::CapibaPillarAudit;
 use stochology_cli::{
     PublicInfrastructureCard04Audit, evaluate_empirical_card_severe_test,
     load_atlantic_storms_decade_environments, load_atlantic_storms_forecasts,
@@ -576,15 +576,13 @@ fn eval_gate_g8(
     Ok(())
 }
 
-/// Pillar expansion on real data (`docs/research/pillar-expansion.md`): one instrument per pillar,
-/// reported under the gate that owns it (`G4`, `G6`, `G7`).
-fn eval_pillar_expansion(root: &Path) -> Result<(), String> {
-    let audit = PillarExpansionAudit::evaluate(root)?;
+/// Real-data CAPIBA pillar audits: one instrument per pillar, reported under the gate that owns it
+/// (`G4`, `G6`, `G7`).
+fn eval_capiba_pillars(root: &Path) -> Result<(), String> {
+    let audit = CapibaPillarAudit::evaluate(root)?;
     let failed = audit.failed_checks();
     if !failed.is_empty() {
-        return Err(format!(
-            "G4/G6/G7 failed pillar expansion checks: {failed:?}"
-        ));
+        return Err(format!("G4/G6/G7 failed CAPIBA pillar checks: {failed:?}"));
     }
     let c = &audit.calibrated.analog;
     println!(
@@ -630,6 +628,6 @@ pub fn run_positive_gates(root: &Path) -> Result<(), String> {
     let cards = eval_gates_g1_to_g5(root)?;
     let (storm_probs, storm_outcomes) = eval_gate_g6(root)?;
     let (probs_h1, y23_h1) = eval_gate_g7(root, &cards, &storm_probs, &storm_outcomes)?;
-    eval_pillar_expansion(root)?;
+    eval_capiba_pillars(root)?;
     eval_gate_g8(root, &storm_probs, &storm_outcomes, &probs_h1, &y23_h1)
 }

@@ -42,8 +42,7 @@ pub struct CorpCrpsDecomposition {
 }
 
 impl CorpCrpsDecomposition {
-    /// Assumed: miscalibration may consume at most half of the discrimination gain
-    /// (`docs/research/pillar-expansion.md` §3).
+    /// Assumed: miscalibration may consume at most half of the discrimination gain.
     pub const ADMISSIBLE_MCB_OVER_DSC: f64 = 0.5;
 
     /// Decomposes the mean CRPS of ensemble forecasts `ensembles[i]` for outcomes `outcomes[i]`.

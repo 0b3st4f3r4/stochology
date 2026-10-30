@@ -103,7 +103,7 @@ flowchart LR
 
 ## 26.3 Moulding the Protocol for a New Application: Protocol Profiles (`examples/clay/`)
 
-A checklist protects a crew only if it was written for their aircraft. The Funnel and the Roadmap above ran with **canonical numbers**: seed 2026, $1/\alpha \ge 20$, a decision volume of 100 units against a modeling cost of 500, $n\_{\min} = 50$, $\chi^2\_{\text{crit}} = 9.49$, a null $p < 0.05$, 200 permutations, and an English $\Phi\_5$ vocabulary (`shift`, `annual`, `average`). These numbers are defaults, not laws. The CAPIBA Protocol separates a **kernel** from **clay** ([Appendix D](appendix-protocol.md), §1.6):
+A checklist protects a crew only if it was written for their aircraft. The Funnel and the Roadmap above ran with **canonical numbers**: seed 2026, $1/\alpha \ge 20$, a decision volume of 100 units against a modeling cost of 500, $n\_{\min} = 50$, $\chi^2\_{\text{crit}} = 9.49$, a null $p < 0.05$, 200 permutations, and an English $\Phi\_5$ vocabulary (`shift`, `annual`, `average`). These numbers are defaults, not laws. The CAPIBA Protocol separates a **kernel** from **clay** ([Appendix D](appendix-d-protocol.md), §1.6):
 - The **kernel** is the principles (the four Prohibitions and $\Phi\_1$–$\Phi\_5$) and the mechanisms that make them auditable. These include a seed declared before fitting, a manifest-sealed dataset, the SHA-256 pre-registration, $K \ge 1$, Cromwell's interval, the CORP-Murphy identity, cross-authorship, and a numeric exit clause. The order of the 4 Filters and the 8 Steps is also kernel.
 - The **clay** is the thresholds, tolerances, vocabularies, data location, and replication counts with which each principle is checked.
 

@@ -103,7 +103,7 @@ To enforce Filter 4's strict separation of authorship (`null_model` / `decision_
 
 1. **`stochology-modeler` (`.agents/agents/stochology-modeler.md`, Mode `branch`):** Operates in an isolated Git worktree to expand `stochology-core`, `stochology-lenses`, `stochology-siga`, and `stochology-governance` in pure Rust (`std` only) anchored to `SplitMix64` (`seed = 2026`).
 2. **`stochology-adversary` (`.agents/agents/stochology-adversary.md`, Mode `inherit`):** Acts as the independent VSM audit channel `S3*` and `adversarial_reviewer`, executing the 8 positive gates (`gates`) and all 27 negative defect proofs (`gates -- --defect <name>`).
-3. **`stochology-scribe` (`.agents/agents/stochology-scribe.md`, Mode `inherit`):** Maintains documentary and pedagogical parity across the Rust crates, `docs/PROTOCOL.md`, `book-src/appendix-protocol.md`, and the 27 chapters and Appendices A–E of `book-src/`.
+3. **`stochology-scribe` (`.agents/agents/stochology-scribe.md`, Mode `inherit`):** Maintains documentary and pedagogical parity across the Rust crates, `docs/PROTOCOL.md`, `book-src/appendix-d-protocol.md`, and the 27 chapters and Appendices A–E of `book-src/`.
 4. **Cryptographic Protection Hook (`.agents/hooks.json` & `.agents/scripts/phi3_cryptographic_gate.sh`):** Enforces autonomous execution (`Allow List`) for `scripts/verify.sh`, `cargo fmt`, `cargo clippy`, `cargo test`, `labs`, and `gates`, while requiring explicit human inline-diff approval (`Request Review` / `force_ask`) before any modification to `data/SHA256SUMS`, `cards/*.yaml`, or `crates/stochology-governance/src/vault.rs`.
 
 ---

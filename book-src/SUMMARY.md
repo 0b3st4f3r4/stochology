@@ -60,5 +60,5 @@
 - [Appendix A — Architectural Mapping](appendix-a-architecture.md)
 - [Appendix B — Verification and Algorithmic Gates](appendix-b-verification.md)
 - [Appendix C — Empirical Data Sources](appendix-c-sources.md)
-- [Appendix D — Full Specification](appendix-protocol.md)
+- [Appendix D — Full Specification](appendix-d-protocol.md)
 - [Appendix E — Course Syllabus](appendix-e-syllabus.md)

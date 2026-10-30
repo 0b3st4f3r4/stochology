@@ -1,7 +1,7 @@
 //! Lab 7: Transversal Real-Data Synthesis Across All 14 Empirical Datasets (`data/*.csv`) and 4 Canonical Cards (`cards/*.yaml`).
 
 use std::path::Path;
-use stochology_cli::pillars::PillarExpansionAudit;
+use stochology_cli::pillars::CapibaPillarAudit;
 use stochology_cli::{
     PublicInfrastructureCard04Audit, load_atlantic_storms_decade_environments,
     load_atlantic_storms_forecasts, load_bank_call_clusters, load_cards_from_disk,
@@ -214,13 +214,13 @@ pub fn lab_real_data(root: &Path) {
         cards.len()
     );
 
-    lab_pillar_expansion(root);
+    lab_capiba_pillars(root);
 }
 
-/// Pillar expansion on real data (`docs/research/pillar-expansion.md`): one instrument per CAPIBA pillar.
-fn lab_pillar_expansion(root: &Path) {
-    println!("=== PILLAR EXPANSION: ONE REAL-DATA INSTRUMENT PER CAPIBA PILLAR ===");
-    let audit = PillarExpansionAudit::evaluate(root).expect("bounded e-process payoffs");
+/// Real-data CAPIBA pillar audits: one instrument per CAPIBA pillar.
+fn lab_capiba_pillars(root: &Path) {
+    println!("=== CAPIBA PILLARS: ONE REAL-DATA INSTRUMENT PER PILLAR ===");
+    let audit = CapibaPillarAudit::evaluate(root).expect("bounded e-process payoffs");
     let (c, s) = (&audit.calibrated.analog, &audit.calibrated.sharp_biased);
     println!(
         "  [C · CORP-CRPS, vic_elec.csv] {} daily peaks, 4-member same-weekday ensemble: CRPS={:.1} = MCB {:.1} - DSC {:.1} + UNC {:.1} MW (admissible={}, largest CDF violation of the recalibration {:.3})",
