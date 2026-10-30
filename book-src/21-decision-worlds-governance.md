@@ -1,6 +1,6 @@
 # 21. Decision Worlds over Time
 
-> **Three tempos.** **Detachment:** set aside event time and availability time as the same clock. **Abstraction:** time is bitemporal and crossed by regime drift (Decision Worlds, $L\_1 \to L\_3$, reading frame). **Return:** the bitemporal clock and canary, the single-opening vault, and drift adaptation. **Negative proof:** `gates -- --defect clock`, `gates -- --defect vault`, `gates -- --defect concept_drift` (exit `1`).
+> **Three tempos.** **Detachment:** set aside event time and availability time as the same clock. **Abstraction:** time is bitemporal and crossed by regime drift (Decision Worlds, $L\_1 \to L\_3$, reading frame). **Return:** the bitemporal clock and canary, the single-opening vault, and drift adaptation. **Negative proof:** `gates -- --defect clock`, `gates -- --defect vault`, `gates -- --defect concept_drift`; Full track adds `gates -- --defect vintage_leak` (exit `1`).
 
 ## The Time-Traveler Backtest and the Overused Vault
 
@@ -57,6 +57,22 @@ To verify that a feature-engineering pipeline has not leaked future target infor
 - The instant a buggy join, backfill, or look-ahead window reaches across $\tau$ into $t\_{\text{disp}} > \tau$, the canary's mutual information spikes ($I(C\_{\text{canary}}; Y) = 0.6931\text{ nats} > \tau\_{\text{canary}}$), tripping an immediate **Temporal Intrusion Alarm** (`Gate G7` and `--defect clock`).
 
 ---
+
+### 21.1.1 Real-Time Data Vintages (`RealTimeVintageAudit`)
+
+The canary of §21.1 is synthetic. Official statistics give the same problem for real: a quarter's GDP is published, then revised for years. Croushore and Stark (2001, *Journal of Econometrics*, informative) assembled the vintages so that a backtest can use only what was known at each date. Each value becomes a bitemporal record with event time = observation quarter and availability time = vintage.
+
+**Measured** on `rtdsm_routput_vintages.csv` (Federal Reserve Bank of Philadelphia, real output, 244 vintages): at each decision quarter from 1985Q1 to 2024Q4 the forecaster sees only that quarter's vintage and predicts growth as the mean of the last four quarters. Two decisions (1995Q4 and 1996Q1) drop out because the 1996Q1 vintage lacks 1995Q4.
+
+~~~text
+  [G7] B: real-time vintages rtdsm_routput_vintages.csv: 158 decisions, clock clean, mean revision +0.32 pp (SD 1.56), leaky backtest blocked
+~~~
+
+Feed today's vintage into the same past decisions and the forecaster looks better than it was: RMSE $4.76$ instead of $4.85$ percentage points, about $1.9\%$ better, for information nobody had at the time. The bitemporal clock refuses the backtest:
+
+~~~text
+NEGATIVE PROOF [vintage_leak] BLOCKED SUCCESSFULLY: 632 latest-vintage inputs fed to past decisions tripped the bitemporal clock on rtdsm_routput_vintages.csv (leaky RMSE 4.76 vs real-time 4.85 pp)
+~~~
 
 ## 21.2 The Single-Opening Temporal Vault (`stochology_governance::vault`)
 

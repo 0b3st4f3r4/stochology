@@ -53,24 +53,49 @@
     var s0 = Number(seedNum);
     if (!isFinite(s0) || s0 <= 0) s0 = 2026;
     if (typeof BigInt === "function") {
-      var state = BigInt(Math.floor(s0)) & BigInt("0xFFFFFFFFFFFFFFFF");
       var GOLDEN = BigInt("0x9E3779B97F4A7C15");
       var MIX1 = BigInt("0xBF58476D1CE4E5B9");
       var MIX2 = BigInt("0x94D049BB133111EB");
+      var C1 = BigInt("0xD1342543DE82EF95");
+      var C2 = BigInt("0xA5A5A5A55A5A5A5A");
       var MASK = BigInt("0xFFFFFFFFFFFFFFFF");
-      return {
-        nextU64: function () {
-          state = (state + GOLDEN) & MASK;
-          var z = state;
-          z = ((z ^ (z >> BigInt(30))) * MIX1) & MASK;
-          z = ((z ^ (z >> BigInt(27))) * MIX2) & MASK;
-          return (z ^ (z >> BigInt(31))) & MASK;
-        },
-        nextF64: function () {
-          var u = this.nextU64() >> BigInt(11);
-          return Number(u) * Math.pow(2, -53);
-        }
-      };
+
+      function mix64(z) {
+        z = ((z ^ (z >> BigInt(30))) * MIX1) & MASK;
+        z = ((z ^ (z >> BigInt(27))) * MIX2) & MASK;
+        return (z ^ (z >> BigInt(31))) & MASK;
+      }
+
+      function makeFromRaw(initState, initGamma) {
+        var state = initState & MASK;
+        var gamma = (initGamma & MASK) | BigInt(1);
+        return {
+          nextU64: function () {
+            state = (state + gamma) & MASK;
+            return mix64(state);
+          },
+          nextHex: function () {
+            var u = this.nextU64();
+            var hex = u.toString(16);
+            while (hex.length < 16) hex = "0" + hex;
+            return "0x" + hex;
+          },
+          nextF64: function () {
+            var u = this.nextU64() >> BigInt(11);
+            return Number(u) * Math.pow(2, -53);
+          },
+          split: function (streamId) {
+            var sid = BigInt(Math.floor(Number(streamId) || 0)) & MASK;
+            var base = this.nextU64();
+            var mixedId = mix64((sid + GOLDEN) & MASK);
+            var childGamma = (((sid * C1) & MASK) ^ C2) | BigInt(1);
+            return makeFromRaw((base ^ mixedId) & MASK, childGamma);
+          }
+        };
+      }
+
+      var initialState = BigInt(Math.floor(s0)) & MASK;
+      return makeFromRaw(initialState, GOLDEN);
     }
     var x = Math.floor(s0) % 2147483647;
     if (x <= 0) x += 2147483646;
@@ -79,9 +104,16 @@
         x = (x * 16807) % 2147483647;
         return x;
       },
+      nextHex: function () {
+        var u = this.nextU64();
+        return "0x" + u.toString(16);
+      },
       nextF64: function () {
         x = (x * 16807) % 2147483647;
         return (x - 1) / 2147483646;
+      },
+      split: function (streamId) {
+        return createSplitMix64(s0 + (Number(streamId) || 1) * 104729);
       }
     };
   }
@@ -145,7 +177,10 @@
         { key: "sens", label: "Sensitivity (%)", min: 50.0, max: 99.9, step: 0.5, val: 90.0, provenance: "assumed", fmt: function (v) { return v.toFixed(1) + "%"; } },
         { key: "fpr", label: "False-Positive Rate (%)", min: 0.5, max: 30.0, step: 0.5, val: 9.0, provenance: "assumed", fmt: function (v) { return v.toFixed(1) + "%"; } }
       ],
-      evaluate: function (s) {
+      evaluate: function (s, seed) {
+        var activeSeed = Number(seed);
+        if (!isFinite(activeSeed) || activeSeed <= 0) activeSeed = 2026;
+        var rng = createSplitMix64(activeSeed);
         var N = s.cohort;
         var p0 = s.prev / 100.0;
         var sens = s.sens / 100.0;
@@ -164,11 +199,23 @@
         var priorDb = 10.0 * (Math.log(priorOdds) / Math.LN10);
         var postDb = priorDb + dB;
 
+        // Deterministic SplitMix64 cohort realization at activeSeed:
+        var u1 = Math.max(1e-12, rng.nextF64());
+        var u2 = rng.nextF64();
+        var zTp = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+        var zFp = Math.sqrt(-2.0 * Math.log(u1)) * Math.sin(2.0 * Math.PI * u2);
+        var sdTp = Math.sqrt(Math.max(0.25, sick * sens * (1.0 - sens)));
+        var sdFp = Math.sqrt(Math.max(0.25, healthy * fpr * (1.0 - fpr)));
+        var simTp = Math.max(0, Math.min(sick, Math.round(tp + zTp * sdTp)));
+        var simFp = Math.max(0, Math.min(healthy, Math.round(fp + zFp * sdFp)));
+        var simPpv = simTp / Math.max(1, simTp + simFp);
+
         var svg =
           '<svg viewBox="0 0 880 230" xmlns="http://www.w3.org/2000/svg">' +
           '<rect x="1" y="1" width="878" height="228" rx="10" fill="var(--surface)" stroke="var(--border)"/>' +
-          '<rect x="290" y="14" width="300" height="44" rx="8" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2"/>' +
-          '<text x="440" y="41" text-anchor="middle" fill="var(--ink)" font-size="13.5" font-weight="800">Cohort N = ' + N.toLocaleString() + ' Patients</text>' +
+          '<rect x="250" y="14" width="380" height="44" rx="8" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2"/>' +
+          '<text x="440" y="34" text-anchor="middle" fill="var(--ink)" font-size="13" font-weight="800">Cohort N = ' + N.toLocaleString() + ' Patients (Φ₁ seed = ' + activeSeed + ')</text>' +
+          '<text x="440" y="50" text-anchor="middle" fill="var(--muted)" font-size="10.5" font-weight="650">Simulated draw (seed = ' + activeSeed + '): TP = ' + simTp.toLocaleString() + ', FP = ' + simFp.toLocaleString() + ' → MC PPV = ' + (simPpv * 100.0).toFixed(2) + '%</text>' +
           '<line x1="370" y1="58" x2="210" y2="86" stroke="var(--amber)" stroke-width="2"/>' +
           '<line x1="510" y1="58" x2="670" y2="86" stroke="var(--emerald)" stroke-width="2"/>' +
           '<rect x="80" y="86" width="260" height="44" rx="8" fill="var(--amber-bg)" stroke="var(--amber)" stroke-width="1.8"/>' +
@@ -181,12 +228,12 @@
           '<line x1="720" y1="130" x2="765" y2="160" stroke="var(--muted)" stroke-width="1.5"/>' +
           '<rect x="28" y="160" width="180" height="52" rx="8" fill="var(--surface)" stroke="var(--amber)" stroke-width="2"/>' +
           '<text x="118" y="183" text-anchor="middle" fill="var(--ink)" font-size="12.5" font-weight="800">True (+): ' + tp.toLocaleString() + '</text>' +
-          '<text x="118" y="201" text-anchor="middle" fill="var(--amber)" font-size="11">Sens = ' + s.sens.toFixed(1) + '%</text>' +
+          '<text x="118" y="201" text-anchor="middle" fill="var(--amber)" font-size="11">Sens = ' + s.sens.toFixed(1) + '% (MC: ' + simTp.toLocaleString() + ')</text>' +
           '<rect x="224" y="160" width="170" height="52" rx="8" fill="var(--elevated)" stroke="var(--border)"/>' +
           '<text x="309" y="190" text-anchor="middle" fill="var(--muted)" font-size="12">False (-): ' + fn.toLocaleString() + '</text>' +
           '<rect x="486" y="160" width="180" height="52" rx="8" fill="var(--surface)" stroke="var(--rose)" stroke-width="2"/>' +
           '<text x="576" y="183" text-anchor="middle" fill="var(--ink)" font-size="12.5" font-weight="800">False (+): ' + fp.toLocaleString() + '</text>' +
-          '<text x="576" y="201" text-anchor="middle" fill="var(--rose)" font-size="11">FPR = ' + s.fpr.toFixed(1) + '%</text>' +
+          '<text x="576" y="201" text-anchor="middle" fill="var(--rose)" font-size="11">FPR = ' + s.fpr.toFixed(1) + '% (MC: ' + simFp.toLocaleString() + ')</text>' +
           '<rect x="682" y="160" width="170" height="52" rx="8" fill="var(--elevated)" stroke="var(--border)"/>' +
           '<text x="767" y="190" text-anchor="middle" fill="var(--muted)" font-size="12">True (-): ' + tn.toLocaleString() + '</text>' +
           '</svg>';
@@ -194,7 +241,7 @@
         return {
           svg: svg,
           metrics: [
-            { label: "Posterior PPV P(D|+)", value: (ppv * 100.0).toFixed(2) + "%", sub: tp + " / " + totPos + " positive alarms", tone: ppv >= 0.5 ? "emerald" : (ppv >= 0.08 ? "amber" : "rose") },
+            { label: "Posterior PPV P(D|+)", value: (ppv * 100.0).toFixed(2) + "%", sub: tp + " / " + totPos + " alarms · MC(seed=" + activeSeed + "): " + (simPpv * 100.0).toFixed(2) + "%", tone: ppv >= 0.5 ? "emerald" : (ppv >= 0.08 ? "amber" : "rose") },
             { label: "Likelihood Ratio (LR+)", value: lr.toFixed(2) + "×", sub: "Sens / FPR", tone: "sky" },
             { label: "Turing Evidence W(+)", value: (dB >= 0 ? "+" : "") + dB.toFixed(2) + " dB", sub: "10 · log₁₀(LR+)", tone: dB >= 6.0 ? "emerald" : "rose" },
             { label: "Posterior Log-Odds", value: (postDb >= 0 ? "+" : "") + postDb.toFixed(2) + " dB", sub: "Prior " + priorDb.toFixed(1) + " dB + W", tone: postDb >= -15.0 ? "amber" : "rose" }
@@ -1613,7 +1660,266 @@
     container.appendChild(body);
     container.appendChild(footer);
 
+    container._setStochologySeed = function (nextSeed) {
+      var parsed = parseInt(nextSeed, 10);
+      if (!isFinite(parsed) || parsed <= 0) parsed = 2026;
+      activeSeed = parsed;
+      container.setAttribute("data-seed", String(activeSeed));
+      seedBadge.textContent = "Φ₁ SEED = " + activeSeed;
+      btnReset.textContent = "↺ Reset (seed = " + activeSeed + ")";
+      renderState();
+    };
+
     renderState();
+  }
+
+  function setupHomeSvgSeedController(root) {
+    var svgSeedInput = root.querySelector("#stoch-svg-seed-input");
+    var barSeedInput = root.querySelector("#stoch-home-seed-input");
+    if (!svgSeedInput && !barSeedInput) return;
+
+    var svgTspan = root.querySelector("#stoch-svg-seed-tspan");
+    var svgTailFill = root.querySelector("#stoch-logo-tail-fill");
+    var svgTailStroke = root.querySelector("#stoch-logo-tail-stroke");
+    var svgCrossH = root.querySelector("#stoch-logo-cross-h");
+    var svgCrossV = root.querySelector("#stoch-logo-cross-v");
+    var svgCrossDot = root.querySelector("#stoch-logo-cross-dot");
+    var heroBadge = root.querySelector("#stoch-hero-seed-badge");
+    var drawReadout = root.querySelector("#stoch-seed-draw-readout");
+    var rustInline = root.querySelector("#stoch-seed-rust-inline");
+    var yamlInline = root.querySelector("#stoch-seed-yaml-inline");
+    var inspectorRust = root.querySelector("#stoch-inspector-rust-code");
+    var inspectorYaml = root.querySelector("#stoch-inspector-yaml-code");
+    var inspectorTbody = root.querySelector("#stoch-inspector-draws-tbody");
+    var presetBtns = root.querySelectorAll(".stoch-seed-pill[data-seed-preset]");
+    var stepBtn = root.querySelector("#stoch-seed-step-btn");
+
+    var currentSeed = 2026;
+    if (typeof window !== "undefined" && window.location && window.location.search) {
+      var params = window.location.search.substring(1).split("&");
+      for (var p = 0; p < params.length; p++) {
+        var kv = params[p].split("=");
+        if (kv.length === 2 && decodeURIComponent(kv[0]) === "seed") {
+          var qSeed = parseInt(decodeURIComponent(kv[1]), 10);
+          if (isFinite(qSeed) && qSeed > 0) {
+            currentSeed = Math.min(999999999, qSeed);
+          }
+        }
+      }
+    }
+
+    function applyHomeSeed(nextSeed, sourceEl, announceChange) {
+      var parsed = parseInt(nextSeed, 10);
+      if (!isFinite(parsed) || parsed <= 0) parsed = 2026;
+      if (parsed > 999999999) parsed = 999999999;
+      currentSeed = parsed;
+
+      if (svgSeedInput && sourceEl !== svgSeedInput) {
+        svgSeedInput.value = String(currentSeed);
+      }
+      if (barSeedInput && sourceEl !== barSeedInput) {
+        barSeedInput.value = String(currentSeed);
+      }
+      if (svgTspan) {
+        svgTspan.textContent = String(currentSeed);
+      }
+      if (heroBadge) {
+        heroBadge.textContent =
+          "Φ₁ SPLITMIX64 · SEED = " +
+          currentSeed +
+          (currentSeed === 2026 ? " (CANONICAL · EDITABLE)" : " (CUSTOM · EDITABLE)");
+      }
+      if (rustInline) {
+        rustInline.textContent = "SplitMix64::new(" + currentSeed + ")";
+      }
+      if (yamlInline) {
+        yamlInline.textContent = "protocol_profile.seed: " + currentSeed;
+      }
+
+      for (var b = 0; b < presetBtns.length; b++) {
+        var pVal = parseInt(presetBtns[b].getAttribute("data-seed-preset"), 10);
+        presetBtns[b].setAttribute("aria-pressed", pVal === currentSeed ? "true" : "false");
+      }
+
+      // Compute exact 64-bit SplitMix64 draws for readout & inspector:
+      var rngHex = createSplitMix64(currentSeed);
+      var rngFloat = createSplitMix64(currentSeed);
+      var rngSplit = createSplitMix64(currentSeed);
+      var hex1 = rngHex.nextHex();
+      var u1 = rngFloat.nextF64();
+      var u2 = rngFloat.nextF64();
+      var u3 = rngFloat.nextF64();
+      var u4 = rngFloat.nextF64();
+
+      if (drawReadout) {
+        drawReadout.innerHTML =
+          "<code>SplitMix64::new(" +
+          currentSeed +
+          ").next_u64()</code> → <code>" +
+          hex1 +
+          "</code> (u₁ = " +
+          u1.toFixed(4) +
+          ")";
+      }
+
+      if (inspectorRust) {
+        inspectorRust.textContent =
+          "let mut rng = SplitMix64::new(" +
+          currentSeed +
+          ");\nlet u1 = rng.next_f64(); // " +
+          u1.toFixed(16) +
+          "\nlet child = rng.split(1);";
+      }
+      if (inspectorYaml) {
+        inspectorYaml.textContent =
+          "protocol_profile:\n  name: \"custom_application_profile\"\n  seed: " +
+          currentSeed +
+          " # Sealed into preregistration_hash";
+      }
+      if (inspectorTbody) {
+        var hexes = [hex1, rngHex.nextHex(), rngHex.nextHex(), rngHex.nextHex()];
+        var us = [u1, u2, u3, u4];
+        var rowsHtml = "";
+        for (var r = 0; r < 4; r++) {
+          var childRng = rngSplit.split(r + 1);
+          var childU1 = childRng.nextF64();
+          rowsHtml +=
+            "<tr><td>" +
+            (r + 1) +
+            "</td><td><code>rng.next_u64()</code></td><td><code>" +
+            hexes[r] +
+            "</code></td><td><code>" +
+            us[r].toFixed(8) +
+            "</code></td><td><code>" +
+            childU1.toFixed(8) +
+            "</code></td></tr>";
+        }
+        inspectorTbody.innerHTML = rowsHtml;
+      }
+
+      // Update SVG emblem curve and gold crosshair deterministically:
+      var peakX = currentSeed === 2026 ? 54.0 : 49.0 + u1 * 10.0;
+      var peakY = currentSeed === 2026 ? 46.0 : 42.0 + u2 * 9.0;
+      var inflY = currentSeed === 2026 ? 74.0 : 69.0 + u3 * 8.0;
+      var crossX = currentSeed === 2026 ? 72.0 : 64.0 + u1 * 16.0;
+      var crossY = currentSeed === 2026 ? 66.65 : 60.0 + u2 * 13.0;
+      var c1x = (peakX - 9.0).toFixed(2);
+      var c2x = (peakX + 9.0).toFixed(2);
+      var px = peakX.toFixed(2);
+      var py = peakY.toFixed(2);
+      var iy = inflY.toFixed(2);
+      var strokeD =
+        "M 31 85 C 40 85, " +
+        c1x +
+        " " +
+        py +
+        ", " +
+        px +
+        " " +
+        py +
+        " C " +
+        c2x +
+        " " +
+        py +
+        ", 68 " +
+        iy +
+        ", 96 84";
+      if (svgTailStroke) {
+        svgTailStroke.setAttribute("d", strokeD);
+      }
+      if (svgTailFill) {
+        svgTailFill.setAttribute("d", strokeD + " L 96 86 L 31 86 Z");
+      }
+      if (svgCrossH) {
+        svgCrossH.setAttribute("y1", crossY.toFixed(2));
+        svgCrossH.setAttribute("y2", crossY.toFixed(2));
+      }
+      if (svgCrossV) {
+        svgCrossV.setAttribute("x1", crossX.toFixed(2));
+        svgCrossV.setAttribute("x2", crossX.toFixed(2));
+      }
+      if (svgCrossDot) {
+        svgCrossDot.setAttribute("cx", crossX.toFixed(2));
+        svgCrossDot.setAttribute("cy", crossY.toFixed(2));
+      }
+
+      // Sync all /lab links on the page:
+      var labLinks = document.querySelectorAll(
+        '.stoch-lab-nav-pill, #stoch-hero-lab-link, a[href*="lab/index.html"]'
+      );
+      for (var l = 0; l < labLinks.length; l++) {
+        var href = labLinks[l].getAttribute("href") || "";
+        if (href.indexOf("seed=") !== -1) {
+          labLinks[l].setAttribute("href", href.replace(/seed=\d+/, "seed=" + currentSeed));
+        }
+        if (labLinks[l].classList.contains("stoch-lab-nav-pill")) {
+          labLinks[l].title =
+            "Open the Interactive Stochology Laboratory (/lab · seed = " + currentSeed + ")";
+        }
+      }
+
+      // Sync all hydrated in-page .stoch-lab widgets:
+      var widgets = root.querySelectorAll(".stoch-lab");
+      for (var w = 0; w < widgets.length; w++) {
+        if (typeof widgets[w]._setStochologySeed === "function") {
+          widgets[w]._setStochologySeed(currentSeed);
+        }
+      }
+
+      if (announceChange) {
+        announcePolite("Active SplitMix64 seed updated to " + currentSeed);
+      }
+    }
+
+    if (svgSeedInput) {
+      svgSeedInput.addEventListener("input", function () {
+        var v = parseInt(svgSeedInput.value, 10);
+        if (isFinite(v) && v > 0) {
+          applyHomeSeed(v, svgSeedInput, false);
+        }
+      });
+      svgSeedInput.addEventListener("change", function () {
+        applyHomeSeed(svgSeedInput.value, null, true);
+      });
+    }
+
+    if (barSeedInput) {
+      barSeedInput.addEventListener("input", function () {
+        var v = parseInt(barSeedInput.value, 10);
+        if (isFinite(v) && v > 0) {
+          applyHomeSeed(v, barSeedInput, false);
+        }
+      });
+      barSeedInput.addEventListener("change", function () {
+        applyHomeSeed(barSeedInput.value, null, true);
+      });
+    }
+
+    for (var i = 0; i < presetBtns.length; i++) {
+      (function (btn) {
+        btn.addEventListener("click", function () {
+          var targetSeed = parseInt(btn.getAttribute("data-seed-preset"), 10);
+          applyHomeSeed(targetSeed, null, true);
+        });
+      })(presetBtns[i]);
+    }
+
+    if (stepBtn) {
+      stepBtn.addEventListener("click", function () {
+        applyHomeSeed(currentSeed + 1, null, true);
+      });
+    }
+
+    if (heroBadge && svgSeedInput) {
+      heroBadge.addEventListener("click", function () {
+        svgSeedInput.focus();
+        if (typeof svgSeedInput.select === "function") {
+          svgSeedInput.select();
+        }
+      });
+    }
+
+    applyHomeSeed(currentSeed, null, false);
   }
 
   function enhanceResponsiveTables(root) {
@@ -1696,6 +2002,7 @@
 
     rewriteRepositoryLinks(root);
     setupInteractiveLabs(root);
+    setupHomeSvgSeedController(root);
 
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: function (node) {

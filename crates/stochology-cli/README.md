@@ -5,7 +5,7 @@ Executable CLI laboratories (`labs`) and epistemological gates (`gates`) for the
 ## Binaries
 
 - **`labs`**: Runs the 7 methodological and empirical laboratories (`--all`, `--layers`, `--uncertainty`, `--lenses`, `--invariants`, `--siga`, `--governance`, `--real-data`).
-- **`gates`**: Enforces the 8 epistemological gates (`G1`–`G8`), portable external YAML card auditing (`--audit-card <path.yaml>`), multi-seed acceptance registry verification (`--print-acceptance-registry`), and all 21 negative defect proofs (`--defect <name>`, which must exit with code `1`).
+- **`gates`**: Enforces the 8 epistemological gates (`G1`–`G8`), portable external YAML card auditing (`--audit-card <path.yaml>`), multi-seed acceptance registry verification (`--print-acceptance-registry`), and all 27 negative defect proofs (`--defect <name>`, which must exit with code `1`).
 
 ## Usage
 

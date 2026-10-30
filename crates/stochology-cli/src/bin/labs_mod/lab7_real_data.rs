@@ -1,6 +1,7 @@
-//! Lab 7: Transversal Real-Data Synthesis Across All 13 Empirical Datasets (`data/*.csv`) and 4 Canonical Cards (`cards/*.yaml`).
+//! Lab 7: Transversal Real-Data Synthesis Across All 14 Empirical Datasets (`data/*.csv`) and 4 Canonical Cards (`cards/*.yaml`).
 
 use std::path::Path;
+use stochology_cli::pillars::PillarExpansionAudit;
 use stochology_cli::{
     PublicInfrastructureCard04Audit, load_atlantic_storms_decade_environments,
     load_atlantic_storms_forecasts, load_bank_call_clusters, load_cards_from_disk,
@@ -19,10 +20,10 @@ use stochology_lenses::{
     TimeKellyDiagnostic,
 };
 
-/// Lab 7: Transversal Real-Data Synthesis Across All 13 Empirical Datasets (`data/*.csv`) and 4 Canonical Cards (`cards/*.yaml`).
+/// Lab 7: Transversal Real-Data Synthesis Across All 14 Empirical Datasets (`data/*.csv`) and 4 Canonical Cards (`cards/*.yaml`).
 pub fn lab_real_data(root: &Path) {
     println!(
-        "=== LAB 7: TRANSVERSAL REAL-DATA SYNTHESIS (13 EMPIRICAL DATASETS & 4 CANONICAL CARDS) ==="
+        "=== LAB 7: TRANSVERSAL REAL-DATA SYNTHESIS (14 EMPIRICAL DATASETS & 4 CANONICAL CARDS) ==="
     );
 
     // 1. Public Policy, Digital Public Infrastructure & Observational Selection
@@ -208,8 +209,126 @@ pub fn lab_real_data(root: &Path) {
         }
     }
     println!(
-        "  [Synthesis Ledger] 13/13 real CSV datasets audited | {}/{} canonical YAML cards approved (G1-G8 & SIGA)",
+        "  [Synthesis Ledger] 14/14 real CSV datasets audited | {}/{} canonical YAML cards approved (G1-G8 & SIGA)",
         cards_approved,
         cards.len()
+    );
+
+    lab_pillar_expansion(root);
+}
+
+/// Pillar expansion on real data (`docs/research/pillar-expansion.md`): one instrument per CAPIBA pillar.
+fn lab_pillar_expansion(root: &Path) {
+    println!("=== PILLAR EXPANSION: ONE REAL-DATA INSTRUMENT PER CAPIBA PILLAR ===");
+    let audit = PillarExpansionAudit::evaluate(root).expect("bounded e-process payoffs");
+    let (c, s) = (&audit.calibrated.analog, &audit.calibrated.sharp_biased);
+    println!(
+        "  [C · CORP-CRPS, vic_elec.csv] {} daily peaks, 4-member same-weekday ensemble: CRPS={:.1} = MCB {:.1} - DSC {:.1} + UNC {:.1} MW (admissible={}, largest CDF violation of the recalibration {:.3})",
+        c.cases,
+        c.crps_mean,
+        c.mcb_miscalibration,
+        c.dsc_discrimination,
+        c.unc_uncertainty,
+        c.admissible,
+        c.max_cdf_violation
+    );
+    println!(
+        "  [C · CORP-CRPS, negative proof] sharp-biased ensemble (-3%, spread x0.25; chosen at K=10 after the pre-registered -8% failed to beat climatology): CRPS={:.1} < UNC but MCB {:.1} > DSC/2 {:.1} (admissible={})",
+        s.crps_mean,
+        s.mcb_miscalibration,
+        0.5 * s.dsc_discrimination,
+        s.admissible
+    );
+    let a = &audit.anytime;
+    let days: Vec<String> = a
+        .carriers
+        .iter()
+        .map(|(k, d, _, _)| format!("{k}:{d}"))
+        .collect();
+    println!(
+        "  [A · e-BH, nyc_flights 2013 vs 2023, unit = paired calendar day] K={} carriers (paired days {}) | e-BH rejects {:?} | discarded {:?} | BY rejects {} | naive peeking rejects {}",
+        a.ebh.hypotheses_k,
+        days.join(" "),
+        a.ebh.rejected,
+        a.ebh.discarded,
+        a.ebh.benjamini_yekutieli_rejected.len(),
+        a.naive_peeking_rejected.len()
+    );
+    let sim = &a.null_simulation;
+    println!(
+        "  [A · e-BH, simulated global null, seed {}] {} streams x {} x {} replications: naive peeking FDR={:.3}, e-BH FDR={:.3} (alpha={:.2})",
+        sim.seed,
+        sim.hypotheses_k,
+        sim.stream_length,
+        sim.replications,
+        sim.naive_peeking_fdr,
+        sim.ebh_fdr,
+        sim.alpha_level
+    );
+    let p = &audit.performative.power;
+    let d = &audit.performative.passive_declaration;
+    println!(
+        "  [P · Performative sensitivity, nsw_experimental.csv] {} treated vs {} controls (re78): W1={:.1} USD = {:.4} control SD (permutation p={:.3}, null mean {:.4}) | |mean gap| {:.4} SD -> eps >= {:.4} (bootstrap q05, seed {}) | RRM radius at the bound with assumed beta/gamma=1.5: {:.3} | passive declaration understated={}",
+        p.treated_n,
+        p.control_n,
+        p.w1_standardized * p.control_sd,
+        p.w1_standardized,
+        p.permutation_p_value,
+        p.permutation_null_mean,
+        p.mean_difference_standardized,
+        p.epsilon_lower_bound,
+        p.seed,
+        d.rrm_radius_at_bound,
+        d.understated
+    );
+    let i = &audit.invariant;
+    let fmt = |v: &[f64]| {
+        v.iter()
+            .map(|x| format!("{x:.1}"))
+            .collect::<Vec<_>>()
+            .join("/")
+    };
+    println!(
+        "  [I · Anchor regression, nyc_flights 2013 -> 2023] {} train / {} test flights, anchors origin x month, gamma {:?}: OLS slopes (hour {:+.3}, distance {:+.3}) | gamma=5 gap {:.3} (anchor-stable={}) | pooled test MSE {} | worst-cell test MSE {} | simulated confounding gap {:.3}",
+        i.train_rows,
+        i.test_rows,
+        i.anchor.gamma_grid,
+        i.anchor.coefficients[0][1],
+        i.anchor.coefficients[0][2],
+        i.anchor.relative_slope_gap,
+        i.anchor.anchor_stable,
+        fmt(&i.anchor.test_pooled_mse),
+        fmt(&i.anchor.test_worst_cell_mse),
+        i.simulated_confounded.relative_slope_gap
+    );
+    let b = &audit.bitemporal;
+    println!(
+        "  [B · Real-time vintages, rtdsm_routput_vintages.csv] {} decisions 1985Q1-2024Q4 (1995Q4 and 1996Q1 dropped: the 1996Q1 vintage lacks 1995Q4): RMSE vs first release {:.2} pp, vs latest {:.2} pp, leaky {:.2} pp | revision first->latest {:+.2} pp (SD {:.2}) | {} leaky inputs available after their decision | clock: real-time alarm={}, leaky alarm={}",
+        b.decisions,
+        b.rmse_real_time_vs_first_release,
+        b.rmse_real_time_vs_latest,
+        b.rmse_leaky_vs_latest,
+        b.mean_revision,
+        b.sd_revision,
+        b.leaky_inputs_after_decision,
+        b.real_time_clock_alarm,
+        b.leaky_clock_alarm
+    );
+    let t = &audit.auditing;
+    let n_min = t.audit.cells.iter().map(|c| c.n).min().unwrap_or(0);
+    let n_max = t.audit.cells.iter().map(|c| c.n).max().unwrap_or(0);
+    println!(
+        "  [A · Multicalibration, toronto_arrests.csv] colour-blind logistic, {} dev / {} audit rows: {} cells ({}-{} units), {} violations, global REL_CORP={:.4}, largest radius {:.3} -> verdict {:?} | simulated hidden bias (seed 2026): {} violations, verdict {:?}",
+        t.development_rows,
+        t.audit_rows,
+        t.audit.cells_audited,
+        n_min,
+        n_max,
+        t.audit.violations,
+        t.audit.global_rel_corp,
+        t.audit.max_radius,
+        t.audit.verdict,
+        t.simulated_hidden_bias.violations,
+        t.simulated_hidden_bias.verdict
     );
 }

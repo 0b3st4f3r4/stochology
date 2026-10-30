@@ -4,6 +4,7 @@
 pub mod jensen;
 pub mod missingness;
 pub mod ontology;
+pub mod performative_power;
 pub mod performativity;
 pub mod provenance;
 
@@ -12,6 +13,9 @@ pub use missingness::{ManskiBounds, MengAudit, RubinMultipleImputationAudit};
 pub use ontology::{
     DpiOperationalStage, Layer, UncertaintyClass, apply_cromwell_floor, laplace_succession,
     respects_cromwell,
+};
+pub use performative_power::{
+    EpsilonDeclarationAudit, PerformativePowerAudit, exact_wasserstein_1,
 };
 pub use performativity::{
     GoodhartTaxonomyAudit, GoodhartVariant, PerformativeDiagnostic, PerformativeSystem,
@@ -178,5 +182,39 @@ mod tests {
             1,
         );
         assert!(!pkm_bad.pkm_provenance_clean && pkm_bad.provenance_laundering_violations >= 1);
+    }
+
+    #[test]
+    fn exact_wasserstein_matches_order_statistics_and_handles_unequal_sizes() {
+        let p = [0.0, 1.0, 3.0];
+        let q = [1.0, 2.0, 6.0];
+        // Equal sizes: W1 = mean |p_(i) - q_(i)| = (1 + 1 + 3) / 3.
+        assert!((exact_wasserstein_1(&p, &q) - 5.0 / 3.0).abs() < 1e-12);
+        assert!((exact_wasserstein_1(&p, &q) - empirical_wasserstein_1(&p, &q)).abs() < 1e-12);
+        // Unequal sizes: {0, 2} vs {1}: integral of |F_P - F_Q| = 0.5 * 1 + 0.5 * 1 = 1.
+        assert!((exact_wasserstein_1(&[0.0, 2.0], &[1.0]) - 1.0).abs() < 1e-12);
+        assert_eq!(exact_wasserstein_1(&[4.0, 4.0], &[4.0]), 0.0);
+    }
+
+    #[test]
+    fn performative_power_detects_a_shifted_arm_and_flags_an_understated_epsilon() {
+        let mut rng = crate::rng::Rng::new(2026);
+        let control: Vec<f64> = (0..300).map(|_| rng.normal(0.0, 1.0)).collect();
+        let treated: Vec<f64> = (0..300).map(|_| rng.normal(0.5, 1.0)).collect();
+        let audit = PerformativePowerAudit::measure(&treated, &control, 2026);
+        assert!(audit.significant && audit.permutation_p_value <= 0.01);
+        assert!(
+            audit.epsilon_lower_bound > 0.2 && audit.epsilon_lower_bound < audit.w1_standardized
+        );
+
+        let passive = audit.audit_declaration(0.0, 1.5, 1.0);
+        assert!(passive.understated && passive.rrm_radius_declared == 0.0);
+        let honest = audit.audit_declaration(audit.epsilon_lower_bound, 1.5, 1.0);
+        assert!(!honest.understated);
+        assert!(honest.rrm_contracts_at_bound == (audit.epsilon_lower_bound * 1.5 < 1.0));
+
+        let null_arm: Vec<f64> = (0..300).map(|_| rng.normal(0.0, 1.0)).collect();
+        let null = PerformativePowerAudit::measure(&null_arm, &control, 2026);
+        assert!(!null.significant && null.epsilon_lower_bound == 0.0);
     }
 }

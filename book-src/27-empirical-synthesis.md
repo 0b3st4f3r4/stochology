@@ -1,19 +1,20 @@
-# 27. Transversal Empirical Synthesis Across All 13 Real Datasets (Lab 7)
+# 27. Transversal Empirical Synthesis Across All 14 Real Datasets (Lab 7)
 
-> **Three tempos.** **Detachment:** set aside trusting results seen only on simulated data. **Abstraction:** every lens, bridge, and invariant must also face the 13 real datasets and the 4 canonical cards. **Return:** Lab 7 across `data/*.csv`. **Negative proof:** none in this chapter; the tools here feed the proofs of later chapters.
+> **Three tempos.** **Detachment:** set aside trusting results seen only on simulated data. **Abstraction:** every lens, bridge, and invariant must also face the 14 real datasets and the 4 canonical cards. **Return:** Lab 7 across `data/*.csv`. **Negative proof:** none in this chapter; the tools here feed the proofs of later chapters.
 
 ## Six High-Stakes Empirical Domains
 
-A methodology that works only on synthetic toy examples remains an academic exercise. To test the Stochology Protocol in practice, its bridges, lenses, invariants, funnel, and governance gates run against **13 real historical datasets** across six empirical domains:
+A methodology that works only on synthetic toy examples remains an academic exercise. To test the Stochology Protocol in practice, its bridges, lenses, invariants, funnel, and governance gates run against **14 real historical datasets** across seven empirical domains:
 
 1. **Labor Economics, Digital Public Infrastructure & Policy Evaluation** (`nsw_experimental.csv` and `cps_observational.csv` $\to$ `card_04_dpi_civil_defense_triage.yaml`, $n = 445$ experimental and $n = 15\text{,}992$ observational workers/households);
 2. **Retail Banking & Queueing Operations** (`bank_calls.csv` $\to$ `card_02_bank_queue_staffing.yaml`, $n = 27\text{,}716$ five-minute arrival windows across $164$ days);
 3. **Financial Markets & Non-Ergodic Compounding** (`djia_1885_2023.csv`, $37\text{,}930$ daily trading sessions of the Dow Jones Industrial Average from 1885 to 2023);
 4. **Extreme Value Theory, Reinsurance & Power Grids** (`danish_fire.csv`, $n = 2\text{,}167$ fire claims; and `vic_elec.csv`, $n = 52\text{,}608$ half-hourly electricity demand readings in Victoria, Australia);
 5. **Atmospheric Physics & Algorithmic Fairness** (`atlantic_storms.csv` $\to$ `card_01_atlantic_storms_evacuation.yaml`, $n = 20\text{,}778$ NOAA storm track records; and `toronto_arrests.csv`, $n = 5\text{,}226$ police arrest records);
-6. **Aviation Operations, Temporal Vaults & Multi-Regime Drift** (`nyc_flights_2013.csv` $\to$ `card_03_nyc_flights_holding.yaml`, `nyc_flights_2023.csv`, out-of-time reserves `nyc_flights_2013_h1.csv` and `nyc_flights_2023_h1.csv`, and out-of-domain reserve `houston_flights_2011.csv`).
+6. **Aviation Operations, Temporal Vaults & Multi-Regime Drift** (`nyc_flights_2013.csv` $\to$ `card_03_nyc_flights_holding.yaml`, `nyc_flights_2023.csv`, out-of-time reserves `nyc_flights_2013_h1.csv` and `nyc_flights_2023_h1.csv`, and out-of-domain reserve `houston_flights_2011.csv`);
+7. **Macroeconomic Real-Time Data & Revisions** (`rtdsm_routput_vintages.csv`, the Federal Reserve Bank of Philadelphia's real-time real-output vintages, 244 quarterly vintages from 1965Q4 to 2026Q3, $47\text{,}405$ vintage–quarter values).
 
-Every byte of these 13 CSV files is cryptographically locked in `data/SHA256SUMS` and verified at runtime before any calculation begins.
+Every byte of these 14 CSV files is cryptographically locked in `data/SHA256SUMS` and verified at runtime before any calculation begins.
 
 <figure class="stoch-figure">
   <svg xmlns="http://www.w3.org/2000/svg" width="1140" height="310" viewBox="0 0 1140 310" fill="none" role="img" aria-labelledby="title-fig-11-synthesis">
@@ -140,14 +141,14 @@ cargo run --release --bin labs -- --real-data
 ~~~
 
 ~~~text
-=== LAB 7: TRANSVERSAL REAL-DATA SYNTHESIS (13 EMPIRICAL DATASETS & 4 CANONICAL CARDS) ===
+=== LAB 7: TRANSVERSAL REAL-DATA SYNTHESIS (14 EMPIRICAL DATASETS & 4 CANONICAL CARDS) ===
   [1/6 Policy & DPI: nsw_experimental.csv + cps_observational.csv -> card_04] Bridge L1->L2 & Phi3/Phi4: rho_R_Y=+0.1334, n=15992 -> n_eff_Meng=2842.70, Manski=[5463.2, 13835.3], LeeBounds(q=0.031)=[872.5, 1995.8], p*=0.12, Chouldechova_FPR=1.23x (verified=true)
   [2/6 Banking: bank_calls.csv -> card_02] Bridge L2->L3 & Phi2/Phi5: n=27716 (days=164), Delta_J=+9.03e6, OOS_CRPS=9.06e7, DEFF(0.90)=28.26 -> n_eff=980.7
   [3/6 Finance: djia_1885_2023.csv] Lens 2 & Bridge L3->L1: days=37930, g_ens=0.0612 -> g_time=0.0468 (drain=0.0145), Kelly f*=0.8600, theta_PS=1.8750 vs theta_PO=2.0312 (r=0.24)
   [4/6 Tails & Wave-Analog: danish_fire.csv + vic_elec.csv] Lens 3 & Analog: DanishFire(n=2167, alpha=1.6009, FiniteMeanInfiniteVariance, q99=26.04M, tail_n_eff=13.9) | VicElec(n=52608, alpha=14.8090, q99=6981.5 MW, wave_compr=14x, R2=0.88, PKU_HP_INV=4.39e-16)
   [5/6 Calibration, Fairness, Critical Theory, Stochary & Triadic Technium: atlantic_storms.csv + toronto_arrests.csv -> card_01] Lens 5, Phi4, Critical Theory, Stochary & Triadic: Storms BS=0.26906 (REL=0.21135, RES=0.13102, err=1.53e-14, NILE_ratio=96.8x, Telos=-0.1117, HM_DFM=0.2691) | Toronto FPR_A/FPR_B=5.13x | DanishFire Non-Identical Erased=69.3%, CVaR95=24.17M (chronological CVaR gap=-3.15, WDRO=-25.40, PDHTE_xi=0.640) | verified=true
   [6/6 Aviation Drift (5 CSVs): nyc_flights_2013/2023 + H1 reserves + houston_flights_2011.csv -> card_03] Lei-Candes(NYC 13->23 >= 0.802, H1 13->23 >= 0.828, NYC->Houston OOD >= 0.693) | H1 Vault=OpenedApproved (Brier=0.1783)
-  [Synthesis Ledger] 13/13 real CSV datasets audited | 4/4 canonical YAML cards approved (G1-G8 & SIGA)
+  [Synthesis Ledger] 14/14 real CSV datasets audited | 4/4 canonical YAML cards approved (G1-G8 & SIGA)
 ~~~
 
 ```mermaid
@@ -166,6 +167,31 @@ flowchart LR
     end
     L1L2 --> L2L3 --> L3L1
 ```
+
+## One Real-Data Instrument per Pillar
+
+The lenses above were already real-data couplers. The pillar expansion (pre-registered in [`docs/research/pillar-expansion.md`](../docs/research/pillar-expansion.md), with every deviation logged) adds one instrument per CAPIBA pillar whose job is to test a protocol claim on a sealed dataset, or to show what a hand-set protocol input would have to beat. Lab 7 prints them after the ledger:
+
+~~~text
+=== PILLAR EXPANSION: ONE REAL-DATA INSTRUMENT PER CAPIBA PILLAR ===
+  [C · CORP-CRPS, vic_elec.csv] 1068 daily peaks, 4-member same-weekday ensemble: CRPS=356.0 = MCB 32.9 - DSC 119.7 + UNC 442.7 MW (admissible=true, largest CDF violation of the recalibration 0.133)
+  [C · CORP-CRPS, negative proof] sharp-biased ensemble (-3%, spread x0.25; chosen at K=10 after the pre-registered -8% failed to beat climatology): CRPS=422.8 < UNC but MCB 74.9 > DSC/2 47.4 (admissible=false)
+  [A · e-BH, nyc_flights 2013 vs 2023, unit = paired calendar day] K=11 carriers (paired days 9E:153 AA:153 AS:153 B6:153 DL:153 F9:150 HA:130 MQ:116 OO:26 UA:153 WN:153) | e-BH rejects ["9E", "HA"] | discarded ["AA", "AS", "B6", "DL", "F9", "MQ", "OO", "UA", "WN"] | BY rejects 1 | naive peeking rejects 5
+  [A · e-BH, simulated global null, seed 2026] 20 streams x 500 x 200 replications: naive peeking FDR=0.515, e-BH FDR=0.000 (alpha=0.05)
+  [P · Performative sensitivity, nsw_experimental.csv] 185 treated vs 260 controls (re78): W1=1794.3 USD = 0.3272 control SD (permutation p=0.003, null mean 0.1245) | |mean gap| 0.3272 SD -> eps >= 0.1133 (bootstrap q05, seed 2026) | RRM radius at the bound with assumed beta/gamma=1.5: 0.170 | passive declaration understated=true
+  [I · Anchor regression, nyc_flights 2013 -> 2023] 138375 train / 173566 test flights, anchors origin x month, gamma [1.0, 2.0, 5.0, 10.0, 100.0]: OLS slopes (hour +1.182, distance -2.272) | gamma=5 gap 0.048 (anchor-stable=true) | pooled test MSE 1853.7/1853.5/1852.9/1852.2/1849.5 | worst-cell test MSE 3590.8/3590.9/3591.1/3591.6/3609.6 | simulated confounding gap 0.252
+  [B · Real-time vintages, rtdsm_routput_vintages.csv] 158 decisions 1985Q1-2024Q4 (1995Q4 and 1996Q1 dropped: the 1996Q1 vintage lacks 1995Q4): RMSE vs first release 4.82 pp, vs latest 4.85 pp, leaky 4.76 pp | revision first->latest +0.32 pp (SD 1.56) | 632 leaky inputs available after their decision | clock: real-time alarm=false, leaky alarm=true
+  [A · Multicalibration, toronto_arrests.csv] colour-blind logistic, 2613 dev / 2613 audit rows: 59 cells (30-523 units), 0 violations, global REL_CORP=0.0010, largest radius 0.360 -> verdict Inconclusive | simulated hidden bias (seed 2026): 10 violations, verdict Violated
+~~~
+
+Read each line by its provenance class:
+
+- **C (Measured, `vic_elec.csv`).** The same-weekday analog ensemble keeps miscalibration well under half its discrimination gain ($32.9 \le 59.8$ MW). The negative proof shifts that ensemble by $-3\%$ and shrinks its spread: it still beats climatology on the lone CRPS, though it loses to the undistorted ensemble, and calibration loss eats more than half of its discrimination. A check that only asks "does it beat climatology?" would have passed it. The distortion was chosen after the pre-registered one failed to beat climatology at all (ten attempts, all recorded in D2).
+- **A (Measured, `nyc_flights_*.csv`; simulated null, seed 2026).** Eleven carriers flew from New York in both windows. With the paired calendar day as the independent unit, e-BH rejects "no change in the daily late-arrival rate" for two carriers (9E and HA) and names the other nine as discarded findings; peeking each stream at $1/\alpha$ would have announced five, which mixes two errors (reading the running maximum and skipping the multiplicity correction). An earlier design that treated each flight as a unit announced seven; an independent audit showed its e-values were driven by within-season dependence, and it was discarded (D7). Carrier codes may name different operators across a decade.
+- **P (Measured, `nsw_experimental.csv`).** The randomized arms differ by $W\_1 = 1794.3$ USD of 1978 earnings, which equals the difference in means because the treated distribution dominates the control one. The plug-in $W\_1$ sits on a noise floor of $0.1245$ SD, so the bound is taken on the mean gap: $\varepsilon \ge 0.1133$ control SD per unit of action. Treating a training assignment as a "performative" action is an authorial reading, and the bound replaces no card's hand-set $\varepsilon$; it is what a card declaring this action passive would have to beat.
+- **I (Measured, `nyc_flights_*.csv`).** Anchor regression on origin × month barely moves the slopes (gap $0.048$) and barely moves the 2023 error (at most $0.23\%$ across the grid; the worst cell gets slightly worse). Weighting by these anchors does not protect against the 2013 → 2023 shift; whether that shift runs along them is not identified by this test. The simulated confounded model (seed 2026) is where the gap opens.
+- **B (Measured, `rtdsm_routput_vintages.csv`).** Backtesting with the data each quarter actually had, the error is $4.85$ pp against today's numbers; feeding today's vintages into past decisions makes the same forecaster look $0.09$ pp (about $1.9\%$) better, using 632 inputs that were published after their decision, and the bitemporal clock raises its alarm. The RMSE includes 2020, and the 1996Q1 vintage lacks 1995Q4, which drops two decisions.
+- **A (Measured, `toronto_arrests.csv`; simulated defect, seed 2026).** The colour-blind predictor shows no certified violation, and the audit says why that settles nothing: cells hold 30 to 523 arrests, the smallest has a confidence radius of $0.36$, and certifying gaps below the $0.05$ tolerance would need about 1,550 units per cell. The verdict is `Inconclusive`, not "fair".
 
 ---
 
@@ -201,6 +227,7 @@ Explore the multi-dataset drift and bitemporal synthesis audited in Laboratory 7
 
 ## Summary
 
-- **Laboratory 7 (`labs --real-data`)** executes the complete closed-loop CAPIBA Protocol end-to-end across all 13 real CSV datasets in `data/*.csv` and all four canonical YAML Epistemological Cards in `cards/*.yaml`.
+- **Laboratory 7 (`labs --real-data`)** executes the complete closed-loop CAPIBA Protocol end-to-end across all 14 real CSV datasets in `data/*.csv` and all four canonical YAML Epistemological Cards in `cards/*.yaml`.
+- **One instrument per pillar faces real data** (CORP-CRPS, e-BH, performative power, anchor regression, real-time vintages, multicalibration): two of the six results are negative or inconclusive on the data — anchor weighting buys no robustness to the 2013 → 2023 shift, and Toronto cells are too small to certify multicalibration — and one design (flights as units for e-BH) was discarded after an independent audit; the chapter reports all three as such.
 - **Two distinct mechanisms shrink nominal $n$ to effective $n\_{\mathrm{eff}}$:** unadjusted selection correlation $\rho\_{R,Y} \neq 0$ on Bridge $L\_1 \to L\_2$ (Meng's Identity in `cps_observational.csv`) and within-cluster tail dependence $\rho\_I(p) > 0$ across operational shifts ($\Phi\_2$ Moulton-Campbell in `bank_calls.csv`, `atlantic_storms.csv`, and `nyc_flights_2013.csv`).
 - **Nearly identical calibrated probabilities rationally trigger opposite actions in $L\_3$** (`card_01` vs. `card_03`) once evaluated against each domain's asymmetric cost-loss threshold $p^{\ast} = \frac{C}{\eta L}$.

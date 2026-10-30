@@ -1,10 +1,12 @@
 //! Lens 4 — Structure and Invariance: Pearl's Causal Ladder, Invariant Causal Prediction (ICP),
 //! Environment-Projected OLS Invariance Penalty, Nonlinear NILE/IRM, and Hidden Confounding Threshold $\Lambda^*$ (§1.3.4).
 
+pub mod anchor;
 pub mod icp;
 pub mod nile_irm;
 pub mod shapley_causal;
 
+pub use anchor::{AnchorRegressionAudit, AnchoredSample};
 pub use icp::{
     CausalEnvironment, IcpResult, PearlRung, chow_invariance_f_stat,
     cinelli_hazlett_robustness_value, hidden_confounding_threshold_lambda_star, run_icp,
@@ -187,5 +189,33 @@ mod tests {
             nl.nonlinear_nile_irm_penalties[1]
         );
         assert!(nl.nonlinear_nile_irm_penalties[0] < nl.linear_ols_baseline_penalties[0]);
+    }
+
+    #[test]
+    fn anchor_regression_moves_from_ols_toward_the_causal_slope_under_confounding() {
+        let train = AnchorRegressionAudit::simulate_confounded(2026, 4_000, 10, 1.0);
+        let test = AnchorRegressionAudit::simulate_confounded(2027, 4_000, 10, 3.0);
+        let audit = AnchorRegressionAudit::evaluate(&train, &test);
+        let slope = |g: usize| audit.coefficients[g][1];
+        // OLS absorbs the confounder (slope well above 1); large gamma approaches the causal slope 1.
+        assert!(slope(0) > 1.5, "OLS slope {}", slope(0));
+        assert!((slope(4) - 1.0).abs() < (slope(0) - 1.0).abs());
+        assert!(!audit.anchor_stable && audit.relative_slope_gap > 0.10);
+        // Training fit is best at gamma = 1 by construction.
+        assert!(
+            audit
+                .train_mse
+                .iter()
+                .all(|&m| m >= audit.train_mse[0] - 1e-9)
+        );
+
+        // Without a hidden confounder, OLS and anchor agree (anchor stability).
+        let mut clean = train.clone();
+        let mut rng = Rng::new(7);
+        for (x, y) in clean.x.iter().zip(clean.y.iter_mut()) {
+            *y = 0.5 + x[1] + rng.normal(0.0, 0.5);
+        }
+        let stable = AnchorRegressionAudit::evaluate(&clean, &clean);
+        assert!(stable.anchor_stable, "gap {}", stable.relative_slope_gap);
     }
 }

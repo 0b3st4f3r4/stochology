@@ -34,17 +34,18 @@ pub use critical::{
     MarcuseRouvroyStochasticParrotAudit, MaterialCollapseTriadAudit,
 };
 pub use decision::{
-    CorpPavDecomposition, CorpRocMurphyTriptych, CostLossRule, ExactCoinCalibrationBenchmark,
-    LlmJudgePpiRectifier, MurphyDiagram, SaatyAhpRankReversalAudit, brier_score,
-    critical_cost_loss_threshold, logarithmic_score, quantile_score,
+    CorpCrpsDecomposition, CorpPavDecomposition, CorpRocMurphyTriptych, CostLossRule,
+    ExactCoinCalibrationBenchmark, LlmJudgePpiRectifier, MulticalibrationAudit,
+    MulticalibrationCell, MulticalibrationVerdict, MurphyDiagram, SaatyAhpRankReversalAudit,
+    brier_score, critical_cost_loss_threshold, logarithmic_score, quantile_score,
 };
 pub use information::{
     DpiMarkovChain, SdpiHierarchy, amplitude_constrained_mi_bound, binary_entropy_nats,
     blahut_arimoto_capacity, estimate_empirical_channel, fano_error_floor, kl_divergence,
 };
 pub use invariance::{
-    CausalEnvironment, IcpResult, NonlinearIcpNileResult, PearlRung, ShapleyCausalAudit,
-    chow_invariance_f_stat, cinelli_hazlett_robustness_value,
+    AnchorRegressionAudit, AnchoredSample, CausalEnvironment, IcpResult, NonlinearIcpNileResult,
+    PearlRung, ShapleyCausalAudit, chow_invariance_f_stat, cinelli_hazlett_robustness_value,
     hidden_confounding_threshold_lambda_star, run_icp, run_nonlinear_icp_nile,
     second_order_worst_case_loss, second_order_worst_case_loss_full,
 };

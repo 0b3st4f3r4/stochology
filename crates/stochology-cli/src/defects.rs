@@ -1,20 +1,21 @@
-//! Registry of the 21 Negative Defect Proofs (`ALL_DEFECTS`, `3 + 4 + 2 + 3 + 2 + 7 = 21`)
-//! across the Six Mnemonic Pillars of the CAPIBA Protocol (§II.B).
+//! Registry of the 27 Negative Defect Proofs (`ALL_DEFECTS`, `4 + 5 + 3 + 4 + 3 + 8 = 27`)
+//! across the Six Mnemonic Pillars of the CAPIBA Protocol (§II.B). Every count of negative proofs or
+//! pathways elsewhere in the workspace derives from `DEFECT_COUNT`.
 
 /// The Six Mnemonic Pillars of the CAPIBA Protocol (`C-A-P-I-B-A`, §II.B).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum CapibaPillar {
-    /// **C — Calibrated** (`cromwell`, `brier_dominance`, `concept_drift`)
+    /// **C — Calibrated** (`cromwell`, `brier_dominance`, `concept_drift`, `crps_miscalibration`)
     Calibrated,
-    /// **A — Anytime-valid** (`moulton`, `peeking`, `var_underreport`, `phi5`)
+    /// **A — Anytime-valid** (`moulton`, `peeking`, `var_underreport`, `phi5`, `multiplicity`)
     AnytimeValid,
-    /// **P — Performative-aware** (`performativity`, `replace_collapse`)
+    /// **P — Performative-aware** (`performativity`, `replace_collapse`, `understated_epsilon`)
     PerformativeAware,
-    /// **I — Invariant** (`lee_point_estimate`, `sniedovich`, `machine`)
+    /// **I — Invariant** (`lee_point_estimate`, `sniedovich`, `machine`, `anchor_extrapolation`)
     Invariant,
-    /// **B — Bitemporal** (`clock`, `vault`)
+    /// **B — Bitemporal** (`clock`, `vault`, `vintage_leak`)
     Bitemporal,
-    /// **A — Auditing** (`chouldechova`, `analog_wall`, `instrumental_reason`, `stochary_cybernetics`, `triadic_technium`, `strategic_accommodation`, `coupled_society`)
+    /// **A — Auditing** (`chouldechova`, `analog_wall`, `instrumental_reason`, `stochary_cybernetics`, `triadic_technium`, `strategic_accommodation`, `coupled_society`, `subgroup_miscalibration`)
     Auditing,
 }
 
@@ -27,8 +28,11 @@ pub struct DefectDescriptor {
     pub summary: &'static str,
 }
 
-/// Canonical registry of all 21 negative defect proofs (`3 + 4 + 2 + 3 + 2 + 7 = 21`).
-pub const ALL_DEFECTS: [DefectDescriptor; 21] = [
+/// Number of negative defect proofs (one competency pathway each).
+pub const DEFECT_COUNT: usize = 27;
+
+/// Canonical registry of all 27 negative defect proofs (`4 + 5 + 3 + 4 + 3 + 8 = 27`).
+pub const ALL_DEFECTS: [DefectDescriptor; DEFECT_COUNT] = [
     DefectDescriptor {
         name: "cromwell",
         pillar: CapibaPillar::Calibrated,
@@ -155,11 +159,73 @@ pub const ALL_DEFECTS: [DefectDescriptor; 21] = [
         gate: "G8",
         summary: "Event-time MNAR RRM procyclical liquidation, Stiglitz-Weiss credit rationing, and proportional-rebate VCG commons collapse",
     },
+    DefectDescriptor {
+        name: "crps_miscalibration",
+        pillar: CapibaPillar::Calibrated,
+        gate: "G6",
+        summary: "Sharp-but-biased ensemble beating climatology on a lone CRPS while CORP miscalibration exceeds half its discrimination",
+    },
+    DefectDescriptor {
+        name: "multiplicity",
+        pillar: CapibaPillar::AnytimeValid,
+        gate: "G6",
+        summary: "Peeking each of K e-processes at 1/alpha with K = 1 per hypothesis, breaking FDR control that e-BH keeps",
+    },
+    DefectDescriptor {
+        name: "understated_epsilon",
+        pillar: CapibaPillar::PerformativeAware,
+        gate: "G6",
+        summary: "Passive agent declared for an action whose randomized arms measure Wasserstein sensitivity epsilon > 0",
+    },
+    DefectDescriptor {
+        name: "anchor_extrapolation",
+        pillar: CapibaPillar::Invariant,
+        gate: "G6",
+        summary: "Invariant coefficients claimed where anchor regression departs from OLS under hidden confounding",
+    },
+    DefectDescriptor {
+        name: "vintage_leak",
+        pillar: CapibaPillar::Bitemporal,
+        gate: "G7",
+        summary: "Backtest fed latest-vintage revisions at past decision dates, tripping the bitemporal clock",
+    },
+    DefectDescriptor {
+        name: "subgroup_miscalibration",
+        pillar: CapibaPillar::Auditing,
+        gate: "G4",
+        summary: "Globally calibrated predictor hiding subgroup miscalibration that the multicalibration audit certifies",
+    },
 ];
 
-/// Returns the list of all 21 defect names in canonical verification order.
-pub fn all_defect_names() -> [&'static str; 21] {
+/// Returns the list of all defect names in canonical verification order.
+pub fn all_defect_names() -> [&'static str; DEFECT_COUNT] {
     ALL_DEFECTS.map(|d| d.name)
+}
+
+/// The six pillars in mnemonic order `C-A-P-I-B-A`.
+pub const PILLAR_ORDER: [CapibaPillar; 6] = [
+    CapibaPillar::Calibrated,
+    CapibaPillar::AnytimeValid,
+    CapibaPillar::PerformativeAware,
+    CapibaPillar::Invariant,
+    CapibaPillar::Bitemporal,
+    CapibaPillar::Auditing,
+];
+
+/// The pillar partition of the registry rendered as `"a + b + c + d + e + f = n"` (the form quoted in
+/// `AGENTS.md`, `docs/PROTOCOL.md`, and the book).
+pub fn pillar_partition() -> String {
+    let counts: Vec<String> = PILLAR_ORDER
+        .iter()
+        .map(|&p| {
+            ALL_DEFECTS
+                .iter()
+                .filter(|d| d.pillar == p)
+                .count()
+                .to_string()
+        })
+        .collect();
+    format!("{} = {}", counts.join(" + "), ALL_DEFECTS.len())
 }
 
 #[cfg(test)]
@@ -167,15 +233,21 @@ mod tests {
     use super::*;
 
     #[test]
-    fn capiba_pillar_defect_partition_matches_3_4_2_3_2_7_contract() {
+    fn capiba_pillar_defect_partition_matches_4_5_3_4_3_8_contract() {
         let count_for =
             |pillar: CapibaPillar| ALL_DEFECTS.iter().filter(|d| d.pillar == pillar).count();
-        assert_eq!(count_for(CapibaPillar::Calibrated), 3);
-        assert_eq!(count_for(CapibaPillar::AnytimeValid), 4);
-        assert_eq!(count_for(CapibaPillar::PerformativeAware), 2);
-        assert_eq!(count_for(CapibaPillar::Invariant), 3);
-        assert_eq!(count_for(CapibaPillar::Bitemporal), 2);
-        assert_eq!(count_for(CapibaPillar::Auditing), 7);
-        assert_eq!(ALL_DEFECTS.len(), 21);
+        assert_eq!(count_for(CapibaPillar::Calibrated), 4);
+        assert_eq!(count_for(CapibaPillar::AnytimeValid), 5);
+        assert_eq!(count_for(CapibaPillar::PerformativeAware), 3);
+        assert_eq!(count_for(CapibaPillar::Invariant), 4);
+        assert_eq!(count_for(CapibaPillar::Bitemporal), 3);
+        assert_eq!(count_for(CapibaPillar::Auditing), 8);
+        assert_eq!(ALL_DEFECTS.len(), DEFECT_COUNT);
+    }
+
+    /// The pillar partition rendered as `"a + b + ... = n"`, in pillar order.
+    #[test]
+    fn pillar_partition_string_is_derived_from_the_registry() {
+        assert_eq!(pillar_partition(), "4 + 5 + 3 + 4 + 3 + 8 = 27");
     }
 }

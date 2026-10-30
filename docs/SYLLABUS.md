@@ -49,9 +49,9 @@ The Return is not a recipe: a tension often has more than one legitimate formali
 
 The abstraction is preserved in full in both tracks; only the technical depth of the Return changes.
 
-### 4.1. Competency Graph and the 21 Pathways
+### 4.1. Competency Graph and the 27 Pathways
 
-The tracks above are a **depth tag**, not a route. The course itself is an acyclic graph of competencies (`docs/competencies.toml`, an authorial frame over the book). There are no reader-role tracks: a learner chooses the negative proofs they must be able to explain, and the union of those proofs' **pathways** is the reading plan. Each pathway is the prerequisite closure of the competency that carries one proof, so there are 21 of them, and each ends at a test that must exit with code `1`. The **Core track** is the union of the 13 Core pathways plus the Core practicum (the Funnel, the real-data synthesis, and the verification suite). The **Full track** adds the other 8 pathways and Protocol Profiles. The graph and the table below are generated from the data and checked by `crates/stochology-cli/tests/competency_dag.rs`: each pathway's depth and Movement must agree with §5–§6. Dashed boxes are Full competencies; thick boxes carry a negative proof (⊥).
+The tracks above are a **depth tag**, not a route. The course itself is an acyclic graph of competencies (`docs/competencies.toml`, an authorial frame over the book). There are no reader-role tracks: a learner chooses the negative proofs they must be able to explain, and the union of those proofs' **pathways** is the reading plan. Each pathway is the prerequisite closure of the competency that carries one proof, so there are 27 of them, and each ends at a test that must exit with code `1`. The **Core track** is the union of the 13 Core pathways plus the Core practicum (the Funnel, the real-data synthesis, and the verification suite). The **Full track** adds the other 14 pathways and Protocol Profiles. The graph and the table below are generated from the data and checked by `crates/stochology-cli/tests/competency_dag.rs`: each pathway's depth and Movement must agree with §5–§6. Dashed boxes are Full competencies; thick boxes carry a negative proof (⊥).
 
 <!-- competency-dag:begin -->
 ```mermaid
@@ -68,11 +68,13 @@ flowchart TB
     sampling_unit["Find the independent unit and estimate through a sampling design<br/><small>Ch 6</small>"]
     approximation_spectral["Bound what a finite model can approximate with bases, spectra, and minimax rates<br/><small>Ch 7</small>"]
     severe_testing["Test severely and keep evidence valid under continuous monitoring<br/><small>Ch 8 · ⊥ peeking</small>"]
+    multiplicity_ebh["Control false discoveries over many e-values with e-BH and name every discarded hypothesis<br/><small>Ch 8 · ⊥ multiplicity</small>"]
     var_es_backtest["Backtest VaR and Expected Shortfall with e-values<br/><small>Ch 8 · ⊥ var_underreport</small>"]
     lens_information["Apply the Information lens: data processing inequality, contraction, and Fano's floor<br/><small>Ch 9</small>"]
     lens_time["Apply the Time lens: Itô variance drain, Kelly fraction, and ruin<br/><small>Ch 9</small>"]
     lens_tail["Apply the Tail lens: Hill index, moment regimes, and tail quantiles<br/><small>Ch 9</small>"]
     lens_invariance["Apply the Invariance lens: ICP and nonlinear NILE across environments<br/><small>Ch 9</small>"]
+    anchor_regression["Trade in-sample fit for shift robustness with anchor regression and read anchor stability<br/><small>Ch 9 · ⊥ anchor_extrapolation</small>"]
     lens_decision["Apply the Decision lens: cost-loss boundary, EVPI, and CORP-Murphy decomposition<br/><small>Ch 9 · ⊥ brier_dominance</small>"]
   end
   subgraph part2["Part III"]
@@ -84,17 +86,21 @@ flowchart TB
   end
   subgraph part3["Part IV"]
     curvature_scoring["Score curved consequences: Jensen's gap, CRPS, proper scores, and the Cromwell floor<br/><small>Ch 15 · ⊥ cromwell</small>"]
+    crps_decomposition["Decompose the CRPS of continuous forecasts into miscalibration, discrimination, and uncertainty<br/><small>Ch 15 · ⊥ crps_miscalibration</small>"]
     thresholds_evidence["Turn calibrated probability into action within the human attention budget<br/><small>Ch 16</small>"]
     card_preregistration["Put the analyst's choices on record: card, attempt counter, and SHA-256 pre-registration<br/><small>Ch 17</small>"]
     critical_rationality["Expose what instrumental stochastic reason silences: amputated tails and correlational parrots<br/><small>Ch 18 · ⊥ instrumental_reason</small>"]
   end
   subgraph part4["Part V"]
     performativity["Separate performative stability from optimality and audit RRM contraction and Goodhart<br/><small>Ch 19 · ⊥ performativity</small>"]
+    performative_power["Measure a lower bound on performative sensitivity from randomized action arms<br/><small>Ch 19 · ⊥ understated_epsilon</small>"]
     synthetic_recursion["Keep recursive training anchored: Accumulate versus Replace<br/><small>Ch 19 · ⊥ replace_collapse</small>"]
     clustering_neff["Count tail information in clusters: Moulton-Campbell n_eff(p)<br/><small>Ch 20 · ⊥ moulton</small>"]
     resolution_phi5["Match the question's resolution to the decision unit (Phi5)<br/><small>Ch 20 · ⊥ phi5</small>"]
     fairness["Name who pays for error under Chouldechova's impossibility<br/><small>Ch 20 · ⊥ chouldechova</small>"]
+    multicalibration["Audit calibration inside every subgroup and bin, and say when the cells are too small to tell<br/><small>Ch 20 · ⊥ subgroup_miscalibration</small>"]
     bitemporal_clock["Keep event time and availability time apart with a synthetic canary<br/><small>Ch 21 · ⊥ clock</small>"]
+    real_time_vintages["Backtest on the data vintages that existed at decision time<br/><small>Ch 21 · ⊥ vintage_leak</small>"]
     temporal_vault["Open a sealed out-of-time reserve exactly once<br/><small>Ch 21 · ⊥ vault</small>"]
     drift_adaptation["Detect and adapt to covariate, label, and concept drift<br/><small>Ch 21 · ⊥ concept_drift</small>"]
     relational_complex["Model relations and open systems: Brusselator, Schelling, and Daisyworld<br/><small>Ch 22</small>"]
@@ -107,7 +113,7 @@ flowchart TB
   subgraph part6["Part VII"]
     funnel_siga["Prune a question through the 4 Filters and run the 8-step SIGA Roadmap<br/><small>Ch 26</small>"]
     protocol_profiles["Shape the protocol's clay for a new application with a pre-registered profile<br/><small>Ch 17, Ch 26</small>"]
-    empirical_synthesis["Face every lens and bridge with the 13 real datasets<br/><small>Ch 27</small>"]
+    empirical_synthesis["Face every lens and bridge with the 14 real datasets<br/><small>Ch 27</small>"]
   end
   subgraph part7["Appendices"]
     verification_suite["Run the gates, the negative proofs, and the full verification suite<br/><small>App. A, App. B</small>"]
@@ -121,12 +127,14 @@ flowchart TB
   convexity_jensen --> sampling_unit
   sampling_unit --> approximation_spectral
   sampling_unit --> severe_testing
+  severe_testing --> multiplicity_ebh
   severe_testing --> var_es_backtest
   markov_dags --> lens_information
   markov_dags --> lens_time
   sampling_unit --> lens_tail
   markov_dags --> lens_invariance
   approximation_spectral --> lens_invariance
+  lens_invariance --> anchor_regression
   convexity_jensen --> lens_decision
   natural_frequencies --> lens_decision
   sampling_unit --> missingness_bounds
@@ -140,6 +148,7 @@ flowchart TB
   analog_wave --> triadic
   lens_tail --> triadic
   lens_decision --> curvature_scoring
+  curvature_scoring --> crps_decomposition
   curvature_scoring --> thresholds_evidence
   severe_testing --> thresholds_evidence
   missingness_bounds --> card_preregistration
@@ -150,13 +159,16 @@ flowchart TB
   lens_decision --> performativity
   markov_dags --> performativity
   severe_testing --> performativity
+  performativity --> performative_power
   performativity --> synthetic_recursion
   seeds_acceptance --> synthetic_recursion
   lens_tail --> clustering_neff
   clustering_neff --> resolution_phi5
   thresholds_evidence --> fairness
+  fairness --> multicalibration
   severe_testing --> bitemporal_clock
   lens_information --> bitemporal_clock
+  bitemporal_clock --> real_time_vintages
   bitemporal_clock --> temporal_vault
   card_preregistration --> temporal_vault
   bitemporal_clock --> drift_adaptation
@@ -182,8 +194,8 @@ flowchart TB
   seeds_acceptance --> verification_suite
   classDef full stroke-dasharray: 5 4
   classDef proof stroke-width: 3px
-  class dynamics_odes,analog_wave,triadic,critical_rationality,synthetic_recursion,drift_adaptation,relational_complex,stocks_cybernetics,strategic_accommodation,coupled_society,protocol_profiles full
-  class uncertainty_typing,severe_testing,var_es_backtest,lens_decision,missingness_bounds,authentic_form,analog_wave,triadic,curvature_scoring,critical_rationality,performativity,synthetic_recursion,clustering_neff,resolution_phi5,fairness,bitemporal_clock,temporal_vault,drift_adaptation,stocks_cybernetics,strategic_accommodation,coupled_society proof
+  class dynamics_odes,multiplicity_ebh,anchor_regression,analog_wave,triadic,crps_decomposition,critical_rationality,performative_power,synthetic_recursion,multicalibration,real_time_vintages,drift_adaptation,relational_complex,stocks_cybernetics,strategic_accommodation,coupled_society,protocol_profiles full
+  class uncertainty_typing,severe_testing,multiplicity_ebh,var_es_backtest,anchor_regression,lens_decision,missingness_bounds,authentic_form,analog_wave,triadic,curvature_scoring,crps_decomposition,critical_rationality,performativity,performative_power,synthetic_recursion,clustering_neff,resolution_phi5,fairness,multicalibration,bitemporal_clock,real_time_vintages,temporal_vault,drift_adaptation,stocks_cybernetics,strategic_accommodation,coupled_society proof
 ```
 <!-- competency-dag:end -->
 
@@ -192,25 +204,31 @@ flowchart TB
 | :-: | --- | --- | :-: | :-: | --- |
 | 1 | `sniedovich` — Type uncertainty as aleatory, parametric, structural, or Knightian | I · Invariant | Core | 2 | Ch 1 → Ch 2 |
 | 2 | `peeking` — Test severely and keep evidence valid under continuous monitoring | A · Anytime-valid | Core | 5 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 8 |
-| 3 | `var_underreport` — Backtest VaR and Expected Shortfall with e-values | A · Anytime-valid | Core | 6 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 8 |
-| 4 | `brier_dominance` — Apply the Decision lens: cost-loss boundary, EVPI, and CORP-Murphy decomposition | C · Calibrated | Core | 4 | Ch 1 → Ch 2 → Ch 3 → Ch 9 |
-| 5 | `lee_point_estimate` — Bound what the world did not show: Meng's identity, Rubin's classes, Manski and Lee bounds | I · Invariant | Core | 5 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 10 |
-| 6 | `machine` — Separate structural core from residual: Kennedy-O'Hagan discrepancy and Authentic Model Form | I · Invariant | Core | 9 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 9 → Ch 11 |
-| 7 | `analog_wall` — Audit physical computing worlds: the analog wall, noise-aware training, and wave solvers | A · Auditing | Full | 14 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 5 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 11 → Ch 12 → Ch 13 |
-| 8 | `triadic_technium` — Test the triadic synthesis of phase, fractal scale, and toroidal recurrence | A · Auditing | Full | 16 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 5 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 11 → Ch 12 → Ch 13 → Ch 14 |
-| 9 | `cromwell` — Score curved consequences: Jensen's gap, CRPS, proper scores, and the Cromwell floor | C · Calibrated | Core | 5 | Ch 1 → Ch 2 → Ch 3 → Ch 9 → Ch 15 |
-| 10 | `instrumental_reason` — Expose what instrumental stochastic reason silences: amputated tails and correlational parrots | A · Auditing | Full | 16 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 15 → Ch 16 → Ch 17 → Ch 18 |
-| 11 | `performativity` — Separate performative stability from optimality and audit RRM contraction and Goodhart | P · Performative-aware | Core | 9 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 8 → Ch 9 → Ch 19 |
-| 12 | `replace_collapse` — Keep recursive training anchored: Accumulate versus Replace | P · Performative-aware | Full | 16 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 11 → Ch 12 → Ch 19 |
-| 13 | `moulton` — Count tail information in clusters: Moulton-Campbell n_eff(p) | A · Anytime-valid | Core | 6 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 9 → Ch 20 |
-| 14 | `phi5` — Match the question's resolution to the decision unit (Phi5) | A · Anytime-valid | Core | 7 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 9 → Ch 20 |
-| 15 | `chouldechova` — Name who pays for error under Chouldechova's impossibility | A · Auditing | Core | 10 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 8 → Ch 9 → Ch 15 → Ch 16 → Ch 20 |
-| 16 | `clock` — Keep event time and availability time apart with a synthetic canary | B · Bitemporal | Core | 8 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 8 → Ch 9 → Ch 21 |
-| 17 | `vault` — Open a sealed out-of-time reserve exactly once | B · Bitemporal | Core | 15 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 8 → Ch 9 → Ch 10 → Ch 15 → Ch 16 → Ch 17 → Ch 21 |
-| 18 | `concept_drift` — Detect and adapt to covariate, label, and concept drift | C · Calibrated | Full | 14 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 15 → Ch 21 |
-| 19 | `stochary_cybernetics` — Govern with stocks and buffers, and judge process apart from outcome | A · Auditing | Full | 14 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 5 → Ch 6 → Ch 8 → Ch 9 → Ch 19 → Ch 22 → Ch 23 |
-| 20 | `strategic_accommodation` — Repair the six AI shortcuts across all six ordered pairs | A · Auditing | Full | 21 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 11 → Ch 12 → Ch 15 → Ch 16 → Ch 17 → Ch 19 → Ch 20 → Ch 24 |
-| 21 | `coupled_society` — Close the stock-flow loop between a public regulator and private credit | A · Auditing | Full | 19 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 5 → Ch 6 → Ch 8 → Ch 9 → Ch 10 → Ch 15 → Ch 16 → Ch 19 → Ch 20 → Ch 22 → Ch 23 → Ch 25 |
+| 3 | `multiplicity` — Control false discoveries over many e-values with e-BH and name every discarded hypothesis | A · Anytime-valid | Full | 6 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 8 |
+| 4 | `var_underreport` — Backtest VaR and Expected Shortfall with e-values | A · Anytime-valid | Core | 6 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 8 |
+| 5 | `anchor_extrapolation` — Trade in-sample fit for shift robustness with anchor regression and read anchor stability | I · Invariant | Full | 8 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 9 |
+| 6 | `brier_dominance` — Apply the Decision lens: cost-loss boundary, EVPI, and CORP-Murphy decomposition | C · Calibrated | Core | 4 | Ch 1 → Ch 2 → Ch 3 → Ch 9 |
+| 7 | `lee_point_estimate` — Bound what the world did not show: Meng's identity, Rubin's classes, Manski and Lee bounds | I · Invariant | Core | 5 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 10 |
+| 8 | `machine` — Separate structural core from residual: Kennedy-O'Hagan discrepancy and Authentic Model Form | I · Invariant | Core | 9 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 9 → Ch 11 |
+| 9 | `analog_wall` — Audit physical computing worlds: the analog wall, noise-aware training, and wave solvers | A · Auditing | Full | 14 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 5 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 11 → Ch 12 → Ch 13 |
+| 10 | `triadic_technium` — Test the triadic synthesis of phase, fractal scale, and toroidal recurrence | A · Auditing | Full | 16 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 5 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 11 → Ch 12 → Ch 13 → Ch 14 |
+| 11 | `cromwell` — Score curved consequences: Jensen's gap, CRPS, proper scores, and the Cromwell floor | C · Calibrated | Core | 5 | Ch 1 → Ch 2 → Ch 3 → Ch 9 → Ch 15 |
+| 12 | `crps_miscalibration` — Decompose the CRPS of continuous forecasts into miscalibration, discrimination, and uncertainty | C · Calibrated | Full | 6 | Ch 1 → Ch 2 → Ch 3 → Ch 9 → Ch 15 |
+| 13 | `instrumental_reason` — Expose what instrumental stochastic reason silences: amputated tails and correlational parrots | A · Auditing | Full | 16 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 15 → Ch 16 → Ch 17 → Ch 18 |
+| 14 | `performativity` — Separate performative stability from optimality and audit RRM contraction and Goodhart | P · Performative-aware | Core | 9 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 8 → Ch 9 → Ch 19 |
+| 15 | `understated_epsilon` — Measure a lower bound on performative sensitivity from randomized action arms | P · Performative-aware | Full | 10 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 8 → Ch 9 → Ch 19 |
+| 16 | `replace_collapse` — Keep recursive training anchored: Accumulate versus Replace | P · Performative-aware | Full | 16 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 11 → Ch 12 → Ch 19 |
+| 17 | `moulton` — Count tail information in clusters: Moulton-Campbell n_eff(p) | A · Anytime-valid | Core | 6 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 9 → Ch 20 |
+| 18 | `phi5` — Match the question's resolution to the decision unit (Phi5) | A · Anytime-valid | Core | 7 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 9 → Ch 20 |
+| 19 | `chouldechova` — Name who pays for error under Chouldechova's impossibility | A · Auditing | Core | 10 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 8 → Ch 9 → Ch 15 → Ch 16 → Ch 20 |
+| 20 | `subgroup_miscalibration` — Audit calibration inside every subgroup and bin, and say when the cells are too small to tell | A · Auditing | Full | 11 | Ch 1 → Ch 2 → Ch 3 → Ch 6 → Ch 8 → Ch 9 → Ch 15 → Ch 16 → Ch 20 |
+| 21 | `clock` — Keep event time and availability time apart with a synthetic canary | B · Bitemporal | Core | 8 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 8 → Ch 9 → Ch 21 |
+| 22 | `vintage_leak` — Backtest on the data vintages that existed at decision time | B · Bitemporal | Full | 9 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 8 → Ch 9 → Ch 21 |
+| 23 | `vault` — Open a sealed out-of-time reserve exactly once | B · Bitemporal | Core | 15 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 8 → Ch 9 → Ch 10 → Ch 15 → Ch 16 → Ch 17 → Ch 21 |
+| 24 | `concept_drift` — Detect and adapt to covariate, label, and concept drift | C · Calibrated | Full | 14 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 15 → Ch 21 |
+| 25 | `stochary_cybernetics` — Govern with stocks and buffers, and judge process apart from outcome | A · Auditing | Full | 14 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 5 → Ch 6 → Ch 8 → Ch 9 → Ch 19 → Ch 22 → Ch 23 |
+| 26 | `strategic_accommodation` — Repair the six AI shortcuts across all six ordered pairs | A · Auditing | Full | 21 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 6 → Ch 7 → Ch 8 → Ch 9 → Ch 10 → Ch 11 → Ch 12 → Ch 15 → Ch 16 → Ch 17 → Ch 19 → Ch 20 → Ch 24 |
+| 27 | `coupled_society` — Close the stock-flow loop between a public regulator and private credit | A · Auditing | Full | 19 | Ch 1 → Ch 2 → Ch 3 → Ch 4 → Ch 5 → Ch 6 → Ch 8 → Ch 9 → Ch 10 → Ch 15 → Ch 16 → Ch 19 → Ch 20 → Ch 22 → Ch 23 → Ch 25 |
 <!-- competency-pathways:end -->
 
 ---
@@ -270,7 +288,7 @@ Notation: ★ = archetype equation taught in the Core track; symbols are Rust it
   - *Consequential asymmetry* → ★ cost-loss boundary $p^* = \frac{C}{\eta L}$ (`critical_cost_loss_threshold`), EVPI (`calculate_evpi`), Richardson's relative value, and the isotonic CORP-Murphy decomposition $\mathrm{BS} = \mathrm{REL}_{\mathrm{CORP}} - \mathrm{RES}_{\mathrm{CORP}} + \mathrm{UNC}_0$ (`CorpPavDecomposition`, `MurphyDiagram`).
   - Severe testing, multiplicity, e-processes, and conformal prediction (Ch. 8) as the $L_3$ toolset.
 - **Laboratory.** `labs -- --lenses`.
-- **Negative proofs.** `--defect brier_dominance` (Brier ranking vs. Murphy uniform dominance; Ch. 9), `--defect peeking` and `--defect var_underreport` (optional stopping and VaR/ES underreporting; Ch. 8).
+- **Negative proofs.** `--defect brier_dominance` (Brier ranking vs. Murphy uniform dominance; Ch. 9), `--defect peeking` and `--defect var_underreport` (optional stopping and VaR/ES underreporting; Ch. 8). Full track adds `--defect multiplicity` (e-BH over many e-values; Ch. 8) and `--defect anchor_extrapolation` (anchor regression; Ch. 9).
 
 ### Movement III — Representation and Materiality: World ⇄ Model (Ch. 10–14)
 
@@ -294,7 +312,7 @@ Notation: ★ = archetype equation taught in the Core track; symbols are Rust it
   - $L_2 \to L_3$: ★ Jensen's gap $\Delta_J = \mathbb{E}[f(X)] - f(\mathbb{E}[X])$ with median, $q_{05}$, $q_{95}$, and CRPS (`NonlinearSummary`; Prohibition 2). *Measured worked example:* on `bank_calls.csv` (164 days, squared daily calls), $\Delta_J = +9.03 \times 10^6$, about $0.85\%$ of $f(\mathbb{E}[X])$. Strictly proper scores (Brier, Log, CRPS) with the Cromwell floor $p \in [\varepsilon, 1-\varepsilon]$ (`apply_cromwell_floor`); anytime-valid evidence: `aGRAPA`/`GRO` betting martingales (`EvidenceProcess`) and SAVI confidence sequences (`SaviConfidenceSequence`) against peeking; VaR/ES e-backtesting (`VarEsEBacktest`); deciban alarm triage against the human conscious bottleneck (`AlertFatigueAudit`). The $10\text{ bit/s}$ figure is **Literature (informative)** (Zheng & Meister); the operating point $\mathrm{TPR} = 0.82$, $\mathrm{FPR} = 0.045$ is **Assumed**.
   - $L_3 \to L_2$: ★ the Duhem-Quine-Lakatos attempt counter $K \ge 1$, the structured Epistemological Card (`EpistemologicalCard`) replacing free prose, and SHA-256 pre-registration. *Full track:* the critical theory of stochastic rationality (`CriticalStochasticRationalitySynthesis`): the naive positivist arm (truncated-Gaussian VaR, correlational "parrot" predictor) is a **simulated** contrast under seeded acceptance, not a measurement of any named real system.
 - **Laboratory.** `labs -- --siga` (cards as $L_3 \to L_2$ records).
-- **Negative proofs.** `--defect cromwell`; Full track adds `--defect instrumental_reason`. The anytime-valid proofs `--defect peeking` and `--defect var_underreport` are run in Movement II, where Ch. 8 develops the tools.
+- **Negative proofs.** `--defect cromwell`; Full track adds `--defect instrumental_reason` and `--defect crps_miscalibration` (CORP decomposition of the CRPS; Ch. 15). The anytime-valid proofs `--defect peeking` and `--defect var_underreport` are run in Movement II, where Ch. 8 develops the tools.
 
 ### Movement V — Praxis, Relationality, and Buffering: Decision ⇄ World (Ch. 19–23, 25)
 
@@ -307,15 +325,15 @@ Notation: ★ = archetype equation taught in the Core track; symbols are Rust it
   - $L_1 \to L_3$: ★ Moulton-Campbell tail design effect $n_{\mathrm{eff}}(p) = \frac{n}{1 + (\tilde{m}-1)\rho_I(p)}$ (`ExceedanceDesignEffect`); $\Phi_5$ resolution parity (`verify_resolution_phi5`); ★ the bitemporal clock $t_{\text{disp}} \ge t_{\text{ev}}$ with a synthetic canary $I(\text{Canary};Y) = 0$ (`BitemporalClockAudit`) and the single-opening `TemporalVault`; drift adaptation (ExTRA-WCP-T, online ACI, the four label-shift estimators); Chouldechova's impossibility (`ChouldechovaAudit`).
   - Axis syntheses (Full track): relational ontology and complex systems (`RelationalComplexSystemsSynthesis`: Brusselator RK4 entropy production, Schelling, Daisyworld); ★ (Core, conceptual only) the PATE Telos/Skopos matrix and, in the Full track, the full stochary-conjectural cybernetic synthesis (`StocharyConjecturalCyberneticSynthesis`: the four ontological stock axioms, TTS/TTR, VSM `S3*`); the coupled public-private stock-flow consistent society (`CoupledPublicPrivateSocietySynthesis`, `SfcFlowMatrix`; Ch. 25). Results in these syntheses are **simulated** and gated by seeded multi-seed acceptance; claims listed in `discarded_claims` must be taught as refuted.
 - **Laboratories.** `labs -- --invariants`, `labs -- --governance`.
-- **Negative proofs.** Core: `--defect performativity`, `--defect moulton`, `--defect phi5`, `--defect clock`, `--defect vault`, `--defect chouldechova`. Full adds `--defect replace_collapse`, `--defect concept_drift`, `--defect stochary_cybernetics`, `--defect coupled_society`.
+- **Negative proofs.** Core: `--defect performativity`, `--defect moulton`, `--defect phi5`, `--defect clock`, `--defect vault`, `--defect chouldechova`. Full adds `--defect replace_collapse`, `--defect concept_drift`, `--defect stochary_cybernetics`, `--defect coupled_society`, `--defect understated_epsilon` (measured performative power; Ch. 19), `--defect subgroup_miscalibration` (multicalibration; Ch. 20), `--defect vintage_leak` (real-time data vintages; Ch. 21).
 
 ### Unit P — Practicum Thread (Ch. 24, 26–27, Appendices A–C; runs across Units I–V)
 
-- **Content.** The 4 Eliminatory Filters and the 8-step SIGA Roadmap (Ch. 26); the transversal empirical synthesis across the 13 datasets (Ch. 27, `labs -- --real-data`); architecture and verification (Appendices A–B); data sources and sealed reserves (Appendix C).
+- **Content.** The 4 Eliminatory Filters and the 8-step SIGA Roadmap (Ch. 26); the transversal empirical synthesis across the 14 datasets (Ch. 27, `labs -- --real-data`); architecture and verification (Appendices A–B); data sources and sealed reserves (Appendix C).
 - **Case studies.** `card_01_atlantic_storms_evacuation.yaml`, `card_02_bank_queue_staffing.yaml`, `card_03_nyc_flights_holding.yaml`, `card_04_dpi_civil_defense_triage.yaml`, each audited with `gates -- --audit-card <card>`.
 - **Full-track capstone.** The Strategic AI six-pair accommodation synthesis (`StrategicAiAccommodationSynthesis`, Ch. 24), read as an authorial frame across all six pairs; negative proof `--defect strategic_accommodation`.
 
-Across both tracks, the 21 negative defect proofs are distributed with no repetition: Movement I (1), II (3), III (4), IV (2), V (10), Practicum (1). The same assignment appears in each chapter's three-tempo block.
+Across both tracks, the 27 negative defect proofs are distributed with no repetition: Movement I (1), II (5), III (4), IV (3), V (13), Practicum (1). The same assignment appears in each chapter's three-tempo block.
 
 ---
 
@@ -326,7 +344,7 @@ Across both tracks, the 21 negative defect proofs are distributed with no repeti
 | Pair diagnoses | 20% | For five short cases, answer the Three Questions (layer/bridge, Stirling-Walker class, severe test). |
 | Laboratory reproductions | 25% | Reproduce one positive laboratory and one negative proof per Movement; explain why the naive method fails. |
 | Provenance audit | 15% | Label every number in a supplied derived text (Measured / Simulated / Assumed / Literature) and flag violations of `AGENTS.md` §II.C. |
-| Capstone Epistemological Card | 40% | Write a new card on one of the 13 datasets, declare $K \ge 1$ and discarded findings, seal it with SHA-256, and pass the 4-Filter Funnel. Filter 4 cross-authorship: a peer acts as `adversarial_reviewer`. |
+| Capstone Epistemological Card | 40% | Write a new card on one of the 14 datasets, declare $K \ge 1$ and discarded findings, seal it with SHA-256, and pass the 4-Filter Funnel. Filter 4 cross-authorship: a peer acts as `adversarial_reviewer`. |
 
 ---
 

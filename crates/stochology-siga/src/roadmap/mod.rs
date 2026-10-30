@@ -9,11 +9,13 @@
 
 pub mod alert_fatigue;
 pub mod blueprints;
+pub mod ebh;
 pub mod martingales;
 pub mod runner;
 
 pub use alert_fatigue::{AlertFatigueAudit, NaturalFrequencyMemorandum, OperatingPointSource};
 pub use blueprints::{MultimodalCorrelatedFusionAudit, PreMortemCounterfactualRootCauseAudit};
+pub use ebh::{EBhMultiplicityAudit, PeekingMultiplicitySimulation};
 pub use martingales::{EvidenceProcess, SaviConfidenceSequence, VarEsEBacktest};
 pub use runner::{
     SigaExecutionReport, run_full_siga_roadmap, run_full_siga_roadmap_empirical,
@@ -205,5 +207,29 @@ mod tests {
         assert!((pm.pns_upper_bound - 0.84).abs() < 1e-12);
         assert!(pm.tian_pearl_bounds_identity_error < 1e-12);
         assert!(pm.sop_cognitive_load_bps <= 10.0);
+    }
+
+    #[test]
+    fn ebh_rejects_the_k_hat_largest_e_values_and_names_the_rest() {
+        let labels: Vec<String> = ["a", "b", "c", "d"].iter().map(|s| s.to_string()).collect();
+        // K = 4, alpha = 0.1: k = 2 needs e >= 20 for both; k = 3 needs e >= 13.33 for the third.
+        let e = [100.0, 25.0, 12.0, 0.5];
+        let audit = EBhMultiplicityAudit::evaluate(&labels, &e, 0.1);
+        assert_eq!(audit.rejections_k_hat, 2);
+        assert!((audit.rejection_threshold - 20.0).abs() < 1e-12);
+        assert_eq!(audit.rejected, vec!["a".to_string(), "b".to_string()]);
+        assert_eq!(audit.discarded, vec!["c".to_string(), "d".to_string()]);
+        // BY: p = 1/e = (0.01, 0.04, 0.083, 1); H_4 = 25/12; only p_(1) <= 0.1 * 1 / (4 * H_4) = 0.012.
+        assert_eq!(audit.benjamini_yekutieli_rejected, vec!["a".to_string()]);
+
+        let none = EBhMultiplicityAudit::evaluate(&labels, &[1.0, 2.0, 3.0, 4.0], 0.1);
+        assert_eq!(none.rejections_k_hat, 0);
+        assert!(none.rejection_threshold.is_infinite() && none.discarded.len() == 4);
+    }
+
+    #[test]
+    fn naive_peeking_without_multiplicity_breaks_fdr_and_ebh_keeps_it() {
+        let sim = PeekingMultiplicitySimulation::simulate(2026, 20, 500, 200, 0.05, 0.3);
+        assert!(sim.naive_breaks_and_ebh_controls(), "{sim:?}");
     }
 }

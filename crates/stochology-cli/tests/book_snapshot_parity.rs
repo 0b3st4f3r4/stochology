@@ -2,7 +2,7 @@
 //! `book-src/*.md` must appear verbatim (trimmed) in the output that the current code prints.
 //!
 //! Quoted output lines are recognized by their trimmed prefix: `[`, `NEGATIVE PROOF`, `=== `, or `Out of every`.
-//! The collected output is `labs --all`, `gates`, `gates --defect <name>` for each of the 21 negative proofs, and
+//! The collected output is `labs --all`, `gates`, `gates --defect <name>` for each negative proof, and
 //! `gates --audit-card` on the shaped application of `examples/clay/` (Protocol Profile worked example).
 
 use std::collections::HashSet;
@@ -37,7 +37,7 @@ fn run_capture(bin: &'static str, args: Vec<String>, root: PathBuf) -> String {
     text
 }
 
-/// Collects the trimmed output lines of `labs --all`, `gates`, the 21 `gates --defect <name>` runs, and the
+/// Collects the trimmed output lines of `labs --all`, `gates`, every `gates --defect <name>` run, and the
 /// shaped-application `gates --audit-card` run.
 fn collect_output_lines(root: &Path) -> HashSet<String> {
     let labs_bin: &'static str = env!("CARGO_BIN_EXE_labs");

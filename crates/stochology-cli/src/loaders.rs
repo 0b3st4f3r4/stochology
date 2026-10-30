@@ -6,7 +6,8 @@ use std::collections::BTreeMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 use stochology_core::{EpistemologicalCard, apply_cromwell_floor};
-use stochology_lenses::CausalEnvironment;
+use stochology_governance::parse_quarter;
+use stochology_lenses::{AnchoredSample, CausalEnvironment};
 
 /// Resolves the workspace/distribution root directory containing `data/SHA256SUMS` and `cards/*.yaml`.
 ///
@@ -260,6 +261,44 @@ pub fn load_vic_elec_demand(root_dir: &Path) -> Vec<f64> {
     table.rows().filter_map(|r| r.f64_at(2)).collect()
 }
 
+/// Reads the daily maximum electricity demand (MW) of Victoria (`data/vic_elec.csv`), one value per local
+/// `Date` in file order (1 095 days, 2012-01-01 to 2014-12-31).
+pub fn load_vic_elec_daily_peaks(root_dir: &Path) -> Vec<f64> {
+    let table =
+        CsvTable::open(root_dir, "data/vic_elec.csv").expect("failed to read data/vic_elec.csv");
+    let mut peaks: Vec<f64> = Vec::new();
+    let mut current_date = String::new();
+    for row in table.rows() {
+        let (Some(date), Some(demand)) = (row.str_at(4), row.f64_at(2)) else {
+            continue;
+        };
+        if date != current_date {
+            current_date = date.to_string();
+            peaks.push(demand);
+        } else if let Some(last) = peaks.last_mut() {
+            *last = last.max(demand);
+        }
+    }
+    peaks
+}
+
+/// Reads the Philadelphia Fed real-time real-output vintages (`data/rtdsm_routput_vintages.csv`) as
+/// `(vintage, obs_quarter, level)` quarter indices (`4 * year + q - 1`) and levels.
+pub fn load_rtdsm_routput_vintages(root_dir: &Path) -> Vec<(u32, u32, f64)> {
+    let table = CsvTable::open(root_dir, "data/rtdsm_routput_vintages.csv")
+        .expect("failed to read data/rtdsm_routput_vintages.csv");
+    table
+        .rows()
+        .filter_map(|r| {
+            Some((
+                parse_quarter(r.str_at(0)?)?,
+                parse_quarter(r.str_at(1)?)?,
+                r.f64_at(2)?,
+            ))
+        })
+        .collect()
+}
+
 /// Reads Toronto arrest records (`data/toronto_arrests.csv`) and returns empirical base rates
 /// $(p_A, p_B)$ of non-release (`released == "No"`) across two demographic groups with unequal base rates.
 pub fn load_toronto_arrests_prevalences(root_dir: &Path) -> (f64, f64) {
@@ -343,6 +382,106 @@ pub fn load_nyc_flights_cascade_2013_2023(
     let (x13, y13) = load_cascade("data/nyc_flights_2013.csv", 1_500);
     let (x23, y23) = load_cascade("data/nyc_flights_2023.csv", 1_500);
     (x13, y13, x23, y23)
+}
+
+/// Daily `(late arrivals, flights)` keyed by calendar day `(month, day)`.
+pub type DailyExceedances = BTreeMap<(u32, u32), (u32, u32)>;
+
+/// Daily `(late arrivals, flights)` per carrier and calendar day `(month, day)` of a flight CSV, where late
+/// means $\text{arr\_delay} > 15$ min; flights without a recorded delay are skipped. The day, not the flight,
+/// is the independent unit of the e-BH carrier audit ($\Phi_2$): flights of one day share weather and congestion.
+pub fn load_flight_daily_exceedances_by_carrier(
+    root_dir: &Path,
+    rel_path: &str,
+) -> BTreeMap<String, DailyExceedances> {
+    let table = CsvTable::open(root_dir, rel_path).expect("failed to read flight CSV");
+    let mut by_carrier: BTreeMap<String, DailyExceedances> = BTreeMap::new();
+    for r in table.rows() {
+        let (Some(month), Some(day), Some(carrier), Some(delay)) =
+            (r.u32_at(0), r.u32_at(1), r.str_at(4), r.f64_at(8))
+        else {
+            continue;
+        };
+        let cell = by_carrier
+            .entry(carrier.to_string())
+            .or_default()
+            .entry((month, day))
+            .or_default();
+        cell.0 += u32::from(delay > 15.0);
+        cell.1 += 1;
+    }
+    by_carrier
+}
+
+/// Reads the anchor-regression design of a New York flight CSV: response = arrival delay winsorized to
+/// $[-60, 300]$ minutes; predictors = (1, scheduled departure hour, distance in thousands of miles);
+/// anchor cell = origin (EWR, JFK, LGA) × month (Aug–Dec). Rows without a delay are skipped.
+pub fn load_flight_anchor_design(root_dir: &Path, rel_path: &str) -> AnchoredSample {
+    let table = CsvTable::open(root_dir, rel_path).expect("failed to read flight CSV");
+    let mut sample = AnchoredSample {
+        x: Vec::new(),
+        y: Vec::new(),
+        cell: Vec::new(),
+    };
+    for row in table.rows() {
+        let (Some(month), Some(dep), Some(origin), Some(distance), Some(delay)) = (
+            row.u32_at(0),
+            row.u32_at(2),
+            row.str_at(5),
+            row.f64_at(7),
+            row.f64_at(8),
+        ) else {
+            continue;
+        };
+        let Some(origin_idx) = ["EWR", "JFK", "LGA"].iter().position(|&o| o == origin) else {
+            continue;
+        };
+        if !(8..=12).contains(&month) {
+            continue;
+        }
+        sample
+            .x
+            .push(vec![1.0, f64::from(dep / 100), distance / 1_000.0]);
+        sample.y.push(delay.clamp(-60.0, 300.0));
+        sample.cell.push(origin_idx * 5 + (month - 8) as usize);
+    }
+    sample
+}
+
+/// One Toronto arrest record (`data/toronto_arrests.csv`) for the multicalibration audit.
+#[derive(Debug, Clone, PartialEq)]
+pub struct TorontoArrest {
+    pub row: u32,
+    pub released: bool,
+    pub black: bool,
+    pub year: f64,
+    pub age: f64,
+    pub male: bool,
+    pub employed: bool,
+    pub citizen: bool,
+    pub checks: f64,
+}
+
+/// Reads every complete record of `data/toronto_arrests.csv`.
+pub fn load_toronto_arrests(root_dir: &Path) -> Vec<TorontoArrest> {
+    let table = CsvTable::open(root_dir, "data/toronto_arrests.csv")
+        .expect("failed to read data/toronto_arrests.csv");
+    table
+        .rows()
+        .filter_map(|r| {
+            Some(TorontoArrest {
+                row: r.u32_at(0)?,
+                released: r.str_at(1)? == "Yes",
+                black: r.str_at(2)? == "Black",
+                year: r.f64_at(3)?,
+                age: r.f64_at(4)?,
+                male: r.str_at(5)? == "Male",
+                employed: r.str_at(6)? == "Yes",
+                citizen: r.str_at(7)? == "Yes",
+                checks: r.f64_at(8)?,
+            })
+        })
+        .collect()
 }
 
 /// Reads standardized distance $((d - 1000)/1000)$ and binary arrival-delay indicator $(\text{arr\_delay} > 15\text{ min})$

@@ -8,6 +8,7 @@ pub mod defects;
 pub mod dpi_card04;
 pub mod error;
 pub mod loaders;
+pub mod pillars;
 
 pub use card_audit::{
     CardDatasetStrategy, ColumnMappedCsvStrategy, EmpiricalDatasetAudit, ExtractedCardDataset,
@@ -21,7 +22,10 @@ pub use competencies::{
     PracticumThread, replace_marked_block,
 };
 pub use csv::{CsvRow, CsvTable};
-pub use defects::{ALL_DEFECTS, CapibaPillar, DefectDescriptor, all_defect_names};
+pub use defects::{
+    ALL_DEFECTS, CapibaPillar, DEFECT_COUNT, DefectDescriptor, PILLAR_ORDER, all_defect_names,
+    pillar_partition,
+};
 pub use dpi_card04::PublicInfrastructureCard04Audit;
 pub use error::CliError;
 pub use loaders::{
@@ -67,6 +71,6 @@ mod tests {
 
         let dpi_card04 = PublicInfrastructureCard04Audit::evaluate_from_disk(root);
         assert!(dpi_card04.verified);
-        assert_eq!(ALL_DEFECTS.len(), 21);
+        assert_eq!(ALL_DEFECTS.len(), DEFECT_COUNT);
     }
 }

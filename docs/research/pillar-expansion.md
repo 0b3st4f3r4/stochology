@@ -152,3 +152,68 @@ re-sealed under human review; no G8 claim changes.
 ## 10. Deviations log
 
 (Appended during implementation.)
+
+- **D1 (§3, method).** Ordering by the ensemble median does not make the original forecast $F_i(z)$ antitonic in
+  that index (a wider ensemble with a higher median can have a higher CDF at some $z$), so MCB can turn
+  negative. Implemented instead: the threshold-wise CORP decomposition (`CorpCrpsDecomposition`), ordering by
+  $F_i(z)$ at each threshold. Components stay non-negative and the identity closes exactly; the recalibrated
+  $\hat{F}_i$ need not be a CDF, and `max_cdf_violation` reports the largest decrease.
+- **D2 (§3, negative proof).** The pre-registered distortion ($-8\%$ bias, spread $\times 0.25$) does **not**
+  beat climatology on `vic_elec.csv` (CRPS $548.4$ vs UNC $442.7$ MW), so the lone CRPS would already reject it
+  and the proof would show nothing. Attempts (K = 10, all recorded): bias $\in \{-8, -5, -4, -3, -2\}\%$ ×
+  spread $\in \{0.25, 0.5\}$. Seven beat climatology; six of those violate the admissibility rule. Chosen:
+  $-3\%$, spread $\times 0.25$ (CRPS $422.8 <$ UNC $442.7$; MCB $74.9 > \tfrac12$ DSC $= 47.4$), the
+  combination with margin on both sides. The admissibility rule itself ($\mathrm{MCB} \le \tfrac12\mathrm{DSC}$)
+  was not changed.
+- **D3 (§6, clarification fixed before computing).** The relative anchor-stability gap
+  $\|\hat{b}_\gamma - \hat{b}_1\| / \|\hat{b}_1\|$ is taken over the **slope** coefficients only (departure
+  hour, distance): an invariance claim is about effects, and the intercept lies in the span of the
+  origin × month anchors, so it moves with γ by construction.
+- **D4 (§8, correction and reporting).** (a) The Hoeffding radius first used the width 2 of $[-1, 1]$; each
+  residual $y - p$ lies in $[-p, 1 - p]$ (width 1), so the radius is $\sqrt{\ln(2/\delta)/2n}$. This is a
+  correctness fix, applied after the first run on `toronto_arrests.csv`; it changes no cell's verdict there.
+  (b) That first run certified no violation, but its cells (30–523 units; radius 0.36 at the smallest) cannot resolve gaps of the
+  tolerance's size, so "no violation" would have been read as "multicalibrated". Added a three-way verdict —
+  `Violated`, `Certified` (every upper bound ≤ α), `Inconclusive` — without changing the violation rule,
+  the cells, the bins, or α.
+- **D5 (§4, reporting addition).** On the real carriers, the naive per-hypothesis peeking rule is also
+  reported next to e-BH. It differs from e-BH in two ways at once — it reads the running maximum of each
+  e-process (peeking) and applies no multiplicity correction — so the gap between them is not attributable
+  to the K correction alone.
+- **D6 (§4, reporting addition).** Benjamini-Yekutieli step-up on $p_k = \min(1, 1/e_k)$ is reported next to
+  e-BH, to show the harmonic penalty $H_K$ that e-BH avoids under arbitrary dependence.
+- **D7 (§4, design change after the adversarial audit; K = 2 for this instrument).** The pre-registered unit,
+  the single flight with the pooled 2013 rate as a fixed reference, violates $\Phi_2$: flights of one day share
+  weather and congestion, and the August–December season is not stationary. The independent audit found
+  running e-values near $10^{30}$ for a carrier whose terminal e-value was $0.32$ (impossible under the stated
+  null). Replaced by the paired calendar day: $X_{k,d} = r_{2023}(d) - r_{2013}(d)$ over the days carrier $k$
+  flew in both years, in calendar order. First design (discarded, recorded): 7 rejected, 4 discarded, naive 10.
+  Current design: 2 rejected (9E, HA), 9 discarded, naive 5, Benjamini-Yekutieli 1.
+- **D8 (§5, estimator and attribution change after the adversarial audit).** The plug-in $W_1$ is biased
+  upward (permutation null mean $0.1245$ SD on the NSW arms), so its bootstrap quantile is not a valid lower
+  bound. The bound is now the 5% bootstrap quantile of $|\bar{y}_1 - \bar{y}_0| / \mathrm{sd}_0$, valid because
+  $W_1 \ge |\mu_1 - \mu_0|$: $\varepsilon \ge 0.1133$ (was $0.1423$). The $\varepsilon$-sensitivity inequality is
+  credited to Perdomo et al. (2020); Hardt et al. (2022) is the source for measuring power by experiment.
+  The bound is in `re78` control-SD units for that action and replaces no card's $\varepsilon$.
+- **D9 (§3, §5, §6, reporting completed after the audit).** Now printed by `labs --real-data`: the worst-cell
+  test MSE and the pooled MSE for every γ of the grid; the RRM radius at the measured bound, using
+  $\beta/\gamma = 1.5$ taken from `examples/credit/` (Assumed, not pre-registered); the largest CDF violation of
+  the CORP-CRPS recalibration ($0.133$); the range of multicalibration cell sizes (30–523 units).
+- **D10 (§2, process).** A list of deferred candidates was first inserted into §2 after the freeze; it is moved
+  here, where post-freeze changes belong:
+
+  Deferred to a later round (recorded from an independent plan reviewed on 2026-10-30, not implemented here):
+
+  - **I:** PPI++ power-tuned prediction-powered inference (Angelopoulos, Duchi & Zrnic) — overlaps the
+    existing `LlmJudgePpiRectifier`; a tuning extension, not a new pillar instrument.
+  - **B:** reporting-delay audit with right-truncation inverse-probability weights, and conformal PID control
+    (Angelopoulos, Candès & Tibshirani) as a successor of `AdaptiveConformalInference`.
+  - **C:** omnipredictor dominance across Brier, log, and cost-loss scores on top of multicalibration.
+  - **DAG:** knowledge-space fringes (Doignon & Falmagne) — inner and outer fringe of a reader's state on
+    `docs/competencies.toml`, to diagnose which competency a failed proof points back to.
+  - **Clay:** `DomainVocabulary` for non-English cards — belongs to phase 2 of the protocol profiles
+    (`AGENTS.md` §II.D rule 5), which needs its own re-seal.
+- **D11 (§3–§8, mechanism of the six new proofs).** None of the six new negative proofs mutates a card or
+  injects a fault into the gate pipeline: each recomputes the detector the positive gate uses on the defect
+  scenario (the distorted ensemble, the simulated null, the passive declaration, the simulated confounded
+  model, the latest-vintage backtest, the simulated hidden bias) and exits 1 when it fires.

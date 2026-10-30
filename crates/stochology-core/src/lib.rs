@@ -22,10 +22,12 @@ pub use invariants::{
     verify_resolution_phi5,
 };
 pub use layers::{
-    ClaimProvenanceClass, DpiOperationalStage, EpistemicPkmProvenanceAudit, GoodhartTaxonomyAudit,
-    GoodhartVariant, Layer, ManskiBounds, MengAudit, NonlinearSummary, PerformativeDiagnostic,
+    ClaimProvenanceClass, DpiOperationalStage, EpistemicPkmProvenanceAudit,
+    EpsilonDeclarationAudit, GoodhartTaxonomyAudit, GoodhartVariant, Layer, ManskiBounds,
+    MengAudit, NonlinearSummary, PerformativeDiagnostic, PerformativePowerAudit,
     PerformativeSystem, RubinMultipleImputationAudit, UncertaintyClass, apply_cromwell_floor,
-    empirical_crps, empirical_wasserstein_1, laplace_succession, respects_cromwell,
+    empirical_crps, empirical_wasserstein_1, exact_wasserstein_1, laplace_succession,
+    respects_cromwell,
 };
 pub use math::{
     Complex64, average_ranks, dot_product, empirical_wasserstein_1_grid, invert_matrix, l2_norm,

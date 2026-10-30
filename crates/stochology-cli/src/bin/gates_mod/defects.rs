@@ -1,6 +1,9 @@
-//! Negative defect proof evaluators (`gates --defect <name>`, all 21 defects across the 6 CAPIBA pillars).
+//! Negative defect proof evaluators (`gates --defect <name>`, every defect of `ALL_DEFECTS` across the 6 CAPIBA pillars).
 
 use std::path::Path;
+use stochology_cli::pillars::{
+    FlightAnchorAudit, NswPerformativePowerAudit, VicElecCrpsAudit, real_time_vintage_audit,
+};
 use stochology_cli::{
     evaluate_empirical_card_severe_test, load_atlantic_storms_decade_environments,
     load_atlantic_storms_forecasts, load_bank_call_clusters, load_cards_from_disk,
@@ -18,13 +21,14 @@ use stochology_lenses::analog::{
     AnalogWaveComputingSynthesis, GerstgrasserAccumulateAudit, SyntheticDataPolicy,
 };
 use stochology_lenses::critical::CriticalStochasticRationalitySynthesis;
+use stochology_lenses::decision::{MulticalibrationAudit, MulticalibrationVerdict};
 use stochology_lenses::decision::{MurphyDiagram, brier_score};
 use stochology_lenses::machine::{AlmostPerfectMachine, AuthenticModelForm};
 use stochology_lenses::society::CoupledPublicPrivateSocietySynthesis;
 use stochology_lenses::stocks::StocharyConjecturalCyberneticSynthesis;
 use stochology_lenses::strategic::StrategicAiAccommodationSynthesis;
 use stochology_lenses::triad::ComplexFractalToroidalTechniumSynthesis;
-use stochology_siga::{SaviConfidenceSequence, VarEsEBacktest};
+use stochology_siga::{PeekingMultiplicitySimulation, SaviConfidenceSequence, VarEsEBacktest};
 
 /// Executes a negative defect proof (`--defect <name>`) and exits with code `1` when blocked.
 pub fn run_negative_proof(root: &Path, defect: &str) -> ! {
@@ -574,6 +578,79 @@ pub fn run_negative_proof(root: &Path, defect: &str) -> ! {
                     unshielded_soc
                         .h2_vcg_commons
                         .deployed_commons_stock_gain_over_rebate
+                );
+                std::process::exit(1);
+            }
+        }
+        "crps_miscalibration" => {
+            let audit = VicElecCrpsAudit::evaluate(root);
+            let d = &audit.sharp_biased;
+            if audit.lone_crps_hides_miscalibration() {
+                eprintln!(
+                    "NEGATIVE PROOF [crps_miscalibration] BLOCKED SUCCESSFULLY: sharp-biased vic_elec ensemble beats climatology on the lone CRPS ({:.1} < UNC {:.1} MW) but CORP MCB={:.1} exceeds DSC/2={:.1}",
+                    d.crps_mean,
+                    d.unc_uncertainty,
+                    d.mcb_miscalibration,
+                    0.5 * d.dsc_discrimination
+                );
+                std::process::exit(1);
+            }
+        }
+        "multiplicity" => {
+            let sim =
+                PeekingMultiplicitySimulation::simulate(DEFAULT_SEED, 20, 500, 200, 0.05, 0.3);
+            if sim.naive_breaks_and_ebh_controls() {
+                eprintln!(
+                    "NEGATIVE PROOF [multiplicity] BLOCKED SUCCESSFULLY: peeking {} null e-processes at 1/alpha with K=1 each gives FDR={:.3} > 0.05 (e-BH FDR={:.3}, simulated, seed {})",
+                    sim.hypotheses_k, sim.naive_peeking_fdr, sim.ebh_fdr, sim.seed
+                );
+                std::process::exit(1);
+            }
+        }
+        "understated_epsilon" => {
+            let audit = NswPerformativePowerAudit::evaluate(root);
+            let d = audit.passive_declaration;
+            if d.understated {
+                eprintln!(
+                    "NEGATIVE PROOF [understated_epsilon] BLOCKED SUCCESSFULLY: passive declaration eps={:.2} below the lower bound measured on nsw_experimental.csv (W1/sd_0={:.4}, bound {:.4} from the mean gap, permutation p={:.3})",
+                    d.declared_epsilon,
+                    audit.power.w1_standardized,
+                    d.measured_lower_bound,
+                    audit.power.permutation_p_value
+                );
+                std::process::exit(1);
+            }
+        }
+        "anchor_extrapolation" => {
+            let sim = FlightAnchorAudit::evaluate(root).simulated_confounded;
+            if !sim.anchor_stable {
+                eprintln!(
+                    "NEGATIVE PROOF [anchor_extrapolation] BLOCKED SUCCESSFULLY: invariance claimed while anchor regression (gamma=5) departs from OLS by {:.3} > 0.10 under simulated hidden confounding (seed 2026)",
+                    sim.relative_slope_gap
+                );
+                std::process::exit(1);
+            }
+        }
+        "vintage_leak" => {
+            let audit = real_time_vintage_audit(root);
+            if audit.leaky_clock_alarm && !audit.real_time_clock_alarm {
+                eprintln!(
+                    "NEGATIVE PROOF [vintage_leak] BLOCKED SUCCESSFULLY: {} latest-vintage inputs fed to past decisions tripped the bitemporal clock on rtdsm_routput_vintages.csv (leaky RMSE {:.2} vs real-time {:.2} pp)",
+                    audit.leaky_inputs_after_decision,
+                    audit.rmse_leaky_vs_latest,
+                    audit.rmse_real_time_vs_latest
+                );
+                std::process::exit(1);
+            }
+        }
+        "subgroup_miscalibration" => {
+            let (p, y, groups) =
+                MulticalibrationAudit::simulate_hidden_subgroup_bias(DEFAULT_SEED, 20_000);
+            let audit = MulticalibrationAudit::audit(&p, &y, &groups);
+            if audit.verdict == MulticalibrationVerdict::Violated && audit.global_rel_corp < 0.005 {
+                eprintln!(
+                    "NEGATIVE PROOF [subgroup_miscalibration] BLOCKED SUCCESSFULLY: global REL_CORP={:.4} hides {} multicalibration violations (simulated, seed {})",
+                    audit.global_rel_corp, audit.violations, DEFAULT_SEED
                 );
                 std::process::exit(1);
             }

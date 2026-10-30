@@ -1,6 +1,6 @@
 # 15. Curvature and Scoring
 
-> **Three tempos.** **Detachment:** set aside summarizing uncertainty by the expected mean. **Abstraction:** the map from world state to harm is curved, and catastrophe lives in the curvature (Decision Models, $L\_2 \to L\_3$). **Return:** Jensen's gap, CRPS, strictly proper scores, and the Cromwell floor. **Negative proof:** `gates -- --defect cromwell` (exit `1`).
+> **Three tempos.** **Detachment:** set aside summarizing uncertainty by the expected mean. **Abstraction:** the map from world state to harm is curved, and catastrophe lives in the curvature (Decision Models, $L\_2 \to L\_3$). **Return:** Jensen's gap, CRPS, strictly proper scores, and the Cromwell floor. **Negative proof:** `gates -- --defect cromwell`; Full track adds `gates -- --defect crps_miscalibration` (exit `1`).
 
 ## Why the Average Day Understates the Call Center's Cost
 
@@ -118,6 +118,26 @@ Why must Cromwell's floor $\varepsilon\_{\text{floor}} \in (0, 0.05]$ be enforce
    At $\varepsilon\_{\text{floor}} = 0.005$, the worst-case surprise per observation is bounded at $\ln(200) \approx 5.2983\text{ nats}$ ($\approx 23.01\text{ decibans}$), ensuring finite empirical variance for sequential *e-processes* (the companion union-bound multiplicity derivation for $K \ge 1$ attempted specifications is presented in [Chapter 17](17-model-decisions-card-preregistration.md)).
 
 ---
+
+## 15.4 Decomposing the CRPS (`CorpCrpsDecomposition`)
+
+Prohibition 2 asks for the CRPS next to the mean. A lone CRPS, however, is still a single number: it cannot say whether a forecast loses because it is badly calibrated or because it cannot tell days apart. Since $\mathrm{CRPS}(F, y) = \int (F(z) - \mathbb{1}\{y \le z\})^2\,dz$ is a Brier score integrated over thresholds, the CORP decomposition of Chapter 9 applies threshold by threshold (Arnold, Walz, Ziegel and Gneiting 2024, *Electronic Journal of Statistics*, informative):
+
+$$\overline{\mathrm{CRPS}} = \mathrm{MCB} - \mathrm{DSC} + \mathrm{UNC}.$$
+
+$\mathrm{UNC}$ is the score of the climatology, so a forecast beats climatology exactly when $\mathrm{MCB} < \mathrm{DSC}$. The protocol asks for more: $\mathrm{MCB} \le \frac{1}{2}\mathrm{DSC}$ (**Assumed**), so miscalibration may eat at most half of what discrimination earns. The variant implemented orders by $F\_i(z)$ at each threshold; its recalibrated forecast need not be a CDF.
+
+**Measured** on `vic_elec.csv` (daily peak demand; the forecast for day $d$ is the 4-member ensemble of the same weekday one to four weeks earlier):
+
+~~~text
+  [G6] C: CORP-CRPS on vic_elec.csv daily peaks (analog ensemble): CRPS=356.0 = MCB 32.9 - DSC 119.7 + UNC 442.7 MW -> admissible
+~~~
+
+Shift that ensemble down by $3\%$ and shrink its spread to a quarter. The lone CRPS still prefers it to climatology; the decomposition does not. (This distortion was chosen after the pre-registered one, $-8\%$, turned out to lose to climatology outright; ten combinations were tried and all are recorded, `docs/research/pillar-expansion.md`, D2.)
+
+~~~text
+NEGATIVE PROOF [crps_miscalibration] BLOCKED SUCCESSFULLY: sharp-biased vic_elec ensemble beats climatology on the lone CRPS (422.8 < UNC 442.7 MW) but CORP MCB=74.9 exceeds DSC/2=47.4
+~~~
 
 ## Interactive Laboratory (`/lab`)
 

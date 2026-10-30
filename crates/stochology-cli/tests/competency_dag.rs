@@ -1,5 +1,5 @@
 //! Competency DAG (`docs/competencies.toml`) verification: the graph is acyclic and honest against the
-//! book, the 21 pathways (one per negative proof) agree with `docs/SYLLABUS.md`, and the blocks rendered
+//! book, the pathways (one per negative proof, `DEFECT_COUNT`) agree with `docs/SYLLABUS.md`, and the blocks rendered
 //! into `book-src/00-preface.md` and `docs/SYLLABUS.md` match the data.
 //! Regenerate the blocks with `cargo test -p stochology-cli --test competency_dag -- --ignored`.
 
@@ -8,7 +8,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use stochology_cli::{
-    ALL_DEFECTS, BookIndex, CompetencyDag, CompetencyDepth, replace_marked_block,
+    ALL_DEFECTS, BookIndex, CompetencyDag, CompetencyDepth, DEFECT_COUNT, replace_marked_block,
 };
 
 const PREFACE: &str = "book-src/00-preface.md";
@@ -83,10 +83,10 @@ fn competency_graph_passes_its_audit() {
 }
 
 #[test]
-fn twenty_one_distinct_pathways_cover_the_twenty_one_negative_proofs() {
+fn one_distinct_pathway_covers_each_negative_proof() {
     let (_, dag, book) = load();
     let pathways = dag.pathways(&book);
-    assert_eq!(pathways.len(), 21);
+    assert_eq!(pathways.len(), DEFECT_COUNT);
     let proofs: BTreeSet<&str> = pathways.iter().map(|p| p.defect.as_str()).collect();
     let registry: BTreeSet<&str> = ALL_DEFECTS.iter().map(|d| d.name).collect();
     assert_eq!(proofs, registry);
@@ -100,7 +100,7 @@ fn twenty_one_distinct_pathways_cover_the_twenty_one_negative_proofs() {
         .collect();
     assert_eq!(
         closures.len(),
-        21,
+        DEFECT_COUNT,
         "two pathways have the same competencies"
     );
     for p in &pathways {

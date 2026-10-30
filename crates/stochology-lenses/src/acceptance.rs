@@ -39,7 +39,7 @@ pub const ACCEPTANCE_REGISTRY_PATH: &str = "data/preregistration/acceptance_regi
 /// Source files whose bytes define the gated claims (thresholds, sample sizes, generating constants, and the methods they call).
 /// This is the transitive closure of the modules the five syntheses use (checked by a unit test); only `relational/` and
 /// `core/src/card/` are outside it. Any edit to these files changes the registry and requires re-sealing under human review.
-pub const CLAIM_DEFINING_SOURCES: [&str; 60] = [
+pub const CLAIM_DEFINING_SOURCES: [&str; 64] = [
     "crates/stochology-lenses/src/acceptance.rs",
     "crates/stochology-lenses/src/analog/empirical.rs",
     "crates/stochology-lenses/src/analog/mod.rs",
@@ -54,8 +54,11 @@ pub const CLAIM_DEFINING_SOURCES: [&str; 60] = [
     "crates/stochology-lenses/src/decision/ahp_ppi.rs",
     "crates/stochology-lenses/src/decision/corp_murphy.rs",
     "crates/stochology-lenses/src/decision/cost_loss.rs",
+    "crates/stochology-lenses/src/decision/crps_corp.rs",
     "crates/stochology-lenses/src/decision/mod.rs",
+    "crates/stochology-lenses/src/decision/multicalibration.rs",
     "crates/stochology-lenses/src/information.rs",
+    "crates/stochology-lenses/src/invariance/anchor.rs",
     "crates/stochology-lenses/src/invariance/icp.rs",
     "crates/stochology-lenses/src/invariance/mod.rs",
     "crates/stochology-lenses/src/invariance/nile_irm.rs",
@@ -90,6 +93,7 @@ pub const CLAIM_DEFINING_SOURCES: [&str; 60] = [
     "crates/stochology-core/src/layers/missingness.rs",
     "crates/stochology-core/src/layers/mod.rs",
     "crates/stochology-core/src/layers/ontology.rs",
+    "crates/stochology-core/src/layers/performative_power.rs",
     "crates/stochology-core/src/layers/performativity.rs",
     "crates/stochology-core/src/layers/provenance.rs",
     "crates/stochology-core/src/lib.rs",

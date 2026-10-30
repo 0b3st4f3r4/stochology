@@ -1,6 +1,6 @@
 # 19. When the Decision Moves the World
 
-> **Three tempos.** **Detachment:** set aside the passive observer who believes forecasting does not change the world. **Abstraction:** acting through a model moves the world it models (World Decisions, $L\_3 \to L\_1$). **Return:** performative risk, $\theta\_{\mathrm{PS}}$ vs. $\theta\_{\mathrm{PO}}$, the RRM contraction condition, the four Goodhart variants, and Accumulate vs. Replace. **Negative proof:** `gates -- --defect performativity`, `gates -- --defect replace_collapse` (exit `1`).
+> **Three tempos.** **Detachment:** set aside the passive observer who believes forecasting does not change the world. **Abstraction:** acting through a model moves the world it models (World Decisions, $L\_3 \to L\_1$). **Return:** performative risk, $\theta\_{\mathrm{PS}}$ vs. $\theta\_{\mathrm{PO}}$, the RRM contraction condition, the four Goodhart variants, and Accumulate vs. Replace. **Negative proof:** `gates -- --defect performativity`, `gates -- --defect replace_collapse`; Full track adds `gates -- --defect understated_epsilon` (exit `1`).
 
 ## When the Forecast Changes the Weather It Predicts
 
@@ -133,6 +133,26 @@ By **Gerstgrässer, Schaeffer, Dey, Rafailov, Koyejo & Donoho's (ICML 2024) Accu
 The series $\sum\_g g^{-2}$ is the Basel problem (Euler, 1734); it is unrelated to the Basel III countercyclical capital buffer that appears in the coupled-society synthesis of Chapter 25.
 
 ---
+
+## 19.4 Measuring a Lower Bound on $\varepsilon$ (`PerformativePowerAudit`)
+
+Every card in this repository declares its Wasserstein sensitivity $\varepsilon$ by hand, and every one of those values is **Assumed**. The RRM contraction test $\varepsilon\beta/\gamma < 1$ is only as honest as that number. Perdomo et al. (2020) define $\varepsilon$-sensitivity as $W\_1(\mathcal{D}(\theta), \mathcal{D}(\theta')) \le \varepsilon\,|\theta - \theta'|$; Hardt, Jagadeesan and Mendler-Dünner (2022, *NeurIPS*, informative) argue for measuring how far a decision-maker's action moves a population by experiment. A randomized action gives a direct lower bound, since $W\_1 \ge |\mu\_1 - \mu\_0|$:
+
+$$\varepsilon \ge \frac{W\_1(\mathcal{D}(1), \mathcal{D}(0))}{\mathrm{sd}\_0} \ge \frac{|\mu\_1 - \mu\_0|}{\mathrm{sd}\_0},$$
+
+in control standard deviations per unit of action. A permutation test on $W\_1$ (999 permutations, seed 2026) decides whether there is any effect. The plug-in $W\_1$ is biased upward — its permutation null mean is reported as the noise floor — so the bound is the 5% bootstrap quantile of the unbiased mean gap.
+
+**Measured** on `nsw_experimental.csv`, outcome `re78`. Reading the job-training assignment as a performative action is an authorial extension; the distance is not:
+
+~~~text
+  [G6] P: performative sensitivity on nsw_experimental.csv: W1/sd_0=0.3272 (permutation p=0.003, null mean 0.1245) -> measured eps >= 0.1133 (bootstrap q05 of the mean gap)
+~~~
+
+The bound belongs to that action, in `re78` units; it replaces no card's $\varepsilon$. What it shows is the discipline: a card that declared a passive agent ($\varepsilon = 0$) for this action would be understated, and the gate says so:
+
+~~~text
+NEGATIVE PROOF [understated_epsilon] BLOCKED SUCCESSFULLY: passive declaration eps=0.00 below the lower bound measured on nsw_experimental.csv (W1/sd_0=0.3272, bound 0.1133 from the mean gap, permutation p=0.003)
+~~~
 
 ## Computational Audit in Rust
 

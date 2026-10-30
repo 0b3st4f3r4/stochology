@@ -1,6 +1,6 @@
 # 9. The Five Transversal Lenses
 
-> **Three tempos.** **Detachment:** set aside information theory, stochastic processes, extreme values, causal inference, and decision theory as separate disciplines. **Abstraction:** five laws hold before any bridge is crossed: irreversibility of compression, non-ergodicity of time, dominance of the extreme, invariance under intervention, and consequential asymmetry. **Return:** DPI and Fano, Itô drain and Kelly, Hill and $\mathrm{ES}\_{0.99}$, ICP/NILE, cost-loss and CORP-Murphy. **Negative proof:** `gates -- --defect brier_dominance` (exit `1`).
+> **Three tempos.** **Detachment:** set aside information theory, stochastic processes, extreme values, causal inference, and decision theory as separate disciplines. **Abstraction:** five laws hold before any bridge is crossed: irreversibility of compression, non-ergodicity of time, dominance of the extreme, invariance under intervention, and consequential asymmetry. **Return:** DPI and Fano, Itô drain and Kelly, Hill and $\mathrm{ES}\_{0.99}$, ICP/NILE, cost-loss and CORP-Murphy. **Negative proof:** `gates -- --defect brier_dominance`; Full track adds `gates -- --defect anchor_extrapolation` (exit `1`).
 
 ## Five Domain Failures Sharing One Mathematical Root
 
@@ -237,6 +237,26 @@ In addition, `crates/stochology-lenses/src/invariance/` provides two classic eco
 ### Related Tool Outside the Invariance Lens: Interventional Attribution
 
 Observational feature attributions credit whatever co-varies with the outcome, including symptoms downstream of the cause. ICP-anchored `do`-Shapley (`ShapleyCausalAudit`) restores the causal ranking; it lives in the strategic synthesis, not in `stochology_lenses::invariance`, and linking it to this lens is an authorial reading. See [Chapter 24](24-strategic-ai-accommodation.md), §24.2.
+
+### 9.4.1 Anchor Regression: Paying In-Sample Fit for Shift Robustness (`AnchorRegressionAudit`)
+
+ICP asks which coefficients survive every environment. Anchor regression (Rothenhäusler, Meinshausen, Bühlmann and Peters 2021, *JRSS-B*, informative) asks a softer question: how much in-sample fit should one give up to protect against shifts along exogenous *anchors* $A$? With $\Pi\_A$ the projection onto the anchors,
+
+$$\hat{b}\_\gamma = \arg\min\_b \|(I - \Pi\_A)(Y - Xb)\|^2 + \gamma\,\|\Pi\_A(Y - Xb)\|^2 .$$
+
+$\gamma = 1$ is OLS; $\gamma \to \infty$ approaches instrumental variables. Rothenhäusler et al. show that when OLS and anchor regression agree for every $\gamma$ (*anchor stability*), under their anchor model, the OLS coefficients are invariant to shifts along $A$. The protocol checks one shift strength: it admits an invariance claim only when the relative slope gap at $\gamma = 5$ is at most $0.10$ (**Assumed**). Passing is a necessary symptom of stability, not a proof of it.
+
+**Measured** on `nyc_flights_2013.csv` → `nyc_flights_2023.csv`, anchors = origin airport × month:
+
+~~~text
+  [G6] I: anchor regression nyc_flights 2013 -> 2023: slope gap at gamma=5 is 0.048 (anchor-stable=true), test MSE 1853.7 (OLS) vs 1852.9 (gamma=5)
+~~~
+
+The slopes pass the check, and anchor weighting buys almost nothing on 2023: across the whole grid the pooled test error moves by at most $0.23\%$ (1853.7 to 1849.5) and the worst cell gets slightly worse. That is a negative finding worth keeping. It does not say the decade's shift avoids origin and month; it says weighting by these anchors does not protect against it. On a **simulated** confounded model (seed 2026) the gap opens and a claim of invariance is blocked:
+
+~~~text
+NEGATIVE PROOF [anchor_extrapolation] BLOCKED SUCCESSFULLY: invariance claimed while anchor regression (gamma=5) departs from OLS by 0.252 > 0.10 under simulated hidden confounding (seed 2026)
+~~~
 
 ## 9.5 Lens 5: Decision and Calibration (`stochology_lenses::decision`)
 

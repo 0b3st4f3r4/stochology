@@ -6,7 +6,8 @@
 # Edges follow the chapters' own cross-references where they exist and the syllabus order elsewhere;
 # they must form a transitive reduction and never point forward in the book.
 #
-# A pathway is the prerequisite closure of the node that carries a negative proof: 21 proofs, 21 pathways.
+# A pathway is the prerequisite closure of the node that carries a negative proof: one pathway per proof
+# (`DEFECT_COUNT` in crates/stochology-cli/src/defects.rs).
 # There are no reader-role tracks: a reader picks the pathways of the proofs they need. [practicum.thread]
 # lists the cross-cutting competencies of Part VII that run across every pathway.
 # Rendered blocks in book-src/00-preface.md and docs/SYLLABUS.md are generated from this file;
@@ -93,6 +94,15 @@ depth = core
 evidence = cargo run --release --bin labs -- --siga
 defect = peeking
 
+[node.multiplicity_ebh]
+title = Control false discoveries over many e-values with e-BH and name every discarded hypothesis
+chapters = 08
+requires = severe_testing
+pair = L3
+depth = full
+evidence = cargo run --release --bin labs -- --real-data
+defect = multiplicity
+
 [node.var_es_backtest]
 title = Backtest VaR and Expected Shortfall with e-values
 chapters = 08
@@ -137,6 +147,15 @@ pair = transversal
 depth = core
 evidence = cargo run --release --bin labs -- --lenses
 defect =
+
+[node.anchor_regression]
+title = Trade in-sample fit for shift robustness with anchor regression and read anchor stability
+chapters = 09
+requires = lens_invariance
+pair = transversal
+depth = full
+evidence = cargo run --release --bin labs -- --real-data
+defect = anchor_extrapolation
 
 [node.lens_decision]
 title = Apply the Decision lens: cost-loss boundary, EVPI, and CORP-Murphy decomposition
@@ -201,6 +220,15 @@ depth = core
 evidence = cargo run --release --bin labs -- --layers
 defect = cromwell
 
+[node.crps_decomposition]
+title = Decompose the CRPS of continuous forecasts into miscalibration, discrimination, and uncertainty
+chapters = 15
+requires = curvature_scoring
+pair = L2 → L3
+depth = full
+evidence = cargo run --release --bin labs -- --real-data
+defect = crps_miscalibration
+
 [node.thresholds_evidence]
 title = Turn calibrated probability into action within the human attention budget
 chapters = 16
@@ -236,6 +264,15 @@ pair = L3 → L1
 depth = core
 evidence = cargo run --release --bin labs -- --layers
 defect = performativity
+
+[node.performative_power]
+title = Measure a lower bound on performative sensitivity from randomized action arms
+chapters = 19
+requires = performativity
+pair = L3 → L1
+depth = full
+evidence = cargo run --release --bin labs -- --real-data
+defect = understated_epsilon
 
 [node.synthetic_recursion]
 title = Keep recursive training anchored: Accumulate versus Replace
@@ -273,6 +310,15 @@ depth = core
 evidence = cargo run --release --bin labs -- --invariants
 defect = chouldechova
 
+[node.multicalibration]
+title = Audit calibration inside every subgroup and bin, and say when the cells are too small to tell
+chapters = 20
+requires = fairness
+pair = L1 → L3
+depth = full
+evidence = cargo run --release --bin labs -- --real-data
+defect = subgroup_miscalibration
+
 [node.bitemporal_clock]
 title = Keep event time and availability time apart with a synthetic canary
 chapters = 21
@@ -281,6 +327,15 @@ pair = L1 → L3
 depth = core
 evidence = cargo run --release --bin labs -- --governance
 defect = clock
+
+[node.real_time_vintages]
+title = Backtest on the data vintages that existed at decision time
+chapters = 21
+requires = bitemporal_clock
+pair = L1 → L3
+depth = full
+evidence = cargo run --release --bin labs -- --real-data
+defect = vintage_leak
 
 [node.temporal_vault]
 title = Open a sealed out-of-time reserve exactly once
@@ -355,7 +410,7 @@ evidence = cargo run --release --bin gates -- --audit-card examples/clay/card_cl
 defect =
 
 [node.empirical_synthesis]
-title = Face every lens and bridge with the 13 real datasets
+title = Face every lens and bridge with the 14 real datasets
 chapters = 27
 requires = funnel_siga
 pair = all six pairs

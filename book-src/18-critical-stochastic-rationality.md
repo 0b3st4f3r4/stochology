@@ -17,7 +17,7 @@ Across the twentieth and twenty-first centuries, the **Frankfurt School of Criti
    - **Binary Abstraction and the Thermodynamic Wall:** In Horowitz's (2014) 45 nm CMOS energy table, one off-chip DRAM weight read costs $640\text{ pJ}$ versus $0.9\text{ pJ}$ per FP32 addition ($711\times$; literature constant, informative). Set side by side with it, and with no causal link computed here, are two further literature figures: individual data-center GPUs rated at $700\text{ W}$ ($>1\text{,}100\text{ W}$ cooled) and projections of global data-center demand near **$945\text{ TWh}$ by 2030**;
    - **The Return of Material Contingency ("The Analog Wall"):** When engineers move from binary determinism to Analog In-Memory Computing (AIMC) crossbars ($I\_j = \sum\_i V\_i G\_{ij}$ via Ohm's and Kirchhoff's laws), thermal and telegraph noise in physical matter triggers **Ferran Alia's (2026) threshold cliff**, dropping standard digitally trained accuracy from $\sim 98\%$ at $\sigma \le 0.10$ down to $83\%$ ($\sigma = 0.20$), $64\%$ ($\sigma = 0.40$), $39\%$ ($\sigma = 0.60$), and random guessing at $\sigma = 0.80$.
 
-In `crates/stochology-lenses/src/critical/`, the Stochology Protocol formalizes this synthesis into **four executable, quantitatively audited axes** (`seed = 2026`) plus a four-dataset empirical coupler (`EmpiricalCriticalRationalityAudit`), enforced in Lab 3 (`labs --lenses`), Lab 7 (`labs --real-data`), Gate `G8`, and the dedicated negative blocking proof `gates -- --defect instrumental_reason` (one of the 21 defect proofs).
+In `crates/stochology-lenses/src/critical/`, the Stochology Protocol formalizes this synthesis into **four executable, quantitatively audited axes** (`seed = 2026`) plus a four-dataset empirical coupler (`EmpiricalCriticalRationalityAudit`), enforced in Lab 3 (`labs --lenses`), Lab 7 (`labs --real-data`), Gate `G8`, and the dedicated negative blocking proof `gates -- --defect instrumental_reason` (one of the 27 defect proofs).
 
 <figure class="stoch-figure">
   <svg xmlns="http://www.w3.org/2000/svg" width="1140" height="340" viewBox="0 0 1140 340" fill="none" role="img" aria-labelledby="title-fig-07-critical">
@@ -166,7 +166,7 @@ Explore informational autophagy (`Replace` vs. `Accumulate`) and analog noise co
 
 ## Running the Critical Stochastic Rationality Audit (`labs --lenses`, `labs --real-data`, and `gates`)
 
-Execute Lab 3, Lab 7, and Gate `G8` (including the dedicated negative blocking proof `--defect instrumental_reason`, one of the 21 defect proofs) from the workspace root:
+Execute Lab 3, Lab 7, and Gate `G8` (including the dedicated negative blocking proof `--defect instrumental_reason`, one of the 27 defect proofs) from the workspace root:
 
 ~~~bash
 cargo run --release --bin labs -- --lenses

@@ -34,7 +34,8 @@ for card in examples/*/card_*.yaml; do
     echo "  [OK] Shaped application card audit under its own protocol_profile (--audit-card $card) passed"
 done
 
-for defect in cromwell phi5 moulton performativity sniedovich clock vault concept_drift chouldechova machine analog_wall instrumental_reason stochary_cybernetics peeking brier_dominance var_underreport lee_point_estimate replace_collapse triadic_technium strategic_accommodation coupled_society; do
+DEFECT_REGISTRY="$(cargo run -q --release --bin gates -- --list-defects)"
+for defect in $(echo "$DEFECT_REGISTRY" | grep -v '^partition' | cut -f1); do
     set +e
     cargo run --release --bin gates -- --defect "$defect" >/dev/null 2>&1
     rc=$?
@@ -48,7 +49,8 @@ for defect in cromwell phi5 moulton performativity sniedovich clock vault concep
 done
 
 echo ">>> [6/6] Verifying doc-to-code symbol parity, CAPIBA Protocol contract, and release tag hygiene..."
-for sym in SplitMix64 DpiOperationalStage MengAudit data_defect_correlation_ddc data_defect_index_ddi law_of_large_populations_z ManskiBounds lee_trimming_bounds lee_tipping_point_delta PerformativeSystem perfgd_trajectory ChouldechovaAudit disparate_impact_fpr_ratio minmax_penalty_disparity CorpPavDecomposition compute_logarithmic MurphyDiagram CorpRocMurphyTriptych SaviConfidenceSequence gro_betting VarEsEBacktest GerstgrasserAccumulateAudit SyntheticDataPolicy AlertFatigueAudit PredeterminedChangeControlPlan ProfitLossAttributionTest EvaluatedCompetenceCriterion ComplexFractalToroidalTechniumSynthesis EmpiricalTriadicTechniumAudit RubinMultipleImputationAudit ShapleyCausalAudit SaatyAhpRankReversalAudit LlmJudgePpiRectifier RobustKalmanControlAudit RegulatoryComplianceAudit EpistemicPkmProvenanceAudit StrategicAiAccommodationSynthesis EmpiricalStrategicAccommodationAudit prospective_ppi_gold_sample_size ppi_effective_sample_size_multiplier SimpsonCausalParadoxAudit LongContextDpiDilutionAudit MultimodalCorrelatedFusionAudit PreMortemCounterfactualRootCauseAudit CloudLocalLoraArchitectureAudit CoupledPublicPrivateSocietySynthesis EmpiricalCoupledSocietyAudit SfcFlowMatrix H1aRegulatorCouplingAblation H1bCreditScreeningAblation H2VcgGreenLaffontCommonsAblation ProtocolProfile ColumnMappedCsvStrategy; do
+sym_count=0
+for sym in CorpCrpsDecomposition EBhMultiplicityAudit PeekingMultiplicitySimulation PerformativePowerAudit exact_wasserstein_1 AnchorRegressionAudit RealTimeVintageAudit MulticalibrationAudit PillarExpansionAudit SplitMix64 DpiOperationalStage MengAudit data_defect_correlation_ddc data_defect_index_ddi law_of_large_populations_z ManskiBounds lee_trimming_bounds lee_tipping_point_delta PerformativeSystem perfgd_trajectory ChouldechovaAudit disparate_impact_fpr_ratio minmax_penalty_disparity CorpPavDecomposition compute_logarithmic MurphyDiagram CorpRocMurphyTriptych SaviConfidenceSequence gro_betting VarEsEBacktest GerstgrasserAccumulateAudit SyntheticDataPolicy AlertFatigueAudit PredeterminedChangeControlPlan ProfitLossAttributionTest EvaluatedCompetenceCriterion ComplexFractalToroidalTechniumSynthesis EmpiricalTriadicTechniumAudit RubinMultipleImputationAudit ShapleyCausalAudit SaatyAhpRankReversalAudit LlmJudgePpiRectifier RobustKalmanControlAudit RegulatoryComplianceAudit EpistemicPkmProvenanceAudit StrategicAiAccommodationSynthesis EmpiricalStrategicAccommodationAudit prospective_ppi_gold_sample_size ppi_effective_sample_size_multiplier SimpsonCausalParadoxAudit LongContextDpiDilutionAudit MultimodalCorrelatedFusionAudit PreMortemCounterfactualRootCauseAudit CloudLocalLoraArchitectureAudit CoupledPublicPrivateSocietySynthesis EmpiricalCoupledSocietyAudit SfcFlowMatrix H1aRegulatorCouplingAblation H1bCreditScreeningAblation H2VcgGreenLaffontCommonsAblation ProtocolProfile ColumnMappedCsvStrategy; do
     if ! grep -q "$sym" "docs/PROTOCOL.md"; then
         echo "ERROR: docs/PROTOCOL.md omits canonical symbol '$sym'!" >&2
         exit 1
@@ -57,8 +59,9 @@ for sym in SplitMix64 DpiOperationalStage MengAudit data_defect_correlation_ddc 
         echo "ERROR: Crate codebase omits symbol '$sym' cited in docs/PROTOCOL.md!" >&2
         exit 1
     fi
+    sym_count=$((sym_count + 1))
 done
-echo "  [OK] docs/PROTOCOL.md <-> Rust codebase symbol parity verified (53 canonical symbols)"
+echo "  [OK] docs/PROTOCOL.md <-> Rust codebase symbol parity verified ($sym_count canonical symbols)"
 for ch in $(grep -oE '\]\([a-z0-9-]+\.md\)' "book-src/SUMMARY.md" | sed -E 's/^\]\((.*)\)$/\1/' | sort -u); do
     if [ ! -f "book-src/$ch" ]; then
         echo "ERROR: book-src/SUMMARY.md cites non-existent book-src chapter '$ch'!" >&2
@@ -162,7 +165,7 @@ for token in "${reg_prefix}..." "${soc_prefix}..." "K = ${reg_k}" "${reg_sources
 done
 echo "  [OK] book-src/appendix-c-sources.md synchronized with acceptance_registry.txt (K=$reg_k, sources=$reg_sources, gated=$reg_gated, discarded=$reg_discarded)"
 
-# CAPIBA Protocol Contract Gate (6 mnemonic pillars -> gates & 21 disjoint negative defect proofs)
+# CAPIBA Protocol Contract Gate (6 mnemonic pillars -> gates & the registry's disjoint negative defect proofs)
 CAPIBA_EN="Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol"
 for doc in "README.md" "AGENTS.md" "docs/PROTOCOL.md" "book-src/00-preface.md"; do
     if ! grep -q "$CAPIBA_EN" "$doc"; then
@@ -180,18 +183,23 @@ for norm_doc in "AGENTS.md" "docs/PROTOCOL.md"; do
         exit 1
     fi
 done
-CAPIBA_C_DEFECTS="cromwell brier_dominance concept_drift"
-CAPIBA_A1_DEFECTS="moulton peeking var_underreport phi5"
-CAPIBA_P_DEFECTS="performativity replace_collapse"
-CAPIBA_I_DEFECTS="lee_point_estimate sniedovich machine"
-CAPIBA_B_DEFECTS="clock vault"
-CAPIBA_A2_DEFECTS="chouldechova analog_wall instrumental_reason stochary_cybernetics triadic_technium strategic_accommodation coupled_society"
-CAPIBA_ALL_DEFECTS="$CAPIBA_C_DEFECTS $CAPIBA_A1_DEFECTS $CAPIBA_P_DEFECTS $CAPIBA_I_DEFECTS $CAPIBA_B_DEFECTS $CAPIBA_A2_DEFECTS"
-capiba_count="$(echo "$CAPIBA_ALL_DEFECTS" | tr ' ' '\n' | sort -u | wc -l | tr -d ' ')"
-if [ "$capiba_count" -ne 21 ]; then
-    echo "ERROR: CAPIBA pillar defect partition must cover exactly 21 unique defects, found $capiba_count!" >&2
-    exit 1
-fi
+# The pillar partition and the defect names come from the registry (`gates --list-defects`, `ALL_DEFECTS`);
+# the normative documents must quote that partition and every defect name.
+CAPIBA_PARTITION="$(echo "$DEFECT_REGISTRY" | grep '^partition' | cut -f2)"
+for doc in "README.md" "AGENTS.md" "docs/PROTOCOL.md"; do
+    if ! grep -qF "$CAPIBA_PARTITION" "$doc"; then
+        echo "ERROR: '$doc' omits the registry's pillar partition '$CAPIBA_PARTITION'!" >&2
+        exit 1
+    fi
+done
+for defect in $(echo "$DEFECT_REGISTRY" | grep -v '^partition' | cut -f1); do
+    for doc in "AGENTS.md" "docs/PROTOCOL.md"; do
+        if ! grep -q "\`$defect\`" "$doc"; then
+            echo "ERROR: '$doc' omits negative proof '$defect' of the registry!" >&2
+            exit 1
+        fi
+    done
+done
 for pillar_gate in "G6" "G2/G3/G6" "G6/G8" "G3/G6/G8" "G7" "G4/G8"; do
     for doc in "README.md" "AGENTS.md" "docs/PROTOCOL.md"; do
         if ! grep -q "\`$pillar_gate\`" "$doc"; then
@@ -200,9 +208,9 @@ for pillar_gate in "G6" "G2/G3/G6" "G6/G8" "G3/G6/G8" "G7" "G4/G8"; do
         fi
     done
 done
-echo "  [OK] CAPIBA Protocol 6-pillar contract verified (gates pinned + 3+4+2+3+2+7 = 21 negative proofs + preface dedication hygiene)"
+echo "  [OK] CAPIBA Protocol 6-pillar contract verified (gates pinned + $CAPIBA_PARTITION negative proofs from the registry + preface dedication hygiene)"
 
-# Phi3 seal integrity: every manifest entry matches its file, and dataset hashes are unchanged since HEAD
+# Phi3 seal integrity: every manifest entry matches its file, and sealed dataset hashes are unchanged since HEAD
 if ! sha256sum -c --quiet data/SHA256SUMS; then
     echo "ERROR: data/SHA256SUMS does not match the files it seals!" >&2
     exit 1
@@ -216,8 +224,12 @@ done
 if git rev-parse --verify -q HEAD >/dev/null; then
     head_csv="$(git show HEAD:data/SHA256SUMS | grep '\.csv$' || true)"
     work_csv="$(grep '\.csv$' data/SHA256SUMS || true)"
-    if [ "$head_csv" != "$work_csv" ]; then
-        echo "ERROR: dataset hashes in data/SHA256SUMS differ from HEAD; datasets are immutable!" >&2
+    # Sealed datasets are immutable: every dataset line of HEAD must survive unchanged. A new dataset may be
+    # appended (its manifest line is a human-reviewed edit, AGENTS.md §V.3).
+    changed_csv="$(comm -23 <(echo "$head_csv" | sort) <(echo "$work_csv" | sort))"
+    if [ -n "$changed_csv" ]; then
+        echo "ERROR: sealed dataset hashes in data/SHA256SUMS changed or vanished since HEAD; datasets are immutable!" >&2
+        echo "$changed_csv" >&2
         exit 1
     fi
     head_reg="$(git show HEAD:data/SHA256SUMS | grep 'acceptance_registry' || true)"
@@ -226,7 +238,7 @@ if git rev-parse --verify -q HEAD >/dev/null; then
         echo "  [NOTICE] acceptance registry re-sealed since HEAD: requires human inline-diff review before commit (AGENTS.md V.3)"
     fi
 fi
-echo "  [OK] data/SHA256SUMS seals every listed file and dataset hashes match HEAD"
+echo "  [OK] data/SHA256SUMS seals every listed file and sealed dataset hashes are unchanged since HEAD"
 
 workspace_ver="$(sed -nE 's/^version = "([^"]+)"/\1/p' Cargo.toml | head -n 1)"
 while IFS= read -r dep_ver; do

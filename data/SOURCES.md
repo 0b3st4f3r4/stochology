@@ -1,6 +1,6 @@
 # Empirical Datasets of Stochology (`data/*.csv`)
 
-Downloaded on 2026-10-14 and 2026-10-19 from the public Rdatasets mirror (`github.com/vincentarelbundock/Rdatasets`, commit `1dcc2bf5f955cc1224a3e1307256e1fe86b68dae`) and the CRAN mirror on GitHub (`github.com/cran/...`). SHA-256 digests for all 13 CSV files are stored in `data/SHA256SUMS` and checked at runtime by `stochology-cli` (`gates` and `labs`).
+Downloaded on 2026-10-14 and 2026-10-19 from the public Rdatasets mirror (`github.com/vincentarelbundock/Rdatasets`, commit `1dcc2bf5f955cc1224a3e1307256e1fe86b68dae`) and the CRAN mirror on GitHub (`github.com/cran/...`), and on 2026-10-30 from the Federal Reserve Bank of Philadelphia (§3b). SHA-256 digests for all 14 CSV files are stored in `data/SHA256SUMS` and checked at runtime by `stochology-cli` (`gates` and `labs`).
 
 ## 1. Core Benchmark Datasets (`data/*.csv`)
 
@@ -51,9 +51,21 @@ Extracted from the January–July slices of `nycflights13::flights` (commit `1dc
 
 ---
 
+## 3b. Real-Time Macroeconomic Vintages (pillar B)
+
+Downloaded on 2026-10-30 from the Federal Reserve Bank of Philadelphia, Real-Time Data Set for Macroeconomists (`https://www.philadelphiafed.org/-/media/frbp/assets/surveys-and-data/real-time-data/data-files/xlsx/routputqvqd.xlsx`, SHA-256 `25433da00f46764a167590efe5c3e1c20a3e91e98ba0f49e6f92f058bc42c9e3`, 243 161 bytes). Not an R package: the workbook is the primary distribution. Consumed by `crates/stochology-cli/src/pillars.rs` (`real_time_vintage_audit`, `labs --real-data`, `gates` G7, `gates --defect vintage_leak`).
+
+| File | Source | Description | Transformation | Protocol Usage |
+|---|---|---|---|---|
+| `rtdsm_routput_vintages.csv` | Philadelphia Fed RTDSM `ROUTPUT` (quarterly observations, quarterly vintages) | Real GNP/GDP levels as published in each vintage, 244 vintages 1965Q4–2026Q3, observations from 1947Q1 (47 405 non-missing vintage × quarter values) | Wide matrix (rows `YYYY:Qq`, columns `ROUTPUTyyQq`) reshaped to long form `vintage,obs_quarter,routput` with `scripts/rtdsm_to_csv.py` (Python standard library; `#N/A` cells dropped; levels to one decimal; rows sorted). Levels keep each vintage's own base year, so growth is computed inside a vintage | Pillar B: `RealTimeVintageAudit` (Ch. 21) |
+
+Reference: Croushore, D. & Stark, T. (2001). A real-time data set for macroeconomists. *Journal of Econometrics*, 105(1), 111–130.
+
+---
+
 ## 4. Upstream Package Licences and Data Provenance
 
-The files in this directory are copies of public research and government datasets redistributed by R packages. The repository's own MIT licence covers the Rust source code of this workspace.
+The files in this directory are copies of public research and government datasets redistributed by R packages, except `rtdsm_routput_vintages.csv`, which is converted from the publisher's own workbook (§3b). The repository's own MIT licence covers the Rust source code of this workspace.
 
 | File | Package (licence field) | Original source as documented by the package |
 |---|---|---|
@@ -67,3 +79,4 @@ The files in this directory are copies of public research and government dataset
 | `vic_elec.csv` | `tsibbledata` (GPL-3) | Australian Energy Market Operator (AEMO), public half-hourly demand |
 | `atlantic_storms.csv` | `dplyr` (MIT) | NOAA Atlantic hurricane database (HURDAT2), public records |
 | `toronto_arrests.csv` | `carData` (GPL ≥ 2) | Toronto Star freedom-of-information request, published by Fox & Weisberg |
+| `rtdsm_routput_vintages.csv` | none (direct download) | Federal Reserve Bank of Philadelphia, Real-Time Data Set for Macroeconomists; public data, cited as Croushore & Stark (2001) |

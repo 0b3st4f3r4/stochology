@@ -1,6 +1,7 @@
 //! Positive epistemological gate evaluators (`G1` through `G8`) and acceptance registry verification.
 
 use std::path::Path;
+use stochology_cli::pillars::PillarExpansionAudit;
 use stochology_cli::{
     PublicInfrastructureCard04Audit, evaluate_empirical_card_severe_test,
     load_atlantic_storms_decade_environments, load_atlantic_storms_forecasts,
@@ -575,11 +576,60 @@ fn eval_gate_g8(
     Ok(())
 }
 
+/// Pillar expansion on real data (`docs/research/pillar-expansion.md`): one instrument per pillar,
+/// reported under the gate that owns it (`G4`, `G6`, `G7`).
+fn eval_pillar_expansion(root: &Path) -> Result<(), String> {
+    let audit = PillarExpansionAudit::evaluate(root)?;
+    let failed = audit.failed_checks();
+    if !failed.is_empty() {
+        return Err(format!(
+            "G4/G6/G7 failed pillar expansion checks: {failed:?}"
+        ));
+    }
+    let c = &audit.calibrated.analog;
+    println!(
+        "  [G6] C: CORP-CRPS on vic_elec.csv daily peaks (analog ensemble): CRPS={:.1} = MCB {:.1} - DSC {:.1} + UNC {:.1} MW -> admissible",
+        c.crps_mean, c.mcb_miscalibration, c.dsc_discrimination, c.unc_uncertainty
+    );
+    let a = &audit.anytime;
+    println!(
+        "  [G6] A: e-BH over K={} carriers (nyc_flights 2013 vs 2023, unit = paired calendar day): {} rejected {:?}, {} discarded (Benjamini-Yekutieli on 1/e rejects {}; naive peeking would reject {})",
+        a.ebh.hypotheses_k,
+        a.ebh.rejected.len(),
+        a.ebh.rejected,
+        a.ebh.discarded.len(),
+        a.ebh.benjamini_yekutieli_rejected.len(),
+        a.naive_peeking_rejected.len()
+    );
+    let p = &audit.performative.power;
+    println!(
+        "  [G6] P: performative sensitivity on nsw_experimental.csv: W1/sd_0={:.4} (permutation p={:.3}, null mean {:.4}) -> measured eps >= {:.4} (bootstrap q05 of the mean gap)",
+        p.w1_standardized, p.permutation_p_value, p.permutation_null_mean, p.epsilon_lower_bound
+    );
+    let i = &audit.invariant.anchor;
+    println!(
+        "  [G6] I: anchor regression nyc_flights 2013 -> 2023: slope gap at gamma=5 is {:.3} (anchor-stable={}), test MSE {:.1} (OLS) vs {:.1} (gamma=5)",
+        i.relative_slope_gap, i.anchor_stable, i.test_pooled_mse[0], i.test_pooled_mse[2]
+    );
+    let b = &audit.bitemporal;
+    println!(
+        "  [G7] B: real-time vintages rtdsm_routput_vintages.csv: {} decisions, clock clean, mean revision {:+.2} pp (SD {:.2}), leaky backtest blocked",
+        b.decisions, b.mean_revision, b.sd_revision
+    );
+    let t = &audit.auditing.audit;
+    println!(
+        "  [G4] A: multicalibration on toronto_arrests.csv: {} cells, {} violations, verdict {:?} (largest confidence radius {:.3}, tolerance 0.05)",
+        t.cells_audited, t.violations, t.verdict, t.max_radius
+    );
+    Ok(())
+}
+
 /// Runs all 8 positive epistemological gates (`G1` through `G8`).
 pub fn run_positive_gates(root: &Path) -> Result<(), String> {
     println!("=== EPISTEMOLOGICAL GATES G1-G8 (STOCHOLOGY PROTOCOL) ===");
     let cards = eval_gates_g1_to_g5(root)?;
     let (storm_probs, storm_outcomes) = eval_gate_g6(root)?;
     let (probs_h1, y23_h1) = eval_gate_g7(root, &cards, &storm_probs, &storm_outcomes)?;
+    eval_pillar_expansion(root)?;
     eval_gate_g8(root, &storm_probs, &storm_outcomes, &probs_h1, &y23_h1)
 }

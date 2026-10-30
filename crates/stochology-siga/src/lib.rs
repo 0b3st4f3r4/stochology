@@ -10,8 +10,9 @@ pub use funnel::{
     prospective_ppi_gold_sample_size, regularized_incomplete_beta, sbc_rank_chi2,
 };
 pub use roadmap::{
-    AlertFatigueAudit, EvidenceProcess, MultimodalCorrelatedFusionAudit,
-    NaturalFrequencyMemorandum, PreMortemCounterfactualRootCauseAudit, SaviConfidenceSequence,
-    SigaExecutionReport, VarEsEBacktest, run_full_siga_roadmap, run_full_siga_roadmap_empirical,
+    AlertFatigueAudit, EBhMultiplicityAudit, EvidenceProcess, MultimodalCorrelatedFusionAudit,
+    NaturalFrequencyMemorandum, PeekingMultiplicitySimulation,
+    PreMortemCounterfactualRootCauseAudit, SaviConfidenceSequence, SigaExecutionReport,
+    VarEsEBacktest, run_full_siga_roadmap, run_full_siga_roadmap_empirical,
     run_full_siga_roadmap_empirical_with_profile, simulate_sbc_beta_binomial_ranks,
 };

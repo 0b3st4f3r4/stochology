@@ -1,6 +1,6 @@
 # 8. Severe Testing, Multiplicity, Martingales (e-Processes), and Conformal Prediction
 
-> **Three tempos.** **Detachment:** set aside one-shot significance tests and fixed-sample intervals read after peeking. **Abstraction:** a claim deserves trust only if it survived a test that could have refuted it, and evidence must stay valid when monitored continuously. **Return:** severe testing, multiplicity, betting martingales (e-processes), confidence sequences, and conformal prediction. **Negative proof:** `gates -- --defect peeking`, `gates -- --defect var_underreport` (exit `1`).
+> **Three tempos.** **Detachment:** set aside one-shot significance tests and fixed-sample intervals read after peeking. **Abstraction:** a claim deserves trust only if it survived a test that could have refuted it, and evidence must stay valid when monitored continuously. **Return:** severe testing, multiplicity, betting martingales (e-processes), confidence sequences, and conformal prediction. **Negative proof:** `gates -- --defect peeking`, `gates -- --defect var_underreport`; Full track adds `gates -- --defect multiplicity` (exit `1`).
 
 ## The Scientist Who Peeked Every Morning Until the Coin Confessed
 
@@ -226,6 +226,26 @@ Use the interactive Ville martingale vs. optional-stopping laboratory below to c
 
 
 ---
+
+## 8.5 Many Hypotheses at Once: e-BH (`EBhMultiplicityAudit`)
+
+Section 8.1 counted attempts with $K$; the existing `EvidenceProcess` divides the running maximum by $K$, a Bonferroni rule that controls the chance of *any* false rejection. When an analyst tests many hypotheses and wants to keep the share of false discoveries low instead, Wang and Ramdas (2022, *JRSS-B*, informative) give a rule that needs no assumption about how the e-values depend on each other. Sort the e-values $e\_{(1)} \ge \dots \ge e\_{(K)}$ and reject the $\hat{k}$ largest, where
+
+$$\hat{k} = \max\Bigl\{k : e\_{(k)} \ge \frac{K}{\alpha k}\Bigr\}.$$
+
+The false discovery rate is then at most $\alpha$. BH on p-values needs an extra harmonic factor $H\_K = \sum\_{i \le K} 1/i$ for the same guarantee (Benjamini and Yekutieli 2001); e-BH does not. Every hypothesis e-BH does not reject is named as a discarded finding, so Prohibition 4 holds by construction.
+
+**Measured** on `nyc_flights_2013.csv` and `nyc_flights_2023.csv`: one hypothesis per carrier that flew from New York in both August–December windows ($K = 11$). The independent unit is the **day**, not the flight ($\Phi\_2$): flights of one day share weather and congestion. For every calendar day $d$ the carrier flew in both years, $X\_d = r\_{2023}(d) - r\_{2013}(d)$ is the change in its share of arrivals more than 15 minutes late; pairing the same calendar day removes the shared seasonality. The null is "no change" ($\mathbb{E}[X\_d \mid \text{earlier days}] = 0$), tested with GRAPA betting e-values. A first design that treated each flight as a unit was discarded after an independent audit showed its e-values were driven by within-season dependence (`docs/research/pillar-expansion.md`, D7).
+
+~~~text
+  [G6] A: e-BH over K=11 carriers (nyc_flights 2013 vs 2023, unit = paired calendar day): 2 rejected ["9E", "HA"], 9 discarded (Benjamini-Yekutieli on 1/e rejects 1; naive peeking would reject 5)
+~~~
+
+The naive analyst runs each stream as if it were the only one ($K = 1$) and stops at the first crossing of $1/\alpha$. On a **simulated** global null (seed 2026) that rule discovers something false in half of the replications:
+
+~~~text
+NEGATIVE PROOF [multiplicity] BLOCKED SUCCESSFULLY: peeking 20 null e-processes at 1/alpha with K=1 each gives FDR=0.515 > 0.05 (e-BH FDR=0.000, simulated, seed 2026)
+~~~
 
 ## Computational Audit in Rust
 

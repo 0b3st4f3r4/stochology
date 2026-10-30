@@ -5,7 +5,7 @@
 mod gates_mod;
 
 use std::env;
-use stochology_cli::{all_defect_names, resolve_workspace_root};
+use stochology_cli::{ALL_DEFECTS, all_defect_names, pillar_partition, resolve_workspace_root};
 use stochology_lenses::acceptance::{canonical_registry_lines, evaluate_all_syntheses};
 
 use crate::gates_mod::card_audit::run_audit_card;
@@ -15,7 +15,7 @@ use crate::gates_mod::positive::run_positive_gates;
 fn print_usage() {
     let defects_csv = all_defect_names().join(", ");
     println!(
-        "Usage: gates [--help | --defect <defect_name> | --audit-card <card.yaml> | --print-acceptance-registry]\n\
+        "Usage: gates [--help | --defect <defect_name> | --audit-card <card.yaml> | --print-acceptance-registry | --list-defects]\n\
          Defects: {defects_csv}"
     );
 }
@@ -29,6 +29,14 @@ fn main() {
         [] => {}
         [flag] if flag == "--help" || flag == "-h" => {
             print_usage();
+            return;
+        }
+        [flag] if flag == "--list-defects" => {
+            // One `name<TAB>pillar<TAB>gate` line per negative proof, then the pillar partition.
+            for d in &ALL_DEFECTS {
+                println!("{}\t{:?}\t{}", d.name, d.pillar, d.gate);
+            }
+            println!("partition\t{}", pillar_partition());
             return;
         }
         [flag] if flag == "--print-acceptance-registry" => {

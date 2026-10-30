@@ -1,6 +1,6 @@
 # 20. The Regime of the Decision
 
-> **Three tempos.** **Detachment:** set aside individuals and observations as isolated atoms. **Abstraction:** the world returns clustering, resolution limits, and fairness trade-offs to the decision (Decision Worlds, $L\_1 \to L\_3$, reading frame). **Return:** Moulton-Campbell $n\_{\mathrm{eff}}(p)$, $\Phi\_5$ resolution parity, and Chouldechova's impossibility. **Negative proof:** `gates -- --defect moulton`, `gates -- --defect phi5`, `gates -- --defect chouldechova` (exit `1`).
+> **Three tempos.** **Detachment:** set aside individuals and observations as isolated atoms. **Abstraction:** the world returns clustering, resolution limits, and fairness trade-offs to the decision (Decision Worlds, $L\_1 \to L\_3$, reading frame). **Return:** Moulton-Campbell $n\_{\mathrm{eff}}(p)$, $\Phi\_5$ resolution parity, and Chouldechova's impossibility. **Negative proof:** `gates -- --defect moulton`, `gates -- --defect phi5`, `gates -- --defect chouldechova`; Full track adds `gates -- --defect subgroup_miscalibration` (exit `1`).
 
 ## Five Hundred Fish in Two Tanks, and One Hundred Coin Tossers
 
@@ -155,6 +155,22 @@ Because no algorithm can repeal Bayes' theorem, Invariant $\Phi\_4$ requires eve
 3. Declare a machine-actionable numeric **`exit_clause`** (for instance: *"Immediately suspend automated shift scheduling if $\mathrm{REL}\_{\mathrm{CORP}} > 0.020$ or $\mathrm{RES}\_{\mathrm{CORP}} < 0.025$ over a 10-business-day rolling window"*).
 
 ---
+
+### 20.2.1 Calibration Inside Every Subgroup (`MulticalibrationAudit`)
+
+Chouldechova's trilemma is about error rates. A forecast can also be calibrated on average and miscalibrated inside every group that matters, because the groups' errors cancel. Multicalibration (Hébert-Johnson, Kim, Reingold and Rothblum 2018, *ICML*, informative) asks that $|\mathbb{E}[Y - p \mid S, v]| \le \alpha$ for every declared subgroup $S$ and forecast bin $v$. The audit bounds each cell's gap with Hoeffding's inequality at a Bonferroni level and returns one of three verdicts: `Violated` (some gap is above $\alpha$ with confidence), `Certified` (every gap is below $\alpha$ with confidence), or `Inconclusive`. "No violation found" is never read as "fair".
+
+**Measured** on `toronto_arrests.csv`: a release predictor that never sees `colour`, fitted on odd rows and audited on even rows, over colour × sex × employment × citizenship:
+
+~~~text
+  [G4] A: multicalibration on toronto_arrests.csv: 59 cells, 0 violations, verdict Inconclusive (largest confidence radius 0.360, tolerance 0.05)
+~~~
+
+Cells hold 30 to 523 arrests. The smallest has a confidence radius of $0.36$, and certifying a gap below $0.05$ at this Bonferroni level would need about 1,550 units per cell, so the audit cannot resolve gaps of the tolerance's size, and it says so. On a **simulated** predictor (seed 2026) whose subgroup errors cancel exactly, the global CORP check sees nothing and the subgroup audit blocks:
+
+~~~text
+NEGATIVE PROOF [subgroup_miscalibration] BLOCKED SUCCESSFULLY: global REL_CORP=0.0009 hides 10 multicalibration violations (simulated, seed 2026)
+~~~
 
 ## 20.3 Invariant $\Phi\_5$ — Question Resolution Alignment
 

@@ -1,5 +1,5 @@
 //! Competency DAG (`docs/competencies.toml`): the course as an acyclic graph of competencies instead of
-//! fixed reading tracks or reader roles, with one verified pathway per negative defect proof (21 pathways)
+//! fixed reading tracks or reader roles, with one verified pathway per negative defect proof (`DEFECT_COUNT` pathways)
 //! and a cross-cutting practicum thread (Part VII) that runs across all of them.
 //!
 //! A **pathway** is the prerequisite closure of the competency that carries a negative proof, listed in
@@ -377,7 +377,7 @@ impl CompetencyDag {
     /// Verified: unique ids and known prerequisites; acyclicity; chapters exist and every numbered
     /// chapter plus Appendices A and B is taught by some competency; no prerequisite is read later
     /// than its dependent; edges form a transitive reduction; Core competencies require only Core ones;
-    /// each of the 21 negative proofs is carried by exactly one competency (so 21 distinct pathways);
+    /// each negative proof is carried by exactly one competency (so `DEFECT_COUNT` distinct pathways);
     /// evidence commands are runnable; the practicum thread names existing competencies without a
     /// negative proof; and every competency belongs to some pathway or to the practicum closure.
     pub fn audit(&self, book: &BookIndex) -> Vec<String> {

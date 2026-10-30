@@ -364,7 +364,7 @@
   <header class="lab-topbar">
     <div class="lab-brand">
       <span class="lab-brand-badge">CAPIBA PROTOCOL · /lab</span>
-      <h1>Stochology Interactive Laboratory (seed = 2026)</h1>
+      <h1 id="lab-topbar-title">Stochology Interactive Laboratory (seed = 2026)</h1>
     </div>
     <div class="lab-top-actions">
       <a href="../index.html" class="stoch-lab-btn stoch-lab-btn-primary">← Back to Textbook</a>
@@ -798,6 +798,10 @@
 
         var spec = registry[found.id] || {};
         idEl.textContent = "(" + (idx + 1) + "/16) · " + found.id + " · Φ₁ (seed = " + activeSeed + ")";
+        var topbarTitle = document.getElementById("lab-topbar-title");
+        if (topbarTitle) {
+          topbarTitle.textContent = "Stochology Interactive Laboratory (seed = " + activeSeed + ")";
+        }
         mobileActiveLabel.textContent = found.label;
         if (spec.title) {
           document.title = spec.title + " | Stochology /lab (seed = " + activeSeed + ")";
