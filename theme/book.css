@@ -1531,6 +1531,10 @@ dialog.stoch-svg-zoom-dialog {
   overflow: hidden;
 }
 
+dialog.stoch-svg-zoom-dialog:not([open]) {
+  display: none !important;
+}
+
 dialog.stoch-svg-zoom-dialog[open] {
   display: flex;
   flex-direction: column;
@@ -1544,7 +1548,7 @@ dialog.stoch-svg-zoom-dialog::backdrop {
 .stoch-svg-zoom-header {
   display: flex;
   flex-wrap: wrap;
-  align-items: safe center;
+  align-items: center;
   justify-content: space-between;
   gap: 0.65em 1em;
   padding: 0.75em 1.15em;
@@ -1603,29 +1607,35 @@ dialog.stoch-svg-zoom-dialog::backdrop {
 
 .stoch-svg-zoom-viewport {
   flex: 1 1 auto;
+  display: block;
   overflow: auto;
   overscroll-behavior: contain;
   padding: 1.35em;
-  display: flex;
-  align-items: safe center;
-  justify-content: safe center;
   background-color: var(--bg);
   min-block-size: 260px;
   max-block-size: calc(min(92vh, 92dvh) - 8.5rem);
+  box-sizing: border-box;
 }
 
 .stoch-svg-zoom-stage {
+  display: block;
+  width: 100%;
   inline-size: 100%;
-  margin: auto;
-  transition: inline-size 0.12s ease;
+  max-width: none;
+  max-inline-size: none;
+  margin-inline: auto;
+  transition: width 0.12s ease, inline-size 0.12s ease;
 }
 
 .stoch-svg-zoom-stage > svg,
 .stoch-svg-zoom-stage > img {
   display: block;
+  width: 100%;
   inline-size: 100%;
-  max-inline-size: none;
-  block-size: auto;
+  max-width: none !important;
+  max-inline-size: none !important;
+  height: auto !important;
+  block-size: auto !important;
   margin-inline: auto;
 }
 

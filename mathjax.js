@@ -1788,20 +1788,16 @@
     btnIn.textContent = "+";
     btnIn.setAttribute("aria-label", "Zoom in SVG");
 
-    var closeForm = document.createElement("form");
-    closeForm.method = "dialog";
-    closeForm.className = "stoch-svg-zoom-close-form";
     var btnClose = document.createElement("button");
-    btnClose.type = "submit";
-    btnClose.className = "stoch-svg-zoom-btn";
+    btnClose.type = "button";
+    btnClose.className = "stoch-svg-zoom-btn stoch-svg-zoom-close-btn";
     btnClose.textContent = "✕ Close";
     btnClose.setAttribute("aria-label", "Close SVG zoom modal");
-    closeForm.appendChild(btnClose);
 
     controls.appendChild(btnOut);
     controls.appendChild(btnReset);
     controls.appendChild(btnIn);
-    controls.appendChild(closeForm);
+    controls.appendChild(btnClose);
     header.appendChild(controls);
 
     var viewport = document.createElement("div");
@@ -1819,44 +1815,98 @@
     document.body.appendChild(dialog);
 
     var zoomPct = 100;
+    var baseWidthPx = 0;
+
+    function computeBaseWidth() {
+      var vw = viewport.clientWidth;
+      if (vw && vw > 60) {
+        return vw - 44;
+      }
+      return Math.max(320, Math.min(window.innerWidth || 960, 1340) - 80);
+    }
+
     function setZoomPct(nextPct) {
       zoomPct = Math.max(50, Math.min(300, nextPct));
-      stage.style.inlineSize = zoomPct + "%";
+      if (!baseWidthPx || baseWidthPx < 100) {
+        baseWidthPx = computeBaseWidth();
+      }
+      var targetPx = Math.round((baseWidthPx * zoomPct) / 100);
+      stage.style.width = targetPx + "px";
+      stage.style.inlineSize = targetPx + "px";
+      var child = stage.firstElementChild;
+      if (child && child.style) {
+        child.style.width = targetPx + "px";
+        child.style.inlineSize = targetPx + "px";
+        child.style.maxWidth = "none";
+        child.style.maxInlineSize = "none";
+        child.style.height = "auto";
+        child.style.blockSize = "auto";
+      }
       btnReset.textContent = zoomPct + "%";
     }
 
-    btnOut.addEventListener("click", function () {
-      setZoomPct(zoomPct - 25);
-    });
-    btnIn.addEventListener("click", function () {
-      setZoomPct(zoomPct + 25);
-    });
-    btnReset.addEventListener("click", function () {
-      setZoomPct(100);
-    });
-
-    if (typeof HTMLDialogElement !== "undefined" && !("closedBy" in HTMLDialogElement.prototype)) {
-      dialog.addEventListener("click", function (event) {
-        if (event.target === dialog) {
-          var rect = dialog.getBoundingClientRect();
-          var clickedOutside =
-            event.clientX < rect.left ||
-            event.clientX > rect.right ||
-            event.clientY < rect.top ||
-            event.clientY > rect.bottom;
-          if (clickedOutside && typeof dialog.close === "function") {
+    function closeDialog() {
+      if (typeof dialog.close === "function") {
+        try {
+          if (dialog.open) {
             dialog.close();
           }
-        }
-      });
+        } catch (_) {}
+      }
+      dialog.removeAttribute("open");
     }
+
+    btnOut.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      setZoomPct(zoomPct - 25);
+    });
+    btnIn.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      setZoomPct(zoomPct + 25);
+    });
+    btnReset.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      baseWidthPx = computeBaseWidth();
+      setZoomPct(100);
+    });
+    btnClose.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      closeDialog();
+    });
+
+    dialog.addEventListener("click", function (event) {
+      if (event.target === dialog) {
+        closeDialog();
+      }
+    });
+
+    document.addEventListener(
+      "keydown",
+      function (event) {
+        if (event.key === "Escape" && (dialog.open || dialog.hasAttribute("open"))) {
+          event.preventDefault();
+          event.stopPropagation();
+          closeDialog();
+        }
+      },
+      true
+    );
 
     svgZoomDialogState = {
       dialog: dialog,
       titleEl: titleEl,
+      viewport: viewport,
       stage: stage,
       captionEl: captionEl,
-      setZoomPct: setZoomPct
+      resetBaseWidth: function () {
+        baseWidthPx = computeBaseWidth();
+      },
+      setZoomPct: setZoomPct,
+      closeDialog: closeDialog
     };
     return svgZoomDialogState;
   }
@@ -1871,21 +1921,22 @@
     var clone = targetEl.cloneNode(true);
     clone.removeAttribute("width");
     clone.removeAttribute("height");
-    if (clone.style) {
-      clone.style.maxWidth = "none";
-      clone.style.width = "100%";
-      clone.style.height = "auto";
-    }
     modal.stage.appendChild(clone);
-    modal.setZoomPct(100);
 
     if (typeof modal.dialog.showModal === "function") {
       if (!modal.dialog.open) {
-        modal.dialog.showModal();
+        try {
+          modal.dialog.showModal();
+        } catch (_) {
+          modal.dialog.setAttribute("open", "open");
+        }
       }
     } else {
       modal.dialog.setAttribute("open", "open");
     }
+
+    modal.resetBaseWidth();
+    modal.setZoomPct(100);
   }
 
   function setupSvgZoomModals(root) {

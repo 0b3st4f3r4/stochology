@@ -1,8 +1,144 @@
 # Preface — The Science and Ethics of Aim (*Stókhos*)
 
-<p align="center">
-  <img src="logo.svg" alt="Stochology Emblem" width="160" />
-</p>
+<figure class="stoch-figure stoch-logo-figure">
+  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-labelledby="stochology-logo-title">
+  <title id="stochology-logo-title">Stochology — The Science and Ethics of Aim Under Uncertainty</title>
+  <defs>
+  <linearGradient id="logo-ring" x1="2" y1="86" x2="468" y2="86" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
+  <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
+  <stop offset="66%" stop-color="var(--logo-gold, #f59e0b)"/>
+  <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
+  </linearGradient>
+  <radialGradient id="logo-glow" cx="52%" cy="52%" r="50%">
+  <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
+  <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+  <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
+  <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="logo-bridge-l1-l2" x1="23" y1="74" x2="51" y2="26" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#059669"/>
+  <stop offset="55%" stop-color="var(--logo-green, #10b981)"/>
+  <stop offset="100%" stop-color="var(--logo-blue, #2563eb)"/>
+  </linearGradient>
+  <linearGradient id="logo-bridge-l2-l3" x1="78" y1="26" x2="105" y2="75" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="var(--logo-blue, #2563eb)"/>
+  <stop offset="52%" stop-color="var(--logo-gold, #f59e0b)"/>
+  <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
+  </linearGradient>
+  <linearGradient id="logo-bridge-l3-l1" x1="91" y1="98" x2="36" y2="98" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="var(--logo-crimson, #e11d48)"/>
+  <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)"/>
+  <stop offset="100%" stop-color="var(--logo-green, #10b981)"/>
+  </linearGradient>
+  <linearGradient id="logo-prism-grad" x1="64" y1="24" x2="64" y2="87" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.75"/>
+  <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.85"/>
+  <stop offset="100%" stop-color="var(--logo-ticks, #64748b)" stop-opacity="0.75"/>
+  </linearGradient>
+  <linearGradient id="logo-tail" x1="31" y1="86" x2="96" y2="48" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#059669" stop-opacity="0.46"/>
+  <stop offset="38%" stop-color="#2563eb" stop-opacity="0.48"/>
+  <stop offset="68%" stop-color="#f59e0b" stop-opacity="0.44"/>
+  <stop offset="100%" stop-color="#e11d48" stop-opacity="0.48"/>
+  </linearGradient>
+  <linearGradient id="logo-curve-stroke" x1="31" y1="85" x2="96" y2="84" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
+  <stop offset="45%" stop-color="var(--logo-sub, #1d4ed8)"/>
+  <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+  </linearGradient>
+  <radialGradient id="logo-pupil-abyss" cx="45%" cy="42%" r="58%">
+  <stop offset="0%" stop-color="#020617"/>
+  <stop offset="68%" stop-color="#0f172a"/>
+  <stop offset="100%" stop-color="#451a03"/>
+  </radialGradient>
+  <linearGradient id="logo-gold-mira" x1="58" y1="52" x2="84" y2="82" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#fef08a"/>
+  <stop offset="45%" stop-color="#fbbf24"/>
+  <stop offset="100%" stop-color="#d97706"/>
+  </linearGradient>
+  <linearGradient id="logo-gold-axes" x1="41" y1="66.65" x2="72" y2="40" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#d97706"/>
+  <stop offset="50%" stop-color="#fbbf24"/>
+  <stop offset="100%" stop-color="#fef08a"/>
+  </linearGradient>
+  <radialGradient id="logo-gold-core" cx="38%" cy="35%" r="65%">
+  <stop offset="0%" stop-color="#ffffff"/>
+  <stop offset="35%" stop-color="#fde047"/>
+  <stop offset="100%" stop-color="#d97706"/>
+  </radialGradient>
+  <radialGradient id="logo-node-well" cx="38%" cy="35%" r="65%">
+  <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
+  <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
+  </radialGradient>
+  <linearGradient id="logo-ring-l2" x1="55" y1="15" x2="73" y2="33" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#7dd3fc"/>
+  <stop offset="50%" stop-color="#2563eb"/>
+  <stop offset="100%" stop-color="#1e3a8a"/>
+  </linearGradient>
+  <radialGradient id="logo-core-l2" cx="35%" cy="35%" r="65%">
+  <stop offset="0%" stop-color="#bae6fd"/>
+  <stop offset="45%" stop-color="#3b82f6"/>
+  <stop offset="100%" stop-color="#1d4ed8"/>
+  </radialGradient>
+  <linearGradient id="logo-ring-l1" x1="18" y1="78" x2="37" y2="96" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#6ee7b7"/>
+  <stop offset="50%" stop-color="#10b981"/>
+  <stop offset="100%" stop-color="#065f46"/>
+  </linearGradient>
+  <radialGradient id="logo-core-l1" cx="35%" cy="35%" r="65%">
+  <stop offset="0%" stop-color="#a7f3d0"/>
+  <stop offset="45%" stop-color="#10b981"/>
+  <stop offset="100%" stop-color="#047857"/>
+  </radialGradient>
+  <linearGradient id="logo-ring-l3" x1="91" y1="78" x2="110" y2="96" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#fda4af"/>
+  <stop offset="50%" stop-color="#e11d48"/>
+  <stop offset="100%" stop-color="#881337"/>
+  </linearGradient>
+  <radialGradient id="logo-core-l3" cx="35%" cy="35%" r="65%">
+  <stop offset="0%" stop-color="#fecdd3"/>
+  <stop offset="45%" stop-color="#f43f5e"/>
+  <stop offset="100%" stop-color="#be123c"/>
+  </radialGradient>
+  </defs>
+  <g>
+  <circle cx="64" cy="66" r="48" fill="url(#logo-glow)"/>
+  <path d="M 22.77 74.01 A 42 42 0 0 1 50.60 26.19" stroke="url(#logo-bridge-l1-l2)" stroke-width="4.4" stroke-linecap="round"/>
+  <path d="M 46.92 32.93 L 51.02 26.06 L 43.36 23.74" stroke="url(#logo-bridge-l1-l2)" stroke-width="4.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 77.67 26.29 A 42 42 0 0 1 105.17 74.30" stroke="url(#logo-bridge-l2-l3)" stroke-width="4.4" stroke-linecap="round"/>
+  <path d="M 101.18 67.75 L 105.08 74.73 L 110.91 69.26" stroke="url(#logo-bridge-l2-l3)" stroke-width="4.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 91.55 97.70 A 42 42 0 0 1 36.22 97.50" stroke="url(#logo-bridge-l3-l1)" stroke-width="4.4" stroke-linecap="round"/>
+  <path d="M 43.90 97.32 L 35.90 97.21 L 37.72 105.00" stroke="url(#logo-bridge-l3-l1)" stroke-width="4.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="64,24 100.37,87 27.63,87" stroke="url(#logo-prism-grad)" stroke-width="2.4" stroke-dasharray="3.64 3.64" stroke-linejoin="round"/>
+  <path d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84 L 96 86 L 31 86 Z" fill="url(#logo-tail)"/>
+  <path d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84" stroke="url(#logo-curve-stroke)" stroke-width="2.6" stroke-linecap="round"/>
+  <line x1="44.3" y1="66.65" x2="59.5" y2="66.65" stroke="url(#logo-gold-axes)" stroke-width="2.6" stroke-dasharray="3.2 2.8" stroke-linecap="round"/>
+  <line x1="72" y1="43.5" x2="72" y2="53.5" stroke="url(#logo-gold-axes)" stroke-width="2.6" stroke-dasharray="3.4 3.2" stroke-linecap="round"/>
+  <line x1="72" y1="80.0" x2="72" y2="83.4" stroke="url(#logo-gold-axes)" stroke-width="2.6" stroke-linecap="round"/>
+  <g id="golden-reticle">
+    <circle cx="72" cy="66.65" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+    <circle cx="72" cy="66.65" r="6.4" fill="url(#logo-pupil-abyss)" stroke="url(#logo-gold-mira)" stroke-width="2.4"/>
+    <line x1="62.4" y1="66.65" x2="67.8" y2="66.65" stroke="url(#logo-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="76.2" y1="66.65" x2="81.6" y2="66.65" stroke="url(#logo-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="72" y1="57.05" x2="72" y2="62.45" stroke="url(#logo-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="72" y1="70.85" x2="72" y2="76.25" stroke="url(#logo-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="72" cy="66.65" r="2.2" fill="url(#logo-gold-core)"/>
+  </g>
+  <circle cx="64" cy="24" r="9.2" fill="url(#logo-node-well)" stroke="url(#logo-ring-l2)" stroke-width="3.4"/>
+  <circle cx="64" cy="24" r="4.0" fill="url(#logo-core-l2)"/>
+  <circle cx="27.63" cy="87" r="9.2" fill="url(#logo-node-well)" stroke="url(#logo-ring-l1)" stroke-width="3.4"/>
+  <circle cx="27.63" cy="87" r="4.0" fill="url(#logo-core-l1)"/>
+  <circle cx="100.37" cy="87" r="9.2" fill="url(#logo-node-well)" stroke="url(#logo-ring-l3)" stroke-width="3.4"/>
+  <circle cx="100.37" cy="87" r="4.0" fill="url(#logo-core-l3)"/>
+  </g>
+  <g transform="translate(148, 0)">
+  <text x="0" y="62" fill="var(--logo-ink)" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="42" font-weight="800" letter-spacing="2.5">STOCHOLOGY</text>
+  <line x1="2" y1="86" x2="468" y2="86" stroke="url(#logo-ring)" stroke-width="1.5" stroke-opacity="0.75"/>
+  <text x="2" y="103" fill="var(--logo-meta)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="11.5" font-weight="600" letter-spacing="0.8">THE SCIENCE AND ETHICS OF AIM UNDER UNCERTAINTY</text>
+  </g>
+</svg>
+</figure>
 
 **Stochology** is the science and ethics of aim (*stókhos*, $\sigma\tau\acute{o}\chi o\varsigma$) for judgment and decision-making under uncertainty when action must precede the outcome.
 
