@@ -2,20 +2,25 @@
 //!
 //! Formalizes in pure Rust the six transdisciplinary axes linking relational ontology,
 //! non-equilibrium thermodynamics, emergent phase transitions, cybernetic homeostasis,
-//! and the Ontological Stack to the Stochology Protocol (`seed = 2026`).
+//! and the Ontological Stack to Stochology.
 
 pub mod daisyworld;
 pub mod figuration_autopoiesis;
+pub mod holling_canguilhem;
 pub mod schelling;
 
 pub use daisyworld::{DaisyworldEquilibriumPoint, DaisyworldHomeostasisAudit, DaisyworldSystem};
 pub use figuration_autopoiesis::{DissipativeAutopoieticAudit, RelationalFigurationAudit};
+pub use holling_canguilhem::{
+    FilterThreeTensionsFiveAndSixAudit, HollingCanguilhemResilienceAudit,
+    MacKenziePerformativityRegime,
+};
 pub use schelling::{SchellingCell, SchellingPhaseTransitionAudit, SchellingSegregationModel};
 
 use stochology_core::NonlinearSummary;
 
 /// Axis 6: Complete Transdisciplinary Synthesis of Relational Ontology and Complex Systems
-/// across all 6 axes of the Ontological Stack (Morin, Mirowski, Arthur, Beinhocker — `seed = 2026`).
+/// across all 6 axes of the Ontological Stack (Morin, Mirowski, Arthur, Beinhocker).
 #[derive(Debug, Clone, PartialEq)]
 pub struct RelationalComplexSystemsSynthesis {
     /// Axis 1 & 4: Relational Vacuity (*Śūnyatā* / RQM / OSR) and *Homo clausus* vs. *Homines aperti*.

@@ -1,4 +1,4 @@
-# Stochology Protocol — Course Textbook
+# Stochology — Course Textbook
 
 [Preface](00-preface.md)
 

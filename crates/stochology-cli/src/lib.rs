@@ -1,5 +1,5 @@
 //! `stochology-cli` — Real empirical dataset loaders (`data/*.csv`), Strategy-based card ground-truth
-//! auditor (`CardDatasetStrategy`), CAPIBA defect registry (`ALL_DEFECTS`), and un-clamped cluster-permutation severe test (`seed = 2026`).
+//! auditor (`CardDatasetStrategy`), negative defect registry (`ALL_DEFECTS`), and un-clamped cluster-permutation severe test.
 
 pub mod card_audit;
 pub mod competencies;
@@ -23,8 +23,8 @@ pub use competencies::{
 };
 pub use csv::{CsvRow, CsvTable};
 pub use defects::{
-    ALL_DEFECTS, CapibaPillar, DEFECT_COUNT, DefectDescriptor, PILLAR_ORDER, all_defect_names,
-    pillar_partition,
+    ALL_DEFECTS, DEFECT_COUNT, DefectDescriptor, PILLAR_ORDER, VerificationPillar,
+    all_defect_names, pillar_partition,
 };
 pub use dpi_card04::PublicInfrastructureCard04Audit;
 pub use error::CliError;

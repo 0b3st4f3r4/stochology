@@ -173,6 +173,8 @@ $$dS = d\_e S + d\_i S$$
 
 Whenever the outward export of entropy exceeds internal production ($d\_e S < -d\_i S \le 0$), the net entropy of the system decreases ($dS = d\_e S + d\_i S < 0$) or settles into a non-equilibrium steady state ($dS = 0$ with $d\_i S = -d\_e S > 0$), sustaining **Dissipative Structures** far from thermal equilibrium.
 
+In economics and social theory, **Nicholas Georgescu-Roegen (1971)** demonstrated in *The Entropy Law and the Economic Process* that this thermodynamic arrow separates **reversible mechanical time ($t$)**—in which a frictionless pendulum or neoclassical equilibrium equation can run backward ($t \to -t$) without loss—from **irreversible entropic and historical time ($T$)**, in which low-entropy matter-energy reserves are irrevocably degraded and past path-dependent shocks cannot be "un-lived" (Tension 6 of Filter III, developed in [Chapters 9](09-lenses.md), [22](22-relational-ontology.md), and [23](23-stochary-conjectural-cybernetics.md)).
+
 ---
 
 ## 5.5 Wave Superposition, Interference, and the Wave / Helmholtz PDEs

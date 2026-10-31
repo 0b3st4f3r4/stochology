@@ -96,7 +96,7 @@
   <!-- Section 4 -->
   <rect x="40" y="276" width="650" height="50" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
   <text x="58" y="297" fill="var(--ink)" class="mono" font-size="12.5" font-weight="800">4. data_and_audit_contract</text>
-  <text x="58" y="317" fill="var(--muted)" font-size="11.5">64-Hex SHA-256, seed = 2026 Null (Φ₁), K ≥ 1, e-process, CORP PAV</text>
+  <text x="58" y="317" fill="var(--muted)" font-size="11.5">64-Hex SHA-256, Pre-Registered Seed Null (Φ₁), K ≥ 1, e-process, CORP PAV</text>
 
   <!-- Section 5 -->
   <rect x="40" y="336" width="650" height="50" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>

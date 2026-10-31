@@ -1,4 +1,4 @@
-//! Negative defect proof evaluators (`gates --defect <name>`, every defect of `ALL_DEFECTS` across the 6 CAPIBA pillars).
+//! Negative defect proof evaluators (`gates --defect <name>`, every defect of `ALL_DEFECTS` across the 6 verification pillars).
 
 use std::path::Path;
 use stochology_cli::pillars::{

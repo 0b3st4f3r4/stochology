@@ -1,4 +1,4 @@
-//! Submodules for the `labs` binary: the 7 methodological and empirical laboratories of the Stochology Protocol.
+//! Submodules for the `labs` binary: the 7 methodological and empirical laboratories of Stochology.
 
 pub mod lab1_layers;
 pub mod lab2_uncertainty;

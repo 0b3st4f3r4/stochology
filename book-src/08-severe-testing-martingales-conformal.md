@@ -84,9 +84,17 @@ Algorithmic refutation of optional stopping, multiplicity fishing, pseudoreplica
 ## 8.1 Severe Testing, Multiplicity ($K$), and the Five Statistical Errors
 
 ### Karl Popper and Deborah Mayo's Severity Principle
-A high correlation $R^2$ or a small training error cannot validate a scientific claim $C$ on its own, since an overparameterized curve can fit almost any dataset. Karl Popper and philosopher of statistics Deborah Mayo formulated the **Severity Requirement**:
+A high correlation $R^2$ or a small training error cannot validate a scientific claim $C$ on its own, since an overparameterized curve can fit almost any dataset. Karl Popper and philosopher of statistics Deborah Mayo (2018) formulated the **Severity Requirement**:
 
 > **Severe Test Criterion:** Data $D$ provide genuine evidence for a claim $C$ **if and only if** $C$ passes a test procedure $T$ that had a **very high probability of falsifying (rejecting) $C$ if $C$ were false**.
+
+### Tension 2: The Theoretical Bridge Between Deborah Mayo (Severe Testing) and Charles Manski (Partial Identification)
+
+In Filter I of Stochology's dialectic (*Accommodating Confirmation vs. Fruitful Refutation*, `notes/A Ética da Mira.md` §2.2), a classical statistical test can still deceive an institution even when it avoids $p$-hacking and optional stopping: it can apply a rigorous test to a **fictitious point-identified parameter** resting on untestable assumptions about missing records or unobserved confounders. Conversely, reporting a wide non-parametric bound without a finite-sample severity test leaves the decision-maker unable to separate sampling fluctuations from structural ignorance.
+
+Stochology resolves this by forging an explicit **theoretical bridge between Charles Manski (2003, 2013) and Deborah Mayo (2018)** (`MayoManskiSevereBoundaryAudit` and `ImbensManskiConfidenceInterval` in `crates/stochology-siga/src/roadmap/mayo_manski_keynes.rs`) across two sequential moments:
+1. **The Manski Moment (Bounding Structural Ignorance on $L_1 \to L_2$):** Before any hypothesis test is run, strip away untestable point-identifying assumptions (`MAR` or zero-selection dogmas) and compute the non-parametric **identification region** $[\underline{\theta}(D), \overline{\theta}(D)]$ (via Manski's worst-case bounds or David Lee's 2009 sharp trimming bounds, audited in [Chapter 10](10-world-models-missingness-bounds.md)).
+2. **The Mayo Moment (Severe Testing at the Conservative Boundary on $L_2 \to L_3$):** Apply Mayo's severe test (and the anytime-valid betting martingales of Shafer 2021, Grünwald, de Heide & Koolen 2024, and Ramdas et al. 2023) not to the naive point estimate $\hat{\theta}$, but to the **most conservative boundary** of the identification interval ($\underline{\theta}(D)$ when claiming a positive effect above an operational threshold $\theta^*$, as enforced by Guido Imbens and Charles Manski's 2004 confidence intervals for partially identified parameters). A claim passes with severity only when even the worst-case boundary supported by the archive survives refutation—which is exactly why the negative proof `--defect lee_point_estimate` ([Chapter 10](10-world-models-missingness-bounds.md)) blocks any card whose naive point estimate is positive while its Lee lower bound spans zero.
 
 ### The Five Canonical Statistical Errors
 In introductory textbooks, students learn only **Type I Error** ($\alpha$, false positive: rejecting a true null $H\_0$) and **Type II Error** ($\beta$, false negative: failing to reject a false null $H\_0$). In operational reality, three additional errors cause far more damage:
@@ -133,7 +141,7 @@ $$P\_{H\_0}\!\left(\sup\_{t \ge 1} E\_t \ge \frac{1}{\alpha}\right) \le \alpha$$
 > **Intuition of Ville's Inequality:** In a fair casino ($H\_0$), if you walk in with $E\_0 = \$1$, the probability that your bankroll **ever** touches $\$20$ ($1/\alpha$ for $\alpha = 0.05$) at *any* moment in your life (even if you peek after every single spin of the wheel and quit the instant you hit $\$20$) is **at most $1/20 = 5\%$**.
 > Conversely, if the null hypothesis $H\_0$ is **false** and the alternative $H\_1$ is true ($\mathbb{E}\_{H\_1}[\ln L\_i] > 0$), then $E\_t = \exp(\sum\_{i=1}^t \ln L\_i)$ grows **exponentially** to $+\infty$, crossing $1/\alpha = 20$ rapidly.
 
-This is why the Stochology Protocol (Chapters 16 and 17) uses cumulative *e-processes* $E\_t = \prod L\_i$ as its official sequential evidence engine.
+This is why Stochology (Chapters 16 and 17) uses cumulative *e-processes* $E\_t = \prod L\_i$ as its official sequential evidence engine.
 
 ---
 
@@ -241,7 +249,7 @@ The false discovery rate is then at most $\alpha$. BH on p-values needs an extra
   [G6] A: e-BH over K=11 carriers (nyc_flights 2013 vs 2023, unit = paired calendar day): 2 rejected ["9E", "HA"], 9 discarded (Benjamini-Yekutieli on 1/e rejects 1; naive peeking would reject 5)
 ~~~
 
-The naive analyst runs each stream as if it were the only one ($K = 1$) and stops at the first crossing of $1/\alpha$. On a **simulated** global null (seed 2026) that rule discovers something false in half of the replications:
+The naive analyst runs each stream as if it were the only one ($K = 1$) and stops at the first crossing of $1/\alpha$. On a **simulated** global null (under a pre-registered seed) that rule discovers something false in half of the replications:
 
 ~~~text
 NEGATIVE PROOF [multiplicity] BLOCKED SUCCESSFULLY: peeking 20 null e-processes at 1/alpha with K=1 each gives FDR=0.515 > 0.05 (e-BH FDR=0.000, simulated, seed 2026)

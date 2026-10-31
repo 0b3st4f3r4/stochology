@@ -5,9 +5,12 @@ use stochology_cli::{load_nyc_flights_2013_2023, load_nyc_flights_cascade_2013_2
 use stochology_core::{hmac_sha256_hex, mean};
 use stochology_governance::{
     AdaptiveConformalInference, BitemporalRecord, MurphyCorpCircuitBreaker,
-    PredeterminedChangeControlPlan, TemporalVault, estimate_label_shift_four_methods,
-    fit_calibrated_logistic_1d, fit_covariate_drift_extra_wcp, query_with_bitemporal_clock,
+    PredeterminedChangeControlPlan, ReflexiveStochologyGoodhartAudit,
+    SosaVirtueAndInnesHolmstromContractAudit, TemporalVault, TriadicSafeguardComplementarityAudit,
+    estimate_label_shift_four_methods, fit_calibrated_logistic_1d, fit_covariate_drift_extra_wcp,
+    query_with_bitemporal_clock,
 };
+use stochology_lenses::relational::HollingCanguilhemResilienceAudit;
 
 /// Lab 6: Production Governance: Bitemporal Clock, Single-Opening Vault, and 4 Regimes of Drift.
 pub fn lab_governance(root: &Path) {
@@ -146,5 +149,32 @@ pub fn lab_governance(root: &Path) {
         pccp.competence_criterion.competence_verified,
         pccp.automatic_rollback_triggered,
         pccp.update_approved
+    );
+    let triadic = TriadicSafeguardComplementarityAudit::canonical_benchmark();
+    let reflexive = ReflexiveStochologyGoodhartAudit::canonical_benchmark();
+    let sosa_contract = SosaVirtueAndInnesHolmstromContractAudit::canonical_benchmark();
+    let holling = HollingCanguilhemResilienceAudit::canonical_benchmark();
+    println!(
+        "  [Ethics of Aim: Triadic Safeguards, Reflexive Goodhart, Sosa-Innes-Holmstrom & Holling-Canguilhem] Triadic(M={:.2}, collapses=3/3, verified={}) | Reflexive(brakes=[{},{},{}], verified={}) | SosaContract(grade={:?}, 1/alpha_moral={:.1}>{:.1}, clawback={:.1}>{:.1}, verified={}) | HollingCanguilhem(B_eco={:.2}>tight={:.2}, normativity={:.2}, verified={})",
+        triadic.leontief_complementarity_index,
+        triadic.triadic_complementarity_verified,
+        reflexive.brake1_resolution_prevents_skeptical_inflation,
+        reflexive.brake2_opportunity_cost_prevents_regressive_hoarding,
+        reflexive.brake3_kairos_parity_or_wald_emergency_override,
+        reflexive.reflexive_goodhart_and_refutability_verified,
+        sosa_contract.sosa_fog_withholding_grade,
+        sosa_contract.pragmatic_moral_encroachment_thresholds.1,
+        sosa_contract.pragmatic_moral_encroachment_thresholds.0,
+        sosa_contract
+            .innes_clawback_executive_payoff_safe_vs_risky
+            .0,
+        sosa_contract
+            .innes_clawback_executive_payoff_safe_vs_risky
+            .1,
+        sosa_contract.sosa_and_contracts_verified,
+        holling.ecological_basin_width_buffered_vs_tight.0,
+        holling.ecological_basin_width_buffered_vs_tight.1,
+        holling.canguilhem_tolerance_ratio_buffered_vs_tight.0,
+        holling.holling_canguilhem_resilience_verified
     );
 }

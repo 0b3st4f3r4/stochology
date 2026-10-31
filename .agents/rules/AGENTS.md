@@ -1,14 +1,14 @@
 ---
 trigger: always_on
-description: Model-agnostic Stochology Protocol orchestration contract, Three Structural Questions, Four Prohibitions, Five Boundary Invariants (Phi1-Phi5), Three Subagents, and Terminal/Cryptographic Execution Policy for any autonomous coding agent or multi-agent harness.
+description: Model-agnostic Stochology (disciplinary program) orchestration contract, Three Structural Questions, Four Prohibitions, Five Boundary Invariants (Phi1-Phi5), Three Subagents, and Terminal/Cryptographic Execution Policy for any autonomous coding agent or multi-agent harness.
 ---
 
-# Stochology Protocol — Model-Agnostic Multi-Agent Harness & Governance Rules
+# Stochology — Model-Agnostic Multi-Agent Harness & Governance Rules
 
-You operate under the **Stochology Protocol** (`docs/PROTOCOL.md`). Follow these rules across the workspace:
+You operate within the discipline of **Stochology** (structured by its **disciplinary program** in `notes/A Ética da Mira.md`) and its formal verification specification (`docs/PROTOCOL.md`). Follow these rules across the workspace:
 
 1. **Zero External Dependencies & Deterministic Simulability ($\Phi_1$):**
-   All 5 Rust crates (`stochology-core`, `stochology-lenses`, `stochology-siga`, `stochology-governance`, `stochology-cli`) use pure Rust (`std` only, zero external crates) anchored to `SplitMix64` (`seed = 2026`, including lock-free `.split(stream_id)` substream trees).
+   All 5 Rust crates (`stochology-core`, `stochology-lenses`, `stochology-siga`, `stochology-governance`, `stochology-cli`) use pure Rust (`std` only, zero external crates) anchored to `SplitMix64` under a pre-registered seed declared before fitting (including lock-free `.split(stream_id)` substream trees).
 2. **The Three Structural Questions & Four Prohibitions:**
    Before implementing a change, answer the **Three Structural Questions** (Ontological Layer $L_1/L_2/L_3$ & Bridge, Stirling-Walker Uncertainty Class, and Severe Test) and follow the **Four Prohibitions** (`PROHIBITION_1` no unstructured prose between modules; `PROHIBITION_2` no lone mean under nonlinearity or heavy tails; `PROHIBITION_3` no confusing learning with performativity $\theta_{\mathrm{PS}}$ vs. $\theta_{\mathrm{PO}}$ or ignoring Goodhart's 4 variants; `PROHIBITION_4` no dogmatic $0\%/100\%$ probabilities or omitted attempts $K \ge 1$).
 3. **Subagent Architecture (`.agents/agents/`):**
@@ -21,4 +21,4 @@ You operate under the **Stochology Protocol** (`docs/PROTOCOL.md`). Follow these
 5. **Verification (`scripts/verify.sh`):**
    Before marking a task complete, run `scripts/verify.sh` to confirm 0 compiler or clippy warnings, passage of all 7 laboratories (`labs --all`), approval of all 8 gates (`gates`, exit code `0`), and blocking of all 27 injected defects (`gates -- --defect <name>`, exit code `1`).
 6. **Claim Provenance (`AGENTS.md` §II.C):**
-   Every number written outside the code (book, docs, README, derived texts) is labelled **measured** (dataset), **simulated** (seed; say so if `G8` discarded the claim), **assumed** (hand-set input), or **literature/informative** (source). Never compare an assumed or simulated value with a measured one as equal evidence, never generalize a toy simulation to a named real system, give units and relative size for large absolute numbers, frame narratives as thought experiments, keep the six ordered pairs apart (the three forward pairs $L_1 \to L_2$, $L_2 \to L_3$, $L_3 \to L_1$ are the implemented bridges; the three reverse pairs $L_2 \to L_1$, $L_3 \to L_2$, $L_1 \to L_3$ organize existing code), and present anything the repository does not implement as an authorial extension.
+   Every number written outside the code (book, docs, README, derived texts) is labelled **measured** (dataset), **simulated** (under a pre-registered seed or multi-seed audit; say so if `G8` discarded the claim), **assumed** (hand-set input), or **literature/informative** (source). Never compare an assumed or simulated value with a measured one as equal evidence, never generalize a toy simulation to a named real system, give units and relative size for large absolute numbers, frame narratives as thought experiments, keep the six ordered pairs apart (the three forward pairs $L_1 \to L_2$, $L_2 \to L_3$, $L_3 \to L_1$ are the implemented bridges; the three reverse pairs $L_2 \to L_1$, $L_3 \to L_2$, $L_1 \to L_3$ organize existing code), and present anything the repository does not implement as an authorial extension.

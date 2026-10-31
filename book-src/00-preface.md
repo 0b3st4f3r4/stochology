@@ -1,6 +1,6 @@
 <figure class="stoch-figure stoch-logo-figure">
   <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-labelledby="stochology-logo-title">
-  <title id="stochology-logo-title">Stochology — Auditable Epistemological Machine (The CAPIBA Protocol)</title>
+  <title id="stochology-logo-title">Stochology — The Science and Ethics of Aim Under Uncertainty</title>
   <defs>
   <linearGradient id="logo-ring" x1="2" y1="103" x2="468" y2="103" gradientUnits="userSpaceOnUse">
   <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
@@ -8,43 +8,132 @@
   <stop offset="66%" stop-color="var(--logo-gold, #f59e0b)"/>
   <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
   </linearGradient>
-  <linearGradient id="logo-tail" x1="31" y1="86" x2="92" y2="48" gradientUnits="userSpaceOnUse">
-  <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.32"/>
-  <stop offset="42%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.34"/>
-  <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.28"/>
-  <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.24"/>
+  <radialGradient id="logo-glow" cx="52%" cy="52%" r="50%">
+  <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
+  <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+  <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
+  <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="logo-bridge-l1-l2" x1="23" y1="74" x2="51" y2="26" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#059669"/>
+  <stop offset="55%" stop-color="var(--logo-green, #10b981)"/>
+  <stop offset="100%" stop-color="var(--logo-blue, #2563eb)"/>
   </linearGradient>
-  <radialGradient id="logo-glow" cx="50%" cy="50%" r="50%">
-  <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.16"/>
-  <stop offset="65%" stop-color="#fbbf24" stop-opacity="0.08"/>
-  <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+  <linearGradient id="logo-bridge-l2-l3" x1="78" y1="26" x2="105" y2="75" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="var(--logo-blue, #2563eb)"/>
+  <stop offset="52%" stop-color="var(--logo-gold, #f59e0b)"/>
+  <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
+  </linearGradient>
+  <linearGradient id="logo-bridge-l3-l1" x1="91" y1="98" x2="36" y2="98" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="var(--logo-crimson, #e11d48)"/>
+  <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)"/>
+  <stop offset="100%" stop-color="var(--logo-green, #10b981)"/>
+  </linearGradient>
+  <linearGradient id="logo-prism-grad" x1="64" y1="24" x2="64" y2="87" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.75"/>
+  <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.85"/>
+  <stop offset="100%" stop-color="#64748b" stop-opacity="0.75"/>
+  </linearGradient>
+  <linearGradient id="logo-tail" x1="31" y1="86" x2="96" y2="48" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#059669" stop-opacity="0.46"/>
+  <stop offset="38%" stop-color="#2563eb" stop-opacity="0.48"/>
+  <stop offset="68%" stop-color="#f59e0b" stop-opacity="0.44"/>
+  <stop offset="100%" stop-color="#e11d48" stop-opacity="0.48"/>
+  </linearGradient>
+  <linearGradient id="logo-curve-stroke" x1="31" y1="85" x2="96" y2="84" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="var(--logo-ink)"/>
+  <stop offset="45%" stop-color="var(--logo-sub, #1d4ed8)"/>
+  <stop offset="100%" stop-color="var(--logo-ink)"/>
+  </linearGradient>
+  <radialGradient id="logo-pupil-abyss" cx="45%" cy="42%" r="58%">
+  <stop offset="0%" stop-color="#020617"/>
+  <stop offset="68%" stop-color="#0f172a"/>
+  <stop offset="100%" stop-color="#451a03"/>
+  </radialGradient>
+  <linearGradient id="logo-gold-mira" x1="58" y1="52" x2="84" y2="82" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#fef08a"/>
+  <stop offset="45%" stop-color="#fbbf24"/>
+  <stop offset="100%" stop-color="#d97706"/>
+  </linearGradient>
+  <linearGradient id="logo-gold-axes" x1="41" y1="66.65" x2="72" y2="40" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#d97706"/>
+  <stop offset="50%" stop-color="#fbbf24"/>
+  <stop offset="100%" stop-color="#fef08a"/>
+  </linearGradient>
+  <radialGradient id="logo-gold-core" cx="38%" cy="35%" r="65%">
+  <stop offset="0%" stop-color="#ffffff"/>
+  <stop offset="35%" stop-color="#fde047"/>
+  <stop offset="100%" stop-color="#d97706"/>
+  </radialGradient>
+  <radialGradient id="logo-node-well" cx="38%" cy="35%" r="65%">
+  <stop offset="0%" stop-color="var(--logo-node-bg)"/>
+  <stop offset="100%" stop-color="var(--logo-frame)"/>
+  </radialGradient>
+  <linearGradient id="logo-ring-l2" x1="55" y1="15" x2="73" y2="33" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#7dd3fc"/>
+  <stop offset="50%" stop-color="#2563eb"/>
+  <stop offset="100%" stop-color="#1e3a8a"/>
+  </linearGradient>
+  <radialGradient id="logo-core-l2" cx="35%" cy="35%" r="65%">
+  <stop offset="0%" stop-color="#bae6fd"/>
+  <stop offset="45%" stop-color="#3b82f6"/>
+  <stop offset="100%" stop-color="#1d4ed8"/>
+  </radialGradient>
+  <linearGradient id="logo-ring-l1" x1="18" y1="78" x2="37" y2="96" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#6ee7b7"/>
+  <stop offset="50%" stop-color="#10b981"/>
+  <stop offset="100%" stop-color="#065f46"/>
+  </linearGradient>
+  <radialGradient id="logo-core-l1" cx="35%" cy="35%" r="65%">
+  <stop offset="0%" stop-color="#a7f3d0"/>
+  <stop offset="45%" stop-color="#10b981"/>
+  <stop offset="100%" stop-color="#047857"/>
+  </radialGradient>
+  <linearGradient id="logo-ring-l3" x1="91" y1="78" x2="110" y2="96" gradientUnits="userSpaceOnUse">
+  <stop offset="0%" stop-color="#fda4af"/>
+  <stop offset="50%" stop-color="#e11d48"/>
+  <stop offset="100%" stop-color="#881337"/>
+  </linearGradient>
+  <radialGradient id="logo-core-l3" cx="35%" cy="35%" r="65%">
+  <stop offset="0%" stop-color="#fecdd3"/>
+  <stop offset="45%" stop-color="#f43f5e"/>
+  <stop offset="100%" stop-color="#be123c"/>
   </radialGradient>
   </defs>
   <g>
-  <circle cx="64" cy="66" r="46" fill="url(#logo-glow)"/>
-  <path d="M 23.43 76.87 A 42 42 0 0 1 52.99 25.47" stroke="var(--logo-green, #10b981)" stroke-width="3.2" stroke-linecap="round"/>
-  <path d="M 49.02 30.60 L 53.84 25.25 L 46.80 23.75" stroke="var(--logo-green, #10b981)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 74.87 25.43 A 42 42 0 0 1 104.61 76.73" stroke="var(--logo-blue, #2563eb)" stroke-width="3.2" stroke-linecap="round"/>
-  <path d="M 102.15 70.73 L 104.37 77.58 L 109.19 72.23" stroke="var(--logo-blue, #2563eb)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 93.70 95.70 A 42 42 0 0 1 34.41 95.80" stroke="var(--logo-crimson, #e11d48)" stroke-width="3.2" stroke-linecap="round"/>
-  <path d="M 40.83 96.67 L 33.79 95.18 L 36.01 102.02" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-  <polygon points="64,24 100.37,87 27.63,87" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.55"/>
+  <circle cx="64" cy="66" r="48" fill="url(#logo-glow)"/>
+  <path d="M 22.77 74.01 A 42 42 0 0 1 50.60 26.19" stroke="url(#logo-bridge-l1-l2)" stroke-width="4.4" stroke-linecap="round"/>
+  <path d="M 46.92 32.93 L 51.02 26.06 L 43.36 23.74" stroke="url(#logo-bridge-l1-l2)" stroke-width="4.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 77.67 26.29 A 42 42 0 0 1 105.17 74.30" stroke="url(#logo-bridge-l2-l3)" stroke-width="4.4" stroke-linecap="round"/>
+  <path d="M 101.18 67.75 L 105.08 74.73 L 110.91 69.26" stroke="url(#logo-bridge-l2-l3)" stroke-width="4.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 91.55 97.70 A 42 42 0 0 1 36.22 97.50" stroke="url(#logo-bridge-l3-l1)" stroke-width="4.4" stroke-linecap="round"/>
+  <path d="M 43.90 97.32 L 35.90 97.21 L 37.72 105.00" stroke="url(#logo-bridge-l3-l1)" stroke-width="4.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="64,24 100.37,87 27.63,87" stroke="url(#logo-prism-grad)" stroke-width="2.4" stroke-dasharray="3.64 3.64" stroke-linejoin="round"/>
   <path d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84 L 96 86 L 31 86 Z" fill="url(#logo-tail)"/>
-  <path d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84" stroke="var(--logo-ink)" stroke-width="2.2" stroke-linecap="round"/>
-  <line x1="41" y1="66.65" x2="87" y2="66.65" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.2" stroke-dasharray="4 3" stroke-linecap="round"/>
-  <line x1="72" y1="39" x2="72" y2="86" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.2" stroke-dasharray="4 3" stroke-linecap="round"/>
-  <circle cx="72" cy="66.65" r="3.6" fill="var(--logo-gold, #f59e0b)" stroke="var(--logo-node-bg)" stroke-width="1.4"/>
-  <circle cx="64" cy="24" r="7.5" fill="var(--logo-node-bg)" stroke="var(--logo-blue, #2563eb)" stroke-width="3"/>
-  <circle cx="64" cy="24" r="3" fill="var(--logo-blue, #2563eb)"/>
-  <circle cx="27.63" cy="87" r="7.5" fill="var(--logo-node-bg)" stroke="var(--logo-green, #10b981)" stroke-width="3"/>
-  <circle cx="27.63" cy="87" r="3" fill="var(--logo-green, #10b981)"/>
-  <circle cx="100.37" cy="87" r="7.5" fill="var(--logo-node-bg)" stroke="var(--logo-crimson, #e11d48)" stroke-width="3"/>
-  <circle cx="100.37" cy="87" r="3" fill="var(--logo-crimson, #e11d48)"/>
+  <path d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84" stroke="url(#logo-curve-stroke)" stroke-width="2.6" stroke-linecap="round"/>
+  <line x1="44.3" y1="66.65" x2="59.5" y2="66.65" stroke="url(#logo-gold-axes)" stroke-width="2.6" stroke-dasharray="3.2 2.8" stroke-linecap="round"/>
+  <line x1="72" y1="43.5" x2="72" y2="53.5" stroke="url(#logo-gold-axes)" stroke-width="2.6" stroke-dasharray="3.4 3.2" stroke-linecap="round"/>
+  <line x1="72" y1="80.0" x2="72" y2="83.4" stroke="url(#logo-gold-axes)" stroke-width="2.6" stroke-linecap="round"/>
+  <g id="golden-reticle">
+    <circle cx="72" cy="66.65" r="7.4" fill="var(--logo-node-bg)"/>
+    <circle cx="72" cy="66.65" r="6.4" fill="url(#logo-pupil-abyss)" stroke="url(#logo-gold-mira)" stroke-width="2.4"/>
+    <line x1="62.4" y1="66.65" x2="67.8" y2="66.65" stroke="url(#logo-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="76.2" y1="66.65" x2="81.6" y2="66.65" stroke="url(#logo-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="72" y1="57.05" x2="72" y2="62.45" stroke="url(#logo-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="72" y1="70.85" x2="72" y2="76.25" stroke="url(#logo-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="72" cy="66.65" r="2.2" fill="url(#logo-gold-core)"/>
+  </g>
+  <circle cx="64" cy="24" r="9.2" fill="url(#logo-node-well)" stroke="url(#logo-ring-l2)" stroke-width="3.4"/>
+  <circle cx="64" cy="24" r="4.0" fill="url(#logo-core-l2)"/>
+  <circle cx="27.63" cy="87" r="9.2" fill="url(#logo-node-well)" stroke="url(#logo-ring-l1)" stroke-width="3.4"/>
+  <circle cx="27.63" cy="87" r="4.0" fill="url(#logo-core-l1)"/>
+  <circle cx="100.37" cy="87" r="9.2" fill="url(#logo-node-well)" stroke="url(#logo-ring-l3)" stroke-width="3.4"/>
+  <circle cx="100.37" cy="87" r="4.0" fill="url(#logo-core-l3)"/>
   </g>
   <g transform="translate(148, 0)">
   <text x="0" y="62" fill="var(--logo-ink)" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="42" font-weight="800" letter-spacing="2.5">STOCHOLOGY</text>
   <line x1="2" y1="86" x2="468" y2="86" stroke="url(#logo-ring)" stroke-width="1.5" stroke-opacity="0.75"/>
-  <text x="2" y="103" fill="var(--logo-meta)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="11.5" font-weight="600" letter-spacing="0.8">L₁ → L₂ → L₃ → L₁  |  Φ₁–Φ₅  |  G1–G8  |  SEED = 2026</text>
+  <text x="2" y="103" fill="var(--logo-meta)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="11.5" font-weight="600" letter-spacing="0.8">L₁ → L₂ → L₃ → L₁  |  Φ₁–Φ₅  |  G1–G8  |  SPLITMIX64</text>
   </g>
 </svg>
 </figure>
@@ -53,22 +142,22 @@
 
 <div class="stoch-hero" role="region" aria-label="Treatise overview and quick navigation">
   <div class="stoch-hero-badges">
-    <span class="stoch-hero-badge" data-tone="sky">CAPIBA PROTOCOL · 6 PILLARS</span>
-    <span class="stoch-hero-badge" data-tone="emerald">Φ₁ SPLITMIX64 · SEED = 2026</span>
+    <span class="stoch-hero-badge" data-tone="sky">STOCHOLOGY · 6 VERIFICATION PILLARS</span>
+    <span class="stoch-hero-badge" data-tone="emerald">Φ₁ SPLITMIX64 · PRE-REGISTERED SEED</span>
     <span class="stoch-hero-badge" data-tone="amber">8 GATES (G1–G8) · 27 DEFECT PROOFS</span>
-    <span class="stoch-hero-badge" data-tone="violet">13 DATASETS · 16 INTERACTIVE LABS</span>
+    <span class="stoch-hero-badge" data-tone="violet">14 DATASETS · 16 INTERACTIVE LABS</span>
   </div>
-  <p class="stoch-hero-lead">An <strong>auditable epistemological machine</strong> implemented in pure Rust (zero external dependencies) where every quantitative claim, physical generating process (<strong>L₁</strong>), mathematical compression (<strong>L₂</strong>), and operational decision rule (<strong>L₃</strong>) is coupled to an executable null model, a structured Epistemological Card, and algorithmic gates that reject flawed claims.</p>
+  <p class="stoch-hero-lead"><strong>Stochology</strong> is the scientific and ethical discipline of judgment and decision-making under uncertainty — structured by a <strong>disciplinary program</strong> across epistemic margin, vital margin, and fully apt agency under institutional governance. This treatise presents its <strong>auditable epistemological machine</strong> in pure Rust (zero external dependencies), where every quantitative claim, physical generating process (<strong>L₁</strong>), mathematical compression (<strong>L₂</strong>), and operational decision rule (<strong>L₃</strong>) is coupled to an executable null model, a structured Epistemological Card, and algorithmic gates that reject flawed claims.</p>
   <div class="stoch-hero-actions">
     <a class="stoch-hero-btn stoch-hero-btn-primary" href="01-layers-six-pairs.html">Start Reading: Part I (Three Layers, Six Pairs) →</a>
-    <a class="stoch-hero-btn stoch-hero-btn-secondary" id="stoch-hero-lab-link" href="lab/index.html?seed=2026">Launch Interactive Laboratory (/lab) ↗</a>
+    <a class="stoch-hero-btn stoch-hero-btn-secondary" id="stoch-hero-lab-link" href="lab/index.html">Launch Interactive Laboratory (/lab) ↗</a>
     <a class="stoch-hero-btn" href="#preface-lab-widget">Try In-Page Bayes &amp; Deciban Lab ↓</a>
-    <a class="stoch-hero-btn" href="appendix-d-protocol.html">Full Protocol Specification</a>
+    <a class="stoch-hero-btn" href="appendix-d-protocol.html">Full Formal Specification</a>
   </div>
-  <div class="stoch-pathway-grid" role="list" aria-label="Twenty-one pathways grouped by CAPIBA pillar">
+  <div class="stoch-pathway-grid" role="list" aria-label="Twenty-seven pathways grouped by verification pillar">
 <!-- competency-pillars:begin -->
     <div class="stoch-pathway-card" role="listitem" data-pillar="calibrated">
-      <div class="stoch-pathway-kicker">PILLAR C · CALIBRATED</div>
+      <div class="stoch-pathway-kicker">PILLAR 1 · CALIBRATED</div>
       <p>4 pathways · 15 competencies</p>
       <div class="stoch-pathway-links">
         <a href="09-lenses.html">⊥ brier_dominance</a>
@@ -78,7 +167,7 @@
       </div>
     </div>
     <div class="stoch-pathway-card" role="listitem" data-pillar="anytime">
-      <div class="stoch-pathway-kicker">PILLAR A · ANYTIME-VALID</div>
+      <div class="stoch-pathway-kicker">PILLAR 2 · ANYTIME-VALID</div>
       <p>5 pathways · 10 competencies</p>
       <div class="stoch-pathway-links">
         <a href="08-severe-testing-martingales-conformal.html">⊥ peeking</a>
@@ -89,7 +178,7 @@
       </div>
     </div>
     <div class="stoch-pathway-card" role="listitem" data-pillar="performative">
-      <div class="stoch-pathway-kicker">PILLAR P · PERFORMATIVE-AWARE</div>
+      <div class="stoch-pathway-kicker">PILLAR 3 · PERFORMATIVE-AWARE</div>
       <p>3 pathways · 17 competencies</p>
       <div class="stoch-pathway-links">
         <a href="19-world-decisions-performativity.html">⊥ performativity</a>
@@ -98,7 +187,7 @@
       </div>
     </div>
     <div class="stoch-pathway-card" role="listitem" data-pillar="invariant">
-      <div class="stoch-pathway-kicker">PILLAR I · INVARIANT</div>
+      <div class="stoch-pathway-kicker">PILLAR 4 · INVARIANT</div>
       <p>4 pathways · 11 competencies</p>
       <div class="stoch-pathway-links">
         <a href="02-uncertainty-typology.html">⊥ sniedovich</a>
@@ -108,7 +197,7 @@
       </div>
     </div>
     <div class="stoch-pathway-card" role="listitem" data-pillar="bitemporal">
-      <div class="stoch-pathway-kicker">PILLAR B · BITEMPORAL</div>
+      <div class="stoch-pathway-kicker">PILLAR 5 · BITEMPORAL</div>
       <p>3 pathways · 16 competencies</p>
       <div class="stoch-pathway-links">
         <a href="21-decision-worlds-governance.html">⊥ clock</a>
@@ -117,7 +206,7 @@
       </div>
     </div>
     <div class="stoch-pathway-card" role="listitem" data-pillar="auditing">
-      <div class="stoch-pathway-kicker">PILLAR A · AUDITING</div>
+      <div class="stoch-pathway-kicker">PILLAR 6 · AUDITING</div>
       <p>8 pathways · 31 competencies</p>
       <div class="stoch-pathway-links">
         <a href="13-model-worlds-analog-wave-computing.html">⊥ analog_wall</a>
@@ -132,10 +221,10 @@
     </div>
     <div class="stoch-pathway-card" role="listitem" data-pillar="practicum">
       <div class="stoch-pathway-kicker">PRACTICUM THREAD</div>
-      <p>Cross-cutting practice that runs across every pathway: prune the question, shape the protocol, face the real data, and verify.</p>
+      <p>Cross-cutting practice that runs across every pathway: prune the question, shape the clay, face the real data, and verify.</p>
       <div class="stoch-pathway-links">
         <a href="26-funnel-siga.html">Prune a question through the 4 Filters and run the 8-step SIGA Roadmap</a>
-        <a href="26-funnel-siga.html">Shape the protocol's clay for a new application with a pre-registered profile</a>
+        <a href="26-funnel-siga.html">Shape the clay for a new application with a pre-registered profile</a>
         <a href="27-empirical-synthesis.html">Face every lens and bridge with the 14 real datasets</a>
         <a href="appendix-b-verification.html">Run the gates, the negative proofs, and the full verification suite</a>
       </div>
@@ -145,10 +234,11 @@
   <nav class="stoch-toc-strip" aria-label="On this page">
     <span class="stoch-toc-label">In This Preface:</span>
     <a href="#1-the-decision-before-the-answer">§1 Decision Before Answer</a>
-    <a href="#the-six-mnemonic-pillars-of-the-capiba-protocol-and-the-27-disjoint-defect-proofs">§1.3 Six CAPIBA Pillars</a>
-    <a href="#2-the-three-traditions-joined-together">§2 Three Traditions</a>
+    <a href="#12-the-nuclear-triad-and-the-three-theoretical-collapse-propositions">§1.2 Nuclear Triad &amp; Collapses</a>
+    <a href="#13-the-six-verification-pillars-of-stochology-and-the-27-disjoint-defect-proofs">§1.3 Six Verification Pillars</a>
+    <a href="#2-the-three-critical-lineages-joined-together">§2 Three Critical Lineages</a>
     <a href="#3-foundations-probability-without-mystery">§3 Probability &amp; Decibans</a>
-    <a href="#4-reproducible-chance-why-a-fixed-seed-seed--2026-matters">§4 Reproducible Seed (2026)</a>
+    <a href="#4-reproducible-chance-why-a-pre-registered-seed-matters">§4 Reproducible Chance</a>
     <a href="#5-the-three-structural-questions-and-the-four-prohibitions">§5 Questions, Prohibitions &amp; Failures</a>
     <a href="#6-end-to-end-algorithmic-verification">§6 Verification CLI</a>
     <a href="#7-interactive-experimentation-in-lab">§7 Interactive /lab</a>
@@ -164,52 +254,62 @@ On a Tuesday morning, an emergency-room physician examines a 54-year-old man com
 
 Almost every consequential human and institutional action shares this condition. A civil defense director must order or withhold a coastal evacuation twenty-four hours before a tropical cyclone makes landfall. A central bank adjusts interest rates before next year's inflation materializes. A call-center operations manager commits shift schedules weeks before customers pick up the phone. An airline dispatcher holds or releases connecting flights before a cold front reaches the runway.
 
-**Stochology** is the science and operational art of judgment and decision-making under uncertainty.
+**Stochology** is the scientific and ethical discipline of judgment and decision-making under uncertainty — structured by a **disciplinary program** across three interdependent axes: **epistemic margin** (the honest representation of missingness, structural discrepancy, and heavy tails), **vital margin** (the preservation of non-ergodic survival and physical/informational buffers against ruin), and **fully apt agency under institutional governance** (performative accountability, cost-loss thresholds, and asymmetric responsibility).
 
-### Where the Name Comes From: *Stókhos* and *Lógos*
+### 1.1. Where the Name Comes From: *Stókhos*, *Lógos*, and the Heuristic Genealogy of the Shot
 
-In classical Greek, *stókhos* ($\sigma\tau\acute{o}\chi\omicron\varsigma$) names the narrow post or mark at which an archer aims, and by extension a well-aimed conjecture directed at a hidden truth. Combined with *lógos* ($\lambda\acute{o}\gamma\omicron\varsigma$, reasoned discourse and structured method), **Stochology** is the disciplined study of aiming well when the target cannot be seen directly.
+In classical Greek, *stókhos* ($\sigma\tau\acute{o}\chi\omicron\varsigma$) names the narrow post or mark raised in the field at which an archer aims, and by extension a well-aimed conjecture directed at a truth that cannot be seen directly. Combined with *lógos* ($\lambda\acute{o}\gamma\omicron\varsigma$, reasoned discourse, proportion, and accountable method), **Stochology** is the disciplined study of aiming well when action must precede the outcome.
 
-Tracing the Greek root also separates the discipline cleanly from near-homophones while illuminating its cybernetic synthesis:
-- It is not *eschatology* (from *éskhatos*, the theological study of final things);
-- It is not *stomatology* (*Estomatologia*, from Greek *stóma* $\sigma\tau\acute{o}\mu\alpha$, the clinical/dental study of the mouth);
-- It is not *tocology* (from *tókos*, obstetrics and childbirth);
-- While distinct from passive warehouse bookkeeping, the **Stochastic-Conjectural** lineage (*stókhos*, aiming at a future target under uncertainty) unites with the **Stochary-Accumulative** lineage (*stocks*, *buffers*, and strategic asset accumulation) as the physical and informational memory that sustains non-ergodic survival over time.
+Before probability became an algebraic calculus in the seventeenth century, classical antiquity already recognized an entire family of arts whose dignity lay precisely in acting without the guarantee of an exact rule:
 
-In 1713, eight years after Jacob Bernoulli's death, his *Ars Conjectandi* (*The Art of Conjecturing*) was published. In Book IV, Bernoulli coined the Latinized Greek term *ars conjectandi sive stochastice*, the art of measuring the probabilities of things as accurately as possible so that in our judgments and actions we may always choose what is healthier, better, and more grounded in reason. Over the next two centuries, however, textbook usage narrowed the word "stochastic" until it meant only "random" or "noisy." It kept the dice and forgot the archer.
+- **Plato's *Philebus* (55e–56c) and the Conjectural Arts (*Stokházesthai*):** In the *Philebus*, Plato distinguishes two families of human skill (*tékhnē*). On one side stand the arts of carpentry and architecture, which rely on exact instruments of measurement—the ruler (*kanōn*), the lathe (*tornos*), the compass (*diabatēs*), and the plumb line (*stathmē*). On the other side stand the arts that cannot rely on fixed mechanical templates, beginning with **music** (which adjusts harmony not by fixed measure, but by the trained conjecture of the ear) and extending to **clinical medicine**, **agriculture**, **maritime navigation**, and **military strategy**. In these practices, the artisan must work by *stokházesthai*—training perception, memory, and experience to aim at the right measure amidst shifting winds, currents, and bodies.
+- **The Hippocratic *Sēmeîa*, Galen, and Alexander of Aphrodisias (*Stokhastikē Tékhnē*):** In the Hippocratic treatise *On Ancient Medicine* (*De vetere medicina*, 9), the physician has no external ruler outside the sensitivity of the living body and must read visible clinical signs (*sēmeîa*) to infer invisible internal states. Later commentators—including Galen and the Peripatetic philosopher Alexander of Aphrodisias—formalized medicine, navigation, and rhetoric as **conjectural arts** (*stokhastikē tékhnē*): arts in which the practitioner's excellence is defined not by infallible success (which depends on external nature and chance), but by doing everything within the art's power (*endekhomenōs*) toward the patient's health or the ship's safe passage.
+- ***Kairós* and *Mêtis* (Opportune Time and Practical Intelligence):** As Marcel Detienne and Jean-Pierre Vernant (1974) showed in their study of Greek cunning intelligence, the conjectural arts operate at the intersection of ***kairós*** (the fleeting, asymmetric instant of opportunity or crisis when delay is itself a decision) and ***mêtis*** (the supple, adaptive vigilance of the navigator or clinician who reads changing currents when rigid blueprints fail).
+- **Jacob Bernoulli's *Ars Conjectandi* (1713, Part IV, Ch. 2):** Eight years after Jacob Bernoulli's death, his *Ars Conjectandi* (*The Art of Conjecturing*) explicitly reclaimed this ancient Greek root, defining *ars conjectandi sive stochastice* as *"the art of measuring as exactly as possible the probabilities of things, with the end that in our judgments and actions we may always choose or follow that which has been found to be better, more satisfactory, safer, or more carefully considered."* Over the next two centuries, however, textbook usage narrowed the word "stochastic" until it meant only "random" or "noisy." It kept the dice and forgot the archer.
+
+> [!NOTE]
+> **Methodological Transparency on the Genealogy:** This historical reconstruction is mobilized as an **open, revisable heuristic genealogy**, not as a closed teleological narrative or an anachronistic projection of modern probability theory onto Greek antiquity. Each historical moment—Plato's *Philebus*, the Hippocratic clinic, Stoic ethics, Bernoulli's *Ars Conjectandi*, and modern statistical decision theory—answered problems specific to its own epoch. Stochology brings them into critical dialogue as an authorial theoretical architecture so that contemporary formal modeling recovers the practical and ethical questions that purely technical notation often forgets.
 
 Stochology restores the full loop: **the noisy world that generates the observations, the mathematical model that compresses them, and the responsible agent who must act and answer for the consequences.**
 
-### Dedication and the Name of the Protocol: **The CAPIBA Protocol**
+### 1.2. The Nuclear Triad and the Three Theoretical Collapse Propositions
 
-While **Stochology** names the scientific discipline, the operational and auditing architecture formalized in this treatise is named the **CAPIBA Protocol** (*Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol*):
-- **CAPIBA** defines the **six mnemonic pillars** of what is audited across the eight epistemological gates (`G1`–`G8`) and their twenty-seven negative defect proofs (`--defect`);
-- **SIGA** (*Survey, Interrogate, Generate, Act*) defines the **eight-step operational roadmap** of how a decision-maker and auditor traverse the cycle from raw observation to action.
+At the heart of Stochology's disciplinary program lies a **Nuclear Triad** of three strictly complementary axes:
 
-The name **CAPIBA** is a tribute to **Lourenço da Fonseca Barbosa (Capiba)** (Surubim, Pernambuco, 28 October 1904 – Recife, Pernambuco, 31 December 1997). Across a century of Brazilian intellectual and musical life, Capiba practiced two crafts that rarely meet in the same person: by day, a career official at the *Banco do Brasil* (admitted by public competitive examination in 1930), working amid ledgers, clearing balances, and institutional risk; by night and by vocation, the master of Pernambucan *frevo* and a central composer of Ariano Suassuna's *Movimento Armorial*. In the physics of the street carnival of Recife, *frevo* (from *ferver*, to boil, a turbulent, non-equilibrium brass polyphony) lives on the edge of kinetic instability, and the *passista* dances across that turbulence without falling by wielding the *sombrinha* (umbrella) as a dynamic pendulum counterweight. Ledgers and syncopation, rigorous accounting and high-volatility equilibrium: that pairing captures the spirit of this treatise.
+1. **Epistemic Margin** (Axis I — *Honest Representation*): The refusal to compress away missingness (`MNAR`), clustering echo, heavy tails, structural model discrepancy, or discarded specification attempts ($K \ge 1$) into a false point certainty.
+2. **Vital Margin** (Axis II — *Non-Ergodic Survival and Material Resilience*): The preservation of physical, biological, financial, and informational reserves (*stocks*, *buffers*, and time-to-survive $\mathrm{TTS} \ge \mathrm{TTR}$) that keep a sequential trajectory away from absorbing ruin barriers in irreversible time.
+3. **Fully Apt Agency under Institutional Governance** (Axis III — *Accountable Action*): The alignment of decision rules, multi-agent contracts, and institutional audit channels (`S3*` and Algedonic alerts) so that those who design and deploy models answer for who pays the price of error without falling into outcome bias or technocratic alibis.
 
-### The Six Mnemonic Pillars of the CAPIBA Protocol and the 27 Disjoint Defect Proofs
+These three axes obey a relation of **strict complementarity** (`TriadicSafeguardComplementarityAudit` and `CollapseProposition` in `crates/stochology-governance/src/drift/ethics_of_aim.rs`, where the Leontief complementarity index $S_{\mathrm{Leontief}} = \min(M_{\text{epist}}, M_{\text{vital}}, M_{\text{gov}}) \le S_{\text{additive}}$ exposes the illusion of additive substitutability): no excess on one axis can compensate for the absence of another. Removing any one of the three while leaving the other two intact produces a distinct, predictable pathology—formalized in the discipline's **Three Theoretical Collapse Propositions**:
 
-To give students and auditors an immediate mental map of the entire treatise, the **CAPIBA Protocol** partitions every epistemological check across **six orthogonal pillars (`C-A-P-I-B-A`)**. Together, these six pillars partition all **27 negative defect proofs** (`4 + 5 + 3 + 4 + 3 + 8 = 27`) enforced by the `gates` binary:
+| Collapse Proposition | Axes Present | Missing Axis | Structural Mechanism & Pathology |
+| --- | :---: | :---: | --- |
+| **Proposition 1 — Blind Undersizing** (*Subdimensionamento Cego*) | **Vital Margin** + **Institutional Governance** | *No Epistemic Margin* | Well-intentioned institutions maintain physical reserves and clear accountability rules, but size those reserves using a domesticating model that ignores selection bias (`ddc`), cluster dependence ($n_{\mathrm{eff}}(p)$), heavy tails ($\alpha \le 2$), or structural discrepancy ($\delta(x)$). The buffer is calibrated to a tame Gaussian fiction and shatters on the first real tail event. |
+| **Proposition 2 — Impotent Lucidity Before Ruin** (*Lucidez Impotente diante da Ruína*) | **Epistemic Margin** + **Institutional Governance** | *No Vital Margin* | The analytical team diagnoses the exact tail risk, non-ergodic variance drain ($\mu - \frac{1}{2}\sigma^2$), and Manski bounds with complete probabilistic honesty, and the governance committee records the warning transparently—yet Lean/Just-in-Time efficiency mandates have stripped away all physical buffers ($\mathrm{TTS} < \mathrm{TTR}$). The institution watches its own collapse in high-definition calibration, without the material slack or time to survive the shock. |
+| **Proposition 3 — Cynical Capture of Doubt and Pillaging of Reserves** (*Captura Cínica da Dúvida e Pilhagem das Reservas*) | **Epistemic Margin** + **Vital Margin** | *No Fully Apt Agency / Governance* | Sophisticated uncertainty bounds and physical/financial reserves exist, but without institutional accountability, Chouldechova fairness constraints, or asymmetric contract design (Holmström, Milgrom, Innes). Epistemic intervals are weaponized as a merchant-of-doubt alibi for regulatory paralysis, while public stabilization reserves are pillaged through private volatility call-options that socialize tail losses onto vulnerable populations. |
+
+### 1.3. The Six Verification Pillars of Stochology and the 27 Disjoint Defect Proofs
+
+To give students and auditors an immediate mental map of the entire treatise, **Stochology** organizes what is verified across **six orthogonal verification pillars (`1`–`6`)**, while **SIGA** (*Survey, Interrogate, Generate, Act*) defines the **eight-step operational roadmap** of how a decision-maker and auditor traverse the cycle from raw observation to action. Together, these six pillars partition all **27 negative defect proofs** (`4 + 5 + 3 + 4 + 3 + 8 = 27`) enforced by the `gates` binary:
 
 | Pillar | Verification Axis | Primary Mathematical & Rust Primitives | Gates | Disjoint Negative Defect Proofs (`--defect`) |
 | :---: | --- | --- | :---: | --- |
-| **C** — **Calibrated** | Out-of-sample probabilistic honesty and non-dogmatic bounds | Isotonic PAV `CorpPavDecomposition`, `MurphyDiagram` ($\int_0^1 \bar{S}_\theta d\theta = \frac{1}{2}\mathrm{BS}$), `CorpRocMurphyTriptych`, Cromwell's Rule $p \in [\varepsilon, 1-\varepsilon]$, and the CORP decomposition of the CRPS `CorpCrpsDecomposition` | `G6` | `cromwell`, `brier_dominance`, `concept_drift`, `crps_miscalibration` (4) |
-| **A** — **Anytime-valid** | Sequential evidence under optional stopping and cluster/resolution parity | Betting martingales `EvidenceProcess` (`aGRAPA`/`GRO`), `SaviConfidenceSequence`, `VarEsEBacktest` (`GREE`), Moulton-Campbell `ExceedanceDesignEffect`, $\Phi_5$ `verify_resolution_phi5`, and e-BH false discovery control `EBhMultiplicityAudit` | `G2/G3/G6` | `moulton`, `peeking`, `var_underreport`, `phi5`, `multiplicity` (5) |
-| **P** — **Performative-aware** | Endogenous feedback loops $L_3 \to L_1$, Goodhart collapse, and synthetic recursion | `PerformativeSystem` ($\theta_{\mathrm{PS}}$ vs. Stackelberg $\theta_{\mathrm{PO}}$, `PerfGD`, $r_{\mathrm{RRM}} = \frac{\varepsilon\beta}{\gamma} < 1$), `GoodhartTaxonomyAudit`, `GerstgrasserAccumulateAudit` ($\le c\pi^2/6$), and measured performative power `PerformativePowerAudit` | `G6/G8` | `performativity`, `replace_collapse`, `understated_epsilon` (3) |
-| **I** — **Invariant** | Structural stability across regimes, missingness bounds, and severe uncertainty | `MengAudit` (`ddc`/`DDI`), `ManskiBounds` + Lee (2009) trimming & tipping point $\Delta^*$, Hermite `run_nonlinear_icp_nile`, `KennedyOHaganDiscrepancy`, `InfoGapOption` + Sniedovich Wald floor, `AuthenticModelForm`, and `AnchorRegressionAudit` | `G3/G6/G8` | `lee_point_estimate`, `sniedovich`, `machine`, `anchor_extrapolation` (4) |
-| **B** — **Bitemporal** | Causality of event vs. availability clocks and cryptographic holdout seals | `BitemporalRecord` ($t_{\text{disp}} \ge t_{\text{ev}}$), synthetic canary $I(\text{Canary}; Y)=0$, single-opening `HMAC-SHA256` `TemporalVault`, `PredeterminedChangeControlPlan`, `ProfitLossAttributionTest`, and real-time data vintages `RealTimeVintageAudit` | `G7` | `clock`, `vault`, `vintage_leak` (3) |
-| **A** — **Auditing** | Eliminatory funnel, fairness trilemmas, analog/wave physics, cybernetics, triadic synthesis, and coupled SFC society | 4-Filter Funnel, `ChouldechovaAudit`, `AlertFatigueAudit`, `AnalogWaveComputingSynthesis` (`HP-INV`), `CriticalStochasticRationalitySynthesis`, `StocharyConjecturalCyberneticSynthesis`, `ComplexFractalToroidalTechniumSynthesis`, `StrategicAiAccommodationSynthesis`, `CoupledPublicPrivateSocietySynthesis`, and `MulticalibrationAudit` | `G4/G8` | `chouldechova`, `analog_wall`, `instrumental_reason`, `stochary_cybernetics`, `triadic_technium`, `strategic_accommodation`, `coupled_society`, `subgroup_miscalibration` (8) |
+| **1** — **Calibrated** | Out-of-sample probabilistic honesty and non-dogmatic bounds | Isotonic PAV `CorpPavDecomposition`, `MurphyDiagram` ($\int_0^1 \bar{S}_\theta d\theta = \frac{1}{2}\mathrm{BS}$), `CorpRocMurphyTriptych`, Cromwell's Rule $p \in [\varepsilon, 1-\varepsilon]$, and the CORP decomposition of the CRPS `CorpCrpsDecomposition` | `G6` | `cromwell`, `brier_dominance`, `concept_drift`, `crps_miscalibration` (4) |
+| **2** — **Anytime-valid** | Sequential evidence under optional stopping and cluster/resolution parity | Betting martingales `EvidenceProcess` (`aGRAPA`/`GRO`), `SaviConfidenceSequence`, `VarEsEBacktest` (`GREE`), Moulton-Campbell `ExceedanceDesignEffect`, $\Phi_5$ `verify_resolution_phi5`, and e-BH false discovery control `EBhMultiplicityAudit` | `G2/G3/G6` | `moulton`, `peeking`, `var_underreport`, `phi5`, `multiplicity` (5) |
+| **3** — **Performative-aware** | Endogenous feedback loops $L_3 \to L_1$, Goodhart collapse, and synthetic recursion | `PerformativeSystem` ($\theta_{\mathrm{PS}}$ vs. Stackelberg $\theta_{\mathrm{PO}}$, `PerfGD`, $r_{\mathrm{RRM}} = \frac{\varepsilon\beta}{\gamma} < 1$), `GoodhartTaxonomyAudit`, `GerstgrasserAccumulateAudit` ($\le c\pi^2/6$), and measured performative power `PerformativePowerAudit` | `G6/G8` | `performativity`, `replace_collapse`, `understated_epsilon` (3) |
+| **4** — **Invariant** | Structural stability across regimes, missingness bounds, and severe uncertainty | `MengAudit` (`ddc`/`DDI`), `ManskiBounds` + Lee (2009) trimming & tipping point $\Delta^*$, Hermite `run_nonlinear_icp_nile`, `KennedyOHaganDiscrepancy`, `InfoGapOption` + Sniedovich Wald floor, `AuthenticModelForm`, and `AnchorRegressionAudit` | `G3/G6/G8` | `lee_point_estimate`, `sniedovich`, `machine`, `anchor_extrapolation` (4) |
+| **5** — **Bitemporal** | Causality of event vs. availability clocks and cryptographic holdout seals | `BitemporalRecord` ($t_{\text{disp}} \ge t_{\text{ev}}$), synthetic canary $I(\text{Canary}; Y)=0$, single-opening `HMAC-SHA256` `TemporalVault`, `PredeterminedChangeControlPlan`, `ProfitLossAttributionTest`, and real-time data vintages `RealTimeVintageAudit` | `G7` | `clock`, `vault`, `vintage_leak` (3) |
+| **6** — **Auditing** | Eliminatory funnel, fairness trilemmas, analog/wave physics, cybernetics, triadic synthesis, and coupled SFC society | 4-Filter Funnel, `ChouldechovaAudit`, `AlertFatigueAudit`, `AnalogWaveComputingSynthesis` (`HP-INV`), `CriticalStochasticRationalitySynthesis`, `StocharyConjecturalCyberneticSynthesis`, `ComplexFractalToroidalTechniumSynthesis`, `StrategicAiAccommodationSynthesis`, `CoupledPublicPrivateSocietySynthesis`, and `MulticalibrationAudit` | `G4/G8` | `chouldechova`, `analog_wall`, `instrumental_reason`, `stochary_cybernetics`, `triadic_technium`, `strategic_accommodation`, `coupled_society`, `subgroup_miscalibration` (8) |
 
 ```mermaid
 flowchart LR
-    subgraph CAPIBA["THE CAPIBA PROTOCOL (What Is Verified: 6 Pillars → 8 Gates → 27 Defects)"]
-        C1["C · Calibrated (4)"]
-        A1["A · Anytime-valid (5)"]
-        P1["P · Performative-aware (3)"]
-        I1["I · Invariant (4)"]
-        B1["B · Bitemporal (3)"]
-        A2["A · Auditing (8)"]
+    subgraph PILLARS["THE SIX VERIFICATION PILLARS (What Is Verified: 6 Pillars → 8 Gates → 27 Defects)"]
+        C1["1 · Calibrated (4)"]
+        A1["2 · Anytime-valid (5)"]
+        P1["3 · Performative-aware (3)"]
+        I1["4 · Invariant (4)"]
+        B1["5 · Bitemporal (3)"]
+        A2["6 · Auditing (8)"]
     end
     subgraph SIGA["THE 8-STEP SIGA ROADMAP (How Verification Runs)"]
         S["S · Survey Layer & Bridge (Steps 1–2)"]
@@ -218,20 +318,20 @@ flowchart LR
         A["A · Act with Threshold, Memory & Exit (Steps 7–8)"]
     end
     S --> I --> G --> A
-    CAPIBA === SIGA
+    PILLARS === SIGA
 ```
 
 ---
 
-## 2. The Three Traditions Joined Together
+## 2. The Three Critical Lineages Joined Together
 
-Traditional courses in statistics, econometrics, and machine learning often produce fragile systems in production because they teach isolated parameter-fitting techniques inside a mathematical vacuum. A student learns how to minimize mean squared error or cross-entropy on a clean table of numbers ($X, Y$), without asking how that table was filtered out of physical reality or how deploying the fitted formula will deform the reality it measures.
+Traditional courses in statistics, econometrics, and machine learning often produce fragile systems in production because they teach isolated parameter-fitting techniques inside a mathematical vacuum. A student learns how to minimize mean squared error or cross-entropy on a clean table of numbers ($X, Y$), without asking how that table was filtered out of physical reality, whether the underlying process is non-ergodic in irreversible time, or who bears the moral and material cost when deploying the fitted formula deforms the reality it measures.
 
-To close that gap, Stochology brings together three intellectual traditions that grew up in separate university departments and rarely audit one another:
+To close that gap, Stochology brings together **three critical lineages** that grew up in separate university departments and rarely audit one another, anchoring each axis of the Nuclear Triad:
 
 <figure class="stoch-figure">
   <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="410" viewBox="0 0 1120 410" fill="none" role="img" aria-labelledby="title-fig-00-traditions">
-  <title id="title-fig-00-traditions">The Three Intellectual Traditions Joined in the Stochology Protocol</title>
+  <title id="title-fig-00-traditions">The Three Critical Lineages and Nuclear Triad Joined in Stochology</title>
   <defs>
   <marker id="arr-sky" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
   <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--sky)"/>
@@ -245,13 +345,13 @@ To close that gap, Stochology brings together three intellectual traditions that
   <style>text { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; } .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; }</style>
   </defs>
   <rect x="1" y="1" width="1118" height="408" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
-  <rect x="240" y="18" width="640" height="104" rx="12" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2.2"/>
-  <text x="560" y="50" text-anchor="middle" fill="var(--sky)" class="mono" font-size="11.5" font-weight="700" letter-spacing="0.06em">TRADITION 1 · EPISTEMOLOGY OF SCIENCE</text>
-  <text x="560" y="78" text-anchor="middle" fill="var(--ink)" font-size="15.5" font-weight="800">Philosophy of Induction &amp; Severe Refutation</text>
-  <text x="560" y="103" text-anchor="middle" fill="var(--muted)" font-size="12.5">Hume · Peirce · Popper · Duhem-Quine · Lakatos · Mayo</text>
+  <rect x="200" y="18" width="720" height="104" rx="12" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2.2"/>
+  <text x="560" y="48" text-anchor="middle" fill="var(--sky)" class="mono" font-size="11.2" font-weight="700" letter-spacing="0.05em">LINEAGE 1 · EPISTEMOLOGICAL LINEAGE → EPISTEMIC MARGIN</text>
+  <text x="560" y="76" text-anchor="middle" fill="var(--ink)" font-size="15" font-weight="800">Severe Testing, the Non-Identical &amp; Partial Identification</text>
+  <text x="560" y="102" text-anchor="middle" fill="var(--muted)" font-size="12">Hume · Popper · Lakatos · Adorno · Mayo · Kennedy-O'Hagan · Manski</text>
   <line x1="560" y1="122" x2="560" y2="150" stroke="var(--sky)" stroke-width="2.6" marker-end="url(#arr-sky)"/>
   <rect x="230" y="158" width="660" height="102" rx="14" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
-  <text x="560" y="188" text-anchor="middle" fill="var(--ink)" class="mono" font-size="13" font-weight="800" letter-spacing="0.08em">STOCHOLOGY PROTOCOL · CLOSED LOOP</text>
+  <text x="560" y="188" text-anchor="middle" fill="var(--ink)" class="mono" font-size="12.5" font-weight="800" letter-spacing="0.06em">STOCHOLOGY · NUCLEAR TRIAD &amp; CLOSED LOOP</text>
   <rect x="265" y="202" width="170" height="42" rx="8" fill="var(--sky-bg)" stroke="var(--sky)" stroke-width="1.6"/>
   <text x="350" y="228" text-anchor="middle" fill="var(--ink)" font-size="13" font-weight="750">World (L₁)</text>
   <text x="455" y="228" text-anchor="middle" fill="var(--muted)" font-size="15" font-weight="700">↔</text>
@@ -260,23 +360,23 @@ To close that gap, Stochology brings together three intellectual traditions that
   <text x="665" y="228" text-anchor="middle" fill="var(--muted)" font-size="15" font-weight="700">↔</text>
   <rect x="685" y="202" width="170" height="42" rx="8" fill="var(--emerald-bg)" stroke="var(--emerald)" stroke-width="1.6"/>
   <text x="770" y="228" text-anchor="middle" fill="var(--ink)" font-size="13" font-weight="750">Agent (L₃)</text>
-  <rect x="24" y="290" width="524" height="100" rx="12" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2.2"/>
-  <text x="286" y="320" text-anchor="middle" fill="var(--violet)" class="mono" font-size="11.5" font-weight="700" letter-spacing="0.06em">TRADITION 2 · CALCULUS OF PLAUSIBILITY</text>
-  <text x="286" y="348" text-anchor="middle" fill="var(--ink)" font-size="15" font-weight="800">Probability Theory &amp; Statistical Inference</text>
-  <text x="286" y="373" text-anchor="middle" fill="var(--muted)" font-size="12">Bernoulli · Bayes · Laplace · Ramsey · Neyman · Manski</text>
-  <rect x="572" y="290" width="524" height="100" rx="12" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2.2"/>
-  <text x="834" y="320" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="700" letter-spacing="0.06em">TRADITION 3 · DYNAMICS &amp; ERGODICITY</text>
-  <text x="834" y="348" text-anchor="middle" fill="var(--ink)" font-size="15" font-weight="800">Stochastic Processes &amp; Non-Equilibrium Time</text>
-  <text x="834" y="373" text-anchor="middle" fill="var(--muted)" font-size="12">Markov · Langevin · Itô · Kelly · Prigogine · Peters</text>
+  <rect x="20" y="290" width="532" height="100" rx="12" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2.2"/>
+  <text x="286" y="318" text-anchor="middle" fill="var(--violet)" class="mono" font-size="10.8" font-weight="700" letter-spacing="0.04em">LINEAGE 2 · MATERIAL, BIOLOGICAL &amp; THERMODYNAMIC → VITAL MARGIN</text>
+  <text x="286" y="346" text-anchor="middle" fill="var(--ink)" font-size="14.5" font-weight="800">Entropic Time, Non-Ergodicity, Normativity &amp; Performativity</text>
+  <text x="286" y="372" text-anchor="middle" fill="var(--muted)" font-size="11.3">Georgescu-Roegen · Itô · Kelly · Samuelson · Peters · Canguilhem · Holling · MacKenzie</text>
+  <rect x="568" y="290" width="532" height="100" rx="12" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2.2"/>
+  <text x="834" y="318" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="10.8" font-weight="700" letter-spacing="0.04em">LINEAGE 3 · ETHICAL &amp; POLITICO-INSTITUTIONAL → APT AGENCY</text>
+  <text x="834" y="346" text-anchor="middle" fill="var(--ink)" font-size="14.5" font-weight="800">Stoic Aim, Moral Luck, Virtue Epistemology &amp; Justice</text>
+  <text x="834" y="372" text-anchor="middle" fill="var(--muted)" font-size="11.3">Antipater/Cicero · Nagel/Williams · Sosa · Scanlon · List/Pettit/Fricker/Beer · Holmström/Innes</text>
   <path d="M 340 290 L 400 264" stroke="var(--violet)" stroke-width="2.6" marker-end="url(#arr-violet)"/>
   <path d="M 780 290 L 720 264" stroke="var(--emerald)" stroke-width="2.6" marker-end="url(#arr-emerald)"/>
 </svg>
-  <figcaption><strong>Figure 0.1 — The Three Intellectual Traditions Joined in the Stochology Protocol</strong></figcaption>
+  <figcaption><strong>Figure 0.1 — The Three Critical Lineages and Nuclear Triad Joined in Stochology</strong></figcaption>
 </figure>
 
-1. **The Philosophy of Induction and Severe Refutation:** David Hume demonstrated that no finite collection of past observations logically proves that tomorrow will resemble yesterday. The sun having risen ten thousand mornings does not deductively entail that it will rise tomorrow; every defense of induction assumes the uniformity of nature it tries to prove. Karl Popper answered that empirical science advances by exposing bold claims to **refutation** (*falsification*) rather than accumulating confirming anecdotes. A million white swans do not prove the universal claim "all swans are white," whereas a single black swan refutes it.
-2. **Probability Theory and Statistical Inference:** Blaise Pascal, Pierre de Fermat, Jacob Bernoulli, Thomas Bayes, Pierre-Simon Laplace, and Andrey Kolmogorov built the mathematical calculus of plausibility and relative frequency. Frank Ramsey, Bruno de Finetti, Jerzy Neyman, Egon Pearson, and Ronald Fisher turned that calculus into rules for updating beliefs, bounding estimation error, and testing hypotheses under finite samples.
-3. **Stochastic Processes, Non-Equilibrium Dynamics, and Time:** Andrey Markov, Paul Langevin, Kiyosi Itô, and Ilya Prigogine studied how randomness unfolds sequentially across time. A single coin toss is memoryless; a sequence of compounded gains and losses is path-dependent. As we will see in Chapters 4 and 9, averaging across a million parallel gamblers at a single instant (*ensemble average*) gives a completely different answer from following a single gambler through a million consecutive bets (*time average*).
+1. **The Epistemological Lineage ($\to$ *Epistemic Margin*):** David Hume demonstrated that no finite collection of past observations logically proves that tomorrow will resemble yesterday; Karl Popper, Pierre Duhem, W. V. O. Quine, Imre Lakatos, and Deborah Mayo (2018) established that empirical science advances not by accumulating accommodating confirmations, but by subjecting claims to **severe tests** capable of refuting them. Theodor W. Adorno (1966) warned that every conceptual and mathematical representation leaves behind a *Non-Identical* concrete remainder that resists totalizing classification. Within probability and statistics—built by Blaise Pascal, Jacob Bernoulli, Thomas Bayes, Pierre-Simon Laplace, Andrey Kolmogorov, Frank Ramsey, Bruno de Finetti, Jerzy Neyman, and Ronald Fisher—John Maynard Keynes (1921) separated *probability* from the *weight of argument*, Marc Kennedy and Anthony O'Hagan (2001) formalized explicit structural model discrepancy $\delta(x)$, and Charles Manski (2003, 2013) replaced untestable point-identification dogmas with honest **partial-identification bounds**.
+2. **The Material, Biological, and Thermodynamic Lineage ($\to$ *Vital Margin*):** Nicholas Georgescu-Roegen (1971) showed that real economic and ecological processes unfold not in the reversible, clockwork time of classical mechanics, but in irreversible entropic time, and contrasted discrete *arithmomorphic* concepts with *dialectical* concepts surrounded by a constitutive penumbra. Andrey Markov, Paul Langevin, Kiyosi Itô (1944, 1951), John L. Kelly Jr. (1956), Leo Breiman (1961), Robert C. Merton (1969, 1971), Paul Samuelson (1971, 1979), and Ole Peters (2019) demonstrated why averaging across a million parallel gamblers at a single instant (*ensemble average*) diverges from following a single historical trajectory through compounded gains, losses, and absorbing ruin barriers (*time average*). Georges Canguilhem (1943/2009) grounded biological health in *normativity*—a *"margin of tolerance for the infidelities of the milieu"*—while Crawford S. Holling (1973) separated narrow *engineering resilience* around an equilibrium from *ecological resilience* (the width of the basin of attraction before irreversible regime collapse), and Donald MacKenzie (2006) and Juan Perdomo et al. (2020) proved that deployed models act as *engines, not cameras*, performatively deforming the world they measure.
+3. **The Ethical and Politico-Institutional Lineage ($\to$ *Fully Apt Agency under Institutional Governance*):** The Stoic philosophers Antipater of Tarsus and Panaetius—transmitted through Cicero (*De Finibus* III.22), Plutarch (*De communibus notitiis* 1070f–1071e), and Stobaeus—distinguished the external target (*skopós*) from the internal rectitude of the aim (*télos*). Thomas Nagel (1979) and Bernard Williams (1981) diagnosed the paradox of **moral luck**, while Ernest Sosa (2007, 2015) distinguished merely accurate or adroit shots from **fully apt agency** (knowing when uncertainty is too severe and one must lower the bow). Jeremy Fantl and Matthew McGrath (2009), T. M. Scanlon (1998), and Sven Ove Hansson (2013) showed why epistemic and vital margins are moral duties owed to those exposed to asymmetric risk. At the institutional scale, Christian List and Philip Pettit (2011), Miranda Fricker (2010, 2020), and Stafford Beer (1972) explained how corporate and algorithmic collectives form group agents requiring independent audit channels (`S3*` and Algedonic alerts), while Bengt Holmström (1979), Holmström and Paul Milgrom (1991), Robert D. Innes (1990), and Alexandra Chouldechova (2017) established the contractual and distributive mathematics that forbid using models as a technocratic alibi or socializing tail ruin onto the vulnerable.
 
 ### How to Repair a Theory Honestly: Duhem, Quine, and Lakatos
 
@@ -289,7 +389,7 @@ Because you can always save a pet theory by blaming an auxiliary assumption, Imr
 
 History adds an important qualification. In 1859, Le Verrier tried the same approach to explain the anomalous precession of Mercury's perihelion, postulating an inner planet named **Vulcan**. Vulcan was not a dishonest excuse: it made concrete predictions about solar transits that astronomers actively searched for and failed to find. Only in 1915 did Albert Einstein's General Relativity resolve Mercury's orbit by replacing the core theory itself.
 
-The lesson for Stochology is operational: **every time a model is recalibrated, re-specified, or patched after an error, the protocol must record the attempt counter ($K \ge 1$) and demand an out-of-sample or out-of-time test that the repair could genuinely fail.**
+The lesson for Stochology is operational: **every time a model is recalibrated, re-specified, or patched after an error, the discipline must record the attempt counter ($K \ge 1$) and demand an out-of-sample or out-of-time test that the repair could genuinely fail.**
 
 ---
 
@@ -299,11 +399,11 @@ The elementary building blocks of uncertainty (the five meanings that can wear t
 
 ---
 
-## 4. Reproducible Chance: Why a Fixed Seed (`seed = 2026`) Matters
+## 4. Reproducible Chance: Why a Pre-Registered Seed Matters
 
 Every stochastic simulation, bootstrap interval, and Monte Carlo integral in this textbook relies on random draws. Yet if a student in São Paulo, an auditor in Zurich, and a continuous-integration server on GitHub run the same verification script and obtain three slightly different numbers, auditing breaks down. Any bug can hide behind the excuse: *"It gave a slightly different number because of random sampling."*
 
-Stochology eliminates this ambiguity through **reproducible chance**. Computers generate sequences that behave statistically like random noise by applying a deterministic mathematical recurrence to an initial integer called the **seed**.
+Stochology eliminates this ambiguity through **reproducible chance**. Computers generate sequences that behave statistically like random noise by applying a deterministic mathematical recurrence to an initial integer called the **seed**, declared and sealed *before* any model fitting takes place.
 
 To see how a deterministic rule produces an irregular-looking sequence, consider a toy linear congruential generator: *"Multiply the current number by $5$, add $3$, and keep the remainder after dividing by $16$"* ($x\_{t+1} = (5x\_t + 3) \bmod 16$), starting from seed $x\_0 = 7$:
 
@@ -314,16 +414,16 @@ To see how a deterministic rule produces an irregular-looking sequence, consider
 | $3$ | $5 \times 1 + 3 = 8 = 0 \times 16 + 8$ | $8$ | $0.5000$ |
 | $4$ | $5 \times 8 + 3 = 43 = 2 \times 16 + 11$ | $11$ | $0.6875$ |
 
-Anyone in the world who starts from $x\_0 = 7$ will obtain the exact sequence $6, 1, 8, 11$. In this repository (`crates/stochology-core/src/rng.rs`), we use Sebastiano Vigna's 64-bit **`SplitMix64`** generator anchored at **`seed = 2026`** (Invariant $\Phi\_1$). When a Monte Carlo simulation or multi-agent tree branches into parallel fork-join tasks, calling `SplitMix64::split(stream_id)` or `split_fork_join_pair(branch_tag)` derives statistically independent, lock-free child substreams by hashing the parent state and `stream_id` through a Stafford Mix13-style avalanche finalizer (shifts 30/27/31) and adding an odd increment $\gamma = (\text{stream\_id} \cdot c\_1 \oplus c\_2) \mid 1$ built from two fixed 64-bit constants (Steele, Lea & Flood 2014; Steele & Vigna 2021 LXM, verified in `MonteCarloSplitTreeAudit`).
+Anyone in the world who starts from $x\_0 = 7$ will obtain the exact sequence $6, 1, 8, 11$. In this repository (`crates/stochology-core/src/rng.rs`), we use Sebastiano Vigna's 64-bit **`SplitMix64`** generator anchored to a pre-registered seed (Invariant $\Phi\_1$). When a Monte Carlo simulation or multi-agent tree branches into parallel fork-join tasks, calling `SplitMix64::split(stream_id)` or `split_fork_join_pair(branch_tag)` derives statistically independent, lock-free child substreams by hashing the parent state and `stream_id` through a Stafford Mix13-style avalanche finalizer (shifts 30/27/31) and adding an odd increment $\gamma = (\text{stream\_id} \cdot c\_1 \oplus c\_2) \mid 1$ built from two fixed 64-bit constants (Steele, Lea & Flood 2014; Steele & Vigna 2021 LXM, verified in `MonteCarloSplitTreeAudit`).
 
 However, you must keep three concepts separate:
-1. **Reproducibility:** Running the same code on the same dataset with `seed = 2026` produces the exact same floating-point output on every machine. The fixed seed guarantees this floor.
+1. **Reproducibility:** Running the same code on the same dataset under the same pre-registered seed produces the exact same floating-point output on every machine. The pre-registered seed guarantees this floor.
 2. **Replicability:** Collecting a *new* dataset in a *new* hospital, city, or year and observing that the scientific conclusion still holds. No random seed can buy replicability; only invariant causal structure (Chapters 4 and 9) and out-of-time/out-of-domain governance (Chapter 21) can test it.
-3. **Validity:** Whether the mathematical equation in the code actually measures what the claim says it measures. A fixed seed reproduces a wrong formula just as faithfully as a right one. For that reason, our protocol combines fixed-seed reproducibility with **algebraic identity closure**, **multi-seed acceptance over 20 development seeds plus 200 sealed confirmation seeds**, and **27 negative defect proofs** (Appendix B).
+3. **Validity:** Whether the mathematical equation in the code actually measures what the claim says it measures. A fixed seed reproduces a wrong formula just as faithfully as a right one. For that reason, Stochology combines pre-registered reproducibility with **algebraic identity closure**, **multi-seed acceptance over 20 development seeds plus 200 sealed confirmation seeds**, and **27 negative defect proofs** (Appendix B).
 
-### 4.1. Changing the Seed in Code and in Application Profiles (Kernel vs. Clay)
+### 4.1. Setting the Seed in Code and in Application Profiles (Kernel vs. Clay)
 
-While **`DEFAULT_SEED = 2026`** is the canonical seed used across this textbook and the default CLI laboratories, **the seed is not hardcoded to `2026`**. In the CAPIBA architecture (**Kernel and Clay**, `docs/PROTOCOL.md` §1.6), the **Kernel** is the invariant mechanism—declaring a fixed seed *before* fitting and sealing it into the SHA-256 `preregistration_hash` ($\Phi_1, \Phi_3$)—whereas the specific integer `2026` is **Clay** that any researcher, engineer, or domain application can change in three places:
+While `DEFAULT_SEED` in `rng.rs` provides the default baseline for the CLI laboratories, **no specific seed integer is sacred**. In Stochology's architecture (**Kernel and Clay**, `docs/PROTOCOL.md` §1.6), the **Kernel** is the invariant mechanism—declaring a seed *before* fitting and sealing it into the SHA-256 `preregistration_hash` ($\Phi_1, \Phi_3$)—whereas the specific integer is **Clay** that any researcher, engineer, or domain application sets in three places:
 
 1. **Directly in Rust Code (`crates/stochology-core/src/rng.rs`):**
    Pass any `u64` seed to `SplitMix64::new(seed)` or to any simulation/bootstrap primitive (`block_bootstrap_ci`, `paired_bootstrap_delta`, `MonteCarloSplitTreeAudit::evaluate`), and derive independent parallel substreams via `.split(stream_id)` or `.split_fork_join_pair(branch_tag)`:
@@ -331,8 +431,8 @@ While **`DEFAULT_SEED = 2026`** is the canonical seed used across this textbook 
 ~~~rust
 use stochology_core::rng::{SplitMix64, DEFAULT_SEED, MonteCarloSplitTreeAudit};
 
-// 1. Canonical default (DEFAULT_SEED == 2026) vs. any custom pre-registered seed:
-let mut canonical_rng = SplitMix64::new(DEFAULT_SEED);
+// 1. Default baseline vs. any custom pre-registered seed:
+let mut baseline_rng = SplitMix64::new(DEFAULT_SEED);
 let mut custom_rng = SplitMix64::new(31); // Assumed custom seed (e.g., examples/clay/)
 
 // 2. Deterministic lock-free substreams for parallel branches or agents:
@@ -359,35 +459,35 @@ cargo run --release --bin gates -- --audit-card examples/clay/card_clay_night_sh
 ~~~
 
 3. **Across Multi-Seed Acceptance Sweeps (`crates/stochology-lenses/src/acceptance.rs`):**
-   To prove that no scientific claim in this repository is a brittle fluke of `seed = 2026`, Gate `G8` automatically evaluates every simulated synthesis across **20 development seeds (`2026..=2045`)** and **200 sealed confirmation seeds (`9_000_000..=9_000_199` and `9_000_200..=9_000_399`)**, requiring at least a $95\%$ pass rate on both sets (`data/preregistration/acceptance_registry.txt`).
+   To prove that no scientific claim in this repository is a brittle fluke of a single seed, Gate `G8` automatically evaluates every simulated synthesis across **20 pre-registered development seeds** and **200 sealed confirmation seeds (`9_000_000..=9_000_199` and `9_000_200..=9_000_399`)**, requiring at least a $95\%$ pass rate on both sets (`data/preregistration/acceptance_registry.txt`).
 
 ---
 
 ## 5. The Three Structural Questions and the Four Prohibitions
 
-Before fitting any parameter, training any neural network, or estimating any probability distribution, every technical claim in the Stochology Protocol must auditably answer **three structural questions**:
+Before fitting any parameter, training any neural network, or estimating any probability distribution, every technical claim in Stochology must answer **three structural questions**:
 
 1. **In which ontological layer can the system fail:** the physical **World ($L\_1$)**, the mathematical **Model ($L\_2$)**, or the deciding **Agent ($L\_3$)**?
 2. **Which class of uncertainty threatens inference validity:** **Aleatory** noise ($L\_1$), **Parametric Epistemic** ignorance ($L\_2$), **Structural Epistemic** misspecification ($L\_2$), or **Knightian** deep uncertainty ($L\_3$)?
 3. **Which severe test,** with genuine empirical or logical refutation power, supports the confidence placed in the claim?
 
-To enforce these three questions in code, the protocol establishes **Four Golden Prohibitions** (summarized on one page in Chapter 1 and developed in full in Chapters 15, 17, and 19):
+To enforce these three questions in code, Stochology establishes **Four Golden Prohibitions** (summarized on one page in Chapter 1 and developed in full in Chapters 15, 17, and 19):
 - **Prohibition 1 (No Free Prose Between Agents):** Inter-module and inter-agent claims never travel as ambiguous natural-language paragraphs; they transit exclusively through structured **Epistemological Cards** (`cards/*.yaml`) validated by `EpistemologicalCard::audit()`.
 - **Prohibition 2 (No Lone Mean):** Under nonlinear payoffs, multiplicative dynamics, or heavy tails, reporting only the mean $\mathbb{E}[X]$ or $f(\mathbb{E}[X])$ is forbidden.
 - **Prohibition 3 (No Confusing Fit with Performative Validity):** Low predictive error on a passive holdout set never proves that deploying the model will not deform the environment ($L\_3 \to L\_1$).
 - **Prohibition 4 (No Dogmatic Extremes and No Omitted Attempts):** Probabilities of $0\%$ and $100\%$ are banned (Cromwell's Rule), out-of-sample forecasts must be audited via the isotonic **CORP-Murphy** decomposition, and the counter of attempted specifications $K \ge 1$ must be declared.
 
-### 5.1. Five Canonical Operational Failure Modes and Their CAPIBA Antidotes
+### 5.1. Five Canonical Operational Failure Modes and Their Stochological Antidotes
 
 Across industrial, clinical, and financial deployments, five recurring pathologies illustrate why an auditable epistemological machine is necessary:
 
-| # | Operational Failure Mode | Quantitative Pathology (simulated at `seed = 2026` unless a literature source is named) | CAPIBA Antidote & Treatise Location |
+| # | Operational Failure Mode | Quantitative Pathology (simulated under a pre-registered seed unless a literature source is named) | Stochological Antidote & Treatise Location |
 | :---: | --- | --- | --- |
 | **1** | **Adjective Laundering in Free-Text Multi-Agent Pipelines** | Upstream rhetorical fluency can mask surface-correlational "Stochastic Parrots" ($P(w_t \mid w_{1:t-1})$). In a simulated toy world (not a measurement on language models), a proxy predictor's passive holdout error $\mathrm{MSE}_{e_0} = 0.012$ explodes by three orders of magnitude to $\mathrm{MSE}_{\mathrm{do}(X)} = 19.13$ under a simulated intervention; prose has no field in which that gap must be reported. | **Prohibition 1 (`EpistemologicalCard::audit()`):** Bans unstructured inter-agent prose; an empty Moulton-Campbell $n_{\mathrm{eff}}(p)$, Jensen's Gap $\Delta_J$, or threshold $p^* = \frac{C}{\eta L}$ cannot hide behind an eloquent verb (**Chapters 17, 18**). |
 | **2** | **Outcome Bias & The Unshattered Porcelain Cup (`PATE` Quadrants `Q2` vs. `Q3`)** | Outcome-only committees (`classify_outcome_only`) reward an unbuffered Just-in-Time team (`Q3`: $\mathrm{TTS}/\mathrm{TTR} = 0.45 < 1.0, \mathrm{REL}_{\mathrm{CORP}} = 0.085, \sigma = 0.24$) that hit record profit by pure luck, while punishing a calibrated, buffered team (`Q2`: $\mathrm{TTS}/\mathrm{TTR} = 1.33 \ge 1.0, \mathrm{REL}_{\mathrm{CORP}} = 0.004, \sigma = 0.03$) hit by an exogenous tail storm in $\mathrm{UNC}_0$. | **Telic-Scopic Audit Matrix (`PateQuadrant::classify`):** Separates internal *Telos* from external *Skopos*, institutionalizes Cicero and Alexander of Aphrodisias's exoneration (*facere omnia quae possit*) in `Q2`, and fires VSM Channel `S3*`'s Algedonic alarm in `Q3` to block fragility bonuses (**Chapter 23**). |
 | **3** | **Alert Fatigue Across the $10\text{ bit/s}$ Conscious Bottleneck (Bridge $L_2 \to L_3$)** | While the retinal cones of the $20\text{ W}$ human brain transduce $1.6 \times 10^9\text{ bit/s}$, the sensory funnel compresses it by $1.6 \times 10^8 : 1$ to a $10\text{ bit/s}$ conscious ceiling (Zheng & Meister). In its external validation (Wong et al. 2021), the Epic Sepsis Model ($\mathrm{AUC} = 0.63, \mathrm{PPV} = 0.120$, alarming on $18\%$ of hospitalizations) produced $88\%$ false alarms ($7.33\text{ FA/TP}$, $W = +2.86\text{ dB}$), which under an assumed shift burst is a $12.6\text{ bit/s} > 10\text{ bit/s}$ load. | **CORP-Calibrated Deciban Triage (`AlertFatigueAudit`):** Requires additive Turing-Good evidence before an alarm reaches the operator; an assumed, unmeasured design operating point ($\mathrm{TPR} = 0.82, \mathrm{FPR} = 0.045$, $W = +12.61\text{ dB}$) would give $\mathrm{PPV} = 0.563 \ge p^* = 0.20$ ($0.78\text{ FA/TP}$) and a $3.2\text{ bit/s} \le 10\text{ bit/s}$ load (**Chapters 13, 16**). |
 | **4** | **The "Boeing 299" Pre-Flight Failure (Training Dead-on-Arrival Models)** | Teams spend GPU budgets before checking whether $\mathrm{EVPI} > C_{\text{total}}$, whether *Homo clausus* clustering shrinks $n = 500$ individuals by $\mathrm{DEFF} = 5.81\times$ down to $n_{\mathrm{eff}}(0.90) = 86.0$, whether inference passes synthetic SBC $\chi^2$, or whether the test vault is sealed. | **The 4 Eliminatory Filters (`stochology_siga::funnel`):** Evaluates Economic/Resolution ($\Phi_5$), Moulton-Campbell/Collider ($\Phi_2$), SBC/SHELF ($\Phi_1$), and SHA-256/Cross-Authorship/Exit ($\Phi_3, \Phi_4$) with immediate short-circuiting (**Chapter 26**). |
-| **5** | **The Material Collapse Triad of Brute-Force Binary AI** | Brute-force scaling faces three walls reported in the literature (informative values, not computed here): exhaustion of $\sim 300\text{T}$ human tokens (2026–2032, Epoch AI) + synthetic autophagy (`Replace` diverging linearly as $\frac{\sigma^2 d}{T-d-1}n$), Horowitz's $711\times$ DRAM-to-FP32 energy asymmetry ($640\text{ pJ}$ vs. $0.9\text{ pJ}$, alongside the IEA projection of $945\text{ TWh}$ data-center demand by 2030), and Ferran Alia's analog noise cliff ($98\% \to 25\%$ at $\sigma = 0.80$). | **Post-Digital Wave & Neurosymbolic Synthesis:** Accumulate-with-constraints preserves the Basel asymptote $\le \frac{\sigma^2 d}{T-d-1}\frac{\pi^2}{6}$ and, in simulation, keeps symmetry and $\sigma_G^2/\sigma_0^2 \ge 0.90$ in $100\%$ of 200 constrained runs ($0.95$ at `seed = 2026`), paired with PKU 24-bit `HP-INV` RRAM ($7\text{ W}$, $100\times$ less system power than a $700\text{ W}$ H100), `SIREN` ($40\times$ wave compression), and Tsinghua `ACCEL` ($74\text{,}800\text{ TOPS/W}$, informative) (**Chapters 13, 14, 18**). |
+| **5** | **The Material Collapse Triad of Brute-Force Binary AI** | Brute-force scaling faces three walls reported in the literature (informative values, not computed here): exhaustion of $\sim 300\text{T}$ human tokens (2026–2032, Epoch AI) + synthetic autophagy (`Replace` diverging linearly as $\frac{\sigma^2 d}{T-d-1}n$), Horowitz's $711\times$ DRAM-to-FP32 energy asymmetry ($640\text{ pJ}$ vs. $0.9\text{ pJ}$, alongside the IEA projection of $945\text{ TWh}$ data-center demand by 2030), and Ferran Alia's analog noise cliff ($98\% \to 25\%$ at $\sigma = 0.80$). | **Post-Digital Wave & Neurosymbolic Synthesis:** Accumulate-with-constraints preserves the Basel asymptote $\le \frac{\sigma^2 d}{T-d-1}\frac{\pi^2}{6}$ and, in simulation, keeps symmetry and $\sigma_G^2/\sigma_0^2 \ge 0.90$ in $100\%$ of 200 constrained runs ($0.95$ in the baseline run), paired with PKU 24-bit `HP-INV` RRAM ($7\text{ W}$, $100\times$ less system power than a $700\text{ W}$ H100), `SIREN` ($40\times$ wave compression), and Tsinghua `ACCEL` ($74\text{,}800\text{ TOPS/W}$, informative) (**Chapters 13, 14, 18**). |
 
 ---
 
@@ -407,10 +507,10 @@ This command checks code formatting (`cargo fmt`), enforces zero compiler or lin
 
 ## 7. Interactive Experimentation in `/lab`
 
-Reading equations on a static page is never enough to build physical intuition for tail risk, variance drain, or performative feedback. Every chapter of this textbook is coupled to an **Interactive Laboratory Widget** synchronized with **[`/lab`](./lab/index.html?seed=2026)**:
+Reading equations on a static page is never enough to build physical intuition for tail risk, variance drain, or performative feedback. Every chapter of this textbook is coupled to an **Interactive Laboratory Widget** synchronized with **[`/lab`](./lab/index.html)**:
 
-- **In-Page Deterministic Simulation (`seed = 2026`):** Move the parameter sliders directly inside any chapter to watch the mathematical curves, natural-frequency trees, and epistemological gates update in real time.
-- **Deep-Link State Sharing (`Open in /lab ↗`):** Every slider adjustment updates the deep-link query string (`/lab/?module=<id>&seed=2026&...`), allowing instructors and auditors to share exact reproducible configurations on GitHub Pages.
+- **In-Page Deterministic Simulation ($\Phi_1$):** Move the parameter sliders directly inside any chapter to watch the mathematical curves, natural-frequency trees, and epistemological gates update in real time under a pre-registered seed.
+- **Deep-Link State Sharing (`Open in /lab ↗`):** Every slider adjustment updates the deep-link query string (`/lab/?module=<id>&seed=<seed>&...`), allowing instructors and auditors to share exact reproducible configurations on GitHub Pages.
 - **Embedded Sandbox & CLI Parity (`Sandbox (/lab/embed)` & `Copy CLI Audit`):** Toggle the embedded sandbox frame from `/lab/embed/` or copy the exact `cargo run --release --bin ...` command to verify the same numbers in the pure-Rust terminal suite.
 
 Try the interactive Gigerenzer Natural-Frequency & Turing Deciban Laboratory below:
@@ -423,9 +523,9 @@ Try the interactive Gigerenzer Natural-Frequency & Turing Deciban Laboratory bel
 
 This book has no reader-role tracks. It is organized as an **acyclic graph of competencies**. Each competency states what the reader can do, names the chapters that teach it, and lists the competencies it requires. Each one is evidenced by a runnable command, and some also by a negative proof. The graph lives in one data file, `docs/competencies.toml`; this section, the cards at the top of the preface, and Appendix E are generated from it.
 
-A **pathway** is everything a single negative proof depends on. Take the competency that carries `gates -- --defect <name>`, gather all of its prerequisites, and read them in an order that never meets a competency before its prerequisites. There are 27 negative proofs, so there are **27 pathways**, each ending at a test that must exit with code `1`. Choose the proofs you need; the union of their pathways is your reading plan. The **practicum thread** (the Funnel and SIGA Roadmap, Protocol Profiles, the real-data synthesis, and the verification suite) runs across all of them. The Core and Full tracks of the course are not paths but a depth tag on each competency. A pathway is Core when every competency in it is Core.
+A **pathway** is everything a single negative proof depends on. Take the competency that carries `gates -- --defect <name>`, gather all of its prerequisites, and read them in an order that never meets a competency before its prerequisites. There are 27 negative proofs, so there are **27 pathways**, each ending at a test that must exit with code `1`. Choose the proofs you need; the union of their pathways is your reading plan. The **practicum thread** (the Funnel and SIGA Roadmap, Application Profiles (`ProtocolProfile`), the real-data synthesis, and the verification suite) runs across all of them. The Core and Full tracks of the course are not paths but a depth tag on each competency. A pathway is Core when every competency in it is Core.
 
-The graph is an authorial pedagogical frame over the book, like the course syllabus; it is not part of the protocol. It is held to the same discipline as the code. `crates/stochology-cli/tests/competency_dag.rs` and `CompetencyDag::audit` verify that:
+The graph is an authorial pedagogical frame over the book, like the course syllabus; it is not part of the normative kernel. It is held to the same discipline as the code. `crates/stochology-cli/tests/competency_dag.rs` and `CompetencyDag::audit` verify that:
 - the graph is acyclic;
 - no edge points to a chapter read later, and the edges form a transitive reduction;
 - a Core competency never requires a Full one;
@@ -494,7 +594,7 @@ flowchart TB
   end
   subgraph part6["Part VII"]
     funnel_siga["Prune a question through the 4 Filters and run the 8-step SIGA Roadmap<br/><small>Ch 26</small>"]
-    protocol_profiles["Shape the protocol's clay for a new application with a pre-registered profile<br/><small>Ch 17, Ch 26</small>"]
+    protocol_profiles["Shape the clay for a new application with a pre-registered profile<br/><small>Ch 17, Ch 26</small>"]
     empirical_synthesis["Face every lens and bridge with the 14 real datasets<br/><small>Ch 27</small>"]
   end
   subgraph part7["Appendices"]
@@ -584,44 +684,44 @@ flowchart TB
 <!-- competency-pathways:begin -->
 | # | Pathway (negative proof) | Pillar | Depth | Competencies | Route (chapters, in order) |
 | :-: | --- | --- | :-: | :-: | --- |
-| 1 | `sniedovich` — Type uncertainty as aleatory, parametric, structural, or Knightian | I · Invariant | Core | 2 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) |
-| 2 | `peeking` — Test severely and keep evidence valid under continuous monitoring | A · Anytime-valid | Core | 5 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) |
-| 3 | `multiplicity` — Control false discoveries over many e-values with e-BH and name every discarded hypothesis | A · Anytime-valid | Full | 6 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) |
-| 4 | `var_underreport` — Backtest VaR and Expected Shortfall with e-values | A · Anytime-valid | Core | 6 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) |
-| 5 | `anchor_extrapolation` — Trade in-sample fit for shift robustness with anchor regression and read anchor stability | I · Invariant | Full | 8 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 9](09-lenses.md) |
-| 6 | `brier_dominance` — Apply the Decision lens: cost-loss boundary, EVPI, and CORP-Murphy decomposition | C · Calibrated | Core | 4 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 9](09-lenses.md) |
-| 7 | `lee_point_estimate` — Bound what the world did not show: Meng's identity, Rubin's classes, Manski and Lee bounds | I · Invariant | Core | 5 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 10](10-world-models-missingness-bounds.md) |
-| 8 | `machine` — Separate structural core from residual: Kennedy-O'Hagan discrepancy and Authentic Model Form | I · Invariant | Core | 9 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 9](09-lenses.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) |
-| 9 | `analog_wall` — Audit physical computing worlds: the analog wall, noise-aware training, and wave solvers | A · Auditing | Full | 14 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 5](05-dynamical-systems-odes-waves.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) → [Ch 12](12-model-worlds-simulation-acceptance.md) → [Ch 13](13-model-worlds-analog-wave-computing.md) |
-| 10 | `triadic_technium` — Test the triadic synthesis of phase, fractal scale, and toroidal recurrence | A · Auditing | Full | 16 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 5](05-dynamical-systems-odes-waves.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) → [Ch 12](12-model-worlds-simulation-acceptance.md) → [Ch 13](13-model-worlds-analog-wave-computing.md) → [Ch 14](14-triadic-synthesis.md) |
-| 11 | `cromwell` — Score curved consequences: Jensen's gap, CRPS, proper scores, and the Cromwell floor | C · Calibrated | Core | 5 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 9](09-lenses.md) → [Ch 15](15-decision-models-curvature-scoring.md) |
-| 12 | `crps_miscalibration` — Decompose the CRPS of continuous forecasts into miscalibration, discrimination, and uncertainty | C · Calibrated | Full | 6 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 9](09-lenses.md) → [Ch 15](15-decision-models-curvature-scoring.md) |
-| 13 | `instrumental_reason` — Expose what instrumental stochastic reason silences: amputated tails and correlational parrots | A · Auditing | Full | 16 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 17](17-model-decisions-card-preregistration.md) → [Ch 18](18-critical-stochastic-rationality.md) |
-| 14 | `performativity` — Separate performative stability from optimality and audit RRM contraction and Goodhart | P · Performative-aware | Core | 9 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 19](19-world-decisions-performativity.md) |
-| 15 | `understated_epsilon` — Measure a lower bound on performative sensitivity from randomized action arms | P · Performative-aware | Full | 10 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 19](19-world-decisions-performativity.md) |
-| 16 | `replace_collapse` — Keep recursive training anchored: Accumulate versus Replace | P · Performative-aware | Full | 16 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) → [Ch 12](12-model-worlds-simulation-acceptance.md) → [Ch 19](19-world-decisions-performativity.md) |
-| 17 | `moulton` — Count tail information in clusters: Moulton-Campbell n_eff(p) | A · Anytime-valid | Core | 6 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 9](09-lenses.md) → [Ch 20](20-decision-worlds-regime.md) |
-| 18 | `phi5` — Match the question's resolution to the decision unit (Phi5) | A · Anytime-valid | Core | 7 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 9](09-lenses.md) → [Ch 20](20-decision-worlds-regime.md) |
-| 19 | `chouldechova` — Name who pays for error under Chouldechova's impossibility | A · Auditing | Core | 10 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 20](20-decision-worlds-regime.md) |
-| 20 | `subgroup_miscalibration` — Audit calibration inside every subgroup and bin, and say when the cells are too small to tell | A · Auditing | Full | 11 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 20](20-decision-worlds-regime.md) |
-| 21 | `clock` — Keep event time and availability time apart with a synthetic canary | B · Bitemporal | Core | 8 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 21](21-decision-worlds-governance.md) |
-| 22 | `vintage_leak` — Backtest on the data vintages that existed at decision time | B · Bitemporal | Full | 9 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 21](21-decision-worlds-governance.md) |
-| 23 | `vault` — Open a sealed out-of-time reserve exactly once | B · Bitemporal | Core | 15 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 17](17-model-decisions-card-preregistration.md) → [Ch 21](21-decision-worlds-governance.md) |
-| 24 | `concept_drift` — Detect and adapt to covariate, label, and concept drift | C · Calibrated | Full | 14 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 21](21-decision-worlds-governance.md) |
-| 25 | `stochary_cybernetics` — Govern with stocks and buffers, and judge process apart from outcome | A · Auditing | Full | 14 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 5](05-dynamical-systems-odes-waves.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 19](19-world-decisions-performativity.md) → [Ch 22](22-relational-ontology.md) → [Ch 23](23-stochary-conjectural-cybernetics.md) |
-| 26 | `strategic_accommodation` — Repair the six AI shortcuts across all six ordered pairs | A · Auditing | Full | 21 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) → [Ch 12](12-model-worlds-simulation-acceptance.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 17](17-model-decisions-card-preregistration.md) → [Ch 19](19-world-decisions-performativity.md) → [Ch 20](20-decision-worlds-regime.md) → [Ch 24](24-strategic-ai-accommodation.md) |
-| 27 | `coupled_society` — Close the stock-flow loop between a public regulator and private credit | A · Auditing | Full | 19 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 5](05-dynamical-systems-odes-waves.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 19](19-world-decisions-performativity.md) → [Ch 20](20-decision-worlds-regime.md) → [Ch 22](22-relational-ontology.md) → [Ch 23](23-stochary-conjectural-cybernetics.md) → [Ch 25](25-coupled-society-sfc.md) |
+| 1 | `sniedovich` — Type uncertainty as aleatory, parametric, structural, or Knightian | 4 · Invariant | Core | 2 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) |
+| 2 | `peeking` — Test severely and keep evidence valid under continuous monitoring | 2 · Anytime-valid | Core | 5 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) |
+| 3 | `multiplicity` — Control false discoveries over many e-values with e-BH and name every discarded hypothesis | 2 · Anytime-valid | Full | 6 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) |
+| 4 | `var_underreport` — Backtest VaR and Expected Shortfall with e-values | 2 · Anytime-valid | Core | 6 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) |
+| 5 | `anchor_extrapolation` — Trade in-sample fit for shift robustness with anchor regression and read anchor stability | 4 · Invariant | Full | 8 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 9](09-lenses.md) |
+| 6 | `brier_dominance` — Apply the Decision lens: cost-loss boundary, EVPI, and CORP-Murphy decomposition | 1 · Calibrated | Core | 4 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 9](09-lenses.md) |
+| 7 | `lee_point_estimate` — Bound what the world did not show: Meng's identity, Rubin's classes, Manski and Lee bounds | 4 · Invariant | Core | 5 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 10](10-world-models-missingness-bounds.md) |
+| 8 | `machine` — Separate structural core from residual: Kennedy-O'Hagan discrepancy and Authentic Model Form | 4 · Invariant | Core | 9 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 9](09-lenses.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) |
+| 9 | `analog_wall` — Audit physical computing worlds: the analog wall, noise-aware training, and wave solvers | 6 · Auditing | Full | 14 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 5](05-dynamical-systems-odes-waves.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) → [Ch 12](12-model-worlds-simulation-acceptance.md) → [Ch 13](13-model-worlds-analog-wave-computing.md) |
+| 10 | `triadic_technium` — Test the triadic synthesis of phase, fractal scale, and toroidal recurrence | 6 · Auditing | Full | 16 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 5](05-dynamical-systems-odes-waves.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) → [Ch 12](12-model-worlds-simulation-acceptance.md) → [Ch 13](13-model-worlds-analog-wave-computing.md) → [Ch 14](14-triadic-synthesis.md) |
+| 11 | `cromwell` — Score curved consequences: Jensen's gap, CRPS, proper scores, and the Cromwell floor | 1 · Calibrated | Core | 5 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 9](09-lenses.md) → [Ch 15](15-decision-models-curvature-scoring.md) |
+| 12 | `crps_miscalibration` — Decompose the CRPS of continuous forecasts into miscalibration, discrimination, and uncertainty | 1 · Calibrated | Full | 6 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 9](09-lenses.md) → [Ch 15](15-decision-models-curvature-scoring.md) |
+| 13 | `instrumental_reason` — Expose what instrumental stochastic reason silences: amputated tails and correlational parrots | 6 · Auditing | Full | 16 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 17](17-model-decisions-card-preregistration.md) → [Ch 18](18-critical-stochastic-rationality.md) |
+| 14 | `performativity` — Separate performative stability from optimality and audit RRM contraction and Goodhart | 3 · Performative-aware | Core | 9 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 19](19-world-decisions-performativity.md) |
+| 15 | `understated_epsilon` — Measure a lower bound on performative sensitivity from randomized action arms | 3 · Performative-aware | Full | 10 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 19](19-world-decisions-performativity.md) |
+| 16 | `replace_collapse` — Keep recursive training anchored: Accumulate versus Replace | 3 · Performative-aware | Full | 16 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) → [Ch 12](12-model-worlds-simulation-acceptance.md) → [Ch 19](19-world-decisions-performativity.md) |
+| 17 | `moulton` — Count tail information in clusters: Moulton-Campbell n_eff(p) | 2 · Anytime-valid | Core | 6 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 9](09-lenses.md) → [Ch 20](20-decision-worlds-regime.md) |
+| 18 | `phi5` — Match the question's resolution to the decision unit (Phi5) | 2 · Anytime-valid | Core | 7 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 9](09-lenses.md) → [Ch 20](20-decision-worlds-regime.md) |
+| 19 | `chouldechova` — Name who pays for error under Chouldechova's impossibility | 6 · Auditing | Core | 10 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 20](20-decision-worlds-regime.md) |
+| 20 | `subgroup_miscalibration` — Audit calibration inside every subgroup and bin, and say when the cells are too small to tell | 6 · Auditing | Full | 11 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 20](20-decision-worlds-regime.md) |
+| 21 | `clock` — Keep event time and availability time apart with a synthetic canary | 5 · Bitemporal | Core | 8 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 21](21-decision-worlds-governance.md) |
+| 22 | `vintage_leak` — Backtest on the data vintages that existed at decision time | 5 · Bitemporal | Full | 9 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 21](21-decision-worlds-governance.md) |
+| 23 | `vault` — Open a sealed out-of-time reserve exactly once | 5 · Bitemporal | Core | 15 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 17](17-model-decisions-card-preregistration.md) → [Ch 21](21-decision-worlds-governance.md) |
+| 24 | `concept_drift` — Detect and adapt to covariate, label, and concept drift | 1 · Calibrated | Full | 14 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 21](21-decision-worlds-governance.md) |
+| 25 | `stochary_cybernetics` — Govern with stocks and buffers, and judge process apart from outcome | 6 · Auditing | Full | 14 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 5](05-dynamical-systems-odes-waves.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 19](19-world-decisions-performativity.md) → [Ch 22](22-relational-ontology.md) → [Ch 23](23-stochary-conjectural-cybernetics.md) |
+| 26 | `strategic_accommodation` — Repair the six AI shortcuts across all six ordered pairs | 6 · Auditing | Full | 21 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 7](07-approximation-complexity-spectral.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 11](11-world-models-discrepancy-authentic-form.md) → [Ch 12](12-model-worlds-simulation-acceptance.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 17](17-model-decisions-card-preregistration.md) → [Ch 19](19-world-decisions-performativity.md) → [Ch 20](20-decision-worlds-regime.md) → [Ch 24](24-strategic-ai-accommodation.md) |
+| 27 | `coupled_society` — Close the stock-flow loop between a public regulator and private credit | 6 · Auditing | Full | 19 | [Ch 1](01-layers-six-pairs.md) → [Ch 2](02-uncertainty-typology.md) → [Ch 3](03-random-variables-convexity.md) → [Ch 4](04-markov-chains-causal-graphs.md) → [Ch 5](05-dynamical-systems-odes-waves.md) → [Ch 6](06-sampling-estimation-linear-algebra.md) → [Ch 8](08-severe-testing-martingales-conformal.md) → [Ch 9](09-lenses.md) → [Ch 10](10-world-models-missingness-bounds.md) → [Ch 15](15-decision-models-curvature-scoring.md) → [Ch 16](16-decision-models-thresholds-evidence.md) → [Ch 19](19-world-decisions-performativity.md) → [Ch 20](20-decision-worlds-regime.md) → [Ch 22](22-relational-ontology.md) → [Ch 23](23-stochary-conjectural-cybernetics.md) → [Ch 25](25-coupled-society-sfc.md) |
 <!-- competency-pathways:end -->
 
 <div class="stoch-next-card" role="region" aria-label="Next chapter progression">
   <div class="stoch-next-body">
     <span class="stoch-next-kicker">NEXT IN PART I — ONTOLOGY</span>
     <h3>Chapter 1: Three Layers, Six Pairs (L₁ ⇄ L₂ ⇄ L₃)</h3>
-    <p>Move from the foundations of probability and natural frequencies to the ontological architecture of the CAPIBA Protocol: how the physical World (L₁), the mathematical Model (L₂), and the deciding Agent (L₃) interact across three implemented forward bridges and three reverse reading frames, enforced by the Four Golden Prohibitions.</p>
+    <p>Move from the foundations of probability and natural frequencies to the ontological architecture of Stochology: how the physical World (L₁), the mathematical Model (L₂), and the deciding Agent (L₃) interact across three implemented forward bridges and three reverse reading frames, enforced by the Four Golden Prohibitions.</p>
   </div>
   <div class="stoch-next-actions">
     <a class="stoch-hero-btn stoch-hero-btn-primary" href="01-layers-six-pairs.html">Continue to Chapter 1 →</a>
-    <a class="stoch-hero-btn" href="lab/index.html?module=gigerenzer-bayes&amp;seed=2026">Open Full /lab Explorer ↗</a>
+    <a class="stoch-hero-btn" href="lab/index.html?module=gigerenzer-bayes">Open Full /lab Explorer ↗</a>
   </div>
 </div>
 

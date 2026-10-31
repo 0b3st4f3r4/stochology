@@ -2,13 +2,13 @@
 
 > **Three tempos.** **Detachment:** set aside the toolbox of current AI practice (feature attribution, single imputation, LLM-as-a-judge, uniform quantization, consistency-ratio rankings, Gaussian Kalman filters) as if each tool were neutral. **Abstraction:** each shortcut fails at a specific crossing between World, Model, and Decision; read together, the six repairs cover all six ordered pairs. **Return:** `do`-Shapley anchored on invariant causal prediction, Rubin's pooling rule, Prediction-Powered Inference, outlier-protected quantization, Laplacian and contagion identities, Belton-Gear rank reversal, and Huber innovation-weighted Kalman filtering. **Negative proof:** `gates -- --defect strategic_accommodation` (exit `1`).
 
-This chapter gives the strategic synthesis the chapter it lacked in earlier editions. It is a Tier 3 synthesis gated by `G8`. The axis-to-pair labels used below come from the code's doc comments and are an **authorial** reading frame (`AGENTS.md` §II.C rule 7), not additional bridges. Unless a dataset is named, every number is **simulated** (canonical shielded run at `seed = 2026`). The specification is mirrored in [`docs/syntheses/strategic.md`](../docs/syntheses/strategic.md).
+This chapter gives the strategic synthesis the chapter it lacked in earlier editions. It is a Tier 3 synthesis gated by `G8`. The axis-to-pair labels used below come from the code's doc comments and are an **authorial** reading frame (`AGENTS.md` §II.C rule 7), not additional bridges. Unless a dataset is named, every number is **simulated** under the canonical shielded run. The specification is mirrored in [`docs/syntheses/strategic.md`](../docs/syntheses/strategic.md).
 
 ## Six Shortcuts and Their Repairs
 
 As a worked example, consider a team shipping an AI-assisted decision service. It explains predictions with observational feature attributions, fills missing fields with column means, grades its outputs with a language-model judge, compresses the model to 4 bits by clipping, ranks vendors with a pairwise-comparison matrix, and tracks a noisy sensor with a Gaussian filter. Each step is common practice; each one, under the conditions simulated below, gives a wrong answer that looks right. The chapter pairs every shortcut with a repair and with a naive arm that the negative proof forces to fail.
 
-The synthesis formalizes six axes (`StrategicAiAccommodationSynthesis` and the 6-dataset empirical coupler `EmpiricalStrategicAccommodationAudit`) under the same three-way verification contract: `shielded = false` executes the naive baseline, `all_identities_closed` closes on every seed in both modes, and literature constants are informative only. `G8` gates 15 named claims (11 seed-dependent, 4 `.det.`), each passing on $\ge 95\%$ of the 20 development seeds `2026..=2045` and of the 200 confirmation seeds `9_000_000..=9_000_199` (lowest one-sided 95% Clopper-Pearson bound on a confirmation pass rate: $0.977$); two further claims are discarded and the empirical coupler records one discarded finding (all three are listed below and none is approved). Unless a dataset is named, every number below is **simulated** (canonical shielded run at `seed = 2026`, printed by `labs --lenses`). The code's doc comments assign each axis to one of the Six Directed Pairs (Chapter 1, `book-src/01-layers-six-pairs.md`); these axis-to-pair labels are an **authorial** reading frame (`AGENTS.md` §II.C rule 7), not additional bridges. Enforced in Gate `G8` and `--defect strategic_accommodation`:
+The synthesis formalizes six axes (`StrategicAiAccommodationSynthesis` and the 6-dataset empirical coupler `EmpiricalStrategicAccommodationAudit`) under the same three-way verification contract: `shielded = false` executes the naive baseline, `all_identities_closed` closes on every seed in both modes, and literature constants are informative only. `G8` gates 15 named claims (11 seed-dependent, 4 `.det.`), each passing on $\ge 95\%$ of the 20 pre-registered development seeds and of the 200 confirmation seeds `9_000_000..=9_000_199` (lowest one-sided 95% Clopper-Pearson bound on a confirmation pass rate: $0.977$); two further claims are discarded and the empirical coupler records one discarded finding (all three are listed below and none is approved). Unless a dataset is named, every number below is **simulated** (canonical shielded run, printed by `labs --lenses`). The code's doc comments assign each axis to one of the Six Directed Pairs (Chapter 1, `book-src/01-layers-six-pairs.md`); these axis-to-pair labels are an **authorial** reading frame (`AGENTS.md` §II.C rule 7), not additional bridges. Enforced in Gate `G8` and `--defect strategic_accommodation`:
 
 ## 24.1 Axis 1 — Order, Connectivity, and Correlated Ensembles
 
@@ -40,7 +40,7 @@ The synthesis formalizes six axes (`StrategicAiAccommodationSynthesis` and the 6
 
 ## Computational Audit in Rust
 
-`StrategicAiAccommodationSynthesis::evaluate(2026)` and the coupler `EmpiricalStrategicAccommodationAudit` run in `labs --all` and in Gate `G8`:
+`StrategicAiAccommodationSynthesis::evaluate` and the coupler `EmpiricalStrategicAccommodationAudit` run in `labs --all` and in Gate `G8`:
 
 ~~~bash
 cargo run --release --bin labs -- --all
@@ -67,13 +67,13 @@ NEGATIVE PROOF [strategic_accommodation] BLOCKED SUCCESSFULLY on all 20 developm
 
 | Number | Class | Source |
 | --- | --- | --- |
-| Connectivity accuracy $1.00$ vs. $0.51$; voter Brier $0.110$ vs. $0.268$ | Simulated (the correlated arm carries an assumed framing bias of $0.28$) | `seed = 2026` |
-| `do`-Shapley MSE $0.000$ vs. $0.14$; imputation variance retention $0.93$ vs. $0.62$; power $0.90$ vs. $0.17$ | Simulated | `seed = 2026` |
-| RAG $I(W;Z) = 0.382$ nats; cascade cost $17.34$ vs. $24.87$; `INT4` $\mathrm{ES}\_{0.99}$ retention $1.00$ vs. $0.17$ | Simulated | `seed = 2026` |
-| Hub survival $0.85$ vs. $0.00$ | Simulated (decoupling slack is assumed) | `seed = 2026` |
+| Connectivity accuracy $1.00$ vs. $0.51$; voter Brier $0.110$ vs. $0.268$ | Simulated (the correlated arm carries an assumed framing bias of $0.28$) | `StrategicAiAccommodationSynthesis` |
+| `do`-Shapley MSE $0.000$ vs. $0.14$; imputation variance retention $0.93$ vs. $0.62$; power $0.90$ vs. $0.17$ | Simulated | `StrategicAiAccommodationSynthesis` |
+| RAG $I(W;Z) = 0.382$ nats; cascade cost $17.34$ vs. $24.87$; `INT4` $\mathrm{ES}\_{0.99}$ retention $1.00$ vs. $0.17$ | Simulated | `StrategicAiAccommodationSynthesis` |
+| Hub survival $0.85$ vs. $0.00$ | Simulated (decoupling slack is assumed) | `StrategicAiAccommodationSynthesis` |
 | AHP portfolio $18.26$ vs. $11.80$ | Constructed (the naive arm is hard-coded) | `MultiCriteriaAhpRegulatoryPkmAudit` |
 | Oversight load $3.2$ bit/s, $12.61$ decibans, $\mathrm{REL}\_{\mathrm{CORP}} = 0.004$ | Assumed | regulatory proxy checklist inputs |
-| Huber-Kalman RMSE $0.189$ vs. $1.47$; Tube-MPC survival $1.00$ vs. $0.59$ | Simulated | `seed = 2026` |
+| Huber-Kalman RMSE $0.189$ vs. $1.47$; Tube-MPC survival $1.00$ vs. $0.59$ | Simulated | `StrategicAiAccommodationSynthesis` |
 | MDE inflation $5.32\times$ | Measured | `bank_calls.csv` |
 | $\mathrm{ES}\_{0.99}$ retention $1.00$ vs. $0.17$ | Measured | `danish_fire.csv` |
 | Huber-Kalman RMSE $138.9$ vs. $619.3$ MW | Measured series with simulated glitches | `vic_elec.csv` |

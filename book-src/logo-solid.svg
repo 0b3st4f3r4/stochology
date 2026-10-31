@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-labelledby="stochology-logo-title">
+  <title id="stochology-logo-title">Stochology — Auditable Epistemological Machine</title>
+  <defs>
+    <!-- Progression aligned with the disc: L1 (Green) -> L2 (Blue) -> (p*, r_c) Crosshair (Gold) -> L3 (Crimson) -->
+    <linearGradient id="logo-ring" x1="2" y1="103" x2="468" y2="103" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
+      <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
+      <stop offset="66%" stop-color="var(--logo-gold, #f59e0b)"/>
+      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
+    </linearGradient>
+    <linearGradient id="logo-tail" x1="31" y1="86" x2="92" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.32"/>
+      <stop offset="42%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.34"/>
+      <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.24"/>
+    </linearGradient>
+    <radialGradient id="logo-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.16"/>
+      <stop offset="65%" stop-color="#fbbf24" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <style>
+      :root:not(.light):not(.rust):not(.navy):not(.coal):not(.ayu) {
+        color-scheme: light dark;
+        --logo-ink: #0f172a;
+        --logo-sub: #1d4ed8;
+        --logo-meta: #475569;
+        --logo-frame: #cbd5e1;
+        --logo-ticks: #64748b;
+        --logo-node-bg: #f8fafc;
+        --logo-blue: #2563eb;
+        --logo-green: #10b981;
+        --logo-crimson: #e11d48;
+        --logo-gold: #f59e0b;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not(.light):not(.rust):not(.navy):not(.coal):not(.ayu) {
+          --logo-ink: #f8fafc;
+          --logo-sub: #38bdf8;
+          --logo-meta: #94a3b8;
+          --logo-frame: #1e293b;
+          --logo-ticks: #64748b;
+          --logo-node-bg: #090e1a;
+          --logo-blue: #38bdf8;
+          --logo-green: #34d399;
+          --logo-crimson: #fb7185;
+          --logo-gold: #fbbf24;
+        }
+      }
+      @supports (color: light-dark(white, black)) {
+        :root:not(.light):not(.rust):not(.navy):not(.coal):not(.ayu) {
+          --logo-ink: light-dark(#0f172a, #f8fafc);
+          --logo-sub: light-dark(#1d4ed8, #38bdf8);
+          --logo-meta: light-dark(#475569, #94a3b8);
+          --logo-frame: light-dark(#cbd5e1, #1e293b);
+          --logo-ticks: #64748b;
+          --logo-node-bg: light-dark(#f8fafc, #090e1a);
+          --logo-blue: light-dark(#2563eb, #38bdf8);
+          --logo-green: light-dark(#10b981, #34d399);
+          --logo-crimson: light-dark(#e11d48, #fb7185);
+          --logo-gold: light-dark(#f59e0b, #fbbf24);
+        }
+      }
+    </style>
+  </defs>
+
+  <!-- Emblem Mark -->
+  <g>
+    <circle cx="64" cy="66" r="46" fill="url(#logo-glow)"/>
+
+    <!-- Exact 120-deg tangent-aligned cyclic bridges -->
+    <path d="M 22.77 74.01 A 42 42 0 0 1 50.60 26.19" stroke="var(--logo-green, #10b981)" stroke-width="4.2" stroke-linecap="round"/>
+    <path d="M 46.92 32.93 L 51.02 26.06 L 43.36 23.74" stroke="var(--logo-green, #10b981)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <path d="M 77.67 26.29 A 42 42 0 0 1 105.17 74.30" stroke="var(--logo-blue, #2563eb)" stroke-width="4.2" stroke-linecap="round"/>
+    <path d="M 101.18 67.75 L 105.08 74.73 L 110.91 69.26" stroke="var(--logo-blue, #2563eb)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <path d="M 91.55 97.70 A 42 42 0 0 1 36.22 97.50" stroke="var(--logo-crimson, #e11d48)" stroke-width="4.2" stroke-linecap="round"/>
+    <path d="M 43.90 97.32 L 35.90 97.21 L 37.72 105.00" stroke="var(--logo-crimson, #e11d48)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <polygon points="64,24 100.37,87 27.63,87" stroke="#64748b" stroke-width="2.2" stroke-dasharray="3.64 3.64" stroke-linejoin="round" opacity="0.7"/>
+
+    <path d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84 L 96 86 L 31 86 Z" fill="url(#logo-tail)"/>
+    <path d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84" stroke="var(--logo-ink)" stroke-width="2.2" stroke-linecap="round"/>
+
+    <!-- Orthogonal Decision Crosshair & Golden Reticle (Mira): Horizontal Critical Floor (r_c) + Vertical Threshold (p*) at exact Bezier curve point (72, 66.65) -->
+    <line x1="44.3" y1="66.65" x2="59.5" y2="66.65" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.6" stroke-dasharray="3.2 2.8" stroke-linecap="round"/>
+    <line x1="72" y1="43.5" x2="72" y2="53.5" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.6" stroke-dasharray="3.4 3.2" stroke-linecap="round"/>
+    <line x1="72" y1="80.0" x2="72" y2="83.4" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.6" stroke-linecap="round"/>
+    <g id="golden-reticle">
+      <circle cx="72" cy="66.65" r="7.4" fill="var(--logo-node-bg)"/>
+      <circle cx="72" cy="66.65" r="6.4" fill="var(--logo-node-bg)" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.4"/>
+      <line x1="62.4" y1="66.65" x2="67.8" y2="66.65" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="76.2" y1="66.65" x2="81.6" y2="66.65" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="72" y1="57.05" x2="72" y2="62.45" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="72" y1="70.85" x2="72" y2="76.25" stroke="var(--logo-gold, #f59e0b)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="72" cy="66.65" r="2" fill="var(--logo-gold, #f59e0b)"/>
+    </g>
+
+    <circle cx="64" cy="24" r="9.2" fill="var(--logo-node-bg)" stroke="var(--logo-blue, #2563eb)" stroke-width="3.4"/>
+    <circle cx="64" cy="24" r="3.8" fill="var(--logo-blue, #2563eb)"/>
+    <circle cx="27.63" cy="87" r="9.2" fill="var(--logo-node-bg)" stroke="var(--logo-green, #10b981)" stroke-width="3.4"/>
+    <circle cx="27.63" cy="87" r="3.8" fill="var(--logo-green, #10b981)"/>
+    <circle cx="100.37" cy="87" r="9.2" fill="var(--logo-node-bg)" stroke="var(--logo-crimson, #e11d48)" stroke-width="3.4"/>
+    <circle cx="100.37" cy="87" r="3.8" fill="var(--logo-crimson, #e11d48)"/>
+  </g>
+
+  <!-- Wordmark & Epistemological Subtitle -->
+  <g transform="translate(148, 0)">
+    <text x="0" y="62" fill="var(--logo-ink)" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="42" font-weight="800" letter-spacing="2.5">STOCHOLOGY</text>
+    <line x1="2" y1="90" x2="468" y2="90" stroke="url(#logo-ring)" stroke-width="1.5" stroke-opacity="0.75"/>
+    <text x="2" y="103" fill="var(--logo-meta)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="11.5" font-weight="600" letter-spacing="0.8">L₁ → L₂ → L₃ → L₁  |  Φ₁–Φ₅  |  G1–G8  |  SIGA</text>
+  </g>
+</svg>
+

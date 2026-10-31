@@ -1,4 +1,4 @@
-//! Binary `labs` — Executes the 7 methodological and empirical laboratories of the Stochology Protocol
+//! Binary `labs` — Executes the 7 methodological and empirical laboratories of Stochology
 //! over all 13 real datasets (`data/*.csv`) and the 4 canonical Epistemological Cards (`cards/*.yaml`).
 
 mod labs_mod;

@@ -1,6 +1,6 @@
 # `stochology-lenses`
 
-The Five Transversal Lenses, Almost-Perfect Machine, Multi-Seed Acceptance Registry, and Domain Syntheses of the **Stochology — CAPIBA Protocol** (*Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol*) in pure Rust (`std` only).
+The Five Transversal Lenses, Almost-Perfect Machine, Multi-Seed Acceptance Registry, and Domain Syntheses of **Stochology** in pure Rust (`std` only).
 
 ## Overview
 

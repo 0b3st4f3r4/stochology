@@ -60,7 +60,7 @@ Before inspecting the six bridges, notice why these three mathematical structure
   <rect x="393" y="174" width="354" height="134" rx="11" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2"/>
   <text x="409" y="198" fill="var(--emerald)" class="mono" font-size="10.5" font-weight="800">BRIDGE 5 · 𝕋ᵈ WEYL TORUS &amp; RKHS DFM</text>
   <text x="409" y="222" fill="var(--ink)" font-size="13.5" font-weight="800">Z/16Z Cycle, Golden Weyl &amp; Label Shift</text>
-  <text x="409" y="246" fill="var(--muted)" class="mono" font-size="11">x₀=2026 mod 16=10 full 16-state cycle</text>
+  <text x="409" y="246" fill="var(--muted)" class="mono" font-size="11">x₀ = 10 full 16-state cycle (mod 16)</text>
   <text x="409" y="266" fill="var(--muted)" class="mono" font-size="11">Golden Weyl D*₂₅₆ = 0.0074 vs 1/8 = 0.125</text>
   <text x="409" y="286" fill="var(--muted)" class="mono" font-size="11">Hermite-Mehler DFM L₂ = 0.0136 vs RFF 0.104</text>
 
@@ -84,15 +84,15 @@ Before inspecting the six bridges, notice why these three mathematical structure
    - Rank-3 hierarchical approximation of $K\_{ij} = 1/(y\_j - x\_i)$ over a near (inadmissible) and a far ($\eta = 1$ admissible) source cluster: compressing only admissible blocks gives relative Frobenius error **$9.6 \times 10^{-6}$**; compressing every block diverges ($62.0$). The closed-form storage $(2p+1)n$ ($144$ vs. $256$ at $p = 4$) is informative.
 3. **Bridge 3 ($\text{Fractals} \leftrightarrow \mathbb{R}^n$ — $G\_0$, PCM Drift, Simulated `CTRW`, & Analog ECC — `FractionalCtrwAnalogEccAudit`):**
    - Identity: $G\_0 = \frac{2e^2}{h} = 77.48\,\mu\text{S}$ from the exact 2019 SI physical constants.
-   - State-aware drift compensation with $\hat{\nu}\_i$ estimated from one noisy read at $t/t\_0 = 10$ brings the simulated PCM drift MSE at $t/t\_0 = 10^4$ from $0.359$ to **$0.0019$** (`seed = 2026`).
+   - State-aware drift compensation with $\hat{\nu}\_i$ estimated from one noisy read at $t/t\_0 = 10$ brings the simulated PCM drift MSE at $t/t\_0 = 10^4$ from $0.359$ to **$0.0019$** (under the pre-registered baseline seed).
    - A simulated Montroll-Weiss `CTRW` (2000 walkers, Pareto waiting times $\beta = 0.70$, Chambers-Mallows-Stuck $\alpha = 1.75$ jumps) spreads by **$2.80\times$** between $t$ and $16t$: the anomalous prediction $16^{\beta/\alpha} = 3.03$ is within $8.2\%$, the Fickian prediction $16^{1/2} = 4$ misses by $42.8\%$.
    - Residual-trimmed least squares recovers $100\%$ of 100 analog codewords corrupted by LME noise plus two unlimited-magnitude errors; plain least squares recovers $0\%$. Roth's $[10, 2]$ $m$-height profile ($h\_8 = 28.74$) and the polygonal sector $\pi/2n$ are informative.
 4. **Bridge 4 ($\text{Fractals} \leftrightarrow \text{Scaling Laws}$ — Multifractal Cascade, `PDHTE+JK`, `TailWelsch-DML`, & the $\pi^2/6$ Bound — `MultifractalPdhteRagCollapseAudit`):**
    - The deployed pipeline refuses tail extrapolation on bounded thin-tailed data (accepted plateau fraction $< 0.70$), and Welsch-IRLS cuts the ATE RMSE under two-sided Pareto ($\alpha = 1.65$) noise from $0.200$ (OLS) to **$0.048$** ($-75.9\%$).
    - Identity: $\sum\_{g=1}^8 g^{-2} = 1.527422 < \frac{\pi^2}{6}$ (`Replace` value $8.0$ informative). The `RAG Collapse` shares are informative literature values.
-   - **Discarded findings:** on 8 simulated depth-14 log-normal cascades the partition-function curvature is $\hat{\tau}'' = -0.117$ against the theoretical $-\sigma^2\ln b = -0.180$, a gap of $0.063$ above the pre-registered $0.06$; and `PDHTE+JK` estimates $\hat{\xi} = 0.438$ against single-$k$ DEdH $0.445$ on a Hall-Welsh sample with $\xi = 0.50$, so it neither meets the $0.05$ tolerance nor beats the naive estimator at `seed = 2026`.
+   - **Discarded findings:** on 8 simulated depth-14 log-normal cascades the partition-function curvature is $\hat{\tau}'' = -0.117$ against the theoretical $-\sigma^2\ln b = -0.180$, a gap of $0.063$ above the pre-registered $0.06$; and `PDHTE+JK` estimates $\hat{\xi} = 0.438$ against single-$k$ DEdH $0.445$ on a Hall-Welsh sample with $\xi = 0.50$, so it neither meets the $0.05$ tolerance nor beats the naive estimator in the baseline run.
 5. **Bridge 5 ($\mathbb{T}^d \leftrightarrow \mathbb{C}$ — Preface Cycle, Weyl Torus, Hermite-Mehler `DFM`, & Label-Shift Priors — `WeylTorusHermiteMehlerDfmAudit`):**
-   - Identities: the preface cycle $x\_{t+1} = (5x\_t + 3)\bmod 16$ from $x\_0 = 2026 \bmod 16 = 10$ (`[10, 5, 12, 15, 14, 9, 0, 3, 2, 13, 4, 7, 6, 1, 8, 11, 10]`) and the Mercer mass $\sum\_{c \le 64}(1-\rho)\rho^c = 1 - \rho^{65}$.
+   - Identities: the preface cycle $x\_{t+1} = (5x\_t + 3)\bmod 16$ from $x\_0 = 10$ (`[10, 5, 12, 15, 14, 9, 0, 3, 2, 13, 4, 7, 6, 1, 8, 11, 10]`) and the Mercer mass $\sum\_{c \le 64}(1-\rho)\rho^c = 1 - \rho^{65}$.
    - Golden Weyl rotation reaches star discrepancy $D\_{256}^\ast = 0.0074$ (rational step $1/8$: $0.125$); `mixGamma` keeps $\ge 24$ bit transitions by construction ($25$ here; an identity), against $1$ for unmixed odd increments.
    - Under $10\%$ contamination at $x = 4.5$, `DFM` with 4 Hermite-Mehler features recovers $\alpha^\ast = (0.55, 0.35)$ with $L\_2$ error **$0.0136$**; 4 random Fourier features give $0.104$.
    - With an overconfident, biased classifier $\sigma(4x - 0.5)$, `MLLS+BCTS` estimates the target prior $q = 0.72$ with $D\_{\mathrm{KL}} = 3.1 \times 10^{-4}$, hard `BBSE` with $4.0 \times 10^{-5}$, and classify-and-count with $2.3 \times 10^{-2}$. `BBSE` is the better estimator on this draw. After replacing an undamped Newton step that diverged on most seeds with a damped, convergence-tested `BCTS` fit, `MLLS+BCTS` meets the $10^{-3}$ KL claim on 90% of the 20 acceptance seeds, so that claim is discarded rather than approved.
@@ -108,7 +108,7 @@ The real-data coupler approves the `vic_elec.csv` wave $R^2$, the `danish_fire.c
 
 ## Computational Audit in Rust
 
-The six-bridge Triadic Synthesis (`ComplexFractalToroidalTechniumSynthesis`) and its 5-CSV real-data coupler (`EmpiricalTriadicTechniumAudit` in `crates/stochology-lenses/src/triad/`) are audited in **Laboratory 3** and **Gate `G8`** (across all 20 development seeds `2026..=2045` and 200 confirmation seeds `9_000_000..=9_000_199`), while `--defect triadic_technium` runs the naive unshielded methods (`shielded = false`) and confirms that Gate `G8` halts with exit code `1`:
+The six-bridge Triadic Synthesis (`ComplexFractalToroidalTechniumSynthesis`) and its 5-CSV real-data coupler (`EmpiricalTriadicTechniumAudit` in `crates/stochology-lenses/src/triad/`) are audited in **Laboratory 3** and **Gate `G8`** (across all 20 pre-registered development seeds and 200 confirmation seeds `9_000_000..=9_000_199`), while `--defect triadic_technium` runs the naive unshielded methods (`shielded = false`) and confirms that Gate `G8` halts with exit code `1`:
 
 ~~~bash
 cargo run --release --bin labs -- --lenses
@@ -123,9 +123,9 @@ Use the interactive Triadic and Stochary laboratory below to explore how complex
 
 1. **Complex-to-Real Matrix Isomorphism (`Bridge 2`):** Show algebraically that for any complex scalars $z\_1 = a + ib$ and $z\_2 = c + id$, the product of their $2 \times 2$ real matrix embeddings $\mathcal{I}(z\_1)\mathcal{I}(z\_2) = \begin{pmatrix}a & -b\\ b & a\end{pmatrix}\begin{pmatrix}c & -d\\ d & c\end{pmatrix}$ equals $\mathcal{I}(z\_1 z\_2)$. Why does this allow an $n \times n$ complex MIMO inversion to execute on a $2n \times 2n$ real analog RRAM crossbar?
 2. **Anomalous `CTRW` Subdiffusion vs. Fickian Diffusion (`Bridge 3`):** In a Montroll-Weiss Continuous-Time Random Walk with waiting-time exponent $\beta = 0.70$ and jump-length exponent $\alpha = 1.75$, the characteristic scale grows as $t^{\beta/\alpha}$. Calculate the theoretical spread ratio $(16t)^{\beta/\alpha} / t^{\beta/\alpha} = 16^{0.40}$ when time increases $16$-fold, and compare it against the Fickian $16^{1/2} = 4.0$ prediction.
-3. **Toroidal Cycle and Golden Weyl Discrepancy (`Bridge 5`):** Starting from $x\_0 = 2026 \bmod 16 = 10$, compute the first four states of the affine torus recurrence $x\_{t+1} = (5x\_t + 3) \bmod 16$ and explain why $a = 5$ ($a - 1 = 4$ divisible by $4$) and odd $c = 3$ guarantee a full 16-state permutation by the Hull-Dobell theorem.
+3. **Toroidal Cycle and Golden Weyl Discrepancy (`Bridge 5`):** Starting from $x\_0 = 10$, compute the first four states of the affine torus recurrence $x\_{t+1} = (5x\_t + 3) \bmod 16$ and explain why $a = 5$ ($a - 1 = 4$ divisible by $4$) and odd $c = 3$ guarantee a full 16-state permutation by the Hull-Dobell theorem.
 
 ## Summary
 
 - **The Triadic Synthesis ($\mathbb{C} \times \text{Fractals} \times \mathbb{T}^d$)** unites complex wave phase-amplitude representations (`WIRE` Gabor and `Improved SIREN`), fractal heavy-tailed subdiffusion (`CTRW`, `PDHTE`, and Welsch-IRLS), and compact toroidal recurrence (golden Weyl rotation, `FHRR`/`GC-VSA`, and Hasani's Fused `LTC` solver).
-- **Strict separation of claims, identities, and informative constants** ensures that algebraic identities (`all_identities_closed`) close on every seed while refuted hypotheses (such as cascade curvature tolerance, `PDHTE+JK` superiority at `seed = 2026`, lag-induced `RLHF` instability, and out-of-time storm label shift) are transparently recorded in `discarded_findings` (`PROHIBITION_4`).
+- **Strict separation of claims, identities, and informative constants** ensures that algebraic identities (`all_identities_closed`) close on every seed while refuted hypotheses (such as cascade curvature tolerance, `PDHTE+JK` superiority in the baseline run, lag-induced `RLHF` instability, and out-of-time storm label shift) are transparently recorded in `discarded_findings` (`PROHIBITION_4`).

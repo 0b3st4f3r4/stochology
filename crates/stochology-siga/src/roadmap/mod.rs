@@ -11,12 +11,17 @@ pub mod alert_fatigue;
 pub mod blueprints;
 pub mod ebh;
 pub mod martingales;
+pub mod mayo_manski_keynes;
 pub mod runner;
 
 pub use alert_fatigue::{AlertFatigueAudit, NaturalFrequencyMemorandum, OperatingPointSource};
 pub use blueprints::{MultimodalCorrelatedFusionAudit, PreMortemCounterfactualRootCauseAudit};
 pub use ebh::{EBhMultiplicityAudit, PeekingMultiplicitySimulation};
 pub use martingales::{EvidenceProcess, SaviConfidenceSequence, VarEsEBacktest};
+pub use mayo_manski_keynes::{
+    FilterOneAndTwoTensionsAudit, ImbensManskiConfidenceInterval, KeynesEvidentialWeightAudit,
+    MayoManskiSevereBoundaryAudit, ProcessTracingTestKind,
+};
 pub use runner::{
     SigaExecutionReport, run_full_siga_roadmap, run_full_siga_roadmap_empirical,
     run_full_siga_roadmap_empirical_with_profile, simulate_sbc_beta_binomial_ranks,

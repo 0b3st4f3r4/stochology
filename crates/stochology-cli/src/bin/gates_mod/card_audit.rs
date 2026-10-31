@@ -4,9 +4,14 @@ use std::path::Path;
 use stochology_cli::evaluate_empirical_card_severe_test_with_profile;
 use stochology_core::card::{AuditReport, ProtocolProfile};
 use stochology_core::{EpistemologicalCard, MissingnessMechanism};
-use stochology_governance::{CloudLocalLoraArchitectureAudit, RegulatoryComplianceAudit};
+use stochology_governance::{
+    CloudLocalLoraArchitectureAudit, ReflexiveStochologyGoodhartAudit, RegulatoryComplianceAudit,
+    SosaVirtueAndInnesHolmstromContractAudit, TriadicSafeguardComplementarityAudit,
+};
+use stochology_lenses::relational::HollingCanguilhemResilienceAudit;
 use stochology_siga::{
-    AlertFatigueAudit, LongContextDpiDilutionAudit, MultimodalCorrelatedFusionAudit,
+    AlertFatigueAudit, KeynesEvidentialWeightAudit, LongContextDpiDilutionAudit,
+    MayoManskiSevereBoundaryAudit, MultimodalCorrelatedFusionAudit,
     PreMortemCounterfactualRootCauseAudit, SimpsonCausalParadoxAudit,
 };
 
@@ -193,12 +198,56 @@ pub fn run_audit_card(root: &Path, card_arg: &str) -> Result<(), String> {
         blueprints_ok
     );
 
+    let mayo_manski = MayoManskiSevereBoundaryAudit::canonical_benchmark();
+    let keynes = KeynesEvidentialWeightAudit::canonical_benchmark();
+    let triadic_safeguards = TriadicSafeguardComplementarityAudit::canonical_benchmark();
+    let reflexive_goodhart = ReflexiveStochologyGoodhartAudit::canonical_benchmark();
+    let sosa_innes_holmstrom = SosaVirtueAndInnesHolmstromContractAudit::canonical_benchmark();
+    let holling_canguilhem = HollingCanguilhemResilienceAudit::canonical_benchmark();
+    let ethics_of_aim_ok = mayo_manski.mayo_manski_bridge_verified
+        && keynes.keynes_and_process_tracing_verified
+        && triadic_safeguards.triadic_complementarity_verified
+        && reflexive_goodhart.reflexive_goodhart_and_refutability_verified
+        && sosa_innes_holmstrom.sosa_and_contracts_verified
+        && holling_canguilhem.holling_canguilhem_resilience_verified;
+    println!(
+        "  [6] Ethics of Aim & Methodological Resonances: MayoManski(CI=[{:.3},{:.3}], SEV_L={}, protect={})={}, KeynesProcessTracing(V={:.3}, W_SG={:+.1}dB)={}, TriadicSafeguards(M={:.2})={}, ReflexiveGoodhart(brakes=3/3)={}, SosaInnesHolmstrom(grade={:?}, clawback={:.1}>{:.1})={}, HollingCanguilhem(B_eco={:.2}>tight={:.2})={} -> approved={}",
+        mayo_manski.imbens_manski_ci.ci_lower,
+        mayo_manski.imbens_manski_ci.ci_upper,
+        mayo_manski.mayo_severe_at_lower_bound,
+        mayo_manski.minimax_regret_recommends_protect,
+        mayo_manski.mayo_manski_bridge_verified,
+        keynes.dense_archive_weight_v,
+        keynes.smoking_gun_test.1,
+        keynes.keynes_and_process_tracing_verified,
+        triadic_safeguards.leontief_complementarity_index,
+        triadic_safeguards.triadic_complementarity_verified,
+        reflexive_goodhart.reflexive_goodhart_and_refutability_verified,
+        sosa_innes_holmstrom.sosa_fog_withholding_grade,
+        sosa_innes_holmstrom
+            .innes_clawback_executive_payoff_safe_vs_risky
+            .0,
+        sosa_innes_holmstrom
+            .innes_clawback_executive_payoff_safe_vs_risky
+            .1,
+        sosa_innes_holmstrom.sosa_and_contracts_verified,
+        holling_canguilhem
+            .ecological_basin_width_buffered_vs_tight
+            .0,
+        holling_canguilhem
+            .ecological_basin_width_buffered_vs_tight
+            .1,
+        holling_canguilhem.holling_canguilhem_resilience_verified,
+        ethics_of_aim_ok
+    );
+
     if !siga_rep.approved_end_to_end
         || !statutory.all_statutory_requirements_approved
         || !blueprints_ok
+        || !ethics_of_aim_ok
     {
         return Err(format!(
-            "Card '{}' failed end-to-end SIGA, statutory, or blueprint resonance audit",
+            "Card '{}' failed end-to-end SIGA, statutory, blueprint, or ethics-of-aim resonance audit",
             card.id
         ));
     }
@@ -214,7 +263,7 @@ pub fn run_audit_card(root: &Path, card_arg: &str) -> Result<(), String> {
 fn print_profile_block(profile: &ProtocolProfile, report: &AuditReport) {
     if profile.is_canonical() {
         println!(
-            "  [0] Protocol Profile: canonical (CAPIBA defaults, seed={})",
+            "  [0] Protocol Profile: canonical (Stochology defaults, seed={})",
             profile.seed
         );
         return;

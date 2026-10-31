@@ -18,7 +18,7 @@ repository = "https://github.com/0b3st4f3r4/stochology"
 homepage = "https://stochology.org"
 keywords = ["stochastic", "calibration", "causality", "uncertainty", "decision"]
 categories = ["science", "mathematics", "simulation", "algorithms"]
-description = "Stochology Protocol: Enriched Methodological Architecture for Judgment and Decision-Making under Uncertainty"
+description = "Stochology: The Science and Ethics of Aim for Judgment and Decision-Making under Uncertainty"
 
 [workspace.dependencies]
 stochology-core = { version = "1.0.0", path = "crates/stochology-core" }

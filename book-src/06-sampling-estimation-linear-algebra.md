@@ -237,7 +237,7 @@ Two additional foundational statistical primitives in `stochology_core::rng` pro
    From these moments, the **Jarque-Bera normality test statistic** $\mathrm{JB} = \frac{n}{6}\left(\hat{\gamma}\_1^2 + \frac{1}{4}\hat{\gamma}\_2^2\right)$ audits whether Gaussian tail assumptions are falsified (measured on `djia_1885_2023.csv`, $n = 37\text{,}930$ trading days: $\hat{\gamma}\_2 = 17.8$ and $\mathrm{JB} = 502\text{,}551$).
 
 2. **Hans R. Künsch's (1989) Moving-Block Bootstrap (`block_bootstrap_ci`):**
-   Standard Efron bootstrap resamples individual rows $x\_i$ independently with replacement, destroying temporal autocorrelation $\rho\_k$ and severely understating standard errors. Künsch's moving-block bootstrap slices the time series into overlapping contiguous blocks $B\_j = (x\_j, \dots, x\_{j+\ell-1})$ of length $\ell \sim n^{1/3}$ and resamples whole blocks using `SplitMix64` (`seed = 2026`), preserving within-block dependence structure.
+   Standard Efron bootstrap resamples individual rows $x\_i$ independently with replacement, destroying temporal autocorrelation $\rho\_k$ and severely understating standard errors. Künsch's moving-block bootstrap slices the time series into overlapping contiguous blocks $B\_j = (x\_j, \dots, x\_{j+\ell-1})$ of length $\ell \sim n^{1/3}$ and resamples whole blocks using `SplitMix64` under a pre-registered seed, preserving within-block dependence structure.
 
 ### Interactive Laboratory (`/lab`)
 

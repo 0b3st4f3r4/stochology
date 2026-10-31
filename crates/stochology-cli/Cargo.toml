@@ -11,7 +11,7 @@ documentation = "https://docs.rs/stochology-cli"
 readme = "README.md"
 keywords.workspace = true
 categories = ["command-line-utilities", "science", "mathematics", "simulation", "algorithms"]
-description = "Executable CLI laboratories (`labs`) and epistemological gates (`gates`) for the Stochology Protocol"
+description = "Executable CLI laboratories (`labs`) and epistemological gates (`gates`) for Stochology"
 
 [dependencies]
 stochology-core.workspace = true

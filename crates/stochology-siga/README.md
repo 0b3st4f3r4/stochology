@@ -1,6 +1,6 @@
 # `stochology-siga`
 
-The 4-Filter Eliminatory Funnel and 8-Step **SIGA** Operational Roadmap (*Survey, Interrogate, Generate, Act*) of the **Stochology — CAPIBA Protocol** (*Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol*) in pure Rust (`std` only).
+The 4-Filter Eliminatory Funnel and 8-Step **SIGA** Operational Roadmap (*Survey, Interrogate, Generate, Act*) of **Stochology** in pure Rust (`std` only).
 
 ## Overview
 

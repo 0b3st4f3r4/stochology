@@ -17,11 +17,11 @@ Buried inside that single smooth sentence are three fatal omissions:
 
 In a traditional organization, or in a multi-agent Artificial Intelligence pipeline where Large Language Models converse in free English or Portuguese paragraphs, one agent's smooth prose becomes the next agent's unquestioned premise. Rhetorical confidence substitutes for mathematical proof.
 
-To make hiding impossible, the Stochology Protocol establishes **Four Golden Prohibitions** (`AGENTS.md §I`, audited in `EpistemologicalCard::audit()` and Gate `G6`). No claim, model, or inter-agent message may pass into production if it violates any of the four.
+To make hiding impossible, Stochology establishes **Four Golden Prohibitions** (`AGENTS.md §I`, audited in `EpistemologicalCard::audit()` and Gate `G6`). No claim, model, or inter-agent message may pass into production if it violates any of the four.
 
 <figure class="stoch-figure">
   <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="280" viewBox="0 0 1120 280" fill="none" role="img" aria-labelledby="title-fig-06-prohibitions">
-  <title id="title-fig-06-prohibitions">The Four Golden Prohibitions of the Stochology Protocol</title>
+  <title id="title-fig-06-prohibitions">The Four Golden Prohibitions of Stochology</title>
   <defs>
   <style>text { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; } .mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; }</style>
   </defs>
@@ -84,7 +84,18 @@ flowchart TD
 While the software industry celebrates multi-agent pipelines in which Large Language Models converse in fluent English or Portuguese paragraphs, putting autonomous agents to talk in free natural language is an engineering failure. When human teams or autonomous AI agents communicate through unstructured prose, three well-documented pathologies emerge:
 - **Adjective Laundering:** Uncertain guesses in the first stage (*"the data weakly suggest, under strong stationarity assumptions..."*) are summarized by the second stage as established facts (*"based on the verified trend..."*).
 - **Sycophancy Cascades:** In multi-agent LLM architectures, downstream agents defer to the rhetorical confidence of upstream agents rather than recomputing the variance budget, SHA-256 data hash, or cost-loss threshold.
-- **Masking Correlational Shortcuts ("Stochastic Parrots"):** Behind fluent syntax, an upstream agent can rely on a surface token proxy ($P(w_t \mid w_{1:t-1})$, Pearl Rung 1 `1-See`) that looks accurate on passive holdout data. In the simulated toy world of `MarcuseRouvroyStochasticParrotAudit` (Chapter 18, `seed = 2026`; not a measurement on any language model), such a proxy predictor scores $\mathrm{MSE}_{e_0} = 0.012$ yet collapses by three orders of magnitude under a simulated intervention ($\mathrm{MSE}_{\mathrm{do}(X)} = 19.13$, whereas an agent anchored to the invariant causal core $\hat{S}^{\ast} = [0]$ via `run_nonlinear_icp_nile` retains $\mathrm{MSE}_{\mathrm{do}(X)} = 0.012$).
+- **Masking Correlational Shortcuts ("Stochastic Parrots"):** Behind fluent syntax, an upstream agent can rely on a surface token proxy ($P(w_t \mid w_{1:t-1})$, Pearl Rung 1 `1-See`) that looks accurate on passive holdout data. In the simulated toy world of `MarcuseRouvroyStochasticParrotAudit` (Chapter 18, under a pre-registered seed; not a measurement on any language model), such a proxy predictor scores $\mathrm{MSE}_{e_0} = 0.012$ yet collapses by three orders of magnitude under a simulated intervention ($\mathrm{MSE}_{\mathrm{do}(X)} = 19.13$, whereas an agent anchored to the invariant causal core $\hat{S}^{\ast} = [0]$ via `run_nonlinear_icp_nile` retains $\mathrm{MSE}_{\mathrm{do}(X)} = 0.012$).
+
+### Tension 1: Situational Interest vs. Intellectual Rectitude (Cassam, 2019; Frankfurt, 2005)
+
+In Filter I of Stochology (*Situational Interest vs. Intellectual Rectitude*, `notes/A Ética da Mira.md` §2.1), the ban on free prose and unrecorded trials addresses two distinct epistemic vices diagnosed by philosopher **Quassim Cassam (2019)** in *Vices of the Mind*:
+1. **Epistemic Malevolence:** The deliberate manipulation of models, selective omission of failed trials, or strategic weaponization of uncertainty to serve a vested commercial or bureaucratic interest.
+2. **Epistemic Insouciance:** A casual, posture-driven indifference toward empirical rigor and the cost of finding the truth—exemplified by what **Harry Frankfurt (2005)** analyzed in *On Bullshit*: discourse selected for its persuasive polish without concern for whether its underlying assertions are true or false. Epistemic insouciance is the native pathology of both hurried consulting decks and unconstrained autoregressive language models.
+
+Because exhortations to personal virtue vanish under institutional pressure, Stochology replaces moralistic appeals with **three verifiable architectural locks**:
+- **Anti-Dogmatism via Cromwell's Rule (Lindley, 1985):** Forbidding probabilities of $0\%$ or $100\%$ ($p \in [\varepsilon_{\text{floor}}, 1 - \varepsilon_{\text{floor}}]$, [Chapter 15](15-decision-models-curvature-scoring.md)) so that no model can claim infallibility or immunize itself against empirical surprise;
+- **Bitemporal Pre-Commitment and the Separation of Principles from Parameters (*Kernel vs. Clay*):** Sealing the hypothesis, the seed, the dataset SHA-256, and any domain application profile (`ProtocolProfile`, §17.4 below) into `preregistration_hash` *before* touching holdout outcomes, while keeping **invariant structural principles** (*Kernel*: the Four Prohibitions, $\Phi_1$–$\Phi_5$, CORP-Murphy closure, findings conservation) strictly separate from **contingent domain parameters** (*Clay*: seed integer, significance level $1/\alpha$, domain vocabularies); and
+- **Mandatory Memory of Attempts ($K \ge 1$, Wang & Ramdas 2022):** Requiring every card to declare `attempt_counter_k` ($K \ge 1$), the exact accounting identity $\text{registered} = \text{used} + \text{unused}$, and named discarded atoms (`DiscardedAtomRecord`), audited under e-BH false discovery control (`EBhMultiplicityAudit`).
 
 ### The Structural Remedy: Typed Epistemological Cards
 
@@ -111,7 +122,7 @@ Before taking off in a modern commercial airliner, the captain and first officer
 
 Aviation adopted rigid checklists after the 1935 Boeing Model 299 crash because cognitive load, time pressure, and institutional incentives cause even experienced crews to skip uncomfortable checks during free-form narration.
 
-An **Epistemological Card** (`EpistemologicalCard` in `crates/stochology-core/src/card/`) is the pre-flight checklist of quantitative science and decision-making. Every technical claim in the Stochology Protocol lives as a self-contained YAML document (`cards/*.yaml`).
+An **Epistemological Card** (`EpistemologicalCard` in `crates/stochology-core/src/card/`) is the pre-flight checklist of quantitative science and decision-making. Every technical claim in Stochology lives as a self-contained YAML document (`cards/*.yaml`).
 
 When `EpistemologicalCard::audit()` reads a card from disk, it acts as an adversarial mathematical auditor rather than a passive syntax checker: it recomputes Jensen's Gap, recomputes the Moulton-Campbell design effect, checks that the four variance-budget shares sum to $1.0$, verifies the CORP-Murphy PAV identity $\mathrm{BS} = \mathrm{REL}\_{\mathrm{CORP}} - \mathrm{RES}\_{\mathrm{CORP}} + \mathrm{UNC}\_0$, checks the cost-loss threshold $p^{\ast} = \frac{C}{\eta L}$ against the recommended act (`protect` vs. `do_not_protect`), verifies that the modeler and adversarial verifier are distinct agents, and recomputes the SHA-256 cryptographic digest of the underlying CSV dataset on disk.
 
@@ -144,7 +155,7 @@ Every Epistemological Card begins with top-level routing metadata (`id`, `layer`
   <text x="58" y="257" fill="var(--muted)" font-size="11.5">4 Variance Shares = 1.0, Info-Gap α̂ + Wald Floor, Cross-Authorship</text>
   <rect x="40" y="276" width="650" height="50" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
   <text x="58" y="297" fill="var(--ink)" class="mono" font-size="12.5" font-weight="800">4. data_and_audit_contract</text>
-  <text x="58" y="317" fill="var(--muted)" font-size="11.5">64-Hex SHA-256, seed = 2026 Null (Φ₁), K ≥ 1, e-process, CORP PAV</text>
+  <text x="58" y="317" fill="var(--muted)" font-size="11.5">64-Hex SHA-256, Pre-Registered Seed Null (Φ₁), K ≥ 1, e-process, CORP PAV</text>
   <rect x="40" y="336" width="650" height="50" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
   <text x="58" y="357" fill="var(--ink)" class="mono" font-size="12.5" font-weight="800">5. decision_rule_and_scope</text>
   <text x="58" y="377" fill="var(--muted)" font-size="11.5">Cromwell p, p* = C/(ηL), Act, Chouldechova Audit &amp; Exit Clause (Φ₄)</text>
@@ -241,7 +252,7 @@ This section binds the YAML card to the physical bytes of the repository and clo
 1. **`dataset_path` and `dataset_sha256`:**
    Points to the empirical CSV file in `data/*.csv` and records its 64-character lowercase hexadecimal SHA-256 hash. At runtime, `stochology-cli` computes the FIPS 180-4 SHA-256 digest of the file on disk and cross-checks it against both `dataset_sha256` and `data/SHA256SUMS`.
 2. **`missingness_mechanism` and `seed_and_environment`:**
-   Must declare `MCAR`, `MAR`, or `MNAR` (with Meng/Manski justification) and must include `seed = 2026` and `SplitMix64`.
+   Must declare `MCAR`, `MAR`, or `MNAR` (with Meng/Manski justification) and must include the pre-registered seed (`ProtocolProfile::seed`) and `SplitMix64`.
 3. **`null_model` and `preregistration_hash`:**
    Describes the executable null model and provides the 64-character lowercase hexadecimal SHA-256 pre-registration seal.
 4. **`attempt_counter_K` and `e_process_multiplicity` (Prohibition 4):**
@@ -274,7 +285,7 @@ The final section governs Bridge $L\_2 \to L\_3$ and Invariant $\Phi\_4$:
 
 How does `EpistemologicalCard::audit()` guarantee that neither the CSV dataset nor the pre-registered analysis plan was quietly edited after seeing out-of-sample results, without pulling in external C/OpenSSL dependencies?
 
-In `crates/stochology-core/src/sha256.rs`, the protocol implements the **NIST FIPS 180-4 SHA-256 cryptographic hash function** and **RFC 2104 `HMAC-SHA256`** directly from first principles in pure Rust:
+In `crates/stochology-core/src/sha256.rs`, Stochology implements the **NIST FIPS 180-4 SHA-256 cryptographic hash function** and **RFC 2104 `HMAC-SHA256`** directly from first principles in pure Rust:
 1. **Fractional Cube-Root Round Constants ($K\_{0..63}$) and Square-Root Initial Chaining State ($H^{(0)}\_{0..7}$):**
    The $8$ initial 32-bit words $H^{(0)}\_0 = \text{0x6a09e667}, \dots, H^{(0)}\_7 = \text{0x5be0cd19}$ are the first $32$ bits of the fractional parts of the square roots of the first $8$ primes ($2, 3, 5, 7, 11, 13, 17, 19$), and the $64$ round constants $K\_t$ are the first $32$ bits of the fractional parts of the cube roots of the first $64$ primes. Because these constants derive deterministically from prime roots, they contain zero hidden trapdoors ("nothing-up-my-sleeve numbers").
 2. **Merkle-Damgård 512-Bit Block Compression:**
@@ -309,7 +320,7 @@ If a bridge inspector tests whether a steel cable can support a $40$-ton truck b
 
 To audit severity across operational dimensions, Stochology expands the textbook Neyman-Pearson error table (`Type I` and `Type II`) to **five distinct statistical failure modes**:
 
-| Error Type | Classic Author | What Goes Wrong | Protocol Defense |
+| Error Type | Classic Author | What Goes Wrong | Stochological Defense |
 | --- | --- | --- | --- |
 | **Type I ($\alpha$)** | Neyman & Pearson | **False Positive:** Claiming an effect exists when the null hypothesis ($H\_0$) is actually true. | Executable Null Model ($\Phi\_1$), Attempt Counter $K$, and anytime-valid *e-process* $E\_t / K \ge 1/\alpha$. |
 | **Type II ($\beta$)** | Neyman & Pearson | **False Negative:** Failing to detect a real effect because the sample size or test power is too small. | Moulton-Campbell $n\_{\mathrm{eff}}(p) \ge n\_{\min}$ (Filter 2) and cost-loss threshold $p^{\ast} = \frac{C}{\eta L}$. |
@@ -455,7 +466,7 @@ This card governs daily mobile-outreach and emergency-relief dispatch across $n 
 
 ## 17.15 The Optional Sixth Section: `protocol_profile` (Kernel and Clay)
 
-The five sections above are the same for every application, but the numbers they are checked against need not be. A card may carry a sixth section, `protocol_profile`, parsed into `ProtocolProfile` (`crates/stochology-core/src/card/profile.rs`), that recalibrates the **clay** of the protocol while leaving its **kernel** intact ([Appendix D](appendix-d-protocol.md), §1.6):
+The five sections above are the same for every application, but the numbers they are checked against need not be. A card may carry a sixth section, `protocol_profile`, parsed into `ProtocolProfile` (`crates/stochology-core/src/card/profile.rs`), that recalibrates the **clay** of Stochology while leaving its **kernel** intact ([Appendix D](appendix-d-protocol.md), §1.6):
 
 - **Kernel (never changes):** the four Prohibitions and $\Phi\_1$–$\Phi\_5$ as principles, with their mechanisms. A seed is declared and must equal the profile's; the dataset sits inside a SHA-256 manifest; the pre-registration seal, $K \ge 1$, findings conservation, Cromwell's interval, the CORP-Murphy identity, and cross-authorship all apply.
 - **Clay (pre-registered per application, all *Assumed*):**
@@ -526,7 +537,7 @@ cargo run --release --bin gates
 ## Summary
 
 - **Prohibition 1** bans unstructured free prose between modules/agents, requiring all claims to travel as validated YAML `EpistemologicalCard` structs.
-- The **Epistemological Card (`EpistemologicalCard`)** is the universal unit of communication in the Stochology Protocol.
+- The **Epistemological Card (`EpistemologicalCard`)** is the universal unit of communication in Stochology.
 - Its five sections (`decision_maker_question`, `epistemological_header`, `uncertainty_budget_and_authorship`, `data_and_audit_contract`, `decision_rule_and_scope`) enforce Prohibitions 1–4 and Invariants $\Phi\_1$–$\Phi\_5$.
 - An optional sixth section, `protocol_profile`, pre-registers the application's numbers and vocabulary (the clay) without touching the principles and mechanisms (the kernel); `EpistemologicalCard::audit_with` enforces it, and `audit()` applies the canonical profile.
 - `EpistemologicalCard::audit()` verifies internal algebraic closure across Jensen's Gap, Moulton-Campbell $n\_{\mathrm{eff}}(p)$, variance-budget unity, CORP-Murphy PAV decomposition, findings conservation, SHA-256 integrity, and the cost-loss decision rule $p \gtrless p^{\ast} = \frac{C}{\eta L}$.

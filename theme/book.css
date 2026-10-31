@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Stochology Protocol — Course Textbook (mdBook Custom Theme)
+   Stochology — Course Textbook (mdBook Custom Theme)
    Auditable Epistemological Machine · stochology.org
    ========================================================================== */
 
@@ -923,7 +923,7 @@ main a:not(.header):hover {
   min-inline-size: 0;
 }
 
-/* Pathway cards are grouped by CAPIBA pillar (generated from docs/competencies.toml). */
+/* Pathway cards are grouped by verification pillar (generated from docs/competencies.toml). */
 .stoch-pathway-card[data-pillar="anytime"],
 .stoch-pathway-card[data-pillar="bitemporal"] {
   border-block-start-color: var(--diag-emerald);
@@ -1202,7 +1202,7 @@ mjx-container[jax="CHTML"]:not([display="true"]) {
 }
 
 /* ==========================================================================
-   Responsive Protocol Data Tables
+   Responsive Data Tables
    ========================================================================== */
 
 .table-wrapper {

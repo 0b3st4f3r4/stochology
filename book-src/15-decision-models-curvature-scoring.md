@@ -66,6 +66,18 @@ In elementary courses, students are taught to summarize a random variable $X$ by
 2. **The dynamics are multiplicative over time** (Lens 2, Chapter 9): by Itô's variance drain, the ensemble mean growth rate $\mu$ overstates the compounded time-average growth rate $\mu - \frac{1}{2}\sigma^2$.
 3. **The upper tail is heavy** (Lens 3, Chapter 9): when the Pareto tail index satisfies $\alpha \le 2$, the population variance is infinite, and the mean is dominated by rare, violent jumps.
 
+### Tension 3: Domesticating Formalization vs. Reflexive Formalization (Georgescu-Roegen, 1971 & Adorno, 1966)
+
+In Filter II of Stochology (*Domesticating Formalization vs. Reflexive Formalization*, `notes/A Ética da Mira.md` §3.1), the ban on the lone mean is rooted in a deeper epistemological critique of how mathematics represents concrete reality. In *The Entropy Law and the Economic Process* (1971), **Nicholas Georgescu-Roegen** distinguished two kinds of concepts:
+- **Arithmomorphic Concepts:** Discrete, sharply bounded symbols (like the real numbers $2$ and $3$) separated by an empty void, lacking any overlap with their negation.
+- **Dialectical Concepts:** Real-world concepts—such as clinical health, institutional solvency, democratic legitimacy, or ecological stability—that are surrounded by a **constitutive penumbra** (*penumbra dialectica*) within which $A$ and $\neg A$ overlap during qualitative transitions.
+
+When an analyst forces a dialectical, curved, heavy-tailed phenomenon into a lone Gaussian mean, mathematics degenerates into **domesticating formalization**: it liquidates what **Theodor W. Adorno (1966)** called the **Non-Identical** (*das Nichtidentische*, [Chapter 18](18-critical-stochastic-rationality.md)) simply to make equations tractable. Against this pacifying reduction, Stochology practices **reflexive formalization**—using mathematical rigor to expose the exact boundaries of its own compression across **four mandatory dimensions**:
+1. **Convex Damage Asymmetry (Jensen, 1906):** Explicitly measuring the curvature tax $\Delta_J = \mathbb{E}[f(X)] - f(\mathbb{E}[X])$ rather than evaluating loss at the mean input;
+2. **Wild Extremes and Vanishing Moments (Hill, 1975):** Estimating the tail index $\hat{\alpha}_{k,n}$ ([Chapters 3](03-random-variables-convexity.md) and [9](09-lenses.md)) to detect when $\alpha \le 2$ renders sample variance unstable or infinite;
+3. **Structural Model Discrepancy (Kennedy & O'Hagan, 2001):** Modeling the irreducible functional gap $\delta(x) \sim \mathcal{GP}(0, k(x, x'))$ between the mathematical simulator and physical reality ([Chapter 11](11-world-models-discrepancy-authentic-form.md)); and
+4. **Out-of-Sample Calibration vs. Discriminative Resolution (Dimitriadis, Gneiting & Jordan, 2021):** Decomposing forecast error via isotonic Pool-Adjacent-Violators (`CORP-Murphy` $\mathrm{BS} = \mathrm{REL}_{\mathrm{CORP}} - \mathrm{RES}_{\mathrm{CORP}} + \mathrm{UNC}_0$, [Chapter 9](09-lenses.md) and §15.4 below) so a model can never hide poor calibration behind average accuracy.
+
 ### The Seven Mandatory Quantities of `NonlinearSummary`
 
 Under **Prohibition 2**, reporting only $\mathbb{E}[X]$ or $f(\mathbb{E}[X])$ is strictly forbidden. Every Epistemological Card (`epistemological_header.nonlinearity`) and every laboratory summary (`NonlinearSummary` in `crates/stochology-core/src/layers/`) must report **all seven numbers together**:
@@ -97,13 +109,13 @@ In August 1650, Oliver Cromwell wrote to the General Assembly of the Church of S
 
 > *"I beseech you, in the bowels of Christ, think it possible that you may be mistaken."*
 
-In the 1980s, Bayesian statistician **Dennis Lindley** named **Cromwell's Rule** after this plea. Look back at Bayes' theorem from the Preface:
+In 1985, Bayesian statistician **Dennis Lindley** named **Cromwell's Rule** after this plea (*Making Decisions*, 2nd ed.). Look back at Bayes' theorem from the Preface:
 
 $$P(H \mid E) = \frac{P(E \mid H)  P(H)}{P(E \mid H)  P(H) + P(E \mid \neg H)  (1 - P(H))}$$
 
 If an agent sets a prior probability to $P(H) = 0$ (or $P(H) = 1$), no amount of empirical evidence $E$ (not even a billion black swans marching past the window) can move the posterior: multiplying by $P(H) = 0$ keeps $P(H \mid E)$ **frozen at $0$ forever**. Furthermore, under the logarithmic scoring rule $-\ln p$, assigning $p = 0$ to an event that subsequently occurs inflicts an **infinite penalty ($\infty$)**.
 
-Therefore, Prohibition 4 bans probabilities of $0\%$ and $100\%$ across the entire protocol. Every declared probability $p$ must lie strictly inside the **Cromwell Corridor** bounded by a declared base-rate floor $\varepsilon\_{\text{floor}} \in (0, 0.05]$:
+Therefore, Prohibition 4 bans probabilities of $0\%$ and $100\%$ across Stochology. Every declared probability $p$ must lie strictly inside the **Cromwell Corridor** bounded by a declared base-rate floor $\varepsilon\_{\text{floor}} \in (0, 0.05]$:
 
 $$\varepsilon\_{\text{floor}} \le p \le 1 - \varepsilon\_{\text{floor}}$$
 
@@ -125,7 +137,7 @@ Prohibition 2 asks for the CRPS next to the mean. A lone CRPS, however, is still
 
 $$\overline{\mathrm{CRPS}} = \mathrm{MCB} - \mathrm{DSC} + \mathrm{UNC}.$$
 
-$\mathrm{UNC}$ is the score of the climatology, so a forecast beats climatology exactly when $\mathrm{MCB} < \mathrm{DSC}$. The protocol asks for more: $\mathrm{MCB} \le \frac{1}{2}\mathrm{DSC}$ (**Assumed**), so miscalibration may eat at most half of what discrimination earns. The variant implemented orders by $F\_i(z)$ at each threshold; its recalibrated forecast need not be a CDF.
+$\mathrm{UNC}$ is the score of the climatology, so a forecast beats climatology exactly when $\mathrm{MCB} < \mathrm{DSC}$. Stochology asks for more: $\mathrm{MCB} \le \frac{1}{2}\mathrm{DSC}$ (**Assumed**), so miscalibration may eat at most half of what discrimination earns. The variant implemented orders by $F\_i(z)$ at each threshold; its recalibrated forecast need not be a CDF.
 
 **Measured** on `vic_elec.csv` (daily peak demand; the forecast for day $d$ is the 4-member ensemble of the same weekday one to four weeks earlier):
 
@@ -141,7 +153,7 @@ NEGATIVE PROOF [crps_miscalibration] BLOCKED SUCCESSFULLY: sharp-biased vic_elec
 
 ## Interactive Laboratory (`/lab`)
 
-Explore how cluster correlation ([Chapter 20](20-decision-worlds-regime.md)), Cromwell bounds, and multi-attempt penalties ([Chapter 17](17-model-decisions-card-preregistration.md)) interact with the protocol's boundary gates:
+Explore how cluster correlation ([Chapter 20](20-decision-worlds-regime.md)), Cromwell bounds, and multi-attempt penalties ([Chapter 17](17-model-decisions-card-preregistration.md)) interact with Stochology's boundary gates:
 
 <div class="stoch-lab"
      data-lab="invariants-moulton-chouldechova"
@@ -168,9 +180,9 @@ cargo run --release --bin labs -- --layers
 1. **On Bridge $L\_2 \to L\_3$**, across the $164$ days of `bank_calls.csv`, the illustrative quadratic loss $f(x) = x^2$ exhibits a positive Jensen's Gap of $\Delta\_J = +9\text{,}033\text{,}837.19$ (squared daily calls, $\approx 0.85\%$) above the naive plug-in mean evaluation $f(\mathbb{E}[X])$, and reports the full quantile profile ($q\_{05}$, median, $q\_{95}$) alongside the exact $O(n \log n)$ out-of-sample $\mathrm{CRPS} = 9.055 \times 10^7$.
 2. **On Pair $L\_2 \to L\_3$ (`GenerativeRagLlmJudgeCompressionAudit`, Axis 3 of the strategic synthesis in `crates/stochology-lenses/src/strategic/`; the code assigns it to this pair, and filing it in this chapter is the book's authorial mapping):**
    - **RAG Data Processing Inequality (`DpiMarkovChain`):** A Retrieval-Augmented Generation pipeline is modeled as a four-stage chain of binary symmetric channels, $\text{Corpus } W \to \text{Chunk } X \to \text{Embedding } Y \to \text{Rerank } Z$. The axis checks that mutual information can only fall along the chain, $I(W; X) \ge I(W; Y) \ge I(W; Z)$, for both the semantic-chunking and the naive fixed-boundary chains, and the semantic chain keeps $I(W; Z) = 0.382$ nats end to end (`RAG_MI=0.382 nats`, deterministic; the channel error rates are assumed).
-   - **Prediction-Powered Inference for LLM-as-a-Judge (`LlmJudgePpiRectifier`, Angelopoulos et al. 2023):** A simulated judge with assumed sensitivity $0.86$ and specificity $0.72$ scores $N = 800$ unlabeled outputs whose true pass rate is $\theta^{\ast} = 0.22$, and $n\_{\text{gold}} = 160$ human-labeled gold items rectify it via $\hat{\theta}\_{\mathrm{PPI}} = \frac{1}{N}\sum\_{i=1}^N \tilde{f}(X\_i) - \frac{1}{n\_{\text{gold}}}\sum\_{j=1}^{n\_{\text{gold}}} (\tilde{f}(X\_j^{\text{gold}}) - Y\_j^{\text{gold}})$; the Rogan-Gladen inversion identity closes. The accuracy claim did **not** survive acceptance: the claim that the rectified error stays below $0.06$ passed on 19 of 20 development seeds but on only $88.0\%$ of the 200 confirmation seeds, because at $n\_{\text{gold}} = 160$ the rectifier's standard error is about $0.035$, so $0.06$ is only about $1.71$ standard errors. The claim is recorded in `discarded_claims` as refuted, and the seed-2026 errors printed by `labs` (`PPI_err=0.011 vs bias=0.188`) are a single draw, not evidence that the corrected judge meets the bound. Sizing the gold set in advance is what `prospective_ppi_gold_sample_size` in `crates/stochology-siga/src/funnel/` is for; it is exercised in a unit test and is not called by the simulation above.
-   - **Conformal FinOps Cascade:** Under an assumed cost-loss rule ($C = 20$, $L = 100$, $p^\ast = 0.20$) and assumed compute fees, a calibrated local model that escalates cases near $p^\ast$ to a more expensive verifier costs $17.34$ per decision versus $24.87$ for a naive local model that under-predicts risk, about $30.3\%$ less (`FinOps_cost=17.34 vs 24.87`, simulated, `seed = 2026`).
-   - **Outlier-Protected Mixed-Precision `INT4` Quantization:** On 500 simulated Pareto losses (tail index $1.65$), uniform 4-bit clipping at $4.0$ keeps only $0.17$ of the full-precision $\mathrm{ES}\_{0.99}$ (about $83\%$ erased), while routing values above the clip to FP16 keeps $1.00$ (`INT4_ES99_ret=1.00 vs 0.17`, simulated, `seed = 2026`). The same contrast on measured `danish_fire.csv` gives $1.00$ versus $0.17$ (`Fire_ES99_prot=1.00 vs clip=0.17`); the opposite real-data hypothesis, that clipping preserves $\mathrm{ES}\_{0.99}$ within $10\%$, is recorded by `G8` as a refuted discarded finding.
+   - **Prediction-Powered Inference for LLM-as-a-Judge (`LlmJudgePpiRectifier`, Angelopoulos et al. 2023):** A simulated judge with assumed sensitivity $0.86$ and specificity $0.72$ scores $N = 800$ unlabeled outputs whose true pass rate is $\theta^{\ast} = 0.22$, and $n\_{\text{gold}} = 160$ human-labeled gold items rectify it via $\hat{\theta}\_{\mathrm{PPI}} = \frac{1}{N}\sum\_{i=1}^N \tilde{f}(X\_i) - \frac{1}{n\_{\text{gold}}}\sum\_{j=1}^{n\_{\text{gold}}} (\tilde{f}(X\_j^{\text{gold}}) - Y\_j^{\text{gold}})$; the Rogan-Gladen inversion identity closes. The accuracy claim did **not** survive acceptance: the claim that the rectified error stays below $0.06$ passed on 19 of 20 development seeds but on only $88.0\%$ of the 200 confirmation seeds, because at $n\_{\text{gold}} = 160$ the rectifier's standard error is about $0.035$, so $0.06$ is only about $1.71$ standard errors. The claim is recorded in `discarded_claims` as refuted, and the single-seed baseline errors printed by `labs` (`PPI_err=0.011 vs bias=0.188`) are a single draw, not evidence that the corrected judge meets the bound. Sizing the gold set in advance is what `prospective_ppi_gold_sample_size` in `crates/stochology-siga/src/funnel/` is for; it is exercised in a unit test and is not called by the simulation above.
+   - **Conformal FinOps Cascade:** Under an assumed cost-loss rule ($C = 20$, $L = 100$, $p^\ast = 0.20$) and assumed compute fees, a calibrated local model that escalates cases near $p^\ast$ to a more expensive verifier costs $17.34$ per decision versus $24.87$ for a naive local model that under-predicts risk, about $30.3\%$ less (`FinOps_cost=17.34 vs 24.87`, simulated under a pre-registered seed).
+   - **Outlier-Protected Mixed-Precision `INT4` Quantization:** On 500 simulated Pareto losses (tail index $1.65$), uniform 4-bit clipping at $4.0$ keeps only $0.17$ of the full-precision $\mathrm{ES}\_{0.99}$ (about $83\%$ erased), while routing values above the clip to FP16 keeps $1.00$ (`INT4_ES99_ret=1.00 vs 0.17`, simulated under a pre-registered seed). The same contrast on measured `danish_fire.csv` gives $1.00$ versus $0.17$ (`Fire_ES99_prot=1.00 vs clip=0.17`); the opposite real-data hypothesis, that clipping preserves $\mathrm{ES}\_{0.99}$ within $10\%$, is recorded by `G8` as a refuted discarded finding.
 
 Test the enforcement of the Four Prohibitions directly through the epistemological gates and negative proofs (including `--defect performativity` examined in [Chapter 19](19-world-decisions-performativity.md)):
 

@@ -4,7 +4,7 @@
 
 ## Pruning Bad Questions Before Spending Compute
 
-In a conventional machine-learning organization, teams spend weeks training deep neural networks or running hyperparameter sweeps before asking whether the decision threshold $p^{\ast} = \frac{C}{\eta L}$ lies inside $(0, 1)$, whether the cluster-adjusted sample size $n\_{\mathrm{eff}}(p)$ can detect a meaningful effect, or whether the inference engine is calibrated on synthetic data. The **CAPIBA Protocol** reverses that order: every candidate project must first pass a short-circuiting **4-Filter Eliminatory Funnel** (`stochology_siga::funnel`) and then execute the **8-Step SIGA Operational Roadmap** (`stochology_siga::roadmap`).
+In a conventional machine-learning organization, teams spend weeks training deep neural networks or running hyperparameter sweeps before asking whether the decision threshold $p^{\ast} = \frac{C}{\eta L}$ lies inside $(0, 1)$, whether the cluster-adjusted sample size $n\_{\mathrm{eff}}(p)$ can detect a meaningful effect, or whether the inference engine is calibrated on synthetic data. **Stochology** reverses that order: every candidate project must first pass a short-circuiting **4-Filter Eliminatory Funnel** (`stochology_siga::funnel`) and then execute the **8-Step SIGA Operational Roadmap** (`stochology_siga::roadmap`).
 
 ## 26.1 The "Boeing 299" Pre-Flight Checklist: The 4 Eliminatory Filters (`stochology_siga::funnel`)
 
@@ -81,7 +81,7 @@ Once a project survives all four filters of the Eliminatory Funnel, it executes 
 | **S — Survey** | **Step 2** | Type Uncertainty & Variance Budget | Verifies uncertainty class, Kennedy-O'Hagan GP share $> 0$,variance budget sum $= 1.0$, and Info-Gap + Wald floor. |
 | **I — Interrogate** | **Step 3** | Price the Decision ($C, L, \eta, p^{\ast}$) | Computes $p^{\ast} = \frac{C}{\eta L}$ and verifies $\mathrm{EVPI} > C\_{\text{total}}$ and $\Phi\_5$ resolution alignment. |
 | **I — Interrogate** | **Step 4** | Audit the True Independent Unit ($\Phi\_2$) | Computes Moulton-Campbell $\tilde{m}$, exceedance ICC $\rho\_I(p)$, and $n\_{\mathrm{eff}}(p) \ge n\_{\min}$. |
-| **G — Generate** | **Step 5** | Execute Generative Null & SBC ($\Phi\_1$) | Runs the `SplitMix64` (`seed = 2026`) null model under Cromwell's Rule and checks SBC $\chi^2$ rank uniformity. |
+| **G — Generate** | **Step 5** | Execute Generative Null & SBC ($\Phi\_1$) | Runs the `SplitMix64` (pre-registered seed) null model under Cromwell's Rule and checks SBC $\chi^2$ rank uniformity. |
 | **G — Generate** | **Step 6** | Audit Nonlinearity & Performativity | Computes the 7-number `NonlinearSummary` ($\Delta\_J, \mathrm{CRPS}$) and checks RRM contraction $r\_{\mathrm{RRM}} < 1$. |
 | **A — Act** | **Step 7** | Score Out-of-Sample via CORP-PAV & *e-process* | Verifies exact PAV identity $\mathrm{BS} = \mathrm{REL}\_{\mathrm{CORP}} - \mathrm{RES}\_{\mathrm{CORP}} + \mathrm{UNC}\_0$ and anytime-valid *e-process* $E\_t / K$. |
 | **A — Act** | **Step 8** | Issue Natural-Frequency Memo & Exit Clause | Emits the integer Gigerenzer tree ($N = 1\text{,}000$), audits Chouldechova's fairness ratio, and arms the numeric exit clause. |
@@ -95,19 +95,19 @@ flowchart LR
     end
     subgraph SIGA["8-Step SIGA Operational Roadmap"]
       S["S · Survey<br/>Steps 1–2: Layer, GP, Info-Gap"] --> I["I · Interrogate<br/>Steps 3–4: p*, EVPI, n_eff(p)"]
-      I --> G["G · Generate<br/>Steps 5–6: Seed 2026 Null, Δ_J, RRM"]
+      I --> G["G · Generate<br/>Steps 5–6: Seeded Null, Δ_J, RRM"]
       G --> A["A · Act<br/>Steps 7–8: CORP, e-process, Memo"]
     end
     F4 --> S
 ```
 
-## 26.3 Moulding the Protocol for a New Application: Protocol Profiles (`examples/clay/`)
+## 26.3 Moulding the Clay for a New Application: Application Profiles (`ProtocolProfile`, `examples/clay/`)
 
-A checklist protects a crew only if it was written for their aircraft. The Funnel and the Roadmap above ran with **canonical numbers**: seed 2026, $1/\alpha \ge 20$, a decision volume of 100 units against a modeling cost of 500, $n\_{\min} = 50$, $\chi^2\_{\text{crit}} = 9.49$, a null $p < 0.05$, 200 permutations, and an English $\Phi\_5$ vocabulary (`shift`, `annual`, `average`). These numbers are defaults, not laws. The CAPIBA Protocol separates a **kernel** from **clay** ([Appendix D](appendix-d-protocol.md), §1.6):
+A checklist protects a crew only if it was written for their aircraft. The Funnel and the Roadmap above ran with **canonical numbers**: a pre-registered default seed, $1/\alpha \ge 20$, a decision volume of 100 units against a modeling cost of 500, $n\_{\min} = 50$, $\chi^2\_{\text{crit}} = 9.49$, a null $p < 0.05$, 200 permutations, and an English $\Phi\_5$ vocabulary (`shift`, `annual`, `average`). These numbers are defaults, not laws. Stochology separates a **kernel** from **clay** ([Appendix D](appendix-d-protocol.md), §1.6):
 - The **kernel** is the principles (the four Prohibitions and $\Phi\_1$–$\Phi\_5$) and the mechanisms that make them auditable. These include a seed declared before fitting, a manifest-sealed dataset, the SHA-256 pre-registration, $K \ge 1$, Cromwell's interval, the CORP-Murphy identity, cross-authorship, and a numeric exit clause. The order of the 4 Filters and the 8 Steps is also kernel.
 - The **clay** is the thresholds, tolerances, vocabularies, data location, and replication counts with which each principle is checked.
 
-An application shapes the clay in an optional sixth section of its card, `protocol_profile`, and the auditor enforces it with `EpistemologicalCard::audit_with`. To mould the protocol for a new application:
+An application shapes the clay in an optional sixth section of its card, `protocol_profile`, and the auditor enforces it with `EpistemologicalCard::audit_with`. To mould the clay for a new application:
 
 1. Write the five card sections as usual ([Chapter 17](17-model-decisions-card-preregistration.md)).
 2. Add `protocol_profile` with a `name`, a `rationale`, and **only the fields that depart from the defaults**. Omitted fields inherit the canonical value; unknown fields are rejected, so a typo never falls back silently.
@@ -163,6 +163,23 @@ The clay still has hard edges. The seed and $\Phi\_5$ vocabulary inside the seal
 
 ---
 
+## 26.4 Stochology as a Transversal Grammar: Dialogue with Five Methodological Families
+
+> **Authorial theoretical frame (`notes/A Ética da Mira.md` §7, Quadro 2; `ProcessTracingTestKind` and `KeynesEvidentialWeightAudit` in `crates/stochology-siga/src/roadmap/mayo_manski_keynes.rs`, and the shaped profile in `examples/process_tracing/`).** The 4-Filter Funnel, the 8-Step SIGA Roadmap, and the Kernel-and-Clay architecture do not seek to replace specialized empirical methods; rather, they serve as a **transversal grammar** that connects five distinct methodological families across the closed loop $L_1 \leftrightarrow L_2 \leftrightarrow L_3$.
+
+| Methodological Family | Legitimate Strength Preserved | Blind Spot Diagnosed by Stochology | Primary Stochological Mediation & Treatise Chapters |
+| --- | --- | --- | --- |
+| **1. Survey Sampling, Demography & Observational *Big Data*** | High coverage, granular stratification, and demographic accounting. | Confusing raw sample volume $n$ with evidential weight (Keynes, 1921); ignoring Meng's selection correlation (`ddc`), Moulton-Campbell cluster echo ($\tilde{m}, \rho_I(p)$), and `MNAR` archive silence. | **Bridge $L_1 \to L_2$ & $\Phi_2/\Phi_3$:** Meng's `DDI` effective sample size, tail $n_{\mathrm{eff}}(p)$, and non-parametric Manski bounds ([Ch. 6](06-sampling-estimation-linear-algebra.md), [Ch. 10](10-world-models-missingness-bounds.md), [Ch. 20](20-decision-worlds-regime.md)). |
+| **2. Experimental & Quasi-Experimental Policy and Clinical Evaluation** | Credible identification of causal treatment effects on Rung 2 (`do(X)`). | Optional-stopping inflation, unrecorded specification searches ($K$), differential attrition under `MNAR`, and assuming internal validity automatically guarantees external transportability. | **Filter I/II & Pillar 2/4:** Lee (2009) sharp trimming bounds & tipping point $\delta_1^*$, anytime-valid `SAVI` martingales ($E_t$), e-BH multiplicity control, and Bareinboim-Pearl transportability ([Ch. 8](08-severe-testing-martingales-conformal.md), [Ch. 10](10-world-models-missingness-bounds.md), [Ch. 23](23-stochary-conjectural-cybernetics.md)). |
+| **3. Operations Research, Infrastructure, Ecology & Extreme Risk** | Explicit queueing, inventory, and dynamical systems modeling. | Lean/Just-in-Time stripping of vital buffers ($\mathrm{TTS} < \mathrm{TTR}$), evaluating convex costs at the mean input ($f(\mathbb{E}[X])$), and ignoring non-ergodic variance drain ($\mu - \frac{1}{2}\sigma^2$) and Pareto tails ($\alpha \le 2$). | **Filter III & Vital Margin:** Jensen's Gap $\Delta_J$, Hill/POT $\mathrm{ES}_{0.99}$, Kingman's VUT cliff, Scarf $(s,S)$, Simchi-Levi $\mathrm{TTS}/\mathrm{TTR}$, Canguilhem's *biological normativity*, and Holling's *ecological resilience* ([Ch. 3](03-random-variables-convexity.md), [Ch. 9](09-lenses.md), [Ch. 15](15-decision-models-curvature-scoring.md), [Ch. 22](22-relational-ontology.md), [Ch. 23](23-stochary-conjectural-cybernetics.md)). |
+| **4. Predictive Modeling, Machine Learning & Algorithmic Governance** | High-dimensional pattern compression and nonlinear function approximation. | Confusing passive holdout fit with causal invariance (`Stochastic Parrots`) or performative optimality ($\theta_{\mathrm{PS}} \neq \theta_{\mathrm{PO}}$), Goodhart collapse, Chouldechova/KMR base-rate disparity, and $10\text{ bit/s}$ operator alert fatigue. | **Bridges $L_2 \to L_3 \to L_1$ & $\Phi_4$:** Isotonic CORP-Murphy PAV decomposition, Hermite ICP/NILE, `PerfGD`, `ChouldechovaAudit`, `MulticalibrationAudit`, and `AlertFatigueAudit` ([Ch. 9](09-lenses.md), [Ch. 16](16-decision-models-thresholds-evidence.md), [Ch. 18](18-critical-stochastic-rationality.md), [Ch. 19](19-world-decisions-performativity.md), [Ch. 20](20-decision-worlds-regime.md)). |
+| **5. Qualitative, Historiographical, Clinical, Legal & Ethnographic Methods** | Contextual depth, source criticism, clinical semiology (*sēmeîa*), process tracing, and sensitivity to singular cases. | Treated by positivist orthodoxy as "anecdotal" or inferior to uncalibrated regressions. | **Equal Theoretical Dignity (Guardians of the *Non-Identical*):** Qualitative and historical inquiry diagnoses *why* the archive is silent (`MNAR`), traces concrete causal mechanisms, reads dialectical penumbras (Georgescu-Roegen, 1971; Adorno, 1966), and detects institutional gaming before numbers can record it ([Preface](00-preface.md), [Ch. 1](01-layers-six-pairs.md), [Ch. 10](10-world-models-missingness-bounds.md), [Ch. 18](18-critical-stochastic-rationality.md)). |
+
+> [!TIP]
+> **Why Quantitative and Qualitative Inquiry Require Each Other:** In Stochology, qualitative, historiographical, clinical, and ethnographic methods are never treated as a preliminary warm-up before "real" statistics begins. Without **historiographical source criticism** and **institutional ethnography**, an analyst staring at a CSV table cannot know which vulnerable population was excluded from the registry (`MNAR` on Bridge $L_1 \to L_2$) or how receptionists and operators are gaming a target metric under control pressure (Goodhart's Law on Bridge $L_3 \to L_1$). Conversely, without calibrated probabilities, Manski bounds, and Moulton-Campbell effective sample sizes, qualitative insight can be dismissed by technocratic committees or generalized beyond its evidential weight. Both are co-equal instruments of the archer's aim.
+
+---
+
 ## Computational Audit in Rust
 
 Run Laboratory 5 from your terminal to see all four canonical YAML cards pass through the 4-Filter Funnel, execute the 8-Step SIGA Roadmap, compute their cumulative *e-processes* $E\_{30}$, emit their integer Gigerenzer Natural-Frequency Executive Memoranda, and verify `AlertFatigueAudit`:
@@ -181,6 +198,22 @@ cargo run --release --bin labs -- --siga
     Out of every 1000 independent units, 98 experience the critical event (of which 71 trigger the alarm at threshold p*=0.06000 and 27 are missed), while 902 do not experience the event (of which 277 trigger a false alarm and 625 remain clear). Positive predictive frequency: 71 out of 348 alarms. Action: protect. Exit clause: Immediately revert to conservative Wald Maximin ground-delay policy if REL_CORP > 0.012 or RES_CORP < 0.005 or RRM radius >= 0.85 over a 7-day window.
   [SIGA cards/card_04_dpi_civil_defense_triage.yaml] dataset=data/cps_observational.csv, EVPI=34835.2, p_null=0.0050 (unclamped), chi2_SBC=0.85, E_30=128.8, steps_1_to_8=[true, true, true, true, true, true, true, true], approved=true
     Out of every 1000 independent units, 171 experience the critical event (of which 116 trigger the alarm at threshold p*=0.12000 and 55 are missed), while 829 do not experience the event (of which 188 trigger a false alarm and 641 remain clear). Positive predictive frequency: 116 out of 304 alarms. Action: protect. Exit clause: Trigger PCCP automatic rollback and VSM Algedonic Channel freeze if REL_CORP > 0.015, RES_CORP < 0.015, PLAT enters Red zone (r_s < 0.70 or D_KS > 0.12), or shift alarm load exceeds 10 bit/s over a 7-day window.
+  [Mayo-Manski Severe Boundary & Keynes Process Tracing] ImbensManski_CI=[0.131, 0.302], SEV_L=true, MinimaxRegret=0.0000 (protect=true, verified=true) | Keynes_V=0.853 (vs sparse=0.021), Hoop=HoopTest (-13.4dB), SmokingGun=SmokingGun (+15.3dB), post=0.989, verified=true
+~~~
+
+And to audit the shaped application of the **5th Methodological Family (Process Tracing & Keynes's Evidential Weight $V$)** (`examples/process_tracing/card_process_tracing_epidemiological_inquiry.yaml`, simulated under pre-registered `seed = 73` with Portuguese $\Phi\_5$ vocabulary):
+
+~~~bash
+cargo run --release --bin gates -- --audit-card examples/process_tracing/card_process_tracing_epidemiological_inquiry.yaml
+~~~
+
+~~~text
+=== PORTABLE EPISTEMOLOGICAL CARD AUDIT (`gates --audit-card`) ===
+  [0] Protocol Profile 'epidemiological_field_process_tracing' (Assumed: pre-registered application parameters) — Shift-level 5th Methodological Family (Process Tracing & Keynes Evidential Weight V) decision asked in Portuguese; stricter anytime-valid evidence (1/alpha = 40); performative agent and Chouldechova trilemma audited; dataset kept outside data/ under its own manifest
+  [1] 4-Filter Funnel: approved=true, EVPI=43823.5, n_eff(q90)=179, SBC chi2=6.23
+  [2] 8-Step SIGA Roadmap: steps=[true, true, true, true, true, true, true, true], p_null=0.0020, E_t/K=2008.91, REL_CORP=0.0053, RES_CORP=0.0686
+  [6] Ethics of Aim & Methodological Resonances: MayoManski(CI=[0.131,0.302], SEV_L=true, protect=true)=true, KeynesProcessTracing(V=0.853, W_SG=+15.3dB)=true, TriadicSafeguards(M=0.82)=true, ReflexiveGoodhart(brakes=3/3)=true, SosaInnesHolmstrom(grade=FullyAptReflectiveWithholding, clawback=25.4>18.0)=true, HollingCanguilhem(B_eco=6.93>tight=2.53)=true -> approved=true
+=== CARD 'epidemiological_field_process_tracing' APPROVED END-TO-END (EXIT CODE 0) ===
 ~~~
 
 You can also audit any individual canonical or external YAML Epistemological Card end-to-end (including its 4-Filter Funnel, 8-Step SIGA Roadmap, Gigerenzer Natural-Frequency Memo, and EU AI Act / LGPD operational proxy checklist — printed as "Statutory Compliance" but computed on partly assumed and hard-coded inputs, so it is not a statutory compliance certificate; see [Chapter 21](21-decision-worlds-governance.md)) via `--audit-card`:
@@ -219,5 +252,5 @@ Use the interactive Gigerenzer Natural-Frequency and Turing Deciban laboratory b
 
 - **The 4-Filter Eliminatory Funnel** evaluates projects in strict sequence: Filter 1 ($\mathrm{EVPI} > C\_{\text{total}}$ and $\Phi\_5$), Filter 2 (Moulton-Campbell $n\_{\mathrm{eff}}(p) \ge n\_{\min}$, a mapped Markov Blanket, and zero Berkson collider; the `PPI` gold-set sizing helpers are unit-tested utilities, and `SimpsonCausalParadoxAudit` and `LongContextDpiDilutionAudit` run only in block `[5]` of `gates --audit-card`, not inside Filter 2), Filter 3 (SBC $\chi^2$ rank uniformity and SHELF quartile consistency), and Filter 4 (SHA-256 pre-registration, cross-authorship, and exit clause).
 - **The 8-Step SIGA Roadmap** executes **S**urvey (Steps 1–2), **I**nterrogate (Steps 3–4), **G**enerate (Steps 5–6), and **A**ct (Steps 7–8), reinforced by prospective *Pre-Mortem*, Tian-Pearl counterfactual root-cause bounds ($\mathrm{PNS} \in [\max(0, P(Y\_1=1)-P(Y\_0=1)), \min(P(Y\_1=1), P(Y\_0=0))]$ vs. naive linear "5 Whys"), and frictionless `SOP` homologation ($\le 10\text{ bit/s}$ in `PreMortemCounterfactualRootCauseAudit`).
-- **Protocol Profiles** separate the kernel from the clay. The kernel is the principles, their mechanisms, and the order of the Filters and Steps. The clay is the numbers and vocabulary each application pre-registers in `protocol_profile`. A profile never waives a principle, and every waiver is reported.
+- **Application Profiles (`ProtocolProfile`)** separate the kernel from the clay. The kernel is the principles, their mechanisms, and the order of the Filters and Steps. The clay is the numbers and vocabulary each application pre-registers in `protocol_profile`. A profile never waives a principle, and every waiver is reported.
 - **Gigerenzer Natural-Frequency Trees** translate abstract conditional probabilities into transparent integer headcounts out of $1\text{,}000$ or $10\text{,}000$ independent units.

@@ -11,7 +11,10 @@ use stochology_core::rng::{OnlineMoments, SplitMix64};
 use stochology_core::sha256::hmac_sha256_hex;
 use stochology_core::uncertainty::KennedyOHaganDiscrepancy;
 use stochology_governance::clock::{BitemporalRecord, query_with_bitemporal_clock};
-use stochology_governance::drift::{AdaptiveConformalInference, MurphyCorpCircuitBreaker};
+use stochology_governance::drift::{
+    AdaptiveConformalInference, MurphyCorpCircuitBreaker, ReflexiveStochologyGoodhartAudit,
+    SosaVirtueAndInnesHolmstromContractAudit, TriadicSafeguardComplementarityAudit,
+};
 use stochology_governance::vault::{TemporalVault, VaultError, VaultState};
 use stochology_lenses::analog::{AnalogWaveComputingSynthesis, EmpiricalWaveAnalogAudit};
 use stochology_lenses::decision::CorpPavDecomposition;
@@ -19,10 +22,13 @@ use stochology_lenses::information::{DpiMarkovChain, SdpiHierarchy, blahut_arimo
 use stochology_lenses::invariance::{
     CausalEnvironment, chow_invariance_f_stat, cinelli_hazlett_robustness_value,
 };
+use stochology_lenses::relational::HollingCanguilhemResilienceAudit;
 use stochology_lenses::tail::{dedh_moment_tail_index, gpd_pot_fit};
 use stochology_lenses::time::empirical_kelly_optimal_fraction;
 use stochology_siga::funnel::fit_shelf_beta_prior;
-use stochology_siga::roadmap::EvidenceProcess;
+use stochology_siga::roadmap::{
+    EvidenceProcess, KeynesEvidentialWeightAudit, MayoManskiSevereBoundaryAudit,
+};
 
 fn workspace_root() -> PathBuf {
     resolve_workspace_root()
@@ -449,4 +455,19 @@ fn cross_crate_enriched_epistemological_primitives_end_to_end() {
         .collect();
     let emp_wave = EmpiricalWaveAnalogAudit::evaluate_series(&wave_series);
     assert!(emp_wave.empirical_wave_verified && emp_wave.empirical_hp_inv_relative_error < 1e-7);
+
+    let mayo_manski = MayoManskiSevereBoundaryAudit::canonical_benchmark();
+    let keynes = KeynesEvidentialWeightAudit::canonical_benchmark();
+    let triadic = TriadicSafeguardComplementarityAudit::canonical_benchmark();
+    let reflexive = ReflexiveStochologyGoodhartAudit::canonical_benchmark();
+    let sosa_contract = SosaVirtueAndInnesHolmstromContractAudit::canonical_benchmark();
+    let holling = HollingCanguilhemResilienceAudit::canonical_benchmark();
+    assert!(
+        mayo_manski.mayo_manski_bridge_verified
+            && keynes.keynes_and_process_tracing_verified
+            && triadic.triadic_complementarity_verified
+            && reflexive.reflexive_goodhart_and_refutability_verified
+            && sosa_contract.sosa_and_contracts_verified
+            && holling.holling_canguilhem_resilience_verified
+    );
 }

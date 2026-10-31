@@ -1,10 +1,12 @@
-//! Shaped applications of the CAPIBA Protocol (Protocol Profiles) beyond the worked example in
+//! Shaped applications of Stochology (`ProtocolProfile`) beyond the worked example in
 //! `examples/clay/`.
 //!
 //! Each dataset is **simulated** (`SplitMix64`) and supports no claim about any real system
-//! (`AGENTS.md` §II.C). The two applications here exercise complementary clay:
-//! - `examples/fleet/`  — cold-chain dispatch, **passive** agent, English, waives `PHI4_CHOULDECHOVA`;
-//! - `examples/credit/` — loan screening, **performative** agent, audits Chouldechova (not waived).
+//! (`AGENTS.md` §II.C). The three applications here exercise complementary clay:
+//! - `examples/fleet/`           — cold-chain dispatch, **passive** agent, English, waives `PHI4_CHOULDECHOVA`;
+//! - `examples/credit/`          — loan screening, **performative** agent, audits Chouldechova (not waived);
+//! - `examples/process_tracing/` — 5th Methodological Family (Process Tracing & Keynes's Evidential Weight $V$),
+//!   Portuguese $\Phi_5$ vocabulary, **performative** agent, seed 73.
 //!
 //! Regenerate with:
 //! `cargo test -p stochology-cli --test application_profiles -- --ignored --nocapture`
@@ -39,6 +41,7 @@ struct AppConfig {
     z_coef: f64,
     u_coef: f64,
     noise_sd: f64,
+    x_offset: f64,
     card_template: &'static str,
     profile_section: &'static str,
     unit_plural: &'static str,
@@ -57,7 +60,12 @@ fn gen_csv(cfg: &AppConfig, root: &Path) -> String {
             let z = rng.standard_normal();
             let p = logistic(cfg.intercept + u + cfg.z_coef * z);
             let y = u8::from(rng.bernoulli(p));
-            let x = cfg.u_coef * u + cfg.z_coef * z + rng.normal(0.0, cfg.noise_sd);
+            let base_x = cfg.u_coef * u + cfg.z_coef * z + rng.normal(0.0, cfg.noise_sd);
+            let x = if cfg.x_offset == 0.0 {
+                base_x
+            } else {
+                base_x + cfg.x_offset
+            };
             csv.push_str(&format!("C{c:02},{p:.4},{y},{x:.2}\n"));
         }
     }
@@ -402,6 +410,115 @@ const CREDIT_PROFILE: &str = r#"protocol_profile:
     permutation_replications: 500
 "#;
 
+const PROCESS_TRACING_TEMPLATE: &str = r#"id: "epidemiological_field_process_tracing"
+layer: "L2"
+uncertainty: "epistemic_parameter"
+
+decision_maker_question:
+  who_decides: "Comissão de Investigação Epidemiológica de Campo"
+  altered_action: "Emitir alerta de contenção focal e rastreamento laboratorial para o setor neste turno quando a probabilidade calibrada de transmissão ativa exceder p*"
+  question: "A probabilidade calibrada de transmissão ativa neste turno de investigação de campo excede o limiar custo-perda p* = 0.20000?"
+
+epistemological_header:
+  generating_process: "Simulated logistic outbreak tracing process with sector random effects u_s ~ N(0, 0.5^2) and per-shift diagnostic trace signal z ~ N(0, 1) (SplitMix64, seed 73)"
+  nonlinearity: "f(E[X])=0.00, E[f(X)]=0.00, Jensen gap Delta_J=+0.00, median=0.00, q05=0.00, q95=0.00, CRPS=0.00"
+  unit_and_margin:
+    independent_unit: "setor sanitário ao longo dos turnos de investigação de campo (cluster of field shifts per sector)"
+    nominal_sample_size_n: 0
+    weighted_cluster_mean_m_tilde: "m_tilde = 0.00 (Moulton-Campbell)"
+    threshold_exceedance_icc: "rho_I(0.90) = 0.00"
+    effective_sample_size_n_eff: 0
+    unit_margin_of_error: "+/- 0.0 percentage points"
+  noise_physics:
+    stochastic_regime: "Bernoulli outbreak confirmation with logistic link and between-sector heterogeneity (simulated)"
+    absorbing_states: "Uncontained community cluster: secondary transmission spreads across adjacent sectors once early containment window closes"
+    bridge_L3_L1_performativity:
+      agent_type: "performative"
+      wasserstein_sensitivity_epsilon: 0.12
+      rrm_convergence_condition: "eps * beta / gamma = 0.12 * 1.25 / 1.00 = 0.15 < 1 (strict contraction)"
+      stability_optimality_divergence: "theta_PS = 0.214 vs Stackelberg theta_PO = 0.206 (focal containment shifts the transmission rate it forecasts)"
+  causal_ladder:
+    pearl_rung: "2-Act"
+    identification_strategy: "Simulated process tracing across Hoop Test and Smoking Gun diagnostic cues; Markov blanket of transmission mapped (sector risk, diagnostic trace) without collider conditioning"
+    untestable_assumption: "No unobserved reporting blackout shifting sector risk and field tracing at once (Lambda* <= 1.25)"
+
+uncertainty_budget_and_authorship:
+  variance_budget:
+    inputs: 0.50
+    parameters: 0.30
+    covariance: 0.20
+    structural_discrepancy_gp: "Gaussian Process delta(x) ~ GP(0, k_anchored(x,x')) for sector-level logit discrepancy per Kennedy-O'Hagan"
+  dominant_event:
+    description: "Active outbreak transmission confirmed in a sector during a field investigation shift"
+    probability_p: 0.0
+    base_rate_floor_epsilon: 0.001
+    cost_share: 0.85
+  info_gap_robustness:
+    critical_requirement_rc: "Fewer than 1 uncontained secondary cluster per sector per 30 investigation shifts"
+    robustness_horizon_alpha_hat: "alpha_hat = 2.30 standard deviations of sector risk tolerated without violating r_c"
+    opportuneness_horizon_beta_hat: "beta_hat = 0.85 deviations for windfall early clearance r_w"
+    global_maximin_safeguard: "Wald global Maximin floor: at least one mobile rapid-response field team on standby, with reversible recall at the next shift briefing"
+  field_authorship:
+    null_model: "epidemiological_surveillance_modeling_group"
+    decision_rule: "field_outbreak_response_committee"
+    adversarial_reviewer: "independent_public_health_auditor"
+
+data_and_audit_contract:
+  dataset_path: "examples/process_tracing/epidemiological_field_archive.csv"
+  dataset_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  missingness_mechanism: "MCAR (simulated dataset with no missing shifts; Meng correlation rho_R_Y = 0; Manski bounds closed; Keynes evidential weight V audited)"
+  seed_and_environment: "seed=73; rustc=1.97; simulated dataset"
+  null_model: "crates/stochology-cli#evaluate_empirical_card_severe_test_with_profile"
+  preregistration_hash: "0000000000000000000000000000000000000000000000000000000000000000"
+  attempt_counter_K: 1
+  e_process_multiplicity: "Cumulative Ville e-process E_30 = 0.0 (threshold 1/alpha = 40.0 for alpha = 0.025)"
+  murphy_corp_decomposition:
+    total_score_brier_or_crps: 0.0
+    miscalibration_REL_MCB: 0.0
+    resolution_RES_DSC: 0.0
+    base_uncertainty_UNC0: 0.0
+  findings:
+    registered: 2
+    used: 1
+    unused:
+      - "Straw-in-the-wind ambient humidity cue discarded: low Keynes evidential weight V and no incremental RES_CORP on the development half"
+
+decision_rule_and_scope:
+  event_probability_p: 0.0
+  base_rate_floor_epsilon: 0.001
+  protection_cost_C: 600.0
+  event_loss_L: 4000.0
+  mitigation_efficacy_eta: 0.75
+  critical_threshold_p_star: 0.20000
+  declared_act: "protect"
+  scope_statement: "Worked example of the 5th Methodological Family (Process Tracing & Evidential Weight V) on simulated field shifts; does not apply to clinical trials or to any real epidemiological surveillance system"
+  who_pays_for_error: "Chouldechova trilemma audit: high-density vs low-density sectors (p_A=0.3100 vs p_B=0.1800); equalizing PPV at 0.60 & FNR at 0.30 implies monitored ratio FPR_A/FPR_B = 3.40"
+  exit_clause: "Suspend automated focal containment alerts if REL_CORP > 0.020 or RES_CORP < 0.020 over 14 consecutive field shifts"
+"#;
+
+const PROCESS_TRACING_PROFILE: &str = r#"protocol_profile:
+  name: "epidemiological_field_process_tracing"
+  rationale: "Shift-level 5th Methodological Family (Process Tracing & Keynes Evidential Weight V) decision asked in Portuguese; stricter anytime-valid evidence (1/alpha = 40); performative agent and Chouldechova trilemma audited; dataset kept outside data/ under its own manifest"
+  seed: 73
+  e_process_min_inverse_alpha: 40.0
+  resolution:
+    fine_unit_terms: "plantão, plantões, turno, turnos, hora"
+    coarse_horizon_terms: "anual, mensal, trimestral"
+    coarse_aggregation_terms: "média, total, soma, único"
+    coarse_phrases: "todos os turnos do ano"
+  dataset_root: "examples/process_tracing/"
+  dataset_manifest: "examples/process_tracing/SHA256SUMS"
+  dataset_columns:
+    cluster: "sector"
+    forecast: "outbreak_prob"
+    outcome: "confirmed"
+    value: "case_load"
+    jensen_loss: "square"
+  severe_test:
+    permutation_replications: 500
+    sbc_replications: 300
+"#;
+
 fn fleet_config() -> AppConfig {
     AppConfig {
         dir: "examples/fleet",
@@ -417,6 +534,7 @@ fn fleet_config() -> AppConfig {
         z_coef: 1.5,
         u_coef: 4.0,
         noise_sd: 1.2,
+        x_offset: 0.0,
         card_template: FLEET_TEMPLATE,
         profile_section: FLEET_PROFILE,
         unit_plural: "route-days",
@@ -440,6 +558,7 @@ fn credit_config() -> AppConfig {
         z_coef: 1.5,
         u_coef: 3.0,
         noise_sd: 1.2,
+        x_offset: 0.0,
         card_template: CREDIT_TEMPLATE,
         profile_section: CREDIT_PROFILE,
         unit_plural: "applications",
@@ -448,11 +567,35 @@ fn credit_config() -> AppConfig {
     }
 }
 
+fn process_tracing_config() -> AppConfig {
+    AppConfig {
+        dir: "examples/process_tracing",
+        card_path: "examples/process_tracing/card_process_tracing_epidemiological_inquiry.yaml",
+        csv_path: "examples/process_tracing/epidemiological_field_archive.csv",
+        seed: 73,
+        header: "sector,outbreak_prob,confirmed,case_load\n",
+        clusters: 28,
+        rows_min: 20,
+        rows_span: 21,
+        cluster_sd: 0.5,
+        intercept: -1.4,
+        z_coef: 1.8,
+        u_coef: 3.2,
+        noise_sd: 1.2,
+        x_offset: 1.5,
+        card_template: PROCESS_TRACING_TEMPLATE,
+        profile_section: PROCESS_TRACING_PROFILE,
+        unit_plural: "field-shifts",
+        cluster_noun: "sectors",
+        p_star: 0.20,
+    }
+}
+
 #[test]
 #[ignore]
 fn regenerate_application_profiles() {
     let root = resolve_workspace_root();
-    for cfg in [fleet_config(), credit_config()] {
+    for cfg in [fleet_config(), credit_config(), process_tracing_config()] {
         regenerate(&cfg, &root);
     }
 }
@@ -467,7 +610,7 @@ fn load_app(cfg: &AppConfig, root: &Path) -> (String, EpistemologicalCard, Proto
 #[test]
 fn application_profiles_pass_end_to_end() {
     let root = resolve_workspace_root();
-    for cfg in [fleet_config(), credit_config()] {
+    for cfg in [fleet_config(), credit_config(), process_tracing_config()] {
         let (_, card, profile) = load_app(&cfg, &root);
         let (_, siga) = verify_card_against_empirical_data_with_profile(&root, &card, &profile)
             .unwrap_or_else(|e| panic!("{} must pass end-to-end: {e}", cfg.dir));
@@ -511,7 +654,7 @@ fn fleet_waives_chouldechova_and_credit_does_not() {
 fn each_profile_fails_under_the_canonical_profile() {
     let root = resolve_workspace_root();
     let canonical = ProtocolProfile::canonical();
-    for cfg in [fleet_config(), credit_config()] {
+    for cfg in [fleet_config(), credit_config(), process_tracing_config()] {
         let (_, card, _) = load_app(&cfg, &root);
         let codes: Vec<&str> = card
             .audit_with(&canonical)
@@ -537,7 +680,7 @@ fn each_profile_fails_under_the_canonical_profile() {
 #[test]
 fn application_manifest_seals_its_dataset() {
     let root = resolve_workspace_root();
-    for cfg in [fleet_config(), credit_config()] {
+    for cfg in [fleet_config(), credit_config(), process_tracing_config()] {
         let manifest = fs::read_to_string(root.join(cfg.dir).join("SHA256SUMS")).expect("manifest");
         let (sha, rel) = manifest.trim().split_once("  ").expect("manifest line");
         let data = fs::read_to_string(root.join(rel)).expect("csv");

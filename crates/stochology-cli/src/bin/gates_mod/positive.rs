@@ -1,7 +1,7 @@
 //! Positive epistemological gate evaluators (`G1` through `G8`) and acceptance registry verification.
 
 use std::path::Path;
-use stochology_cli::pillars::CapibaPillarAudit;
+use stochology_cli::pillars::VerificationPillarAudit;
 use stochology_cli::{
     PublicInfrastructureCard04Audit, evaluate_empirical_card_severe_test,
     load_atlantic_storms_decade_environments, load_atlantic_storms_forecasts,
@@ -15,7 +15,9 @@ use stochology_core::{
 };
 use stochology_governance::{
     BitemporalRecord, MurphyCorpCircuitBreaker, PlatTrafficLightZone,
-    PredeterminedChangeControlPlan, TemporalVault, query_with_bitemporal_clock,
+    PredeterminedChangeControlPlan, ReflexiveStochologyGoodhartAudit,
+    SosaVirtueAndInnesHolmstromContractAudit, TemporalVault, TensionSevenInstitutionalAgencyAudit,
+    TriadicSafeguardComplementarityAudit, query_with_bitemporal_clock,
 };
 use stochology_lenses::acceptance::{
     ACCEPTANCE_REGISTRY_PATH, CONFIRMATION_SEED_RANGE, MIN_CLAIM_PASS_RATE, SynthesisAcceptance,
@@ -34,7 +36,10 @@ use stochology_lenses::decision::{
 };
 use stochology_lenses::information::{DpiMarkovChain, SdpiHierarchy};
 use stochology_lenses::machine::{AlmostPerfectMachine, AuthenticModelForm};
-use stochology_lenses::relational::RelationalComplexSystemsSynthesis;
+use stochology_lenses::relational::{
+    FilterThreeTensionsFiveAndSixAudit, HollingCanguilhemResilienceAudit,
+    RelationalComplexSystemsSynthesis,
+};
 use stochology_lenses::society::{
     COUPLED_SOCIETY_PREREGISTRATION_HASH, CoupledPublicPrivateSocietySynthesis,
     EmpiricalCoupledSocietyAudit,
@@ -49,7 +54,10 @@ use stochology_lenses::triad::{
     ComplexFractalToroidalTechniumSynthesis, EmpiricalTriadicTechniumAudit,
 };
 use stochology_siga::roadmap::OperatingPointSource;
-use stochology_siga::{AlertFatigueAudit, EvidenceProcess, SaviConfidenceSequence, VarEsEBacktest};
+use stochology_siga::{
+    AlertFatigueAudit, EvidenceProcess, FilterOneAndTwoTensionsAudit, KeynesEvidentialWeightAudit,
+    MayoManskiSevereBoundaryAudit, SaviConfidenceSequence, VarEsEBacktest,
+};
 
 /// Gate `G8` acceptance of the simulated syntheses: each gated claim must pass on the development seeds and on the sealed
 /// confirmation seeds (`.det.` claims everywhere, others on at least `MIN_CLAIM_PASS_RATE`), and the registry that seals the claim
@@ -455,6 +463,27 @@ fn eval_gate_g8(
     if !rel_syn.all_six_axes_verified {
         return Err("G8 failed Relational Ontology & Complex Systems 6-axis verification".into());
     }
+    let tensions_1_to_4 = FilterOneAndTwoTensionsAudit::canonical_benchmark();
+    let mayo_manski = MayoManskiSevereBoundaryAudit::canonical_benchmark();
+    let keynes_pt = KeynesEvidentialWeightAudit::canonical_benchmark();
+    let hc_resilience = HollingCanguilhemResilienceAudit::canonical_benchmark();
+    let tensions_5_and_6 = FilterThreeTensionsFiveAndSixAudit::canonical_benchmark();
+    let triad_comp = TriadicSafeguardComplementarityAudit::canonical_benchmark();
+    let goodhart_brakes = ReflexiveStochologyGoodhartAudit::canonical_benchmark();
+    let sosa_contracts = SosaVirtueAndInnesHolmstromContractAudit::canonical_benchmark();
+    let tension_7_inst = TensionSevenInstitutionalAgencyAudit::canonical_benchmark();
+    if !tensions_1_to_4.all_tensions_1_to_4_verified
+        || !mayo_manski.mayo_manski_bridge_verified
+        || !keynes_pt.keynes_and_process_tracing_verified
+        || !hc_resilience.holling_canguilhem_resilience_verified
+        || !tensions_5_and_6.all_tensions_5_and_6_verified
+        || !triad_comp.triadic_complementarity_verified
+        || !goodhart_brakes.reflexive_goodhart_and_refutability_verified
+        || !sosa_contracts.sosa_and_contracts_verified
+        || !tension_7_inst.tension_seven_institutional_verified
+    {
+        return Err("G8 failed Ethics of Aim & Seven Constitutive Tensions verification".into());
+    }
     let analog_syn = AnalogWaveComputingSynthesis::evaluate_canonical(DEFAULT_SEED);
     let gerst_accum = GerstgrasserAccumulateAudit::canonical_benchmark(
         DEFAULT_SEED,
@@ -576,13 +605,15 @@ fn eval_gate_g8(
     Ok(())
 }
 
-/// Real-data CAPIBA pillar audits: one instrument per pillar, reported under the gate that owns it
+/// Real-data verification pillar audits: one instrument per pillar, reported under the gate that owns it
 /// (`G4`, `G6`, `G7`).
-fn eval_capiba_pillars(root: &Path) -> Result<(), String> {
-    let audit = CapibaPillarAudit::evaluate(root)?;
+fn eval_verification_pillars(root: &Path) -> Result<(), String> {
+    let audit = VerificationPillarAudit::evaluate(root)?;
     let failed = audit.failed_checks();
     if !failed.is_empty() {
-        return Err(format!("G4/G6/G7 failed CAPIBA pillar checks: {failed:?}"));
+        return Err(format!(
+            "G4/G6/G7 failed verification pillar checks: {failed:?}"
+        ));
     }
     let c = &audit.calibrated.analog;
     println!(
@@ -624,10 +655,10 @@ fn eval_capiba_pillars(root: &Path) -> Result<(), String> {
 
 /// Runs all 8 positive epistemological gates (`G1` through `G8`).
 pub fn run_positive_gates(root: &Path) -> Result<(), String> {
-    println!("=== EPISTEMOLOGICAL GATES G1-G8 (STOCHOLOGY PROTOCOL) ===");
+    println!("=== EPISTEMOLOGICAL GATES G1-G8 (STOCHOLOGY) ===");
     let cards = eval_gates_g1_to_g5(root)?;
     let (storm_probs, storm_outcomes) = eval_gate_g6(root)?;
     let (probs_h1, y23_h1) = eval_gate_g7(root, &cards, &storm_probs, &storm_outcomes)?;
-    eval_capiba_pillars(root)?;
+    eval_verification_pillars(root)?;
     eval_gate_g8(root, &storm_probs, &storm_outcomes, &probs_h1, &y23_h1)
 }

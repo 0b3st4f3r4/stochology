@@ -5,13 +5,13 @@
 //! A **pathway** is the prerequisite closure of the competency that carries a negative proof, listed in
 //! topological order; reading it end to end prepares the reader to explain why `gates -- --defect <name>`
 //! exits with code `1`. The graph is an authorial pedagogical frame over the book (like `docs/SYLLABUS.md`),
-//! not part of the protocol; [`CompetencyDag::audit`] keeps it honest against the book and the defect registry.
+//! not part of the normative kernel; [`CompetencyDag::audit`] keeps it honest against the book and the defect registry.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::Path;
 
-use crate::defects::{ALL_DEFECTS, CapibaPillar};
+use crate::defects::{ALL_DEFECTS, VerificationPillar};
 
 /// Teaching depth of a competency: the 30-hour Core track or the 90-hour Full track.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -166,14 +166,14 @@ fn list(v: &str) -> Vec<String> {
         .collect()
 }
 
-fn pillar_label(p: CapibaPillar) -> &'static str {
+fn pillar_label(p: VerificationPillar) -> &'static str {
     match p {
-        CapibaPillar::Calibrated => "C · Calibrated",
-        CapibaPillar::AnytimeValid => "A · Anytime-valid",
-        CapibaPillar::PerformativeAware => "P · Performative-aware",
-        CapibaPillar::Invariant => "I · Invariant",
-        CapibaPillar::Bitemporal => "B · Bitemporal",
-        CapibaPillar::Auditing => "A · Auditing",
+        VerificationPillar::Calibrated => "1 · Calibrated",
+        VerificationPillar::AnytimeValid => "2 · Anytime-valid",
+        VerificationPillar::PerformativeAware => "3 · Performative-aware",
+        VerificationPillar::Invariant => "4 · Invariant",
+        VerificationPillar::Bitemporal => "5 · Bitemporal",
+        VerificationPillar::Auditing => "6 · Auditing",
     }
 }
 
@@ -646,7 +646,7 @@ impl CompetencyDag {
         out
     }
 
-    /// HTML cards for the preface hero (`.stoch-pathway-card`): one per CAPIBA pillar, linking the
+    /// HTML cards for the preface hero (`.stoch-pathway-card`): one per verification pillar, linking the
     /// pathways whose negative proof belongs to it, plus one card for the practicum thread.
     pub fn render_pillar_cards(&self, book: &BookIndex) -> String {
         let pathways = self.pathways(book);
@@ -659,16 +659,28 @@ impl CompetencyDag {
                 .map(|c| c.file.replace(".md", ".html"))
         };
         let pillars = [
-            (CapibaPillar::Calibrated, "calibrated", "C · Calibrated"),
-            (CapibaPillar::AnytimeValid, "anytime", "A · Anytime-valid"),
             (
-                CapibaPillar::PerformativeAware,
-                "performative",
-                "P · Performative-aware",
+                VerificationPillar::Calibrated,
+                "calibrated",
+                "1 · Calibrated",
             ),
-            (CapibaPillar::Invariant, "invariant", "I · Invariant"),
-            (CapibaPillar::Bitemporal, "bitemporal", "B · Bitemporal"),
-            (CapibaPillar::Auditing, "auditing", "A · Auditing"),
+            (
+                VerificationPillar::AnytimeValid,
+                "anytime",
+                "2 · Anytime-valid",
+            ),
+            (
+                VerificationPillar::PerformativeAware,
+                "performative",
+                "3 · Performative-aware",
+            ),
+            (VerificationPillar::Invariant, "invariant", "4 · Invariant"),
+            (
+                VerificationPillar::Bitemporal,
+                "bitemporal",
+                "5 · Bitemporal",
+            ),
+            (VerificationPillar::Auditing, "auditing", "6 · Auditing"),
         ];
         let mut out = String::new();
         for (pillar, slug, label) in pillars {

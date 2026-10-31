@@ -40,6 +40,13 @@ Suppose a meteorologist says: *"There is a 70% probability of rain tomorrow."* D
 
 Stochology does not force a philosophical war among these five interpretations. Instead, **it types every probability by the layer from which it came.** Many costly errors in courtrooms, hospitals, and trading desks happen when a number computed as a symmetry of a *Model* ($L\_2$) or a subjective hunch of an *Agent* ($L\_3$) is treated as a verified physical frequency of the *World* ($L\_1$).
 
+### Probability vs. Weight of Argument (Keynes, 1921) and Savage's *Small Worlds* (1954)
+
+Two foundational clarifications prevent probability theory from overstepping its legitimate bounds:
+
+1. **Keynes's Weight of Argument (*Evidential Weight*, 1921, Ch. 6):** In *A Treatise on Probability*, John Maynard Keynes demonstrated that a rational judgment cannot be compressed into a single scalar probability $p \in [0, 1]$. One must distinguish between the **balance of favorable and unfavorable evidence** (which determines the probability $p$) and the **completeness, quality, and structural integrity of the evidence base** (which determines its **weight of argument**, $V(E)$, formalized in `KeynesEvidentialWeightAudit`, `crates/stochology-siga/src/roadmap/mayo_manski_keynes.rs`). Two propositions can share the exact same probability $p = 0.50$: the first is a single toss of a physically audited, symmetric coin ($p = 0.50$ with high evidential weight); the second is whether an untested surgical procedure will succeed in a population never before studied, where ignorance is split evenly ($p = 0.50$ with near-zero evidential weight). As fresh, independent, and uncorrupted evidence arrives, the probability $p$ may rise or fall, whereas the evidential weight $V(E)$ measures how much relevant non-ignorance supports the judgment. As we will see in Tension 4 ([Chapter 10](10-world-models-missingness-bounds.md)), when an archive is corrupted by selection bias (`ddc`) or cluster dependence ($n_{\mathrm{eff}}(p)$), raw sample volume $n$ inflates while true evidential weight collapses.
+2. **Savage's *Small Worlds* (1954) vs. Physical Ergodicity:** In *The Foundations of Statistics*, Leonard Jimmie Savage proved that subjective expected utility maximization is strictly valid only inside what he called a **small world**—a closed decision problem in which the agent can specify an exhaustive, mutually exclusive list of states of nature, actions, and consequences ("look before you leap"), as opposed to a **large world** where unimagined states can emerge ("you can cross that bridge when you come to it"). Furthermore, one must **never confuse the logical completeness of a Savage *small world* with the physical property of *ergodicity*** ([Chapters 5](05-dynamical-systems-odes-waves.md) and [9](09-lenses.md)): a game of Russian roulette or a leveraged multiplicative bet with an absorbing ruin barrier is a completely specified *small world*—every possible outcome and its exact probability are known in advance—yet it is radically **non-ergodic** in irreversible time because a single trajectory that hits the absorbing barrier can never re-enter the ensemble.
+
 ### Coherence and the Dutch Book
 
 Degrees of belief must obey the mathematical axioms of probability, namely that probabilities lie between $0$ and $1$, that mutually exclusive events add up ($P(A \cup B) = P(A) + P(B)$), and that totality sums to $1$.
@@ -204,14 +211,25 @@ What happens when even the list of possible outcomes or the functional form of t
   <figcaption><strong>Figure 2.1 — Andy Stirling's 2x2 Diagnostic Matrix of Uncertainty</strong></figcaption>
 </figure>
 
-In 1921, economist **Frank Knight** drew the classic boundary between measurable **Risk** (Column 1) and unmeasurable **Uncertainty** (Column 2 and Row 2). In the Stochology Protocol (`crates/stochology-core/src/layers/`, `uncertainty.rs`, and `card/`), every Epistemological Card must declare its dominant uncertainty class from four formal types:
+In 1921, economist **Frank Knight** drew the classic boundary between measurable **Risk** (Column 1) and unmeasurable **Uncertainty** (Column 2 and Row 2). In Stochology (`crates/stochology-core/src/layers/`, `uncertainty.rs`, and `card/`), every Epistemological Card must declare its dominant uncertainty class from four formal types:
 
-| Protocol Type (`uncertainty`) | Primary Layer | Mathematical Mechanism in the Protocol | Operational Remedy |
+| Uncertainty Type (`uncertainty`) | Primary Layer | Mathematical Mechanism in Stochology | Operational Remedy |
 | --- | --- | --- | --- |
 | **`aleatory`** | $L\_1$ (World) | Irreducible conditional variance $\mathbb{E}\_\theta[\mathrm{Var}(Y \mid \theta)]$. | Safety margins, Kelly exposure caps, redundancy, pooling. |
 | **`epistemic_parameter`** | $L\_2$ (Model) | Finite-sample dispersion $\mathrm{Var}\_\theta(\mathbb{E}[Y \mid \theta])$ and Laplace's Rule of Succession. |Targeted sampling, Simulation-Based Calibration (SBC), Bayesian updating. |
 | **`epistemic_specification`** | $L\_2$ (Model) | **Kennedy-O'Hagan Structural Discrepancy** $\delta(x) \sim \mathcal{GP}(m(x), k(x, x'))$ with boundary anchoring. | Explicit discrepancy modeling, multi-environment ICP, rival model classes. |
 | **`knightian`** | $L\_3$ (Agent) | **Info-Gap Decision Theory** ($\hat{\alpha}, \hat{\beta}$, *zero-ing*) + **Sniedovich/Wald Global Maximin Safeguard**. | Robust satisficing, global worst-case floors, automatic numeric exit clauses. |
+
+### Theoretical Demarcation: How Stochology Relates to Existing Schools of Ambiguity and Robustness
+
+Stochology does not claim to invent the distinction between risk and uncertainty; rather, it integrates and demarcates the classic twentieth-century programs that broke away from single-prior dogmatism (`notes/A Ética da Mira.md` §1.2):
+
+- **Knightian Uncertainty and Ellsberg Ambiguity (Knight, 1921; Ellsberg, 1961):** Daniel Ellsberg's two-urn paradoxes demonstrated empirically and normatively that rational agents distinguish between a known 50/50 urn (*risk*) and an urn of unknown composition (*ambiguity*), violating Savage's Sure-Thing Principle when evidential weight is low.
+- **Multiple Priors and Imprecise Probabilities (Gilboa & Schmeidler, 1989; Walley, 1991):** Itzhak Gilboa and David Schmeidler axiomatized *Maxmin Expected Utility* ($\min_{P \in \mathcal{C}} \mathbb{E}_P[u(a)]$) over a convex set of priors $\mathcal{C}$, while Peter Walley developed the behavioral theory of *imprecise probabilities* bounded by lower and upper previsions $[\underline{P}(A), \overline{P}(A)]$.
+- **Econometric Partial Identification (Manski, 2003, 2013; Imbens & Manski, 2004):** Charles Manski showed that when data suffer from missingness (`MNAR`) or treatment selection, replacing untestable point-identifying assumptions with worst-case non-parametric bounds yields an honest **identification region** `[lower, upper]` on Bridge $L_1 \to L_2$ ([Chapter 10](10-world-models-missingness-bounds.md)).
+- **Distributional and Algorithmic Robustness (Huber, 1964, 1981; Wald, 1945; Sniedovich, 2007, 2012):** Peter J. Huber formalized estimators that remain stable when an $\varepsilon$-fraction of the data distribution is contaminated by heavy-tailed outliers, while Moshe Sniedovich proved that local Info-Gap robustness ($\hat{\alpha}$) around a flawed nominal model can become a "No-Man's Land" unless anchored to Abraham Wald's (1945) **global Maximin floor** over the entire severe-uncertainty domain ([Chapter 20](20-decision-worlds-regime.md)).
+
+Where those schools typically operate inside a single layer—Huber and Walley inside $L_2$, Manski on $L_1 \to L_2$, Gilboa-Schmeidler and Wald inside $L_3$—Stochology couples them across the entire closed loop $L_1 \leftrightarrow L_2 \leftrightarrow L_3$ and joins them to non-ergodic vital margins and institutional governance.
 
 ---
 
@@ -238,16 +256,16 @@ This formula has three useful properties:
 
 Each of the Six Directed Pairs introduced in [Chapter 1](01-layers-six-pairs.md) is governed by a characteristic transition in the Stirling-Knight taxonomy:
 
-| Directed Pair | Dominant Uncertainty Class | Primary Diagnostic & Protocol Primitive |
+| Directed Pair | Dominant Uncertainty Class | Primary Diagnostic & Stochological Primitive |
 | --- | --- | --- |
 | **1. World Models ($L\_1 \to L\_2$)** | `epistemic_specification` & `MNAR` Selection | Meng's Data Defect Index `DDI`, non-parametric `ManskiBounds` / `lee_trimming_bounds`, and anchored `KennedyOHaganDiscrepancy` $\delta(x)$. |
-| **2. Model Worlds ($L\_2 \to L\_1$)** | `aleatory` & `epistemic_parameter` | Seeded null models on `SplitMix64` (`seed = 2026`) with `MonteCarloSplitTreeAudit`, Talts `sbc_rank_chi2`, and multi-seed acceptance (`SynthesisAcceptance` in `stochology_lenses::acceptance`: every claim must pass on $\ge 95\%$ of the 20 development seeds and of the 200 sealed confirmation seeds; the one-sided Clopper-Pearson bound is only reported). |
+| **2. Model Worlds ($L\_2 \to L\_1$)** | `aleatory` & `epistemic_parameter` | Seeded null models on `SplitMix64` (under a pre-registered seed) with `MonteCarloSplitTreeAudit`, Talts `sbc_rank_chi2`, and multi-seed acceptance (`SynthesisAcceptance` in `stochology_lenses::acceptance`: every claim must pass on $\ge 95\%$ of the 20 development seeds and of the 200 sealed confirmation seeds; the one-sided Clopper-Pearson bound is only reported). |
 | **3. Decision Models ($L\_2 \to L\_3$)** | `aleatory` & `epistemic_parameter` | `NonlinearSummary` (Jensen's Gap plus the strictly proper leave-one-out `empirical_crps`, computed by `exact_loo_empirical_crps`), isotonic `CorpPavDecomposition`, and anytime-valid `SaviConfidenceSequence`. |
 | **4. Model Decisions ($L\_3 \to L\_2$)** | Stirling Quadrant 3 (**Ambiguity**) | The attempt counter `attempt_counter_k` $K \ge 1$, named `DiscardedAtomRecord` entries, SHA-256 pre-registration of the `EpistemologicalCard`, and its `who_pays_for_error` field audited against `ChouldechovaAudit`. |
 | **5. World Decisions ($L\_3 \to L\_1$)** | Strategic / Endogenous Shift | `PerformativeSystem` ($\theta\_{\mathrm{PS}}$ vs. $\theta\_{\mathrm{PO}}$), RRM contraction $\frac{\varepsilon\beta}{\gamma} < 1$, and `GoodhartTaxonomyAudit`. |
 | **6. Decision Worlds ($L\_1 \to L\_3$)** | `knightian` (Stirling Quadrant 4 **Ignorance**) | The declared Stirling-Walker class with `InfoGapOption` ($\hat{\alpha}, \hat{\beta}$) and Sniedovich's global Wald Maximin floor, `ExceedanceDesignEffect` $n\_{\mathrm{eff}}(p)$, and `verify_resolution_phi5` ($\Phi\_5$). |
 
-Rows 1, 3, and 5 are the protocol's three implemented bridges. Rows 2, 4, and 6 (the reverse pairs) are a reading frame over existing code, not new bridges; the assignment of an uncertainty class to each pair is the book's own organizing device.
+Rows 1, 3, and 5 are Stochology's three implemented bridges. Rows 2, 4, and 6 (the reverse pairs) are a reading frame over existing code, not new bridges; the assignment of an uncertainty class to each pair is the book's own organizing device.
 
 ```mermaid
 flowchart TD

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <!-- 2D (Horizontal + Vertical) Progression matching the disc: L1 (bottom-left, Green) -> L2 (top, Blue) -> (p*, r_c) Crosshair (Gold) -> L3 (bottom-right, Crimson) -->
+    <linearGradient id="ring-grad" x1="23" y1="87" x2="100" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--fav-green)"/>
+      <stop offset="38%" stop-color="var(--fav-blue)"/>
+      <stop offset="66%" stop-color="var(--fav-gold)"/>
+      <stop offset="100%" stop-color="var(--fav-crimson)"/>
+    </linearGradient>
+    <linearGradient id="tail-fill" x1="31" y1="86" x2="92" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--fav-green)" stop-opacity="0.32"/>
+      <stop offset="42%" stop-color="var(--fav-blue)" stop-opacity="0.34"/>
+      <stop offset="68%" stop-color="var(--fav-gold)" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="var(--fav-crimson)" stop-opacity="0.24"/>
+    </linearGradient>
+    <radialGradient id="core-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.16"/>
+      <stop offset="65%" stop-color="#fbbf24" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --fav-ink: #0f172a;
+        --fav-frame: #cbd5e1;
+        --fav-node-bg: #f8fafc;
+        --fav-blue: #2563eb;
+        --fav-green: #10b981;
+        --fav-crimson: #e11d48;
+        --fav-gold: #f59e0b;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --fav-ink: #f8fafc;
+          --fav-frame: #1e293b;
+          --fav-node-bg: #090e1a;
+          --fav-blue: #38bdf8;
+          --fav-green: #34d399;
+          --fav-crimson: #fb7185;
+          --fav-gold: #fbbf24;
+        }
+      }
+    </style>
+  </defs>
+
+  <!-- Subtle Radial Field -->
+  <circle cx="64" cy="66" r="46" fill="url(#core-glow)"/>
+
+  <!-- Directed Cyclic Bridges (Exact C=(64,66), R=42, 120-deg symmetric tangent-aligned arrowheads) -->
+  <!-- Bridge L1 (bottom-left) -> L2 (top): Verde -->
+  <path d="M 22.77 74.01 A 42 42 0 0 1 50.60 26.19" stroke="var(--fav-green)" stroke-width="4.2" stroke-linecap="round"/>
+  <path d="M 46.92 32.93 L 51.02 26.06 L 43.36 23.74" stroke="var(--fav-green)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Bridge L2 (top) -> L3 (bottom-right): Azul -->
+  <path d="M 77.67 26.29 A 42 42 0 0 1 105.17 74.30" stroke="var(--fav-blue)" stroke-width="4.2" stroke-linecap="round"/>
+  <path d="M 101.18 67.75 L 105.08 74.73 L 110.91 69.26" stroke="var(--fav-blue)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Bridge L3 (bottom-right) -> L1 (bottom-left): Carmesim -->
+  <path d="M 91.55 97.70 A 42 42 0 0 1 36.22 97.50" stroke="var(--fav-crimson)" stroke-width="4.2" stroke-linecap="round"/>
+  <path d="M 43.90 97.32 L 35.90 97.21 L 37.72 105.00" stroke="var(--fav-crimson)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Inner Geodesic Triangle (Structural Invariance Skeleton) -->
+  <polygon points="64,24 100.37,87 27.63,87" stroke="#64748b" stroke-width="2.2" stroke-dasharray="3.64 3.64" stroke-linejoin="round" opacity="0.7"/>
+
+  <!-- Heavy-Tailed Stochastic Density Curve inside the Triad -->
+  <path d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84 L 96 86 L 31 86 Z" fill="url(#tail-fill)"/>
+  <path d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84" stroke="var(--fav-ink)" stroke-width="2.2" stroke-linecap="round"/>
+
+  <!-- Orthogonal Decision Crosshair & Golden Reticle (Mira): Vertical Threshold (p* = C / eta*L) + Horizontal Critical Floor (r_c) at exact Bezier curve point (72, 66.65) -->
+  <line x1="44.3" y1="66.65" x2="59.5" y2="66.65" stroke="var(--fav-gold)" stroke-width="2.6" stroke-dasharray="3.2 2.8" stroke-linecap="round"/>
+  <line x1="72" y1="43.5" x2="72" y2="53.5" stroke="var(--fav-gold)" stroke-width="2.6" stroke-dasharray="3.4 3.2" stroke-linecap="round"/>
+  <line x1="72" y1="80.0" x2="72" y2="83.4" stroke="var(--fav-gold)" stroke-width="2.6" stroke-linecap="round"/>
+  <g id="golden-reticle">
+    <circle cx="72" cy="66.65" r="7.4" fill="var(--fav-node-bg)"/>
+    <circle cx="72" cy="66.65" r="6.4" fill="var(--fav-node-bg)" stroke="var(--fav-gold)" stroke-width="2.4"/>
+    <line x1="62.4" y1="66.65" x2="67.8" y2="66.65" stroke="var(--fav-gold)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="76.2" y1="66.65" x2="81.6" y2="66.65" stroke="var(--fav-gold)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="72" y1="57.05" x2="72" y2="62.45" stroke="var(--fav-gold)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="72" y1="70.85" x2="72" y2="76.25" stroke="var(--fav-gold)" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="72" cy="66.65" r="2" fill="var(--fav-gold)"/>
+  </g>
+
+  <!-- Ontological Layer Nodes (Exact 120-deg on R=42: L2 Top, L1 Bottom-Left, L3 Bottom-Right) -->
+  <!-- L2: Model (Top Apex, -90 deg) -->
+  <circle cx="64" cy="24" r="9.2" fill="var(--fav-node-bg)" stroke="var(--fav-blue)" stroke-width="3.4"/>
+  <circle cx="64" cy="24" r="3.8" fill="var(--fav-blue)"/>
+
+  <!-- L1: World (Bottom-Left Apex, +150 deg) -->
+  <circle cx="27.63" cy="87" r="9.2" fill="var(--fav-node-bg)" stroke="var(--fav-green)" stroke-width="3.4"/>
+  <circle cx="27.63" cy="87" r="3.8" fill="var(--fav-green)"/>
+
+  <!-- L3: Agent (Bottom-Right Apex, +30 deg) -->
+  <circle cx="100.37" cy="87" r="9.2" fill="var(--fav-node-bg)" stroke="var(--fav-crimson)" stroke-width="3.4"/>
+  <circle cx="100.37" cy="87" r="3.8" fill="var(--fav-crimson)"/>
+</svg>

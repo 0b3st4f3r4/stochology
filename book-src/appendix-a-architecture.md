@@ -5,7 +5,7 @@
 
 Most scientific computing projects depend on hundreds of transitive third-party packages (`pip`, `npm`, or external crates). Over a five-year horizon, transitive dependencies suffer from **supply-chain drift**: an upstream linear-algebra routine changes its tie-breaking rule, a random-number library alters its normal-distribution sampler, or a YAML parser changes how it handles floating-point precision, silently breaking reproducibility.
 
-To guarantee that `seed = 2026` produces the **exact same bit-for-bit mathematical audit today and twenty years from today**, the entire Stochology Protocol is implemented in **100% pure Rust (2024 edition) with zero external crate dependencies**:
+To guarantee that any pre-registered seed produces the **exact same bit-for-bit mathematical audit today and twenty years from today**, **Stochology** is implemented in **100% pure Rust (2024 edition) with zero external crate dependencies**:
 - **Deterministic Pseudo-Randomness & Online Moments (`stochology_core::rng`):** Implements Sebastiano Vigna's 64-bit `SplitMix64` generator with lock-free `.split(stream_id)` and `.split_fork_join_pair(branch_tag)` substream derivation (Steele, Lea & Flood 2014; Steele & Vigna 2021 LXM, verified in `MonteCarloSplitTreeAudit`), exact Box-Muller normal, Marsaglia-Tsang (2000) Gamma, Beta, Student-$t$, Exponential, and Knuth/Atkinson Poisson samplers, Welford-Terriberry 4th-order streaming moments (`OnlineMoments` with skewness, excess kurtosis, and Jarque-Bera test), and Künsch (1989) moving-block bootstrap (`block_bootstrap_ci`) directly from IEEE-754 primitives.
 - **Cryptographic Hashing & Keyed Authentication (`stochology_core::sha256`):** Implements the full NIST **FIPS 180-4 SHA-256** digest and **RFC 2104 `HMAC-SHA256`** authentication (`hmac_sha256_hex`) from scratch to seal pre-registrations (`preregistration_hash`), temporal vaults (`TemporalVault`), and empirical datasets (`data/SHA256SUMS`).
 - **Structured Card Parser (`stochology_core::card`):** Parses and validates `cards/*.yaml` directly into strongly typed Rust structs (`EpistemologicalCard`) without external serialization macros.
@@ -72,7 +72,7 @@ The repository is organized as a layered Cargo workspace where dependency arrows
 
 ## A.3 Complete Mapping from Textbook Chapters to Rust Modules
 
-| Textbook Chapter & Protocol Section | Mathematical Concept / Governing Equation | Rust Module & Primary Types | Verification Command |
+| Textbook Chapter & Specification Section | Mathematical Concept / Governing Equation | Rust Module & Primary Types | Verification Command |
 | --- | --- | --- | --- |
 | **Ch. 10 (§1.1)** — Bridge $L\_1 \to L\_2$ | Meng's Identity ($\rho\_{R,Y}$), Rubin (`MCAR`/`MAR`/`MNAR`), Stratified Manski Bounds, Lee (2009) Trimming Bounds, and $W\_1$ | `stochology_core::layers::{MengAudit, ManskiBounds, MissingnessMechanism, empirical_wasserstein_1}` | `cargo run --release --bin labs -- --layers` |
 | **Ch. 15 (§1.1)** — Bridge $L\_2 \to L\_3$ | Jensen's Gap $\Delta\_J = \mathbb{E}[f(X)] - f(\mathbb{E}[X])$, quantiles, and exact $O(n\log n)$ LOO $\mathrm{CRPS}$ | `stochology_core::layers::{NonlinearSummary, exact_loo_empirical_crps}` | `cargo run --release --bin labs -- --layers` |
@@ -101,7 +101,7 @@ The repository is organized as a layered Cargo workspace where dependency arrows
 
 To enforce Filter 4's strict separation of authorship (`null_model` / `decision_rule` vs. `adversarial_reviewer`) and Invariant $\Phi\_3$'s cryptographic protection across any autonomous coding agent or multi-agent harness, the workspace defines three specialized subagents and a pre-tool cryptographic hook in `.agents/` alongside the root contract in `AGENTS.md`:
 
-1. **`stochology-modeler` (`.agents/agents/stochology-modeler.md`, Mode `branch`):** Operates in an isolated Git worktree to expand `stochology-core`, `stochology-lenses`, `stochology-siga`, and `stochology-governance` in pure Rust (`std` only) anchored to `SplitMix64` (`seed = 2026`).
+1. **`stochology-modeler` (`.agents/agents/stochology-modeler.md`, Mode `branch`):** Operates in an isolated Git worktree to expand `stochology-core`, `stochology-lenses`, `stochology-siga`, and `stochology-governance` in pure Rust (`std` only) anchored to `SplitMix64` under a pre-registered seed ($\Phi\_1$).
 2. **`stochology-adversary` (`.agents/agents/stochology-adversary.md`, Mode `inherit`):** Acts as the independent VSM audit channel `S3*` and `adversarial_reviewer`, executing the 8 positive gates (`gates`) and all 27 negative defect proofs (`gates -- --defect <name>`).
 3. **`stochology-scribe` (`.agents/agents/stochology-scribe.md`, Mode `inherit`):** Maintains documentary and pedagogical parity across the Rust crates, `docs/PROTOCOL.md`, `book-src/appendix-d-protocol.md`, and the 27 chapters and Appendices A–E of `book-src/`.
 4. **Cryptographic Protection Hook (`.agents/hooks.json` & `.agents/scripts/phi3_cryptographic_gate.sh`):** Enforces autonomous execution (`Allow List`) for `scripts/verify.sh`, `cargo fmt`, `cargo clippy`, `cargo test`, `labs`, and `gates`, while requiring explicit human inline-diff approval (`Request Review` / `force_ask`) before any modification to `data/SHA256SUMS`, `cards/*.yaml`, or `crates/stochology-governance/src/vault.rs`.
@@ -114,8 +114,8 @@ Every chapter of the compiled textbook (`book/`) integrates directly with the **
 
 1. **Declarative DOM Contract (`.stoch-lab`):**
    Chapters declare interactive modules via `<div class="stoch-lab" data-lab="<module-id>" data-title="..." data-subtitle="..."></div>` elements. At page load, the engine hydrates each container with parameter sliders, a real-time vector stage (`<svg viewBox="0 0 880 230">`), four quantitative telemetry readouts, a one-click CLI audit copy button, a synchronized deep-link button (`Open in /lab ↗`), and an optional embedded sandbox toggle (`Sandbox (/lab/embed)`).
-2. **Deterministic URL & `postMessage` Synchronization (`seed = 2026`):**
-   Every slider mutation updates the query string `/lab/?module=<id>&seed=2026&<k1>=<v1>&...` and, when the sandbox `iframe` (`/lab/embed/?...`) is active, dispatches a structured `window.postMessage` payload (`{ type: "stochology:lab:state", seed: 2026, module, state, metrics, cli }`).
+2. **Deterministic URL & `postMessage` Synchronization:**
+   Every slider mutation updates the query string `/lab/?module=<id>&seed=<seed>&<k1>=<v1>&...` and, when the sandbox `iframe` (`/lab/embed/?...`) is active, dispatches a structured `window.postMessage` payload (`{ type: "stochology:lab:state", seed, module, state, metrics, cli }`).
 
 ```mermaid
 sequenceDiagram
@@ -123,7 +123,7 @@ sequenceDiagram
     participant Widget as In-Page Engine (mathjax.js)
     participant Lab as Interactive Sandbox (/lab &amp; /lab/embed)
     participant CLI as Pure-Rust Binary (labs / gates)
-    Reader->>Widget: Adjusts parameter sliders (seed = 2026)
+    Reader->>Widget: Adjusts parameter sliders (pre-registered seed)
     Widget->>Widget: Recomputes exact SVG curves &amp; gate status
     Widget->>Lab: Updates deep-link URL (/lab/?...) &amp; postMessage("stochology:lab:state")
     Reader->>CLI: Copies &amp; runs cargo run --release --bin labs / gates
@@ -150,9 +150,9 @@ cargo run --release --bin labs -- --all
 ## Exercises
 
 1. **Zero-Dependency Crate Graph (`Cargo.toml`):** Inspect why `stochology-core` sits at the root of the dependency DAG (`stochology-core` $\to$ `stochology-lenses` $\to$ `stochology-siga` / `stochology-governance` $\to$ `stochology-cli`). Why does enforcing zero external crate dependencies across all five crates protect long-term reproducibility ($\Phi\_1$) and cryptographic auditability ($\Phi\_3$)?
-2. **Interactive Deep-Link Reproducibility (`mathjax.js` & `/lab`):** Open any `.stoch-lab` widget in the textbook, adjust a slider, and inspect the generated `/lab/?module=...&seed=2026` query string. How does coupling the browser sandbox to the `Copy CLI Audit` button bridge visual intuition and terminal verification?
+2. **Interactive Deep-Link Reproducibility (`mathjax.js` & `/lab`):** Open any `.stoch-lab` widget in the textbook, adjust a slider, and inspect the generated `/lab/?module=...` query string. How does coupling the browser sandbox to the `Copy CLI Audit` button bridge visual intuition and terminal verification?
 
 ## Summary
 
-- **Five pure-Rust crates** (`stochology-core`, `stochology-lenses`, `stochology-siga`, `stochology-governance`, and `stochology-cli`) implement the entire CAPIBA Protocol using only the Rust standard library (`std`), anchored to `SplitMix64` (`seed = 2026`).
+- **Five pure-Rust crates** (`stochology-core`, `stochology-lenses`, `stochology-siga`, `stochology-governance`, and `stochology-cli`) implement the entire Stochology verification architecture using only the Rust standard library (`std`), anchored to `SplitMix64` under a pre-registered seed.
 - **Two CLI binaries** (`labs` for the 7 empirical/synthetic laboratories and `gates` for the 8 epistemological gates, `--audit-card <card.yaml>`, and the 27 negative defect proofs) pair with the 16 interactive `/lab` modules in `mathjax.js`.

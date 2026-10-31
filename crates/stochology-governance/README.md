@@ -1,6 +1,6 @@
 # `stochology-governance`
 
-Bitemporal production governance, cryptographic temporal vaults, conformal change-point detection, and label-shift adaptation for the **Stochology — CAPIBA Protocol** (*Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol*) in pure Rust (`std` only).
+Bitemporal production governance, cryptographic temporal vaults, conformal change-point detection, and label-shift adaptation for **Stochology** in pure Rust (`std` only).
 
 ## Overview
 

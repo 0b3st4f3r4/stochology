@@ -401,7 +401,7 @@ evidence = cargo run --release --bin labs -- --siga
 defect =
 
 [node.protocol_profiles]
-title = Shape the protocol's clay for a new application with a pre-registered profile
+title = Shape the clay for a new application with a pre-registered profile
 chapters = 17, 26
 requires = funnel_siga
 pair = all six pairs
@@ -428,5 +428,5 @@ evidence = scripts/verify.sh
 defect =
 
 [practicum.thread]
-summary = Cross-cutting practice that runs across every pathway: prune the question, shape the protocol, face the real data, and verify.
+summary = Cross-cutting practice that runs across every pathway: prune the question, shape the clay, face the real data, and verify.
 nodes = funnel_siga, protocol_profiles, empirical_synthesis, verification_suite

@@ -1,4 +1,4 @@
-//! Protocol Profile ("clay") integration tests over the shaped application in `examples/clay/`.
+//! Application Profile ("clay", `ProtocolProfile`) integration tests over the shaped application in `examples/clay/`.
 //!
 //! The example dataset is **simulated** (`SplitMix64`, seed 31): a thought experiment about night-shift
 //! bed overflow across hospital wards, not a claim about any real hospital (`AGENTS.md` §II.C).

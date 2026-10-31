@@ -9,6 +9,7 @@
 pub mod circuit_breaker;
 pub mod conformal;
 pub mod covariate;
+pub mod ethics_of_aim;
 pub mod label_shift;
 pub mod pccp_plat;
 pub mod statutory;
@@ -16,6 +17,11 @@ pub mod statutory;
 pub use circuit_breaker::{DriftRegime, MurphyCorpCircuitBreaker};
 pub use conformal::AdaptiveConformalInference;
 pub use covariate::{CovariateDriftResult, fit_covariate_drift_extra_wcp};
+pub use ethics_of_aim::{
+    CollapseProposition, ReflexiveStochologyGoodhartAudit, SosaJudgmentGrade,
+    SosaVirtueAndInnesHolmstromContractAudit, TensionSevenInstitutionalAgencyAudit,
+    TriadicSafeguardComplementarityAudit,
+};
 pub use label_shift::{
     LabelShiftDiagnostic, adjust_posterior_for_label_shift, estimate_label_shift_four_methods,
     fit_calibrated_logistic_1d,

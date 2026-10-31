@@ -1,6 +1,6 @@
 # `stochology-cli`
 
-Executable CLI laboratories (`labs`) and epistemological gates (`gates`) for the **Stochology — CAPIBA Protocol** (*Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol*) in pure Rust (`std` only).
+Executable CLI laboratories (`labs`) and epistemological gates (`gates`) for **Stochology** in pure Rust (`std` only).
 
 ## Binaries
 

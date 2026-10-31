@@ -48,9 +48,9 @@ for defect in $(echo "$DEFECT_REGISTRY" | grep -v '^partition' | cut -f1); do
     fi
 done
 
-echo ">>> [6/6] Verifying doc-to-code symbol parity, CAPIBA Protocol contract, and release tag hygiene..."
+echo ">>> [6/6] Verifying doc-to-code symbol parity, Stochology 6-pillar verification contract, and release tag hygiene..."
 sym_count=0
-for sym in CorpCrpsDecomposition EBhMultiplicityAudit PeekingMultiplicitySimulation PerformativePowerAudit exact_wasserstein_1 AnchorRegressionAudit RealTimeVintageAudit MulticalibrationAudit CapibaPillarAudit SplitMix64 DpiOperationalStage MengAudit data_defect_correlation_ddc data_defect_index_ddi law_of_large_populations_z ManskiBounds lee_trimming_bounds lee_tipping_point_delta PerformativeSystem perfgd_trajectory ChouldechovaAudit disparate_impact_fpr_ratio minmax_penalty_disparity CorpPavDecomposition compute_logarithmic MurphyDiagram CorpRocMurphyTriptych SaviConfidenceSequence gro_betting VarEsEBacktest GerstgrasserAccumulateAudit SyntheticDataPolicy AlertFatigueAudit PredeterminedChangeControlPlan ProfitLossAttributionTest EvaluatedCompetenceCriterion ComplexFractalToroidalTechniumSynthesis EmpiricalTriadicTechniumAudit RubinMultipleImputationAudit ShapleyCausalAudit SaatyAhpRankReversalAudit LlmJudgePpiRectifier RobustKalmanControlAudit RegulatoryComplianceAudit EpistemicPkmProvenanceAudit StrategicAiAccommodationSynthesis EmpiricalStrategicAccommodationAudit prospective_ppi_gold_sample_size ppi_effective_sample_size_multiplier SimpsonCausalParadoxAudit LongContextDpiDilutionAudit MultimodalCorrelatedFusionAudit PreMortemCounterfactualRootCauseAudit CloudLocalLoraArchitectureAudit CoupledPublicPrivateSocietySynthesis EmpiricalCoupledSocietyAudit SfcFlowMatrix H1aRegulatorCouplingAblation H1bCreditScreeningAblation H2VcgGreenLaffontCommonsAblation ProtocolProfile ColumnMappedCsvStrategy; do
+for sym in CorpCrpsDecomposition EBhMultiplicityAudit PeekingMultiplicitySimulation PerformativePowerAudit exact_wasserstein_1 AnchorRegressionAudit RealTimeVintageAudit MulticalibrationAudit VerificationPillarAudit SplitMix64 DpiOperationalStage MengAudit data_defect_correlation_ddc data_defect_index_ddi law_of_large_populations_z ManskiBounds lee_trimming_bounds lee_tipping_point_delta PerformativeSystem perfgd_trajectory ChouldechovaAudit disparate_impact_fpr_ratio minmax_penalty_disparity CorpPavDecomposition compute_logarithmic MurphyDiagram CorpRocMurphyTriptych SaviConfidenceSequence gro_betting VarEsEBacktest GerstgrasserAccumulateAudit SyntheticDataPolicy AlertFatigueAudit PredeterminedChangeControlPlan ProfitLossAttributionTest EvaluatedCompetenceCriterion ComplexFractalToroidalTechniumSynthesis EmpiricalTriadicTechniumAudit RubinMultipleImputationAudit ShapleyCausalAudit SaatyAhpRankReversalAudit LlmJudgePpiRectifier RobustKalmanControlAudit RegulatoryComplianceAudit EpistemicPkmProvenanceAudit StrategicAiAccommodationSynthesis EmpiricalStrategicAccommodationAudit prospective_ppi_gold_sample_size ppi_effective_sample_size_multiplier SimpsonCausalParadoxAudit LongContextDpiDilutionAudit MultimodalCorrelatedFusionAudit PreMortemCounterfactualRootCauseAudit CloudLocalLoraArchitectureAudit CoupledPublicPrivateSocietySynthesis EmpiricalCoupledSocietyAudit SfcFlowMatrix H1aRegulatorCouplingAblation H1bCreditScreeningAblation H2VcgGreenLaffontCommonsAblation ProtocolProfile ColumnMappedCsvStrategy MayoManskiSevereBoundaryAudit ImbensManskiConfidenceInterval KeynesEvidentialWeightAudit ProcessTracingTestKind TriadicSafeguardComplementarityAudit CollapseProposition ReflexiveStochologyGoodhartAudit SosaVirtueAndInnesHolmstromContractAudit SosaJudgmentGrade HollingCanguilhemResilienceAudit; do
     if ! grep -q "$sym" "docs/PROTOCOL.md"; then
         echo "ERROR: docs/PROTOCOL.md omits canonical symbol '$sym'!" >&2
         exit 1
@@ -165,30 +165,13 @@ for token in "${reg_prefix}..." "${soc_prefix}..." "K = ${reg_k}" "${reg_sources
 done
 echo "  [OK] book-src/appendix-c-sources.md synchronized with acceptance_registry.txt (K=$reg_k, sources=$reg_sources, gated=$reg_gated, discarded=$reg_discarded)"
 
-# CAPIBA Protocol Contract Gate (6 mnemonic pillars -> gates & the registry's disjoint negative defect proofs)
-CAPIBA_EN="Calibrated, Anytime-valid, Performative-aware, Invariant, Bitemporal Auditing Protocol"
-for doc in "README.md" "AGENTS.md" "docs/PROTOCOL.md" "book-src/00-preface.md"; do
-    if ! grep -q "$CAPIBA_EN" "$doc"; then
-        echo "ERROR: '$doc' omits canonical CAPIBA Protocol expansion ('$CAPIBA_EN')!" >&2
-        exit 1
-    fi
-done
-if ! grep -q "Lourenço da Fonseca Barbosa" "book-src/00-preface.md"; then
-    echo "ERROR: 'book-src/00-preface.md' omits the dedication to Lourenço da Fonseca Barbosa (Capiba)!" >&2
-    exit 1
-fi
-for norm_doc in "AGENTS.md" "docs/PROTOCOL.md"; do
-    if grep -qiE 'sombrinha|fervura' "$norm_doc"; then
-        echo "ERROR: Normative document '$norm_doc' contains untested metaphorical vocabulary (belongs only in book-src/00-preface.md)!" >&2
-        exit 1
-    fi
-done
+# Stochology 6-Pillar Verification Contract Gate (6 pillars -> gates & the registry's disjoint negative defect proofs)
 # The pillar partition and the defect names come from the registry (`gates --list-defects`, `ALL_DEFECTS`);
 # the normative documents must quote that partition and every defect name.
-CAPIBA_PARTITION="$(echo "$DEFECT_REGISTRY" | grep '^partition' | cut -f2)"
+PILLAR_PARTITION="$(echo "$DEFECT_REGISTRY" | grep '^partition' | cut -f2)"
 for doc in "README.md" "AGENTS.md" "docs/PROTOCOL.md"; do
-    if ! grep -qF "$CAPIBA_PARTITION" "$doc"; then
-        echo "ERROR: '$doc' omits the registry's pillar partition '$CAPIBA_PARTITION'!" >&2
+    if ! grep -qF "$PILLAR_PARTITION" "$doc"; then
+        echo "ERROR: '$doc' omits the registry's pillar partition '$PILLAR_PARTITION'!" >&2
         exit 1
     fi
 done
@@ -203,12 +186,12 @@ done
 for pillar_gate in "G6" "G2/G3/G6" "G6/G8" "G3/G6/G8" "G7" "G4/G8"; do
     for doc in "README.md" "AGENTS.md" "docs/PROTOCOL.md"; do
         if ! grep -q "\`$pillar_gate\`" "$doc"; then
-            echo "ERROR: '$doc' omits CAPIBA pillar gate mapping '$pillar_gate'!" >&2
+            echo "ERROR: '$doc' omits verification pillar gate mapping '$pillar_gate'!" >&2
             exit 1
         fi
     done
 done
-echo "  [OK] CAPIBA Protocol 6-pillar contract verified (gates pinned + $CAPIBA_PARTITION negative proofs from the registry + preface dedication hygiene)"
+echo "  [OK] Stochology 6-pillar verification contract verified (gates pinned + $PILLAR_PARTITION negative proofs from the registry)"
 
 # Phi3 seal integrity: every manifest entry matches its file, and sealed dataset hashes are unchanged since HEAD
 if ! sha256sum -c --quiet data/SHA256SUMS; then
@@ -261,4 +244,4 @@ if [ "${GITHUB_REF_TYPE:-}" = "tag" ] && [ "${GITHUB_REF_NAME:-}" != "v${workspa
 fi
 echo "  [OK] Release tag hygiene verified (workspace version v${workspace_ver})"
 
-echo ">>> FULL VERIFICATION APPROVED (STOCHOLOGY PROTOCOL) <<<"
+echo ">>> FULL VERIFICATION APPROVED (STOCHOLOGY) <<<"

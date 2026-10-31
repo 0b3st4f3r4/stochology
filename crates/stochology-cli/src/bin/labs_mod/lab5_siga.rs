@@ -3,7 +3,10 @@
 use std::path::Path;
 use stochology_cli::{load_cards_from_disk, verify_card_against_empirical_data};
 use stochology_siga::roadmap::OperatingPointSource;
-use stochology_siga::{AlertFatigueAudit, EvidenceProcess, fit_shelf_beta_prior};
+use stochology_siga::{
+    AlertFatigueAudit, EvidenceProcess, KeynesEvidentialWeightAudit, MayoManskiSevereBoundaryAudit,
+    fit_shelf_beta_prior,
+};
 
 /// Renders the §II.C provenance class of an `AlertFatigueAudit` operating point.
 fn describe_operating_point_source(source: &OperatingPointSource) -> String {
@@ -62,4 +65,23 @@ pub fn lab_siga(root: &Path) {
             println!("    {line}");
         }
     }
+    let mayo_manski = MayoManskiSevereBoundaryAudit::canonical_benchmark();
+    let keynes = KeynesEvidentialWeightAudit::canonical_benchmark();
+    println!(
+        "  [Mayo-Manski Severe Boundary & Keynes Process Tracing] ImbensManski_CI=[{:.3}, {:.3}], SEV_L={}, MinimaxRegret={:.4} (protect={}, verified={}) | Keynes_V={:.3} (vs sparse={:.3}), Hoop={:?} ({:+.1}dB), SmokingGun={:?} ({:+.1}dB), post={:.3}, verified={}",
+        mayo_manski.imbens_manski_ci.ci_lower,
+        mayo_manski.imbens_manski_ci.ci_upper,
+        mayo_manski.mayo_severe_at_lower_bound,
+        mayo_manski.minimax_regret_protect,
+        mayo_manski.minimax_regret_recommends_protect,
+        mayo_manski.mayo_manski_bridge_verified,
+        keynes.dense_archive_weight_v,
+        keynes.thin_archive_weight_v,
+        keynes.hoop_test.0,
+        keynes.hoop_test.2,
+        keynes.smoking_gun_test.0,
+        keynes.smoking_gun_test.1,
+        keynes.combined_process_tracing_posterior,
+        keynes.keynes_and_process_tracing_verified
+    );
 }

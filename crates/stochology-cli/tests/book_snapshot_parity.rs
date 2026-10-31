@@ -52,6 +52,14 @@ fn collect_output_lines(root: &Path) -> HashSet<String> {
                 "examples/clay/card_clay_night_shift_overflow.yaml".to_string(),
             ],
         ),
+        (
+            gates_bin,
+            vec![
+                "--audit-card".to_string(),
+                "examples/process_tracing/card_process_tracing_epidemiological_inquiry.yaml"
+                    .to_string(),
+            ],
+        ),
     ];
     for defect in all_defect_names() {
         invocations.push((gates_bin, vec!["--defect".to_string(), defect.to_string()]));

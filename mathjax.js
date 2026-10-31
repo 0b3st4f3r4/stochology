@@ -1705,7 +1705,7 @@
         while (prev && !/^H[1-6]$/.test(prev.tagName)) {
           prev = prev.previousElementSibling;
         }
-        var label = prev ? prev.textContent.trim() : "Protocol specification table";
+        var label = prev ? prev.textContent.trim() : "Specification table";
         wrapper.setAttribute("aria-label", label);
       }
 
@@ -2128,7 +2128,7 @@
       }
       fig.setAttribute(
         "aria-label",
-        prev ? prev.textContent.trim() + " — Diagram" : "Stochology Protocol Diagram"
+        prev ? prev.textContent.trim() + " — Diagram" : "Stochology Diagram"
       );
 
       var div = document.createElement("div");

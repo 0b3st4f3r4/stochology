@@ -15,7 +15,7 @@ The same illusion happens every day in data science:
 Now consider a second paradox: **the Hot Hand and the Forgotten Null Model ($\Phi\_1, \Phi\_3$)**.
 Ask $100$ people in an auditorium to toss a fair coin $20$ times each and write down their longest streak of consecutive Heads. Even though no one has "coin-tossing talent," in $100\%$ of simulated auditoriums someone will toss at least $6$ Heads in a row, and the longest streak in the room will average **$9.5$ consecutive Heads**. If a journalist interviews only the winner after the fact, tomorrow's headline announces a miracle. Even more subtly, when Joshua Miller and Adam Sanjurjo (2018) wrote down the exact finite-sample generative null model for basketball shooting streaks, they discovered that in $3$ tosses of a fair coin, the average proportion of Heads *immediately following a Head* across sequences is not $\frac{1}{2} = 0.50$, but **$\frac{5}{12} \approx 0.4167$**. For thirty years, psychologists had compared basketball players against $0.50$ instead of simulating the actual null model on a computer.
 
-To prevent these errors from ever entering production, the Stochology Protocol enforces **Five Boundary Invariants ($\Phi\_1$ to $\Phi\_5$)** as a strict boolean product $\Phi = \prod\_{j=1}^5 \Phi\_j$: if even one invariant fails, the gate drops to $0$ and blocks the claim.
+To prevent these errors from ever entering production, Stochology enforces **Five Boundary Invariants ($\Phi\_1$ to $\Phi\_5$)** as a strict boolean product $\Phi = \prod\_{j=1}^5 \Phi\_j$: if even one invariant fails, the gate drops to $0$ and blocks the claim.
 
 <figure class="stoch-figure">
   <svg xmlns="http://www.w3.org/2000/svg" width="1140" height="230" viewBox="0 0 1140 230" fill="none" role="img" aria-labelledby="title-fig-07-invariants">
@@ -27,7 +27,7 @@ To prevent these errors from ever entering production, the Stochology Protocol e
   <rect x="16" y="24" width="206" height="182" rx="11" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2"/>
   <text x="119" y="54" text-anchor="middle" fill="var(--sky)" class="mono" font-size="12" font-weight="800">INVARIANT Φ₁</text>
   <text x="119" y="82" text-anchor="middle" fill="var(--ink)" font-size="14.5" font-weight="800">Simulability</text>
-  <text x="119" y="114" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11">seed = 2026</text>
+  <text x="119" y="114" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11">Pre-Registered Seed</text>
   <text x="119" y="138" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11">SplitMix64 RNG</text>
   <text x="119" y="162" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11">Generative Null H₀</text>
   <rect x="240" y="24" width="206" height="182" rx="11" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2"/>
@@ -64,7 +64,7 @@ To prevent these errors from ever entering production, the Stochology Protocol e
 
 | Invariant | Name | Formal Requirement | Rust Implementation |
 | --- | --- | --- | --- |
-| **$\Phi\_1$** | **Simulability** | Fixed seed (`seed = 2026`, `SplitMix64`) and an executable generative null model before any parameter fitting. | `stochology_core::rng::Rng` & `card/` |
+| **$\Phi\_1$** | **Simulability** | Pre-registered seed (`ProtocolProfile::seed`, `SplitMix64`) and an executable generative null model before any parameter fitting. | `stochology_core::rng::Rng` & `card/` |
 | **$\Phi\_2$** | **Independent Unit & Exceedance Design Effect** | Margin computed over the true independent unit; Moulton-Campbell unequal-cluster correction $\tilde{m} = \bar{m}(1 + \mathrm{CV}^2(m\_j))$, threshold exceedance ICC $\rho\_I(p)$, and $n\_{\mathrm{eff}}(p) = \frac{n}{1 + (\tilde{m}-1)\rho\_I(p)}$. | `stochology_core::invariants::{ExceedanceDesignEffect, OperationalWeightingGap}` |
 | **$\Phi\_3$** | **Severe Test, Missingness & Pre-Registration** | Explicit Rubin missingness (`MCAR`, `MAR`, `MNAR`), Meng's Identity ($\rho\_{R,Y}$), Manski bounds, 64-hex SHA-256 pre-registration seal, and Pearl's Ladder rung. | `stochology_core::{layers, sha256, card}` |
 | **$\Phi\_4$** | **Scope, Fairness & Automatic Exit** | Economic threshold $p^{\ast} = \frac{C}{\eta L}$, Chouldechova's algebraic fairness audit ($\mathrm{FPR}\_A / \mathrm{FPR}\_B$), declared scope, and machine-actionable numeric exit clause. | `stochology_core::invariants::ChouldechovaAudit` & `card/` |
@@ -150,9 +150,9 @@ In `toronto_arrests.csv` ($n = 5\text{,}226$ police arrest records), two demogra
 Complementing Chouldechova's binary threshold identity, **Jon Kleinberg, Sendhil Mullainathan, and Manish Raghavan (2017)** proved a **continuous risk-score impossibility theorem** (`ChouldechovaAudit::kmr_continuous_impossibility_gap`): for any perfectly calibrated continuous risk score $S \in (0, 1)$ ($\mathbb{E}[Y \mid S = s, G = g] = s$), the Law of Iterated Expectations locks the mean score of group $g$ to $\mathbb{E}[S \mid G = g] = p\_g$, and if a non-perfect score additionally equalizes average score among negative cases ($\mathbb{E}[S \mid Y = 0, G = g]$) and positive cases ($\mathbb{E}[S \mid Y = 1, G = g]$), the Bernoulli variance ceiling $p\_g(1 - p\_g)$ forces an irreducible variance gap (`KMR_var_gap = 0.0960` on `toronto_arrests.csv`) whenever $p\_A \neq p\_B$ and $p\_A + p\_B \neq 1$.
 
 Because no algorithm can repeal Bayes' theorem, Invariant $\Phi\_4$ requires every Epistemological Card to:
-1. Audit Chouldechova's identity explicitly and declare **`who_pays_for_error`** (naming the human or institutional bearer of False Positives and False Negatives);
+1. Audit Chouldechova's identity explicitly and declare **`who_pays_for_error`** (naming the human or institutional bearer of False Positives and False Negatives)—grounding algorithmic deployment in **T. M. Scanlon's (1998) contractualism**, **Sven Ove Hansson's (2013) ethics of risk**, and **Ernest Sosa's (2007, 2015) *fully apt agency*** (Tension 7, [Chapter 23](23-stochary-conjectural-cybernetics.md)), which forbid using mathematical formalism as a technocratic alibi to impose uncompensated false-positive or false-negative burdens on vulnerable populations;
 2. Declare an explicit **`scope_statement`** (where the model is forbidden from being applied);
-3. Declare a machine-actionable numeric **`exit_clause`** (for instance: *"Immediately suspend automated shift scheduling if $\mathrm{REL}\_{\mathrm{CORP}} > 0.020$ or $\mathrm{RES}\_{\mathrm{CORP}} < 0.025$ over a 10-business-day rolling window"*).
+3. Declare a machine-actionable numeric **`exit_clause`** (for instance: *"Immediately suspend automated shift scheduling if $\mathrm{REL}\_{\mathrm{CORP}} > 0.020$ or $\mathrm{RES}\_{\mathrm{CORP}} < 0.025$ over a 10-business-day rolling window"*), operationalizing Sosa's meta-competence of knowing when uncertainty or subgroup disparity requires lowering the bow.
 
 ---
 
@@ -166,7 +166,7 @@ Chouldechova's trilemma is about error rates. A forecast can also be calibrated 
   [G4] A: multicalibration on toronto_arrests.csv: 59 cells, 0 violations, verdict Inconclusive (largest confidence radius 0.360, tolerance 0.05)
 ~~~
 
-Cells hold 30 to 523 arrests. The smallest has a confidence radius of $0.36$, and certifying a gap below $0.05$ at this Bonferroni level would need about 1,550 units per cell, so the audit cannot resolve gaps of the tolerance's size, and it says so. On a **simulated** predictor (seed 2026) whose subgroup errors cancel exactly, the global CORP check sees nothing and the subgroup audit blocks:
+Cells hold 30 to 523 arrests. The smallest has a confidence radius of $0.36$, and certifying a gap below $0.05$ at this Bonferroni level would need about 1,550 units per cell, so the audit cannot resolve gaps of the tolerance's size, and it says so. On a **simulated** predictor (under a pre-registered seed) whose subgroup errors cancel exactly, the global CORP check sees nothing and the subgroup audit blocks:
 
 ~~~text
 NEGATIVE PROOF [subgroup_miscalibration] BLOCKED SUCCESSFULLY: global REL_CORP=0.0009 hides 10 multicalibration violations (simulated, seed 2026)
@@ -408,7 +408,7 @@ Three negative defect proofs test these invariants directly:
 
 ## Summary
 
-- **$\Phi\_2$ (Independent Unit & Prospective Clustered DoE):** Discounts nominal sample size $n$ for unequal cluster sizes ($\tilde{m} = \bar{m}(1 + \mathrm{CV}^2)$) and tail clustering ($\rho\_I(p)$), yielding $n\_{\mathrm{eff}}(p) = \frac{n}{1 + (\tilde{m}-1)\rho\_I(p)}$, and sizes prospective cluster-randomized experiments via `prospective_clustered_mde` ($\mathrm{MDE}\_{\text{clustered}} = \mathrm{MDE}\_{\text{iid}}\sqrt{\mathrm{DEFF}}$, raising simulated power from $0.17$ under naive i.i.d. sizing to $0.90$ under DEFF-aware sizing in Axis 2 of the strategic synthesis (`ShapleyCausalRubinMiDoeAudit`, `Clustered_Power=0.90` vs. naive `0.17`, simulated, `seed = 2026`), and inflating the required MDE by $5.32\times$ across the $164$ days of measured `bank_calls.csv`).
+- **$\Phi\_2$ (Independent Unit & Prospective Clustered DoE):** Discounts nominal sample size $n$ for unequal cluster sizes ($\tilde{m} = \bar{m}(1 + \mathrm{CV}^2)$) and tail clustering ($\rho\_I(p)$), yielding $n\_{\mathrm{eff}}(p) = \frac{n}{1 + (\tilde{m}-1)\rho\_I(p)}$, and sizes prospective cluster-randomized experiments via `prospective_clustered_mde` ($\mathrm{MDE}\_{\text{clustered}} = \mathrm{MDE}\_{\text{iid}}\sqrt{\mathrm{DEFF}}$, raising simulated power from $0.17$ under naive i.i.d. sizing to $0.90$ under DEFF-aware sizing in Axis 2 of the strategic synthesis (`ShapleyCausalRubinMiDoeAudit`, `Clustered_Power=0.90` vs. naive `0.17`, simulated under a pre-registered seed), and inflating the required MDE by $5.32\times$ across the $164$ days of measured `bank_calls.csv`).
 - **$\Phi\_4$ (Scope, Fairness & Exit):** Audits Chouldechova's algebraic identity $\mathrm{FPR}\_g = \frac{p\_g}{1-p\_g}\frac{1-\mathrm{PPV}\_g}{\mathrm{PPV}\_g}(1-\mathrm{FNR}\_g)$, names who pays for false positives and false negatives, bounds scope, and sets a numeric exit clause.
 - **$\Phi\_5$ (Resolution Alignment):** Blocks coarse temporal or spatial aggregates from answering fine-grained operational decisions ($R\_{\text{data}} \ge R\_{\text{decision}}$).
 - **Info-Gap Decision Theory coupled with Sniedovich's Global Maximin Safeguard** measures local robustness ($\hat{\alpha}$) and opportuneness ($\hat{\beta}$) while guaranteeing a global Wald worst-case floor across No-Man's Land.

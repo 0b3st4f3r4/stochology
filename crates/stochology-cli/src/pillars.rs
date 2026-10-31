@@ -1,6 +1,6 @@
-//! Real-data couplers across the six CAPIBA pillars: one instrument per pillar, each run on a
-//! sealed dataset in `data/` so that a protocol input moves from **Assumed** to **Measured** or a
-//! protocol claim is tested out-of-sample.
+//! Real-data couplers across the six verification pillars: one instrument per pillar, each run on a
+//! sealed dataset in `data/` so that a disciplinary input moves from **Assumed** to **Measured** or a
+//! quantitative claim is tested out-of-sample.
 
 use std::path::Path;
 
@@ -314,9 +314,9 @@ impl TorontoMulticalibrationAudit {
     }
 }
 
-/// The six CAPIBA pillar real-data audits, evaluated together for `gates` and `labs`.
+/// The six verification pillar real-data audits, evaluated together for `gates` and `labs`.
 #[derive(Debug, Clone, PartialEq)]
-pub struct CapibaPillarAudit {
+pub struct VerificationPillarAudit {
     pub calibrated: VicElecCrpsAudit,
     pub anytime: FlightCarrierEbhAudit,
     pub performative: NswPerformativePowerAudit,
@@ -325,7 +325,7 @@ pub struct CapibaPillarAudit {
     pub auditing: TorontoMulticalibrationAudit,
 }
 
-impl CapibaPillarAudit {
+impl VerificationPillarAudit {
     pub fn evaluate(root: &Path) -> Result<Self, String> {
         Ok(Self {
             calibrated: VicElecCrpsAudit::evaluate(root),
@@ -401,9 +401,9 @@ mod tests {
     use crate::resolve_workspace_root;
 
     #[test]
-    fn capiba_pillar_audits_reproduce_the_measured_values() {
+    fn verification_pillar_audits_reproduce_the_measured_values() {
         let root = resolve_workspace_root();
-        let audit = CapibaPillarAudit::evaluate(&root).expect("bounded payoffs");
+        let audit = VerificationPillarAudit::evaluate(&root).expect("bounded payoffs");
         assert!(
             audit.failed_checks().is_empty(),
             "{:?}",
