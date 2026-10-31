@@ -1,0 +1,45 @@
+# Stochology — Pre-Commit & CI Verification Configuration
+# Run locally with: pre-commit run --all-files
+# Install git hook with: pre-commit install
+
+minimum_pre_commit_version: "3.0.0"
+default_stages: [pre-commit, pre-push]
+fail_fast: true
+
+repos:
+  - repo: local
+    hooks:
+      - id: sha256-datasets
+        name: Verify sealed empirical datasets (data/SHA256SUMS)
+        entry: sha256sum -c --quiet data/SHA256SUMS
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: cargo-fmt
+        name: Check Rust formatting (cargo fmt)
+        entry: cargo fmt --all -- --check
+        language: system
+        types: [rust]
+        pass_filenames: false
+
+      - id: cargo-clippy
+        name: Run Clippy lints (cargo clippy -D warnings)
+        entry: cargo clippy --all-targets -- -D warnings
+        language: system
+        types: [rust]
+        pass_filenames: false
+
+      - id: cargo-llvm-cov
+        name: Run test suite and verify coverage >= 90% (cargo llvm-cov)
+        entry: cargo llvm-cov --workspace --summary-only --fail-under-lines 90
+        language: system
+        types: [rust]
+        pass_filenames: false
+
+      - id: stochology-verify
+        name: Run full Stochology verification suite (./scripts/verify.sh)
+        entry: ./scripts/verify.sh
+        language: system
+        pass_filenames: false
+        always_run: true

@@ -1,124 +1,107 @@
-<img src="theme/favicon.svg" style="max-height: 300px" />
+<p align="center">
+  <img src="book-src/logo.svg" alt="Stochology Emblem" />
+</p>
 
-<br />
+# Stochology — The Science and Ethics of Aim (*Stókhos*) under Uncertainty
 
-# Stochology — The Science and Ethics of Aim for Judgment and Decision-Making under Uncertainty
+**Stochology** is the science and ethics of aim (*stókhos*, from Plato's *Philebus* 55e–56c, Hippocratic *sēmeîa*, *kairós*, and *mêtis*, and Antipater of Tarsus's archer to Jakob Bernoulli's *Ars Conjectandi*) for judgment and decision-making under uncertainty when action must precede the outcome.
 
-**Stochology** is the **scientific and ethical discipline** of judgment and decision-making under uncertainty when action must precede the outcome — structured by a **disciplinary program** across three interdependent axes: **epistemic margin** (structural diagnosis of missingness, non-Gaussian tails, and specification discrepancy), **vital margin** (protection of non-ergodic survival and buffering against ruin), and **fully apt agency under institutional governance** (performative accountability, cost-loss thresholds, and asymmetric responsibility; see [`notes/A Ética da Mira.md`](notes/A%20%C3%89tica%20da%20Mira.md)).
-
-This repository provides the pure-Rust implementation (zero external dependencies) of **Stochology**'s auditable epistemological machine, normative kernel, transversal lenses, and verification architecture.
-
-The repository brings together in a single verifiable workspace:
-
-1. **Structural Diagnosis of the Three Ontological Layers ($L_1 \to L_2 \to L_3 \to L_1$):** Meng's Identity ($\rho_{R,Y}$), Manski's bounds under MNAR missingness, Jensen's Gap $\Delta_J = \mathbb{E}[f(X)] - f(\mathbb{E}[X])$, $\mathrm{CRPS}$ evaluation, **Performative Prediction** ($\theta_{\mathrm{SL}}, \theta_{\mathrm{PS}}, \theta_{\mathrm{PO}}$ of Stackelberg and contraction radius $\frac{\varepsilon \beta}{\gamma} < 1$), and the **4 Variants of Goodhart's Law** (`GoodhartTaxonomyAudit`: Regressional, Extremal, Causal, Adversarial).
-2. **Uncertainty Typing and Severe Uncertainty:** **Kennedy-O'Hagan** Gaussian Process Structural Discrepancy ($\delta(x) \sim \mathcal{GP}(0, k(x, x'))$) and **Info-Gap Decision Theory** ($\hat{\alpha}, \hat{\beta}$, *zero-ing*) coupled with **Sniedovich's Global Maximin Safeguard** (Wald).
-3. **The Five Transversal Lenses, Almost-Perfect Machine, and Authentic Model Form:**
-   - **Information:** Data Processing Inequality (3-step Markov chain DPI), SDPI hierarchy ($\eta_{\chi^2} = \rho_m^2 \le \eta_{\mathrm{KL}} \le \eta_{\mathrm{TV}}$), and Fano's error floor.
-   - **Time:** Itô variance drain, asymmetric optimal Kelly fraction ($f^* = \frac{p}{a} - \frac{1-p}{b}$), absorbing ruin states, and mixing time under Log-Sobolev Inequality.
-   - **Scale and Tail:** Hill estimator ($\hat{\alpha}_{k,n}$) and moment existence regimes.
-   - **Structure and Invariance:** Pearl's Causal Ladder, Invariant Causal Prediction (ICP), environment OLS invariance penalty, nonlinear NILE/IRM over orthonormal Hermite basis (`run_nonlinear_icp_nile`), 2nd-order worst-case loss, and hidden confounding threshold $\Lambda^*$.
-   - **Decision and Calibration:** Cost-loss rule $p^* = \frac{C}{\eta L}$, $\mathrm{EVPI}$, quantile score, isotonic **CORP-Murphy** decomposition via the *Pool-Adjacent-Violators* (PAV) algorithm, and exact fair-coin calibration vs. decision benchmark (`ExactCoinCalibrationBenchmark`).
-   - **Almost-Perfect Machine & First-Class Authentic Model Form (`machine.rs`):** $(\varepsilon, \delta)$-Almost-Perfect Machine $M = (T, \Phi, \theta)$ (`P1`–`P5`: Barron rate $C_f^2 / W$, DPI $\delta$-sufficiency, Fano/minimax optimality, Telgarsky $2^D$ linear regions, and Gram $d_{\mathrm{eff}}$) and `AuthenticModelForm` ($\delta(x) + \hat{S}^*$, named discarded atoms, 6 numerical identities, and 5-part criterion $A(\text{model})$).
-   - **Relational Ontology (`relational/`), Physical/Analog/Wave Computing (`analog/`), Critical Theory of Stochastic Rationality (`critical/`), Stochary-Conjectural Cybernetics (`stocks/`), Triadic Technium (`triad/`), Strategic AI Accommodation (`strategic/`), & Coupled Public-Private Society (`society/`):** 6-axis relational complex systems synthesis (Prigogine Brusselator RK4, Schelling, *Daisyworld*), 5-axis physical/analog/wave computing synthesis (Horowitz 45nm CMOS energy wall, exact RLC-mechanical ODE isomorphism, AIMC "Analog Wall" threshold cliff vs. Noise-Aware Training, PKU 24-bit `HP-INV` + recursive $4\times 4$ `BlockAMC` block solver + `ABNAT / HaLoRA` attention stability, `SIREN` Helmholtz PDE & Stanford Wave-Equation RNN, and the $1.6 \times 10^8 : 1$ sensory DPI compression funnel + Turing deciban threshold), 4-axis Critical Theory synthesis (Adorno's liquidation of the *Non-Identical* $\Delta_{\text{Nichtidentische}}$, Marcuse/Rouvroy algorithmic preemption & "Stochastic Parrots" + 4 Goodhart variants, 300T token exhaustion & material collapse, and neurosymbolic/wave-interference overcoming), 4-axis Stochary-Conjectural & Cybernetic synthesis (150-node cybernetic graph, 4 Ontological Stock Axioms, Powell's 4 policy classes, Friston Variational Free Energy + simulated preposterior VoI [Expected Free Energy $G(\pi)$ is cited, not computed], Pearl Front-Door, Dierickx-Cool, Scarf $(S,s)$, Kingman VUT & MEIO decoupling `SupplyChainPhysicsAudit`, Simchi-Levi $\mathrm{TTS}/\mathrm{TTR}$, $\beta$-CVaR + WDRO, Ashby/Conant/Beer `VSM` S1–S5/`S3*`/Algedonic + `PLAT`/`PCCP`/`EvaluatedCompetenceCriterion`, and `PATE` Q1–Q4 matrix), 6-bridge Triadic ($\mathbb{C} \times \text{Fractals} \times \mathbb{T}^d$) & Technium synthesis (`ComplexFractalToroidalTechniumSynthesis`), 6-axis Strategic AI Six-Pair Methodological Accommodation (`StrategicAiAccommodationSynthesis`), and Coupled Public-Private Stock-Flow Consistent Society synthesis (`CoupledPublicPrivateSocietySynthesis`, `SfcFlowMatrix`, `H1aRegulatorCouplingAblation`, `H1bCreditScreeningAblation`, `H2VcgGreenLaffontCommonsAblation`).
-4. **Structured Communication Contract:** The 4 Prohibitions, the 5 Boundary Invariants ($\Phi_1$–$\Phi_5$, including lock-free `SplitMix64::split(stream_id)` and `MonteCarloSplitTreeAudit`), **Moulton-Campbell** unequal-cluster correction ($\tilde{m} = \bar{m}(1 + \mathrm{CV}^2)$), quantile exceedance design effect ($\rho_I(p)$ and $n_{\mathrm{eff}}(p)$), and **Chouldechova's** algebraic impossibility audit.
-5. **4-Filter Eliminatory Funnel and 8-Step SIGA Roadmap:** Executed end-to-end over the Epistemological Cards in [`cards/`](cards/) with sequential evidence processes (*e-processes*), executive memoranda in integer natural frequencies, and `AlertFatigueAudit` on Bridge $L_2 \to L_3$ coupling the $10\text{ bit/s}$ conscious cognitive ceiling and Turing-Good additive deciban evidence weights ($W = 10\log_{10}\mathrm{LR}$) to shift-level $\mathrm{PPV}$.
-6. **Bitemporal Governance, Single-Opening Vault, and 4 Regimes of Drift:** Bitemporal Clock ($t_{\text{disp}} \ge t_{\text{ev}}$), canary column, SHA-256 Temporal Vault, Murphy-CORP circuit breaker, *Covariate Drift* adaptation (*ExTRA-WCP-T* + Lei & Candès bound), *Label Shift* adaptation via the 4 canonical estimators (**BBSE**, **MLLS/SLD**, **DFM**, and **OTTER**), and **Predetermined Change Control Plan (`PredeterminedChangeControlPlan`)** coupled to the **Profit and Loss Attribution Test (`ProfitLossAttributionTest` — Spearman $r_s$ + KS $D_{\mathrm{KS}}$ traffic-light)** and **`EvaluatedCompetenceCriterion`**.
-7. **Transversal Real-Data Synthesis (`labs --real-data`, Lab 7):** End-to-end empirical audit across all **14 real datasets (`data/*.csv`)**, including the out-of-time (`nyc_flights_2013_h1.csv`, `nyc_flights_2023_h1.csv`) and out-of-domain (`houston_flights_2011.csv`) flight reserves, and the **4 canonical Epistemological Cards (`cards/*.yaml`)**.
+This repository implements the complete disciplinary program of [`notes/The Ethics of Aim.md`](notes/The%20Ethics%20of%20Aim.md) in **pure Rust (`std` only, zero external dependencies)**, organized 1-to-1 with its 10-chapter textbook (`book-src/`) and interactive browser simulator (`book-src/lab/index.html`) around the **Sequential Agent–World–Institution Loop** (`CommunityReserveEnv`).
 
 ---
 
-## The Six Verification Pillars of Stochology
+## 1. The Nuclear Triad and the Three Collapse Propositions
 
-**Stochology** organizes **what is verified** across six verification pillars (`1`–`6`), operating above the **5 Boundary Invariants** ($\Phi_1$–$\Phi_5$) and the **8 Epistemological Gates** (`G1`–`G8`). The **SIGA Roadmap** (*Survey, Interrogate, Generate, Act*) defines **how the 8-step operational cycle runs**. Together, the six pillars partition all **27 negative defect proofs** (`4 + 5 + 3 + 4 + 3 + 8 = 27`):
+Stochology unites three historical lineages—**Epistemological/Statistical**, **Physical/Cybernetic**, and **Critical/Ethical**—into a single **Nuclear Triad** of non-substitutable safeguards:
 
-| Pillar | Formal Guarantee | Rust Primitives | Gates | Negative Defect Proofs (`gates -- --defect`, `exit 1`) |
-| :---: | :--- | :--- | :---: | :--- |
-| **1** — **Calibrated** | Strictly proper out-of-sample calibration via isotonic PAV (`CORP` for Brier and Log scores), Murphy elementary cost-loss diagrams ($\int_0^1 \bar{S}_\theta\,d\theta = \frac{1}{2}\mathrm{BS}$), and Cromwell bounds ($p \in [\varepsilon, 1-\varepsilon]$), and the threshold-wise CORP decomposition of the CRPS. | `CorpPavDecomposition`, `MurphyDiagram`, `CorpRocMurphyTriptych`, `apply_cromwell_floor`, `CorpCrpsDecomposition` | `G6` | `cromwell`, `brier_dominance`, `concept_drift`, `crps_miscalibration` |
-| **2** — **Anytime-valid** | Valid sequential evidence under optional stopping (`aGRAPA` / `GRO` betting martingales $E_t$, `SAVI` confidence sequences, `GREE` VaR/ES e-backtesting), Moulton-Campbell tail $n_{\mathrm{eff}}(p)$, and $\Phi_5$ resolution parity, and e-BH false discovery control over many e-values. | `EvidenceProcess`, `SaviConfidenceSequence`, `VarEsEBacktest`, `ExceedanceDesignEffect`, `verify_resolution_phi5`, `EBhMultiplicityAudit` | `G2/G3/G6` | `moulton`, `peeking`, `var_underreport`, `phi5`, `multiplicity` |
-| **3** — **Performative-aware** | Separation of Performative Stability ($\theta_{\mathrm{PS}}$) from Stackelberg Optimality ($\theta_{\mathrm{PO}}$, `PerfGD`), RRM contraction ($\frac{\varepsilon\beta}{\gamma}<1$), Goodhart's 4 variants, and `Accumulate` vs. `Replace` synthetic recursion bounds, and a measured lower bound on $\varepsilon$ from randomized arms. | `PerformativeSystem`, `GoodhartTaxonomyAudit`, `GerstgrasserAccumulateAudit`, `SyntheticDataPolicy`, `PerformativePowerAudit` | `G6/G8` | `performativity`, `replace_collapse`, `understated_epsilon` |
-| **4** — **Invariant** | Structural causal invariance across environments (`ICP` / nonlinear `NILE`), Meng's `ddc`/`DDI` + fractional Lee (2009) trimming bounds & tipping point $\delta_1^*$, anchored Kennedy-O'Hagan GP, and Info-Gap + Sniedovich Maximin floor, and anchor regression. | `MengAudit`, `ManskiBounds`, `run_nonlinear_icp_nile`, `KennedyOHaganDiscrepancy`, `InfoGapOption`, `AuthenticModelForm`, `AnchorRegressionAudit` | `G3/G6/G8` | `lee_point_estimate`, `sniedovich`, `machine`, `anchor_extrapolation` |
-| **5** — **Bitemporal** | Strict event- vs. availability-time separation ($t_{\text{disp}} \ge t_{\text{ev}}$), synthetic canary mutual-information check ($I(\text{Canary}; Y)=0$), and single-opening SHA-256 `TemporalVault` with `PCCP` / `PLAT` governance, and real-time data vintages. | `BitemporalRecord`, `BitemporalClockAudit`, `TemporalVault`, `PredeterminedChangeControlPlan`, `ProfitLossAttributionTest`, `RealTimeVintageAudit` | `G7` | `clock`, `vault`, `vintage_leak` |
-| **6** — **Auditing** | Eliminatory 4-Filter Funnel, Filter 4 cross-authorship, Chouldechova & KMR fairness impossibility audits, physical/analog `HP-INV` & wave computing, critical theory of stochastic rationality, VSM `S3*` / `PATE` cybernetics, Triadic ($\mathbb{C} \times \text{Fractals} \times \mathbb{T}^d$) & Technium synthesis, Strategic AI Six-Pair Accommodation, and Coupled Public-Private Stock-Flow Consistent Society Synthesis (`CoupledPublicPrivateSocietySynthesis`, `EmpiricalCoupledSocietyAudit`, `SfcFlowMatrix`), and three-way multicalibration. | `ChouldechovaAudit`, `AlertFatigueAudit`, `AnalogWaveComputingSynthesis`, `CriticalStochasticRationalitySynthesis`, `StocharyConjecturalCyberneticSynthesis`, `ComplexFractalToroidalTechniumSynthesis`, `EmpiricalTriadicTechniumAudit`, `StrategicAiAccommodationSynthesis`, `EmpiricalStrategicAccommodationAudit`, `CoupledPublicPrivateSocietySynthesis`, `EmpiricalCoupledSocietyAudit`, `SfcFlowMatrix`, `MulticalibrationAudit` | `G4/G8` | `chouldechova`, `analog_wall`, `instrumental_reason`, `stochary_cybernetics`, `triadic_technium`, `strategic_accommodation`, `coupled_society`, `subgroup_miscalibration` |
+$$\mathcal{T}_{\mathrm{Stochology}} = \bigl(\text{Epistemic Margin},\; \text{Vital Margin},\; \text{Institutional Governance}\bigr)$$
+
+$$W_{\mathrm{triad}} = S_{\mathrm{epi}} \cdot S_{\mathrm{vital}} \cdot S_{\mathrm{gov}}, \qquad M_{\mathrm{Leontief}} = \min\bigl(S_{\mathrm{epi}},\, S_{\mathrm{vital}},\, S_{\mathrm{gov}}\bigr)$$
+
+| Collapse Proposition | Missing Axis | Structural Pathology |
+| :--- | :--- | :--- |
+| **Proposition 1** | $\neg\text{Epistemic Margin}$ | **Blind Undersizing:** Reserves are sized on a false point certainty that ignores non-random missingness ($\rho_{R,Y} \ne 0$) and cluster echoes ($\mathrm{DEFF}$). |
+| **Proposition 2** | $\neg\text{Vital Margin}$ | **Impotent Lucidity Before Ruin:** The analyst knows the exact width of uncertainty, yet the system operates at $96\text{--}100\%$ utilization or excess leverage with $\mathrm{TTS} < \mathrm{TTR}$ and is absorbed at the ruin barrier. |
+| **Proposition 3** | $\neg\text{Institutional Governance}$ | **Cynical Capture and Pillaging:** Epistemic doubt is weaponized as an alibi for paralysis while common vital reserves are pillaged under limited-liability moral hazard, proxy gaming, and testimonial discounting of frontline warnings. |
 
 ---
 
-## Repository Structure
+## 2. 1-to-1 Architecture: Treatise $\leftrightarrow$ Rust Crates $\leftrightarrow$ Textbook
+
+The workspace contains two pure-Rust crates:
+- [`crates/stochology`](crates/stochology): core mathematical, physical, and institutional library (`std` only).
+- [`crates/stochology-cli`](crates/stochology-cli): CLI runner (`stochology`) verifying [`data/SHA256SUMS`](data/SHA256SUMS) and executing the 9 progressive chapter laboratories.
+
+| Ch. | Textbook (`book-src/`) | Treatise (`notes/The Ethics of Aim.md`) | Module (`crates/stochology/src/`) | Empirical Datasets (`data/*.csv`) |
+| :-: | :--- | :--- | :--- | :--- |
+| **00** | [`00-preface.md`](book-src/00-preface.md) | §I–§II (Genealogy, Nuclear Triad, 3 Collapse Propositions) | [`lib.rs`](crates/stochology/src/lib.rs) | — |
+| **01** | [`01-sequential-loop-naive-agent.md`](book-src/01-sequential-loop-naive-agent.md) | §II.2 (Sequential Mediation Loop) | [`rng.rs`](crates/stochology/src/rng.rs), [`sha256.rs`](crates/stochology/src/sha256.rs), [`engine.rs`](crates/stochology/src/engine.rs) | — |
+| **02** | [`02-inquiry-openness-multiverse.md`](book-src/02-inquiry-openness-multiverse.md) | §III.1 (Filter I · **Tension 1**: Framing, Cromwell, Agnotology vs. Severity, Type III, *e-BH*, Multiverse) | [`inquiry.rs`](crates/stochology/src/inquiry.rs) | — |
+| **03** | [`03-underdetermination-partial-identification.md`](book-src/03-underdetermination-partial-identification.md) | §III.2 (Filter I · **Tension 2**: *e-processes*, Lakatos, Manski, Lee, Peterson, Mayo–Manski) | [`identification.rs`](crates/stochology/src/identification.rs) | `nsw_experimental.csv`, `cps_observational.csv` |
+| **04** | [`04-non-identical-asymmetry-heavy-tails.md`](book-src/04-non-identical-asymmetry-heavy-tails.md) | §IV.1 (Filter II · **Tension 3**: Dialectical Penumbra, Ordinal Invariance, Jensen $\Delta_J$, CRPS, Hill $\hat{\alpha}$) | [`asymmetry.rs`](crates/stochology/src/asymmetry.rs) | `danish_fire.csv`, `nyc_flights_2013.csv`, `nyc_flights_2023.csv` |
+| **05** | [`05-world-to-archive-big-data-paradox.md`](book-src/05-world-to-archive-big-data-paradox.md) | §IV.2 (Filter II · **Tension 4**: Keynes $V$, Meng $\rho_{R,Y}$, Campbell–Moulton $\mathrm{DEFF}$, Kish, Chao $\hat{n}_{00}$, Bitemporal Vintages) | [`archive.rs`](crates/stochology/src/archive.rs) | `cps_observational.csv`, `bank_calls.csv`, `rtdsm_routput_vintages.csv` |
+| **06** | [`06-reactive-worlds-performativity-goodhart.md`](book-src/06-reactive-worlds-performativity-goodhart.md) | §V.1 (Filter III · **Tension 5**: CORP-PAV, ICP, Kennedy–O'Hagan GP, Tian–Pearl, Perdomo/MacKenzie, Goodhart) | [`performativity.rs`](crates/stochology/src/performativity.rs) | `atlantic_storms.csv` |
+| **07** | [`07-irreversible-time-vital-margin.md`](book-src/07-irreversible-time-vital-margin.md) | §V.2 (Filter III · **Tension 6**: Itô Drain, Baker–McHale Kelly, Canguilhem–Holling, Kingman, $\mathrm{TTS}\ge\mathrm{TTR}$, Wald, Sniedovich) | [`vital.rs`](crates/stochology/src/vital.rs) | `djia_1885_2023.csv`, `vic_elec.csv` |
+| **08** | [`08-moral-luck-apt-agency-institutions.md`](book-src/08-moral-luck-apt-agency-institutions.md) | §VI (Ethical Mediation · **Tension 7**: Sosa/Baron–Hershey, List–Pettit, Fricker/Beer Algedonic, Holmström–Innes, Chouldechova, Zheng–Meister, `TemporalVault`) | [`governance.rs`](crates/stochology/src/governance.rs) | `toronto_arrests.csv` |
+| **09** | [`09-methodological-families-reflexivity.md`](book-src/09-methodological-families-reflexivity.md) | §VII–§VIII (5 Methodological Families, Process Tracing, 3 Reflexive Goodhart Brakes, 4 Refutability Conditions) | [`synthesis.rs`](crates/stochology/src/synthesis.rs) | All 14 sealed datasets |
+
+---
+
+## 3. Quick Start & Verification
+
+Run the complete test suite and all 9 chapter laboratories:
+
+```bash
+./scripts/verify.sh
+```
+
+Or run the CLI directly:
+
+```bash
+cargo run --release --bin stochology
+cargo run --release --bin stochology -- --chapter 1
+```
+
+Sample output (`cargo run --release --bin stochology`):
 
 ```text
-.
-├── AGENTS.md                                      # Binding governance and verification contract
-├── .agents/                                       # Model-Agnostic Multi-Agent Harness (stochology-modeler, stochology-adversary, stochology-scribe, Phi3 hook)
-├── docs/
-│   └── PROTOCOL.md                                # Full formal specification and Rust mapping
-├── cards/                                         # Canonical Epistemological Cards
-│   ├── card_01_atlantic_storms_evacuation.yaml
-│   ├── card_02_bank_queue_staffing.yaml
-│   ├── card_03_nyc_flights_holding.yaml
-│   └── card_04_dpi_civil_defense_triage.yaml
-├── data/                                          # Real empirical datasets (CSV)
-├── crates/
-│   ├── stochology-core/                           # Layers, Meng, Manski, Jensen, Performativity, GP, Info-Gap, Phi1-Phi5, and YAML Card
-│   ├── stochology-lenses/                         # The 5 Lenses + Almost-Perfect Machine M=(T,Phi,theta) & Authentic Model Form
-│   ├── stochology-siga/                           # 4-Filter Eliminatory Funnel and 8-Step SIGA Roadmap
-│   ├── stochology-governance/                     # Bitemporal Clock, Single-Opening Vault, and Drift (ExTRA-WCP-T, BBSE, MLLS, DFM, OTTER)
-│   └── stochology-cli/                            # CLI binaries `labs` and `gates`
-├── book.toml                                      # mdBook configuration
-├── book-src/                                      # The interactive textbook (mdBook): preface + 27 chapters in 7 parts — I The Act of Conjecture, II The Five Laws of the Real, III–V the axes World⇄Model, Model⇄Decision, Decision⇄World (forward pair, reverse pair, axis synthesis), VI Cross-Pair Syntheses, VII Operation — plus Appendices A–E (see SUMMARY.md)
-├── theme/                                         # mdBook favicon/theme overrides
-├── mathjax.js                                     # MathJax 3 bootstrap for $...$ / $$...$$ rendering
-└── scripts/
-    └── verify.sh                                  # Complete positive and negative verification suite
-```
-
----
-
-## Quick Start
-
-### 1. Full Verification (Formatting, Clippy, Tests, Laboratories, and Gates)
-
-```bash
-scripts/verify.sh
-```
-
-### 2. Methodological and Empirical Laboratories (`labs`)
-
-```bash
-cargo run --release --bin labs -- --all
-cargo run --release --bin labs -- --layers        # Lab 1: Meng, Manski, Jensen, and Performativity
-cargo run --release --bin labs -- --uncertainty   # Lab 2: Kennedy-O'Hagan GP and Info-Gap + Sniedovich
-cargo run --release --bin labs -- --lenses        # Lab 3: The Five Transversal Lenses
-cargo run --release --bin labs -- --invariants    # Lab 4: Phi1-Phi5, Moulton-Campbell, Exceedance, and Chouldechova
-cargo run --release --bin labs -- --siga          # Lab 5: 4-Filter Funnel and SIGA Roadmap on the 4 YAML Cards
-cargo run --release --bin labs -- --governance    # Lab 6: Bitemporal Clock, Vault, and 4 Regimes of Drift
-cargo run --release --bin labs -- --real-data     # Lab 7: Transversal Synthesis across all 14 real CSVs & 4 YAML Cards
-```
-
-### 3. Epistemological Gates and Negative Proofs (`gates`)
-
-```bash
-# Positive audit of all 8 gates (G1-G8, exits with code 0)
-cargo run --release --bin gates
-
-# Negative blocking proofs (each command must block the pathology and exit with code 1)
-cargo run --release --bin gates -- --defect cromwell
-cargo run --release --bin gates -- --defect phi5
-cargo run --release --bin gates -- --defect moulton
-cargo run --release --bin gates -- --defect performativity
-cargo run --release --bin gates -- --defect sniedovich
-cargo run --release --bin gates -- --defect clock
-cargo run --release --bin gates -- --defect vault
-cargo run --release --bin gates -- --defect concept_drift
-cargo run --release --bin gates -- --defect chouldechova
-cargo run --release --bin gates -- --defect machine
-cargo run --release --bin gates -- --defect analog_wall
-cargo run --release --bin gates -- --defect instrumental_reason
-cargo run --release --bin gates -- --defect stochary_cybernetics
-cargo run --release --bin gates -- --defect peeking
-cargo run --release --bin gates -- --defect brier_dominance
-cargo run --release --bin gates -- --defect var_underreport
-cargo run --release --bin gates -- --defect lee_point_estimate
-cargo run --release --bin gates -- --defect replace_collapse
-cargo run --release --bin gates -- --defect triadic_technium
-cargo run --release --bin gates -- --defect strategic_accommodation
-cargo run --release --bin gates -- --defect coupled_society
+[OK] Cryptographic manifest data/SHA256SUMS verified (14 sealed datasets).
+=== Chapter 1: The Sequential Loop (CommunityReserveEnv, seed=2026, T=24) ===
+  NaivePointOptimizer      -> coverage=0.0%, mean_harm=105.80, terminal_reserve=0.00, ruin_step=Some(3)
+  StochologicalAgent(Full) -> coverage=100.0%, mean_harm=2.23, terminal_reserve=66.50, ruin_step=None, triad=IntactTriad
+=== Chapter 2: Inquiry, Framing & Antidogmatic Openness (Filter I · Tension 1) ===
+  Cromwell floor=0.0001 | Framing p*_inst=0.50 vs p*_affected=0.05 (gap=0.45, EVPI_affected=80.0)
+  Agnotology vs Severe Power (delta=0.30): n=18 power=0.283 vs n=140 power=0.956 | Type III net=-16.0
+  Multiverse (K=6): robust consistency=100% (avg_E=35.0) vs cherry-picked consistency=16.7% (e-BH discoveries=0)
+=== Chapter 3: Underdetermination & Partial Identification (Filter I · Tension 2) ===
+  LaLonde (nsw_experimental.csv vs cps_observational.csv): experimental_ATE=$1794 vs naive_CPS_diff=$-8498
+  Manski bounds=[$5339, $10907] (width=$5568) | Lee attrition bounds=[$321, $2235]
+  Peterson survival bounds=[0.55, 0.80] vs naive=0.73 | e-process E_t=8.53 (Lakatos prog=8.53 vs deg=0.66)
+=== Chapter 4: Asymmetry, Scale Invariance & Heavy Tails (Filter II · Tension 3) ===
+  Danish Fire (danish_fire.csv, n=2167): mean=3.39, median=1.78, q95=9.97, Jensen_gap=72.34, Hill_alpha=1.446 (FiniteMeanInfiniteVariance)
+  NYC Flights (nyc_flights_2013/2023.csv): delay Jensen_gap=2536.0 min^2, penumbra_mass(10..20m)=8.2%, ordinal_err=0.0e0
+=== Chapter 5: From World to Archive & Big Data Paradox (Filter II · Tension 4) ===
+  Meng Big Data (n=2.3M / N=10M, rho=-0.05): n_eff=119.5 | CPS clusters (n=15992): DEFF=13.00, n_eff=1230.2, Keynes_V=0.330
+  Bank Calls (bank_calls.csv): DEFF=22.48, n_eff=1233.0 | Kish floor n_eff=12.3 | Chao uncounted n00=450
+  Real-Time Vintages (rtdsm_routput_vintages.csv, Q=241): mean_revision=1.47 pp, max_revision=8.02 pp, sign_flips=6.6%
+=== Chapter 6: Reactive Worlds, Performativity & Goodhart (Filter III · Tension 5) ===
+  Atlantic Storms CORP-PAV (atlantic_storms.csv, n=20778): BS=0.2691 = REL(0.2114) - RES(0.1310) + UNC(0.1887), closure_err=3.7e-15
+  Storms ICP across 3 seasons: physical_pressure_slope_range=0.009 vs proxy_latitude_slope_range=0.076
+  Perdomo/MacKenzie (BarnesianSelfFulfilling): theta_PS=1.333 vs theta_PO=1.095 (risk_PO=0.249 < risk_PS=0.263) | KOH std_in=0.050 -> std_out=0.500
+  Tian-Pearl PN=[0.75, 1.00], PNS=[0.50, 0.70] | Goodhart collapsed=true
+=== Chapter 7: Irreversible Time, Non-Ergodicity & Vital Margin (Filter III · Tension 6) ===
+  DJIA (djia_1885_2023.csv, n=37930): ensemble_mu=0.000243, time_growth_g=0.000186, Kelly_f*=2.12
+  Victoria Grid (vic_elec.csv, n=52608): mean=4665 MW, q95=6106 MW | Kingman wait: rho=0.78 -> 3.55x vs rho=0.97 -> 32.33x
+  Canguilhem-Holling basin: fresh=6.40 -> worn(McEwen)=2.96 | Scheffer CSD rho1: 0.578 -> 0.791
+  Wald 1943 lethality: wing=7.2% vs engine=84.0% | Sniedovich No-Man's-Land mirage=true
+=== Chapter 8: Moral Luck, Apt Agency & Institutional Design (Tension 7) ===
+  Toronto Arrests Chouldechova (toronto_arrests.csv): p_A=0.393, p_B=0.112 -> FPR_A/FPR_B disparity=5.13x
+  List-Pettit Discursive Dilemma: premise_maj=true vs constitutional_veto=false | Fricker algedonic delay: 5 -> 11 shifts (TTS=8)
+  Sosa/Baron-Hershey grade=AdroitExAnteUnluckyOutcome (bias_removed=0.45) | Holmstrom structural_liability=83.3% vs frontline=6.2%
+  Zheng-Meister & Gigerenzer Alerts (N=1000): noisy FDR=93.9% vs filtered PPV=52.7% (16 true alerts, 15 false alarms)
+=== Chapter 9: Methodological Families, Process Tracing & Reflexive Brakes ===
+  Process Tracing (Family 5): prior=0.25 -> post=0.925 (+15.7 dB), Keynes_V: 0.20 -> 0.56, hoop_refutable=true
+  Three Reflexive Goodhart Brakes: sharp_RES=0.250 vs lazy_RES=0.000 | optimal_welfare=2.55 > hoarding=-11.97 | fast_path=1.5 <= TTS=4.0
+  Three Collapse Propositions Verified: P1=Proposition1BlindUndersizing, P2=Proposition2ImpotentLucidity, P3=Proposition3CynicalCapture -> Full=IntactTriad
+=== ALL 9 STOCHOLOGICAL CHAPTER LABORATORIES & INVARIANTS VERIFIED (EXIT CODE 0) ===
 ```

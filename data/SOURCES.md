@@ -51,13 +51,13 @@ Extracted from the January–July slices of `nycflights13::flights` (commit `1dc
 
 ---
 
-## 3b. Real-Time Macroeconomic Vintages (pillar B)
+## 3b. Real-Time Macroeconomic Vintages (Gate G7)
 
 Downloaded on 2026-10-30 from the Federal Reserve Bank of Philadelphia, Real-Time Data Set for Macroeconomists (`https://www.philadelphiafed.org/-/media/frbp/assets/surveys-and-data/real-time-data/data-files/xlsx/routputqvqd.xlsx`, SHA-256 `25433da00f46764a167590efe5c3e1c20a3e91e98ba0f49e6f92f058bc42c9e3`, 243 161 bytes). Not an R package: the workbook is the primary distribution. Consumed by `crates/stochology-cli/src/pillars.rs` (`real_time_vintage_audit`, `labs --real-data`, `gates` G7, `gates --defect vintage_leak`).
 
 | File | Source | Description | Transformation | Protocol Usage |
 |---|---|---|---|---|
-| `rtdsm_routput_vintages.csv` | Philadelphia Fed RTDSM `ROUTPUT` (quarterly observations, quarterly vintages) | Real GNP/GDP levels as published in each vintage, 244 vintages 1965Q4–2026Q3, observations from 1947Q1 (47 405 non-missing vintage × quarter values) | Wide matrix (rows `YYYY:Qq`, columns `ROUTPUTyyQq`) reshaped to long form `vintage,obs_quarter,routput` with `scripts/rtdsm_to_csv.py` (Python standard library; `#N/A` cells dropped; levels to one decimal; rows sorted). Levels keep each vintage's own base year, so growth is computed inside a vintage | Pillar B: `RealTimeVintageAudit` (Ch. 21) |
+| `rtdsm_routput_vintages.csv` | Philadelphia Fed RTDSM `ROUTPUT` (quarterly observations, quarterly vintages) | Real GNP/GDP levels as published in each vintage, 244 vintages 1965Q4–2026Q3, observations from 1947Q1 (47 405 non-missing vintage × quarter values) | Wide matrix (rows `YYYY:Qq`, columns `ROUTPUTyyQq`) reshaped to long form `vintage,obs_quarter,routput` with `scripts/rtdsm_to_csv.py` (Python standard library; `#N/A` cells dropped; levels to one decimal; rows sorted). Levels keep each vintage's own base year, so growth is computed inside a vintage | Gate G7: `RealTimeVintageAudit` (Ch. 21) |
 
 Reference: Croushore, D. & Stark, T. (2001). A real-time data set for macroeconomists. *Journal of Econometrics*, 105(1), 111–130.
 

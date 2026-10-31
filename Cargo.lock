@@ -3,38 +3,12 @@
 version = 4
 
 [[package]]
+name = "stochology"
+version = "1.0.0"
+
+[[package]]
 name = "stochology-cli"
 version = "1.0.0"
 dependencies = [
- "stochology-core",
- "stochology-governance",
- "stochology-lenses",
- "stochology-siga",
-]
-
-[[package]]
-name = "stochology-core"
-version = "1.0.0"
-
-[[package]]
-name = "stochology-governance"
-version = "1.0.0"
-dependencies = [
- "stochology-core",
- "stochology-lenses",
-]
-
-[[package]]
-name = "stochology-lenses"
-version = "1.0.0"
-dependencies = [
- "stochology-core",
-]
-
-[[package]]
-name = "stochology-siga"
-version = "1.0.0"
-dependencies = [
- "stochology-core",
- "stochology-lenses",
+ "stochology",
 ]

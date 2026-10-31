@@ -23,7 +23,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-CRATES=(stochology-core stochology-lenses stochology-siga stochology-governance stochology-cli)
+CRATES=(stochology stochology-cli)
 VERSION="$(sed -nE 's/^version = "([^"]+)"/\1/p' Cargo.toml | head -n 1)"
 UA="stochology-release-guard (https://github.com/0b3st4f3r4/stochology)"
 WORK="$(mktemp -d)"

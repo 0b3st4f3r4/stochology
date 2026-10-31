@@ -1,27 +1,24 @@
 ---
 name: stochology-protocol
-description: Model-agnostic end-to-end engineering, mathematical modeling, cryptographic auditing, and textbook synchronization workflow for the discipline of Stochology. Use when adding or auditing Rust primitives, Epistemological Cards (cards/*.yaml), laboratories, gates, or textbook chapters (book-src/).
+description: End-to-end engineering, mathematical modeling, empirical verification, and textbook synchronization workflow for Stochology (2 crates: stochology and stochology-cli, 10 chapters: 00 to 09).
 ---
 
-# Stochology Engineering & Verification Skill (`stochology-protocol`)
+# Stochology Workflow Skill
 
-Use this skill when extending, auditing, or documenting the discipline of **Stochology** and its formal verification architecture (`docs/PROTOCOL.md`).
+Use this skill when adding or auditing Rust primitives in `crates/stochology`, chapter laboratories in `crates/stochology-cli`, or textbook chapters in `book-src/`.
 
-## 1. Multi-Agent Workflow (Filter 4 Cross-Authorship)
-1. **Model (`stochology-modeler`, `branch` mode):**
-   Implement pure-Rust primitives in `stochology-core`, `stochology-lenses`, `stochology-siga`, or `stochology-governance` with `SplitMix64` under a pre-registered seed declared before fitting.
-2. **Adversarial Audit (`stochology-adversary`, `inherit` mode — VSM $S3^*$):**
-   Run `cargo run --release --bin gates` (must exit `0`) and all 27 negative defect proofs `cargo run --release --bin gates -- --defect <name>` (each must exit `1`), checking `IdentityClosureAudit` in Gate `G8`.
-3. **Documentary Synchronization (`stochology-scribe`, `inherit` mode):**
-   Update `docs/PROTOCOL.md`, `book-src/appendix-d-protocol.md`, and the matching chapters in `book-src/`, regenerating quoted `labs`/`gates` output and labelling every number's provenance (`AGENTS.md` §II.C).
-4. **Derived-Text Audit (`stochology-adversary`):**
-   Before publishing any text derived from Stochology (summary, post, slides, notebook remix), audit each claim's provenance class — measured, simulated, assumed, or literature/informative — against the code and current output.
+## 1. Check Alignment with the Treatise (`notes/The Ethics of Aim.md`)
+- Identify which axis of the **Nuclear Triad** (`Epistemic Margin`, `Vital Margin`, `Institutional Governance`) and which of the **7 Constitutive Tensions** (`inquiry`, `identification`, `asymmetry`, `archive`, `performativity`, `vital`, `governance`, `synthesis`) the change belongs to.
+- Connect the mathematical primitive both to the evolving sequential environment (`CommunityReserveEnv` in `crates/stochology/src/engine.rs`) and to the sealed empirical datasets (`data/*.csv`).
 
-## 2. Cryptographic Integrity ($\Phi_3$)
-- Do not overwrite `data/SHA256SUMS`, `cards/*.yaml` pre-registration hashes, or `crates/stochology-governance/src/vault.rs` (`TemporalVault`) without human review and recomputing `card.compute_preregistration_hash()`.
+## 2. Pure-Rust Implementation (`crates/stochology` & `crates/stochology-cli`)
+- Use only the Rust standard library (`std`).
+- Anchor all stochastic simulations to `SplitMix64` (`crates/stochology/src/rng.rs`).
+- Write clear unit tests in the module's `#[cfg(test)] mod tests` verifying both the positive safeguard and the failure of the naive/unbuffered baseline.
 
-## 3. Verification Gate
-Run the consolidation script and require exit code `0`:
-```bash
-scripts/verify.sh
-```
+## 3. Textbook & Interactive Lab Synchronization (`book-src/`)
+- Ensure numbers and CLI snippets in `book-src/00-preface.md`..`09-methodological-families-reflexivity.md` and `book-src/appendix-b-architecture-verification.md` match the output of `cargo run --release --bin stochology`.
+- Label quantitative claims honestly (`Measured` on a named dataset in `data/*.csv`, `Simulated`, `Assumed/Analytical`, or `Literature/Informative`).
+
+## 4. Full Verification
+Run `./scripts/verify.sh` and confirm 0 warnings and exit code `0`.

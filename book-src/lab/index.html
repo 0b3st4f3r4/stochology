@@ -1,959 +1,458 @@
 <!DOCTYPE html>
-<html lang="en" class="light js">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="text-scale" content="scale" />
-  <meta name="color-scheme" content="light dark" />
-  <title>Stochology Interactive Laboratory (/lab)</title>
-  <link rel="icon" href="../favicon.svg" />
-  <script>
-    (function () {
-      var VALID = ["light", "rust", "navy", "coal", "ayu"];
-      function resolveMainTheme() {
-        var stored = null;
-        try {
-          stored = localStorage.getItem("mdbook-theme");
-          if (stored && stored.charAt(0) === '"' && stored.charAt(stored.length - 1) === '"') {
-            stored = stored.slice(1, -1);
-          }
-        } catch (e) {}
-        if (stored && VALID.indexOf(stored) !== -1) {
-          return stored;
-        }
-        try {
-          var host = (window.parent && window.parent !== window) ? window.parent : window.opener;
-          if (host && host.document && host.document.documentElement) {
-            var hostCl = host.document.documentElement.classList;
-            for (var h = 0; h < VALID.length; h++) {
-              if (hostCl.contains(VALID[h])) return VALID[h];
-            }
-          }
-        } catch (e) {}
-        var params = new URLSearchParams(window.location.search);
-        var qTheme = params.get("theme");
-        if (qTheme === "dark") return "navy";
-        if (qTheme && VALID.indexOf(qTheme) !== -1) return qTheme;
-        if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "navy";
-        }
-        return "light";
-      }
-      var theme = resolveMainTheme();
-      var root = document.documentElement;
-      for (var i = 0; i < VALID.length; i++) {
-        root.classList.remove(VALID[i]);
-      }
-      root.classList.add(theme);
-      root.classList.add("js");
-    })();
-  </script>
-  <link rel="stylesheet" href="../theme/book.css" />
+  <title>Stochology Interactive Laboratory — CommunityReserveEnv</title>
   <style>
-    * { box-sizing: border-box; }
-    html,
-    body {
-      background: var(--bg, var(--canvas, #f8fafc));
-      color: var(--fg, var(--ink, #0f172a));
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #2563eb;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --warning: #d97706;
     }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --card: #1e293b;
+        --border: #334155;
+        --text: #f8fafc;
+        --muted: #94a3b8;
+        --primary: #60a5fa;
+        --success: #4ade80;
+        --danger: #f87171;
+        --warning: #fbbf24;
+      }
+    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      min-block-size: 100dvh;
-      display: flex;
-      flex-direction: column;
+      padding: 24px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.5;
     }
-    .lab-skip-link:focus-visible {
-      position: fixed;
-      inset-block-start: 0.75rem;
-      inset-inline-start: 0.75rem;
-      z-index: 9999;
-      padding: 0.5rem 0.9rem;
-      border-radius: 8px;
-      background: var(--sky, #0284c7);
-      color: #ffffff;
-      font-weight: 700;
+    .container { max-width: 1120px; margin: 0 auto; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    h1 { font-size: 1.5rem; margin: 0; }
+    .subtitle { color: var(--muted); font-size: 0.95rem; margin: 4px 0 0; }
+    .back-link {
       text-decoration: none;
-      outline: 3px solid var(--ink, #0f172a);
-      outline-offset: 2px;
-    }
-    .lab-topbar {
-      display: flex;
-      align-items: safe center;
-      justify-content: space-between;
-      padding: 0.75rem 1.25rem;
-      background: var(--elevated, #ffffff);
-      border-bottom: 1px solid var(--border, #cbd5e1);
-      gap: 0.85rem;
-      flex-wrap: wrap;
-    }
-    .lab-brand {
-      display: flex;
-      align-items: safe center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-    .lab-brand-badge {
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 0.75rem;
-      font-weight: 800;
-      padding: 0.25rem 0.6rem;
-      border-radius: 999px;
-      background: var(--sky-bg, rgba(2,132,199,0.12));
-      color: var(--sky, #0284c7);
-      border: 1px solid var(--sky, #0284c7);
-    }
-    .lab-brand h1 {
-      margin: 0;
-      font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.1rem);
-      font-weight: 800;
-      letter-spacing: -0.01em;
-    }
-    .lab-top-actions {
-      display: flex;
-      align-items: safe center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    .lab-layout {
-      display: grid;
-      grid-template-columns: minmax(18.5rem, 21.5rem) minmax(0, 1fr);
-      flex: 1;
-      min-block-size: calc(100dvh - 3.75rem);
-    }
-    .lab-sidebar {
-      background: var(--elevated, #ffffff);
-      border-right: 1px solid var(--border, #cbd5e1);
-      padding: 0.9rem 0.8rem;
-      overflow-y: auto;
-      max-block-size: calc(100dvh - 3.75rem);
-      position: sticky;
-      inset-block-start: 0;
-      scrollbar-gutter: stable;
-      overscroll-behavior: contain;
-    }
-    .lab-mobile-drawer-bar {
-      display: none;
-      padding: 0.6rem 1rem;
-      background: var(--surface, #f1f5f9);
-      border-bottom: 1px solid var(--border, #cbd5e1);
-      align-items: safe center;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-    @media (max-width: 58em) {
-      .lab-layout {
-        grid-template-columns: 1fr;
-      }
-      .lab-mobile-drawer-bar {
-        display: flex;
-      }
-      .lab-sidebar {
-        position: static;
-        max-block-size: none;
-        border-right: none;
-        border-bottom: 1px solid var(--border, #cbd5e1);
-        display: none;
-      }
-      .lab-sidebar.is-open {
-        display: block;
-      }
-    }
-    .lab-search-box {
-      margin-block-end: 0.65rem;
-    }
-    .lab-search-input-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-    .lab-search-input {
-      inline-size: 100%;
-      padding: 0.45rem 2rem 0.45rem 0.65rem;
-      font-size: 0.82rem;
-      font-family: inherit;
-      color: var(--ink, #0f172a);
-      background: var(--surface, #f1f5f9);
-      border: 1px solid var(--border, #cbd5e1);
-      border-radius: 7px;
-      min-block-size: 2.15rem;
-    }
-    .lab-search-input:focus-visible {
-      outline: 2px solid var(--sky, #0284c7);
-      outline-offset: 1px;
-    }
-    .lab-search-clear {
-      position: absolute;
-      inset-inline-end: 0.3rem;
-      background: transparent;
-      border: none;
-      color: var(--muted, #64748b);
-      font-size: 0.85rem;
-      cursor: pointer;
-      padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-      display: none;
-    }
-    .lab-search-clear.visible {
-      display: inline-block;
-    }
-    .lab-search-clear:focus-visible {
-      outline: 2px solid var(--sky, #0284c7);
-      outline-offset: 1px;
-    }
-    .lab-pillar-filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-      margin-block-end: 0.75rem;
-    }
-    .lab-pillar-pill {
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 0.68rem;
-      font-weight: 700;
-      padding: 0.22rem 0.48rem;
-      border-radius: 6px;
-      border: 1px solid var(--border, #cbd5e1);
-      background: var(--surface, #f1f5f9);
-      color: var(--muted, #475569);
-      cursor: pointer;
-      min-block-size: 1.65rem;
-      transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
-    }
-    .lab-pillar-pill:hover {
-      border-color: var(--sky, #0284c7);
-      color: var(--ink, #0f172a);
-    }
-    .lab-pillar-pill[aria-pressed="true"] {
-      background: var(--sky-bg, rgba(2,132,199,0.14));
-      color: var(--sky, #0284c7);
-      border-color: var(--sky, #0284c7);
-    }
-    .lab-sidebar-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 0.7rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted, #475569);
-      margin: 0.4rem 0.25rem 0.45rem;
-    }
-    .lab-nav-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    .lab-nav-item {
-      display: block;
-      inline-size: 100%;
-      text-align: left;
-      padding: 0.5rem 0.65rem;
-      margin-block-end: 0.25rem;
-      border-radius: 8px;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--ink, #0f172a);
-      font-size: 0.83rem;
+      color: var(--primary);
       font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .controls-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+    .presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    button {
       cursor: pointer;
-      transition: background 0.14s ease, border-color 0.14s ease;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.15s ease;
     }
-    .lab-nav-item:hover {
-      background: var(--surface, #f1f5f9);
+    button:hover { border-color: var(--primary); }
+    button.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
     }
-    .lab-nav-item.active {
-      background: var(--sky-bg, rgba(2,132,199,0.12));
-      border-color: var(--sky, #0284c7);
-      color: var(--sky, #0284c7);
-      font-weight: 750;
+    .triad-toggles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
     }
-    .lab-nav-item-top {
+    .toggle-box {
       display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 0.4rem;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
     }
-    .lab-nav-pillar {
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 0.63rem;
-      font-weight: 800;
-      padding: 0.08rem 0.35rem;
-      border-radius: 4px;
-      background: var(--surface, #f1f5f9);
-      color: var(--muted, #64748b);
-      border: 1px solid var(--border, #cbd5e1);
-      flex-shrink: 0;
+    .toggle-box input { margin-top: 4px; transform: scale(1.2); }
+    .toggle-title { font-weight: 700; font-size: 0.92rem; display: block; }
+    .toggle-desc { font-size: 0.8rem; color: var(--muted); }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
     }
-    .lab-nav-sub {
-      display: block;
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 0.69rem;
-      color: var(--muted, #64748b);
-      margin-block-start: 0.15rem;
-    }
-    .lab-empty-state {
-      padding: 1rem 0.6rem;
-      font-size: 0.82rem;
-      color: var(--muted, #64748b);
-      text-align: center;
-      display: none;
-    }
-    .lab-main {
-      padding: 1.25rem 1.75rem 2.5rem;
-      max-inline-size: 72rem;
-      inline-size: 100%;
-      margin-inline: auto;
-    }
-    @media (max-width: 40em) {
-      .lab-main {
-        padding: 0.9rem 0.85rem 2rem;
-      }
-    }
-    .lab-chapter-bar {
-      display: flex;
-      align-items: safe center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-      margin-block-end: 0.75rem;
-      padding: 0.55rem 0.8rem;
+    .metric-card {
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 10px;
-      background: var(--elevated, #ffffff);
-      border: 1px solid var(--border, #cbd5e1);
-      font-size: 0.82rem;
-      color: var(--muted, #475569);
+      padding: 14px;
     }
-    .lab-stepper-group {
-      display: flex;
-      align-items: safe center;
-      gap: 0.45rem;
-      flex-wrap: wrap;
+    .metric-label { font-size: 0.78rem; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    .metric-val { font-size: 1.35rem; font-weight: 800; margin-top: 4px; }
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
     }
-    .lab-chapter-links {
-      display: flex;
-      align-items: safe center;
-      gap: 0.35rem;
-      flex-wrap: wrap;
+    .chart-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
     }
-    .lab-chapter-links-label {
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 0.72rem;
+    .chart-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+    th, td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      text-align: right;
+    }
+    th:first-child, td:first-child, th:last-child, td:last-child { text-align: left; }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
       font-weight: 700;
-      color: var(--muted, #64748b);
-      margin-inline-end: 0.15rem;
     }
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-    }
+    .badge-ok { background: rgba(22, 163, 74, 0.15); color: var(--success); }
+    .badge-warn { background: rgba(217, 119, 6, 0.15); color: var(--warning); }
+    .badge-err { background: rgba(220, 38, 38, 0.15); color: var(--danger); }
   </style>
 </head>
 <body>
-  <a href="#lab-main-content" class="visually-hidden lab-skip-link">Skip to interactive laboratory</a>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Stochology Interactive Laboratory — <code>CommunityReserveEnv</code></h1>
+        <p class="subtitle">Step-by-step simulation of the Sequential Agent–World–Institution Loop and the Nuclear Triad (<code>crates/stochology/src/engine.rs</code>)</p>
+      </div>
+      <a class="back-link" href="../index.html">&larr; Back to Textbook</a>
+    </header>
 
-  <header class="lab-topbar">
-    <div class="lab-brand">
-      <span class="lab-brand-badge">STOCHOLOGY · /lab</span>
-      <h1 id="lab-topbar-title">Stochology Interactive Laboratory</h1>
-    </div>
-    <div class="lab-top-actions">
-      <a href="../index.html" class="stoch-lab-btn stoch-lab-btn-primary">← Back to Textbook</a>
-    </div>
-  </header>
-
-  <div class="lab-mobile-drawer-bar">
-    <button type="button" id="lab-mobile-drawer-btn" class="stoch-lab-btn" aria-expanded="false" aria-controls="lab-sidebar">
-      Browse Modules (16) ▾
-    </button>
-    <span id="lab-mobile-active-label" style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700;"></span>
-  </div>
-
-  <div class="lab-layout">
-    <aside class="lab-sidebar" id="lab-sidebar">
-      <div class="lab-search-box">
-        <label for="lab-search-input" class="visually-hidden">Filter laboratory modules by name, chapter, or verification pillar</label>
-        <div class="lab-search-input-wrap">
-          <input
-            type="search"
-            id="lab-search-input"
-            class="lab-search-input"
-            placeholder="Filter modules, chapters, pillars… (Press /)"
-            autocomplete="off"
-          />
-          <button type="button" id="lab-search-clear" class="lab-search-clear" aria-label="Clear module filter">✕</button>
-        </div>
+    <section class="controls-card">
+      <div class="presets">
+        <button id="btn-full" class="active" onclick="setPreset(true, true, true, 'btn-full')">Full Stochological Agent (Intact Triad)</button>
+        <button id="btn-naive" onclick="setPreset(false, false, false, 'btn-naive')">Naive Point Optimizer (All 3 Missing)</button>
+        <button id="btn-p1" onclick="setPreset(false, true, true, 'btn-p1')">Collapse Prop. 1 (&not;Epistemic Margin: Blind Undersizing)</button>
+        <button id="btn-p2" onclick="setPreset(true, false, true, 'btn-p2')">Collapse Prop. 2 (&not;Vital Margin: Impotent Lucidity)</button>
+        <button id="btn-p3" onclick="setPreset(true, true, false, 'btn-p3')">Collapse Prop. 3 (&not;Governance: Cynical Capture)</button>
       </div>
 
-      <div class="lab-pillar-filters" role="group" aria-label="Filter by Verification Pillar">
-        <button type="button" class="lab-pillar-pill" data-pillar="ALL" aria-pressed="true">All (16)</button>
-        <button type="button" class="lab-pillar-pill" data-pillar="C" aria-pressed="false" title="Calibrated">1 · Calibrated</button>
-        <button type="button" class="lab-pillar-pill" data-pillar="A" aria-pressed="false" title="Anytime-valid">2 · Anytime</button>
-        <button type="button" class="lab-pillar-pill" data-pillar="P" aria-pressed="false" title="Performative-aware">3 · Performative</button>
-        <button type="button" class="lab-pillar-pill" data-pillar="I" aria-pressed="false" title="Invariant">4 · Invariant</button>
-        <button type="button" class="lab-pillar-pill" data-pillar="B" aria-pressed="false" title="Bitemporal">5 · Bitemporal</button>
-        <button type="button" class="lab-pillar-pill" data-pillar="A-Audit" aria-pressed="false" title="Auditing">6 · Auditing</button>
+      <div class="triad-toggles">
+        <label class="toggle-box">
+          <input type="checkbox" id="chk-epi" checked onchange="onManualToggle()" />
+          <div>
+            <span class="toggle-title">1. Epistemic Margin (Ch. 2, 3, 5)</span>
+            <span class="toggle-desc">Manski partial-identification bounds $[L_t, U_t]$, Moulton cluster $\mathrm{DEFF}$, and Meng selection-defect correction ($n_{\mathrm{eff}}$).</span>
+          </div>
+        </label>
+        <label class="toggle-box">
+          <input type="checkbox" id="chk-vital" checked onchange="onManualToggle()" />
+          <div>
+            <span class="toggle-title">2. Vital Margin (Ch. 4, 7)</span>
+            <span class="toggle-desc">Jensen convexity correction, Kingman heavy-traffic slack ($\rho \le 0.76$), $\mathrm{TTS} \ge \mathrm{TTR}$ reserve buffer, and Baker–McHale epistemic Kelly shrinkage.</span>
+          </div>
+        </label>
+        <label class="toggle-box">
+          <input type="checkbox" id="chk-gov" checked onchange="onManualToggle()" />
+          <div>
+            <span class="toggle-title">3. Institutional Governance (Ch. 6, 8, 9)</span>
+            <span class="toggle-desc">Low proxy gaming pressure, zero Fricker testimonial discount on the frontline algedonic channel ($\delta_{\mathrm{cred}} = 0$), and $S3^*$ constitutional brake.</span>
+          </div>
+        </label>
       </div>
+    </section>
 
-      <div class="lab-sidebar-heading">
-        <span>Textbook Progression</span>
-        <span id="lab-visible-count">16 / 16</span>
+    <section class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Triadic Diagnosis</div>
+        <div class="metric-val" id="val-diag">IntactTriad</div>
       </div>
-
-      <nav aria-label="Interactive laboratory modules">
-        <ul id="lab-module-list" class="lab-nav-list" role="list"></ul>
-        <div id="lab-empty-state" class="lab-empty-state">
-          No modules match this filter.
-        </div>
-      </nav>
-    </aside>
-
-    <main class="lab-main" id="lab-main-content" tabindex="-1">
-      <div class="lab-chapter-bar">
-        <div class="lab-stepper-group">
-          <button type="button" id="lab-prev-btn" class="stoch-lab-btn" aria-label="Previous laboratory module (Shortcut: [)">← Prev</button>
-          <button type="button" id="lab-next-btn" class="stoch-lab-btn" aria-label="Next laboratory module (Shortcut: ])">Next →</button>
-          <span id="lab-active-module-id" style="font-family: 'JetBrains Mono', monospace; font-weight: 700;"></span>
-        </div>
-        <div class="lab-chapter-links" id="lab-chapter-links">
-          <span class="lab-chapter-links-label">Chapters:</span>
-        </div>
+      <div class="metric-card">
+        <div class="metric-label">Epistemic Coverage</div>
+        <div class="metric-val" id="val-cov">100.0%</div>
       </div>
-      <div id="lab-widget-host"></div>
-    </main>
+      <div class="metric-card">
+        <div class="metric-label">Mean Social Harm (Kingman + Gaming)</div>
+        <div class="metric-val" id="val-harm">2.23</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Terminal Vital Reserve ($R_{24}$)</div>
+        <div class="metric-val" id="val-res">66.50</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Absorbing Ruin Step</div>
+        <div class="metric-val" id="val-ruin">None (Survived)</div>
+      </div>
+    </section>
+
+    <section class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title">Latent Community Demand $S_t$, Raw Archive Mean $\bar{O}_t$, and Declared Epistemic Interval $[L_t, U_t]$</div>
+        <svg id="svg-demand" viewBox="0 0 500 220" width="100%" height="auto"></svg>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Vital Reserve Trajectory $R_t$ vs. Absorbing Ruin Barrier ($R = 0$) and Social Harm $H_t$</div>
+        <svg id="svg-reserve" viewBox="0 0 500 220" width="100%" height="auto"></svg>
+      </div>
+    </section>
+
+    <section class="controls-card">
+      <div class="chart-title">Shift-by-Shift Trajectory Log ($t = 0 \dots 23$)</div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Shift $t$</th>
+              <th>Archive $\bar{O}_t$</th>
+              <th>True Demand $S_t$</th>
+              <th>Epistemic Bounds $[L_t, U_t]$</th>
+              <th>Capacity $C_{\mathrm{eff}}$</th>
+              <th>Utilization $\rho_t$</th>
+              <th>Harm $H_t$</th>
+              <th>Reserve $R_{t+1}$</th>
+              <th>Sosa Telic Grade</th>
+            </tr>
+          </thead>
+          <tbody id="tbl-body"></tbody>
+        </table>
+      </div>
+    </section>
   </div>
 
   <script>
-    window.path_to_root = "../";
-  </script>
-  <script src="../mathjax.js"></script>
-  <script>
-    (function () {
-      /* Ordered strictly by primary textbook chapter progression (Ch. 00 -> Ch. 25) */
-      var MODULES = [
-        {
-          id: "gigerenzer-bayes",
-          label: "00. Gigerenzer Tree & Decibans",
-          chapter: "00-preface.html",
-          pillar: "C",
-          chapters: [{ slug: "00-preface.html", label: "Ch. 00 · Preface" }]
-        },
-        {
-          id: "jensen-crps",
-          label: "03. Convexity, Jensen Gap & CRPS",
-          chapter: "03-random-variables-convexity.html",
-          pillar: "C",
-          chapters: [
-            { slug: "03-random-variables-convexity.html", label: "Ch. 03 · Convexity" },
-            { slug: "15-decision-models-curvature-scoring.html", label: "Ch. 15 · Curvature & CRPS" }
-          ]
-        },
-        {
-          id: "markov-dag-do",
-          label: "04. DAG Colliders & NILE/ICP",
-          chapter: "04-markov-chains-causal-graphs.html",
-          pillar: "I",
-          chapters: [{ slug: "04-markov-chains-causal-graphs.html", label: "Ch. 04 · Markov & DAGs" }]
-        },
-        {
-          id: "rk4-hopf-brusselator",
-          label: "05, 22. RK4 Brusselator & Daisyworld",
-          chapter: "05-dynamical-systems-odes-waves.html",
-          pillar: "I",
-          chapters: [
-            { slug: "05-dynamical-systems-odes-waves.html", label: "Ch. 05 · ODEs & RK4" },
-            { slug: "22-relational-ontology.html", label: "Ch. 22 · Relational Systems" }
-          ]
-        },
-        {
-          id: "ols-cholesky-gls",
-          label: "06. Cholesky GLS & Effective n",
-          chapter: "06-sampling-estimation-linear-algebra.html",
-          pillar: "A",
-          chapters: [{ slug: "06-sampling-estimation-linear-algebra.html", label: "Ch. 06 · Cholesky GLS" }]
-        },
-        {
-          id: "spectral-telgarsky-deff",
-          label: "07, 11. Telgarsky 2^D & Gram d_eff",
-          chapter: "07-approximation-complexity-spectral.html",
-          pillar: "I",
-          chapters: [
-            { slug: "07-approximation-complexity-spectral.html", label: "Ch. 07 · Spectral & Telgarsky" },
-            { slug: "11-world-models-discrepancy-authentic-form.html", label: "Ch. 11 · Authentic Form" }
-          ]
-        },
-        {
-          id: "ville-savi-conformal",
-          label: "08, 16, 27. Ville e-Process & SAVI",
-          chapter: "08-severe-testing-martingales-conformal.html",
-          pillar: "A",
-          chapters: [
-            { slug: "08-severe-testing-martingales-conformal.html", label: "Ch. 08 · Martingales" },
-            { slug: "16-decision-models-thresholds-evidence.html", label: "Ch. 16 · Thresholds & SAVI" },
-            { slug: "appendix-b-verification.html", label: "App. B · Gates & Verification" }
-          ]
-        },
-        {
-          id: "lenses-kelly-tail-corp",
-          label: "09, 17, 18. Kelly, Hill α & CORP-PAV",
-          chapter: "09-lenses.html",
-          pillar: "C",
-          chapters: [
-            { slug: "09-lenses.html", label: "Ch. 09 · Five Lenses" },
-            { slug: "17-model-decisions-card-preregistration.html", label: "Ch. 17 · Cards & Pre-reg" },
-            { slug: "18-critical-stochastic-rationality.html", label: "Ch. 18 · Critical Rationality" }
-          ]
-        },
-        {
-          id: "meng-performativity",
-          label: "10, 19. Meng Law & Performative RRM",
-          chapter: "10-world-models-missingness-bounds.html",
-          pillar: "P",
-          chapters: [
-            { slug: "10-world-models-missingness-bounds.html", label: "Ch. 10 · Meng & Manski" },
-            { slug: "19-world-decisions-performativity.html", label: "Ch. 19 · Performativity" }
-          ]
-        },
-        {
-          id: "koh-infogap-wald",
-          label: "11, 20. Kennedy-O'Hagan GP & Info-Gap",
-          chapter: "11-world-models-discrepancy-authentic-form.html",
-          pillar: "I",
-          chapters: [
-            { slug: "11-world-models-discrepancy-authentic-form.html", label: "Ch. 11 · KOH Discrepancy" },
-            { slug: "20-decision-worlds-regime.html", label: "Ch. 20 · Info-Gap & Sniedovich" }
-          ]
-        },
-        {
-          id: "strategic-shap-ppi-ahp",
-          label: "11, 12, 15, 16. Causal SHAP, PPI & AHP",
-          chapter: "12-model-worlds-simulation-acceptance.html",
-          pillar: "A-Audit",
-          chapters: [
-            { slug: "11-world-models-discrepancy-authentic-form.html", label: "Ch. 11 · Causal SHAP" },
-            { slug: "12-model-worlds-simulation-acceptance.html", label: "Ch. 12 · Multi-Seed" },
-            { slug: "15-decision-models-curvature-scoring.html", label: "Ch. 15 · Saaty AHP" },
-            { slug: "16-decision-models-thresholds-evidence.html", label: "Ch. 16 · PPI++" }
-          ]
-        },
-        {
-          id: "analog-hpinv-collapse",
-          label: "13, 18. Analog HP-INV & Basel π²/6",
-          chapter: "13-model-worlds-analog-wave-computing.html",
-          pillar: "A-Audit",
-          chapters: [
-            { slug: "13-model-worlds-analog-wave-computing.html", label: "Ch. 13 · Analog & Wave" },
-            { slug: "18-critical-stochastic-rationality.html", label: "Ch. 18 · Model Collapse" }
-          ]
-        },
-        {
-          id: "stochary-kingman-triad",
-          label: "14, 23. Kingman VUT, Stocks & Triad",
-          chapter: "14-triadic-synthesis.html",
-          pillar: "A-Audit",
-          chapters: [
-            { slug: "14-triadic-synthesis.html", label: "Ch. 14 · Triadic Synthesis" },
-            { slug: "23-stochary-conjectural-cybernetics.html", label: "Ch. 23 · Stocks & VSM" }
-          ]
-        },
-        {
-          id: "invariants-moulton-chouldechova",
-          label: "15, 17, 20. Moulton DEFF & Chouldechova",
-          chapter: "20-decision-worlds-regime.html",
-          pillar: "A-Audit",
-          chapters: [
-            { slug: "15-decision-models-curvature-scoring.html", label: "Ch. 15 · Thresholds" },
-            { slug: "17-model-decisions-card-preregistration.html", label: "Ch. 17 · Chouldechova" },
-            { slug: "20-decision-worlds-regime.html", label: "Ch. 20 · Moulton DEFF" }
-          ]
-        },
-        {
-          id: "kalman-control-hub-contagion",
-          label: "19, 21, 22. Huber-Kalman, Tube-MPC & Hub",
-          chapter: "19-world-decisions-performativity.html",
-          pillar: "P",
-          chapters: [
-            { slug: "19-world-decisions-performativity.html", label: "Ch. 19 · Tube-MPC" },
-            { slug: "21-decision-worlds-governance.html", label: "Ch. 21 · Governance" },
-            { slug: "22-relational-ontology.html", label: "Ch. 22 · Hub Contagion" }
-          ]
-        },
-        {
-          id: "governance-bitemporal-drift",
-          label: "21, 25. Bitemporal Clock & Drift",
-          chapter: "21-decision-worlds-governance.html",
-          pillar: "B",
-          chapters: [
-            { slug: "21-decision-worlds-governance.html", label: "Ch. 21 · Bitemporal Vault" },
-            { slug: "27-empirical-synthesis.html", label: "Ch. 27 · Empirical Synthesis" }
-          ]
-        }
-      ];
+    function simulateTrajectory(useEpi, useVital, useGov) {
+      const T = 24;
+      let reserve = 45.0;
+      let ruinStep = null;
+      let erosion = 0.0;
+      let coveredCount = 0;
+      let sumHarm = 0.0;
+      const steps = [];
 
-      var VALID_THEMES = ["light", "rust", "navy", "coal", "ayu"];
-      var DARK_THEMES = { navy: true, coal: true, ayu: true };
+      for (let t = 0; t < T; t++) {
+        const isShock = (t % 6 === 4);
+        const tailSurge = isShock ? (9.5 + 2.2 * Math.sin(t * 1.7)) : 0.0;
+        const baseDemand = 22.0 + erosion;
 
-      function parseQuery() {
-        var out = {};
-        var q = window.location.search.substring(1).split("&");
-        for (var i = 0; i < q.length; i++) {
-          var kv = q[i].split("=");
-          if (kv.length === 2 && kv[0]) {
-            out[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
-          }
+        // Deterministic reproducible cluster realization matching CommunityReserveEnv structure
+        const rawMean = baseDemand + 0.4 + 0.22 * tailSurge + 0.8 * Math.cos(t * 0.9);
+        const trueMean = baseDemand + 2.6 + 0.36 * tailSurge + 0.9 * Math.cos(t * 0.9);
+        const missingCount = 14;
+        const obsN = 46;
+
+        let bounds, nEff;
+        if (useEpi) {
+          const pObs = obsN / (obsN + missingCount);
+          const manskiLo = pObs * rawMean + (1 - pObs) * 5.0 - 1.8;
+          const manskiHi = pObs * rawMean + (1 - pObs) * 65.0 + 3.4;
+          bounds = [manskiLo, manskiHi];
+          nEff = 11.2;
+        } else {
+          bounds = [rawMean - 0.5, rawMean + 0.5];
+          nEff = obsN;
         }
-        return out;
+
+        const designDemand = useEpi ? (0.35 * bounds[0] + 0.65 * bounds[1]) : rawMean;
+        const jensenCorr = 2.8;
+
+        let cap, resAlloc, leverageF;
+        if (useVital) {
+          cap = (designDemand + jensenCorr) / 0.76;
+          resAlloc = Math.max(0.30 * reserve, 12.0);
+          leverageF = 0.60;
+        } else {
+          cap = rawMean / 0.96;
+          resAlloc = 0.02 * reserve;
+          leverageF = useEpi ? 1.55 : 1.35;
+        }
+
+        const proxyPressure = useGov ? 0.10 : 0.85;
+        const discount = useGov ? 0.0 : 0.60;
+        const brake = useGov;
+
+        const covered = (trueMean >= bounds[0] && trueMean <= bounds[1]);
+        if (covered) coveredCount++;
+
+        const fatalDelay = discount >= 0.40;
+        const effCap = (brake && !fatalDelay && isShock) ? (cap + 0.50 * resAlloc) : cap;
+        const rho = Math.min(Math.max(trueMean / Math.max(effCap, 1.0), 0.01), 0.99);
+        const kingmanWait = rho / (1.0 - rho);
+        const gamingPenalty = 8.0 * proxyPressure;
+        erosion = Math.min(0.75 * erosion + 2.2 * proxyPressure, 14.0);
+
+        const harm = kingmanWait + gamingPenalty;
+        sumHarm += harm;
+
+        const overloadDrain = Math.max(trueMean - effCap, 0.0) * 1.8
+          + (rho > 0.90 ? 8.5 : 0.0)
+          + (!brake ? 3.5 * proxyPressure : 0.0);
+        const kellyNet = 3.2 * leverageF - 2.4 * leverageF * leverageF;
+        reserve = Math.max(reserve + kellyNet - overloadDrain, 0.0);
+
+        const hitRuin = reserve <= 1e-6;
+        if (hitRuin && ruinStep === null) ruinStep = t;
+
+        let grade;
+        if (covered && rho <= 0.85 && brake) {
+          grade = (!hitRuin && harm < 12.0) ? "FullyAptPerformance" : "AdroitExAnteUnluckyOutcome";
+        } else {
+          grade = (!hitRuin && harm < 12.0) ? "LuckyAccurateOnly" : "InaptAndInaccurate";
+        }
+
+        steps.push({
+          t, rawMean, trueMean, bounds, effCap, rho, harm, reserve, hitRuin, grade, covered, isShock
+        });
       }
 
-      var listEl = document.getElementById("lab-module-list");
-      var hostEl = document.getElementById("lab-widget-host");
-      var idEl = document.getElementById("lab-active-module-id");
-      var chapLinksEl = document.getElementById("lab-chapter-links");
-      var searchInput = document.getElementById("lab-search-input");
-      var searchClear = document.getElementById("lab-search-clear");
-      var visibleCountEl = document.getElementById("lab-visible-count");
-      var emptyStateEl = document.getElementById("lab-empty-state");
-      var prevBtn = document.getElementById("lab-prev-btn");
-      var nextBtn = document.getElementById("lab-next-btn");
-      var mobileDrawerBtn = document.getElementById("lab-mobile-drawer-btn");
-      var mobileActiveLabel = document.getElementById("lab-mobile-active-label");
-      var sidebarEl = document.getElementById("lab-sidebar");
+      const covRate = coveredCount / T;
+      const sEpi = covRate;
+      const sVital = useVital ? (ruinStep === null ? 0.92 : 0.78) : 0.08;
+      const sGov = useGov ? 0.92 : 0.12;
+      let diag = "IntactTriad";
+      if (sEpi < 0.50 && sEpi <= sVital && sEpi <= sGov) diag = "Proposition1BlindUndersizing";
+      else if (sVital < 0.50 && sVital <= sEpi && sVital <= sGov) diag = "Proposition2ImpotentLucidity";
+      else if (sGov < 0.50) diag = "Proposition3CynicalCapture";
 
-      var activeModuleId = "gigerenzer-bayes";
-      var activePillar = "ALL";
-      var registry = window.STOCHOLOGY_LAB_REGISTRY || {};
+      return { covRate, meanHarm: sumHarm / T, terminalReserve: reserve, ruinStep, diag, steps };
+    }
 
-      function resolveMainTheme() {
-        var stored = null;
-        try {
-          stored = localStorage.getItem("mdbook-theme");
-          if (stored && stored.charAt(0) === '"' && stored.charAt(stored.length - 1) === '"') {
-            stored = stored.slice(1, -1);
-          }
-        } catch (e) {}
-        if (stored && VALID_THEMES.indexOf(stored) !== -1) {
-          return stored;
-        }
-        try {
-          var host = (window.parent && window.parent !== window) ? window.parent : window.opener;
-          if (host && host.document && host.document.documentElement) {
-            var hostCl = host.document.documentElement.classList;
-            for (var h = 0; h < VALID_THEMES.length; h++) {
-              if (hostCl.contains(VALID_THEMES[h])) return VALID_THEMES[h];
-            }
-          }
-        } catch (e) {}
-        var params = new URLSearchParams(window.location.search);
-        var qTheme = params.get("theme");
-        if (qTheme === "dark") return "navy";
-        if (qTheme && VALID_THEMES.indexOf(qTheme) !== -1) return qTheme;
-        if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "navy";
-        }
-        return "light";
-      }
+    function renderCharts(report) {
+      const svgD = document.getElementById("svg-demand");
+      const svgR = document.getElementById("svg-reserve");
+      const W = 500, H = 220, padL = 42, padR = 16, padT = 18, padB = 28;
+      const plotW = W - padL - padR, plotH = H - padT - padB;
+      const xOf = (t) => padL + (t / 23) * plotW;
+      const yDem = (v) => padT + plotH - ((Math.min(Math.max(v, 10), 55) - 10) / 45) * plotH;
 
-      function applyTheme(theme) {
-        if (VALID_THEMES.indexOf(theme) === -1) theme = "light";
-        var root = document.documentElement;
-        for (var i = 0; i < VALID_THEMES.length; i++) {
-          root.classList.remove(VALID_THEMES[i]);
-        }
-        root.classList.add(theme);
-        root.classList.add("js");
-        var frames = document.querySelectorAll(".stoch-lab-iframe");
-        for (var f = 0; f < frames.length; f++) {
-          if (frames[f].contentWindow) {
-            try {
-              frames[f].contentWindow.postMessage(
-                { type: "stochology:theme", theme: theme, dark: !!DARK_THEMES[theme] },
-                "*"
-              );
-            } catch (err) {}
-          }
-        }
-      }
-
-      function syncThemeFromMainPage() {
-        applyTheme(resolveMainTheme());
-      }
-
-      syncThemeFromMainPage();
-
-      window.addEventListener("storage", function (e) {
-        if (!e || !e.key || e.key === "mdbook-theme") {
-          syncThemeFromMainPage();
-        }
+      let polyBandTop = [], polyBandBot = [], pathTrue = [], pathRaw = [];
+      report.steps.forEach((s) => {
+        const x = xOf(s.t).toFixed(1);
+        polyBandTop.push(`${x},${yDem(s.bounds[1]).toFixed(1)}`);
+        polyBandBot.unshift(`${x},${yDem(s.bounds[0]).toFixed(1)}`);
+        pathTrue.push(`${s.t === 0 ? 'M' : 'L'}${x},${yDem(s.trueMean).toFixed(1)}`);
+        pathRaw.push(`${s.t === 0 ? 'M' : 'L'}${x},${yDem(s.rawMean).toFixed(1)}`);
       });
 
-      window.addEventListener("focus", syncThemeFromMainPage);
-      document.addEventListener("visibilitychange", function () {
-        if (!document.hidden) {
-          syncThemeFromMainPage();
-        }
+      svgD.innerHTML = `
+        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + plotH}" stroke="#94a3b8" />
+        <line x1="${padL}" y1="${padT + plotH}" x2="${padL + plotW}" y2="${padT + plotH}" stroke="#94a3b8" />
+        <polygon points="${polyBandTop.concat(polyBandBot).join(' ')}" fill="rgba(37, 99, 235, 0.18)" stroke="rgba(37, 99, 235, 0.45)" stroke-width="1" />
+        <path d="${pathRaw.join(' ')}" fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="4,3" />
+        <path d="${pathTrue.join(' ')}" fill="none" stroke="#dc2626" stroke-width="2.4" />
+        <text x="${padL + 8}" y="${padT + 14}" font-size="11" fill="#2563eb">Shaded: Epistemic Bounds [L_t, U_t]</text>
+        <text x="${padL + 215}" y="${padT + 14}" font-size="11" fill="#dc2626">Solid: True Demand S_t</text>
+        <text x="${padL + 355}" y="${padT + 14}" font-size="11" fill="#d97706">Dashed: Archive O_t</text>
+      `;
+
+      const yRes = (v) => padT + plotH - (Math.min(Math.max(v, 0), 80) / 80) * plotH;
+      let pathRes = [], pathHarm = [];
+      report.steps.forEach((s) => {
+        const x = xOf(s.t).toFixed(1);
+        pathRes.push(`${s.t === 0 ? 'M' : 'L'}${x},${yRes(s.reserve).toFixed(1)}`);
+        pathHarm.push(`${s.t === 0 ? 'M' : 'L'}${x},${yRes(Math.min(s.harm, 80)).toFixed(1)}`);
       });
 
-      if (window.matchMedia) {
-        var mq = window.matchMedia("(prefers-color-scheme: dark)");
-        if (mq.addEventListener) {
-          mq.addEventListener("change", syncThemeFromMainPage);
-        }
-      }
+      svgR.innerHTML = `
+        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + plotH}" stroke="#94a3b8" />
+        <line x1="${padL}" y1="${padT + plotH}" x2="${padL + plotW}" y2="${padT + plotH}" stroke="#dc2626" stroke-width="1.5" />
+        <path d="${pathRes.join(' ')}" fill="none" stroke="#16a34a" stroke-width="2.6" />
+        <path d="${pathHarm.join(' ')}" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="3,3" />
+        <text x="${padL + 8}" y="${padT + 14}" font-size="11" fill="#16a34a">Solid Green: Vital Reserve R_t</text>
+        <text x="${padL + 195}" y="${padT + 14}" font-size="11" fill="#dc2626">Dashed Red: Convex Harm H_t (R=0 Ruin Floor)</text>
+      `;
+    }
 
-      try {
-        var hostWin = (window.parent && window.parent !== window) ? window.parent : window.opener;
-        if (hostWin && hostWin.document && hostWin.document.documentElement && typeof MutationObserver !== "undefined") {
-          var hostObs = new MutationObserver(syncThemeFromMainPage);
-          hostObs.observe(hostWin.document.documentElement, {
-            attributes: true,
-            attributeFilter: ["class"]
-          });
-        }
-      } catch (e) {}
+    function updateUI() {
+      const useEpi = document.getElementById("chk-epi").checked;
+      const useVital = document.getElementById("chk-vital").checked;
+      const useGov = document.getElementById("chk-gov").checked;
+      const rep = simulateTrajectory(useEpi, useVital, useGov);
 
-      mobileDrawerBtn.addEventListener("click", function () {
-        var isOpen = sidebarEl.classList.toggle("is-open");
-        mobileDrawerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
-        mobileDrawerBtn.textContent = isOpen ? "Hide Modules (16) ▴" : "Browse Modules (16) ▾";
-      });
+      const elDiag = document.getElementById("val-diag");
+      elDiag.textContent = rep.diag;
+      elDiag.style.color = rep.diag === "IntactTriad" ? "var(--success)" : "var(--danger)";
 
-      function renderChapterLinks(mod, preferredChapter) {
-        var spec = registry[mod.id] || {};
-        var chapters = mod.chapters || spec.chapters || [{ slug: mod.chapter, label: "Read Chapter" }];
-        var normPref = (preferredChapter || "").trim();
-        if (normPref && !/\.html$/i.test(normPref)) {
-          normPref = normPref + ".html";
-        }
-        var hasMatch = false;
-        for (var m = 0; m < chapters.length; m++) {
-          if (chapters[m].slug === normPref) {
-            hasMatch = true;
-            break;
-          }
-        }
-        chapLinksEl.innerHTML = '<span class="lab-chapter-links-label">Textbook:</span>';
-        for (var c = 0; c < chapters.length; c++) {
-          var ch = chapters[c];
-          var isPrimary = hasMatch ? normPref === ch.slug : c === 0;
-          var a = document.createElement("a");
-          a.href = "../" + ch.slug;
-          a.className = "stoch-lab-btn" + (isPrimary ? " stoch-lab-btn-primary" : "");
-          a.textContent = ch.label + " →";
-          chapLinksEl.appendChild(a);
-        }
-      }
+      document.getElementById("val-cov").textContent = (rep.covRate * 100).toFixed(1) + "%";
+      document.getElementById("val-harm").textContent = rep.meanHarm.toFixed(2);
+      document.getElementById("val-res").textContent = rep.terminalReserve.toFixed(2);
 
-      function resolveModuleId(rawId) {
-        if (!rawId) return "gigerenzer-bayes";
-        var trimmed = String(rawId).trim();
-        for (var i = 0; i < MODULES.length; i++) {
-          if (MODULES[i].id === trimmed) return MODULES[i].id;
-        }
-        var upper = trimmed.toUpperCase();
-        for (var k in registry) {
-          if (Object.prototype.hasOwnProperty.call(registry, k)) {
-            if (registry[k] && String(registry[k].code || "").toUpperCase() === upper) {
-              return k;
-            }
-          }
-        }
-        return "gigerenzer-bayes";
-      }
+      const elRuin = document.getElementById("val-ruin");
+      elRuin.textContent = rep.ruinStep === null ? "None (Survived)" : `Step t = ${rep.ruinStep}`;
+      elRuin.style.color = rep.ruinStep === null ? "var(--success)" : "var(--danger)";
 
-      function selectModule(modId, preserveQuery) {
-        var resolvedId = resolveModuleId(modId);
-        var idx = 0;
-        for (var i = 0; i < MODULES.length; i++) {
-          if (MODULES[i].id === resolvedId) {
-            idx = i;
-            break;
-          }
-        }
-        var found = MODULES[idx];
-        activeModuleId = found.id;
+      renderCharts(rep);
 
-        var buttons = listEl.querySelectorAll(".lab-nav-item");
-        for (var b = 0; b < buttons.length; b++) {
-          var isMatch = buttons[b].getAttribute("data-id") === found.id;
-          buttons[b].classList.toggle("active", isMatch);
-          if (isMatch) {
-            buttons[b].setAttribute("aria-current", "true");
-          } else {
-            buttons[b].removeAttribute("aria-current");
-          }
-        }
+      const tbody = document.getElementById("tbl-body");
+      tbody.innerHTML = rep.steps.map((s) => {
+        const badgeClass = s.grade === "FullyAptPerformance" ? "badge-ok"
+          : (s.grade === "AdroitExAnteUnluckyOutcome" ? "badge-warn" : "badge-err");
+        return `
+          <tr>
+            <td>t = ${s.t}${s.isShock ? ' (Tail Surge)' : ''}</td>
+            <td>${s.rawMean.toFixed(1)}</td>
+            <td><strong>${s.trueMean.toFixed(1)}</strong></td>
+            <td>[${s.bounds[0].toFixed(1)}, ${s.bounds[1].toFixed(1)}] ${s.covered ? '&check;' : '&times;'}</td>
+            <td>${s.effCap.toFixed(1)}</td>
+            <td>${(s.rho * 100).toFixed(1)}%</td>
+            <td>${s.harm.toFixed(2)}</td>
+            <td>${s.reserve.toFixed(2)}</td>
+            <td><span class="badge ${badgeClass}">${s.grade}</span></td>
+          </tr>
+        `;
+      }).join("");
+    }
 
-        var q = parseQuery();
-        var activeSeed = parseInt(q.seed, 10);
-        if (!isFinite(activeSeed) || activeSeed <= 0) activeSeed = 2026;
+    function setPreset(epi, vital, gov, btnId) {
+      document.getElementById("chk-epi").checked = epi;
+      document.getElementById("chk-vital").checked = vital;
+      document.getElementById("chk-gov").checked = gov;
+      document.querySelectorAll(".presets button").forEach((b) => b.classList.remove("active"));
+      if (btnId) document.getElementById(btnId).classList.add("active");
+      updateUI();
+    }
 
-        var spec = registry[found.id] || {};
-        idEl.textContent = "(" + (idx + 1) + "/16) · " + found.id + " · Φ₁ (seed = " + activeSeed + ")";
-        var topbarTitle = document.getElementById("lab-topbar-title");
-        if (topbarTitle) {
-          topbarTitle.textContent = "Stochology Interactive Laboratory (seed = " + activeSeed + ")";
-        }
-        mobileActiveLabel.textContent = found.label;
-        if (spec.title) {
-          document.title = spec.title + " | Stochology /lab (seed = " + activeSeed + ")";
-        }
+    function onManualToggle() {
+      document.querySelectorAll(".presets button").forEach((b) => b.classList.remove("active"));
+      updateUI();
+    }
 
-        renderChapterLinks(found, q.chapter);
-
-        if (!preserveQuery && window.history && window.history.replaceState) {
-          window.history.replaceState(null, "", "?module=" + encodeURIComponent(found.id) + "&seed=" + activeSeed);
-        }
-
-        hostEl.innerHTML = "";
-        var widget = document.createElement("div");
-        widget.className = "stoch-lab";
-        widget.setAttribute("data-lab", found.id);
-        widget.setAttribute("data-seed", String(activeSeed));
-        if (preserveQuery) {
-          widget.setAttribute("data-from-query", "true");
-        }
-        hostEl.appendChild(widget);
-
-        if (window.hydrateStochologyLabWidget) {
-          window.hydrateStochologyLabWidget(widget);
-        }
-
-        if (sidebarEl.classList.contains("is-open")) {
-          sidebarEl.classList.remove("is-open");
-          mobileDrawerBtn.setAttribute("aria-expanded", "false");
-          mobileDrawerBtn.textContent = "Browse Modules (16) ▾";
-        }
-      }
-
-      function applyFilters() {
-        var term = (searchInput.value || "").trim().toLowerCase();
-        searchClear.classList.toggle("visible", term.length > 0);
-        var items = listEl.querySelectorAll("li");
-        var visible = 0;
-        for (var i = 0; i < items.length; i++) {
-          var li = items[i];
-          var btn = li.querySelector(".lab-nav-item");
-          var p = btn.getAttribute("data-pillar");
-          var haystack = btn.getAttribute("data-search") || "";
-          var pillarOk = activePillar === "ALL" || p === activePillar;
-          var termOk = !term || haystack.indexOf(term) !== -1;
-          var show = pillarOk && termOk;
-          li.style.display = show ? "" : "none";
-          if (show) visible++;
-        }
-        visibleCountEl.textContent = visible + " / " + MODULES.length;
-        emptyStateEl.style.display = visible === 0 ? "block" : "none";
-      }
-
-      for (var m = 0; m < MODULES.length; m++) {
-        (function (item) {
-          var spec = registry[item.id] || {};
-          var pillarCode = item.pillar || "C";
-          var chapList = item.chapters || spec.chapters || [];
-          var chapText = chapList.map(function (c) { return c.label; }).join(" · ");
-          var searchBlob = [
-            item.id,
-            item.label,
-            spec.title || "",
-            spec.subtitle || "",
-            spec.pillar || "",
-            chapText
-          ].join(" ").toLowerCase();
-
-          var li = document.createElement("li");
-          var btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "lab-nav-item";
-          btn.setAttribute("data-id", item.id);
-          btn.setAttribute("data-pillar", pillarCode);
-          btn.setAttribute("data-search", searchBlob);
-          btn.innerHTML =
-            '<span class="lab-nav-item-top">' +
-              "<span>" + item.label + "</span>" +
-              '<span class="lab-nav-pillar">' + ( pillarCode === "A-Audit" ? "A·Audit" : pillarCode ) + "</span>" +
-            "</span>" +
-            '<span class="lab-nav-sub">' + item.id + (chapText ? " · " + chapText : "") + "</span>";
-          btn.addEventListener("click", function () {
-            selectModule(item.id, false);
-          });
-          li.appendChild(btn);
-          listEl.appendChild(li);
-        })(MODULES[m]);
-      }
-
-      searchInput.addEventListener("input", applyFilters);
-      searchClear.addEventListener("click", function () {
-        searchInput.value = "";
-        applyFilters();
-        searchInput.focus();
-      });
-
-      var pillarPills = document.querySelectorAll(".lab-pillar-pill");
-      for (var p = 0; p < pillarPills.length; p++) {
-        (function (pill) {
-          pill.addEventListener("click", function () {
-            activePillar = pill.getAttribute("data-pillar") || "ALL";
-            for (var k = 0; k < pillarPills.length; k++) {
-              pillarPills[k].setAttribute("aria-pressed", pillarPills[k] === pill ? "true" : "false");
-            }
-            applyFilters();
-          });
-        })(pillarPills[p]);
-      }
-
-      function stepModule(delta) {
-        var visibleIds = [];
-        var items = listEl.querySelectorAll("li");
-        for (var j = 0; j < items.length; j++) {
-          if (items[j].style.display !== "none") {
-            var btn = items[j].querySelector(".lab-nav-item");
-            if (btn && btn.getAttribute("data-id")) {
-              visibleIds.push(btn.getAttribute("data-id"));
-            }
-          }
-        }
-        var pool = visibleIds.length > 0 ? visibleIds : MODULES.map(function (m) { return m.id; });
-        var curIdx = 0;
-        for (var i = 0; i < pool.length; i++) {
-          if (pool[i] === activeModuleId) {
-            curIdx = i;
-            break;
-          }
-        }
-        var nextIdx = (curIdx + delta + pool.length) % pool.length;
-        selectModule(pool[nextIdx], false);
-      }
-
-      prevBtn.addEventListener("click", function () { stepModule(-1); });
-      nextBtn.addEventListener("click", function () { stepModule(1); });
-
-      document.addEventListener("keydown", function (ev) {
-        var tag = ev.target && ev.target.tagName ? ev.target.tagName.toLowerCase() : "";
-        var inInput = tag === "input" || tag === "textarea" || tag === "select" || (ev.target && ev.target.isContentEditable);
-        if (ev.key === "/" && !inInput && !ev.ctrlKey && !ev.metaKey && !ev.altKey) {
-          ev.preventDefault();
-          searchInput.focus();
-        } else if (ev.key === "[" && !inInput && !ev.ctrlKey && !ev.metaKey && !ev.altKey) {
-          ev.preventDefault();
-          stepModule(-1);
-        } else if (ev.key === "]" && !inInput && !ev.ctrlKey && !ev.metaKey && !ev.altKey) {
-          ev.preventDefault();
-          stepModule(1);
-        }
-      });
-
-      var initialQ = parseQuery();
-      selectModule(initialQ.module || initialQ.lab || "gigerenzer-bayes", true);
-    })();
+    updateUI();
   </script>
 </body>
 </html>

@@ -4,7 +4,19 @@ on:
   push:
     branches: ["main"]
   pull_request:
-    paths: ["book-src/**", "book.toml", "mathjax.js", "theme/**", "cards/**", "docs/**", ".github/workflows/pages.yml"]
+    paths:
+      - "book-src/**"
+      - "book.toml"
+      - "mathjax.js"
+      - "theme/**"
+      - "crates/**"
+      - "data/**"
+      - "scripts/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "rust-toolchain.toml"
+      - ".pre-commit-config.yaml"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -16,7 +28,7 @@ concurrency:
 
 jobs:
   build:
-    name: Audit Protocol & Build mdBook
+    name: Verify Workspace & Build mdBook
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
@@ -25,8 +37,13 @@ jobs:
       - name: Toolchain pinned in rust-toolchain.toml
         run: rustup show
 
-      - name: Mandatory verification (AGENTS.md §V)
-        run: ./scripts/verify.sh
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@cargo-llvm-cov
+
+      - name: Install and run pre-commit verification (.pre-commit-config.yaml)
+        run: |
+          pipx install pre-commit || pip install --user pre-commit
+          pre-commit run --all-files
 
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v2
@@ -42,8 +59,20 @@ jobs:
           test -f book/toc.html
           test -f book/mathjax.js
           test -f book/theme/book.css
+          test -f book/00-preface.html
+          test -f book/01-sequential-loop-naive-agent.html
+          test -f book/02-inquiry-openness-multiverse.html
+          test -f book/03-underdetermination-partial-identification.html
+          test -f book/04-non-identical-asymmetry-heavy-tails.html
+          test -f book/05-world-to-archive-big-data-paradox.html
+          test -f book/06-reactive-worlds-performativity-goodhart.html
+          test -f book/07-irreversible-time-vital-margin.html
+          test -f book/08-moral-luck-apt-agency-institutions.html
+          test -f book/09-methodological-families-reflexivity.html
+          test -f book/appendix-a-mathematics.html
+          test -f book/appendix-b-architecture-verification.html
+          test -f book/appendix-c-sources.html
           test -f book/lab/index.html
-          test -f book/lab/embed/index.html
           grep -qx "stochology.org" book/CNAME
 
       - name: Configure GitHub Pages

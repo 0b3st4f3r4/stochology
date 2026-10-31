@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" width="100%" height="auto" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="820" height="320" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="410" y="34" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">The Sequential Agent–World–Institution Loop (CommunityReserveEnv)</text>
+
+  <!-- World & Reserve -->
+  <rect x="36" y="70" width="220" height="190" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="146" y="100" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">World &amp; Reserve (S_t, R_t)</text>
+  <text x="146" y="128" text-anchor="middle" font-size="12" fill="#1e40af">• Clustered population (c = 1..6)</text>
+  <text x="146" y="150" text-anchor="middle" font-size="12" fill="#1e40af">• Pareto tail surges (alpha &lt; 2)</text>
+  <text x="146" y="172" text-anchor="middle" font-size="12" fill="#1e40af">• Kingman queue rho / (1 - rho)</text>
+  <text x="146" y="194" text-anchor="middle" font-size="12" fill="#1e40af">• Performative feedback D(theta)</text>
+  <text x="146" y="216" text-anchor="middle" font-size="12" font-weight="600" fill="#b91c1c">• Absorbing Ruin Barrier R_t &lt;= 0</text>
+
+  <!-- Mutilated Archive -->
+  <rect x="300" y="70" width="220" height="82" rx="10" fill="#fefce8" stroke="#ca8a04" stroke-width="2"/>
+  <text x="410" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="#854d0e">Filter I &amp; II: Archive O_t</text>
+  <text x="410" y="118" text-anchor="middle" font-size="11.5" fill="#713f12">Selective exclusion (rho_{R,Y} != 0)</text>
+  <text x="410" y="136" text-anchor="middle" font-size="11.5" fill="#713f12">Cluster echo DEFF &amp; vintages</text>
+
+  <!-- Agent & Triad -->
+  <rect x="564" y="70" width="220" height="190" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="674" y="100" text-anchor="middle" font-size="14" font-weight="700" fill="#14532d">Agent &amp; Institution (A_t)</text>
+  <text x="674" y="128" text-anchor="middle" font-size="12" fill="#166534">1. Epistemic Margin [L_t, U_t], n_eff</text>
+  <text x="674" y="152" text-anchor="middle" font-size="12" fill="#166534">2. Vital Margin (Kingman + Kelly)</text>
+  <text x="674" y="176" text-anchor="middle" font-size="12" fill="#166534">3. Institutional Governance:</text>
+  <text x="674" y="196" text-anchor="middle" font-size="11.5" fill="#15803d">• Undiscounted Algedonic S3*</text>
+  <text x="674" y="216" text-anchor="middle" font-size="11.5" fill="#15803d">• Sosa / Baron–Hershey Telic Seal</text>
+
+  <!-- Feedback / Intervention -->
+  <rect x="300" y="178" width="220" height="82" rx="10" fill="#fdf2f8" stroke="#db2777" stroke-width="2"/>
+  <text x="410" y="204" text-anchor="middle" font-size="13" font-weight="700" fill="#9d174d">Filter III: Action &amp; Time</text>
+  <text x="410" y="226" text-anchor="middle" font-size="11.5" fill="#831843">Capacity C_t, Reserve B_t, Leverage f_t</text>
+  <text x="410" y="244" text-anchor="middle" font-size="11.5" fill="#831843">TTS &gt;= TTR &amp; Goodhart Brakes</text>
+
+  <!-- Arrows -->
+  <line x1="256" y1="110" x2="296" y2="110" stroke="#475569" stroke-width="2"/>
+  <polygon points="300,110 291,105 291,115" fill="#475569"/>
+  <line x1="520" y1="110" x2="560" y2="110" stroke="#475569" stroke-width="2"/>
+  <polygon points="564,110 555,105 555,115" fill="#475569"/>
+  <line x1="564" y1="220" x2="524" y2="220" stroke="#475569" stroke-width="2"/>
+  <polygon points="520,220 529,215 529,225" fill="#475569"/>
+  <line x1="300" y1="220" x2="260" y2="220" stroke="#475569" stroke-width="2"/>
+  <polygon points="256,220 265,215 265,225" fill="#475569"/>
+</svg>
+

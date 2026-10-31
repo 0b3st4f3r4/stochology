@@ -1,5 +1,6 @@
 [package]
 name = "stochology-cli"
+description = "Command-line runner and real-dataset laboratories for Stochology"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -7,25 +8,15 @@ authors.workspace = true
 license.workspace = true
 repository.workspace = true
 homepage.workspace = true
-documentation = "https://docs.rs/stochology-cli"
-readme = "README.md"
 keywords.workspace = true
-categories = ["command-line-utilities", "science", "mathematics", "simulation", "algorithms"]
-description = "Executable CLI laboratories (`labs`) and epistemological gates (`gates`) for Stochology"
+categories.workspace = true
+
+[[bin]]
+name = "stochology"
+path = "src/main.rs"
 
 [dependencies]
-stochology-core.workspace = true
-stochology-lenses.workspace = true
-stochology-siga.workspace = true
-stochology-governance.workspace = true
-
-[[bin]]
-name = "labs"
-path = "src/bin/labs.rs"
-
-[[bin]]
-name = "gates"
-path = "src/bin/gates.rs"
+stochology = { workspace = true }
 
 [lints]
 workspace = true

@@ -1,0 +1,16 @@
+[package]
+name = "stochology"
+description = "Stochology: The Science and Ethics of Aim under Uncertainty — sequential Agent-World-Institution loop, epistemic margin, vital margin, and institutional governance in pure Rust"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[lints]
+workspace = true
+

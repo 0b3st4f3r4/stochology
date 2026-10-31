@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-labelledby="stochology-logo-title">
-  <title id="stochology-logo-title">Stochology — Auditable Epistemological Machine</title>
+  <title id="stochology-logo-title">Stochology — The Science and Ethics of Aim Under Uncertainty</title>
   <defs>
     <!-- Progression aligned with the disc: L1 (Green) -> L2 (Blue) -> (p*, r_c) Crosshair (Gold) -> L3 (Crimson) -->
     <linearGradient id="logo-ring" x1="2" y1="103" x2="468" y2="103" gradientUnits="userSpaceOnUse">
@@ -109,7 +109,7 @@
   <g transform="translate(148, 0)">
     <text x="0" y="62" fill="var(--logo-ink)" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="42" font-weight="800" letter-spacing="2.5">STOCHOLOGY</text>
     <line x1="2" y1="90" x2="468" y2="90" stroke="url(#logo-ring)" stroke-width="1.5" stroke-opacity="0.75"/>
-    <text x="2" y="103" fill="var(--logo-meta)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="11.5" font-weight="600" letter-spacing="0.8">L₁ → L₂ → L₃ → L₁  |  Φ₁–Φ₅  |  G1–G8  |  SIGA</text>
+    <text x="2" y="103" fill="var(--logo-meta)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="11.5" font-weight="600" letter-spacing="0.8">THE SCIENCE AND ETHICS OF AIM UNDER UNCERTAINTY</text>
   </g>
 </svg>
 

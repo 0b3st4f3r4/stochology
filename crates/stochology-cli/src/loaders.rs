@@ -1,25 +1,17 @@
-//! Empirical CSV dataset loaders (`data/*.csv`) and YAML Card / SHA-256 manifest readers.
+//! Empirical CSV dataset loaders (`data/*.csv`) and SHA-256 manifest verifier.
 
 use crate::csv::CsvTable;
-use crate::error::CliError;
 use std::collections::BTreeMap;
 use std::fs;
 use std::path::{Path, PathBuf};
-use stochology_core::{EpistemologicalCard, apply_cromwell_floor};
-use stochology_governance::parse_quarter;
-use stochology_lenses::{AnchoredSample, CausalEnvironment};
+use stochology::{CausalEnvironment, cromwell_clamp, parse_quarter, sha256_hex};
 
-/// Resolves the workspace/distribution root directory containing `data/SHA256SUMS` and `cards/*.yaml`.
-///
-/// Checks, in order:
-/// 1. `std::env::current_dir()` if `data/SHA256SUMS` exists there;
-/// 2. Ancestor directories of `std::env::current_exe()` if `data/SHA256SUMS` exists there (for prebuilt release archives);
-/// 3. Compile-time `CARGO_MANIFEST_DIR/../..` fallback.
+/// Resolves the workspace root directory containing `data/SHA256SUMS`.
 pub fn resolve_workspace_root() -> PathBuf {
-    if let Ok(cwd) = std::env::current_dir() {
-        if cwd.join("data/SHA256SUMS").is_file() {
-            return cwd;
-        }
+    if let Ok(cwd) = std::env::current_dir()
+        && cwd.join("data/SHA256SUMS").is_file()
+    {
+        return cwd;
     }
     if let Ok(exe) = std::env::current_exe() {
         for ancestor in exe.ancestors().skip(1) {
@@ -35,69 +27,36 @@ pub fn resolve_workspace_root() -> PathBuf {
         .to_path_buf()
 }
 
-/// Paths of the 4 canonical Epistemological Cards on disk (`cards/*.yaml`).
-pub const CANONICAL_CARD_PATHS: [&str; 4] = [
-    "cards/card_01_atlantic_storms_evacuation.yaml",
-    "cards/card_02_bank_queue_staffing.yaml",
-    "cards/card_03_nyc_flights_holding.yaml",
-    "cards/card_04_dpi_civil_defense_triage.yaml",
-];
-
-/// Loads and parses the 4 canonical YAML cards directly from disk (`cards/*.yaml`).
-pub fn load_cards_from_disk(root_dir: &Path) -> Result<Vec<(String, EpistemologicalCard)>, String> {
-    let mut out = Vec::with_capacity(CANONICAL_CARD_PATHS.len());
-    for rel_path in CANONICAL_CARD_PATHS {
-        let full_path = root_dir.join(rel_path);
-        let content = fs::read_to_string(&full_path).map_err(|e| {
-            String::from(CliError::Io {
-                path: full_path.display().to_string(),
-                message: e.to_string(),
-            })
-        })?;
-        let card = EpistemologicalCard::from_yaml_typed(&content).map_err(|error| {
-            String::from(CliError::ParseCard {
-                path: rel_path.to_string(),
-                error,
-            })
-        })?;
-        out.push((rel_path.to_string(), card));
-    }
-    Ok(out)
-}
-
-/// Reads `data/SHA256SUMS` and returns a map of `relative_path -> expected_sha256`.
-pub fn load_sha256sums_manifest(root_dir: &Path) -> Result<BTreeMap<String, String>, String> {
-    load_sha256_manifest_at(root_dir, "data/SHA256SUMS")
-}
-
-/// Reads the SHA-256 manifest at `root_dir.join(rel_manifest)` (a profile's `dataset_manifest`) and
-/// returns a map of `relative_path -> expected_sha256`.
-pub fn load_sha256_manifest_at(
-    root_dir: &Path,
-    rel_manifest: &str,
-) -> Result<BTreeMap<String, String>, String> {
-    let path = root_dir.join(rel_manifest);
-    let content = fs::read_to_string(&path).map_err(|e| {
-        String::from(CliError::Io {
-            path: path.display().to_string(),
-            message: e.to_string(),
-        })
-    })?;
-    let mut map = BTreeMap::new();
+/// Reads and verifies every file listed in `data/SHA256SUMS` against its cryptographic SHA-256 digest.
+pub fn verify_sha256sums_manifest(root_dir: &Path) -> Result<usize, String> {
+    let manifest_path = root_dir.join("data/SHA256SUMS");
+    let content = fs::read_to_string(&manifest_path)
+        .map_err(|e| format!("Failed to read '{}': {e}", manifest_path.display()))?;
+    let mut verified_count = 0usize;
     for line in content.lines() {
         let trimmed = line.trim();
         if trimmed.is_empty() || trimmed.starts_with('#') {
             continue;
         }
         let mut parts = trimmed.split_whitespace();
-        if let (Some(hash), Some(rel)) = (parts.next(), parts.next()) {
-            map.insert(rel.to_string(), hash.to_string());
+        let (Some(expected_hash), Some(rel_path)) = (parts.next(), parts.next()) else {
+            return Err(format!("Malformed line in data/SHA256SUMS: '{trimmed}'"));
+        };
+        let file_path = root_dir.join(rel_path);
+        let bytes = fs::read(&file_path)
+            .map_err(|e| format!("Missing sealed file '{}': {e}", file_path.display()))?;
+        let actual_hash = sha256_hex(&bytes);
+        if actual_hash != expected_hash {
+            return Err(format!(
+                "SHA-256 mismatch for '{rel_path}': expected {expected_hash}, got {actual_hash}"
+            ));
         }
+        verified_count += 1;
     }
-    Ok(map)
+    Ok(verified_count)
 }
 
-/// Reads real Danish Fire Insurance losses (`data/danish_fire.csv`).
+/// Reads real Danish Fire Insurance losses (`data/danish_fire.csv`, $n = 2\,167$, in millions of DKK).
 pub fn load_danish_fire(root_dir: &Path) -> Vec<f64> {
     let table = CsvTable::open(root_dir, "data/danish_fire.csv")
         .expect("failed to read data/danish_fire.csv");
@@ -119,8 +78,8 @@ pub fn load_bank_call_clusters(root_dir: &Path) -> Vec<Vec<f64>> {
     by_day.into_values().collect()
 }
 
-/// Reads real `re78` earnings from the NSW experiment (`data/nsw_experimental.csv`, treated vs. control)
-/// and the observational CPS sample (`data/cps_observational.csv`).
+/// Reads real `re78` earnings from the LaLonde NSW randomized trial (`data/nsw_experimental.csv`,
+/// treated vs. control) and the observational CPS sample (`data/cps_observational.csv`).
 pub fn load_lalonde_nsw_cps(root_dir: &Path) -> (Vec<f64>, Vec<f64>, Vec<f64>) {
     let read_file = |rel: &str| -> (Vec<f64>, Vec<f64>) {
         let table = CsvTable::open(root_dir, rel).expect("failed to read LaLonde CSV");
@@ -142,8 +101,7 @@ pub fn load_lalonde_nsw_cps(root_dir: &Path) -> (Vec<f64>, Vec<f64>, Vec<f64>) {
     (nsw_t, nsw_c, cps_c)
 }
 
-/// Reads `data/cps_observational.csv` grouped by `(age, educ)` administrative demographic-educational cohort clusters,
-/// returning the cluster-level vulnerability score vectors used in Card 04 and `EmpiricalCoupledSocietyAudit`.
+/// Reads `data/cps_observational.csv` grouped by `(age, educ)` demographic-educational cohort clusters.
 pub fn load_cps_cohort_clusters(root_dir: &Path) -> Vec<Vec<f64>> {
     let table = CsvTable::open(root_dir, "data/cps_observational.csv")
         .expect("failed to read data/cps_observational.csv");
@@ -167,9 +125,7 @@ pub fn load_cps_cohort_clusters(root_dir: &Path) -> Vec<Vec<f64>> {
     by_cohort.into_values().collect()
 }
 
-/// Reads daily arithmetic returns $(S_t - S_{t-1}) / S_{t-1}$ of the Dow Jones Industrial Average (`data/djia_1885_2023.csv`)
-/// so that ensemble drift $\mu_{\text{ens}}$ and Itô time-average growth $g_{\text{time}} = \mu_{\text{ens}} - \frac{1}{2}\sigma^2$
-/// are evaluated without double-subtracting the variance drain.
+/// Reads daily arithmetic returns $(S_t - S_{t-1}) / S_{t-1}$ of the Dow Jones Industrial Average (`data/djia_1885_2023.csv`).
 pub fn load_djia_returns(root_dir: &Path) -> Vec<f64> {
     let table = CsvTable::open(root_dir, "data/djia_1885_2023.csv")
         .expect("failed to read data/djia_1885_2023.csv");
@@ -181,9 +137,8 @@ pub fn load_djia_returns(root_dir: &Path) -> Vec<f64> {
     closes.windows(2).map(|w| (w[1] - w[0]) / w[0]).collect()
 }
 
-/// Reads all Atlantic storm observations (`data/atlantic_storms.csv`), returning uncalibrated
-/// barometric hurricane-intensity probabilities (`wind >= 64` knots) and binary outcomes (`0.0` or `1.0`)
-/// used to demonstrate PAV isotonic recalibration in Lab 3.
+/// Reads Atlantic storm observations (`data/atlantic_storms.csv`), returning barometric hurricane-intensity
+/// forecasts (`wind >= 64` knots) and binary outcomes (`0.0` or `1.0`).
 pub fn load_atlantic_storms_forecasts(root_dir: &Path) -> (Vec<f64>, Vec<f64>) {
     let table = CsvTable::open(root_dir, "data/atlantic_storms.csv")
         .expect("failed to read data/atlantic_storms.csv");
@@ -192,7 +147,7 @@ pub fn load_atlantic_storms_forecasts(root_dir: &Path) -> (Vec<f64>, Vec<f64>) {
     for row in table.rows() {
         if let (Some(wind), Some(pressure)) = (row.f64_at(10), row.f64_at(11)) {
             let z = (1005.0 - pressure) * 0.12;
-            let p = apply_cromwell_floor(1.0 / (1.0 + (-z).exp()), 0.001);
+            let p = cromwell_clamp(1.0 / (1.0 + (-z).exp()), 0.001);
             let y = if wind >= 64.0 { 1.0 } else { 0.0 };
             probs.push(p);
             outcomes.push(y);
@@ -201,11 +156,9 @@ pub fn load_atlantic_storms_forecasts(root_dir: &Path) -> (Vec<f64>, Vec<f64>) {
     (probs, outcomes)
 }
 
-/// Splits `data/atlantic_storms.csv` ($n = 20\,778$) into 3 climatological seasonal regimes
-/// (`storms_fringe_season`, `storms_shoulder_season_aug_oct`, `storms_peak_season_sep`)
-/// to audit nonlinear physical invariance of cyclostrophic barometric pressure deficit (`X0`)
-/// vs. a regime-shifted latitude proxy (`X1`) predicting normalized maximum sustained wind (`Y`).
-pub fn load_atlantic_storms_decade_environments(root_dir: &Path) -> Vec<CausalEnvironment> {
+/// Splits `data/atlantic_storms.csv` into 3 seasonal regimes (`fringe`, `shoulder_aug_oct`, `peak_sep`)
+/// to test Invariant Causal Prediction of barometric pressure deficit (`X0`) vs. latitude proxy (`X1`).
+pub fn load_atlantic_storms_environments(root_dir: &Path) -> Vec<CausalEnvironment> {
     let table = CsvTable::open(root_dir, "data/atlantic_storms.csv")
         .expect("failed to read data/atlantic_storms.csv");
     let mut x_e0 = Vec::new();
@@ -254,36 +207,15 @@ pub fn load_atlantic_storms_decade_environments(root_dir: &Path) -> Vec<CausalEn
     ]
 }
 
-/// Reads all half-hourly electricity demand observations (MW) of Victoria, Australia (`data/vic_elec.csv`).
+/// Reads half-hourly electricity demand observations (MW) of Victoria, Australia (`data/vic_elec.csv`).
 pub fn load_vic_elec_demand(root_dir: &Path) -> Vec<f64> {
     let table =
         CsvTable::open(root_dir, "data/vic_elec.csv").expect("failed to read data/vic_elec.csv");
     table.rows().filter_map(|r| r.f64_at(2)).collect()
 }
 
-/// Reads the daily maximum electricity demand (MW) of Victoria (`data/vic_elec.csv`), one value per local
-/// `Date` in file order (1 095 days, 2012-01-01 to 2014-12-31).
-pub fn load_vic_elec_daily_peaks(root_dir: &Path) -> Vec<f64> {
-    let table =
-        CsvTable::open(root_dir, "data/vic_elec.csv").expect("failed to read data/vic_elec.csv");
-    let mut peaks: Vec<f64> = Vec::new();
-    let mut current_date = String::new();
-    for row in table.rows() {
-        let (Some(date), Some(demand)) = (row.str_at(4), row.f64_at(2)) else {
-            continue;
-        };
-        if date != current_date {
-            current_date = date.to_string();
-            peaks.push(demand);
-        } else if let Some(last) = peaks.last_mut() {
-            *last = last.max(demand);
-        }
-    }
-    peaks
-}
-
-/// Reads the Philadelphia Fed real-time real-output vintages (`data/rtdsm_routput_vintages.csv`) as
-/// `(vintage, obs_quarter, level)` quarter indices (`4 * year + q - 1`) and levels.
+/// Reads the Philadelphia Fed real-time real-output vintages (`data/rtdsm_routput_vintages.csv`)
+/// as `(vintage_quarter, obs_quarter, output_level)`.
 pub fn load_rtdsm_routput_vintages(root_dir: &Path) -> Vec<(u32, u32, f64)> {
     let table = CsvTable::open(root_dir, "data/rtdsm_routput_vintages.csv")
         .expect("failed to read data/rtdsm_routput_vintages.csv");
@@ -300,7 +232,7 @@ pub fn load_rtdsm_routput_vintages(root_dir: &Path) -> Vec<(u32, u32, f64)> {
 }
 
 /// Reads Toronto arrest records (`data/toronto_arrests.csv`) and returns empirical base rates
-/// $(p_A, p_B)$ of non-release (`released == "No"`) across two demographic groups with unequal base rates.
+/// $(p_A, p_B)$ of non-release across two demographic strata with unequal base rates.
 pub fn load_toronto_arrests_prevalences(root_dir: &Path) -> (f64, f64) {
     let table = CsvTable::open(root_dir, "data/toronto_arrests.csv")
         .expect("failed to read data/toronto_arrests.csv");
@@ -331,199 +263,23 @@ pub fn load_toronto_arrests_prevalences(root_dir: &Path) -> (f64, f64) {
     (p_a, p_b)
 }
 
-/// Reads standardized distance / arrival-delay features from `data/nyc_flights_2013.csv` (source $P$)
-/// and `data/nyc_flights_2023.csv` (target $Q$), systematically stratified across the full annual files.
-pub fn load_nyc_flights_2013_2023(root_dir: &Path) -> (Vec<f64>, Vec<f64>, Vec<f64>, Vec<f64>) {
-    let (x13, y13) = load_flight_stream(root_dir, "data/nyc_flights_2013.csv", 1_500);
-    let (x23, y23) = load_flight_stream(root_dir, "data/nyc_flights_2023.csv", 1_500);
-    (x13, y13, x23, y23)
-}
-
-/// Reads the pre-departure intraday delay-cascade feature (standardized scheduled departure hour plus
-/// causally lagged rolling arrival delay of prior flights) and binary delay outcome ($\text{arr\_delay} > 15\text{ min}$)
-/// from `data/nyc_flights_2013.csv` (source $P$) and `data/nyc_flights_2023.csv` (target $Q$).
-pub fn load_nyc_flights_cascade_2013_2023(
-    root_dir: &Path,
-) -> (Vec<f64>, Vec<f64>, Vec<f64>, Vec<f64>) {
-    let load_cascade = |rel_path: &str, max_rows: usize| -> (Vec<f64>, Vec<f64>) {
-        let table = CsvTable::open(root_dir, rel_path).expect("failed to read flight CSV");
-        let mut all_x = Vec::new();
-        let mut all_y = Vec::new();
-        let mut ema_delay = 0.0_f64;
-        let mut prev_day = (0u32, 0u32);
-        for row in table.rows() {
-            if let (Some(month), Some(day), Some(sched_dep), Some(arr_delay)) =
-                (row.u32_at(0), row.u32_at(1), row.f64_at(2), row.f64_at(8))
-            {
-                if (month, day) != prev_day {
-                    ema_delay = 0.0;
-                    prev_day = (month, day);
-                }
-                let hr = (sched_dep / 100.0).floor();
-                let feat = 0.35 * ((hr - 13.0) / 5.0) + 0.65 * (ema_delay / 25.0);
-                all_x.push(feat.clamp(-3.0, 5.0));
-                all_y.push(if arr_delay > 15.0 { 1.0 } else { 0.0 });
-                ema_delay = 0.80 * ema_delay + 0.20 * arr_delay;
-            }
+/// Reads arrival delays (minutes, positive = late) from `data/nyc_flights_2013.csv` and `data/nyc_flights_2023.csv`.
+pub fn load_nyc_flight_delays(root_dir: &Path, max_rows: usize) -> (Vec<f64>, Vec<f64>) {
+    let read_delays = |rel: &str| -> Vec<f64> {
+        let table = CsvTable::open(root_dir, rel).expect("failed to read flight CSV");
+        let all: Vec<f64> = table
+            .rows()
+            .filter_map(|r| r.f64_at(8))
+            .map(|d| d.max(0.0))
+            .collect();
+        if max_rows == 0 || all.len() <= max_rows {
+            return all;
         }
-        if max_rows == 0 || all_x.len() <= max_rows {
-            return (all_x, all_y);
-        }
-        let n = all_x.len();
-        let mut x = Vec::with_capacity(max_rows);
-        let mut y = Vec::with_capacity(max_rows);
-        for i in 0..max_rows {
-            let idx = (i * n) / max_rows;
-            x.push(all_x[idx]);
-            y.push(all_y[idx]);
-        }
-        (x, y)
+        let n = all.len();
+        (0..max_rows).map(|i| all[(i * n) / max_rows]).collect()
     };
-    let (x13, y13) = load_cascade("data/nyc_flights_2013.csv", 1_500);
-    let (x23, y23) = load_cascade("data/nyc_flights_2023.csv", 1_500);
-    (x13, y13, x23, y23)
-}
-
-/// Daily `(late arrivals, flights)` keyed by calendar day `(month, day)`.
-pub type DailyExceedances = BTreeMap<(u32, u32), (u32, u32)>;
-
-/// Daily `(late arrivals, flights)` per carrier and calendar day `(month, day)` of a flight CSV, where late
-/// means $\text{arr\_delay} > 15$ min; flights without a recorded delay are skipped. The day, not the flight,
-/// is the independent unit of the e-BH carrier audit ($\Phi_2$): flights of one day share weather and congestion.
-pub fn load_flight_daily_exceedances_by_carrier(
-    root_dir: &Path,
-    rel_path: &str,
-) -> BTreeMap<String, DailyExceedances> {
-    let table = CsvTable::open(root_dir, rel_path).expect("failed to read flight CSV");
-    let mut by_carrier: BTreeMap<String, DailyExceedances> = BTreeMap::new();
-    for r in table.rows() {
-        let (Some(month), Some(day), Some(carrier), Some(delay)) =
-            (r.u32_at(0), r.u32_at(1), r.str_at(4), r.f64_at(8))
-        else {
-            continue;
-        };
-        let cell = by_carrier
-            .entry(carrier.to_string())
-            .or_default()
-            .entry((month, day))
-            .or_default();
-        cell.0 += u32::from(delay > 15.0);
-        cell.1 += 1;
-    }
-    by_carrier
-}
-
-/// Reads the anchor-regression design of a New York flight CSV: response = arrival delay winsorized to
-/// $[-60, 300]$ minutes; predictors = (1, scheduled departure hour, distance in thousands of miles);
-/// anchor cell = origin (EWR, JFK, LGA) × month (Aug–Dec). Rows without a delay are skipped.
-pub fn load_flight_anchor_design(root_dir: &Path, rel_path: &str) -> AnchoredSample {
-    let table = CsvTable::open(root_dir, rel_path).expect("failed to read flight CSV");
-    let mut sample = AnchoredSample {
-        x: Vec::new(),
-        y: Vec::new(),
-        cell: Vec::new(),
-    };
-    for row in table.rows() {
-        let (Some(month), Some(dep), Some(origin), Some(distance), Some(delay)) = (
-            row.u32_at(0),
-            row.u32_at(2),
-            row.str_at(5),
-            row.f64_at(7),
-            row.f64_at(8),
-        ) else {
-            continue;
-        };
-        let Some(origin_idx) = ["EWR", "JFK", "LGA"].iter().position(|&o| o == origin) else {
-            continue;
-        };
-        if !(8..=12).contains(&month) {
-            continue;
-        }
-        sample
-            .x
-            .push(vec![1.0, f64::from(dep / 100), distance / 1_000.0]);
-        sample.y.push(delay.clamp(-60.0, 300.0));
-        sample.cell.push(origin_idx * 5 + (month - 8) as usize);
-    }
-    sample
-}
-
-/// One Toronto arrest record (`data/toronto_arrests.csv`) for the multicalibration audit.
-#[derive(Debug, Clone, PartialEq)]
-pub struct TorontoArrest {
-    pub row: u32,
-    pub released: bool,
-    pub black: bool,
-    pub year: f64,
-    pub age: f64,
-    pub male: bool,
-    pub employed: bool,
-    pub citizen: bool,
-    pub checks: f64,
-}
-
-/// Reads every complete record of `data/toronto_arrests.csv`.
-pub fn load_toronto_arrests(root_dir: &Path) -> Vec<TorontoArrest> {
-    let table = CsvTable::open(root_dir, "data/toronto_arrests.csv")
-        .expect("failed to read data/toronto_arrests.csv");
-    table
-        .rows()
-        .filter_map(|r| {
-            Some(TorontoArrest {
-                row: r.u32_at(0)?,
-                released: r.str_at(1)? == "Yes",
-                black: r.str_at(2)? == "Black",
-                year: r.f64_at(3)?,
-                age: r.f64_at(4)?,
-                male: r.str_at(5)? == "Male",
-                employed: r.str_at(6)? == "Yes",
-                citizen: r.str_at(7)? == "Yes",
-                checks: r.f64_at(8)?,
-            })
-        })
-        .collect()
-}
-
-/// Reads standardized distance $((d - 1000)/1000)$ and binary arrival-delay indicator $(\text{arr\_delay} > 15\text{ min})$
-/// from any flight CSV in `data/` (`nyc_flights_2013.csv`, `nyc_flights_2023.csv`, `nyc_flights_2013_h1.csv`,
-/// `nyc_flights_2023_h1.csv`, or `houston_flights_2011.csv`), scanning the entire file and taking a deterministic
-/// equispaced sample of `max_rows` across the full temporal span.
-pub fn load_flight_stream(
-    root_dir: &Path,
-    rel_path: &str,
-    max_rows: usize,
-) -> (Vec<f64>, Vec<f64>) {
-    let table = CsvTable::open(root_dir, rel_path).expect("failed to read flight CSV");
-    let mut all_x = Vec::new();
-    let mut all_y = Vec::new();
-    for row in table.rows() {
-        if let (Some(distance), Some(arr_delay)) = (row.f64_at(7), row.f64_at(8)) {
-            all_x.push((distance - 1_000.0) / 1_000.0);
-            all_y.push(if arr_delay > 15.0 { 1.0 } else { 0.0 });
-        }
-    }
-    if max_rows == 0 || all_x.len() <= max_rows {
-        return (all_x, all_y);
-    }
-    let n = all_x.len();
-    let mut x = Vec::with_capacity(max_rows);
-    let mut y = Vec::with_capacity(max_rows);
-    for i in 0..max_rows {
-        let idx = (i * n) / max_rows;
-        x.push(all_x[idx]);
-        y.push(all_y[idx]);
-    }
-    (x, y)
-}
-
-/// Reads the 3 out-of-time / out-of-domain flight reserve datasets (`data/nyc_flights_2013_h1.csv`,
-/// `data/nyc_flights_2023_h1.csv`, and `data/houston_flights_2011.csv`).
-#[allow(clippy::type_complexity)]
-pub fn load_oot_ood_flight_reserves(
-    root_dir: &Path,
-) -> (Vec<f64>, Vec<f64>, Vec<f64>, Vec<f64>, Vec<f64>, Vec<f64>) {
-    let (x13_h1, y13_h1) = load_flight_stream(root_dir, "data/nyc_flights_2013_h1.csv", 1_500);
-    let (x23_h1, y23_h1) = load_flight_stream(root_dir, "data/nyc_flights_2023_h1.csv", 1_500);
-    let (x_hou, y_hou) = load_flight_stream(root_dir, "data/houston_flights_2011.csv", 1_500);
-    (x13_h1, y13_h1, x23_h1, y23_h1, x_hou, y_hou)
+    (
+        read_delays("data/nyc_flights_2013.csv"),
+        read_delays("data/nyc_flights_2023.csv"),
+    )
 }
