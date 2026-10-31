@@ -337,6 +337,9 @@ impl CommunityReserveEnv {
         let mut max_harm = 0.0_f64;
         let mut apt_count = 0usize;
         let mut performative_erosion = 0.0_f64;
+        let mut sum_width_ratio = 0.0_f64;
+        let mut sum_rho = 0.0_f64;
+        let mut sum_gov_score = 0.0_f64;
 
         for t in 0..self.horizon_steps {
             let mut step_rng = rng.split(t as u64);
@@ -404,6 +407,13 @@ impl CommunityReserveEnv {
                 covered_count += 1;
             }
             sum_n_eff += decision.recognized_n_eff;
+            let support_span = (obs.demand_support.1 - obs.demand_support.0).max(1.0);
+            let width_ratio = ((decision.epistemic_demand_bounds.1
+                - decision.epistemic_demand_bounds.0)
+                .max(0.0)
+                / support_span)
+                .clamp(0.0, 1.0);
+            sum_width_ratio += width_ratio;
 
             // Evaluate algedonic emergency detection and Kingman queue congestion
             let algedonic = AlgedonicChannel::evaluate(
@@ -422,6 +432,22 @@ impl CommunityReserveEnv {
             };
 
             let rho = cromwell_clamp(true_mean / effective_cap.max(1.0), 0.01);
+            let base_true_mean = (true_mean - performative_erosion).max(5.0);
+            let base_rho = cromwell_clamp(
+                base_true_mean / decision.provisioned_capacity.max(1.0),
+                0.01,
+            );
+            let step_headroom = ((1.0 - base_rho) / (1.0 - 0.88)).clamp(0.0, 1.0);
+            let step_kelly_safety = (1.60 - decision.growth_leverage_f).clamp(0.0, 1.0);
+            let step_buffer_commit = (decision.vital_reserve_allocation / 10.0).clamp(0.0, 1.0);
+            sum_rho += step_headroom * step_kelly_safety * step_buffer_commit;
+            let step_gov = if decision.constitutional_brake_active {
+                1.0
+            } else {
+                0.0
+            } * (1.0 - decision.frontline_testimonial_discount.clamp(0.0, 1.0))
+                * (1.0 - decision.proxy_incentive_pressure.clamp(0.0, 1.0));
+            sum_gov_score += step_gov;
             let slack = VitalSlackBuffer::evaluate(
                 rho,
                 1.0,
@@ -495,30 +521,14 @@ impl CommunityReserveEnv {
         let mean_harm = sum_harm / tf;
         let apt_rate = (apt_count as f64) / tf;
 
-        // Score the three axes of the Nuclear Triad in [0, 1]
-        let last_dec = policy.act(&ArchiveObservation {
-            step_t: 0,
-            observed_clusters: vec![vec![20.0, 22.0], vec![25.0, 28.0]],
-            missing_count: 4,
-            demand_support: (5.0, 65.0),
-            current_reserve: self.initial_reserve,
-            frontline_distress_e_factor: 1.5,
-        });
-        let s_epi = cov_rate.clamp(0.0, 1.0);
-        let s_vital =
-            if last_dec.vital_reserve_allocation >= 10.0 && last_dec.growth_leverage_f <= 1.0 {
-                if ruin_step.is_none() { 0.92 } else { 0.78 }
-            } else {
-                0.08
-            };
-        let s_gov = if last_dec.constitutional_brake_active
-            && last_dec.frontline_testimonial_discount < 0.20
-            && last_dec.proxy_incentive_pressure < 0.30
-        {
-            0.92
-        } else {
-            0.12
-        };
+        // Score the three axes of the Nuclear Triad in [0, 1] directly from trajectory observables:
+        // 1. S_epi: empirical coverage penalized by lazy uninformative interval width (Brake 1)
+        let mean_width_ratio = (sum_width_ratio / tf).clamp(0.0, 1.0);
+        let s_epi = (cov_rate * (1.0 - mean_width_ratio * mean_width_ratio)).clamp(0.0, 1.0);
+        // 2. S_vital: mean provisioned Kingman headroom * epistemic Kelly safety * buffer commitment
+        let s_vital = (sum_rho / tf).clamp(0.0, 1.0);
+        // 3. S_gov: constitutional S3* veto * undiscounted algedonic listening * immunity to proxy gaming
+        let s_gov = (sum_gov_score / tf).clamp(0.0, 1.0);
         let triad = TriadicIntegrity::evaluate(s_epi, s_vital, s_gov, 0.50);
         let _ = DiscursiveCommittee::evaluate(&[[true, true, true]]);
 
@@ -564,6 +574,8 @@ mod tests {
 
         let mut no_epi = StochologicalAgent::without_epistemic_margin();
         let rep_p1 = env.run_trajectory(&mut no_epi);
+        assert!(rep_p1.epistemic_coverage_rate < 0.25);
+        assert!(rep_p1.mean_social_harm > rep_full.mean_social_harm * 1.15);
         assert_eq!(
             rep_p1.triadic_integrity.diagnose,
             CollapseProposition::Proposition1BlindUndersizing
@@ -571,6 +583,8 @@ mod tests {
 
         let mut no_vital = StochologicalAgent::epistemic_only();
         let rep_p2 = env.run_trajectory(&mut no_vital);
+        assert!(rep_p2.epistemic_coverage_rate > 0.85);
+        assert!(rep_p2.ruin_step.is_some());
         assert_eq!(
             rep_p2.triadic_integrity.diagnose,
             CollapseProposition::Proposition2ImpotentLucidity
@@ -578,6 +592,7 @@ mod tests {
 
         let mut no_gov = StochologicalAgent::without_governance();
         let rep_p3 = env.run_trajectory(&mut no_gov);
+        assert!(rep_p3.mean_social_harm > rep_full.mean_social_harm * 3.0);
         assert_eq!(
             rep_p3.triadic_integrity.diagnose,
             CollapseProposition::Proposition3CynicalCapture

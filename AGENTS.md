@@ -1,6 +1,6 @@
 # AGENTS.md — Governance, Engineering, and Pedagogical Contract (Stochology)
 
-This file is the binding contract for any agent or contributor working in this repository. **Stochology** is the **science and ethics of aim** (*stókhos*, from Plato's *Philebus* 55e–56c, Hippocratic *sēmeîa*, *kairós*, and *mêtis*, and Antipater of Tarsus's archer to Bernoulli's *Ars Conjectandi*) for judgment and decision-making under uncertainty when action must precede the outcome.
+This file is the binding contract for any agent or contributor working in this repository. **Stochology** is the **science and ethics of aim** (*stókhos*, from Plato's *Philebus* 55e–56c, Hippocratic *sēmeîa*, *kairós*, and *mētis*, and Antipater of Tarsus's archer to Bernoulli's *Ars Conjectandi*) for judgment and decision-making under uncertainty when action must precede the outcome.
 
 Its foundational treatise is [`notes/The Ethics of Aim.md`](notes/The%20Ethics%20of%20Aim.md), and its implementation and textbook are organized 1-to-1 around the **Sequential Agent–World–Institution Loop** (`CommunityReserveEnv`) in **pure Rust (`std` only, zero external dependencies)**.
 
@@ -10,9 +10,7 @@ Its foundational treatise is [`notes/The Ethics of Aim.md`](notes/The%20Ethics%2
 
 Stochology unites three historical lineages (Epistemological/Statistical, Physical/Cybernetic, and Critical/Ethical) into a **Nuclear Triad** of three non-substitutable safeguards:
 
-$$\mathcal{T}_{\mathrm{Stochology}} = \bigl(\text{Epistemic Margin},\; \text{Vital Margin},\; \text{Institutional Governance}\bigr)$$
-
-$$W_{\mathrm{triad}} = S_{\mathrm{epi}} \cdot S_{\mathrm{vital}} \cdot S_{\mathrm{gov}}, \qquad M_{\mathrm{Leontief}} = \min\bigl(S_{\mathrm{epi}},\, S_{\mathrm{vital}},\, S_{\mathrm{gov}}\bigr)$$
+$$\mathcal{T}_{\mathrm{Stochology}} = \bigl(\text{Epistemic Margin},\; \text{Vital Margin},\; \text{Institutional Governance}\bigr), \qquad M_{\mathrm{Leontief}} = \min\bigl(S_{\mathrm{epi}},\, S_{\mathrm{vital}},\, S_{\mathrm{gov}}\bigr)$$
 
 Removing any single axis triggers a specific structural collapse (`CollapseProposition` and `TriadicIntegrity` in `crates/stochology/src/synthesis.rs`, demonstrated on `CommunityReserveEnv` in `crates/stochology/src/engine.rs`):
 

@@ -50,6 +50,7 @@ Every empirical measurement reported in this book is computed directly from the 
 - **Fricker, M.** (2007). *Epistemic Injustice: Power and the Ethics of Knowing*. Oxford University Press.
 - **Georgescu-Roegen, N.** (1971). *The Entropy Law and the Economic Process*. Harvard University Press.
 - **Gigerenzer, G., & Hoffrage, U.** (1995). How to improve Bayesian reasoning without instruction: Frequency formats. *Psychological Review*, 102(4), 684–704.
+- **Gilboa, I., & Schmeidler, D.** (1989). Maxmin expected utility with non-unique prior. *Journal of Mathematical Economics*, 18(2), 141–153.
 - **Gneiting, T., & Raftery, A. E.** (2007). Strictly proper scoring rules, prediction, and estimation. *Journal of the American Statistical Association*, 102(477), 359–378.
 - **Goodhart, C. A. E.** (1975). Problems of monetary management: The U.K. experience. *Papers in Monetary Economics*, Reserve Bank of Australia.
 - **Hacking, I.** (2002). *Historical Ontology*. Harvard University Press.
@@ -58,6 +59,7 @@ Every empirical measurement reported in this book is computed directly from the 
 - **Hill, B. M.** (1975). A simple general approach to inference about the tail of a distribution. *The Annals of Statistics*, 3(5), 1163–1174.
 - **Hippocrates** (*c.* 400 BCE). *On Ancient Medicine* (*De Vetere Medicina*) & *Prognostic*.
 - **Holling, C. S.** (1973). Resilience and stability of ecological systems. *Annual Review of Ecology and Systematics*, 4, 1–23.
+- **Holling, C. S., & Meffe, G. K.** (1996). Command and control and the pathology of natural resource management. *Conservation Biology*, 10(2), 328–337.
 - **Holmström, B.** (1979). Moral hazard and observability. *The Bell Journal of Economics*, 10(1), 74–91.
 - **Holmström, B., & Milgrom, P.** (1991). Multitask principal–agent analyses: Incentive contracts, asset ownership, and job design. *Journal of Law, Economics, & Organization*, 7, 24–52.
 - **Horvitz, D. G., & Thompson, D. J.** (1952). A generalization of sampling without replacement from a finite universe. *Journal of the American Statistical Association*, 47(260), 663–685.
@@ -78,6 +80,7 @@ Every empirical measurement reported in this book is computed directly from the 
 - **Lee, D. S.** (2009). Training, wages, and sample selection: Estimating sharp bounds on treatment effects. *Review of Economic Studies*, 76(3), 1071–1102.
 - **Lindley, D. V.** (1985). *Making Decisions* (2nd ed.). John Wiley & Sons.
 - **List, C., & Pettit, P.** (2011). *Group Agency: The Possibility, Design, and Status of Corporate Agents*. Oxford University Press.
+- **Longino, H. E.** (1990). *Science as Social Knowledge: Values and Objectivity in Scientific Inquiry*. Princeton University Press.
 - **Lucas, R. E., Jr.** (1976). Econometric policy evaluation: A critique. *Carnegie-Rochester Conference Series on Public Policy*, 1, 19–46.
 - **Lum, K., Price, M. E., & Banks, D.** (2013). Applications of multiple systems estimation in human rights research. *The American Statistician*, 67(4), 191–200.
 - **MacKenzie, D.** (2006). *An Engine, Not a Camera: How Financial Models Shape Markets*. MIT Press.
@@ -94,27 +97,32 @@ Every empirical measurement reported in this book is computed directly from the 
 - **Peters, J., Bühlmann, P., & Meinshausen, N.** (2016). Causal inference by using invariant prediction: Identification and confidence intervals. *Journal of the Royal Statistical Society: Series B*, 78(5), 947–1012.
 - **Peters, O.** (2019). The ergodicity problem in economics. *Nature Physics*, 15(12), 1216–1221.
 - **Peterson, A. V., Jr.** (1976). Bounds for a joint distribution function with fixed sub-distribution functions: Application to competing risks. *Proceedings of the National Academy of Sciences (PNAS)*, 73(1), 11–13.
-- **Plato** (*c.* 360 BCE). *Philebus* (55e–56c).
+- **Plato** (*c.* 360 BCE). *Philebus* (55e–56c, Loeb Classical Library Vol. 8).
+- **Plutarch** (*c.* 100 CE). *De communibus notitiis adversus Stoicos* (1070f–1071e, Loeb Classical Library Vol. 13, Part 2).
 - **Popper, K. R.** (1959). *The Logic of Scientific Discovery*. Hutchinson.
 - **Porter, T. M.** (1995). *Trust in Numbers: The Pursuit of Objectivity in Science and Public Life*. Princeton University Press.
 - **Proctor, R. N., & Schiebinger, L.** (Eds.). (2008). *Agnotology: The Making and Unmaking of Ignorance*. Stanford University Press.
 - **Quine, W. V. O.** (1951). Two dogmas of empiricism. *The Philosophical Review*, 60(1), 20–43.
 - **Ramdas, A., Grünwald, P., Vovk, V., & Shafer, G.** (2023). Game-theoretic statistics and safe anytime-valid inference. *Statistical Science*, 38(4), 576–601.
+- **Roy, A. D.** (1952). Safety first and the holding of assets. *Econometrica*, 20(3), 431–449.
 - **Rubin, D. B.** (1976). Inference and missing data. *Biometrika*, 63(3), 581–592.
 - **Rudner, R.** (1953). The scientist *qua* scientist makes value judgments. *Philosophy of Science*, 20(1), 1–6.
 - **Samuelson, P. A.** (1971). The "fallacy" of maximizing the geometric mean in long sequences of investing or gambling. *Proceedings of the National Academy of Sciences (PNAS)*, 68(10), 2493–2496.
 - **Samuelson, P. A.** (1979). Why we should not make mean log of wealth big though years to act are long. *Journal of Banking & Finance*, 3(4), 305–307.
+- **Savage, L. J.** (1951). The theory of statistical decision. *Journal of the American Statistical Association*, 46(253), 55–67.
+- **Savage, L. J.** (1954). *The Foundations of Statistics*. John Wiley & Sons.
 - **Scanlon, T. M.** (1998). *What We Owe to Each Other*. Harvard University Press.
 - **Scarf, H.** (1960). The optimality of $(S, s)$ policies in the dynamic inventory problem. In *Mathematical Methods in the Social Sciences* (pp. 196–202). Stanford University Press.
 - **Scheffer, M., Bascompte, J., Brock, W. A., Brovkin, V., Carpenter, S. R., Dakos, V., Held, H., van Nes, E. H., Rietkerk, M., & Sugihara, G.** (2009). Early-warning signals for critical transitions. *Nature*, 461(7260), 53–59.
 - **Simchi-Levi, D., Schmidt, W., & Wei, Y.** (2014). From superstorms to factory fires: Managing unpredictable supply-chain disruptions. *Harvard Business Review*, 92(1–2), 96–101.
 - **Simonsohn, U., Simmons, J. P., & Nelson, L. D.** (2020). Specification curve analysis. *Nature Human Behaviour*, 4(11), 1208–1214.
 - **Sniedovich, M.** (2007). The art and science of modeling decision-making under severe uncertainty. *Decision Making in Manufacturing and Services*, 1(1–2), 111–136.
-- **Sniedovich, M.** (2012). Black Swans, red herrings, andizarra Info-Gap's No-Man's-Land. *International Transactions in Operational Research*, 19(1–2), 253–281.
+- **Sniedovich, M.** (2012). Black Swans, red herrings, and Info-Gap's No-Man's-Land. *International Transactions in Operational Research*, 19(1–2), 253–281.
 - **Sosa, E.** (2007). *A Virtue Epistemology: Apt Belief and Reflective Knowledge* (Vol. I). Oxford University Press.
 - **Sosa, E.** (2015). *Judgment and Agency*. Oxford University Press.
 - **Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W.** (2016). Increasing transparency through a multiverse analysis. *Perspectives on Psychological Science*, 11(5), 702–712.
 - **Stevens, S. S.** (1946). On the theory of scales of measurement. *Science*, 103(2684), 677–680.
+- **Stobaeus, I.** (1884). *Ioannis Stobaei Anthologii libri duo priores qui inscribi solent Eclogae physicae et ethicae* (C. Wachsmuth, Ed., Vol. 2). Weidmann.
 - **Strathern, M.** (1997). "Improving ratings": Audit in the British university system. *European Review*, 5(3), 305–321.
 - **Sutton, R. S., & Barto, A. G.** (2018). *Reinforcement Learning: An Introduction* (2nd ed.). MIT Press.
 - **Tian, J., & Pearl, J.** (2000). Probabilities of causation: Bounds and identification. *Annals of Mathematics and Artificial Intelligence*, 28(1–4), 287–313.

@@ -4,7 +4,7 @@
 
 # Stochology — The Science and Ethics of Aim (*Stókhos*) under Uncertainty
 
-**Stochology** is the science and ethics of aim (*stókhos*, from Plato's *Philebus* 55e–56c, Hippocratic *sēmeîa*, *kairós*, and *mêtis*, and Antipater of Tarsus's archer to Jakob Bernoulli's *Ars Conjectandi*) for judgment and decision-making under uncertainty when action must precede the outcome.
+**Stochology** is the science and ethics of aim (*stókhos*, from Plato's *Philebus* 55e–56c, Hippocratic *sēmeîa*, *kairós*, and *mētis*, and Antipater of Tarsus's archer to Jakob Bernoulli's *Ars Conjectandi*) for judgment and decision-making under uncertainty when action must precede the outcome.
 
 This repository implements the complete disciplinary program of [`notes/The Ethics of Aim.md`](notes/The%20Ethics%20of%20Aim.md) in **pure Rust (`std` only, zero external dependencies)**, organized 1-to-1 with its 10-chapter textbook (`book-src/`) and interactive browser simulator (`book-src/lab/index.html`) around the **Sequential Agent–World–Institution Loop** (`CommunityReserveEnv`).
 
@@ -14,9 +14,7 @@ This repository implements the complete disciplinary program of [`notes/The Ethi
 
 Stochology unites three historical lineages—**Epistemological/Statistical**, **Physical/Cybernetic**, and **Critical/Ethical**—into a single **Nuclear Triad** of non-substitutable safeguards:
 
-$$\mathcal{T}_{\mathrm{Stochology}} = \bigl(\text{Epistemic Margin},\; \text{Vital Margin},\; \text{Institutional Governance}\bigr)$$
-
-$$W_{\mathrm{triad}} = S_{\mathrm{epi}} \cdot S_{\mathrm{vital}} \cdot S_{\mathrm{gov}}, \qquad M_{\mathrm{Leontief}} = \min\bigl(S_{\mathrm{epi}},\, S_{\mathrm{vital}},\, S_{\mathrm{gov}}\bigr)$$
+$$\mathcal{T}_{\mathrm{Stochology}} = \bigl(\text{Epistemic Margin},\; \text{Vital Margin},\; \text{Institutional Governance}\bigr), \qquad M_{\mathrm{Leontief}} = \min\bigl(S_{\mathrm{epi}},\, S_{\mathrm{vital}},\, S_{\mathrm{gov}}\bigr)$$
 
 | Collapse Proposition | Missing Axis | Structural Pathology |
 | :--- | :--- | :--- |

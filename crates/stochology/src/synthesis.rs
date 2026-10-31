@@ -29,7 +29,7 @@ pub enum CollapseProposition {
 
 /// Evaluates the Leontief structural complementarity of the Nuclear Triad
 /// $(S_{\mathrm{epi}}, S_{\mathrm{vital}}, S_{\mathrm{gov}}) \in [0, 1]^3$:
-/// $$W_{\mathrm{triad}} = S_{\mathrm{epi}} \cdot S_{\mathrm{vital}} \cdot S_{\mathrm{gov}}, \qquad M_{\mathrm{Leontief}} = \min(S_{\mathrm{epi}}, S_{\mathrm{vital}}, S_{\mathrm{gov}})$$
+/// $$M_{\mathrm{Leontief}} = \min\bigl(S_{\mathrm{epi}},\, S_{\mathrm{vital}},\, S_{\mathrm{gov}}\bigr)$$
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct TriadicIntegrity {
     /// Epistemic margin score $S_{\mathrm{epi}} \in [0, 1]$.
@@ -38,9 +38,7 @@ pub struct TriadicIntegrity {
     pub vital_margin: f64,
     /// Institutional governance score $S_{\mathrm{gov}} \in [0, 1]$.
     pub institutional_governance: f64,
-    /// Multiplicative survival viability $S_{\mathrm{epi}} \cdot S_{\mathrm{vital}} \cdot S_{\mathrm{gov}}$.
-    pub multiplicative_viability: f64,
-    /// Leontief bottleneck minimum $\min(S_{\mathrm{epi}}, S_{\mathrm{vital}}, S_{\mathrm{gov}})$.
+    /// Leontief bottleneck minimum $M_{\mathrm{Leontief}} = \min(S_{\mathrm{epi}}, S_{\mathrm{vital}}, S_{\mathrm{gov}})$.
     pub leontief_minimum: f64,
     /// Active collapse proposition if any axis falls below `min_threshold`.
     pub diagnose: CollapseProposition,
@@ -71,7 +69,6 @@ impl TriadicIntegrity {
             epistemic_margin: e,
             vital_margin: v,
             institutional_governance: g,
-            multiplicative_viability: e * v * g,
             leontief_minimum: e.min(v).min(g),
             diagnose: diag,
         }

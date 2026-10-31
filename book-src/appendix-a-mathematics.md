@@ -75,6 +75,8 @@ This appendix summarizes the core mathematical identities and inequalities imple
 19. **Fricker's Testimonial Discount on Beer's Algedonic Channel ([`governance::AlgedonicChannel`](../crates/stochology/src/governance.rs#L159-L202)):**
     $$\tau\_{\mathrm{alarm}}(\delta\_{\mathrm{cred}}) = \left\lceil\frac{\ln(1/\alpha)}{(1 - \delta\_{\mathrm{cred}})\ln e\_t}\right\rceil$$
 
-20. **Leontief Structural Complementarity of the Nuclear Triad ([`synthesis::TriadicIntegrity`](../crates/stochology/src/synthesis.rs#L34-L79)):**
-    $$W\_{\mathrm{triad}} = S\_{\mathrm{epi}} \cdot S\_{\mathrm{vital}} \cdot S\_{\mathrm{gov}}, \qquad M\_{\mathrm{Leontief}} = \min(S\_{\mathrm{epi}}, S\_{\mathrm{vital}}, S\_{\mathrm{gov}})$$
+20. **Leontief Structural Complementarity of the Nuclear Triad ([`synthesis::TriadicIntegrity`](../crates/stochology/src/synthesis.rs#L30-L68)):**
+    $$M\_{\mathrm{Leontief}} = \min(S\_{\mathrm{epi}}, S\_{\mathrm{vital}}, S\_{\mathrm{gov}}) \in [0, 1]$$
+    where on a sequential trajectory of horizon $T$ ([`engine::CommunityReserveEnv`](../crates/stochology/src/engine.rs#L309-L515)):
+    $$S\_{\mathrm{epi}} = \mathrm{Cov}\_T \cdot \left(1 - \left(\frac{\overline{U - L}}{y\_{\max} - y\_{\min}}\right)^2\right), \quad S\_{\mathrm{vital}} = \frac{1}{T}\sum\_{t=1}^T \operatorname{clamp}\_{[0,1]}\\!\left(\frac{1 - \rho\_{\mathrm{base}, t}}{1 - 0.88}\right)\operatorname{clamp}\_{[0,1]}(1.60 - f\_t)\operatorname{clamp}\_{[0,1]}\\!\left(\frac{B\_t}{10}\right), \quad S\_{\mathrm{gov}} = \frac{1}{T}\sum\_{t=1}^T \mathbf{1}\\{\text{brake}\_t\\}(1 - \delta\_{\mathrm{cred}, t})(1 - \beta\_{\mathrm{proxy}, t})$$
 

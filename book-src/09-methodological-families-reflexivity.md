@@ -52,13 +52,15 @@ What happens if an institution turns Stochology's own three axes into isolated b
 
 ---
 
-## 9.4 Four Conditions of Refutability of Stochology
+## 9.4 Empirical Falsifiers, Constitutive Normative Commitments, and Meta-Topological Openness
 
-Because Stochology demands severe refutability of every model, it also states the four empirical conditions that would refute its own core thesis ([`notes/The Ethics of Aim.md`](../notes/The%20Ethics%20of%20Aim.md) §7.2):
-1. **Substitutability of the Triad:** Demonstrating that high score on one axis (e.g., wide epistemic intervals alone) prevents ruin when another axis is zero ($S\_{\mathrm{vital}} = 0$ or $S\_{\mathrm{gov}} = 0$)—tested directly via **Collapse Propositions 1, 2, and 3** in `CommunityReserveEnv`.
-2. **Harmlessness of the Lone Mean:** Demonstrating that in heavy-tailed ($\alpha < 2$) or high-utilization ($\rho \to 1$) regimes, sizing capacity for $f(\mathbb{E}[X])$ achieves equal survival and lower social harm than accounting for $\Delta\_J$ and Kingman slack.
-3. **Neutrality of the Unaudited Archive:** Demonstrating that scaling $n \to N$ in administrative archives with $\rho\_{R,Y} \ne 0$ or cluster correlation $\rho\_I > 0$ converges to the true population parameter without Meng/Moulton/Manski corrections.
-4. **Sufficiency of Ex-Post Outcome Rewards:** Demonstrating that rewarding agents purely by ex-post outcomes (*skopós*) under limited liability and high-powered single proxies outperforms bitemporal telic evaluation and clawback/multitask governance.
+Because Stochology demands severe refutability, it separates contingent **empirical falsifiers** of its structural hypotheses from its **constitutive methodological-normative commitments** ([`notes/The Ethics of Aim.md`](../notes/The%20Ethics%20of%20Aim.md) §7.3):
+
+1. **Empirical Falsifier 1 — Substitutability of the Triad in Open Dynamic Regimes:** Demonstrating across out-of-sample trajectories with heavy-tailed shocks ($\alpha < 2$), non-random missingness ($\rho\_{R,Y} \ne 0$), and irreversible ruin barriers that an agent with one zeroed safeguard ($M\_{\mathrm{Leontief}} = 0$) achieves equal or lower ruin frequency and convex social harm than an agent maintaining $M\_{\mathrm{Leontief}} > 0$—tested in `CommunityReserveEnv` via **Collapse Propositions 1, 2, and 3**.
+2. **Empirical Falsifier 2 — Sufficiency of Point-Certainty Sizing Under Heavy Traffic and Heavy Tails:** Demonstrating in empirical operational queues ($\rho > 0.85$, e.g., `vic_elec.csv`, `bank_calls.csv`) or power-law loss regimes ($\hat{\alpha} < 2$, e.g., `danish_fire.csv`) that sizing capacity for the plug-in point evaluation $f(\hat{\mu}\_n)$ without Jensen convexity correction $\Delta\_J$ or Kingman slack achieves equal survival and lower cumulative deficit than stochological buffering.
+3. **Empirical Falsifier 3 — Benign Convergence of Unaudited Administrative Big Data:** Demonstrating in observational archives with non-zero selection correlation ($\rho\_{R,Y} \ne 0$) or cluster correlation ($\rho\_I > 0$, e.g., `cps_observational.csv`) that increasing raw sample size $n \to N$ without Meng/Moulton/Manski adjustments yields valid nominal coverage of the experimental benchmark (`nsw_experimental.csv`).
+4. **Constitutive Methodological-Normative Commitment (Bitemporal Accountability via `TemporalVault`):** Separating ex-ante competence (*télos*, Stage 1) from ex-post outcome (*skopós*, Stage 2) via [`TemporalVault`](../crates/stochology/src/governance.rs#L376-L426) is an explicit normative and institutional design commitment grounded in Sosa (2007, 2015) and Baron & Hershey (1988), audited empirically by whether it reduces hindsight outcome bias and defensive risk-shifting relative to purely retrospective evaluation.
+5. **Meta-Topological Openness (Boundary of Failure):** In genuinely novel ontological shocks where the state space $\mathcal{Y}$ itself ruptures beyond pre-registered bounds $[y\_{\min}, y\_{\max}]$, formal partial-identification bounds lose coverage; survival depends on the physical Vital Margin ($\mathrm{TTS} \ge \mathrm{TTR}$) and the unthrottled frontline algedonic channel ($S3^\*$) while the epistemic frame is reconstructed.
 
 ---
 
