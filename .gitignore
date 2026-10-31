@@ -1,22 +1,8 @@
-# Rust: o alvo de build nao entra.
 target/
-
-# Python: bytecode fora, sempre (as ferramentas sao stdlib puro, ver pyproject.toml).
 __pycache__/
 *.pyc
 .pytest_cache/
-.hypothesis/
-
-# Notas locais de trabalho, nunca versionadas.
-/notas/
-
-# Insumos brutos do operador (item 13): fora da arvore, entram so pelos lacres do ingestor.
-dados_brutos/
-
-# Saidas recriadas pelo comando do README de cada frente. O que o livro cita fica
-# versionado, por arquivo: regra por diretorio inteiro esconderia o que precisa ser lido.
-saida/armazem/
-empirical/p03-multiplicidade/copias/
 _site/
 .loopx/
 book/
+swarm/

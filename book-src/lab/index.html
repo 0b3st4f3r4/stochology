@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="text-scale" content="scale" />
   <title>Stochology Interactive Laboratory — CommunityReserveEnv</title>
+  <link rel="icon" href="../favicon.svg" />
   <style>
     :root {
       --bg: #f8fafc;
@@ -117,6 +120,7 @@
       padding: 14px;
     }
     .metric-label { font-size: 0.78rem; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    .metric-label mjx-container { text-transform: none; }
     .metric-val { font-size: 1.35rem; font-weight: 800; margin-top: 4px; }
     .charts-grid {
       display: grid;
@@ -375,9 +379,9 @@
         <polygon points="${polyBandTop.concat(polyBandBot).join(' ')}" fill="rgba(37, 99, 235, 0.18)" stroke="rgba(37, 99, 235, 0.45)" stroke-width="1" />
         <path d="${pathRaw.join(' ')}" fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="4,3" />
         <path d="${pathTrue.join(' ')}" fill="none" stroke="#dc2626" stroke-width="2.4" />
-        <text x="${padL + 8}" y="${padT + 14}" font-size="11" fill="#2563eb">Shaded: Epistemic Bounds [L_t, U_t]</text>
-        <text x="${padL + 215}" y="${padT + 14}" font-size="11" fill="#dc2626">Solid: True Demand S_t</text>
-        <text x="${padL + 355}" y="${padT + 14}" font-size="11" fill="#d97706">Dashed: Archive O_t</text>
+        <text x="${padL + 8}" y="${padT + 14}" font-size="11" fill="#2563eb">Shaded: Epistemic Bounds [<tspan font-style="italic">L</tspan><tspan baseline-shift="sub" font-size="8.5">t</tspan>, <tspan font-style="italic">U</tspan><tspan baseline-shift="sub" font-size="8.5">t</tspan>]</text>
+        <text x="${padL + 215}" y="${padT + 14}" font-size="11" fill="#dc2626">Solid: True Demand <tspan font-style="italic">S</tspan><tspan baseline-shift="sub" font-size="8.5">t</tspan></text>
+        <text x="${padL + 355}" y="${padT + 14}" font-size="11" fill="#d97706">Dashed: Archive <tspan font-style="italic">Ō</tspan><tspan baseline-shift="sub" font-size="8.5">t</tspan></text>
       `;
 
       const yRes = (v) => padT + plotH - (Math.min(Math.max(v, 0), 80) / 80) * plotH;
@@ -393,8 +397,8 @@
         <line x1="${padL}" y1="${padT + plotH}" x2="${padL + plotW}" y2="${padT + plotH}" stroke="#dc2626" stroke-width="1.5" />
         <path d="${pathRes.join(' ')}" fill="none" stroke="#16a34a" stroke-width="2.6" />
         <path d="${pathHarm.join(' ')}" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="3,3" />
-        <text x="${padL + 8}" y="${padT + 14}" font-size="11" fill="#16a34a">Solid Green: Vital Reserve R_t</text>
-        <text x="${padL + 195}" y="${padT + 14}" font-size="11" fill="#dc2626">Dashed Red: Convex Harm H_t (R=0 Ruin Floor)</text>
+        <text x="${padL + 8}" y="${padT + 14}" font-size="11" fill="#16a34a">Solid Green: Vital Reserve <tspan font-style="italic">R</tspan><tspan baseline-shift="sub" font-size="8.5">t</tspan></text>
+        <text x="${padL + 195}" y="${padT + 14}" font-size="11" fill="#dc2626">Dashed Red: Convex Harm <tspan font-style="italic">H</tspan><tspan baseline-shift="sub" font-size="8.5">t</tspan> (<tspan font-style="italic">R</tspan> = 0 Ruin Floor)</text>
       `;
     }
 
@@ -454,5 +458,9 @@
 
     updateUI();
   </script>
+  <script>
+    window.path_to_root = "../";
+  </script>
+  <script src="../mathjax.js"></script>
 </body>
 </html>

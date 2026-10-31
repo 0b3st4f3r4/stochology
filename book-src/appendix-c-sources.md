@@ -2,7 +2,7 @@
 
 ## C.1 Sealed Empirical Datasets (`data/*.csv` & `data/SHA256SUMS`)
 
-Every empirical measurement reported in this book is computed directly from the 14 real-world CSV datasets sealed in [`data/SHA256SUMS`](file:///home/silvano-neto/Documents/stochology/data/SHA256SUMS) and documented in [`data/SOURCES.md`](file:///home/silvano-neto/Documents/stochology/data/SOURCES.md):
+Every empirical measurement reported in this book is computed directly from the 14 real-world CSV datasets sealed in [`data/SHA256SUMS`](../data/SHA256SUMS) and documented in [`data/SOURCES.md`](../data/SOURCES.md):
 
 | Dataset File | Rows ($n$) | Provenance & Domain | Chapter Laboratory |
 | :--- | :---: | :--- | :---: |

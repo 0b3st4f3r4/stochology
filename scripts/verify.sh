@@ -48,6 +48,17 @@ do
     fi
 done
 
+if ! grep -q "mathjax.js" "book-src/lab/index.html"; then
+    echo "ERROR: book-src/lab/index.html is missing ../mathjax.js inclusion!" >&2
+    exit 1
+fi
+
+if grep -rnE "file://|/home/" book-src/*.md README.md CONTRIBUTING.md AGENTS.md >/dev/null 2>&1; then
+    echo "ERROR: Found non-relative local path or file:// URI in documentation!" >&2
+    grep -rnE "file://|/home/" book-src/*.md README.md CONTRIBUTING.md AGENTS.md >&2
+    exit 1
+fi
+
 for sym in \
     CommunityReserveEnv NaiveOptimizer StochologicalAgent \
     CostLossFraming SeverePowerAnalysis SpecificationCurve \

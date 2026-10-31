@@ -1,6 +1,6 @@
 # Appendix B — Architecture, Crates, and Verification
 
-Stochology is implemented in **pure Rust (`std` only, zero external crates)** across two workspace crates: [`crates/stochology`](file:///home/silvano-neto/Documents/stochology/crates/stochology/src/lib.rs) (the mathematical and institutional library) and [`crates/stochology-cli`](file:///home/silvano-neto/Documents/stochology/crates/stochology-cli/src/lib.rs) (the dataset loader, SHA-256 manifest verifier, and Chapter 1–9 laboratory runner).
+Stochology is implemented in **pure Rust (`std` only, zero external crates)** across two workspace crates: [`crates/stochology`](../crates/stochology/src/lib.rs) (the mathematical and institutional library) and [`crates/stochology-cli`](../crates/stochology-cli/src/lib.rs) (the dataset loader, SHA-256 manifest verifier, and Chapter 1–9 laboratory runner).
 
 ![Pure-Rust Two-Crate Workspace](figures/fig-12-workspace-crates.svg)
 
@@ -10,27 +10,27 @@ Stochology is implemented in **pure Rust (`std` only, zero external crates)** ac
 
 | Chapter | Treatise Section (`notes/The Ethics of Aim.md`) | Library Module (`crates/stochology/src/`) | Primary Exported Types & Functions |
 | :---: | :--- | :--- | :--- |
-| **00** | §I–§II (Genealogy, Nuclear Triad, 3 Collapse Propositions) | [`lib.rs`](file:///home/silvano-neto/Documents/stochology/crates/stochology/src/lib.rs) | Crate-level overview and re-exports |
-| **01** | §II.2 (Sequential Mediation Loop) | [`rng.rs`](file:///home/silvano-neto/Documents/stochology/crates/stochology/src/rng.rs), [`sha256.rs`](file:///home/silvano-neto/Documents/stochology/crates/stochology/src/sha256.rs), [`engine.rs`](file:///home/silvano-neto/Documents/stochology/crates/stochology/src/engine.rs) | `SplitMix64`, `sha256_hex`, `CommunityReserveEnv`, `AgentPolicy`, `NaiveOptimizer`, `StochologicalAgent` |
-| **02** | §III.1 (Filter I · Tension 1) | [`inquiry.rs`](file:///home/silvano-neto/Documents/stochology/crates/stochology/src/inquiry.rs) | `cromwell_clamp`, `CostLossFraming`, `SeverePowerAnalysis`, `TypeThreeFramingAudit`, `e_bh_discoveries`, `SpecificationCurve` |
-| **03** | §III.2 (Filter I · Tension 2) | [`identification.rs`](file:///home/silvano-neto/Documents/stochology/crates/stochology/src/identification.rs) | `EvidenceProcess`, `lakatos_shift_ratio`, `ManskiBounds`, `LeeAttritionBounds`, `PetersonSurvivalBounds` |
-| **04** | §IV.1 (Filter II · Tension 3) | [`asymmetry.rs`](file:///home/silvano-neto/Documents/stochology/crates/stochology/src/asymmetry.rs) | `DialecticalPenumbra`, `OrdinalScaleAudit`, `NonlinearSummary`, `HillTailEstimate`, `TailMomentRegime` |
-| **05** | §IV.2 (Filter II · Tension 4) | [`archive.rs`](file:///home/silvano-neto/Documents/stochology/crates/stochology/src/archive.rs) | `KeynesEvidentialWeight`, `MengBigDataDefect`, `ClusterDesignEffect`, `KishWeightAudit`, `CaptureRecaptureAudit`, `BitemporalRecord`, `VintageRevisionAudit` |
-| **06** | §V.1 (Filter III · Tension 5) | [`performativity.rs`](file:///home/silvano-neto/Documents/stochology/crates/stochology/src/performativity.rs) | `CorpPavDecomposition`, `evaluate_invariant_predictors`, `AnchoredDiscrepancy`, `TianPearlCounterfactualBounds`, `PerformativeSystem`, `GoodhartAudit` |
-| **07** | §V.2 (Filter III · Tension 6) | [`vital.rs`](file:///home/silvano-neto/Documents/stochology/crates/stochology/src/vital.rs) | `EpistemicKellyAllocation`, `CanguilhemHollingBasin`, `VitalSlackBuffer`, `WaldSurvivorshipAudit`, `InfoGapMaximinSafeguard` |
-| **08** | §VI (Ethical Mediation · Tension 7) | [`governance.rs`](file:///home/silvano-neto/Documents/stochology/crates/stochology/src/governance.rs) | `SosaJudgmentGrade`, `TelicEvaluation`, `DiscursiveCommittee`, `AlgedonicChannel`, `ContractAndLiabilityAudit`, `ChouldechovaTrilemma`, `CognitiveAlertFilter`, `TemporalVault` |
-| **09** | §VII–§VIII (5 Families, Process Tracing, Reflexivity) | [`synthesis.rs`](file:///home/silvano-neto/Documents/stochology/crates/stochology/src/synthesis.rs) | `CollapseProposition`, `TriadicIntegrity`, `DiagnosticClue`, `ProcessTracingTestKind`, `ProcessTracingInference`, `ReflexiveBrakeAudit` |
+| **00** | §I–§II (Genealogy, Nuclear Triad, 3 Collapse Propositions) | [`lib.rs`](../crates/stochology/src/lib.rs) | Crate-level overview and re-exports |
+| **01** | §II.2 (Sequential Mediation Loop) | [`rng.rs`](../crates/stochology/src/rng.rs), [`sha256.rs`](../crates/stochology/src/sha256.rs), [`engine.rs`](../crates/stochology/src/engine.rs) | `SplitMix64`, `sha256_hex`, `CommunityReserveEnv`, `AgentPolicy`, `NaiveOptimizer`, `StochologicalAgent` |
+| **02** | §III.1 (Filter I · Tension 1) | [`inquiry.rs`](../crates/stochology/src/inquiry.rs) | `cromwell_clamp`, `CostLossFraming`, `SeverePowerAnalysis`, `TypeThreeFramingAudit`, `e_bh_discoveries`, `SpecificationCurve` |
+| **03** | §III.2 (Filter I · Tension 2) | [`identification.rs`](../crates/stochology/src/identification.rs) | `EvidenceProcess`, `lakatos_shift_ratio`, `ManskiBounds`, `LeeAttritionBounds`, `PetersonSurvivalBounds` |
+| **04** | §IV.1 (Filter II · Tension 3) | [`asymmetry.rs`](../crates/stochology/src/asymmetry.rs) | `DialecticalPenumbra`, `OrdinalScaleAudit`, `NonlinearSummary`, `HillTailEstimate`, `TailMomentRegime` |
+| **05** | §IV.2 (Filter II · Tension 4) | [`archive.rs`](../crates/stochology/src/archive.rs) | `KeynesEvidentialWeight`, `MengBigDataDefect`, `ClusterDesignEffect`, `KishWeightAudit`, `CaptureRecaptureAudit`, `BitemporalRecord`, `VintageRevisionAudit` |
+| **06** | §V.1 (Filter III · Tension 5) | [`performativity.rs`](../crates/stochology/src/performativity.rs) | `CorpPavDecomposition`, `evaluate_invariant_predictors`, `AnchoredDiscrepancy`, `TianPearlCounterfactualBounds`, `PerformativeSystem`, `GoodhartAudit` |
+| **07** | §V.2 (Filter III · Tension 6) | [`vital.rs`](../crates/stochology/src/vital.rs) | `EpistemicKellyAllocation`, `CanguilhemHollingBasin`, `VitalSlackBuffer`, `WaldSurvivorshipAudit`, `InfoGapMaximinSafeguard` |
+| **08** | §VI (Ethical Mediation · Tension 7) | [`governance.rs`](../crates/stochology/src/governance.rs) | `SosaJudgmentGrade`, `TelicEvaluation`, `DiscursiveCommittee`, `AlgedonicChannel`, `ContractAndLiabilityAudit`, `ChouldechovaTrilemma`, `CognitiveAlertFilter`, `TemporalVault` |
+| **09** | §VII–§VIII (5 Families, Process Tracing, Reflexivity) | [`synthesis.rs`](../crates/stochology/src/synthesis.rs) | `CollapseProposition`, `TriadicIntegrity`, `DiagnosticClue`, `ProcessTracingTestKind`, `ProcessTracingInference`, `ReflexiveBrakeAudit` |
 
 ---
 
 ## B.2 Running the Verification Pipeline (`scripts/verify.sh`)
 
-The workspace verification script [`scripts/verify.sh`](file:///home/silvano-neto/Documents/stochology/scripts/verify.sh) executes four checks in sequence:
+The workspace verification script [`scripts/verify.sh`](../scripts/verify.sh) executes four checks in sequence:
 
 1. **`cargo fmt --all -- --check`:** Verifies standard Rust formatting across both crates.
 2. **`cargo clippy --all-targets -- -D warnings`:** Enforces zero compiler or Clippy warnings.
 3. **`cargo test`:** Runs all 25 unit tests in `crates/stochology` (testing FIPS 180-4 SHA-256 vectors, PAV isotonic regression, Cholesky SPD solver, `CommunityReserveEnv` survival vs. ruin, and every tension module) plus the end-to-end integration test in `crates/stochology-cli`.
-4. **`cargo run --release --bin stochology`:** Cryptographically verifies all 14 real-world CSV datasets against [`data/SHA256SUMS`](file:///home/silvano-neto/Documents/stochology/data/SHA256SUMS) and executes Chapters 1 through 9:
+4. **`cargo run --release --bin stochology`:** Cryptographically verifies all 14 real-world CSV datasets against [`data/SHA256SUMS`](../data/SHA256SUMS) and executes Chapters 1 through 9:
 
 ```text
 [OK] Cryptographic manifest data/SHA256SUMS verified (14 sealed datasets).
