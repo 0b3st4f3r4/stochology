@@ -6,3 +6,4 @@ _site/
 .loopx/
 book/
 swarm/
+swarm-*/

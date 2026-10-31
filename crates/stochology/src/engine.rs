@@ -440,7 +440,10 @@ impl CommunityReserveEnv {
             let step_headroom = ((1.0 - base_rho) / (1.0 - 0.88)).clamp(0.0, 1.0);
             let step_kelly_safety = (1.60 - decision.growth_leverage_f).clamp(0.0, 1.0);
             let step_buffer_commit = (decision.vital_reserve_allocation / 10.0).clamp(0.0, 1.0);
-            sum_rho += step_headroom * step_kelly_safety * step_buffer_commit;
+            let step_csd_rho1 = (0.45 + 0.52 * base_rho).clamp(0.0, 0.99);
+            let step_basin_stability = ((1.0 - step_csd_rho1) / (1.0 - 0.85)).clamp(0.0, 1.0);
+            sum_rho +=
+                step_headroom * step_kelly_safety * step_buffer_commit * step_basin_stability;
             let step_gov = if decision.constitutional_brake_active {
                 1.0
             } else {
@@ -597,5 +600,33 @@ mod tests {
             rep_p3.triadic_integrity.diagnose,
             CollapseProposition::Proposition3CynicalCapture
         );
+
+        // Multi-seed robustness sweep across 16 independent seeds (2020..2036)
+        for seed in 2020..2036 {
+            let env_s = CommunityReserveEnv::new(seed, 24, 45.0);
+            let r_full = env_s.run_trajectory(&mut StochologicalAgent::full());
+            let r_p1 = env_s.run_trajectory(&mut StochologicalAgent::without_epistemic_margin());
+            let r_p2 = env_s.run_trajectory(&mut StochologicalAgent::epistemic_only());
+            let r_p3 = env_s.run_trajectory(&mut StochologicalAgent::without_governance());
+            assert!(r_full.ruin_step.is_none());
+            assert_eq!(
+                r_full.triadic_integrity.diagnose,
+                CollapseProposition::IntactTriad
+            );
+            assert_eq!(
+                r_p1.triadic_integrity.diagnose,
+                CollapseProposition::Proposition1BlindUndersizing
+            );
+            assert!(r_p2.ruin_step.is_some());
+            assert_eq!(
+                r_p2.triadic_integrity.diagnose,
+                CollapseProposition::Proposition2ImpotentLucidity
+            );
+            assert!(r_p3.mean_social_harm > r_full.mean_social_harm * 3.0);
+            assert_eq!(
+                r_p3.triadic_integrity.diagnose,
+                CollapseProposition::Proposition3CynicalCapture
+            );
+        }
     }
 }
