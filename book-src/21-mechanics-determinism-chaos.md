@@ -45,13 +45,13 @@ where $\lambda_{\max} > 0$ is the **maximal Lyapunov exponent**.
 
 This exponential divergence establishes a finite **Lyapunov prediction horizon**. Suppose an observer can measure
 initial conditions with extraordinary precision $\delta_0 = 10^{-9}$ (one part in a billion), and requires a
-forecast within tolerance $\epsilon = 10^{-1}$. The maximum time $t_{\mathrm{horizon}}$ for which the prediction
+forecast within tolerance $\epsilon = 10^{-1}$ `[Assumed]`. The maximum time $t_{\mathrm{horizon}}$ for which the prediction
 remains valid is:
 
 $$t_{\mathrm{horizon}} \sim \frac{1}{\lambda_{\max}} \ln\left(\frac{\epsilon}{\delta_0}\right).$$
 
 Notice the logarithmic dependence: improving sensor precision by a factor of one thousand ($\delta_0 \to 10^{-12}$)
-merely extends the prediction horizon by a modest additive constant $\frac{\ln 1000}{\lambda_{\max}} \approx \frac{6.9}{\lambda_{\max}}$.
+merely extends the prediction horizon by a modest additive constant $\frac{\ln 1000}{\lambda_{\max}} \approx \frac{6.9}{\lambda_{\max}}$ `[Assumed]`.
 No feasible investment in sensor precision or computational horsepower can turn a chaotic system into a long-term
 point forecast.
 
@@ -105,3 +105,6 @@ while [The Sequential Mediation Loop](42-sequential-loop-naive-agent.md) simulat
 driven to ruin by chaotic demand shocks. In the Stochology library, `vital.rs::VitalMarginState` tracks
 whether an institution maintains sufficient physical buffer headroom to withstand exponential trajectory
 divergence without crossing catastrophic ruin boundaries.
+
+[Thermodynamics and Entropy](22-thermodynamics-and-entropy.md) adds the arrow of time: conservation,
+dissipation, and the irreversible cost of holding order in place.

@@ -77,8 +77,8 @@ triggers **Collapse Proposition 3 (`synthesis.rs::CollapseProposition`,
    physical constants. In reality, published projections alter public behavior immediately (`T6Performative`): citizens
    voluntarily reduce mobility, rendering uncalibrated static forecasts performatively misleading.
 
-Epidemiological modeling achieves public health integrity only when coupled to protected whistleblower channels (`L24`),
-statutory emergency powers (`L34`), and polycentric commons coordination (`L35`).
+Epidemiological modeling achieves public health integrity only when coupled to the governance-bearing ancestors that supply its missing axis —
+protected whistleblower channels (`L02`, carrying `T6Performative` and `T7Liability`) and the conjunctive institutional veto (`L13`, `T7Liability`).
 
 ## 4. Lattice contagion: why the homogeneous $R_0$ is an archive artefact
 

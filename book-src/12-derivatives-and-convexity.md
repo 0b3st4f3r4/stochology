@@ -39,7 +39,7 @@ The second derivative measures the rate of change of the slope — the **curvatu
 Curvature is the geometric property that determines whether the expectation of a function equals the function
 of an expectation. In physical, biological, and organizational systems, damages are almost universally convex
 in stress: a 10% increase in load when capacity is nearly full does not produce a 10% increase in delay, but a
-tenfold explosion.
+tenfold explosion `[Assumed]`.
 
 ## 3. Jensen's Inequality and the Taylor Expansion of the Jensen Gap
 
@@ -87,7 +87,7 @@ where $\rho$ is utilization. Computing the derivatives:
 $$\phi'(\rho) = \frac{1}{(1 - \rho)^2}, \qquad \phi''(\rho) = \frac{2}{(1 - \rho)^3}.$$
 
 As utilization approaches 100% ($\rho \to 1$), the curvature $\phi''(\rho)$ diverges cubically as $\mathcal{O}\bigl((1 - \rho)^{-3}\bigr)$.
-At $\rho = 0.50$, $\phi''(0.50) = 16$; at $\rho = 0.90$, $\phi''(0.90) = 2{,}000$; at $\rho = 0.95$, $\phi''(0.95) = 16{,}000$.
+At $\rho = 0.50$, $\phi''(0.50) = 16$; at $\rho = 0.90$, $\phi''(0.90) = 2{,}000$; at $\rho = 0.95$, $\phi''(0.95) = 16{,}000$ `[Assumed]`.
 A tiny fluctuation in arrival rate at 95% utilization creates a monumental Jensen gap that wipes out unbuffered
 operations.
 
@@ -109,3 +109,6 @@ Three iron rules govern judgment under non-linear curvature:
 computes empirical Jensen gaps across heavy-tailed fire and financial loss data. In the Stochology library,
 `vital.rs::VitalMarginState` formalizes this vital safeguard, incorporating the second-order Jensen debiasing
 into the evaluation of Canguilhem–Holling attraction basins and reserve depletion.
+
+[Integrals and Accumulation](13-integrals-and-accumulation.md) reverses the derivative: accumulation,
+expectation as a Lebesgue integral, and coherent risk measures such as expected shortfall.

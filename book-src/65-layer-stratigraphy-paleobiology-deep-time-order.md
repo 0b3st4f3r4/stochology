@@ -80,8 +80,9 @@ triggers **Collapse Proposition 3 (`synthesis.rs::CollapseProposition`,
    ecologies, mathematically setting the present value of the biosphere past 50 years to zero and discarding the multi-
    million-year recovery basin $\mathrm{TTR} \gg \mathrm{TTS}$.
 
-Deep-time Earth systems achieve ethical aim only when bound to constitutional intergenerational protection (`L32`) and
-planetary commons stewardship (`L35`).
+Deep-time Earth systems achieve ethical aim only when bound to constitutional intergenerational protection (`L01`, `T7Liability`) and institutional
+performativity (`L02`, `T6Performative`), the two ancestry layers in $\mathcal{G}_1$ that carry the governance sites this triple omits; `L32` and `L35`
+descend from this layer and cannot supply it.
 
 ## Reproduce
 

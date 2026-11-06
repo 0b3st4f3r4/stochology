@@ -99,3 +99,6 @@ equilibrium of maximum entropy (death).
 thermodynamic arrow of time into the non-ergodicity of financial and operational survival paths. In the Stochology
 library, `vital.rs::VitalMarginState` formalizes the vital margin as a non-negotiable thermodynamic defense,
 verifying that the rate of reserve depletion remains safely bounded within the recovery capacity of the system.
+
+[Statistical Physics and the Arrow of Time](23-statistical-physics-and-time.md) explains how that arrow
+emerges from coarse-graining, and why the ergodic hypothesis fails exactly where survival is at stake.

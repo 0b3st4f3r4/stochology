@@ -26,7 +26,7 @@ acidic soil or humid climates ($R_i \to 0$). Because social hierarchy directly g
 the medium in which a life is materialised, the correlation $\rho_{R,Y}$ between *being preserved in the
 archaeological record* ($R_i$) and *holding elite wealth or state power* ($Y_i$) is structurally positive.
 
-By Meng's identity in `epistemic.rs::from_meng_big_data`,
+By Meng's identity in `epistemic.rs::EpistemicMarginState::from_meng_big_data`,
 
 $$\bar{Y}_{\mathrm{excavated}} - \bar{Y}_{\mathrm{historical}} = \sigma_{Y}\,\rho_{R,Y}\sqrt{\frac{1 - f}{f}} \qquad \text{\texttt{[Assumed]}}.$$
 
@@ -43,16 +43,16 @@ at four distinct sites of the mediation circuit, and each site corresponds to a 
 
 1. **The moment of fact creation (*the making of sources*):** Who is granted a category and an entry when
    events occur, and who dies or labours unrecorded. This is the selection correlation $\rho_{R,Y}$ and
-   coverage fraction $f$ bounded by `epistemic.rs::from_meng_big_data` and Manski's worst-case interval
-   `epistemic.rs::from_ate_bounds`.
+   coverage fraction $f$ bounded by `epistemic.rs::EpistemicMarginState::from_meng_big_data` and Manski's worst-case interval
+   `epistemic.rs::EpistemicMarginState::from_ate_bounds`.
 2. **The moment of fact assembly (*the making of archives*):** Which records are gathered into official
    repositories and which are left outside every list. When two partial registries exist (such as port
    manifests and parish registers), the completely unrecorded population $n_{00}$ is bounded from below
    by Anne Chao's capture-recapture estimator $\hat{n}_{00} = f_1^2 / (2f_2)$ in
-   `epistemic.rs::from_capture_recapture`.
+   `epistemic.rs::EpistemicMarginState::from_capture_recapture`.
 3. **The moment of fact retrieval (*the making of narratives*):** How historians weight surviving boxes
    and select specifications. Unequal fund weighting inflates the Kish design effect in
-   `epistemic.rs::from_kish_strata`, while ad-hoc narrative rescue is audited by Lakatos's progressive
+   `epistemic.rs::EpistemicMarginState::from_kish_strata`, while ad-hoc narrative rescue is audited by Lakatos's progressive
    shift ratio `epistemic.rs::lakatos_shift_ratio`.
 4. **The moment of retrospective significance (*the making of history in the final instance*):** Judging
    past actors by knowledge that arrived only after their decision, or retroactively purging a ledger.

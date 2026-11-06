@@ -7,7 +7,7 @@
 1. Derive the Pythagorean comma ($(3/2)^{12} \neq 2^7$) and explain why well-temperament is a distributed
    vital buffer against the wolf fifth.
 2. Trace how Attic tragedy staged the three collapse propositions and the third regime of action
-   (`WithholdShot`) through the archery structure of *hamartía*.
+   (*WithholdShot*, lowering the bow and quarantine) through the archery structure of *hamartía*.
 3. Use Chevallard's didactic transposition and Messick's validity triad to audit educational metrics for
    construct underrepresentation and consequential decay.
 
@@ -38,7 +38,7 @@ In the *Critique of the Power of Judgment* (1790) `[Literature]`, Immanuel Kant 
 of judgment: **determinative judgment**, which already possesses a fixed universal rule and mechanically
 subsumes the particular under it (`engine.rs::NaiveOptimizer`), and **reflective judgment**, where only
 the singular, contingent particular is given and the agent must orient action without amputating what
-Theodor Adorno called the **Non-Identical** (`vital.rs::from_heavy_tails_and_asymmetry`).
+Theodor Adorno called the **Non-Identical** (`vital.rs::VitalMarginState::from_heavy_tails_and_asymmetry`).
 
 Five centuries before Cicero recorded Antipater's archer, Attic tragedy made the failure of determinative
 rigidity its central dramatic object. The tragic word **ἁμαρτία (*hamartía*)** means literally *missing
@@ -59,7 +59,7 @@ propositions with complete structural precision:
   them of bribery ($\delta_{\mathrm{cred}} \to 1$) and rejects Haemon's plea that the tree that bends in
   the winter torrent preserves its branches while the rigid trunk is uprooted (*Antigone* vv. 712–718
   `[Literature]`). Conversely, in *Philoctetes*, Neoptolemus interrupts Odysseus's instrumental fraud,
-  returns Heracles's bow, and exemplifies the third regime of aim (`WithholdShot`).
+  returns Heracles's bow, and exemplifies the third regime of action (*WithholdShot*, lowering the bow and quarantine).
 
 ## 3. Didactic transposition and Messick's validity triad
 

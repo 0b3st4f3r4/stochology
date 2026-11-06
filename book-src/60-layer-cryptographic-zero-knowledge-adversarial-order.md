@@ -75,8 +75,9 @@ reaches ruin before the cryptographic signature can be validated.
 - **Denial-of-Service Exhaustion:** Adversaries exploit asymmetric CPU loads to saturate verification queues ($\rho \to 1$),
    forcing Kingman buffer delays to explode and causing system-wide shutdown.
 
-Cryptographic security achieves operational resilience only when backed by physical vital buffers (`L01`, `L02`) and queue
-survival constraints (`vital.rs::VitalMarginState::from_queue_basin_and_survival`).
+Cryptographic security achieves operational resilience only when backed by the vital-typed ancestor layers (`L06`, which supplies both
+`T4Formalization` and `T5Temporal`, and `L07`, which supplies `T4Formalization`) and queue survival constraints
+(`vital.rs::VitalMarginState::from_queue_basin_and_survival`).
 
 ## Reproduce
 

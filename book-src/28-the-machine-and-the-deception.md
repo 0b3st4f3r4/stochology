@@ -1,8 +1,10 @@
 # The Machine and the Deception
 
-> Foundation chapter of Part III. Its formal content is worked out in
-> [Chapter 48](48-reactive-worlds-performativity-goodhart.md) (Goodhart variants and performative
-> reactivity) and [Chapter 42](42-sequential-loop-naive-agent.md) (the sequential loop).
+> Foundation chapter of Part III. It presupposes [Chapter 18](18-philosophy-of-science.md) and
+> [Chapter 20](20-legitimacy-and-institutions.md). Its formal content is worked out in
+> [Chapter 48](48-reactive-worlds-performativity-goodhart.md) (Goodhart variants and
+> performative reactivity) and [Chapter 42](42-sequential-loop-naive-agent.md) (the sequential
+> loop).
 
 ## By the end of this chapter you can
 

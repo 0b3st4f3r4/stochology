@@ -22,7 +22,7 @@ system) and deletes T-cell clones that bind them too strongly.
 
 In the vocabulary of [Chapter 45](45-world-to-archive-big-data-paradox.md), the thymus is an archive of
 the self with sampling fraction $f = n_{\mathrm{presented}} / N_{\mathrm{self}}$. When $\text{AIRE}$ is
-intact, $f \to 1$ and the Meng selection gap $\rho_{R,Y}\sqrt{(1-f)/f}$ (`epistemic.rs::from_meng_big_data`)
+intact, $f \to 1$ and the Meng selection gap $\rho_{R,Y}\sqrt{(1-f)/f}$ (`epistemic.rs::EpistemicMarginState::from_meng_big_data`)
 stays near zero. When a mutation in $\text{AIRE}$ (`APS-1`) or anatomical sequestration leaves a
 peripheral tissue unrepresented in the thymic archive ($1 - f > 0$), clones reactive against that tissue
 escape into circulation with false epistemic certification — waiting to trigger organ-specific
@@ -35,7 +35,7 @@ Because neither thymic archive coverage ($f < 1$) nor single-receptor kinetic pr
 system never authorises a destructive effector response on a single cell's vote.
 
 By the **Bretscher–Cohn–Janeway two-signal law** `[Literature]`, naive T-cell activation requires a
-strict **conjunctive veto** (`governance.rs::evaluate_list_pettit_votes`):
+strict **conjunctive veto** (`governance.rs::GovernanceState::evaluate_list_pettit_votes`):
 
 - **Signal 1 (Adaptive specificity):** The T-cell receptor (`TCR`) must pass kinetic proofreading against
   the peptide–$\text{MHC}$ complex;

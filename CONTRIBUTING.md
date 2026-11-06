@@ -16,7 +16,7 @@ Before submitting a change, run the verification suite:
 ./scripts/verify.sh
 ```
 
-This script checks formatting (`cargo fmt --all -- --check`), lints (`cargo clippy --all-targets -- -D warnings`), unit and integration tests (`cargo test`), test coverage (`>= 90%`), all 9 progressive chapter laboratories (`cargo run --release --bin stochology`), and cryptographic dataset integrity ([`data/SHA256SUMS`](data/SHA256SUMS)).
+This script checks formatting (`cargo fmt --all -- --check`), lints (`cargo clippy --all-targets -- -D warnings`), unit and integration tests (`cargo test`), test coverage (`>= 90%`), all 9 progressive chapter laboratories (`cargo run --release --bin stochology`), and cryptographic dataset integrity ([`data/SHA256SUMS`](data/SHA256SUMS)) — then the stages that make those results binding: bidirectional `=== CHAPTER ` parity between the CLI and [`README.md`](README.md), Appendix B and the nine framework chapters; lab/JSON and multilayer-node parity for [`lab/index.html`](book-src/lab/index.html); the sealed-dataset loader inventory; `PYSYM` symbol and line-anchor parity for every backticked symbol, bare identifier and `#L` window in the book, the notes and the root documents; root-document link resolution; canonical provenance tags; and `PYKATEX`/relative-path hygiene. Human-gated files ([`data/SHA256SUMS`](data/SHA256SUMS), [`notes/The Ethics of Aim.md`](notes/The%20Ethics%20of%20Aim.md), `TemporalVault` in [`governance.rs`](crates/stochology/src/governance.rs)) require explicit human inline-diff confirmation before they change.
 
 ## 3. Licensing
 

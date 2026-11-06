@@ -55,10 +55,11 @@ the patient.
 
 ## 3. Clinical thresholds and bedside alarm fatigue
 
-At the bedside, two numbers govern whether an automated warning saves lives or destroys attention: the
-**Pauker–Kassirer treatment threshold** $p^* = C/(\eta L)$ (`epistemic.rs::pauker_kassirer_threshold`,
-[Decision, Loss, Threshold](36-decision-loss-threshold.md) §2) and the operator's bounded cognitive
-channel ($\sim 10\text{ bits/s}$, `governance.rs::ZhengMeisterQueueAudit`).
+At the bedside, a pair of thresholds governs whether an automated warning saves lives or destroys attention: the
+cost–loss threshold $p^*_{\mathrm{CL}} = C/(\eta L)$ of [Decision, Loss, Threshold](36-decision-loss-threshold.md) §2 and the
+expected-regret form $p^*_{\mathrm{PK}} = C_{\mathrm{FP}}/(C_{\mathrm{FP}} + L_{\mathrm{FN}})$ that `epistemic.rs::pauker_kassirer_threshold`
+computes. What the ward can act on is set separately, by the operator's bounded cognitive channel
+($\sim 10\text{ bits/s}$, `governance.rs::ZhengMeisterQueueAudit`).
 
 When a proprietary hospital sepsis score fires with an $88\%$ false-discovery rate ($1 - \mathrm{PPV} = 0.88$,
 as documented by Wong et al. 2021 `[Literature]`) and dumps dozens of uncalibrated alerts per shift onto

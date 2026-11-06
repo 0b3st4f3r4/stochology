@@ -43,7 +43,7 @@ $$M_{\mathrm{arith}} = \frac{1}{3}\bigl(S_{\mathrm{epi}} + S_{\mathrm{vital}} + 
 
 Consider a city with impeccable scientific epidemiological models ($S_{\mathrm{epi}} = 0.95$) and a
 transparent, democratic city council ($S_{\mathrm{gov}} = 0.95$), but which sold off all its emergency
-medical stockpiles and hospital surge beds to balance a short-term municipal budget ($S_{\mathrm{vital}} = 0.02$).
+medical stockpiles and hospital surge beds to balance a short-term municipal budget ($S_{\mathrm{vital}} = 0.02$) `[Assumed]`.
 
 The arithmetic average reports a reassuring composite score:
 
@@ -105,4 +105,6 @@ state operators, while `synthesis.rs::CollapseProposition` classifies the active
 across the $2 \times 2 \times 2$ factorial cube. [Chapter 50](50-methodological-families-reflexivity.md)
 applies this exact reflexive discipline to audit the Stochology framework itself. From here, Part II
 begins with the mathematical, philosophical, and scientific foundations that underpin these three
-safeguards.
+safeguards. It opens with [Sets, Relations, Functions](09-sets-relations-functions.md), which supplies
+the language the rest of the book thinks in: sets, measurable spaces, relations, and functions as
+recording pipelines.

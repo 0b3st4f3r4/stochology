@@ -1,6 +1,7 @@
 # What Judging Is, and What It Is Not
 
-> Foundation chapter of Part III. Its formal content is worked out in
+> Foundation chapter of Part III. It presupposes [Chapter 16](16-what-knowledge-is.md) and
+> [Chapter 17](17-justification-and-induction.md). Its formal content is worked out in
 > [Chapter 42](42-sequential-loop-naive-agent.md).
 
 ## By the end of this chapter you can

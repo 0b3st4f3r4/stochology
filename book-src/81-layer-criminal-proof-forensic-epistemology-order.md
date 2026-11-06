@@ -21,14 +21,18 @@ than that one innocent suffer."*
 Under formal statistical decision theory, let $H_0$ represent innocence and $H_1$ guilt. A false conviction
 (Type I error / false positive) inflicts catastrophic moral and societal loss $L_{\mathrm{FP}}$, whereas a
 false acquittal (Type II error / false negative) inflicts unpenalized harm $L_{\mathrm{FN}}$. The
-Pauker–Kassirer decision threshold for conviction
-(`epistemic.rs::EpistemicMarginState::from_inquiry_framing`) satisfies:
+expected-regret form of the Pauker–Kassirer decision threshold for conviction
+(`epistemic.rs::pauker_kassirer_threshold`, which returns $c/(c + l)$ for the two non-negative error terms)
+satisfies:
 
-$$p^* = \frac{L_{\mathrm{FP}}}{L_{\mathrm{FP}} + L_{\mathrm{FN}}} \qquad \text{\texttt{[Assumed]}}.$$
+$$p^*_{\mathrm{PK}} = \frac{L_{\mathrm{FP}}}{L_{\mathrm{FP}} + L_{\mathrm{FN}}} \qquad \text{\texttt{[Assumed]}},$$
 
-Under Blackstone's ten-to-one ratio ($L_{\mathrm{FP}} = 10 L_{\mathrm{FN}}$), the posterior threshold for
-conviction is $p^* = 10/11 \approx 0.909$. When societal norms demand higher protection against state
-overreach ($L_{\mathrm{FP}} = 100 L_{\mathrm{FN}}$), the threshold rises to $p^* = 100/101 \approx 0.990$.
+and this is the form the legal standard is read through, not the cost–loss form $p^*_{\mathrm{CL}} = C/(\eta L)$
+of a protection budget against an efficiency-discounted avoidable loss. Under Blackstone's ten-to-one ratio
+($L_{\mathrm{FP}} = 10 L_{\mathrm{FN}}$), the posterior threshold for conviction is
+$p^*_{\mathrm{PK}} = 10/11 \approx 0.909$ `[Assumed]`. When societal norms demand higher protection against
+state overreach ($L_{\mathrm{FP}} = 100 L_{\mathrm{FN}}$), the threshold rises to
+$p^*_{\mathrm{PK}} = 100/101 \approx 0.990$ `[Assumed]`.
 The constitutional requirement of proof "beyond a reasonable doubt" is thus an explicit institutional
 operationalization of highly asymmetric loss at `T1Framing` and `T2Severity`.
 

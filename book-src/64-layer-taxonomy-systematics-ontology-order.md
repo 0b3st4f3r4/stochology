@@ -75,7 +75,7 @@ classifications to extract insurance rents without improving clinical care.
 the right to contest incorrect classifications (`T7Liability`).
 
 Taxonomic schemas achieve ethical validity only when coupled to transparent audit trails, rights of contestation,
-and constitutional governance (`L30`, `L32`).
+and the ancestors that supply the missing governance sites (`L02` for `T6Performative` and `T7Liability`, `L03` for `T6Performative`).
 
 ## Reproduce
 

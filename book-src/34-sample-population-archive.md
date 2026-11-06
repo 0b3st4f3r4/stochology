@@ -1,6 +1,7 @@
 # Sample, Population, Archive
 
-> Foundation chapter of Part III. Its formal content is worked out in
+> Foundation chapter of Part III. It presupposes [Chapter 14](14-linear-algebra.md) and
+> [Chapter 15](15-probability-as-a-measure.md). Its formal content is worked out in
 > [Chapter 45](45-world-to-archive-big-data-paradox.md).
 
 ## By the end of this chapter you can
@@ -96,13 +97,15 @@ Combining Meng's big data defect, Moulton's cluster correlation, and Kish's weig
 
 $$\frac{1}{n_{\mathrm{eff}}} = \frac{1}{n_{\mathrm{Meng}}} + \frac{\mathrm{DEFF}_{\mathrm{cluster}} - 1}{n} + \frac{\mathrm{DEFF}_{\mathrm{Kish}} - 1}{n} \qquad \text{\texttt{[Assumed]}}.$$
 
-Textual stemmatics (*stemma codicum*) discovered this exact principle in classical philology. In Karl Lachmann's
-and Paul Maas's methodology `[Literature]`, counting how many surviving Renaissance manuscripts agree on a variant
-reading (*codices plurimi*) commits a nominal-volume fallacy whenever nine copies derive from a single common
-damaged archetype (*codices descripti*, $\rho_I \to 1$, $\mathrm{DEFF} = 9$, $n_{\mathrm{eff}} = 1$ `[Assumed]`).
-Maas's canon *eliminatio codicum descriptorum* and the ancient maxim *ponderanda sunt testimonia, non numeranda*
-(witnesses must be weighed, not counted) is the philological ancestor of dividing raw volume by design effect
-before calculating Keynesian evidential weight (`epistemic.rs::keynes_weight_from_n_eff`).
+Textual stemmatics (*stemma codicum*) discovered this exact principle in classical philology. In
+Karl Lachmann's and Paul Maas's methodology `[Literature]`, counting how many surviving Renaissance
+manuscripts agree on a variant reading (*codices plurimi*) commits a nominal-volume fallacy whenever
+nine copies derive from a single common damaged archetype (*codices descripti*, $\rho_I \to 1$,
+$\mathrm{DEFF} = 9$, $n_{\mathrm{eff}} = 1$ `[Assumed]`). Maas's canon *eliminatio codicum
+descriptorum* and the ancient maxim *ponderanda sunt testimonia, non numeranda* (witnesses must be
+weighed, not counted) is the philological ancestor of dividing raw volume by design effect before
+calculating Keynesian evidential weight (
+`epistemic.rs::EpistemicMarginState::keynes_weight_from_n_eff`).
 
 ## 4. Missingness and dark archives
 
@@ -124,9 +127,9 @@ $$\hat{n}_{00} = \frac{f_1^2}{2 f_2} \qquad \text{\texttt{[Assumed]}}.$$
 Archaeological taphonomy (Efremov `[Literature]`) and historical sociology formalize how physical preservation
 biases the archive. In *Silencing the Past*, Michel-Rolph Trouillot identified four successive moments where power
 manufactures institutional silence:
-1. **Fact creation**: Who enters the historical record at all (`epistemic.rs::from_meng_big_data`).
-2. **Fact assembly**: What documents survive into the physical archive (`epistemic.rs::from_capture_recapture`).
-3. **Fact retrieval**: How catalogs and algorithms index and weight what was kept (`epistemic.rs::from_kish_strata`).
+1. **Fact creation**: Who enters the historical record at all (`epistemic.rs::EpistemicMarginState::from_meng_big_data`).
+2. **Fact assembly**: What documents survive into the physical archive (`epistemic.rs::EpistemicMarginState::from_capture_recapture`).
+3. **Fact retrieval**: How catalogs and algorithms index and weight what was kept (`epistemic.rs::EpistemicMarginState::from_kish_strata`).
 4. **Retrospective significance**: How subsequent generations rewrite the record with hindsight, a distortion
    quarantined by bitemporal logging (`epistemic.rs::bitemporal_view_at`).
 
@@ -134,9 +137,11 @@ manufactures institutional silence:
 
 Selection bias, clustering, and sampling volume are formalised in
 [Chapter 45](45-world-to-archive-big-data-paradox.md) as
-`epistemic.rs::from_archive_clusters`, where the cluster design effect is separated from the coverage ratio;
-Meng's Big Data Paradox identity is evaluated in `epistemic.rs::from_meng_big_data`; uncounted populations are
-bounded by `epistemic.rs::from_capture_recapture`; and survey weight dispersion is audited by
-`epistemic.rs::from_kish_strata`. Bitemporal archive querying to prevent hindsight revisionism is executed by
+`epistemic.rs::EpistemicMarginState::from_archive_clusters`, where the cluster design effect is
+separated from the coverage ratio; Meng's Big Data Paradox identity is evaluated in
+`epistemic.rs::EpistemicMarginState::from_meng_big_data`; uncounted populations are bounded by
+`epistemic.rs::EpistemicMarginState::from_capture_recapture`; and survey weight dispersion is
+audited by `epistemic.rs::EpistemicMarginState::from_kish_strata`. Bitemporal archive querying to
+prevent hindsight revisionism is executed by
 `epistemic.rs::bitemporal_view_at`, and the resulting effective sample size governs Keynes's weight
-`epistemic.rs::keynes_weight_from_n_eff`.
+`epistemic.rs::EpistemicMarginState::keynes_weight_from_n_eff`.

@@ -109,3 +109,6 @@ a profitable investment.
 In the Stochology library, `vital.rs::from_non_ergodic_returns` computes the time-average growth rate $g = \mu - \frac{1}{2}\sigma^2$
 and compares it against ensemble returns, diagnosing when an institution is being misled by ensemble optimism
 toward absorbing ruin barriers.
+
+[Derivatives and Convexity](12-derivatives-and-convexity.md) differentiates the limit into local
+sensitivity and curvature, which is what makes the Jensen gap between an average and a risk visible.

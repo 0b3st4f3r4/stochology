@@ -142,3 +142,7 @@ evaluates effective degrees of freedom across stratified clusters. In the Stocho
 `epistemic.rs::EpistemicMarginState` tracks effective degrees of freedom and design effects, while
 `epistemic.rs::from_kish_strata` computes Kish effective sample sizes when variance inflation collapses high-dimensional
 archival representations.
+
+[Probability as a Measure](15-probability-as-a-measure.md) assembles these pieces into a single object,
+the triple $(\Omega, \mathcal{F}, \mathbb{P})$, and derives conditioning, martingales, and Ville's
+inequality from it.

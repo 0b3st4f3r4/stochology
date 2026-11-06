@@ -1091,12 +1091,27 @@ fn first_violation(guards: &[GuardReading], threshold: f64) -> Option<(GuardSite
     violators.first().map(|g| (g.site, g.step_t))
 }
 
+/// Normalizes an acceptance threshold into the admissible band `[0.05, 0.95]`.
+///
+/// A non-finite threshold falls back to the canonical `0.50` instead of propagating `NaN` through
+/// the Leontief bottleneck and the frontier band, where every comparison would silently evaluate to
+/// `false` and strip the collapse of its witness site.
+fn normalize_threshold(threshold: f64) -> f64 {
+    if threshold.is_finite() {
+        threshold.clamp(0.05, 0.95)
+    } else {
+        0.50
+    }
+}
+
 /// **The acceptance predicate.** Parses a sentence and returns one of the four verdicts.
 ///
 /// Order of evaluation is fixed: control-tape attestation, skeleton, agent authority/budget, plane circuit,
 /// and guard completeness first (an ill-formed derivation has no verdict), then the Leontief bottleneck
-/// [`TriadicIntegrity::evaluate`], then the frontier band.
+/// [`TriadicIntegrity::evaluate`], then the frontier band. `threshold` is normalized by
+/// [`normalize_threshold`] before any comparison.
 pub fn judge(sentence: &Sentence, threshold: f64) -> GrammarVerdict {
+    let threshold = normalize_threshold(threshold);
     if sentence.shots.is_empty() && sentence.guards.is_empty() {
         return GrammarVerdict::Unparsable(UnparsableReason::EmptySentence);
     }
@@ -1195,9 +1210,8 @@ pub fn judge(sentence: &Sentence, threshold: f64) -> GrammarVerdict {
     }
     let triad = TriadicIntegrity::evaluate(scores[0], scores[1], scores[2], threshold);
     if triad.diagnose == CollapseProposition::IntactTriad {
-        let tau = threshold.clamp(0.05, 0.95);
         for (idx, axis) in axes.iter().enumerate() {
-            if scores[idx] < tau + BOUNDARY_BAND {
+            if scores[idx] < threshold + BOUNDARY_BAND {
                 let site = weakest_site(&sentence.guards, *axis).unwrap_or(GuardSite::T1Framing);
                 return GrammarVerdict::Boundary {
                     site,
@@ -1207,7 +1221,7 @@ pub fn judge(sentence: &Sentence, threshold: f64) -> GrammarVerdict {
         }
         return GrammarVerdict::Interior;
     }
-    let (at, step_t) = match first_violation(&sentence.guards, threshold.clamp(0.05, 0.95)) {
+    let (at, step_t) = match first_violation(&sentence.guards, threshold) {
         Some((site, t)) => (Some(site), t),
         None => (None, None),
     };
@@ -1610,6 +1624,37 @@ mod tests {
                     CollapseProposition::Proposition2ImpotentLucidity
                 );
                 assert_eq!(at, Some(GuardSite::T4Formalization));
+            }
+            other => panic!("expected Collapse, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn non_finite_threshold_falls_back_to_the_canonical_band() {
+        // A non-finite acceptance threshold must not strip the frontier band or the collapse witness:
+        // `judge` normalizes it to the canonical 0.50 before any comparison.
+        assert_eq!(judge(&sentence(0.95), f64::NAN), GrammarVerdict::Interior);
+        assert_eq!(
+            judge(&sentence(0.95), f64::INFINITY),
+            GrammarVerdict::Interior
+        );
+        assert_eq!(
+            judge(&sentence(0.95), f64::NEG_INFINITY),
+            GrammarVerdict::Interior
+        );
+        match judge(&sentence(0.52), f64::NAN) {
+            GrammarVerdict::Boundary { margin, .. } => assert!((margin - 0.52).abs() < 1e-12),
+            other => panic!("expected Boundary, got {other:?}"),
+        }
+        match judge(&sentence(0.10), f64::NAN) {
+            GrammarVerdict::Collapse {
+                proposition,
+                at,
+                step_t,
+            } => {
+                assert_eq!(proposition, CollapseProposition::TotalTriadicCollapse);
+                assert_eq!(at, Some(GuardSite::T1Framing));
+                assert_eq!(step_t, Some(0));
             }
             other => panic!("expected Collapse, got {other:?}"),
         }

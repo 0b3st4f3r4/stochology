@@ -1,6 +1,8 @@
 # The Question Before the Data
 
-> Foundation chapter of Part III. Its formal content is worked out in
+> Foundation chapter of Part III. It presupposes
+> [Chapter 17](17-justification-and-induction.md) and
+> [Chapter 18](18-philosophy-of-science.md). Its formal content is worked out in
 > [Chapter 43](43-inquiry-openness-multiverse.md).
 
 ## By the end of this chapter you can
@@ -105,9 +107,10 @@ e-values, guaranteeing rigorous error control across the entire analytical multi
 
 ## 5. Whose threshold?
 
-The final element fixed by an inquiry's framing is the decision threshold for action:
+The final element fixed by an inquiry's framing is the decision threshold for action — the cost–loss threshold
+whose expected-regret counterpart is derived in [Chapter 36](36-decision-loss-threshold.md) §2:
 
-$$p^* = \frac{C}{\eta L} \qquad \text{\texttt{[Assumed]}},$$
+$$p^*_{\mathrm{CL}} = \frac{C}{\eta L} \qquad \text{\texttt{[Assumed]}},$$
 
 where $C$ is the cost of intervention, $\eta$ is its effectiveness, and $L$ is the loss incurred if the catastrophe
 occurs.
@@ -115,8 +118,10 @@ occurs.
 Critically, the loss $L$ is not a single objective number. For an administrative agency or corporation,
 $L_{\mathrm{inst}}$ represents its own private exposure: regulatory fines, litigation reserves, or stock depreciation.
 For the vulnerable community or patient, $L_{\mathrm{affected}}$ represents irreparable physical, health, or livelihood
-devastation. Because $L_{\mathrm{inst}} \ll L_{\mathrm{affected}}$, the institution's action threshold $p^*_{\mathrm{inst}}$
-sits far higher than the affected community's threshold $p^*_{\mathrm{affected}}$:
+devastation. Because $L_{\mathrm{inst}} \ll L_{\mathrm{affected}}$, the institution's action threshold
+$p^*_{\mathrm{inst}}$ sits far higher than the affected community's threshold $p^*_{\mathrm{affected}}$:
+
+$$p^*_{\mathrm{inst}} = \frac{C}{\eta L_{\mathrm{inst}}} \gg \frac{C}{\eta L_{\mathrm{affected}}} = p^*_{\mathrm{affected}} \qquad \text{\texttt{[Assumed]}}.$$
 
 $$p^*_{\mathrm{inst}} = \frac{C}{\eta L_{\mathrm{inst}}} \gg \frac{C}{\eta L_{\mathrm{affected}}} = p^*_{\mathrm{affected}} \qquad \text{\texttt{[Assumed]}}.$$
 
@@ -129,7 +134,8 @@ while pretending to solve the public's survival question.
 ## Bridge
 
 Framing, Cromwell openness, and the cost-loss threshold gap are formalised in
-[Chapter 43](43-inquiry-openness-multiverse.md) as `epistemic.rs::from_inquiry_framing`, which carries both
-institutional and affected cost-loss thresholds alongside the expected value of perfect information; the
-entire universe of defensible model specifications evaluated under false discovery rate guarantees is
-`epistemic.rs::from_multiverse`.
+[Chapter 43](43-inquiry-openness-multiverse.md) as
+`epistemic.rs::EpistemicMarginState::from_inquiry_framing`, which carries both institutional and
+affected cost-loss thresholds alongside the expected value of perfect information; the entire
+universe of defensible model specifications evaluated under false discovery rate guarantees is
+`epistemic.rs::EpistemicMarginState::from_multiverse`.

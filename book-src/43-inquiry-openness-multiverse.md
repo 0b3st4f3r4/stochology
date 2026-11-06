@@ -49,7 +49,7 @@ whereas the **vulnerable community** bears the irreversible human and livelihood
 $$p^*_{\mathrm{affected}} = \frac{100}{0.85 \times 800} = \frac{100}{680} \approx 0.147$$
 Because $\pi_0 = 0.18$ lies strictly between these two thresholds ($0.147 < \pi_0 = 0.18 < 0.588$, `[Assumed]`), the institution rationalizes waiting as "scientific prudence," while the community correctly views inaction as reckless abandonment.
 
-Harding's *strong objectivity* requires computing [`EpistemicMarginState::from_inquiry_framing`](crates/stochology/src/epistemic.rs#L247-L320) from both standpoints and reporting the **framing gap** ([`EpistemicMarginState::framing_gap`](crates/stochology/src/epistemic.rs#L372-L374), $|p^*_{\mathrm{inst}} - p^*_{\mathrm{affected}}| = 0.441$, `[Assumed]`), rather than disguising institutional cost-saving as scientific conservatism.
+Harding's *strong objectivity* requires computing [`EpistemicMarginState::from_inquiry_framing`](crates/stochology/src/epistemic.rs#L247-L320) from both standpoints and reporting the **framing gap** ([`EpistemicMarginState::framing_gap`](crates/stochology/src/epistemic.rs#L371-L373), $|p^*_{\mathrm{inst}} - p^*_{\mathrm{affected}}| = 0.441$, `[Assumed]`), rather than disguising institutional cost-saving as scientific conservatism.
 
 ---
 
@@ -86,7 +86,7 @@ When an analyst explores $K \ge 1$ plausible data-cleaning rules, covariate sets
 
    $$\frac{k^* \, E_{(k^*)}}{K} \ge \frac{1}{\alpha}$$
 
-2. **Simonsohn, Simmons & Nelson's (2020) Specification Curve / Steegen et al.'s (2016) Multiverse Analysis ([`EpistemicMarginState::from_multiverse`](crates/stochology/src/epistemic.rs#L382-L421)):** Instead of hiding the $K - 1$ alternative models, `EpistemicMarginState::from_multiverse` records the full vector of $K$ effect estimates and e-values, reporting the min–max envelope $[L_t, U_t]$ across all $K$ specifications, the **consistency ratio** (`multiverse_consistency`), and the average e-value $\bar{E} = \frac{1}{K}\sum_{k=1}^K E_k$.
+2. **Simonsohn, Simmons & Nelson's (2020) Specification Curve / Steegen et al.'s (2016) Multiverse Analysis ([`EpistemicMarginState::from_multiverse`](crates/stochology/src/epistemic.rs#L381-L420)):** Instead of hiding the $K - 1$ alternative models, `EpistemicMarginState::from_multiverse` records the full vector of $K$ effect estimates and e-values, reporting the min–max envelope $[L_t, U_t]$ across all $K$ specifications, the **consistency ratio** (`multiverse_consistency`), and the average e-value $\bar{E} = \frac{1}{K}\sum_{k=1}^K E_k$.
 
 ---
 

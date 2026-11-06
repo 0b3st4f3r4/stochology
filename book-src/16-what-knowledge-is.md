@@ -100,3 +100,7 @@ architectures that enforce aptness:
 operationalize aptness and severity in the sequential loop. In the Stochology library, `epistemic.rs::EpistemicMarginState`
 tracks the severity and bounds of empirical evidence, while `governance.rs::GovernanceState` and `governance.rs::TelicGrade`
 audit whether decision quality achieves true apt agency or merely reflects unearned outcome luck.
+
+[Justification and Induction](17-justification-and-induction.md) then asks how such knowledge is
+earned: the limits of deduction, Hume's problem, Peirce's inferential triad, and the manufacture of
+strategic doubt.

@@ -111,3 +111,7 @@ Replacing a point estimate with a bound $[L, U]$ shifts the logic of institution
 operationalize these bounds on empirical data. In the Stochology library, `vital.rs::hill_alpha_with_ci95`
 estimates the Pareto tail index $\hat{\alpha}$ alongside its asymptotic $95\%$ confidence bounds, while
 `epistemic.rs::from_ate_bounds` constructs non-parametric Manski worst-case bounds over unobserved outcomes.
+
+[Sequences, Limits, and Continuity](11-sequences-limits-continuity.md) takes the next step, asking what
+it means for a record to converge and why continuity of a loss is not the same as robustness of a
+decision.

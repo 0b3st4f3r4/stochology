@@ -35,11 +35,11 @@ fi
 
 while IFS= read -r line; do
     [ -z "$line" ] && continue
-    if ! grep -Fq -- "$line" "README.md"; then
+    if ! grep -Fxq -- "$line" "README.md"; then
         echo "ERROR: Provenance drift in README.md for CLI output line: $line" >&2
         exit 1
     fi
-    if ! grep -Fq -- "$line" "book-src/appendix-b-architecture-verification.md"; then
+    if ! grep -Fxq -- "$line" "book-src/appendix-b-architecture-verification.md"; then
         echo "ERROR: Provenance drift in book-src/appendix-b-architecture-verification.md for CLI output line: $line" >&2
         exit 1
     fi
@@ -48,12 +48,16 @@ done <<< "$CLI_OUT"
 python3 - "$CLI_OUT" << 'PYBIDIR'
 import glob, re, sys
 
-cli_lines = set(l.rstrip() for l in sys.argv[1].splitlines() if l.strip())
+cli_seq = [l.rstrip() for l in sys.argv[1].splitlines() if l.strip()]
+cli_lines = set(cli_seq)
 assert len(cli_lines) >= 40, f"Unexpectedly few CLI lines: {len(cli_lines)}"
 
 # Reverse guard (doc -> CLI): every line inside any ```text block containing '=== CHAPTER '
 # in README.md, appendix-b, and every framework chapter (the nine that declare the banner
 # `> Laboratory N of the `stochology` CLI: `--chapter N`.`) must exist verbatim in CLI_OUT.
+# Membership alone tolerates a dropped or reordered line, so each block must additionally
+# appear as one contiguous run of CLI output: a chapter may not silently omit a line the
+# binary still prints.
 BANNER = re.compile(r"^> Laboratory (\d+) of the `stochology` CLI: `--chapter \1`\.$", re.M)
 framework = [f for f in sorted(glob.glob("book-src/[0-9][0-9]-*.md"))
              if BANNER.search(open(f).read())]
@@ -66,13 +70,19 @@ for doc in docs:
     ch_blocks = [b for b in blocks if "=== CHAPTER " in b]
     assert ch_blocks, f"ERROR: No '=== CHAPTER ' CLI block found in {doc}"
     for b in ch_blocks:
+        documented = []
         for raw_line in b.splitlines():
             line = raw_line.rstrip()
             if not line:
                 continue
+            documented.append(line)
             if line not in cli_lines:
                 print(f"ERROR: Reverse provenance drift in {doc} (doc line not emitted by CLI): {line}", file=sys.stderr)
                 bad += 1
+        width = len(documented)
+        if not any(cli_seq[i:i + width] == documented for i in range(len(cli_seq) - width + 1)):
+            print(f"ERROR: {doc} documents a '=== CHAPTER ' block that is not one contiguous run of CLI output (missing or reordered line)", file=sys.stderr)
+            bad += 1
 if bad:
     sys.exit(1)
 PYBIDIR
@@ -89,6 +99,38 @@ do
         exit 1
     fi
 done
+
+echo ">>> [6a] Verifying root-document links and paths resolve on disk..."
+python3 - << 'PYLINK'
+import os, re, sys, urllib.parse
+
+# README.md, AGENTS.md, CONTRIBUTING.md and book-src/SUMMARY.md are the entry points a
+# reader or a renderer follows first; a dangling relative link there is a dead end that
+# no other stage catches. Every markdown target and every src=/href= asset is resolved
+# against the document's own directory. Absolute URLs, mailto:, bare fragments and
+# data: URIs are out of scope; so is mdbook's own SUMMARY target rewriting, which is why
+# each target is checked as written.
+bad = 0
+for doc in ["README.md", "AGENTS.md", "CONTRIBUTING.md", "book-src/SUMMARY.md"]:
+    base = os.path.dirname(doc)
+    raw = open(doc).read()
+    targets = [m.group(1) for m in re.finditer(r"\[[^\]]*\]\(([^)]+)\)", raw)]
+    targets += [m.group(1) for m in re.finditer(r'(?:src|href)="([^"]+)"', raw)]
+    for target in targets:
+        cleaned = target.split("#")[0].strip()
+        if not cleaned or cleaned.startswith(("http://", "https://", "mailto:", "#", "data:")):
+            continue
+        # A target carrying an ellipsis is a documented template (`crates/...#L10-L20`
+        # in AGENTS.md and SWARM_REVIEW.md), not a link to resolve.
+        if "..." in cleaned or "\u2026" in cleaned:
+            continue
+        resolved = os.path.normpath(os.path.join(base, urllib.parse.unquote(cleaned)))
+        if not os.path.exists(resolved):
+            print(f"ERROR: Dangling reference in {doc}: {target} -> {resolved}", file=sys.stderr)
+            bad += 1
+if bad:
+    sys.exit(1)
+PYLINK
 
 for html_ch in \
     "book/45-world-to-archive-big-data-paradox.html" \
@@ -187,6 +229,7 @@ while IFS= read -r sum_line; do
     fi
 done < "data/SHA256SUMS"
 
+echo ">>> [6c] Verifying symbol parity: \`Type::member\` members, bare identifiers and \`#L\` declaration windows (PYSYM)..."
 python3 - << 'PYSYM'
 import glob, re, sys
 rust_src = "\n".join(open(p).read() for p in sorted(glob.glob("crates/stochology/src/*.rs")) + sorted(glob.glob("crates/stochology-cli/src/*.rs")))
@@ -198,8 +241,14 @@ pub_fields = set(re.findall(r"\bpub\s+([a-z0-9_]+)\s*:", rust_src))
 enum_variants = set(re.findall(r"^\s{4}([A-Z][A-Za-z0-9_]*)\b", rust_src, re.M))
 valid_members = pub_fns | trait_fns | pub_consts | pub_fields | enum_variants | {"default", "clone", "eq", "fmt"}
 
+# Every note is audited, not only the three that carry anchor blocks: a phantom in
+# `Aiming Between Mirrors.md` or in `The Multilayer Graph of Knowledge and Aim.md` was
+# previously outside the checker altogether. `CONTRIBUTING.md` cites the same symbols.
+docs = (sorted(glob.glob("book-src/*.md"))
+        + ["README.md", "AGENTS.md", "CONTRIBUTING.md"]
+        + sorted(glob.glob("notes/*.md")))
+
 bad = 0
-docs = sorted(glob.glob("book-src/*.md")) + ["README.md", "AGENTS.md", "notes/The Ethics of Aim.md", "notes/The Grammar of Aim.md", "notes/What Must Be Known When We Do Not Know.md"]
 for doc in docs:
     text = open(doc).read()
     for m in re.finditer(r"`([A-Z][A-Za-z0-9_]*)::([A-Za-z0-9_]+)(?:\([^`]*)?`", text):
@@ -208,6 +257,102 @@ for doc in docs:
             print(f"ERROR: Unresolved or phantom symbol `{ty}::{member}` in {doc}", file=sys.stderr)
             bad += 1
 if bad:
+    sys.exit(1)
+
+# ---------------------------------------------------------------------------------
+# [6c] Bare-identifier phantom guard.
+#
+# The `Type::member` pass above only sees citations that carry an owner. A backticked
+# bare identifier -- `CanguilhemHollingBasin` (the historical false name at
+# notes/The Ethics of Aim.md:367, whose real symbol is
+# `VitalMarginState::solve_canguilhem_holling_basin`), or `Waltime_and_ex_post_gates`
+# -- names an API item with no owner and no member to check, so it passed the gate
+# silently. Resolve every API-shaped bare token against the whole implementation
+# surface (both crates' sources and tests, plus the sealed CSV schema) and fail when
+# the token exists nowhere. Two shapes are inspected: a CamelCase token (a type,
+# trait, enum variant, or a splatted-together name) and a snake_case token carrying
+# at least one underscore (a field, method, constant, or CSV column). Prose that
+# merely looks like code is skipped by the narrow rules below, not by an open list:
+# structural codes (S1-S7, T1-T7, L01-L35, F1-F4, P1-P3), all-caps acronyms
+# (FLP, RBMK, TLRs), plain lowercase words, and repository file stems
+# (`book_anchors`, `multilayer_spec`, `danish_fire`, ...) are not API references.
+impl_surface = "\n".join(
+    open(p).read()
+    for p in sorted(glob.glob("crates/*/src/*.rs")) + sorted(glob.glob("crates/*/tests/*.rs"))
+)
+# The sealed CSV headers are a fixed fourteen-file surface and are the only authority on
+# what a column is called: `danish_fire.csv` opens on `Date,Loss`, so `Loss` may be cited
+# in backticks and `loss_mdkk` / `loss_m_dkk` may not. Header names are read from line 1
+# only, so a data value can never launder a phantom column name into the resolved set.
+surface_ids = set(re.findall(r"[A-Za-z_][A-Za-z0-9_]*", impl_surface))
+csv_columns = set()
+for csv_path in sorted(glob.glob("data/*.csv")):
+    with open(csv_path) as handle:
+        csv_columns |= set(re.findall(r"[A-Za-z_][A-Za-z0-9_]*", handle.readline()))
+surface_ids |= csv_columns
+
+repo_paths = (glob.glob("crates/*/src/*.rs") + glob.glob("crates/*/tests/*.rs")
+              + glob.glob("scripts/*") + glob.glob("data/*") + glob.glob("book-src/*")
+              + glob.glob("notes/*") + glob.glob("theme/*")
+              + ["README.md", "AGENTS.md", "CONTRIBUTING.md", "Cargo.toml", "book.toml"])
+file_stems = {p.rsplit("/", 1)[-1].rsplit(".", 1)[0] for p in repo_paths}
+
+STRUCTURAL = re.compile(r"^(?:[STLF]\d{1,2}|[A-Z]\d)$")
+ACRONYM = re.compile(r"^[A-Z]{2,7}s?$")
+MIXED = re.compile(r"^[A-Z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)+$")
+CAMEL = re.compile(r"^[A-Z][A-Za-z0-9]*$")
+SNAKE = re.compile(r"^[a-z][a-z0-9]*(?:_[a-z0-9]+)+$")
+# Prose label words that legitimately sit in backticks and exist nowhere in the code.
+PROSE_ALLOW = {"Open", "Closed", "Dream", "Car", "carData"}
+
+
+def phantom(token):
+    if token in surface_ids or token in file_stems or token in PROSE_ALLOW:
+        return None
+    if STRUCTURAL.match(token) or ACRONYM.match(token):
+        return None
+    if MIXED.match(token):
+        return "Camel_snake token that is no Rust identifier at all"
+    if CAMEL.match(token):
+        return "CamelCase token that is no type, trait or enum variant"
+    if SNAKE.match(token):
+        return "snake_case token that is no field, method, constant or CSV column"
+    return None
+
+
+# Self-test: the guard must still see the exact historical defect, and must not fire
+# on a real symbol, a real file stem, a structural code, or an acronym.
+for probe, expected in (
+    ("CanguilhemHollingBasin", True),
+    ("Waltime_and_ex_post_gates", True),
+    ("PhantomMarginStateXyz", True),
+    ("solve_canguilhem_holling_basin", False),
+    ("VitalMarginState", False),
+    ("T4Formalization", False),
+    ("danish_fire", False),
+    ("book_anchors", False),
+    ("S7", False),
+    ("RBMK", False),
+    ("Open", False),
+    ("Loss", False),
+    ("loss_mdkk", True),
+    ("loss_m_dkk", True),
+):
+    if (phantom(probe) is not None) != expected:
+        print(f"ERROR: PYSYM bare-identifier self-test failed on probe {probe!r}", file=sys.stderr)
+        sys.exit(1)
+
+phantom_bad = 0
+for doc in docs:
+    text = open(doc).read()
+    for m in re.finditer(r"`([A-Za-z_][A-Za-z0-9_]*)`", text):
+        token = m.group(1)
+        reason = phantom(token)
+        if reason is not None:
+            line = text.count("\n", 0, m.start()) + 1
+            print(f"ERROR: Phantom bare identifier `{token}` in {doc}:{line} ({reason})", file=sys.stderr)
+            phantom_bad += 1
+if phantom_bad:
     sys.exit(1)
 PYSYM
 
@@ -232,23 +377,92 @@ for ch_prov in book-src/appendix-[a-c]-*.md README.md; do
     fi
 done
 
-python3 -c '
-import glob, re, sys
-bad = 0
-decl_pat = lambda s: re.compile(r"(?:\bpub(?:\([^)]*\))?\s+(?:const\s+)?(?:fn|struct|enum|trait|const|type)\s+|^\s{4}fn\s+)" + re.escape(s) + r"\b", re.M)
-for md in sorted(glob.glob("book-src/*.md")) + ["README.md", "notes/The Ethics of Aim.md", "notes/The Grammar of Aim.md", "notes/What Must Be Known When We Do Not Know.md"]:
-    text = open(md).read()
-    for m in re.finditer(r"\[`([^`]+)`\]\((?:\.\./)?(crates/[^)#]+)#L(\d+)(?:-L(\d+))?\)", text):
-        sym, path, l1, l2 = m.group(1), m.group(2), int(m.group(3)), int(m.group(4) or m.group(3))
-        lines = open(path).read().splitlines()
-        short = sym.split("::")[-1].split("(")[0].strip()
-        window = "\n".join(lines[max(0, l1-3):min(len(lines), l2+2)])
+python3 - << 'PYANCHOR'
+import glob, os, re, sys
+
+# `[`Symbol`](crates/stochology/src/vital.rs#L10-L20)` is a real citation: the target is
+# opened, the window is validated, and the declaration must sit inside it.
+# `[`Symbol`](crates/...#L10-L20)` is the ILLUSTRATIVE form documented in AGENTS.md §IV and
+# SWARM_REVIEW.md §I.7: a path whose literal segment is `...` names no file, so it is read
+# as an example and skipped before anything is opened. That single marker is the whole
+# exception -- drop it and the path must exist. A citation whose target is missing, whose
+# window is inverted, or whose window runs past the end of the file is a failure, never a
+# crash; fenced code blocks are masked first, because a block may quote the syntax freely.
+ILLUSTRATIVE = "..."
+LINK = re.compile(r"\[`([^`]+)`\]\((?:\.\./)?(crates/[^)#]+)#L(\d+)(?:-L(\d+))?\)")
+FENCE = re.compile(r"^```[\s\S]*?^```", re.M)
+decl_pat = lambda s: re.compile(
+    r"(?:\bpub(?:\([^)]*\))?\s+(?:const\s+)?(?:fn|struct|enum|trait|const|type)\s+|^\s{4}fn\s+)"
+    + re.escape(s) + r"\b", re.M)
+
+
+def check_citation(symbol, path, first, last):
+    """Defects for one parsed citation. An illustrative path yields no defects."""
+    if ILLUSTRATIVE in path.split("/"):
+        return []
+    if not os.path.exists(path):
+        return [f"target file `{path}` does not exist"]
+    body = open(path).read().splitlines()
+    problems = []
+    if first < 1 or last < 1:
+        problems.append("line numbers must be 1-based")
+    if last < first:
+        problems.append(f"inverted window #L{first}-L{last}")
+    if last > len(body):
+        problems.append(f"window #L{first}-L{last} exceeds the {len(body)}-line file")
+    if not problems:
+        short = symbol.split("::")[-1].split("(")[0].strip()
+        window = "\n".join(body[max(0, first - 3):min(len(body), last + 2)])
         if not decl_pat(short).search(window):
-            print(f"ERROR: Stale #L declaration anchor in {md}: [{sym}]({path}#L{l1}-L{l2})", file=sys.stderr)
+            problems.append(f"no declaration of `{short}` in the cited window")
+    return problems
+
+
+# Self-test: one fixture per way this check has to be able to fail.
+FIXTURE = ["pub struct Alpha {", "    pub fn beta(&self) -> u8 {", "        0", "    }", "}", ""]
+PROBE_PATH = "crates/stochology/src/kernel.rs"
+PROBE_BODY = open(PROBE_PATH).read().splitlines()
+PROBE_AT = next(i for i, line in enumerate(PROBE_BODY) if "pub struct " in line)
+PROBE_NAME = re.search(r"pub struct (\w+)", PROBE_BODY[PROBE_AT]).group(1)
+for probe, want in (
+    ((PROBE_NAME, PROBE_PATH, PROBE_AT + 1, PROBE_AT + 1), []),          # real citation resolves
+    ((PROBE_NAME, "crates/...", PROBE_AT + 1, PROBE_AT + 1), []),          # illustrative: skipped
+    ((PROBE_NAME, "crates/stochology/src/__no_such_file__.rs", 1, 1), ["does not exist"]),
+    ((PROBE_NAME, PROBE_PATH, PROBE_AT + 4, PROBE_AT + 2), ["inverted window"]),
+    ((PROBE_NAME, PROBE_PATH, 1, 99999), ["exceeds"]),
+    # a window that resolves but does not contain the declaration: cite the tail of the file
+    ((PROBE_NAME, PROBE_PATH, len(PROBE_BODY) - 1, len(PROBE_BODY)), ["no declaration"]),
+):
+    got = check_citation(*probe)
+    if [fragment in " ".join(got) for fragment in want] != [True] * len(want):
+        print(f"ERROR: #L anchor self-test failed on probe {probe!r}: {got}", file=sys.stderr)
+        sys.exit(1)
+if not decl_pat("beta").search("\n".join(FIXTURE)):
+    print("ERROR: #L anchor self-test cannot see a declaration it should see", file=sys.stderr)
+    sys.exit(1)
+if decl_pat("beta").search("\n".join(FIXTURE[-2:])):
+    print("ERROR: #L anchor self-test sees a declaration outside its own slop window", file=sys.stderr)
+    sys.exit(1)
+
+bad = 0
+for md in sorted(glob.glob("book-src/*.md")) + ["README.md", "AGENTS.md", "CONTRIBUTING.md"] + sorted(glob.glob("notes/*.md")):
+    text = FENCE.sub(lambda m: "\n" * m.group(0).count("\n"), open(md).read())
+    for m in LINK.finditer(text):
+        # A citation wrapped in its own inline code span (a backtick immediately before the
+        # opening bracket and immediately after the closing paren) is rendered as literal
+        # text, never as a link, so it is documentation of the syntax rather than a use of
+        # it and is skipped. A real citation is not wrapped that way and is always resolved.
+        before = text[m.start() - 1] if m.start() else ""
+        after = text[m.end()] if m.end() < len(text) else ""
+        if before == "`" and after == "`":
+            continue
+        sym, path, l1, l2 = m.group(1), m.group(2), int(m.group(3)), int(m.group(4) or m.group(3))
+        for problem in check_citation(sym, path, l1, l2):
+            print(f"ERROR: Bad #L declaration anchor in {md}: [`{sym}`]({path}#L{l1}-L{l2}) -- {problem}", file=sys.stderr)
             bad += 1
 if bad:
     sys.exit(1)
-'
+PYANCHOR
 
 python3 - "$CLI_OUT" << 'PYEOF'
 import re, sys
@@ -357,7 +571,7 @@ import glob, re, sys
 
 md_files = (
     sorted(glob.glob("book-src/*.md"))
-    + ["README.md", "AGENTS.md", "CONTRIBUTING.md", "data/SOURCES.md"]
+    + ["README.md", "AGENTS.md", "CONTRIBUTING.md", "data/SOURCES.md", "SWARM_REVIEW.md"]
     + sorted(glob.glob("notes/*.md"))
 )
 bad = 0

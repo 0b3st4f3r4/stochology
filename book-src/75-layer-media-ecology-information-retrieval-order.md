@@ -139,9 +139,15 @@ collapses emerge:
 ## Bridge
 
 Layer 25 (`multilayer.rs::KnowledgeOrder`, `KnowledgeOrder::L25MediaEcologyInformationRetrieval`,
-`{T1Framing, T3Archive, T6Performative}`) propagates its local and ancestor-cone margins through
-`multilayer.rs::MultilayerHomomorphism::evaluate` into [Chapter 76 — Layer 26: Sequential Decision
-Theory, Optimal Stopping, Bandits & Real Options
+`{T1Framing, T3Archive, T6Performative}`) hands off editorially to [Chapter 76 — Layer 26: Sequential
+Decision Theory, Optimal Stopping, Bandits & Real Options
 Order](76-layer-sequential-decision-bandit-real-options-order.md)
 (`KnowledgeOrder::L26SequentialDecisionBanditRealOptions`, Stratum VI,
-`{T1Framing, T2Severity, T5Temporal}`).
+`{T1Framing, T2Severity, T5Temporal}`). Layer 26 is **not** a child of Layer 25 in $\mathcal{G}_1$ — its parents
+are [Layer 01](51-layer-micro-kinetic-sensorimotor-order.md),
+[Layer 07](57-layer-probability-credence-measurement-order.md) and
+[Layer 09](59-layer-experimental-sampling-causal-order.md) — so the two orders are bound by a shared ancestor
+rather than by a direct edge, and `multilayer.rs::MultilayerHomomorphism::evaluate` carries no margin of
+Layer 25 into Layer 26's cone. One margin that does reach both is Layer 01
+(`{T1Framing, T5Temporal, T7Liability}`): it is the parent of Layer 26 that carries the governance axis
+($S_{\mathrm{gov}}$) that Layer 26's triple omits, and Layer 25 inherits it through Layer 03.

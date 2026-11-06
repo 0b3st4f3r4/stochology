@@ -1,7 +1,8 @@
 # Decision, Loss, Threshold
 
-> Foundation chapter of Part III. Its formal content is worked out in
-> [Chapter 43](43-inquiry-openness-multiverse.md).
+> Foundation chapter of Part III. It presupposes [Chapter 12](12-derivatives-and-convexity.md)
+> and [Chapter 19](19-ethics-and-the-imposition-of-risk.md). Its formal content is worked out
+> in [Chapter 43](43-inquiry-openness-multiverse.md).
 
 ## By the end of this chapter you can
 
@@ -25,17 +26,33 @@ competing harms, decided by an author, with grave consequences for those who bea
 in public policy that present themselves as disagreements over statistical evidence are in reality disguised
 conflicts over the entries of the loss matrix.
 
-## 2. The Pauker-Kassirer threshold and diagnostic testing
+## 2. The cost–loss threshold and the Pauker-Kassirer form
 
-In 1975, Stephen Pauker and Jerome Kassirer derived the canonical decision threshold for medical intervention.
-Let $C$ be the cost, side-effects, or complications of taking action, $\eta$ the effectiveness of the intervention
-in averting harm, and $L$ the gross loss incurred if the catastrophe occurs untreated. Equating expected utility
-under action and inaction yields the operational threshold:
+Two thresholds are routinely filed under one name, and the difference is not cosmetic: the library implements
+one of them, and a reader who substitutes the other will compute a different boundary from the same two budgets.
 
-$$p^* = \frac{C}{\eta L} \qquad \text{\texttt{[Assumed]}}.$$
+The **cost–loss threshold** comes from a preventive action that incurs a certain protection cost $C > 0$ and
+averts a fraction $\eta \in (0, 1]$ of an avoidable loss $L > C$. Let $p$ be the probability that the harmful
+event occurs. Acting costs $C$ whatever happens and still leaves $(1 - \eta)L$ to be paid when the event
+occurs; not acting costs $L$ when it occurs. Equating the two expected expenses gives:
 
-The decision rule is clear: execute the intervention if the estimated probability of danger exceeds $p^*$; withhold
-the intervention when it falls below $p^*$.
+$$p^*_{\mathrm{CL}} = \frac{C}{\eta L} \qquad \text{\texttt{[Assumed]}}.$$
+
+The **Pauker–Kassirer threshold** (1975) is instead an expected-regret comparison between two classifications.
+Let $C_{\mathrm{FP}}$ be the net cost of a false alarm — acting when no event occurs — and $L_{\mathrm{FN}}$
+the net loss of a missed event — failing to act when the event occurs. Acting whenever
+$p\,L_{\mathrm{FN}} > (1 - p)\,C_{\mathrm{FP}}$ gives
+
+$$p^*_{\mathrm{PK}} = \frac{C_{\mathrm{FP}}}{C_{\mathrm{FP}} + L_{\mathrm{FN}}} = \frac{1}{1 + L_{\mathrm{FN}}/C_{\mathrm{FP}}} \qquad \text{\texttt{[Assumed]}},$$
+
+which is exactly what `epistemic.rs::pauker_kassirer_threshold` computes when handed its two non-negative
+terms, $c = C_{\mathrm{FP}}$ and $l = L_{\mathrm{FN}}$, returning $c/(c + l)$ and falling back to parity when
+both budgets vanish. The cost–loss form asks whether a protection budget is worth its expected saving; the
+expected-regret form asks which of two errors is cheaper. Institutions budget the second, so both are quoted
+here and always with the subscript that names them.
+
+The decision rule is the same in either form: execute the intervention when the estimated probability of
+danger exceeds the threshold, and withhold it when the estimate falls below.
 
 When an intermediate diagnostic test is available with cost $C_{\mathrm{test}}$, sensitivity $\mathrm{Sens}$,
 and specificity $\mathrm{Spec}$, Pauker and Kassirer demonstrated that the decision space partitions into three
@@ -48,15 +65,15 @@ exceeds the physical and financial cost of the test. Below $p^*_{\mathrm{test}}$
 even a positive test result would likely be a false alarm; above $p^*_{\mathrm{treat}}$, the disease is so probable
 and dangerous that delaying intervention to wait for test results is malpractice.
 
-Two decisive properties govern this threshold:
+Two decisive properties govern the threshold:
 1. *The threshold is a property of consequences, not of evidence.* Two agents evaluating the identical probability
-   estimate $\hat{p} = 0.08$ will rationally choose opposite actions if one faces an intervention cost of $C=1$
-   with loss $L=100$ ($p^* = 0.01$, so act) while the other faces $C=10$ with loss $L=50$ ($p^* = 0.20$, so wait).
-   Reporting only the probability $\hat{p}$ without publishing the consequence threshold $p^*$ conceals the contested
-   core of the decision.
-2. *The threshold routinely sits far from one-half.* Where intervention is cheap and harm is catastrophic, $p^*$
-   plummets to a few percent. Demanding "proof beyond a reasonable doubt" before evacuating a flood plain or
-   administering emergency prophylaxis is reckless negligence.
+   estimate $\hat{p} = 0.08$ will rationally choose opposite actions if one faces a protection cost of $C=1$
+   with avoidable loss $L=100$ ($p^*_{\mathrm{CL}} = 0.01$, so act) while the other faces $C=10$ with $L=50$
+   ($p^*_{\mathrm{CL}} = 0.20$, so wait). Reporting only the probability $\hat{p}$ without publishing the
+   consequence threshold conceals the contested core of the decision.
+2. *The threshold routinely sits far from one-half.* Where intervention is cheap and harm is catastrophic, the
+   threshold plummets to a few percent. Demanding "proof beyond a reasonable doubt" before evacuating a flood
+   plain or administering emergency prophylaxis is reckless negligence.
 
 ## 3. Asymmetric loss, standards of proof, and Minimax Regret
 
@@ -66,14 +83,16 @@ Legal traditions formalize this consequence ratio directly into their historical
 - **Clear and convincing evidence**: Where civil sanctions threaten liberty, professional licensure, or parental
   rights, the threshold rises to roughly $p^* \approx 0.75$ `[Assumed]`.
 - **Beyond a reasonable doubt**: In criminal prosecution, Blackstone's ratio asserts that it is better that ten
-  guilty persons escape than that one innocent suffer ($C_{\mathrm{FP}} = 10 L_{\mathrm{FN}}$). The threshold
-  rises to:
-  $$p^* = \frac{10}{10 + 1} = \frac{10}{11} \approx 0.909 \qquad \text{\texttt{[Assumed]}}.$$
+  guilty persons escape than that one innocent suffer, i.e. a false conviction is ten times as costly as a false
+  acquittal ($C_{\mathrm{FP}} = 10 L_{\mathrm{FN}}$). Read through the expected-regret form of §2, the threshold
+  becomes:
+  $$p^*_{\mathrm{PK}} = \frac{10}{10 + 1} = \frac{10}{11} \approx 0.909 \qquad \text{\texttt{[Assumed]}}.$$
 - **Learned Hand's negligence formula**: In tort law, Judge Learned Hand defined negligence as failing to take
-  precautions where $B < PL$ (Burden $B$, Probability $P$, Loss $L$). This is the Pauker-Kassirer inequality
-  $P > B/L = p^*$ stated as a legal duty of care. When an injurer's downside is truncated by limited corporate
-  liability (`governance.rs::ContractAndLiabilityAudit`), their private $L_{\mathrm{private}}$ collapses, driving
-  their private threshold $p^*_{\mathrm{private}} = B/L_{\mathrm{private}}$ far above the social optimum and
+  precautions where $B < PL$ (Burden $B$, Probability $P$, Loss $L$). Setting $C = B$, $L$ equal to the accident
+  loss and $\eta = 1$ reduces the cost–loss threshold of §2 to $P > B/L = p^*_{\mathrm{CL}}$, stated as a legal
+  duty of care. When an injurer's downside is truncated by limited corporate liability
+  (`governance.rs::ContractAndLiabilityAudit`), their private $L_{\mathrm{private}}$ collapses, driving their
+  private threshold $p^*_{\mathrm{private}} = B/L_{\mathrm{private}}$ far above the social optimum and
   externalizing catastrophe onto the public.
 
 When the probability distribution is not known as a single point, but is partially identified within an interval
@@ -126,8 +145,8 @@ frequencies rather than abstract conditional probabilities.
 
 ## Bridge
 
-The closed-form decision threshold and its expected value of perfect information are formalised in
-[Chapter 32](32-the-question-before-the-data.md) §4 and implemented in
+The cost–loss threshold and its expected value of perfect information are formalised in
+[Chapter 32](32-the-question-before-the-data.md) §4, while the expected-regret form of §2 is implemented as
 `epistemic.rs::pauker_kassirer_threshold`; the audit of limited-liability asymmetry and the Hand formula is
 governed by `governance.rs::ContractAndLiabilityAudit`; and the operator's bounded cognitive channel capacity
 evaluated against alert streams is executed by `governance.rs::CognitiveAlertFilter::evaluate` in

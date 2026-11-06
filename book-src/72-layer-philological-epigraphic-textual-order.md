@@ -21,12 +21,12 @@ Karl Lachmann (1850) and Paul Maas (*Textkritik*, 1927 `[Literature]`) overturne
 that manuscript witnesses are not independent draws. If the nine Renaissance manuscripts ($\mathcal{B} = \{B_1,\dots,B_9\}$)
 were all copied from a single lost fifteenth-century exemplar $\beta$, their intra-cluster correlation on
 inherited readings is $\rho_I \to 1$. Applying the Campbell–Moulton design-effect formula of
-[Chapter 45](45-world-to-archive-big-data-paradox.md) (`epistemic.rs::from_archive_clusters`) to cluster
+[Chapter 45](45-world-to-archive-big-data-paradox.md) (`epistemic.rs::EpistemicMarginState::from_archive_clusters`) to cluster
 $\mathcal{B}$ of size $m_{\beta} = 9$ gives
 
 $$\mathrm{DEFF}_{\beta} = 1 + (m_{\beta} - 1)\rho_{I} = 9, \qquad n_{\mathrm{eff},\beta} = \frac{m_{\beta}}{\mathrm{DEFF}_{\beta}} = 1 \qquad \text{\texttt{[Assumed]}}.$$
 
-Nine dependent copies carry the evidential weight (`epistemic.rs::keynes_weight_from_n_eff`) of **one**
+Nine dependent copies carry the evidential weight (`epistemic.rs::EpistemicMarginState::keynes_weight_from_n_eff`) of **one**
 witness. Maas's rule ***eliminatio codicum descriptorum*** (setting aside any manuscript proved to be a
 copy of an extant exemplar) and the philological maxim *ponderanda sunt testimonia, non numeranda*
 (witnesses must be weighed, not counted) are the exact documentary formulation of dividing nominal
@@ -50,7 +50,7 @@ When two independent branches disagree and neither is eliminated by stemmatics, 
 Jean Leclerc's rule ***lectio difficilior potior*** `[Literature]`: the harder, rarer morphological or
 lexical reading is more likely to be original than the smooth, commonplace variant (*lectio facilior*),
 because copyists systematically normalise unfamiliar outliers toward the Gaussian average of their own
-idiom — the scribal ancestor of abusive outlier trimming (`vital.rs::from_heavy_tails_and_asymmetry`).
+idiom — the scribal ancestor of abusive outlier trimming (`vital.rs::VitalMarginState::from_heavy_tails_and_asymmetry`).
 
 ## 3. Epigraphic *lacunae* as Manski bounds carved in stone
 
@@ -62,12 +62,12 @@ Under the international **Leiden Convention** (1931) `[Literature]`, epigraphers
 conjectural restoration as if it were on the stone. Because ancient inscriptions (especially Greek
 *stoichedon* grids) have a physically measurable character width and line length, a fracture of width
 $W_{\mathrm{gap}}$ bounds the missing numeral or word strictly within a finite support $[y_{\min}, y_{\max}]$
-(`epistemic.rs::from_ate_bounds`):
+(`epistemic.rs::EpistemicMarginState::from_ate_bounds`):
 
 - **`[...]` (Square brackets):** Marks the exact physical extent of the lacuna and bounds the admissible
   set of restorations compatible with the surviving syntax and stone geometry.
 - **$\dagger\dots\dagger$ (*Cruces desperationis*):** Placed around a corrupted passage when no proposed
-  emendation passes severe testing (`epistemic.rs::passes_severe_boundary`) — an explicit quarantine
+  emendation passes severe testing (`epistemic.rs::EpistemicMarginState::passes_severe_boundary`) — an explicit quarantine
   verdict (`Unparsable`) that prevents subsequent historians from building circular theories on a
   fabricated conjecture.
 

@@ -101,8 +101,13 @@ Layer 30's `(1, 0, 2)` signature (`TriadicExposureRegime::VitalBlindSpot`) omits
 ## Bridge
 
 Layer 30 (`multilayer.rs::KnowledgeOrder`, `KnowledgeOrder::L30CorporateGovernancePrincipalAgent`,
-`{T1Framing, T6Performative, T7Liability}`) propagates its local and ancestor-cone margins through
-`multilayer.rs::MultilayerHomomorphism::evaluate` into [Chapter 81 — Layer 31: Criminal Procedure,
-Standards of Proof & Forensic Epistemology Order](81-layer-criminal-proof-forensic-epistemology-order.md)
+`{T1Framing, T6Performative, T7Liability}`) hands off editorially to [Chapter 81 — Layer 31: Criminal
+Procedure, Standards of Proof & Forensic Epistemology Order](81-layer-criminal-proof-forensic-epistemology-order.md)
 (`KnowledgeOrder::L31CriminalProofForensicEpistemology`, Stratum VII,
-`{T1Framing, T2Severity, T7Liability}`).
+`{T1Framing, T2Severity, T7Liability}`). Layer 31 is **not** a child of Layer 30 in $\mathcal{G}_1$ — its parents
+are [Layer 09](59-layer-experimental-sampling-causal-order.md),
+[Layer 23](73-layer-taphonomic-archaeological-historiographical-order.md) and
+[Layer 24](74-layer-critical-archival-transitional-justice-order.md) — so no margin of Layer 30 enters its
+ancestor cone through `multilayer.rs::MultilayerHomomorphism::evaluate`. The shared ancestor that supplies the
+omitted axis is Layer 23 (`{T3Archive, T5Temporal, T7Liability}`): it carries the vital axis
+($S_{\mathrm{vital}}$) that Layer 31's triple omits, and Layer 30 reaches it through Layer 29.

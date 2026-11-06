@@ -100,9 +100,14 @@ intermediate bureaucratic gatekeepers.
 ## Bridge
 
 Layer 24 (`multilayer.rs::KnowledgeOrder`, `KnowledgeOrder::L24CriticalArchivalTransitionalJustice`,
-`{T1Framing, T3Archive, T7Liability}`) propagates its local and ancestor-cone margins through
-`multilayer.rs::MultilayerHomomorphism::evaluate` into [Chapter 75 — Layer 25: Media Ecology,
+`{T1Framing, T3Archive, T7Liability}`) hands off editorially to [Chapter 75 — Layer 25: Media Ecology,
 Information Retrieval & Algorithmic Public-Sphere
 Order](75-layer-media-ecology-information-retrieval-order.md)
 (`KnowledgeOrder::L25MediaEcologyInformationRetrieval`, Stratum V,
-`{T1Framing, T3Archive, T6Performative}`).
+`{T1Framing, T3Archive, T6Performative}`). The hand-off is editorial because Layer 25 is **not** a child of
+Layer 24 in $\mathcal{G}_1$: its parents are [Layer 03](53-layer-macro-coupled-network-contagion-order.md),
+[Layer 19](69-layer-metascience-scientometrics-replication-order.md) and
+[Layer 21](71-layer-linguistic-evidential-pragmatic-order.md), so no margin of Layer 24 enters its ancestor
+cone through `multilayer.rs::MultilayerHomomorphism::evaluate`. What the two orders do share is supplied from
+below by Layer 03 (`{T4Formalization, T5Temporal, T6Performative}`), an ancestor of both and the parent that
+carries the vital axis ($S_{\mathrm{vital}}$) that Layer 25's triple omits.

@@ -29,9 +29,9 @@ Four core equations of this book are exact realisations of that metrological spl
 - In `epistemic.rs::EpistemicMarginState::unified_effective_n`, the sampling term $\mathrm{DEFF}/n$ is
   Type A, whereas Meng's selection floor $\frac{1-f}{f}\rho_{R,Y}^2$ is a pure Type B variance floor that
   never vanishes as $n \to \infty$;
-- In `epistemic.rs::from_ate_bounds`, the Imbens–Manski sampling margin is Type A, whereas the
+- In `epistemic.rs::EpistemicMarginState::from_ate_bounds`, the Imbens–Manski sampling margin is Type A, whereas the
   partial-identification width $U_t - L_t$ is Type B ambiguity;
-- In `governance.rs::from_ex_ante_gate`, finite-sample estimation scatter is Type A, whereas the
+- In `governance.rs::GovernanceState::from_ex_ante_gate`, finite-sample estimation scatter is Type A, whereas the
   Kennedy–O'Hagan structural discrepancy $\delta_{\mathrm{KOH}}(x)$ is Type B model inadequacy;
 - And the **unbroken chain of metrological traceability** (`VIM 2.41` `[Literature]`) — requiring every
   downstream instrument to inherit at least the uncertainty $u_{\ell} \ge u_{\ell-1}$ of its upstream
@@ -47,7 +47,7 @@ $$g_{ij}(\theta) = \mathbb{E}_{\theta}\!\left[\partial_{i}\ln p(X;\theta)\,\part
 is the *unique* Riemannian metric invariant under smooth reparameterisations and sufficient statistics.
 
 Read geometrically, the squared Mahalanobis signal-to-noise ratio that governs epistemic Kelly
-shrinkage in `vital.rs::from_non_ergodic_returns` (the Baker–McHale shrinkage factor
+shrinkage in `vital.rs::VitalMarginState::from_non_ergodic_returns` (the Baker–McHale shrinkage factor
 $k_{\mathrm{BM}} \in (0,1)$ `[Literature]`) is the squared Fisher–Rao geodesic distance between the
 estimated drift and the boundary of zero net growth. Whenever that geodesic distance is comparable to
 the Type A estimation radius $1/\sqrt{n_{\mathrm{eff}}}$, sizing a bet on the plug-in point estimate
@@ -62,7 +62,7 @@ $$D_{\phi}(x \| y) = \phi(x) - \phi(y) - \langle\nabla\phi(y),\, x - y\rangle \g
 
 Three seemingly separate results in Part IV are projections under $D_{\phi}$:
 
-1. **Jensen's convexity gap (`vital.rs::from_heavy_tails_and_asymmetry`):** For any random shock $X$ with
+1. **Jensen's convexity gap (`vital.rs::VitalMarginState::from_heavy_tails_and_asymmetry`):** For any random shock $X$ with
    mean $\mu = \mathbb{E}[X]$, the expected Bregman divergence from the mean is identically the Jensen
    gap, $\mathbb{E}[D_{\phi}(X \| \mu)] = \mathbb{E}[\phi(X)] - \phi(\mu) = \Delta_{J} \ge 0$ `[Assumed]`.
 2. **Orthogonal error decomposition ([Chapter 37](37-model-fit-and-error.md)):** For any convex model

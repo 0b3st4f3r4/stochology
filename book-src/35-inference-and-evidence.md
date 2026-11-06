@@ -1,6 +1,8 @@
 # Inference and Evidence
 
-> Foundation chapter of Part III. Its formal content is worked out in
+> Foundation chapter of Part III. It presupposes
+> [Chapter 11](11-sequences-limits-continuity.md) and
+> [Chapter 15](15-probability-as-a-measure.md). Its formal content is worked out in
 > [Chapter 44](44-underdetermination-partial-identification.md).
 
 ## By the end of this chapter you can
@@ -111,20 +113,24 @@ restoration without brackets fabricates false certainty; printing the bracketed 
 desperationis* ($\dagger\dots\dagger$) when no hypothesis passes severe scrutiny — is partial identification
 preserved in marble.
 
-In legal epistemology, L. Jonathan Cohen's **Gatecrasher Paradox** `[Literature]` demonstrates why bare statistical
-probability cannot sustain an actionable verdict. Suppose $499$ attendees paid for admission and $501$ climbed
-the fence at a $1{,}000\text{-seat}$ rodeo `[Assumed]`. For any randomly selected spectator, the probability that
-they gatecrashed is $0.501 > 0.50$, satisfying the literal numerical threshold of "preponderance of the evidence".
-Yet no court can convict an individual based solely on this aggregate ratio without individualized forensic testimony.
-The Keynesian evidential weight $V(x, q)$ (`epistemic.rs::keynes_weight_from_n_eff`) for that individual is zero:
+In legal epistemology, L. Jonathan Cohen's **Gatecrasher Paradox** `[Literature]` demonstrates why
+bare statistical probability cannot sustain an actionable verdict. Suppose $499$ attendees paid for
+admission and $501$ climbed the fence at a $1{,}000\text{-seat}$ rodeo `[Assumed]`. For any
+randomly selected spectator, the probability that they gatecrashed is $0.501 > 0.50$, satisfying the
+literal numerical threshold of "preponderance of the evidence". Yet no court can convict an
+individual based solely on this aggregate ratio without individualized forensic testimony. The
+Keynesian evidential weight $V(x, q)$ (
+`epistemic.rs::EpistemicMarginState::keynes_weight_from_n_eff`) for that individual is zero:
 statistical correlation without causal coverage cannot justify the coercive imposition of liability.
 
 ## Bridge
 
 Severe testing, partial-identification bounds, and confidence adjustments are formalised in
 [Chapter 44](44-underdetermination-partial-identification.md) as
-`epistemic.rs::from_ate_bounds`, which evaluates Manski ATE bounds alongside their adjusted interval;
-`epistemic.rs::from_lee_attrition_bounds` evaluates David Lee's sharp trimming bounds;
-`epistemic.rs::imbens_manski_critical_value` computes the parameter coverage critical value $c_\alpha$; and
-`epistemic.rs::passes_severe_boundary` issues the Mayo severity audit against the critical policy threshold.
-Evidential weight under partial coverage is governed by `epistemic.rs::keynes_weight_from_n_eff`.
+`epistemic.rs::EpistemicMarginState::from_ate_bounds`, which evaluates Manski ATE bounds alongside
+their adjusted interval; `epistemic.rs::EpistemicMarginState::from_lee_attrition_bounds` evaluates
+David Lee's sharp trimming bounds;
+`epistemic.rs::EpistemicMarginState::imbens_manski_critical_value` computes the parameter coverage
+critical value $c_\alpha$; and
+`epistemic.rs::EpistemicMarginState::passes_severe_boundary` issues the Mayo severity audit against the critical policy threshold.
+Evidential weight under partial coverage is governed by `epistemic.rs::EpistemicMarginState::keynes_weight_from_n_eff`.

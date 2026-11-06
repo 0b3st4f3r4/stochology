@@ -102,3 +102,7 @@ deploy these integral identities to evaluate scoring rules across continuous thr
 `epistemic.rs::from_ate_bounds` integrates worst-case bounds over missing counterfactuals, while `vital.rs::crps_empirical`
 computes the Continuous Ranked Probability Score by integrating squared threshold forecast errors across the full
 support of the empirical distribution.
+
+[Linear Algebra](14-linear-algebra.md) carries the same accumulation into finite dimensions —
+operators, rank, projections, and the effective dimension of an archive with more columns than
+evidence.

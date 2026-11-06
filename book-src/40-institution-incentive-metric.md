@@ -1,6 +1,8 @@
 # Institution, Incentive, Metric
 
-> Foundation chapter of Part III. Its formal content is worked out in
+> Foundation chapter of Part III. It presupposes
+> [Chapter 19](19-ethics-and-the-imposition-of-risk.md) and
+> [Chapter 20](20-legitimacy-and-institutions.md). Its formal content is worked out in
 > [Chapter 49](49-moral-luck-apt-agency-institutions.md).
 
 ## By the end of this chapter you can
@@ -49,11 +51,11 @@ cannibalized by this moral hazard is the organization's unmeasured resilience bu
 When systemic collapse eventually occurs, the institutional assignment of blame is systematically inverted.
 Total deficit variance decomposes into two components: *structural variance* (governed by capacity sizing, staffing
 ratios, and parameter budgets set at the top) and *operational variance* (stochastic noise handled by frontline
-shifts). In complex systems, structural variance accounts for over ninety percent of failure causality. Yet
-institutions almost invariably assign one hundred percent of the blame to the frontline operators on duty when
-the barrier ruptured. This blame transfer destroys organizational epistemology: a frontline that expects to be
-scapegoated for structural deficits will cease reporting early warning anomalies, blinding the institution to its
-own impending ruin.
+shifts). In the decomposition used throughout this book, structural variance dominates the total, and the
+operational share is the only part that frontline discretion can actually move `[Assumed]`. Yet institutions
+assign the whole of the blame to the frontline operators on duty when the barrier ruptured. This blame transfer
+destroys organizational epistemology: a frontline that expects to be scapegoated for structural deficits will
+cease reporting early warning anomalies, blinding the institution to its own impending ruin.
 
 ## 3. The three audit requirements and the algedonic channel
 
@@ -118,12 +120,13 @@ A failed hoop test delivers infinite negative decibans, instantly terminating th
 
 ## 5. Deliberation paradoxes, commons governance, and the Temporal Vault
 
-In collective institutional governance, Christian List and Philip Pettit discovered the **discursive dilemma**
-(or doctrinal paradox). Consider a multi-member tribunal evaluating three propositions: premise $P$, premise $Q$,
-and conclusion $R = P \land Q$. If a majority supports $P$ ($2/3$) and a separate majority supports $Q$ ($2/3$),
-a premise-based voting procedure rationally affirms $R$ (`governance.rs::evaluate_list_pettit_votes`). However,
-if members vote directly on the conclusion $R$, a majority may reject $R$ ($2/3$), producing self-contradictory
-institutional acts. Premise-based governance is the only structure that preserves collective rationality.
+In collective institutional governance, Christian List and Philip Pettit discovered the **discursive
+dilemma** (or doctrinal paradox). Consider a multi-member tribunal evaluating three propositions:
+premise $P$, premise $Q$, and conclusion $R = P \land Q$. If a majority supports $P$ ($2/3$) and a
+separate majority supports $Q$ ($2/3$), a premise-based voting procedure rationally affirms $R$ (
+`governance.rs::GovernanceState::evaluate_list_pettit_votes`). However, if members vote directly on
+the conclusion $R$, a majority may reject $R$ ($2/3$), producing self-contradictory institutional
+acts. Premise-based governance is the only structure that preserves collective rationality.
 
 Furthermore, following Elinor Ostrom's Nobel-winning principles for common-pool resources
 (`Governing the Commons` `[Literature]`), long-enduring institutions require auditable field monitoring, graduated
@@ -138,11 +141,12 @@ bounds, and reserve allocations must be cryptographically committed in a **Tempo
 commit to, prior to the outcome?* must have an immutable answer.
 
 ## Bridge
-
 Metric capture, blame inversion, and the interrupting algedonic channel are formalised in
 [Chapter 49](49-moral-luck-apt-agency-institutions.md) as
-`governance.rs::from_real_time_and_ex_post_gates`; the algorithmic disparity audit across protected groups is
-executed by `governance.rs::EmpiricalChouldechovaAudit::evaluate`; collective voting paradoxes are evaluated by
-`governance.rs::evaluate_list_pettit_votes`; and cryptographic pre-outcome commitment is enforced by
-`governance.rs::TemporalVault::seal`. The reflexivity audit that protects this framework from its own metric gaming
+`governance.rs::GovernanceState::from_real_time_and_ex_post_gates`; the algorithmic disparity audit
+across protected groups is executed by `governance.rs::EmpiricalChouldechovaAudit::evaluate`;
+collective voting paradoxes are evaluated by
+`governance.rs::GovernanceState::evaluate_list_pettit_votes`; and cryptographic pre-outcome
+commitment is enforced by `governance.rs::TemporalVault::seal`. The reflexivity audit that protects
+this framework from its own metric gaming
 is `synthesis.rs::ReflexiveBrakeAudit::evaluate`.

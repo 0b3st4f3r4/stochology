@@ -1,6 +1,8 @@
 # The Triad and the Minimum
 
-> Foundation chapter of Part III. Its formal content is worked out in
+> Foundation chapter of Part III. It presupposes
+> [Chapter 19](19-ethics-and-the-imposition-of-risk.md) and
+> [Chapter 20](20-legitimacy-and-institutions.md). Its formal content is worked out in
 > [Chapter 50](50-methodological-families-reflexivity.md).
 
 ## By the end of this chapter you can
@@ -156,3 +158,9 @@ classification, and its mathematical non-substitutability are formalised in
 structural collapse signatures, and
 `synthesis.rs::StructuralCollapseProofAudit::evaluate_analytical` for the analytical proof of viable-volume
 preservation. Weakest-link physical rupture is evaluated by `vital.rs::HollingTailRuptureAudit`.
+
+Part V then generalises the same triad rather than adding a fourth axis: the 35 orders of
+`multilayer.rs::KnowledgeOrder` — five per `multilayer.rs::KnowledgeStratum` — each carry a three-site guard
+combination whose $(n_{\mathrm{epi}}, n_{\mathrm{vital}}, n_{\mathrm{gov}})$ signature is a partition of the
+triad, and every one of those combinations is a place where the three safeguards of this chapter are the only
+thing standing between an aim and a ruin.

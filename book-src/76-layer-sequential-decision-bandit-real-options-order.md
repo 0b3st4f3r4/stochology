@@ -55,8 +55,9 @@ $R_T = T \mu^* - \sum_{t=1}^T \mathbb{E}[\mu_{I_t}]$:
 
 $$\liminf_{T \to \infty} \frac{R_T}{\ln T} \ge \sum_{i: \mu_i < \mu^*} \frac{\mu^* - \mu_i}{D_{\mathrm{KL}}(p_i \parallel p^*)} \qquad \text{\texttt{[Assumed]}}.$$
 
-Regret must grow at least logarithmically in time $T$; any algorithm attempting sub-logarithmic regret必然
-suffers unbounded exponential regret on bad parameter configurations.
+Regret must grow at least logarithmically in time $T$; an algorithm that advertises sub-logarithmic regret
+must pay for it on some configuration of the arm distributions, where its regret is unbounded relative to
+$\ln T$.
 
 ## 3. Real options, Wald SPRT, and irreversible commitment
 

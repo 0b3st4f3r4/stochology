@@ -68,7 +68,7 @@ If you survey $n = 2\,300\,000$ people out of a population of $N = 250\,000\,000
 mechanism has even a minuscule selection bias of $\rho_{R,Y} = 0.005$, the effective sample size is
 not two million. It is roughly **$n_{\mathrm{eff}} \approx 400$**! With a slightly larger defect of
 $\rho_{R,Y} = 0.05$, a multi-million-row dataset carries the statistical information of fewer than
-**ten** truly random draws.
+**ten** truly random draws `[Assumed]`.
 
 Gathering more rows through a biased door does not bring you closer to the truth: it collapses the
 standard error around the wrong number, producing catastrophic overconfidence. What converts raw data

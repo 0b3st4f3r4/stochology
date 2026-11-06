@@ -78,7 +78,7 @@ Kingman's formula contains two monumental operational lessons:
    - $19.0$ at $\rho = 0.95$;
    - $99.0$ at $\rho = 0.99$ `[Assumed]`.
    Pushing utilization from 80% to 95% nearly quintuples queue delays, because available recovery capacity drops
-   from 20% to just 5%.
+   from 20% to just 5% `[Assumed]`.
 2. **Variability as an independent delay multiplier**: The factor $\frac{c_a^2 + c_s^2}{2}$ scales delay
    independently of utilization. Arrivals that cluster in bursts or service tasks that have fat-tailed completion
    times compound queue congestion, blowing up backlogs even at moderate nominal load.
@@ -88,8 +88,8 @@ Kingman's formula contains two monumental operational lessons:
 Modern management doctrines treat unutilized capacity as wasteful slack to be eliminated. Kingman's mathematics
 reveals that running near 100% capacity is an operational death trap:
 
-- At $\rho = 0.95$, an unexpected 5% demand burst drives effective utilization above $1.0$, sending the queue
-  into unbounded divergence where backlog grows linearly with time;
+- At $\rho = 0.95$, a demand burst of just over 5% drives effective load past $1.0$ ($0.95 \times 1.06 \approx 1.01$) `[Assumed]`,
+  sending the queue into unbounded divergence where backlog grows linearly with time;
 - The time required to clear a backlog ($\mathrm{TTR}_{\mathrm{recovery}}$) diverges as $\mathcal{O}\bigl(1/(1 - \rho)\bigr)$;
 - If a crisis disrupts normal operations, an unbuffered system requires astronomical recovery time, burning
   through emergency reserves before recovery can take hold.
@@ -118,3 +118,7 @@ contrasts naive unbuffered optimizers against stochological agents. In the Stoch
 `vital.rs::from_queue_basin_and_derived_ttr` dynamically calculates Kingman queue delays, allostatic wear, and
 critical slowing down in Holling attraction basins, verifying whether the vital reserve satisfies the survival
 inequality $\mathrm{TTS}_{\mathrm{survival}} \ge \mathrm{TTR}_{\mathrm{recovery}}$.
+
+[What Judging Is, and What It Is Not](27-what-judging-is.md) opens Part III by assembling these bases
+into a theory of judgment, and [The Sequential Mediation Loop](42-sequential-loop-naive-agent.md) later
+runs the resulting circuit as executable code.

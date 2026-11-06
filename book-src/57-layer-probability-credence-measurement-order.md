@@ -73,8 +73,9 @@ An institution armed with imprecise probabilities and measurement theory without
 - Corporate or state actors weaponize wide credal intervals $[\underline{P}, \overline{P}]$ as an **agnotological alibi**: claiming that because statistical intervals include zero effect, regulatory action on endocrine disruptors, carbon emissions, or algorithmic bias must be deferred indefinitely.
 - Technocrats exploit ordinal-scale non-invariance to re-scale consumer risk metrics, manufacturing an artificial appearance of safety while vital reserves are eroded.
 
-Foundational probability and measurement require coupling to immutable pre-registered analysis vaults (`governance.rs::TemporalVault`) and statutory liability
-rules (`L31`, `L32`) to prevent rigorous uncertainty from becoming an instrument of regulatory paralysis.
+Foundational probability and measurement require coupling to immutable pre-registered analysis vaults (`governance.rs::TemporalVault`) and, for the one
+governance site reachable from above in $\mathcal{G}_1$, to the liability-bearing ancestor layer (`L01`, `T7Liability`) to prevent rigorous uncertainty
+from becoming an instrument of regulatory paralysis.
 
 ## Reproduce
 

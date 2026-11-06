@@ -38,7 +38,7 @@ ensemble average $\mu$ sits at its peak.
 
 Across irreversible generations $t = 1,\dots,T$, however, lineage reproduction is **multiplicative**, not
 additive: population size evolves as $N_t = N_0 \prod_{s=1}^t R_s$. By the same Itô calculus that
-governs compounded capital in `vital.rs::from_non_ergodic_returns` ([Irreversible Time](47-irreversible-time-vital-margin.md) §2),
+governs compounded capital in `vital.rs::VitalMarginState::from_non_ergodic_returns` ([Irreversible Time](47-irreversible-time-vital-margin.md) §2),
 the long-run time-average growth rate $g_{\mathrm{time}}$ of a lineage is reduced below its single-step
 arithmetic expectation $\mu_{\mathrm{ens}}$ by half the environmental variance:
 

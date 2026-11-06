@@ -75,7 +75,7 @@ $$\mathrm{TTR}_{\mathrm{replication}} \sim 5\text{--}10\text{ years.}$$
    citizens have experienced unjust algorithmic incarceration. Epistemic clarity arrives only as an autopsy.
 
 Metascience achieves preventative power only when coupled to preregistered registered reports (`governance.rs::TemporalVault`),
-physical stop-work buffers, and institutional liability rules (`L30`, `L32`).
+physical stop-work buffers drawn from its vital-typed ancestors (`L08`, `L16`), and institutional liability rules (`L18`, `T7Liability`).
 
 ## Reproduce
 
@@ -88,5 +88,4 @@ cargo run --release --bin stochology -- --chapter 8
 
 Layer 19 (`multilayer.rs::KnowledgeOrder`, `KnowledgeOrder::L19MetascienceScientometricsReplication`, `{T2Severity, T3Archive,
 T6Performative}`) propagates its local and ancestor-cone margins through `multilayer.rs::MultilayerHomomorphism::evaluate` into
-[Chapter 70 — Layer 20: Acoustic, Aesthetic, Tragic & Pedagogical Formative Order](70-layer-acoustic-aesthetic-tragic-pedagogical-
-order.md) (`KnowledgeOrder::L20AcousticAestheticTragicPedagogical`, Stratum IV, `{T1Framing, T4Formalization, T6Performative}`).
+[Chapter 70 — Layer 20: Acoustic, Aesthetic, Tragic & Pedagogical Formative Order](70-layer-acoustic-aesthetic-tragic-pedagogical-order.md) (`KnowledgeOrder::L20AcousticAestheticTragicPedagogical`, Stratum IV, `{T1Framing, T4Formalization, T6Performative}`).

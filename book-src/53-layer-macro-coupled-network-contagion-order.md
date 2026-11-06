@@ -68,7 +68,7 @@ overload model** `[Literature]`, each node $i$ carries initial load $L_{i}(0)$ u
 $C_{i} = (1 + \alpha_{\mathrm{tol}})L_{i}(0)$, where $\alpha_{\mathrm{tol}} > 0$ is the fractional
 overload tolerance. Writing node utilisation as $\rho_{i} = L_{i}(0)/C_{i} = 1/(1 + \alpha_{\mathrm{tol}})$
 yields an exact algebraic identity between network cascade tolerance and Kingman's congestion multiplier
-(`vital.rs::from_queue_basin_and_survival`):
+(`vital.rs::VitalMarginState::from_queue_basin_and_survival`):
 
 $$\alpha_{\mathrm{tol}} = \frac{1 - \rho_{i}}{\rho_{i}} \;\Longleftrightarrow\; \frac{\rho_{i}}{1 - \rho_{i}} = \frac{1}{\alpha_{\mathrm{tol}}}.$$
 

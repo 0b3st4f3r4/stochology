@@ -11,8 +11,9 @@ $$\mathcal{I}_{\mathrm{epi}}(\mathcal{D}_t; \alpha) = \bigl[\hat{\theta}_L - c_{
 1. **Cromwell's Interior Probability Floor ([`epistemic::cromwell_clamp`](crates/stochology/src/epistemic.rs)):**
    $$p \in [\varepsilon_{\mathrm{floor}},\, 1 - \varepsilon_{\mathrm{floor}}], \qquad 0 < \varepsilon_{\mathrm{floor}} < \frac{1}{2}$$
 
-2. **Economic Cost–Loss & Pauker–Kassirer Decision Thresholds & EVPI ([`epistemic::EpistemicMarginState::from_inquiry_framing`](crates/stochology/src/epistemic.rs), [`epistemic::pauker_kassirer_threshold`](crates/stochology/src/epistemic.rs)):**
-   $$p^* = \frac{C}{\eta L}, \qquad p^*_{\mathrm{PK}} = \frac{1}{1 + B_{\mathrm{net}} / H_{\mathrm{net}}}, \qquad \mathrm{EVPI}(\pi_0) = \min\bigl(C,\, \pi_0 \eta L\bigr) - \pi_0 \min\bigl(C,\, \eta L\bigr) \ge 0$$
+2. **Economic Cost–Loss Threshold, Pauker–Kassirer Expected-Regret Threshold & EVPI ([`epistemic::EpistemicMarginState::from_inquiry_framing`](crates/stochology/src/epistemic.rs), [`epistemic::pauker_kassirer_threshold`](crates/stochology/src/epistemic.rs)):**
+   $$p^*_{\mathrm{CL}} = \frac{C}{\eta L}, \qquad p^*_{\mathrm{PK}} = \frac{C_{\mathrm{FP}}}{C_{\mathrm{FP}} + L_{\mathrm{FN}}} = \frac{1}{1 + B_{\mathrm{net}} / H_{\mathrm{net}}}, \qquad \mathrm{EVPI}(\pi_0) = \min\bigl(C,\, \pi_0 \eta L\bigr) - \pi_0 \min\bigl(C,\, \eta L\bigr) \ge 0$$
+   The two thresholds are distinct and must not be substituted for one another. `epistemic::EpistemicMarginState::from_inquiry_framing` returns the **cost–loss** threshold $p^*_{\mathrm{CL}} = C/(\eta L)$ — the action cost divided by the efficacy-discounted loss avoided — together with its EVPI; `epistemic::pauker_kassirer_threshold` returns only the **expected-regret** threshold $p^*_{\mathrm{PK}} = C_{\mathrm{FP}}/(C_{\mathrm{FP}} + L_{\mathrm{FN}})$, equivalently $1/(1 + B_{\mathrm{net}}/H_{\mathrm{net}})$ under the benefit/harm parametrization, and never the cost–loss quotient.
 
 3. **$e\text{-BH}$ False Discovery Rate Control Under Arbitrary Dependence ([`epistemic::e_bh_discoveries`](crates/stochology/src/epistemic.rs), Wang & Ramdas, 2022):**
    $$k^* = \max\!\left\{k \in \{1, \dots, K\} : \frac{k \, E_{(k)}}{K} \ge \frac{1}{\alpha}\right\}$$

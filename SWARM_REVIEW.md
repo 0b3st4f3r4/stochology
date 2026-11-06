@@ -19,7 +19,7 @@ Every agent in the review swarm is bound by eight non-negotiable invariants:
    - **Proposition 3 ($\neg S_{\mathrm{gov}} \implies \text{Cynical Capture and Pillaging}$):** `CollapseProposition::Proposition3CynicalCapture` (`StochologicalAgent::without_governance()`, cell `110`).
 3. **One-Way Authority Arrow:**
    - **Notes (`notes/*.md`) $\to$ Code (`crates/*/src/*.rs`) $\to$ Book (`book-src/*.md`):**
-     A textbook chapter may cite a note and must cite code symbols (`file.rs::Symbol`); a note never cites a textbook chapter as authority; Rust source code never cites chapter numbers.
+     A textbook chapter may cite a note and must cite code symbols (`file.rs::Symbol`). The arrow protects authority rather than the absence of names: (i) a note never cites a chapter as authority; (ii) Rust source never cites a chapter as authority and never defers a definition to prose — a definition lives in the code; (iii) code may carry the `KnowledgeOrder` $\leftrightarrow$ chapter bijection as model data and may name the chapter that exercises a symbol, in doc comments and error strings alike. A chapter number inside code is a CLI laboratory number `N` of `--chapter N`, whose framework chapter is `41 + N`; the pre-renumbering numbers that `vital.rs` and `governance.rs` record in brackets are edition history, not the current mapping.
 4. **Human-Gated Cryptographic Seal Protection (`.agents/hooks.json`):**
    - **DO NOT** modify [`data/SHA256SUMS`](data/SHA256SUMS), [`notes/The Ethics of Aim.md`](notes/The%20Ethics%20of%20Aim.md), or `TemporalVault` in [`crates/stochology/src/governance.rs`](crates/stochology/src/governance.rs) without explicit human inline-diff confirmation.
 5. **Bidirectional CLI Output Parity:**
@@ -30,7 +30,7 @@ Every agent in the review swarm is bound by eight non-negotiable invariants:
 7. **Symbol & Line-Anchor Integrity (`PYSYM` & `book_anchors.rs`):**
    - Every backticked `Type::member` in `book-src/*.md`, `notes/*.md`, `README.md`, and `AGENTS.md` must resolve to an existing `pub` symbol/member in `crates/*/src/*.rs`.
    - Every backticked `file.rs::Symbol` or `file.rs::Type::method` in educational chapters (`01`–`41`, `51`–`85`) is checked by `tests/book_anchors.rs`.
-   - Every markdown link of the form `` [`Symbol`](crates/...#L10-L20) `` is checked by `scripts/verify.sh` against the actual declaration line window.
+   - Every markdown link of the form `` [`Symbol`](crates/...#L10-L20) `` is checked by `scripts/verify.sh` against the actual declaration line window. The form above is illustrative: a path whose segment is written literally as `...` is skipped without opening anything, whereas a real citation must name a file that exists and a well-formed window that contains the declaration — a missing target, an inverted window or a window past the end of the file fails the gate. Citations inside a fenced code block, or wrapped in their own inline code span, are rendered as text and are not resolved.
 8. **Markdown & KaTeX Hygiene (`PYKATEX`):**
    - **Never** write `file://` or `/home/` paths inside repository `.md` files on disk (use relative links such as `crates/stochology/src/grammar.rs`).
    - Inline math `$...$` must have no leading/trailing space immediately inside `$` and no word/digit character immediately after the closing `$`. Never use `\_` outside `\texttt{...}` or `\*` inside math mode.

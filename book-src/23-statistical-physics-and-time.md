@@ -41,7 +41,7 @@ In institutional life, economics, and ecology, **ergodicity fails completely**:
 1. **Absorbing ruin states**: In a physical gas, molecules cannot "die" or go bankrupt. In social and biological
    systems, crossing the ruin barrier ($R_t \le 0$) is absorbing: the trajectory terminates. An ensemble average
    over 1,000 systems where 999 go bankrupt and one achieves astronomical wealth yields a high positive expectation,
-   yet an individual entity following that path suffers a 99.9% probability of total extinction.
+   yet an individual entity following that path suffers a 99.9% probability of total extinction `[Assumed]`.
 2. **Multiplicative growth**: As demonstrated in Chapter 11, multiplicative dynamics subject to volatility suffer
    the Itô variance drain $g = \mu - \frac{1}{2}\sigma^2$. The time average is strictly less than the ensemble
    average.
@@ -56,7 +56,7 @@ of particle count:
 
 $$\frac{\sigma_N}{\mu_N} \propto \frac{1}{\sqrt{N}}.$$
 
-For $N = 10^{23}$, relative fluctuations are $\sim 10^{-11.5}$, rendering macrostate laws virtually deterministic.
+For $N = 10^{23}$, relative fluctuations are $\sim 10^{-11.5}$, rendering macrostate laws virtually deterministic `[Assumed]`.
 
 However, in administrative and economic networks, $N$ is small (hundreds of hospitals, dozens of banks, a single
 power grid), and units are **interconnected and correlated**. When correlation $\rho > 0$ enters an aggregate of
@@ -103,3 +103,7 @@ Holling resilience basins into quantitative survival bounds, while [Methodologic
 evaluates how institutions manage phase transitions. In the Stochology library,
 `vital.rs::from_queue_basin_and_survival` evaluates the probability of Holling basin rupture under heavy-tailed
 shocks and confirms that vital reserves satisfy the survival imperative.
+
+[Chemical Rates, Equilibrium, and Buffers](24-chemical-rates-equilibrium-buffers.md) supplies the
+physical model of a buffer — kinetics, dynamic equilibrium, and Van Slyke capacity — that the vital
+margin imitates.

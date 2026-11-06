@@ -1,6 +1,7 @@
 # Measuring and Erring
 
-> Foundation chapter of Part III. Its formal content is worked out in
+> Foundation chapter of Part III. It presupposes [Chapter 10](10-numbers-order-bounds.md) and
+> [Chapter 12](12-derivatives-and-convexity.md). Its formal content is worked out in
 > [Chapter 43](43-inquiry-openness-multiverse.md) and
 > [Chapter 46](46-non-identical-asymmetry-heavy-tails.md).
 
@@ -122,5 +123,5 @@ Scale invariance and non-parametric stochastic dominance are formalised in
 [Chapter 46](46-non-identical-asymmetry-heavy-tails.md) as `vital.rs::mann_whitney_dominance`; the
 metrological and evidential weight of an archive grounded in effective sample size is formalised in
 [Chapter 45](45-world-to-archive-big-data-paradox.md) through Keynes's weight
-`epistemic.rs::keynes_weight_from_n_eff`, while the structural integrity of the measuring transit is audited
-across the sites of `grammar.rs::GuardSite`.
+`epistemic.rs::EpistemicMarginState::keynes_weight_from_n_eff`, while the structural integrity of
+the measuring transit is audited across the sites of `grammar.rs::GuardSite`.

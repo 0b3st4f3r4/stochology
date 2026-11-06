@@ -34,7 +34,7 @@ but cannot turn an unviable operational design into a viable one.
 Living systems frequently require extraordinary discriminatory fidelity under severe noise. A T-cell receptor
 must identify a minuscule quantity of foreign viral peptides among $10^5$ to $10^6$ self-peptides whose binding
 affinities differ by less than a factor of ten `[Literature]`. Standard equilibrium thermodynamics would yield
-an unacceptably high error rate ($\sim 10\%$), triggering catastrophic lethal autoimmunity.
+an unacceptably high error rate ($\sim 10\%$) `[Literature]`, triggering catastrophic lethal autoimmunity.
 
 John Hopfield (1974) and Jacques Ninio (1975) resolved this with **kinetic proofreading** `[Literature]`. By
 coupling the binding pathway to an irreversible, energy-consuming hydrolysis cycle (such as ATP or GTP breakdown),
@@ -123,3 +123,6 @@ while [Irreversible Time, Non-Ergodicity, and the Vital Margin](47-irreversible-
 the depletion of vital reserves under stochastic stress. In the Stochology library, `vital.rs::VitalMarginState`
 measures Canguilhem's vital margin of tolerance, evaluating whether an institution maintains sufficient buffer
 capacity $\beta$ to absorb tail shocks without incurring fatal allostatic collapse.
+
+[Evolution, Variation, and Selection](25-evolution-variation-selection.md) then adds replication with
+variation and selection, the third condition that makes a system adaptive rather than merely stable.

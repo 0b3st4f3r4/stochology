@@ -103,3 +103,7 @@ computes severity thresholds and bounds on empirical datasets. In the Stochology
 `epistemic.rs::EpistemicMarginState` evaluates severe boundary clearances via `epistemic.rs::passes_severe_boundary`,
 while `governance.rs::GovernanceState` implements institutional audit trails that protect frontline testimonial
 evidence against managerial discounting.
+
+[Ethics and the Imposition of Risk](19-ethics-and-the-imposition-of-risk.md) asks who bears the cost
+when the test is failed: the aggregation fallacy, non-reciprocal risk imposition, Scanlonian
+contractualism, and the residue of moral luck.

@@ -71,7 +71,7 @@ structure enters the boundary or collapse regime.
 
 1. **Collapse Proposition 1 ($\neg S_{\mathrm{epi}}$ — Nominal-Mean Sizing):** Designing a structure
    against mean wind or average traffic load while ignoring spatial flaw correlation and extreme-value
-   tail thickness (`vital.rs::hill_alpha_on_sorted_pos`).
+   tail thickness (`vital.rs::VitalMarginState::hill_alpha_on_sorted_pos`).
 2. **Collapse Proposition 2 ($\neg S_{\mathrm{vital}}$ — Subcritical Fatigue to $a_t \ge a_c$):**
    Detecting a crack after Paris fatigue has already narrowed the ligament past $a_c$, leaving zero
    plastic redistribution margin before brittle cleavage.

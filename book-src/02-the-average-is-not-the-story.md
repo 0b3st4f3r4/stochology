@@ -41,7 +41,7 @@ value with half the observations above and half below — is 1.
 
 The danger deepens when consequences are nonlinear. In real systems, the harm of a shortage or delay
 is not proportional: running 10% below capacity causes minor inconvenience, but running 50% above
-capacity triggers cascading grid collapse or emergency room gridlock. Mathematically, whenever a penalty
+capacity triggers cascading grid collapse or emergency room gridlock `[Assumed]`. Mathematically, whenever a penalty
 function $\phi(X)$ is **convex** (curving upward like a bowl), the expected loss is strictly greater
 than the loss evaluated at the average:
 

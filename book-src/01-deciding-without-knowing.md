@@ -46,7 +46,7 @@ $$C + (1 - \eta) p L < p L \iff C < \eta p L \iff p > p^* = \frac{C}{\eta L}$$
 This is the whole idea, and it is worth saying exactly: **You act when the chance of the bad thing exceeds
 the cost of acting divided by the loss you would suffer by not acting, scaled by efficacy.** In the
 umbrella case, the cost of carrying the umbrella $C$ is tiny while the misery of being soaked $L$ is large.
-If $C = 1$, $L = 20$, and $\eta = 1$, the threshold is $p^* = 1 / 20 = 0.05$. You rightly take the
+If $C = 1$, $L = 20$, and $\eta = 1$, the threshold is $p^* = 1 / 20 = 0.05$ `[Assumed]`. You rightly take the
 umbrella even if there is only a 5% chance of rain. Someone with a car and an underground garage faces
 the opposite arithmetic ($C$ is annoyance, $L \approx 0$), and rightly ignores the same grey sky.
 
@@ -99,3 +99,7 @@ when the chance exceeds the cost of acting divided by the loss of not acting* �
 [Decision, Loss, Threshold](36-decision-loss-threshold.md) and implemented in pure Rust as
 `epistemic.rs::pauker_kassirer_threshold`, which computes the clinical decision boundary balancing
 false-positive action costs against false-negative inaction ruin.
+
+[The Average Is Not the Story](02-the-average-is-not-the-story.md) starts with the first of the three
+difficulties — a single summary number standing in for a hundred different cases — and shows what an
+average leaves out of a plan.

@@ -100,3 +100,6 @@ extend measure-theoretic probability to reactive and strategic environments. In 
 `governance.rs::GovernanceState` verifies game-theoretic institutional gates and audit trails, while
 `epistemic.rs::from_e_process` constructs anytime-valid e-processes that guarantee false-alarm control under
 arbitrary optional stopping.
+
+Part II turns from mathematics to philosophy in [What Knowledge Is](16-what-knowledge-is.md): the
+tripartite analysis, the Gettier problem, and what an institution may legitimately claim to know.

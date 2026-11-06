@@ -25,8 +25,8 @@ caused by the simultaneous violation of all three axes of the Nuclear Triad:
    of thousands of hauls. Because cod form dense spawning aggregations even as total stock shrinks, and
    industrial trawlers equipped with sonar targeted those exact residual clusters ($R_i = 1$ where local
    density $Y_i$ was high), the selection correlation $\rho_{R,Y}$ was strongly positive and intra-haul
-   clustering $\mathrm{DEFF}$ was enormous (`epistemic.rs::from_meng_big_data`,
-   `epistemic.rs::from_archive_clusters`). Commercial `CPUE` stayed high and stable right up to the eve of
+   clustering $\mathrm{DEFF}$ was enormous (`epistemic.rs::EpistemicMarginState::from_meng_big_data`,
+   `epistemic.rs::EpistemicMarginState::from_archive_clusters`). Commercial `CPUE` stayed high and stable right up to the eve of
    commercial extinction.
 2. **Failure of $S_{\mathrm{vital}}$ (Saddle-Node Bifurcation of Fixed-Quota `MSY`):** Under logistic
    growth with constant-quota harvesting, $\mathrm{d}X/\mathrm{d}t = rX(1 - X/K) - H$, a harvest quota

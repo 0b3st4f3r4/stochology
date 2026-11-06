@@ -28,7 +28,7 @@ $$\psi(u) = \mathbb{P}\left(\inf_{t \ge 0} U(t) < 0\right) \le e^{-R u} \qquad \
 
 However, catastrophic losses in macro-finance violate thin-tailed assumptions. On the sealed Danish Fire claims dataset
 (`data/danish_fire.csv`, $n = 2{,}167$ claims [Measured]), the Hill tail index computed in
-`vital.rs::from_heavy_tails_and_asymmetry` is $\hat{\alpha} \approx 1.39 < 2$, confirming an infinite-variance Pareto regime.
+`vital.rs::VitalMarginState::from_heavy_tails_and_asymmetry` is $\hat{\alpha} \approx 1.39 < 2$, confirming an infinite-variance Pareto regime.
 
 Because all exponential moments diverge ($\mathbb{E}[e^{r X}] = \infty$ for all $r > 0$), the Lundberg exponent collapses to
 $R = 0$. By the Embrechts–Klüppelberg–Mikosch theorem for subexponential distributions `[Literature]`, the ultimate ruin

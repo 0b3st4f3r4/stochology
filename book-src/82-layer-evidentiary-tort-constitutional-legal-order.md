@@ -4,8 +4,10 @@
 
 ## By the end of this chapter you can
 
-1. Derive the three classical legal standards of proof from the asymmetric loss threshold
-   $p^* = C/(\eta L)$, and resolve Cohen's Gatecrasher Paradox using Keynes's evidential weight $V$.
+1. Derive the three classical legal standards of proof from the expected-regret threshold
+   $p^*_{\mathrm{PK}} = C_{\mathrm{FP}}/(C_{\mathrm{FP}} + L_{\mathrm{FN}})$, distinguish it from the
+   cost–loss threshold $p^*_{\mathrm{CL}} = C/(\eta L)$, and resolve Cohen's Gatecrasher Paradox using
+   Keynes's evidential weight $V$.
 2. Explain why Learned Hand's negligence formula fails under convexity and limited liability, and design
    a two-circuit legal remedy that separates no-fault victim repair from escrow clawbacks.
 3. Map constitutional pre-commitment, *ex post facto* prohibitions, bicameral vetoes, and whistleblower
@@ -14,24 +16,37 @@
 ## 1. Standards of proof and the Gatecrasher Paradox
 
 Every trial is a decision under structural uncertainty where acquittal or judgment must precede omniscient
-knowledge of the past. Legal systems institutionalise the asymmetric threshold $p^* = C/(\eta L)$
-(`epistemic.rs::pauker_kassirer_threshold`) through three distinct **standards of proof** `[Literature]`:
+knowledge of the past. Two distinct thresholds are in play, and the three **standards of proof** `[Literature]`
+below are stated in the second of them. The **cost–loss threshold** compares a protection budget $C$ with an
+efficiency-discounted avoidable loss $\eta L$: acting is worth its expense once the event probability clears
 
-- **Preponderance of the evidence ($p^* > 0.50$):** Used in ordinary civil litigation where a false
+$$p^*_{\mathrm{CL}} = \frac{C}{\eta L} \qquad \text{\texttt{[Assumed]}}.$$
+
+The **expected-regret threshold** instead compares the two classification errors — net cost of a false alarm
+$C_{\mathrm{FP}}$ against net loss of a missed event $L_{\mathrm{FN}}$ — and is exactly what
+`epistemic.rs::pauker_kassirer_threshold` computes when handed those two non-negative terms
+($c = C_{\mathrm{FP}}$, $l = L_{\mathrm{FN}}$), returning $c/(c + l)$ and falling back to parity when both
+budgets vanish:
+
+$$p^*_{\mathrm{PK}} = \frac{C_{\mathrm{FP}}}{C_{\mathrm{FP}} + L_{\mathrm{FN}}} \qquad \text{\texttt{[Assumed]}}.$$
+
+The standards are:
+
+- **Preponderance of the evidence ($p^*_{\mathrm{PK}} > 0.50$):** Used in ordinary civil litigation where a false
   positive (ordering a defendant to pay $\$1$) and a false negative (leaving a plaintiff unpaid by $\$1$)
   are treated as symmetric ($C_{\mathrm{FP}} \approx L_{\mathrm{FN}}$).
-- **Clear and convincing evidence ($p^* \approx 0.75$ `[Assumed]`):** Required when civil proceedings
+- **Clear and convincing evidence ($p^*_{\mathrm{PK}} \approx 0.75$ `[Assumed]`):** Required when civil proceedings
   threaten fundamental interests such as parental rights, civil commitment, or deportation.
-- **Beyond a reasonable doubt ($p^* \ge 0.91$ `[Assumed]`):** Mandated in criminal prosecutions under
+- **Beyond a reasonable doubt ($p^*_{\mathrm{PK}} \ge 0.91$ `[Assumed]`):** Mandated in criminal prosecutions under
   William Blackstone's ratio (*Commentaries*, 1769 `[Literature]`) that *"it is better that ten guilty
-  persons escape, than that one innocent suffer"* ($C_{\mathrm{FP}} = 10\,L_{\mathrm{FN}} \implies p^* = 10/(10+1) \approx 0.909$).
+  persons escape, than that one innocent suffer"* ($C_{\mathrm{FP}} = 10\,L_{\mathrm{FN}} \implies p^*_{\mathrm{PK}} = 10/(10+1) \approx 0.909$ `[Assumed]`).
 
 Yet a high probability $p > p^*$ is never sufficient on its own. In L. Jonathan Cohen's **Gatecrasher
 Paradox** (*The Probable and the Provable*, 1977 `[Literature]`), an arena promoter proves that $1{,}000$
 people sat in the stands while only $499$ tickets were sold, so $501$ spectators crashed the gate. Picked
 at random, any spectator has probability $p = 0.501 > 0.50$ of being a gatecrasher `[Assumed]`, yet no
 court permits recovery on naked statistical class frequency. The reason is **Keynes's weight of evidence**
-$V(n_{\mathrm{eff}}) = n_{\mathrm{eff}}/(n_{\mathrm{eff}} + n_0)$ (`epistemic.rs::keynes_weight_from_n_eff`):
+$V(n_{\mathrm{eff}}) = n_{\mathrm{eff}}/(n_{\mathrm{eff}} + n_0)$ (`epistemic.rs::EpistemicMarginState::keynes_weight_from_n_eff`):
 without case-specific evidence linking the defendant to the act, individualized $n_{\mathrm{eff}} \to 0$,
 $V \to 0$, and condemning an individual on group prevalence violates both epistemic weight and the
 Chouldechova disparity bound (`governance.rs::EmpiricalChouldechovaAudit`).
@@ -41,11 +56,13 @@ Chouldechova disparity bound (`governance.rs::EmpiricalChouldechovaAudit`).
 In *United States v. Carroll Towing Co.* (1947) `[Literature]`, Judge Learned Hand defined negligence by
 the inequality $B < P L$: an actor is negligent if the burden of adequate precaution $B$ is less than the
 probability of harm $P$ multiplied by the gravity of resulting injury $L$. Rearranged as $P > B/L$, Hand's
-formula is identical to $p^* = C/L$.
+formula is the cost–loss threshold of §1 at $\eta = 1$ with $C = B$, that is
+$p^*_{\mathrm{CL}} = C/(\eta L) = B/L$ `[Assumed]` — a duty-of-care statement about a protection budget, not
+an expected-regret comparison of two classification errors.
 
 In corporate and infrastructural practice, however, naive application of $B < PL$ collapses in two ways:
 1. **Convexity blindness (`T4Formalization`):** Evaluating $PL$ at the point expectation ignores Jensen's
-   convexity gap $\Delta_J = \mathbb{E}[\phi(X)] - \phi(\mathbb{E}[X])$ (`vital.rs::from_heavy_tails_and_asymmetry`)
+   convexity gap $\Delta_J = \mathbb{E}[\phi(X)] - \phi(\mathbb{E}[X])$ (`vital.rs::VitalMarginState::from_heavy_tails_and_asymmetry`)
    and heavy-tailed catastrophic loss ($\hat{\alpha} \le 2$).
 2. **Limited-liability truncation (`T7Liability`):** As Robert Innes (1990) proved `[Literature]`, when a
    firm's maximum collectible liability is capped at its equity $W < L$, the private expected cost of
@@ -60,7 +77,8 @@ and Ernest Sosa's **telic evaluation** (`governance.rs::TelicGrade`) by splittin
   when the operator's shot was `AdroitExAnteUnluckyOutcome`;
 - **Circuit 2 (Telic sanction and escrow clawback):** Punitive damages, bonus clawbacks from long-horizon
   escrow, and license revocation attach strictly to `LuckyAccurateOnly` (reckless buffer stripping that
-  got lucky with the weather) and `InaptAndInaccurate`, blocking the $13.5\times$ scapegoating inversion
+  got lucky with the weather) and `InaptAndInaccurate`, blocking the $13.6\times$ scapegoating inversion
+  (`governance.rs::ContractAndLiabilityAudit`, $85.0\% / 6.25\%$ `[Simulated]`)
   that blames frontline workers for executive undersizing.
 
 ## 3. Constitutionalism as an institutional circuit-breaker
@@ -72,7 +90,7 @@ device by which a body politic binds its own future impulses during moments of p
   cryptographic sealing in `governance.rs::TemporalVault::seal`, forbidding the state from changing the
   acceptance rule after the trajectory is observed;
 - **Separation of powers and bicameral/judicial vetoes** $\Longleftrightarrow$ the List–Pettit conjunctive
-  gate `governance.rs::evaluate_list_pettit_votes`;
+  gate `governance.rs::GovernanceState::evaluate_list_pettit_votes`;
 - **Statutory whistleblower protection and the right to refuse unsafe work** $\Longleftrightarrow$ a legal
   mandate that the testimonial discount on the algedonic channel be fixed at $\delta_{\mathrm{cred}} = 0$
   (`governance.rs::AlgedonicChannel`).
@@ -129,4 +147,4 @@ undocumented, and the difference between those two conditions is what the statut
 
 ## Bridge
 
-Layer 32 (`multilayer.rs::KnowledgeOrder`, `KnowledgeOrder::L32EvidentiaryTortConstitutional`, `{T1Framing, T4Formalization, T7Liability}`) propagates its local and ancestor-cone margins through `multilayer.rs::MultilayerHomomorphism::evaluate` into [Chapter 83 — Layer 33: Distributed Consensus, Fault-Tolerant Computing & SRE Order](83-layer-distributed-consensus-sre-order.md) (`KnowledgeOrder::L33DistributedConsensusSre`, Stratum VII, `{T5Temporal, T6Performative, T7Liability}`).
+Layer 32 (`multilayer.rs::KnowledgeOrder`, `KnowledgeOrder::L32EvidentiaryTortConstitutional`, `{T1Framing, T4Formalization, T7Liability}`) hands off editorially to [Chapter 83 — Layer 33: Distributed Consensus, Fault-Tolerant Computing & SRE Order](83-layer-distributed-consensus-sre-order.md) (`KnowledgeOrder::L33DistributedConsensusSre`, Stratum VII, `{T5Temporal, T6Performative, T7Liability}`). Layer 33 is **not** a child of Layer 32 in $\mathcal{G}_1$ — its parents are [Layer 02](52-layer-meso-buffered-queue-dispatch-order.md), [Layer 03](53-layer-macro-coupled-network-contagion-order.md) and [Layer 10](60-layer-cryptographic-zero-knowledge-adversarial-order.md) — so the two orders are joined through shared ancestors only, and `multilayer.rs::MultilayerHomomorphism::evaluate` carries no margin of Layer 32 into Layer 33's cone. The shared ancestor that carries the epistemic axis ($S_{\mathrm{epi}}$) that Layer 33's `{T5, T6, T7}` triple omits is Layer 10 (`{T2Severity, T6Performative, T7Liability}`), which Layer 32 reaches through Layer 30 and Layer 27.

@@ -35,7 +35,7 @@ $$\epsilon_{N} = \epsilon_{1}^{N} \approx \theta^{-N} \qquad \text{\texttt{[Assu
 
 reaching $10^{-6}$ at $N = 6$ `[Assumed]` at the cost of a mandatory deliberation delay
 $\tau_{\mathrm{proof}} \approx N/k_p$. It is the exact molecular realisation of Ville's *e*-process and
-Mayo's severity gate (`epistemic.rs::passes_severe_boundary`).
+Mayo's severity gate (`epistemic.rs::EpistemicMarginState::passes_severe_boundary`).
 
 ## 2. Michaelis–Menten saturation is Kingman's queue hyperbola
 
@@ -48,7 +48,7 @@ steady-state concentration $C_{\mathrm{ss}}$ gives
 
 $$R_{\mathrm{in}} = \frac{V_{\max} C_{\mathrm{ss}}}{K_{m} + C_{\mathrm{ss}}} \;\Longleftrightarrow\; C_{\mathrm{ss}}(\rho_{\mathrm{met}}) = K_{m}\frac{\rho_{\mathrm{met}}}{1 - \rho_{\mathrm{met}}} \qquad \text{\texttt{[Assumed]}}.$$
 
-Compare this with Kingman's heavy-traffic queue formula in `vital.rs::from_queue_basin_and_survival`. The
+Compare this with Kingman's heavy-traffic queue formula in `vital.rs::VitalMarginState::from_queue_basin_and_survival`. The
 factor $\frac{\rho_{\mathrm{met}}}{1 - \rho_{\mathrm{met}}}$ is **algebraically identical**. At
 $\rho_{\mathrm{met}} = 0.20$ the substrate sits at $0.25\,K_m$; at $\rho_{\mathrm{met}} = 0.50$ it sits at
 $1.0\,K_m$; at $\rho_{\mathrm{met}} = 0.90$ it jumps to $9\,K_m$; and at $\rho_{\mathrm{met}} = 0.95$ it

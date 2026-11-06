@@ -1,6 +1,7 @@
 # Cause, Intervention, Counterfactual
 
-> Foundation chapter of Part III. Its formal content is worked out in
+> Foundation chapter of Part III. It presupposes [Chapter 18](18-philosophy-of-science.md) and
+> [Chapter 20](20-legitimacy-and-institutions.md). Its formal content is worked out in
 > [Chapter 48](48-reactive-worlds-performativity-goodhart.md).
 
 ## By the end of this chapter you can
@@ -75,8 +76,9 @@ $P(y \mid x)$ with experimental trial data $P(y \mid \mathrm{do}(x))$, PNS can b
 
 $$\max\bigl(0,\, P(y \mid \mathrm{do}(x)) - P(y \mid \mathrm{do}(x'))\bigr) \le \mathrm{PNS} \le \min\bigl(P(y \mid \mathrm{do}(x)),\, P(y' \mid \mathrm{do}(x'))\bigr) \qquad \text{\texttt{[Assumed]}}.$$
 
-These bounds (`governance.rs::evaluate_tian_pearl_bounds`) define the mathematical boundary of retrospective
-attribution: they specify precisely how much blame can be forensically attributed to an intervention.
+These bounds ( `governance.rs::GovernanceState::evaluate_tian_pearl_bounds`) define the
+mathematical boundary of retrospective attribution: they specify precisely how much blame can be
+forensically attributed to an intervention.
 
 ## 4. Institutional design: the three pillars, Sosa AAA, and Fricker's injustice
 
@@ -146,12 +148,13 @@ Three consequences follow from the ladder of §1, and they are not philosophical
    monotone transforms change the units without changing the ranking, so a top-five list is not a causal ordering
    even when it is stable across seeds.
 
-What restores a causal reading is the machinery of §2 and §3, and it is worth stating what it costs. The
-Tian–Pearl bounds of `governance.rs::GovernanceState::evaluate_tian_pearl_bounds` return *intervals* rather than
-point attributions, because counterfactual probabilities are not identified by observational data alone; the ICP
-machinery of §2 returns a *set* of predictors whose conditional relationship survives across environments, which is
-a claim about invariance rather than about magnitude. Both are weaker in presentation and stronger in warrant, and
-that asymmetry is the whole point: an interval that is guaranteed to contain the intervention effect is usable for
+What restores a causal reading is the machinery of §2 and §3, and it is worth stating what it costs.
+The Tian–Pearl bounds of `governance.rs::GovernanceState::evaluate_tian_pearl_bounds` return
+*intervals* rather than point attributions, because counterfactual probabilities are not identified
+by observational data alone; the ICP machinery of §2 returns a *set* of predictors whose conditional
+relationship survives across environments, which is a claim about invariance rather than about
+magnitude. Both are weaker in presentation and stronger in warrant, and that asymmetry is the whole
+point: an interval that is guaranteed to contain the intervention effect is usable for
 a decision, while a point attribution that is not identified for one is a rhetorical object.
 
 The institutional form of the rule is therefore simple to state and hard to follow. An explanation may be reported
@@ -162,10 +165,9 @@ is what happens when the first is dressed as the second: the appearance of causa
 that forecloses the audit.
 
 ## Bridge
-
 Causal environments and invariant prediction are formalised in
-[Chapter 48](48-reactive-worlds-performativity-goodhart.md) as `governance.rs::CausalEnvironment` and
-`governance.rs::IcpIdentificationStatus`; Tian-Pearl counterfactual bounds on causation are evaluated by
-`governance.rs::evaluate_tian_pearl_bounds`. The institutional gates auditing testimonial discounting,
-algedonic channels, and algorithmic disparity are formalised in
+[Chapter 48](48-reactive-worlds-performativity-goodhart.md) as `governance.rs::CausalEnvironment`
+and `governance.rs::IcpIdentificationStatus`; Tian-Pearl counterfactual bounds on causation are
+evaluated by `governance.rs::GovernanceState::evaluate_tian_pearl_bounds`. The institutional gates
+auditing testimonial discounting, algedonic channels, and algorithmic disparity are formalised in
 [Chapter 49](49-moral-luck-apt-agency-institutions.md).

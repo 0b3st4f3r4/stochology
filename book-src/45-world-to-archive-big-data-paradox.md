@@ -59,7 +59,7 @@ Even when $\rho_{R,Y} = 0$, administrative rows are almost never independent: pa
 
 When cluster sizes $m_1, \dots, m_C$ vary with sample mean $\bar{m} = \frac{1}{C}\sum_{c=1}^C m_c$ and variance $\sigma_m^2 = \frac{1}{C}\sum_{c=1}^C (m_c - \bar{m})^2$, Donald Campbell (1979) and Brent Moulton (1986) showed that cluster size heterogeneity inflates the effective cluster size from $\bar{m}$ to:
 $$\tilde{m} = \bar{m}\bigl(1 + \mathrm{CV}^2(m)\bigr), \qquad \mathrm{CV}(m) = \frac{\sigma_m}{\bar{m}}$$
-The resulting **cluster design effect** ([`EpistemicMarginState::from_archive_clusters`](crates/stochology/src/epistemic.rs#L845-L943)) is:
+The resulting **cluster design effect** ([`EpistemicMarginState::from_archive_clusters`](crates/stochology/src/epistemic.rs#L844-L942)) is:
 $$\mathrm{DEFF}_{\mathrm{cluster}} = 1 + (\tilde{m} - 1)\,\rho_I = 1 + \bigl[\bar{m}\bigl(1 + \mathrm{CV}^2(m)\bigr) - 1\bigr]\rho_I$$
 where $\rho_I$ is the intra-cluster correlation coefficient (ICC). When clusters are highly variable in size ($\mathrm{CV}(m) > 1$), neglecting the Moulton variance correction $\mathrm{CV}^2(m)$ severely underestimates $\mathrm{DEFF}_{\mathrm{cluster}}$ and understates standard errors, producing phantom statistical significance. The effective sample size for variance sizing collapses to:
 $$n_{\mathrm{eff}}^{\mathrm{cluster}} = \frac{n}{\mathrm{DEFF}_{\mathrm{cluster}}}$$
@@ -73,7 +73,7 @@ How do we recover information about under-recorded strata?
 
    $$n_{\mathrm{eff, Kish}} = \frac{\bigl(\sum_{i=1}^n w_i\bigr)^2}{\sum_{i=1}^n w_i^2} = \frac{n}{1 + \mathrm{CV}^2(w)}$$
 
-2. **Anne Chao's (1984) Capture-Recapture Lower Bound (`hat_n_00`, [`EpistemicMarginState::from_capture_recapture`](crates/stochology/src/epistemic.rs#L1051-L1093)):** What if a vulnerable subpopulation has $\pi_i = 0$ in a single administrative registry? Following Patrick Ball, Megan Price, and Kristian Lum (HRDAG, 2013), cross-referencing multiple incomplete lists (or counting units captured once $f_1 = n_{10} + n_{01}$ vs. twice $f_2 = n_{11}$) yields Chao's non-parametric lower bound on the **completely uncounted population** $n_{00}$:
+2. **Anne Chao's (1984) Capture-Recapture Lower Bound ($\hat{n}_{00}$, [`EpistemicMarginState::from_capture_recapture`](crates/stochology/src/epistemic.rs#L1051-L1093)):** What if a vulnerable subpopulation has $\pi_i = 0$ in a single administrative registry? Following Patrick Ball, Megan Price, and Kristian Lum (HRDAG, 2013), cross-referencing multiple incomplete lists (or counting units captured once $f_1 = n_{10} + n_{01}$ vs. twice $f_2 = n_{11}$) yields Chao's non-parametric lower bound on the **completely uncounted population** $n_{00}$:
 
    $$\hat{n}_{00,\mathrm{Chao}} = \frac{f_1^2}{2 f_2}, \qquad \hat{n}_{00,\mathrm{LP}} = \frac{n_{10}\,n_{01}}{n_{11}}$$
 
@@ -105,7 +105,7 @@ Running laboratory 4 (`cargo run --release --bin stochology -- --chapter 4`) eva
 ```
 
 - **Cluster Echoes in CPS Real Earnings (`cps_observational.csv`, $n = 15{,}992$, `[Measured]`) and Bank Calls (`bank_calls.csv`, $n = 27{,}716$, `[Measured]`):** Grouping CPS respondents directly by their observed `(age, educ)` demographic-education cells on continuous 1978 earnings (`re78` in thousands of USD, using the exact one-way random-effects ANOVA intra-cluster correlation $\rho_{\mathrm{intra}}$ without any binary tail indicator or synthetic score weights) yields $\mathrm{DEFF} = 10.37$ (`[Measured]`), shrinking $n = 15{,}992$ to $n_{\mathrm{eff}} = 1{,}542.0$ (Keynes weight $V = 0.984$ at `[Assumed n_0=25.565]`). In `bank_calls.csv`, continuous daily call-volume clustering produces $\mathrm{DEFF} = 8.19$ (`[Measured]`), shrinking $n = 27{,}716$ rows to $n_{\mathrm{eff}} = 3{,}384.5$ ($V = 0.971$ at `[Assumed n_0=100.0]`). In addition, Chao's capture-recapture estimator (`from_capture_recapture`) reports the non-degenerate interval $[N_{\mathrm{Chao,LB}}, U_{\mathrm{Chao},95}] = [2{,}237.1, 2{,}719.9]$ (`[Assumed]`).
-- **Real-Time Macroeconomic Vintages (`rtdsm_routput_vintages.csv`, $Q = 241$ quarters from 1965:Q3 to 2025:Q3, `[Measured]`):** Comparing the initial real-time release of U.S. real output growth against its final revised vintage reveals a mean absolute revision of **$1.47\text{ percentage points}$** (`[Measured]`), a maximum revision of **$8.02\text{ percentage points}$** (`[Measured]`), and **$6.6\%$ of quarters flipping sign** (`[Measured]`) between expansion and contraction! Backtesting a policy on final revised data gives the agent crystal-ball knowledge it never possessed in real time.
+- **Real-Time Macroeconomic Vintages (`rtdsm_routput_vintages.csv`, $Q = 241$ evaluated quarters spanning 1965:Q3 to 2026:Q2, drawn from 244 real-time vintages whose own releases run 1965:Q4 to 2026:Q3, `[Measured]`):** Comparing the initial real-time release of U.S. real output growth against its final revised vintage reveals a mean absolute revision of **$1.47\text{ percentage points}$** (`[Measured]`), a maximum revision of **$8.02\text{ percentage points}$** (`[Measured]`), and **$6.6\%$ of quarters flipping sign** (`[Measured]`) between expansion and contraction! Backtesting a policy on final revised data gives the agent crystal-ball knowledge it never possessed in real time.
 
 ---
 

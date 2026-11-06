@@ -1,6 +1,7 @@
 # Probability as Language
 
-> Foundation chapter of Part III. Its formal content is worked out in
+> Foundation chapter of Part III. It presupposes [Chapter 10](10-numbers-order-bounds.md) and
+> [Chapter 15](15-probability-as-a-measure.md). Its formal content is worked out in
 > [Chapter 44](44-underdetermination-partial-identification.md).
 
 ## By the end of this chapter you can
@@ -125,7 +126,7 @@ is laid bare.
 
 Sequential evidence and anytime validity are formalised in
 [Chapter 44](44-underdetermination-partial-identification.md) as e-processes
-(`epistemic.rs::from_e_process`) and their anytime-valid confidence radius
+(`epistemic.rs::EpistemicMarginState::from_e_process`) and their anytime-valid confidence radius
 (`epistemic.rs::anytime_valid_radius`), where the Ville maximal supermartingale inequality provides the
 mathematical calibration that lets an epistemic bound be quoted at any arbitrary stopping time without
 sacrificing error control.

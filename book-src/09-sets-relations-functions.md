@@ -108,3 +108,6 @@ $m(\mathcal{W})$, and the decision is a policy function selecting actions under 
 In the Stochology library, `epistemic.rs::EpistemicMarginState` tracks this foundational gap between
 latent states and observable sets, while `grammar.rs::CircuitTransit` formalizes the transitions of the
 mediation loop across world, archive, and institution.
+
+[Numbers, Order, and Bounds](10-numbers-order-bounds.md) builds the ordered arithmetic these objects
+live in, and turns intervals into the honest way of stating what a partial answer actually knows.

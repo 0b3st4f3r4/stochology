@@ -104,3 +104,6 @@ healing — are ruthlessly bred out of the system.
 formalize proxy gaming and metric degradation. In the Stochology library, `governance.rs::GovernanceState`
 implements Ashby's requisite variety constraints, auditing whether an institution maintains sufficient multi-channel
 governance variety and algedonic escape paths to absorb dynamic environmental shocks without succumbing to metric capture.
+
+[Regulation and Homeostasis](26-regulation-and-homeostasis.md) closes the scientific block by joining
+feedback, allostasis, and queueing into a single account of what it costs to run near the ceiling.

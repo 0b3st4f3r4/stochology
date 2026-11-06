@@ -98,3 +98,7 @@ A rigorous institution handles induction not by pretending to possess proof, but
 for agnotological framing bias and Cromwell violations. In the Stochology library,
 `epistemic.rs::from_inquiry_framing` computes the epistemic margin by evaluating framing penalties, Cromwell
 boundary enforcement, and Type III inquiry distortions across competing hypotheses.
+
+[Philosophy of Science](18-philosophy-of-science.md) turns justification into a public test:
+falsification, Duhem–Quine underdetermination, Lakatosian research programmes, and Mayo's severe
+testing.

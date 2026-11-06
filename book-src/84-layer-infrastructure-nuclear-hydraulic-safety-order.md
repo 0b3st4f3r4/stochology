@@ -46,7 +46,7 @@ correlation was $\rho_I \to 1$, reducing $k$ nominal layers to $k_{\mathrm{eff}}
 
 In *Normal Accidents* (1984) `[Literature]`, the sociologist Charles Perrow identified the two structural
 axes that make high-hazard plants unsteerable once a barrier fails, and their translation into
-`vital.rs::from_queue_basin_and_survival` is exact:
+`vital.rs::VitalMarginState::from_queue_basin_and_survival` is exact:
 
 - **Interactive complexity** (hidden feedback loops, shared auxiliary lines, non-linear phase changes)
   inflates the time required for operators to diagnose the plant state and deploy a valid recovery plan

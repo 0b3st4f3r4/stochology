@@ -9,3 +9,4 @@ swarm/
 swarm-*/
 .agents/teamwork/
 *.profraw
+.agent-teams/

@@ -1,6 +1,7 @@
 # Aim and the Three Planes
 
-> Foundation chapter of Part III. Its formal content is worked out in the
+> Foundation chapter of Part III. It presupposes [Chapter 15](15-probability-as-a-measure.md)
+> and [Chapter 16](16-what-knowledge-is.md). Its formal content is worked out in the
 > [Preface](00-preface.md) and in [Chapter 42](42-sequential-loop-naive-agent.md).
 
 ## By the end of this chapter you can
@@ -50,30 +51,31 @@ infantile. The irreducible unit of analysis is the closed loop.
      |        WORLD (P1)       |         |       ARCHIVE (P2)      |
      | Material Process & Loss |-------->| Registers, Fitted Models|
      +-------------------------+ Transit | & Partial Bounds        |
-                                   T1    +-------------------------+
+                                   T3    +-------------------------+
 ```
 
-Across these three planes unfold the seven canonical circuit transits ($T_1$ through $T_7$) and their
-corresponding guard sites ($G_1$ through $G_7$ in `grammar.rs::GuardSite`):
-- **Direct Loop Transits**:
-  - $T_1$ ($P_1 \to P_2$): *Observation and Transduction*. World events become archive rows under selection
-    mechanisms, filtering thresholds, and measurement error. Guarded by Archive Integrity ($G_3$) and Inquiry
-    Framing ($G_1$).
-  - $T_2$ ($P_2 \to P_3$): *Inference and Evidence*. Models are estimated, partial-identification intervals are
-    constructed, and hypothesis tests are evaluated. Guarded by Severity ($G_2$) and Formalization Bounds ($G_4$).
-  - $T_3$ ($P_3 \to P_1$): *Intervention and Risk Imposition*. Decisions are executed, resources are committed,
-    and vital reserves are deployed. Guarded by Temporal Survival ($G_5$, $\mathrm{TTS} \ge \mathrm{TTR}$) and
-    Performative Dynamics ($G_6$).
-- **Reflexive Locks**:
-  - $T_4$ ($P_2 \to P_2$): Epistemic self-audit, verifying that analytical choices were not p-hacked and that
-    Cromwell openness is maintained.
-  - $T_5$ ($P_1 \to P_1$): Physical vital lock, verifying that the resilience basin is intact and Kingman queue
-    congestion does not diverge.
-  - $T_6$ ($P_3 \to P_3$): Governance self-audit, auditing algedonic channels, testimonial discounting
-    ($\delta_{\mathrm{cred}}$), and conflict-of-interest firewalls.
-- **Integral Closure**:
-  - $T_7$: Triadic closure across all three planes, computing the non-substitutable Leontief minimum
-    $M_{\mathrm{Leontief}} = \min(S_{\mathrm{epi}}, S_{\mathrm{vital}}, S_{\mathrm{gov}})$ ($G_7$).
+Across these three planes unfold six ordered crossings of distinct planes — three direct loop transits and
+three reflexive locks that run back along the same edges — plus one integral closure, and each of the
+$3 + 3 + 1 = 7$ transits (`grammar.rs::CircuitTransit`) carries exactly one guard site (`grammar.rs::GuardSite`).
+The guard-site codes below are the codes the library itself uses (`GuardSite::code`):
+- **Direct loop transits**:
+  - `T3Archive` ($P_1 \to P_2$): *Observation and Transduction*. World events become archive rows under
+    selection mechanisms, filtering thresholds, and measurement error.
+  - `T4Formalization` ($P_2 \to P_3$): *Inference and Evidence*. Models are estimated, partial-identification
+    intervals are constructed, and hypothesis tests are evaluated.
+  - `T6Performative` ($P_3 \to P_1$): *Intervention and Risk Imposition*. Decisions are executed, resources
+    are committed, and vital reserves are deployed.
+- **Reflexive locks** — the same three edges traversed against the loop, each auditing a premise that the
+  corresponding direct transit silently presumed:
+  - `T1Framing` ($P_3 \to P_2$): inquiry framing is fixed before the archive is queried — premise-rigging,
+    the cost–loss threshold, the Cromwell reserve, and openness to the question that was never asked.
+  - `T2Severity` ($P_2 \to P_1$): the bounds and hypotheses carried out of the archive are tested against the
+    world, so that analytical choices cannot be p-hacked into place and mistaken for evidence.
+  - `T5Temporal` ($P_1 \to P_3$): the physical vital lock, verifying that the resilience basin is intact and
+    that Kingman queue congestion still leaves $\mathrm{TTS}_{\mathrm{survival}} \ge \mathrm{TTR}_{\mathrm{recovery}}$.
+- **Integral closure**:
+  - `T7Liability`: triadic closure across all three planes, computing the non-substitutable Leontief minimum
+    $M_{\mathrm{Leontief}} = \min(S_{\mathrm{epi}}, S_{\mathrm{vital}}, S_{\mathrm{gov}})$.
 
 ## 2. Cutting the circuit and missing data mechanisms
 
@@ -93,8 +95,8 @@ with political convenience, the archive is silenced, re-baselined, or doctored. 
 documents an impending rupture, but no official possesses the standing or authority to halt the operation.
 The failure is deliberate blindness ending in preventable ruin.
 
-At the crucial transit $T_1$ ($P_1 \to P_2$), real-world data collection encounters the three classic missingness
-mechanisms formalized by Donald Rubin:
+At the crucial World-to-Archive transit (`GuardSite::T3Archive`), real-world data collection encounters the
+three classic missingness mechanisms formalized by Donald Rubin:
 - *Missing Completely at Random (MCAR)*: The probability of an event being recorded is independent of both observed
   and unobserved variables. This is the only benign regime where listwise deletion leaves point estimates unbiased.
 - *Missing at Random (MAR)*: Missingness depends on observed features within the database schema. While recoverable

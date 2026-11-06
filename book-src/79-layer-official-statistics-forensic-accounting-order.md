@@ -59,13 +59,13 @@ liability under `governance.rs::GovernanceState::from_real_time_and_ex_post_gate
 ## 3. Real-time vintage revisions and Sen's welfare axiomatics
 
 Official national accounts are not fixed historical constants. On the sealed Federal Reserve Bank of Philadelphia
-real-time output vintages (`data/rtdsm_routput_vintages.csv`, $n = 307$ quarterly vintages from 1965Q4 to 2024Q1
-[Measured]), initial quarterly GDP growth releases $Y(t_{\mathrm{valid}}, t_{\mathrm{tx}}^{(0)})$ diverge
+real-time output vintages (`data/rtdsm_routput_vintages.csv`, $n = 244$ vintages yielding $Q = 241$ evaluated
+quarters from 1965Q3 to 2026Q2 [Measured]), initial quarterly GDP growth releases $Y(t_{\mathrm{valid}}, t_{\mathrm{tx}}^{(0)})$ diverge
 substantially from fully revised historical benchmarks $Y(t_{\mathrm{valid}}, t_{\mathrm{tx}}^{(\infty)})$:
 
 The mean absolute revision is $1.47\text{ percentage points}$, the maximum historical revision reaches
 $8.02\text{ percentage points}$, and $6.6\%$ of quarters undergo sign flips between initial release and benchmark
-vintage (`epistemic.rs::EpistemicMarginState::from_archive_clusters`). Macroeconomic authorities making interest
+vintage (`epistemic.rs::EpistemicMarginState::from_vintages`). Macroeconomic authorities making interest
 rate decisions on initial releases frequently mistake measurement noise for real output gaps.
 
 Furthermore, as Amartya Sen (1976) `[Literature]` proved in welfare axiomatics, aggregate GDP and headcount
@@ -80,7 +80,7 @@ $P_S = H \bigl[I + (1 - I) G_{\mathrm{poor}}\bigr]$ unifies the headcount ratio 
 shortfall $I$, and the Gini inequality $G_{\mathrm{poor}}$ among the poor. By satisfying Sen's strict transfer
 sensitivity, $P_S$ ensures that transfers among the most destitute yield strictly larger poverty reductions than
 transfers to households near the poverty line. Measuring true societal resilience requires distribution-sensitive
-ordinal welfare functionals (`vital.rs::from_heavy_tails_and_asymmetry`).
+ordinal welfare functionals (`vital.rs::VitalMarginState::from_heavy_tails_and_asymmetry`).
 
 ## 4. Trans-Triadic Keystone synthesis across `{T3, T4, T7}`
 

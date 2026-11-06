@@ -93,7 +93,7 @@ Even more dangerous is the pre-asymptotic behavior for $1 < \alpha \le 2$: while
 $$|\bar{X}_n - \mu| = \mathcal{O}_p\bigl(n^{1/\alpha - 1}\bigr)$$
 For a Gaussian distribution, errors shrink as $n^{-0.50}$. But for Danish fire losses with $\hat{\alpha} = 1.39$:
 $$n^{1/1.39 - 1} = n^{-0.28}$$
-To reduce estimation uncertainty by a factor of $10$, a Gaussian process requires $100$ times more data ($10^{1/0.50}$), whereas a process with $\alpha = 1.39$ requires **$3,710$ times more data** ($10^{1/0.28}$)! Operating on the naive sample mean creates a dangerous illusion of certainty while leaving the institution completely exposed to unmodeled tail surprises.
+To reduce estimation uncertainty by a factor of $10$, a Gaussian process requires $100$ times more data ($10^{1/0.50}$), whereas a process with $\hat{\alpha} = 1.39$ requires **about $3{,}666$ times more data** (mean-estimator error decays as $n^{-(1 - 1/\hat{\alpha})} = n^{-0.2806}$, so $10^{1/0.2806} \approx 3{,}666$)! Operating on the naive sample mean creates a dangerous illusion of certainty while leaving the institution completely exposed to unmodeled tail surprises.
 
 When extreme tail observations are clustered ($\mathrm{DEFF}_{\mathrm{tail}} > 1$), the effective number of tail order statistics shrinks to $k_{\mathrm{eff}} = k / \mathrm{DEFF}_{\mathrm{tail}}$ and $\hat{\alpha}_k \sim \mathrm{Inv\text{-}Gamma}(k_{\mathrm{eff}}, k_{\mathrm{eff}}\alpha_0)$. Because the Holling basin rupture probability $\hat{P}_{\mathrm{rup}}(\hat{\alpha}_k) = \exp(-\hat{\alpha}_k \ln(D_t / x_m))$ is strictly convex in $\hat{\alpha}_k$, [`HollingTailRuptureAudit`](crates/stochology/src/vital.rs) computes both the second-order Jensen-debiased estimate and the exact $90\%$ confidence interval $[q_{05}, q_{95}]$ across `vital.rs` (`tail_effective_k`, `holling_rupture_prob_plugin`, `holling_rupture_prob_debiased`, `holling_rupture_ci90`).
 
@@ -132,9 +132,9 @@ The battery of §5.3–§5.4 transfers without modification, and the order in wh
 1. **Declare the archive boundary before computing anything.** Which carrier-months are present, which scheduled
    services are absent, which airports appear only after a certain year. The deltas that matter are computed inside
    the declared window; a tail index estimated across a boundary shift estimates the boundary.
-2. **Estimate the tail on the declared support.** Hill's estimator $\hat{lpha}_{k,n}$ is a function of the number
+2. **Estimate the tail on the declared support.** Hill's estimator $\hat{\alpha}_{k,n}$ is a function of the number
    of upper-order statistics retained, so the plateau — not the single value at a chosen $k$ — is the object to
-   report. Compare it with the New York and Houston plateaus: a *different* $\hat{lpha}$ is informative, and a
+   report. Compare it with the New York and Houston plateaus: a *different* $\hat{\alpha}$ is informative, and a
    suspiciously identical one usually means the same cancellation policy is being measured.
 3. **Measure concentration as a topology, not a mean.** Hub structure is a statement about the share of movements
    carried by a few nodes, and the right summary is a concentration curve plus the betweenness ordering of

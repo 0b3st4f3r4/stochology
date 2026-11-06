@@ -75,8 +75,9 @@ $$\mathrm{Ruin}(L_{09}^{\mathrm{uncoupled}}) = 1.000$$
 
 under **Combined Propositions 2 and 3 (`synthesis.rs::CollapseProposition`, `CollapseProposition::CombinedPropositions2And3`)**
 [Simulated]. Knowing the exact mathematical bounds of uncertainty while operating with zero physical margin and zero governance leads
-to ruin. Methodology achieves survival only when coupled through the multilayer DAG to physical buffers (`L01`, `L02`) and
-institutional liability (`L30`, `L31`).
+to ruin. Methodology achieves survival only when coupled through the multilayer DAG to the ancestor layers that supply the axes the `(3, 0, 0)` triple
+cannot carry: physical buffers (`L04`, which supplies both `T4Formalization` and `T5Temporal`, and `L08`, which supplies `T4Formalization`) and liability
+(`L01`, `T7Liability`). `L30` and `L31` sit downstream of this layer and therefore cannot export margin back to it.
 
 ## Reproduce
 

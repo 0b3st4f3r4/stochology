@@ -1,6 +1,7 @@
 # Time and Dependence
 
-> Foundation chapter of Part III. Its formal content is worked out in
+> Foundation chapter of Part III. It presupposes [Chapter 12](12-derivatives-and-convexity.md)
+> and [Chapter 23](23-statistical-physics-and-time.md). Its formal content is worked out in
 > [Chapter 47](47-irreversible-time-vital-margin.md).
 
 ## By the end of this chapter you can
@@ -130,7 +131,9 @@ at the ruin barrier.
 ## Bridge
 
 Non-ergodicity, the Itô variance drain, and Kelly leverage sizing are formalised in
-[Chapter 47](47-irreversible-time-vital-margin.md) as `vital.rs::from_non_ergodic_returns` and
-`vital.rs::from_kelly_parameters`; the joint evaluation of Kingman heavy-traffic queuing, Holling resilience
-basin width, and the master survival inequality $\mathrm{TTS}_{\mathrm{survival}} \ge \mathrm{TTR}_{\mathrm{recovery}}$
-is executed by `vital.rs::from_queue_basin_and_survival`.
+[Chapter 47](47-irreversible-time-vital-margin.md) as
+`vital.rs::VitalMarginState::from_non_ergodic_returns` and
+`vital.rs::VitalMarginState::from_kelly_parameters`; the joint evaluation of Kingman heavy-traffic
+queuing, Holling resilience basin width, and the master survival inequality
+$\mathrm{TTS}_{\mathrm{survival}} \ge \mathrm{TTR}_{\mathrm{recovery}}$ is executed by
+`vital.rs::VitalMarginState::from_queue_basin_and_survival`.

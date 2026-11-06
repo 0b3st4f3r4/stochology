@@ -1,6 +1,8 @@
 # Distribution and Moment
 
-> Foundation chapter of Part III. Its formal content is worked out in
+> Foundation chapter of Part III. It presupposes
+> [Chapter 11](11-sequences-limits-continuity.md) and
+> [Chapter 12](12-derivatives-and-convexity.md). Its formal content is worked out in
 > [Chapter 46](46-non-identical-asymmetry-heavy-tails.md).
 
 ## By the end of this chapter you can
@@ -94,9 +96,10 @@ rather than gaming simple point accuracy metrics.
 ## 5. Convexity, Jensen's inequality, and the Jensen gap
 
 When a decision system converts a physical quantity $X$ into financial cost, casualty loss, or waiting delay, the
-transformation function $\phi(x)$ is rarely linear. In almost all real-world processes, damage accelerates: a
-doubling of flood height produces a quadrupling of structural damage; a ten percent surge in arrival rate near
-capacity produces a hundred percent increase in queue length.
+transformation function $\phi(x)$ is rarely linear. In almost all real-world processes, damage accelerates: under
+the quadratic damage curve used in flood risk, a doubling of flood height produces a quadrupling of structural
+damage, and under the Kingman hyperbola $\rho/(1-\rho)$ a ten percent surge in arrival rate near capacity roughly
+doubles the expected queue length `[Assumed]`.
 
 A function $\phi$ is strictly convex if any secant line between two points lies strictly above the curve.
 **Jensen's inequality** states that for any convex loss function $\phi$ and any non-degenerate random variable $X$:
@@ -129,6 +132,7 @@ When underdetermination is structural, the set is the only honest distribution.
 
 Tail estimation, extreme value properties, and the convexity gap are formalised in
 [Chapter 46](46-non-identical-asymmetry-heavy-tails.md) as
-`vital.rs::from_heavy_tails_and_asymmetry`, with the Hill tail index and its 95% confidence interval computed by
-`vital.rs::hill_alpha_with_ci95`. The scoring rule that evaluates full predictive distributions against realized
-outcomes without collapsing to point summaries is `vital.rs::crps_empirical`.
+`vital.rs::VitalMarginState::from_heavy_tails_and_asymmetry`, with the Hill tail index and its 95%
+confidence interval computed by `vital.rs::VitalMarginState::hill_alpha_with_ci95`. The scoring
+rule that evaluates full predictive distributions against realized outcomes without collapsing to
+point summaries is `vital.rs::crps_empirical`.

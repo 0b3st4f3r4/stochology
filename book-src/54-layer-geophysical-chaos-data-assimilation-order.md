@@ -117,8 +117,9 @@ Proposition 3 (`synthesis.rs::CollapseProposition`, `CollapseProposition::Propos
 - Real-estate developers and municipal authorities weaponize the model's cone of uncertainty as an agnotological excuse to build commercial developments inside unbuffered flood zones.
 - When an extreme cyclone breaches unreinforced levees, officials cite the unpredictability of chaos theory as an Act of God, evading political liability while frontline residents absorb catastrophic loss.
 
-Geophysical modeling maintains triadic integrity only when connected via the multilayer graph to legal liability (`L32`, `L34`) and polycentric
-commons protection (`L35`).
+Geophysical modeling maintains triadic integrity only when connected via the multilayer graph to its two ancestor layers, the only ones that can
+supply the governance sites this triple omits: `L01` (`T7Liability`) and `L03` (`T6Performative`). `L34` and `L35` are downstream of this layer and
+inherit its governance deficit rather than repair it.
 
 ## Reproduce
 

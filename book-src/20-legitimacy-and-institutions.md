@@ -108,3 +108,7 @@ operationalize contestability, algedonic alarms, and the three gates of governan
 `governance.rs::GovernanceState` implements verifiable audit ledgers and contestation gates, while
 `vital.rs::VitalMarginState::survives_disruption` checks whether vital reserves satisfy Jonas's survival imperative
 $\mathrm{TTS}_{\mathrm{survival}} \ge \mathrm{TTR}_{\mathrm{recovery}}$ before allowing irreversible actions.
+
+Part II then turns to the natural sciences, where
+[Mechanics, Determinism, and Chaos](21-mechanics-determinism-chaos.md) shows why determinism does not by
+itself deliver prediction.

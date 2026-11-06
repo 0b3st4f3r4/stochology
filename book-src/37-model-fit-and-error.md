@@ -1,6 +1,7 @@
 # Model, Fit, and Error
 
-> Foundation chapter of Part III. Its formal content is worked out in
+> Foundation chapter of Part III. It presupposes [Chapter 09](09-sets-relations-functions.md)
+> and [Chapter 14](14-linear-algebra.md). Its formal content is worked out in
 > [Chapter 46](46-non-identical-asymmetry-heavy-tails.md) and
 > [Chapter 48](48-reactive-worlds-performativity-goodhart.md).
 
@@ -136,8 +137,10 @@ regressional Goodhart mechanism of [Chapter 48](48-reactive-worlds-performativit
 ## Bridge
 
 Validation assumptions and the convexity slack of unobserved dispersion are formalised in
-[Chapter 46](46-non-identical-asymmetry-heavy-tails.md) as `vital.rs::from_heavy_tails_and_asymmetry`;
-post-hoc probability calibration via pool-adjacent-violators isotonic regression is executed by
-`kernel.rs::pav_isotonic_non_decreasing`; and structural model discrepancy alongside performative Goodhart audits
-is formalised in [Chapter 48](48-reactive-worlds-performativity-goodhart.md) as
-`governance.rs::from_ex_ante_gate`.
+[Chapter 46](46-non-identical-asymmetry-heavy-tails.md) as
+`vital.rs::VitalMarginState::from_heavy_tails_and_asymmetry`; post-hoc probability calibration via
+pool-adjacent-violators isotonic regression is executed by
+`kernel.rs::pav_isotonic_non_decreasing`; and structural model discrepancy alongside performative
+Goodhart audits is formalised in
+[Chapter 48](48-reactive-worlds-performativity-goodhart.md) as
+`governance.rs::GovernanceState::from_ex_ante_gate`.

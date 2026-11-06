@@ -10,7 +10,7 @@ Why did `NaiveOptimizer` fail so badly on `CommunityReserveEnv` in Chapter 42? B
 
 ## 3.1 Anytime-Valid Betting Martingales ($e$-Processes) and Lakatos's Shift Ratio
 
-Fixed-horizon $p$-values become invalid whenever an analyst peeks at accumulating data and stops early ("optional stopping"). Following Jean Ville (1939), Glenn Shafer (2021), and Aaditya Ramdas et al. (2023), a sequential **evidence process** (*e-process*, [`EpistemicMarginState::from_e_process`](crates/stochology/src/epistemic.rs#L799-L839)) is a non-negative test martingale $(E_t)_{t \ge 0}$ with $E_0 = 1$ and $\mathbb{E}_{H_0}[E_t \mid \mathcal{F}_{t-1}] \le E_{t-1}$:
+Fixed-horizon $p$-values become invalid whenever an analyst peeks at accumulating data and stops early ("optional stopping"). Following Jean Ville (1939), Glenn Shafer (2021), and Aaditya Ramdas et al. (2023), a sequential **evidence process** (*e-process*, [`EpistemicMarginState::from_e_process`](crates/stochology/src/epistemic.rs#L798-L838)) is a non-negative test martingale $(E_t)_{t \ge 0}$ with $E_0 = 1$ and $\mathbb{E}_{H_0}[E_t \mid \mathcal{F}_{t-1}] \le E_{t-1}$:
 
 $$E_t = \prod_{i=1}^t e_i$$
 
@@ -26,7 +26,7 @@ In [`epistemic.rs`](crates/stochology/src/epistemic.rs), [`anytime_valid_radius`
 
 Instead of inventing unverifiable missingness assumptions to force a point number, **Canonical Operator I** ([`EpistemicMarginState`](crates/stochology/src/epistemic.rs#L145-L198)) computes **sharp non-parametric bounds**:
 
-1. **Algebraic Derivation of Manski (1990, 2003) Two-Arm ATE Bounds Under Attrition ([`EpistemicMarginState::from_single_arm_bounds`](crates/stochology/src/epistemic.rs#L402-L460) and [`EpistemicMarginState::from_ate_bounds`](crates/stochology/src/epistemic.rs#L537-L599)):**
+1. **Algebraic Derivation of Manski (1990, 2003) Two-Arm ATE Bounds Under Attrition ([`EpistemicMarginState::from_single_arm_bounds`](crates/stochology/src/epistemic.rs#L402-L460) and [`EpistemicMarginState::from_ate_bounds`](crates/stochology/src/epistemic.rs#L536-L598)):**
    Let $Y(1), Y(0) \in [y_{\min}, y_{\max}]$ denote potential outcomes under treatment and control. In an imperfect trial or observational cohort, reporting is recorded by binary indicator $R_d \in \{0, 1\}$ for subjects assigned to arm $d \in \{0, 1\}$. By the Law of Total Expectation, the marginal mean for arm $d$ decomposes into observed and unobserved strata:
    $$\mathbb{E}[Y(d)] = \mathbb{E}[Y(d) \mid R_d = 1]\,\mathbb{P}(R_d = 1) + \mathbb{E}[Y(d) \mid R_d = 0]\,\mathbb{P}(R_d = 0)$$
    Because the unobserved counterfactual $\mathbb{E}[Y(d) \mid R_d = 0]$ is unknown, Charles Manski's sharp worst-case single-arm bounds insert the physical domain extrema $[y_{\min}, y_{\max}]$:
@@ -38,7 +38,7 @@ Instead of inventing unverifiable missingness assumptions to force a point numbe
    $$\Delta_{\mathrm{id}} = \Delta_U - \Delta_L = (y_{\max} - y_{\min})\bigl[(1 - p_{\mathrm{obs}, 1}) + (1 - p_{\mathrm{obs}, 0})\bigr]$$
    This width represents **structural underdetermination**: it does *not* shrink to zero as sample size $n \to \infty$. Collecting millions of records under the same non-random missingness design leaves $\Delta_{\mathrm{id}}$ completely intact. Sampling fluctuations around $[L_{\mathrm{M}}, U_{\mathrm{M}}]$ are captured by the Imbens–Manski (2004) parameter-coverage confidence interval `imbens_manski_bounds`.
 
-2. **David S. Lee's (2009) Sharp Trimming Bounds Under Differential Attrition ([`EpistemicMarginState::from_lee_attrition_bounds`](crates/stochology/src/epistemic.rs#L659-L712)):**
+2. **David S. Lee's (2009) Sharp Trimming Bounds Under Differential Attrition ([`EpistemicMarginState::from_lee_attrition_bounds`](crates/stochology/src/epistemic.rs#L658-L711)):**
    In randomized trials where retention rates differ ($p_{\mathrm{obs}, 1} \ne p_{\mathrm{obs}, 0}$), differential attrition reintroduces selection bias. Lee (2009) established that if treatment assignment affects attrition monotonically ($R_i(1) \ge R_i(0)$ for all $i$), the excess retained fraction in the higher-retention arm (assuming $p_{\mathrm{obs}, 1} > p_{\mathrm{obs}, 0}$):
    $$q = \frac{p_{\mathrm{obs}, 1} - p_{\mathrm{obs}, 0}}{p_{\mathrm{obs}, 1}}$$
    can be trimmed from the upper and lower tails of the observed treatment distribution $Y_{\mathrm{obs}, 1}$. Trimming the top $q$-quantile yields the lower bound $L_{\mathrm{Lee}}$, while trimming the bottom $q$-quantile yields $U_{\mathrm{Lee}}$. This yields sharp bounds for the average treatment effect on the "always-reporting" subpopulation without making parametric missing-at-random assumptions, strictly narrowing $[L_{\mathrm{Lee}}, U_{\mathrm{Lee}}] \subset [\Delta_L, \Delta_U]$.
@@ -50,7 +50,7 @@ Instead of inventing unverifiable missingness assumptions to force a point numbe
    $$S_{\mathrm{lower}} = 1 - \frac{d + c}{n}, \qquad S_{\mathrm{upper}} = 1 - \frac{d}{n}$$
    Any survival estimate claiming higher precision (such as naive Kaplan–Meier) rests on an unverifiable independence assumption.
 
-4. **The Mayo–Manski Severe Boundary Bridge ([`EpistemicMarginState::passes_severe_boundary`](crates/stochology/src/epistemic.rs#L615-L617)):**
+4. **The Mayo–Manski Severe Boundary Bridge ([`EpistemicMarginState::passes_severe_boundary`](crates/stochology/src/epistemic.rs#L614-L616)):**
    A substantive policy claim $\mu > \mu_0$ passes a severe error-statistical test under partial identification if and only if the **lower Imbens–Manski bound** $L_{\mathrm{IM}}$ strictly exceeds $\mu_0$, ensuring that neither sampling error nor structural underdetermination can account for the observed effect.
 
 ---
@@ -85,6 +85,6 @@ Running laboratory 3 (`cargo run --release --bin stochology -- --chapter 3`) tes
 
 ## Exercises
 
-1. **Identification vs. Estimation Uncertainty:** In [`EpistemicMarginState::from_ate_bounds`](crates/stochology/src/epistemic.rs#L537-L599), double both `treated_obs.len()` and `missing_treated` while keeping the sample moments constant. What happens to `identification_width`, and what happens to the Imbens–Manski sampling margin?
+1. **Identification vs. Estimation Uncertainty:** In [`EpistemicMarginState::from_ate_bounds`](crates/stochology/src/epistemic.rs#L536-L598), double both `treated_obs.len()` and `missing_treated` while keeping the sample moments constant. What happens to `identification_width`, and what happens to the Imbens–Manski sampling margin?
 2. **Peterson Competing Risks & Worst-Case Censoring:** Suppose a clinical trial of $n = 200$ patients records $d = 28$ deaths and $c = 22$ patients lost to follow-up (`EpistemicMarginState::from_censoring_bounds(28, 22, 150)` and `EpistemicMarginState::from_peterson_competing_risks_bounds(0.86, 0.89)`). Why are the naive independent-censoring ($0.843$) and independent competing-risk ($0.765$) survival estimates dangerously over-optimistic if patients leave the study precisely when their condition deteriorates?
 

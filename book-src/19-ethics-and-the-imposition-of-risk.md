@@ -112,3 +112,7 @@ to forecast.
 gates for liability assignment. In the Stochology library, `governance.rs::from_ex_ante_gate` formalizes the
 ex-ante evaluation gate, auditing whether decision models account for non-reciprocal risk imposition, performative
 distributional shift, and contractualist consent before action is executed.
+
+[Legitimacy, Accountability, and Institutions](20-legitimacy-and-institutions.md) moves the question
+from the single decision to the institution that authorizes it, where legitimacy is not correctness and
+contestability is the test that remains.

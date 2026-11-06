@@ -39,7 +39,7 @@ The same productions are read in the opposite direction by two generative regime
 
 ## B.3 Running the Verification Pipeline (`scripts/verify.sh`)
 
-The workspace verification script [`scripts/verify.sh`](scripts/verify.sh) executes the complete quality and empirical verification pipeline in eight stages:
+The workspace verification script [`scripts/verify.sh`](scripts/verify.sh) executes the complete quality and empirical verification pipeline in six numbered stages (plus the audit-report sub-stage `6b`):
 
 1. **`cargo fmt --all -- --check`:** Verifies standard Rust formatting across both crates.
 2. **`cargo clippy --all-targets -- -D warnings`:** Enforces zero Clippy warnings across the workspace and every test target.
@@ -130,6 +130,8 @@ The workspace verification script [`scripts/verify.sh`](scripts/verify.sh) execu
   Four Pre-Registered Falsifiers [Assumed design + Simulated paired MC100 evaluation] (Mayo SEV >= 0.95): F1(n_eff=24, d_crit=0.0661, d_obs=0.321, SEV=0.995, refuted=false) | F2(n_eff=19, d_crit=0.6698, d_obs=2.514, SEV=0.982, refuted=false) | F3(n_eff=20, d_crit=0.0897, d_obs=0.385, SEV=0.972, refuted=false) | F4(n_eff=17, d_crit=0.1104, d_obs=0.077, SEV=0.996, refuted=true)
 [STOCHOLOGY VERIFIED] All 9 progressive chapter laboratories and 3 Collapse Propositions passed.
 ```
+
+6. **Bidirectional provenance, structural, and parity checks (stage `6`):** Re-derives `sha256sum -c --quiet data/SHA256SUMS`; requires every line the CLI emits to appear in [`README.md`](README.md) and in this appendix, and, in the reverse direction, requires every line inside a `=== CHAPTER ` block here, in the README and in the nine framework chapters to be a line the CLI actually emits; refuses a non-canonical provenance tag, a framework chapter carrying fewer than ten canonical tags, a phantom `` `Type::member` ``, a stale `#L` declaration window, an absolute local path or URI in the prose, a KaTeX hygiene violation, and an SVG figure with hardcoded hex colours outside `<style>` or without a reference from `book-src/*.md`; re-checks `book-src/lab/index.html` against `--export-lab-json` (trajectory table, the 35 multilayer nodes, the three frozen inequalities, and the eight-distinct-values requirement per axis) and the frozen cross-domain audit report against `--audit-report` (stage `6b`); and requires every dataset named in `data/SHA256SUMS` to be loaded in `crates/stochology-cli/src/loaders.rs` `[Measured]`.
 
 > **Regime Interpretation of `F1`–`F4` (`[Assumed design + Simulated paired MC100 evaluation]`):** In the final line of Chapter 50, `F1` ($d_{\mathrm{obs}} = 0.321 > d_{\mathrm{crit}} = 0.0661, \mathrm{SEV} = 0.995$), `F2` ($d_{\mathrm{obs}} = 2.514 > d_{\mathrm{crit}} = 0.6698, \mathrm{SEV} = 0.982$), and `F3` ($d_{\mathrm{obs}} = 0.385 > d_{\mathrm{crit}} = 0.0897, \mathrm{SEV} = 0.972$) corroborate the necessity of each safeguard (`refuted=false`) without saturating at $\mathrm{SEV} = 1.000$. By contrast, `F4` ($d_{\mathrm{obs}} = 0.077 \le d_{\mathrm{crit}} = 0.1104, \mathrm{SEV} = 0.996, \text{refuted} = \text{true}$) genuinely refutes unconditional non-compensability across a mostly mild archival-defect cohort where `CompensatoryBufferAgent`'s doubled physical reserve buffer partially absorbs epistemic undersizing—showing that strict non-substitutability holds when an absorbing survival barrier or severe defect is active, whereas partial compensation is possible under moderate shocks with doubled physical slack.
 
@@ -236,3 +238,105 @@ Every audit domain that the treatise absorbs beyond the nine seeded laboratories
 | `AC-14` | Autonomous race car: model-based, in-simulation-tuned and demonstration-fitted control on the friction envelope | 51 | `engine.rs::FrictionEnvelopeControlAudit` | simulado |
 | `AC-15` | A national air-transport archive as a second institutional producer of the same tail statistics | 46 | `vital.rs::VitalMarginState` | medido |
 | `AC-16` | Human and social behaviour in complex networks: modularity, betweenness, eigenvector centrality, HITS | 53, 75 | `multilayer.rs::TopologyCentralityAudit` | simulado |
+
+## B.8 Complete Export Inventory of the Two Crates
+
+The nine laboratory chapters quote their canonical entry points; this section is the completeness reference for the rest of the surface. It lists every public type, public function, and public constant the two crates export, module by module, so that a reader can locate any canonical operator member without a grep. The library crate root re-exports all eight of its modules with `pub use`, so each item in B.8.1–B.8.9 is reachable as `stochology::Name`; the CLI crate root re-exports its three modules in the same way, and every remaining item stays reachable through its module path. Two modules are inventoried in full here — the syntax layer `grammar.rs` (B.8.4) and the multilayer graph `multilayer.rs` (B.8.7) — because B.5 and B.4 quote only their canonical judgement, enumeration and stratum accessors. The inventory is descriptive `[Assumed]`: it asserts export status, never a numeric claim, and it leaves every measurement to the sealed datasets of B.8.15.
+
+**Counting rule (the contract the drift guard pins).** A row is one declared public item of one module, counted in five categories: a `pub struct`, `pub enum` or `pub trait`; a `pub fn`, including a `pub const fn` and a trait method implemented inside an `impl … for …` block; a `pub const NAME:` item; a `pub static NAME:` item; and a `pub type` alias. Four kinds of name are not rows. A `pub use` re-export and a `pub mod` declaration add no declaration of their own, enum variants belong to their `enum` row, and everything after the first `#[cfg(test)]` in a module is test scaffolding rather than exported surface. A name declared more than once inside one module — the same method implemented on several types — counts once, so `evaluate`, `new` or `canonical_score` appears in a module's function list exactly once even where several implementations declare it. Under that rule the fourteen module sections account for **380** public items: **377** declarations across the first four categories plus the **3** type aliases recorded under B.8.3, B.8.4 and B.8.5. Each `### B.8.N` heading reports that module's count with its aliases included, so a reader who wants the declaration-only figure subtracts those three.
+
+### B.8.1 `engine.rs` — 31 public items
+
+Types: `AgentDecision`, `AgentPolicy`, `ArchiveObservation`, `CommunityReserveEnv`, `CompensatoryBufferAgent`, `ControlLapResult`, `ControlRegime`, `FixedBudgetFactorialAudit`, `FrictionEnvelopeControlAudit`, `MultiSeedSummary`, `NaiveOptimizer`, `StepOutcome`, `StochologicalAgent`, `TrajectoryReport`
+
+Functions: `epistemic_only`, `evaluate`, `evaluate_mechanism_vs_budget_factorial`, `evaluate_multi_seed`, `export_lab_json`, `full`, `new`, `run_benign_small_world_control`, `run_trajectory`, `run_trajectory_with_full_params`, `run_trajectory_with_thresholds`, `verify_structural_perturbation_grid`, `verify_threshold_sensitivity`, `verify_wide_band_structural_sensitivity`, `with_axes`, `without_epistemic_margin`, `without_governance`
+
+### B.8.2 `epistemic.rs` — 30 public items
+
+Types: `BitemporalRecord`, `CognitiveFramingRegime`, `EpistemicMarginState`
+
+Functions: `anytime_valid_radius`, `bitemporal_view_at`, `canonical_score`, `e_bh_discoveries`, `for_shift_observation`, `framing_gap`, `from_archive_clusters`, `from_ate_bounds`, `from_capture_recapture`, `from_censoring_bounds`, `from_e_process`, `from_inquiry_framing`, `from_kish_strata`, `from_lee_attrition_bounds`, `from_meng_big_data`, `from_multiverse`, `from_peterson_competing_risks_bounds`, `from_single_arm_bounds`, `from_vintages`, `imbens_manski_critical_value`, `is_causally_valid`, `keynes_weight_from_n_eff`, `lakatos_shift_ratio`, `passes_severe_boundary`, `pauker_kassirer_threshold`, `unified_effective_n`
+
+Constants: `CANONICAL_KEYNES_N0`
+
+### B.8.3 `governance.rs` — 57 public items
+
+Types: `AlgedonicChannel`, `AuditLog`, `AuditLogEntry`, `BatesonDoubleBindAudit`, `CausalEnvironment`, `CognitiveAlertFilter`, `ContractAndLiabilityAudit`, `CrpsDecomposition`, `EmpiricalChouldechovaAudit`, `GoodhartVariant`, `GovernanceState`, `IcpIdentificationStatus`, `KairosSynchronousPanel`, `LatentModelExploitationAudit`, `LatentWorldModelConfig`, `MacKenzieRegime`, `TelicGrade`, `TemporalVault`, `ZhengMeisterQueueAudit`
+
+Functions: `append_with_key`, `canonical`, `canonical_score`, `classify`, `classify_icp_from_intersection`, `classify_icp_power`, `corp_pav_crps_decomposition`, `evaluate`, `evaluate_chouldechova_classifier_fpr`, `evaluate_corp_pav`, `evaluate_corp_pav_optimism_cv`, `evaluate_corp_pav_regularized`, `evaluate_icp_subset_intersection`, `evaluate_list_pettit_votes`, `evaluate_performative_system`, `evaluate_shift_governance`, `evaluate_three_canonical_regimes`, `evaluate_tian_pearl_bounds`, `from_all_three_gates`, `from_deficit_series`, `from_ex_ante_gate`, `from_real_time_and_ex_post_gates`, `icp_f_critical_value`, `new`, `seal`, `seal_at_shift_with_key`, `seal_with_key`, `try_evaluate_corp_pav`, `try_evaluate_icp_subset_intersection`, `unseal`, `unseal_with_key`, `verify_chain`, `verify_two_shift_lifecycle`
+
+Constants: `DEFAULT_VAULT_HMAC_KEY`, `HUMAN_BITS_PER_SEC`, `MAX_KAIROS_BITS`, `SWEEP_LEN`
+
+Aliases: `SosaJudgmentGrade` (governance.rs:53) — an alias of `TelicGrade`, the moral-luck name under which the third gate's telic grade is exported.
+
+### B.8.4 `grammar.rs` — 49 public items
+
+Types: `AgentAction`, `AgentActionKind`, `CircuitTransit`, `Coverage`, `EbnfGrammar`, `EbnfRule`, `GrammarBudget`, `GrammarVerdict`, `GuardReading`, `GuardSite`, `Plane`, `ReadReading`, `Sentence`, `Shot`, `TriadAxis`, `UnparsableReason`
+
+Functions: `assess_report`, `attested`, `axis`, `canonical`, `code`, `coverage`, `depth`, `enumerate`, `enumerate_with_coverage`, `index`, `is_bijection_over_circuit_transits`, `judge`, `lex_tokens`, `new`, `parse_ebnf_grammar`, `parse_sentence`, `payload`, `payload_of`, `payload_of_full`, `plane`, `shortest_violation`, `shortest_violation_with_coverage`, `to_ebnf_surface`, `transit`, `verify_seal`, `with_agent_audit`
+
+Constants: `ALL`, `BOUNDARY_BAND`, `CANONICAL_CIRCUIT`, `HARM_MAX_ASSUMED`, `MAX_DEPTH`, `MAX_ENUMERATION`
+
+Aliases: `ResourceId` (grammar.rs:326) — a type alias for String, the identifier a parsed action carries as its referent.
+
+### B.8.5 `kernel.rs` — 57 public items
+
+Types: `AutomatonRegime`, `CellularAutomatonAudit`, `ElementaryRule`, `OnlineMoments`, `SplitMix64`
+
+Functions: `bernoulli`, `beta`, `code`, `cromwell_clamp`, `excess_kurtosis`, `exponential`, `from_slice`, `gamma`, `hmac_sha256_hex`, `inverse_standard_normal_cdf`, `is_valid_sha256_hex`, `kolmogorov_smirnov_distance`, `log_standard_gamma`, `mean`, `median`, `median_absolute_deviation`, `new`, `next_f64`, `next_u64`, `normal`, `obeys_cromwell_rule`, `ols_ridge_fit`, `pareto`, `parse_quarter`, `pav_isotonic_non_decreasing`, `poisson`, `push`, `quantile`, `quantile_sorted`, `run`, `sample_std`, `sample_variance`, `sha256_bytes`, `sha256_hex`, `shuffle`, `skewness`, `solve_cholesky_spd`, `spearman_rank_correlation`, `split`, `split_fork_join_pair`, `standard_normal`, `standard_normal_cdf`, `student_t`, `table`, `uniform`, `with_default_seed`
+
+Constants: `ALL`, `CELLS`, `DEFAULT_SEED`, `MAX_PERIOD`, `STEPS`
+
+Aliases: `Rng` (kernel.rs:26) — an alias of `SplitMix64`, the deterministic stream type behind every seeded simulation.
+
+### B.8.6 `lib.rs` — the crate root as a re-export hub
+
+Public modules: `engine`, `epistemic`, `governance`, `grammar`, `kernel`, `multilayer`, `synthesis`, `vital`, each re-exported wholesale by `pub use`, so the eight module inventories above are the crate's entire public surface.
+
+### B.8.7 `multilayer.rs` — 44 public items
+
+Types: `Graph1Node`, `Graph2Node`, `KnowledgeOrder`, `KnowledgeStratum`, `LayerTriadReading`, `MultilayerGraph1`, `MultilayerGraph2`, `MultilayerHomomorphism`, `SocialNetworkSpec`, `TopologyCentralityAudit`, `TriadicExposureRegime`
+
+Functions: `ancestors_of`, `canonical`, `canonical_guard_site`, `canonical_isomorphism`, `chapter_file`, `chapter_number`, `code`, `covers_all_seven_guard_sites`, `edge_count`, `evaluate`, `every_ancestor_cone_spans_all_three_axes`, `every_stratum_covers_all_seven_sites`, `expected_count`, `exposure_regime`, `from_canonical_guard_site`, `guard_sites`, `has_distinct_primary_guard_sites`, `index`, `is_balanced_five_orders_per_primary_site`, `is_bijection_over_35_guard_combinations`, `is_strict_dag`, `layer_index`, `local_integrity`, `orders`, `parent_layers`, `primary_guard_site`, `primary_triad_axis`, `stratum`, `title`, `triadic_occupancy`, `uncoupled_collapse`, `uncoupled_vulnerability`
+
+Constants: `ALL`
+
+### B.8.8 `synthesis.rs` — 27 public items
+
+Types: `CollapseProposition`, `DiagnosticClue`, `FalsifierVerdict`, `LeontiefVsMultiplicativeAudit`, `NotTestable`, `PreregisteredFalsifier`, `ProcessTracingInference`, `ProcessTracingTestKind`, `ReflexiveBrakeAudit`, `RefutabilityPreconditions`, `StructuralCollapseProofAudit`, `TriadicIntegrity`
+
+Functions: `active_likelihood_ratio`, `all_benchmark_conditions_met`, `all_brakes_active`, `all_three_propositions_proven`, `canonical_four`, `ces_aggregate`, `classify`, `design`, `evaluate`, `evaluate_analytical`, `evaluate_observations`, `evaluate_quantile_calibrated`, `evaluate_with_declaration`, `from_canonical_states`, `is_satisfied_for`
+
+### B.8.9 `vital.rs` — 32 public items
+
+Types: `DriftMonitorConfig`, `HollingTailRuptureAudit`, `KellySizingRegime`, `ModelDriftFallbackAudit`, `SniedovichInfoGapAudit`, `TailMomentRegime`, `VitalMarginState`, `WaldSurvivorshipAudit`
+
+Functions: `canonical`, `canonical_score`, `crps_empirical`, `derive_ttr_from_rho1`, `empirical_cvar95_and_wdro_scale_sq`, `evaluate`, `evaluate_empirical_truncation_bias`, `for_shift_sizing`, `from_heavy_tails_and_asymmetry`, `from_kelly_parameters`, `from_non_ergodic_returns`, `from_queue_basin_and_derived_ttr`, `from_queue_basin_and_survival`, `from_queue_basin_and_survival_with_variability`, `from_regime_aware_kelly`, `hill_alpha_on_sorted_pos`, `hill_alpha_with_ci95`, `hill_stability_across_k`, `mann_whitney_dominance`, `sniedovich_2012_benchmark`, `solve_canguilhem_holling_basin`, `solve_latent_two_cohort`, `survives_disruption`, `wald_1943_bomber_benchmark`
+
+### B.8.10 `chapters.rs` — 14 public items (CLI crate)
+
+Functions: `audit_report`, `export_lab_trajectories_json`, `run_all_or_chapter`, `run_all_or_chapter_with_brake`, `run_chapter_1`, `run_chapter_2`, `run_chapter_3`, `run_chapter_4`, `run_chapter_5`, `run_chapter_6`, `run_chapter_7`, `run_chapter_8`, `run_chapter_8_with_brake`, `run_chapter_9`
+
+### B.8.11 `csv.rs` — 13 public items (CLI crate)
+
+Types: `CsvRow`, `CsvTable`
+
+Functions: `f64_at`, `from_string`, `header`, `is_empty`, `len`, `open`, `parse`, `rows`, `str_at`, `u32_at`, `validate_schema`
+
+### B.8.12 `lib.rs` — the CLI crate root as a re-export hub
+
+Public modules: `chapters`, `csv`, `loaders`; the root re-exports the fourteen chapter entry points, the two CSV types, and the loader and manifest-verifier functions listed in B.8.10, B.8.11 and B.8.13. The `try_load_toronto_arrests_*` variants stay reachable through `loaders::` rather than the root, because they expose a caller-supplied table path that the CLI never uses.
+
+### B.8.13 `loaders.rs` — 26 public items (CLI crate)
+
+Functions: `count_atlantic_storms_transitions`, `count_flight_csv_rows_and_missing`, `load_atlantic_storms_environments`, `load_atlantic_storms_forecasts`, `load_bank_call_clusters`, `load_cps_cohort_clusters`, `load_danish_fire`, `load_djia_returns`, `load_lalonde_nsw_cps`, `load_nyc_flight_delays`, `load_oot_ood_flight_delays`, `load_rtdsm_routput_vintages`, `load_toronto_arrests_full_summary`, `load_toronto_arrests_matched_and_classifier`, `load_toronto_arrests_prevalences`, `load_vic_elec_demand`, `resolve_workspace_root`, `try_load_toronto_arrests_full_summary`, `try_load_toronto_arrests_full_summary_from_table`, `try_load_toronto_arrests_matched_and_classifier`, `try_load_toronto_arrests_matched_and_classifier_from_table`, `verify_external_csv_bytes_and_schema`, `verify_external_upstream_schema_contract`, `verify_live_upstream_url_if_enabled`, `verify_sha256sums_manifest`
+
+Constants: `UPSTREAM_DATASET_CONTRACTS`
+
+### B.8.14 `main.rs` — the single binary
+
+The `stochology` binary exposes no library surface of its own: it parses `--chapter N`, `--export-lab-json` and `--audit-report`, then dispatches to the entry points of B.8.10.
+
+### B.8.15 Datasets — the fourteen sealed archives
+
+Every `[Measured]` claim in this book is computed from exactly these fourteen files, and no other CSV is read: `atlantic_storms.csv`, `bank_calls.csv`, `cps_observational.csv`, `danish_fire.csv`, `djia_1885_2023.csv`, `houston_flights_2011.csv`, `nsw_experimental.csv`, `nyc_flights_2013.csv`, `nyc_flights_2013_h1.csv`, `nyc_flights_2023.csv`, `nyc_flights_2023_h1.csv`, `rtdsm_routput_vintages.csv`, `toronto_arrests.csv` and `vic_elec.csv`. Provenance, domain semantics, row counts, and the laboratory that consumes each archive are given in [Appendix C, Table C.1](appendix-c-sources.md), and `scripts/verify.sh` re-derives the SHA-256 digest of all fourteen against [`data/SHA256SUMS`](data/SHA256SUMS) on every run `[Measured]`.
