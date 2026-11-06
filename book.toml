@@ -1,0 +1,59 @@
+[book]
+title = "Stochology"
+authors = ["Silvano Neto"]
+language = "en"
+src = "book-src"
+
+[build]
+build-dir = "book"
+create-missing = false
+
+[output.html]
+no-section-label = true
+hash-files = false
+cname = "stochology.org"
+site-url = "https://stochology.org/"
+git-repository-url = "https://github.com/0b3st4f3r4/stochology"
+edit-url-template = "https://github.com/0b3st4f3r4/stochology/edit/main/{path}"
+default-theme = "light"
+preferred-dark-theme = "navy"
+additional-css = ["theme/book.css"]
+additional-js = ["mathjax.js"]
+
+[output.html.search]
+limit-results = 30
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 2
+
+[output.html.fold]
+enable = true
+level = 2
+
+# Redirects from earlier editions (10-chapter and renumbered editions) to the current 86-chapter textbook.
+[output.html.redirect]
+"/01-layers-six-pairs.html" = "42-sequential-loop-naive-agent.html"
+"/02-uncertainty-typology.html" = "43-inquiry-openness-multiverse.html"
+"/03-random-variables-convexity.html" = "46-non-identical-asymmetry-heavy-tails.html"
+"/06-sampling-estimation-linear-algebra.html" = "45-world-to-archive-big-data-paradox.html"
+"/08-severe-testing-martingales-conformal.html" = "44-underdetermination-partial-identification.html"
+"/10-world-models-missingness-bounds.html" = "45-world-to-archive-big-data-paradox.html"
+"/11-world-models-discrepancy-authentic-form.html" = "48-reactive-worlds-performativity-goodhart.html"
+"/15-decision-models-curvature-scoring.html" = "46-non-identical-asymmetry-heavy-tails.html"
+"/16-decision-models-thresholds-evidence.html" = "43-inquiry-openness-multiverse.html"
+"/18-critical-stochastic-rationality.html" = "49-moral-luck-apt-agency-institutions.html"
+"/19-world-decisions-performativity.html" = "48-reactive-worlds-performativity-goodhart.html"
+"/20-decision-worlds-regime.html" = "47-irreversible-time-vital-margin.html"
+"/21-decision-worlds-governance.html" = "49-moral-luck-apt-agency-institutions.html"
+"/27-empirical-synthesis.html" = "50-methodological-families-reflexivity.html"
+"/04-non-identical-asymmetry-heavy-tails.html" = "46-non-identical-asymmetry-heavy-tails.html"
+"/05-world-to-archive-big-data-paradox.html" = "45-world-to-archive-big-data-paradox.html"
+"/06-reactive-worlds-performativity-goodhart.html" = "48-reactive-worlds-performativity-goodhart.html"
+"/07-irreversible-time-vital-margin.html" = "47-irreversible-time-vital-margin.html"
+"/appendix-a-architecture.html" = "appendix-b-architecture-verification.html"
+"/appendix-b-verification.html" = "appendix-b-architecture-verification.html"
+# Renumbered-edition stubs: these filenames were live before Part I–III was renumbered.
+"/01-sequential-loop-naive-agent.html" = "42-sequential-loop-naive-agent.html"
+"/04-world-to-archive-big-data-paradox.html" = "45-world-to-archive-big-data-paradox.html"
+"/05-non-identical-asymmetry-heavy-tails.html" = "46-non-identical-asymmetry-heavy-tails.html"
+"/06-irreversible-time-vital-margin.html" = "47-irreversible-time-vital-margin.html"

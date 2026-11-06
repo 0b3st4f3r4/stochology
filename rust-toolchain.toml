@@ -1,0 +1,5 @@
+[toolchain]
+# Offline-reproducible stable toolchain (verified at rustc 1.97.1-x86_64-unknown-linux-gnu)
+channel = "stable"
+components = ["rustfmt", "clippy", "llvm-tools-preview"]
+profile = "minimal"

@@ -1,0 +1,138 @@
+name: Deploy Site to GitHub Pages (stochology.org)
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    paths:
+      - "book-src/**"
+      - "book.toml"
+      - "mathjax.js"
+      - "theme/**"
+      - "crates/**"
+      - "data/**"
+      - "scripts/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "rust-toolchain.toml"
+      - ".pre-commit-config.yaml"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Verify Workspace & Build mdBook
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Toolchain pinned in rust-toolchain.toml
+        run: rustup show
+
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@cargo-llvm-cov
+
+      - name: Install and run pre-commit verification (.pre-commit-config.yaml)
+        run: |
+          pipx install pre-commit || pip install --user pre-commit
+          pre-commit run --all-files
+
+      - name: Setup mdBook
+        uses: peaceiris/actions-mdbook@v2
+        with:
+          mdbook-version: '0.5.3'
+
+      - name: Build the book and stage verifiable source artifacts
+        run: |
+          mdbook build
+          cp -r crates book/crates
+          mkdir -p book/data book/scripts
+          cp data/SHA256SUMS book/data/SHA256SUMS
+          cp data/SOURCES.md book/data/SOURCES.md
+          cp scripts/verify.sh book/scripts/verify.sh
+          cp rust-toolchain.toml book/rust-toolchain.toml
+
+      - name: Verify staged artifact
+        run: |
+          test -s book/index.html
+          test -s book/toc.html
+          test -s book/mathjax.js
+          test -s book/theme/book.css
+          test -s book/00-preface.html
+          test -s book/01-deciding-without-knowing.html
+          test -s book/09-sets-relations-functions.html
+          test -s book/16-what-knowledge-is.html
+          test -s book/22-thermodynamics-and-entropy.html
+          test -s book/31-distribution-and-moment.html
+          test -s book/53-layer-macro-coupled-network-contagion-order.html
+          test -s book/85-layer-polycentric-commons-urban-biospheric-order.html
+          test -s book/42-sequential-loop-naive-agent.html
+          test -s book/43-inquiry-openness-multiverse.html
+          test -s book/44-underdetermination-partial-identification.html
+          test -s book/45-world-to-archive-big-data-paradox.html
+          test -s book/46-non-identical-asymmetry-heavy-tails.html
+          test -s book/47-irreversible-time-vital-margin.html
+          test -s book/48-reactive-worlds-performativity-goodhart.html
+          test -s book/49-moral-luck-apt-agency-institutions.html
+          test -s book/50-methodological-families-reflexivity.html
+          test -s book/appendix-a-mathematics.html
+          test -s book/appendix-b-architecture-verification.html
+          test -s book/appendix-c-sources.html
+          test -s book/lab/index.html
+          test -s book/crates/stochology/src/lib.rs
+          test -s book/crates/stochology/src/kernel.rs
+          test -s book/crates/stochology/src/engine.rs
+          test -s book/crates/stochology/src/epistemic.rs
+          test -s book/crates/stochology/src/vital.rs
+          test -s book/crates/stochology/src/governance.rs
+          test -s book/crates/stochology/src/synthesis.rs
+          test -s book/crates/stochology/src/grammar.rs
+          test -s book/crates/stochology/src/multilayer.rs
+          test -s book/crates/stochology-cli/src/chapters.rs
+          test -s book/crates/stochology-cli/src/lib.rs
+          test -s book/data/SHA256SUMS
+          test -s book/data/SOURCES.md
+          test -s book/scripts/verify.sh
+          test -s book/rust-toolchain.toml
+          # Iterate over real chapter sources, not the rendered glob: book.toml
+          # [output.html.redirect] emits small <main>-less redirect stubs for
+          # retired chapter filenames that also match book/[0-9][0-9]-*.html.
+          for src in book-src/[0-9][0-9]-*.md book-src/appendix-[a-c]-*.md; do
+            h="book/$(basename "${src%.md}").html"
+            test -s "$h"
+            grep -q "<main>" "$h"
+            test "$(wc -c < "$h")" -gt 1024
+          done
+          grep -qx "stochology.org" book/CNAME
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages artifact (book/)
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./book
+
+  deploy:
+    name: Publish to stochology.org
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

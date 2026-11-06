@@ -1,0 +1,16 @@
+[package]
+name = "stochology"
+description = "Stochology: The Theory and Ethics of Aim under Uncertainty — integrative framework for the sequential Agent-World-Institution loop, epistemic margin, vital margin, institutional governance, formal grammar of aim, and 35-layer multilayer knowledge graph in pure Rust"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[lints]
+workspace = true
+

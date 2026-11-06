@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="290" viewBox="0 0 1080 290" fill="none" role="img" aria-labelledby="title-fig-12-crates">
+  <title id="title-fig-12-crates">Pure-Rust Two-Crate Workspace (Zero External Dependencies)</title>
+  <defs>
+    <marker id="crate-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--muted)"/>
+    </marker>
+  <style>
+    svg:root {
+      color-scheme: light dark;
+      --font-sans: "Inter", "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono-font: "JetBrains Mono", "Source Code Pro", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+      --canvas: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --surface: #ffffff;
+      --elevated: #f1f5f9;
+      --border: #cbd5e1;
+      --sky: #1d4ed8;
+      --sky-bg: #dbeafe;
+      --violet: #e11d48;
+      --violet-bg: #ffe4e6;
+      --emerald: #047857;
+      --emerald-bg: #d1fae5;
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+      --rose: #be123c;
+      --rose-bg: #ffe4e6;
+    }
+    @media (prefers-color-scheme: dark) {
+      svg:root {
+        --canvas: #0f1626;
+        --ink: #e2e8f0;
+        --muted: #94a3b8;
+        --surface: #0f1626;
+        --elevated: #162036;
+        --border: #1e2d4a;
+        --sky: #38bdf8;
+        --sky-bg: #0c2644;
+        --violet: #fb7185;
+        --violet-bg: #3b101d;
+        --emerald: #34d399;
+        --emerald-bg: #092e26;
+        --amber: #fbbf24;
+        --amber-bg: #362407;
+        --rose: #fb7185;
+        --rose-bg: #3b101d;
+      }
+    }
+    @supports (color: light-dark(white, black)) {
+      svg:root {
+        --canvas: light-dark(#ffffff, #0f1626);
+        --ink: light-dark(#0f172a, #e2e8f0);
+        --muted: light-dark(#475569, #94a3b8);
+        --surface: light-dark(#ffffff, #0f1626);
+        --elevated: light-dark(#f1f5f9, #162036);
+        --border: light-dark(#cbd5e1, #1e2d4a);
+        --sky: light-dark(#1d4ed8, #38bdf8);
+        --sky-bg: light-dark(#dbeafe, #0c2644);
+        --violet: light-dark(#e11d48, #fb7185);
+        --violet-bg: light-dark(#ffe4e6, #3b101d);
+        --emerald: light-dark(#047857, #34d399);
+        --emerald-bg: light-dark(#d1fae5, #092e26);
+        --amber: light-dark(#b45309, #fbbf24);
+        --amber-bg: light-dark(#fef3c7, #362407);
+        --rose: light-dark(#be123c, #fb7185);
+        --rose-bg: light-dark(#ffe4e6, #3b101d);
+      }
+    }
+    text { font-family: var(--font-sans, "Inter", "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif); }
+    .mono { font-family: var(--mono-font, "JetBrains Mono", "Source Code Pro", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace); }
+  </style>
+  </defs>
+
+  <!-- Canvas Backdrop -->
+  <rect x="1" y="1" width="1078" height="288" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
+  <text x="540" y="34" text-anchor="middle" fill="var(--ink)" class="mono" font-size="13" font-weight="800" letter-spacing="0.05em">PURE-RUST TWO-CRATE WORKSPACE (std ONLY · ZERO EXTERNAL DEPENDENCIES)</text>
+
+  <!-- Library Crate: crates/stochology -->
+  <rect x="28" y="56" width="584" height="206" rx="12" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2.2"/>
+  <text x="320" y="86" text-anchor="middle" fill="var(--sky)" class="mono" font-size="12.5" font-weight="800" letter-spacing="0.04em">crates/stochology (Core Library Crate)</text>
+  <text x="320" y="116" text-anchor="middle" fill="var(--ink)" font-size="12.5" font-weight="700">• kernel — SplitMix64, SHA-256, RFC 2104 HMAC, Cholesky, PAV</text>
+  <text x="320" y="142" text-anchor="middle" fill="var(--muted)" font-size="12">• engine — CommunityReserveEnv, NaiveOptimizer, StochologicalAgent</text>
+  <text x="320" y="168" text-anchor="middle" fill="var(--muted)" font-size="12">• epistemic (S_epi), vital (S_vital), governance (S_gov, TemporalVault, AuditLog)</text>
+  <text x="320" y="194" text-anchor="middle" fill="var(--muted)" font-size="12">• synthesis — Nuclear Triad (M_Leontief), Process Tracing, Brakes &amp; Falsifiers</text>
+  <text x="320" y="220" text-anchor="middle" fill="var(--sky)" class="mono" font-size="11.5" font-weight="700">• grammar — 7 Guard Sites, 4 Verdicts, 11 EBNF Productions &amp; Coverage</text>
+
+  <!-- Binary Crate: crates/stochology-cli -->
+  <rect x="684" y="56" width="368" height="206" rx="12" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2.2"/>
+  <text x="868" y="86" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="12.5" font-weight="800" letter-spacing="0.04em">crates/stochology-cli (Binary)</text>
+  <text x="868" y="116" text-anchor="middle" fill="var(--ink)" font-size="12.5" font-weight="700">• csv &amp; loaders (14 sealed CSV datasets)</text>
+  <text x="868" y="144" text-anchor="middle" fill="var(--muted)" font-size="12">• data/SHA256SUMS manifest verification</text>
+  <text x="868" y="172" text-anchor="middle" fill="var(--muted)" font-size="12">• Chapters 1–9 progressive laboratories</text>
+  <rect x="724" y="194" width="288" height="44" rx="8" fill="var(--emerald-bg)" stroke="var(--emerald)" stroke-width="1.6"/>
+  <text x="868" y="221" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="12" font-weight="800">Binary: stochology (--chapter, --brake)</text>
+
+  <!-- Dependency Arrow: stochology-cli -> stochology -->
+  <line x1="684" y1="159" x2="618" y2="159" stroke="var(--muted)" stroke-width="2.6" marker-end="url(#crate-arrow)"/>
+</svg>

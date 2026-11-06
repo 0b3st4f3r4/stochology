@@ -1,0 +1,24 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/stochology",
+    "crates/stochology-cli",
+]
+
+[workspace.package]
+version = "1.0.0"
+edition = "2024"
+rust-version = "1.88"
+authors = ["Silvano Neto <dev@silvanoneto.com>"]
+license = "MIT"
+repository = "https://github.com/0b3st4f3r4/stochology"
+homepage = "https://stochology.org"
+keywords = ["stochastic", "calibration", "causality", "uncertainty", "decision"]
+categories = ["science", "mathematics", "simulation", "algorithms"]
+description = "Stochology: The Theory and Ethics of Aim for Judgment and Decision-Making under Uncertainty"
+
+[workspace.dependencies]
+stochology = { version = "1.0.0", path = "crates/stochology" }
+
+[workspace.lints.rustdoc]
+broken_intra_doc_links = "allow"

@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="text-scale" content="scale" />
+  <title>Stochology Interactive Laboratory — CommunityReserveEnv</title>
+  <link rel="icon" href="../favicon.svg" />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #2563eb;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --warning: #d97706;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --card: #1e293b;
+        --border: #334155;
+        --text: #f8fafc;
+        --muted: #94a3b8;
+        --primary: #60a5fa;
+        --success: #4ade80;
+        --danger: #f87171;
+        --warning: #fbbf24;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .container { max-width: 1120px; margin: 0 auto; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    h1 { font-size: 1.5rem; margin: 0; }
+    .subtitle { color: var(--muted); font-size: 0.95rem; margin: 4px 0 0; }
+    .back-link {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .controls-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+    .presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    button {
+      cursor: pointer;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.15s ease;
+    }
+    button:hover { border-color: var(--primary); }
+    button.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .triad-toggles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .toggle-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+    }
+    .toggle-box input { margin-top: 4px; transform: scale(1.2); }
+    .toggle-title { font-weight: 700; font-size: 0.92rem; display: block; }
+    .toggle-desc { font-size: 0.8rem; color: var(--muted); }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .metric-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .metric-label { font-size: 0.78rem; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    .metric-label mjx-container { text-transform: none; }
+    .metric-val { font-size: 1.35rem; font-weight: 800; margin-top: 4px; }
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .chart-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .chart-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 10px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+    th, td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      text-align: right;
+    }
+    th:first-child, td:first-child, th:last-child, td:last-child { text-align: left; }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .badge-ok { background: rgba(22, 163, 74, 0.15); color: var(--success); }
+    .badge-warn { background: rgba(217, 119, 6, 0.15); color: var(--warning); }
+    .badge-err { background: rgba(220, 38, 38, 0.15); color: var(--danger); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Stochology Interactive Laboratory — <code>CommunityReserveEnv</code></h1>
+        <p class="subtitle">Step-by-step simulation of the Sequential Agent–World–Institution Loop and the Nuclear Triad (<code>crates/stochology/src/engine.rs</code>)</p>
+      </div>
+      <a class="back-link" href="../index.html">&larr; Back to Textbook</a>
+    </header>
+
+    <main>
+    <section class="controls-card">
+      <div class="presets">
+        <button id="btn-full" class="active" aria-pressed="true" onclick="setPreset(true, true, true, 'btn-full')">Full Stochological Agent (Intact Triad)</button>
+        <button id="btn-naive" aria-pressed="false" onclick="setPreset(false, false, false, 'btn-naive')">Naive Point Optimizer (All 3 Missing)</button>
+        <button id="btn-p1" aria-pressed="false" onclick="setPreset(false, true, true, 'btn-p1')">Prop. 1 Degradation (&not;Epistemic Margin: Blind Undersizing &amp; Reserve Erosion)</button>
+        <button id="btn-p2" aria-pressed="false" onclick="setPreset(true, false, true, 'btn-p2')">Collapse Prop. 2 (&not;Vital Margin: Impotent Lucidity)</button>
+        <button id="btn-p3" aria-pressed="false" onclick="setPreset(true, true, false, 'btn-p3')">Collapse Prop. 3 (&not;Governance: Cynical Capture)</button>
+      </div>
+
+      <div class="triad-toggles">
+        <label class="toggle-box">
+          <input type="checkbox" id="chk-epi" checked onchange="onManualToggle()" />
+          <div>
+            <span class="toggle-title">1. Epistemic Margin (Ch. 2, 3, 4)</span>
+            <span class="toggle-desc">Manski partial-identification bounds $[L_t, U_t]$, Moulton cluster $\mathrm{DEFF}$, and Meng selection-defect correction ($n_{\mathrm{eff}}$).</span>
+          </div>
+        </label>
+        <label class="toggle-box">
+          <input type="checkbox" id="chk-vital" checked onchange="onManualToggle()" />
+          <div>
+            <span class="toggle-title">2. Vital Margin (Ch. 5, 6)</span>
+            <span class="toggle-desc">Jensen convexity correction, Kingman heavy-traffic slack ($\rho \le 0.76$), $\mathrm{TTS}_{\mathrm{survival}} \ge \mathrm{TTR}_{\mathrm{recovery}}$ reserve buffer, and Baker–McHale epistemic Kelly shrinkage.</span>
+          </div>
+        </label>
+        <label class="toggle-box">
+          <input type="checkbox" id="chk-gov" checked onchange="onManualToggle()" />
+          <div>
+            <span class="toggle-title">3. Institutional Governance (Ch. 7, 8, 9)</span>
+            <span class="toggle-desc">Low proxy gaming pressure, zero Fricker testimonial discount on the frontline algedonic channel ($\delta_{\mathrm{cred}} = 0$), and $S3^*$ constitutional brake.</span>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <section class="metrics-grid" aria-live="polite">
+      <div class="metric-card">
+        <div class="metric-label">Triadic Diagnosis</div>
+        <div class="metric-val" id="val-diag">IntactTriad</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Epistemic Coverage</div>
+        <div class="metric-val" id="val-cov">95.8%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Mean Social Harm (Kingman + Overload)</div>
+        <div class="metric-val" id="val-harm">1.59</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Terminal Vital Reserve ($R_{24}$)</div>
+        <div class="metric-val" id="val-res">58.17</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Absorbing Ruin Step</div>
+        <div class="metric-val" id="val-ruin">None (Survived)</div>
+      </div>
+    </section>
+
+    <section class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title">Latent Community Demand $S_t$, Raw Archive Mean $\bar{O}_t$, and Declared Epistemic Interval $[L_t, U_t]$</div>
+        <svg id="svg-demand" role="img" aria-label="Demand trajectory vs epistemic interval bounds" viewBox="0 0 500 220" width="100%" height="auto"></svg>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Vital Reserve Trajectory $R_t$ vs. Absorbing Ruin Barrier ($R = 0$) and Social Harm $H_t$</div>
+        <svg id="svg-reserve" role="img" aria-label="Vital reserve trajectory vs ruin barrier and convex social harm" viewBox="0 0 500 220" width="100%" height="auto"></svg>
+      </div>
+    </section>
+
+    <section class="controls-card">
+      <div class="chart-title">Shift-by-Shift Trajectory Log ($t = 0 \dots 23$)</div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Shift $t$</th>
+              <th scope="col">Archive $\bar{O}_t$</th>
+              <th scope="col">True Demand $S_t$</th>
+              <th scope="col">Epistemic Bounds $[L_t, U_t]$</th>
+              <th scope="col">Capacity $C_{\mathrm{eff}}$</th>
+              <th scope="col">Utilization $\rho_t$</th>
+              <th scope="col">Harm $H_t$</th>
+              <th scope="col">Reserve $R_{t+1}$</th>
+              <th scope="col">Sosa Telic Grade</th>
+            </tr>
+          </thead>
+          <tbody id="tbl-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="controls-card">
+      <div class="chart-title">Static Reference Table: Complete $2 \times 2 \times 2$ Factorial Ablation Summary ($\text{seed} = 2026$)</div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Preset Key</th>
+              <th scope="col">Agent Architecture</th>
+              <th scope="col">$S_{\mathrm{epi}}$</th>
+              <th scope="col">$S_{\mathrm{vital}}$</th>
+              <th scope="col">$S_{\mathrm{gov}}$</th>
+              <th scope="col">$M_{\mathrm{Leontief}}$</th>
+              <th scope="col">$M_{\mathrm{arith}}$</th>
+              <th scope="col">Coverage</th>
+              <th scope="col">Mean Harm $\bar{H}$</th>
+              <th scope="col">Terminal Reserve $R_{24}$</th>
+              <th scope="col">Ruin Step</th>
+              <th scope="col">Triadic Diagnosis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>111</code></td><td><code>StochologicalAgent(FullTriad:111)</code></td><td>0.814</td><td>0.991</td><td>0.880</td><td>0.814</td><td>0.895</td><td>95.8%</td><td>1.59</td><td>58.17</td><td>None</td><td><code>IntactTriad</code></td></tr>
+            <tr><td><code>011</code></td><td><code>DefectiveAgent(NoEpistemicMargin-&gt;Prop1:011)</code></td><td>0.235</td><td>0.870</td><td>0.768</td><td>0.235</td><td>0.624</td><td>25.0%</td><td>4.49</td><td>27.21</td><td>None</td><td><code>Proposition1BlindUndersizing</code></td></tr>
+            <tr><td><code>101</code></td><td><code>DefectiveAgent(NoVitalMargin-&gt;Prop2:101)</code></td><td>0.798</td><td>0.021</td><td>0.689</td><td>0.021</td><td>0.503</td><td>95.8%</td><td>77.19</td><td>0.00</td><td>Shift 10</td><td><code>Proposition2ImpotentLucidity</code></td></tr>
+            <tr><td><code>110</code></td><td><code>DefectiveAgent(NoGovernance-&gt;Prop3:110)</code></td><td>0.793</td><td>0.943</td><td>0.101</td><td>0.101</td><td>0.612</td><td>95.8%</td><td>68.01</td><td>0.00</td><td>Shift 12</td><td><code>Proposition3CynicalCapture</code></td></tr>
+            <tr><td><code>100</code></td><td><code>PartialAgent(EpistemicOnly:100)</code></td><td>0.787</td><td>0.010</td><td>0.088</td><td>0.010</td><td>0.295</td><td>95.8%</td><td>114.79</td><td>0.00</td><td>Shift 4</td><td><code>CombinedPropositions2And3</code></td></tr>
+            <tr><td><code>010</code></td><td><code>PartialAgent(VitalOnly:010)</code></td><td>0.197</td><td>0.885</td><td>0.094</td><td>0.094</td><td>0.392</td><td>20.8%</td><td>80.50</td><td>0.00</td><td>Shift 10</td><td><code>CombinedPropositions1And3</code></td></tr>
+            <tr><td><code>001</code></td><td><code>PartialAgent(GovernanceOnly:001)</code></td><td>0.168</td><td>0.011</td><td>0.684</td><td>0.011</td><td>0.288</td><td>16.7%</td><td>109.58</td><td>0.00</td><td>Shift 4</td><td><code>CombinedPropositions1And2</code></td></tr>
+            <tr><td><code>000</code></td><td><code>DefectiveAgent(AllAxesOff:000)</code></td><td>0.165</td><td>0.008</td><td>0.083</td><td>0.008</td><td>0.085</td><td>16.7%</td><td>125.83</td><td>0.00</td><td>Shift 2</td><td><code>TotalTriadicCollapse</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin:0.8rem 0 0; font-size:0.82rem; color:var(--muted);">
+        <strong>Direct Source &amp; Seal Artifacts:</strong>
+        <a href="../crates/stochology/src/lib.rs"><code>lib.rs</code></a> ·
+        <a href="../crates/stochology/src/kernel.rs"><code>kernel.rs</code></a> ·
+        <a href="../crates/stochology/src/engine.rs"><code>engine.rs</code></a> ·
+        <a href="../crates/stochology/src/epistemic.rs"><code>epistemic.rs</code></a> ·
+        <a href="../crates/stochology/src/vital.rs"><code>vital.rs</code></a> ·
+        <a href="../crates/stochology/src/governance.rs"><code>governance.rs</code></a> ·
+        <a href="../crates/stochology/src/synthesis.rs"><code>synthesis.rs</code></a> ·
+        <a href="../crates/stochology/src/grammar.rs"><code>grammar.rs</code></a> ·
+        <a href="../crates/stochology/src/multilayer.rs"><code>multilayer.rs</code></a> ·
+        <a href="../crates/stochology-cli/src/chapters.rs"><code>chapters.rs</code></a> ·
+        <a href="../data/SHA256SUMS"><code>data/SHA256SUMS</code></a> ·
+        <a href="../scripts/verify.sh"><code>scripts/verify.sh</code></a>
+      </p>
+    </section>
+
+    <section class="controls-card" aria-labelledby="ml-heading">
+      <div class="chart-title" id="ml-heading">Interactive Bijective Multilayer Knowledge Graph Explorer ($\mathcal{G}_1 \leftrightarrow \mathcal{G}_2$, $\binom{7}{3} = 35$ Layers `L01`–`L35` / Chapters 51–85)</div>
+      <p style="margin:0 0 12px; font-size:0.86rem; color:var(--muted);">
+        Filter by the 7 Ontological Strata in $\mathcal{G}_1$ (<code>KnowledgeStratum::S1PhysicalDynamical..S7ConstitutionalBiospheric</code>, $7 \times 5 = 35$, where every 5-layer stratum covers all 7 <code>GuardSite</code>s) or click any layer (`L01`–`L35`) to inspect its prerequisite ancestor cone $\mathrm{Anc}^*(L_k)$, its unique 3-combination $\{g_a, g_b, g_c\} \in \binom{\mathcal{G}}{3}$ in $\mathcal{G}_2$, its <code>TriadicExposureRegime</code>, and its cross-disciplinary isomorphism.
+      </p>
+      <div class="presets" id="stratum-filters" role="group" aria-label="Filter by Knowledge Stratum">
+        <button type="button" class="active" onclick="filterStratum('ALL', this)">All 35 Layers (L01–L35)</button>
+        <button type="button" onclick="filterStratum('S1', this)">S1: Physical &amp; Dynamical (51–55)</button>
+        <button type="button" onclick="filterStratum('S2', this)">S2: Formal &amp; Metrological (56–60)</button>
+        <button type="button" onclick="filterStratum('S3', this)">S3: Living &amp; Evolutionary (61–65)</button>
+        <button type="button" onclick="filterStratum('S4', this)">S4: Clinical &amp; Formative (66–70)</button>
+        <button type="button" onclick="filterStratum('S5', this)">S5: Semiotic &amp; Archival (71–75)</button>
+        <button type="button" onclick="filterStratum('S6', this)">S6: Strategic &amp; Economic (76–80)</button>
+        <button type="button" onclick="filterStratum('S7', this)">S7: Constitutional &amp; Biospheric (81–85)</button>
+      </div>
+      <div id="ml-detail" style="padding:12px; margin-bottom:14px; border:1px solid var(--border); border-radius:8px; background:var(--bg); font-size:0.86rem;"></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Layer</th>
+              <th scope="col">Chapter</th>
+              <th scope="col">Order of Knowledge ($\mathcal{G}_1$)</th>
+              <th scope="col">Stratum</th>
+              <th scope="col">Prerequisites ($\mathcal{G}_1$)</th>
+              <th scope="col">Primary Guard &amp; Triad Triple ($\mathcal{G}_2$)</th>
+              <th scope="col">Canonical Isomorphism ($\Phi: \mathcal{G}_1 \to \mathcal{G}_2$)</th>
+            </tr>
+          </thead>
+          <tbody id="ml-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+    </main>
+  </div>
+
+  <script>
+    // Single Source of Truth exported by `cargo run --release --bin stochology -- --export-lab-json`
+    // (`CommunityReserveEnv`, SplitMix64 seed = 2026, T = 24 shifts, R_0 = 45.0).
+    const LAB_TRAJECTORIES = {
+  "111": {"covRate": 0.9583, "shockCovRate": 0.7500, "meanHarm": 1.59, "terminalReserve": 58.17, "ruinStep": null, "diag": "IntactTriad", "sEpi": 0.814, "sVital": 0.991, "sGov": 0.880, "mLeontief": 0.814, "mArith": 0.895, "steps": [
+    {"t": 0, "rawMean": 23.06, "trueMean": 24.93, "bounds": [16.39, 34.10], "effCap": 39.81, "rho": 0.6262, "harm": 1.67, "reserve": 45.88, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 1, "rawMean": 22.81, "trueMean": 25.42, "bounds": [14.26, 38.27], "effCap": 43.41, "rho": 0.5855, "harm": 1.41, "reserve": 46.60, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 2, "rawMean": 22.75, "trueMean": 25.27, "bounds": [14.69, 35.71], "effCap": 41.62, "rho": 0.6070, "harm": 1.54, "reserve": 47.05, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 3, "rawMean": 23.10, "trueMean": 24.75, "bounds": [14.29, 39.05], "effCap": 44.32, "rho": 0.5585, "harm": 1.27, "reserve": 47.71, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 4, "rawMean": 22.35, "trueMean": 24.58, "bounds": [14.92, 34.84], "effCap": 47.72, "rho": 0.5152, "harm": 1.06, "reserve": 47.84, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": true},
+    {"t": 5, "rawMean": 22.70, "trueMean": 24.88, "bounds": [15.21, 36.75], "effCap": 41.85, "rho": 0.5945, "harm": 1.47, "reserve": 48.83, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 6, "rawMean": 23.45, "trueMean": 25.41, "bounds": [16.56, 34.57], "effCap": 40.39, "rho": 0.6290, "harm": 1.70, "reserve": 49.65, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 7, "rawMean": 21.29, "trueMean": 24.04, "bounds": [13.86, 36.95], "effCap": 41.59, "rho": 0.5779, "harm": 1.37, "reserve": 50.64, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 8, "rawMean": 21.66, "trueMean": 24.46, "bounds": [13.69, 37.19], "effCap": 42.07, "rho": 0.5814, "harm": 1.39, "reserve": 51.38, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 9, "rawMean": 21.87, "trueMean": 23.32, "bounds": [15.58, 32.54], "effCap": 38.23, "rho": 0.6100, "harm": 1.56, "reserve": 52.08, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 10, "rawMean": 23.02, "trueMean": 26.61, "bounds": [14.80, 38.03], "effCap": 50.96, "rho": 0.5222, "harm": 1.09, "reserve": 52.46, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": true},
+    {"t": 11, "rawMean": 23.30, "trueMean": 24.86, "bounds": [15.69, 35.20], "effCap": 41.32, "rho": 0.6016, "harm": 1.51, "reserve": 52.95, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 12, "rawMean": 22.18, "trueMean": 24.93, "bounds": [14.85, 35.07], "effCap": 40.42, "rho": 0.6167, "harm": 1.61, "reserve": 53.67, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 13, "rawMean": 22.81, "trueMean": 25.05, "bounds": [15.70, 35.20], "effCap": 40.72, "rho": 0.6152, "harm": 1.60, "reserve": 54.48, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 14, "rawMean": 23.08, "trueMean": 25.18, "bounds": [15.36, 35.56], "effCap": 41.49, "rho": 0.6068, "harm": 1.54, "reserve": 55.00, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 15, "rawMean": 23.64, "trueMean": 25.32, "bounds": [16.18, 34.89], "effCap": 41.12, "rho": 0.6159, "harm": 1.60, "reserve": 55.51, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 16, "rawMean": 24.75, "trueMean": 27.03, "bounds": [16.30, 37.64], "effCap": 52.07, "rho": 0.5191, "harm": 1.08, "reserve": 55.59, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": true},
+    {"t": 17, "rawMean": 19.77, "trueMean": 22.69, "bounds": [12.71, 34.45], "effCap": 39.11, "rho": 0.5802, "harm": 1.38, "reserve": 56.24, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 18, "rawMean": 23.63, "trueMean": 24.90, "bounds": [16.00, 35.80], "effCap": 41.79, "rho": 0.5959, "harm": 1.47, "reserve": 56.82, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 19, "rawMean": 22.36, "trueMean": 24.07, "bounds": [15.68, 33.67], "effCap": 39.37, "rho": 0.6114, "harm": 1.57, "reserve": 57.52, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 20, "rawMean": 22.31, "trueMean": 23.68, "bounds": [15.59, 34.53], "effCap": 40.00, "rho": 0.5919, "harm": 1.45, "reserve": 58.34, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 21, "rawMean": 23.14, "trueMean": 25.31, "bounds": [15.33, 36.48], "effCap": 42.01, "rho": 0.6024, "harm": 1.52, "reserve": 59.03, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 22, "rawMean": 21.90, "trueMean": 35.99, "bounds": [14.73, 34.76], "effCap": 43.22, "rho": 0.8327, "harm": 4.98, "reserve": 57.63, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": true},
+    {"t": 23, "rawMean": 21.47, "trueMean": 24.38, "bounds": [13.25, 36.92], "effCap": 41.95, "rho": 0.5812, "harm": 1.39, "reserve": 58.17, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false}
+  ]},
+  "011": {"covRate": 0.2500, "shockCovRate": 0.0000, "meanHarm": 4.49, "terminalReserve": 27.21, "ruinStep": null, "diag": "Proposition1BlindUndersizing", "sEpi": 0.235, "sVital": 0.870, "sGov": 0.768, "mLeontief": 0.235, "mArith": 0.624, "steps": [
+    {"t": 0, "rawMean": 23.06, "trueMean": 24.93, "bounds": [21.58, 24.53], "effCap": 31.11, "rho": 0.8014, "harm": 4.04, "reserve": 45.38, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 1, "rawMean": 22.81, "trueMean": 25.42, "bounds": [21.06, 24.57], "effCap": 30.97, "rho": 0.8208, "harm": 4.58, "reserve": 44.90, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 2, "rawMean": 22.75, "trueMean": 25.27, "bounds": [20.63, 24.87], "effCap": 31.49, "rho": 0.8025, "harm": 4.06, "reserve": 44.83, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 3, "rawMean": 23.10, "trueMean": 24.75, "bounds": [21.19, 25.00], "effCap": 31.48, "rho": 0.7864, "harm": 3.68, "reserve": 45.50, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 4, "rawMean": 22.35, "trueMean": 24.58, "bounds": [20.45, 24.25], "effCap": 33.07, "rho": 0.7435, "harm": 2.90, "reserve": 45.97, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": true},
+    {"t": 5, "rawMean": 22.70, "trueMean": 24.88, "bounds": [21.35, 24.05], "effCap": 30.45, "rho": 0.8170, "harm": 4.46, "reserve": 45.80, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 6, "rawMean": 23.45, "trueMean": 25.41, "bounds": [21.90, 25.00], "effCap": 31.68, "rho": 0.8019, "harm": 4.05, "reserve": 46.13, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 7, "rawMean": 21.29, "trueMean": 24.04, "bounds": [19.97, 22.61], "effCap": 28.59, "rho": 0.8409, "harm": 5.28, "reserve": 44.86, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 8, "rawMean": 21.66, "trueMean": 24.46, "bounds": [20.03, 23.28], "effCap": 29.36, "rho": 0.8329, "harm": 4.99, "reserve": 43.87, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 9, "rawMean": 21.87, "trueMean": 23.32, "bounds": [20.25, 23.49], "effCap": 29.77, "rho": 0.7833, "harm": 3.61, "reserve": 44.66, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 10, "rawMean": 23.02, "trueMean": 26.61, "bounds": [21.46, 24.58], "effCap": 33.38, "rho": 0.7971, "harm": 3.93, "reserve": 44.85, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": true},
+    {"t": 11, "rawMean": 23.30, "trueMean": 24.86, "bounds": [21.26, 25.33], "effCap": 32.08, "rho": 0.7748, "harm": 3.44, "reserve": 45.46, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 12, "rawMean": 22.18, "trueMean": 24.93, "bounds": [20.56, 23.81], "effCap": 30.11, "rho": 0.8279, "harm": 4.81, "reserve": 44.67, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 13, "rawMean": 22.81, "trueMean": 25.05, "bounds": [21.27, 24.36], "effCap": 30.83, "rho": 0.8125, "harm": 4.33, "reserve": 44.62, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 14, "rawMean": 23.08, "trueMean": 25.18, "bounds": [21.09, 25.06], "effCap": 31.71, "rho": 0.7941, "harm": 3.86, "reserve": 44.92, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 15, "rawMean": 23.64, "trueMean": 25.32, "bounds": [21.66, 25.62], "effCap": 32.47, "rho": 0.7799, "harm": 3.54, "reserve": 45.57, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 16, "rawMean": 24.75, "trueMean": 27.03, "bounds": [22.77, 26.74], "effCap": 36.19, "rho": 0.7468, "harm": 2.95, "reserve": 46.11, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": true},
+    {"t": 17, "rawMean": 19.77, "trueMean": 22.69, "bounds": [18.19, 21.35], "effCap": 26.95, "rho": 0.8420, "harm": 5.33, "reserve": 44.58, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 18, "rawMean": 23.63, "trueMean": 24.90, "bounds": [21.73, 25.52], "effCap": 32.28, "rho": 0.7713, "harm": 3.37, "reserve": 45.31, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 19, "rawMean": 22.36, "trueMean": 24.07, "bounds": [20.71, 24.00], "effCap": 30.40, "rho": 0.7917, "harm": 3.80, "reserve": 45.87, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 20, "rawMean": 22.31, "trueMean": 23.68, "bounds": [20.80, 23.82], "effCap": 30.15, "rho": 0.7852, "harm": 3.66, "reserve": 46.75, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 21, "rawMean": 23.14, "trueMean": 25.31, "bounds": [21.43, 24.86], "effCap": 31.41, "rho": 0.8057, "harm": 4.15, "reserve": 46.85, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 22, "rawMean": 21.90, "trueMean": 35.99, "bounds": [20.24, 23.56], "effCap": 32.26, "rho": 0.9253, "harm": 14.07, "reserve": 28.18, "hitRuin": false, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 23, "rawMean": 21.47, "trueMean": 24.38, "bounds": [19.62, 23.33], "effCap": 29.41, "rho": 0.8289, "harm": 4.84, "reserve": 27.21, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false}
+  ]},
+  "101": {"covRate": 0.9583, "shockCovRate": 0.7500, "meanHarm": 77.19, "terminalReserve": 0.00, "ruinStep": 10, "diag": "Proposition2ImpotentLucidity", "sEpi": 0.798, "sVital": 0.021, "sGov": 0.689, "mLeontief": 0.021, "mArith": 0.503, "steps": [
+    {"t": 0, "rawMean": 23.06, "trueMean": 24.93, "bounds": [16.39, 34.10], "effCap": 26.57, "rho": 0.8934, "harm": 8.38, "reserve": 40.18, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 1, "rawMean": 22.82, "trueMean": 25.43, "bounds": [14.26, 38.28], "effCap": 27.65, "rho": 0.8894, "harm": 8.04, "reserve": 35.79, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 2, "rawMean": 22.76, "trueMean": 25.29, "bounds": [14.69, 35.73], "effCap": 26.54, "rho": 0.8966, "harm": 8.67, "reserve": 30.62, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 3, "rawMean": 23.12, "trueMean": 24.79, "bounds": [14.28, 39.08], "effCap": 28.09, "rho": 0.8806, "harm": 7.38, "reserve": 27.06, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 4, "rawMean": 22.37, "trueMean": 24.62, "bounds": [14.91, 34.89], "effCap": 26.48, "rho": 0.8916, "harm": 8.23, "reserve": 22.42, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": true},
+    {"t": 5, "rawMean": 22.72, "trueMean": 24.92, "bounds": [15.20, 36.78], "effCap": 27.36, "rho": 0.8873, "harm": 7.88, "reserve": 18.25, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 6, "rawMean": 23.48, "trueMean": 25.46, "bounds": [16.55, 34.63], "effCap": 26.94, "rho": 0.8950, "harm": 8.52, "reserve": 13.26, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 7, "rawMean": 21.31, "trueMean": 24.10, "bounds": [13.84, 37.00], "effCap": 26.76, "rho": 0.8850, "harm": 7.69, "reserve": 9.32, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 8, "rawMean": 21.69, "trueMean": 24.53, "bounds": [13.67, 37.25], "effCap": 26.80, "rho": 0.8884, "harm": 7.96, "reserve": 5.04, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 9, "rawMean": 21.92, "trueMean": 23.40, "bounds": [15.57, 32.64], "effCap": 25.37, "rho": 0.8899, "harm": 8.08, "reserve": 0.61, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 10, "rawMean": 23.04, "trueMean": 26.70, "bounds": [14.77, 38.08], "effCap": 27.83, "rho": 0.8979, "harm": 8.80, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": true},
+    {"t": 11, "rawMean": 23.36, "trueMean": 24.95, "bounds": [15.67, 35.31], "effCap": 0.00, "rho": 0.9920, "harm": 135.23, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false},
+    {"t": 12, "rawMean": 22.04, "trueMean": 25.03, "bounds": [14.44, 35.70], "effCap": 0.00, "rho": 0.9920, "harm": 135.26, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false},
+    {"t": 13, "rawMean": 22.57, "trueMean": 25.16, "bounds": [15.28, 35.65], "effCap": 0.00, "rho": 0.9920, "harm": 135.32, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false},
+    {"t": 14, "rawMean": 22.91, "trueMean": 25.30, "bounds": [14.88, 36.18], "effCap": 0.00, "rho": 0.9920, "harm": 135.38, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false},
+    {"t": 15, "rawMean": 23.10, "trueMean": 25.46, "bounds": [15.42, 35.53], "effCap": 0.00, "rho": 0.9920, "harm": 135.46, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false},
+    {"t": 16, "rawMean": 24.84, "trueMean": 27.17, "bounds": [16.27, 37.82], "effCap": 0.00, "rho": 0.9920, "harm": 136.23, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": true},
+    {"t": 17, "rawMean": 19.37, "trueMean": 22.83, "bounds": [12.18, 35.42], "effCap": 0.00, "rho": 0.9920, "harm": 134.27, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false},
+    {"t": 18, "rawMean": 23.73, "trueMean": 25.06, "bounds": [15.98, 36.00], "effCap": 0.00, "rho": 0.9920, "harm": 135.27, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false},
+    {"t": 19, "rawMean": 21.92, "trueMean": 24.23, "bounds": [14.82, 34.69], "effCap": 0.00, "rho": 0.9920, "harm": 134.90, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false},
+    {"t": 20, "rawMean": 22.27, "trueMean": 23.85, "bounds": [15.15, 35.33], "effCap": 0.00, "rho": 0.9920, "harm": 134.73, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false},
+    {"t": 21, "rawMean": 23.24, "trueMean": 25.49, "bounds": [15.29, 36.67], "effCap": 0.00, "rho": 0.9920, "harm": 135.47, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false},
+    {"t": 22, "rawMean": 22.00, "trueMean": 36.18, "bounds": [14.67, 34.96], "effCap": 0.00, "rho": 0.9920, "harm": 140.28, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 23, "rawMean": 21.25, "trueMean": 24.57, "bounds": [12.94, 37.35], "effCap": 0.00, "rho": 0.9920, "harm": 135.06, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false}
+  ]},
+  "110": {"covRate": 0.9583, "shockCovRate": 0.7500, "meanHarm": 68.01, "terminalReserve": 0.00, "ruinStep": 12, "diag": "Proposition3CynicalCapture", "sEpi": 0.793, "sVital": 0.943, "sGov": 0.101, "mLeontief": 0.101, "mArith": 0.612, "steps": [
+    {"t": 0, "rawMean": 23.06, "trueMean": 24.93, "bounds": [16.39, 34.10], "effCap": 39.81, "rho": 0.6262, "harm": 2.63, "reserve": 41.01, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 1, "rawMean": 24.28, "trueMean": 26.89, "bounds": [15.31, 39.33], "effCap": 44.74, "rho": 0.6010, "harm": 3.10, "reserve": 36.93, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 2, "rawMean": 25.21, "trueMean": 27.72, "bounds": [16.66, 37.67], "effCap": 44.06, "rho": 0.6292, "harm": 4.05, "reserve": 32.62, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 3, "rawMean": 26.72, "trueMean": 28.37, "bounds": [16.82, 41.58], "effCap": 47.51, "rho": 0.5971, "harm": 4.08, "reserve": 28.57, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 4, "rawMean": 26.35, "trueMean": 28.58, "bounds": [18.11, 38.04], "effCap": 46.98, "rho": 0.6083, "harm": 4.36, "reserve": 26.97, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": true},
+    {"t": 5, "rawMean": 27.02, "trueMean": 29.20, "bounds": [18.39, 39.92], "effCap": 45.93, "rho": 0.6358, "harm": 4.95, "reserve": 23.16, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 6, "rawMean": 28.38, "trueMean": 30.34, "bounds": [20.59, 38.60], "effCap": 45.55, "rho": 0.6661, "harm": 5.50, "reserve": 19.31, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 7, "rawMean": 26.68, "trueMean": 29.43, "bounds": [17.63, 40.72], "effCap": 46.44, "rho": 0.6336, "harm": 5.52, "reserve": 15.49, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 8, "rawMean": 27.24, "trueMean": 30.28, "bounds": [17.49, 41.64], "effCap": 47.50, "rho": 0.6376, "harm": 5.47, "reserve": 11.63, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 9, "rawMean": 27.58, "trueMean": 29.03, "bounds": [20.34, 37.30], "effCap": 44.29, "rho": 0.6555, "harm": 5.78, "reserve": 7.72, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 10, "rawMean": 28.98, "trueMean": 32.57, "bounds": [19.07, 42.30], "effCap": 50.16, "rho": 0.6494, "harm": 5.86, "reserve": 6.46, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": true},
+    {"t": 11, "rawMean": 29.46, "trueMean": 31.02, "bounds": [20.72, 40.23], "effCap": 47.66, "rho": 0.6509, "harm": 6.01, "reserve": 2.40, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 12, "rawMean": 28.56, "trueMean": 31.31, "bounds": [19.84, 40.07], "effCap": 46.79, "rho": 0.6690, "harm": 6.04, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 13, "rawMean": 28.70, "trueMean": 31.23, "bounds": [20.06, 40.28], "effCap": 0.00, "rho": 0.9920, "harm": 142.15, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 14, "rawMean": 29.13, "trueMean": 31.47, "bounds": [19.84, 40.97], "effCap": 0.00, "rho": 0.9920, "harm": 142.38, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 15, "rawMean": 29.50, "trueMean": 31.81, "bounds": [20.64, 40.56], "effCap": 0.00, "rho": 0.9920, "harm": 142.62, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 16, "rawMean": 31.39, "trueMean": 33.66, "bounds": [21.50, 42.84], "effCap": 0.00, "rho": 0.9920, "harm": 143.27, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": true},
+    {"t": 17, "rawMean": 25.68, "trueMean": 29.03, "bounds": [16.77, 39.87], "effCap": 0.00, "rho": 0.9920, "harm": 141.08, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 18, "rawMean": 29.81, "trueMean": 31.09, "bounds": [20.95, 40.75], "effCap": 0.00, "rho": 0.9920, "harm": 142.07, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 19, "rawMean": 28.12, "trueMean": 30.35, "bounds": [19.79, 39.43], "effCap": 0.00, "rho": 0.9920, "harm": 141.74, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 20, "rawMean": 28.45, "trueMean": 29.96, "bounds": [20.00, 39.95], "effCap": 0.00, "rho": 0.9920, "harm": 141.60, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 21, "rawMean": 29.48, "trueMean": 31.65, "bounds": [20.19, 41.34], "effCap": 0.00, "rho": 0.9920, "harm": 142.50, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 22, "rawMean": 28.46, "trueMean": 42.54, "bounds": [19.86, 39.89], "effCap": 0.00, "rho": 0.9920, "harm": 147.36, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 23, "rawMean": 27.65, "trueMean": 30.86, "bounds": [17.64, 41.82], "effCap": 0.00, "rho": 0.9920, "harm": 142.04, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false}
+  ]},
+  "100": {"covRate": 0.9583, "shockCovRate": 0.7500, "meanHarm": 114.79, "terminalReserve": 0.00, "ruinStep": 4, "diag": "CombinedPropositions2And3", "sEpi": 0.787, "sVital": 0.010, "sGov": 0.088, "mLeontief": 0.010, "mArith": 0.295, "steps": [
+    {"t": 0, "rawMean": 23.06, "trueMean": 24.93, "bounds": [16.39, 34.10], "effCap": 26.57, "rho": 0.8934, "harm": 9.34, "reserve": 34.86, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 1, "rawMean": 24.29, "trueMean": 26.90, "bounds": [15.31, 39.33], "effCap": 28.76, "rho": 0.8928, "harm": 9.93, "reserve": 24.83, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 2, "rawMean": 25.22, "trueMean": 27.74, "bounds": [16.65, 37.70], "effCap": 28.60, "rho": 0.9001, "harm": 11.87, "reserve": 13.82, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 3, "rawMean": 26.73, "trueMean": 28.40, "bounds": [16.81, 41.61], "effCap": 30.75, "rho": 0.8902, "harm": 10.71, "reserve": 4.15, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 4, "rawMean": 26.36, "trueMean": 28.61, "bounds": [18.11, 38.07], "effCap": 29.58, "rho": 0.8995, "harm": 12.39, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": true},
+    {"t": 5, "rawMean": 27.04, "trueMean": 29.23, "bounds": [18.38, 39.94], "effCap": 0.00, "rho": 0.9920, "harm": 140.36, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 6, "rawMean": 28.18, "trueMean": 30.37, "bounds": [20.14, 38.95], "effCap": 0.00, "rho": 0.9920, "harm": 141.17, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 7, "rawMean": 26.38, "trueMean": 29.45, "bounds": [17.36, 40.86], "effCap": 0.00, "rho": 0.9920, "harm": 141.04, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 8, "rawMean": 27.25, "trueMean": 30.31, "bounds": [17.49, 41.66], "effCap": 0.00, "rho": 0.9920, "harm": 141.35, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 9, "rawMean": 27.60, "trueMean": 29.06, "bounds": [20.34, 37.33], "effCap": 0.00, "rho": 0.9920, "harm": 140.95, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 10, "rawMean": 28.31, "trueMean": 32.60, "bounds": [18.49, 42.36], "effCap": 0.00, "rho": 0.9920, "harm": 142.68, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": true},
+    {"t": 11, "rawMean": 29.48, "trueMean": 31.05, "bounds": [20.72, 40.26], "effCap": 0.00, "rho": 0.9920, "harm": 142.12, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 12, "rawMean": 28.39, "trueMean": 31.33, "bounds": [19.35, 40.52], "effCap": 0.00, "rho": 0.9920, "harm": 142.12, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 13, "rawMean": 28.71, "trueMean": 31.26, "bounds": [20.05, 40.31], "effCap": 0.00, "rho": 0.9920, "harm": 142.16, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 14, "rawMean": 29.15, "trueMean": 31.50, "bounds": [19.83, 41.00], "effCap": 0.00, "rho": 0.9920, "harm": 142.39, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 15, "rawMean": 29.52, "trueMean": 31.83, "bounds": [20.64, 40.60], "effCap": 0.00, "rho": 0.9920, "harm": 142.64, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 16, "rawMean": 31.40, "trueMean": 33.69, "bounds": [21.49, 42.87], "effCap": 0.00, "rho": 0.9920, "harm": 143.28, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": true},
+    {"t": 17, "rawMean": 25.68, "trueMean": 29.06, "bounds": [16.76, 39.89], "effCap": 0.00, "rho": 0.9920, "harm": 141.10, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 18, "rawMean": 29.83, "trueMean": 31.11, "bounds": [20.94, 40.78], "effCap": 0.00, "rho": 0.9920, "harm": 142.08, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 19, "rawMean": 28.13, "trueMean": 30.37, "bounds": [19.78, 39.46], "effCap": 0.00, "rho": 0.9920, "harm": 141.75, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 20, "rawMean": 28.46, "trueMean": 29.99, "bounds": [20.00, 39.98], "effCap": 0.00, "rho": 0.9920, "harm": 141.61, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 21, "rawMean": 29.49, "trueMean": 31.67, "bounds": [20.19, 41.37], "effCap": 0.00, "rho": 0.9920, "harm": 142.51, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 22, "rawMean": 28.47, "trueMean": 42.57, "bounds": [19.86, 39.92], "effCap": 0.00, "rho": 0.9920, "harm": 147.37, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 23, "rawMean": 27.66, "trueMean": 30.89, "bounds": [17.63, 41.84], "effCap": 0.00, "rho": 0.9920, "harm": 142.05, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false}
+  ]},
+  "010": {"covRate": 0.2083, "shockCovRate": 0.0000, "meanHarm": 80.50, "terminalReserve": 0.00, "ruinStep": 10, "diag": "CombinedPropositions1And3", "sEpi": 0.197, "sVital": 0.885, "sGov": 0.094, "mLeontief": 0.094, "mArith": 0.392, "steps": [
+    {"t": 0, "rawMean": 23.06, "trueMean": 24.93, "bounds": [21.58, 24.53], "effCap": 31.11, "rho": 0.8014, "harm": 4.99, "reserve": 40.51, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 1, "rawMean": 24.28, "trueMean": 26.89, "bounds": [22.53, 26.04], "effCap": 32.85, "rho": 0.8186, "harm": 6.11, "reserve": 35.32, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 2, "rawMean": 25.21, "trueMean": 27.72, "bounds": [23.09, 27.33], "effCap": 34.57, "rho": 0.8019, "harm": 6.40, "reserve": 30.51, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 3, "rawMean": 26.72, "trueMean": 28.37, "bounds": [24.81, 28.62], "effCap": 36.09, "rho": 0.7860, "harm": 6.27, "reserve": 26.49, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 4, "rawMean": 26.35, "trueMean": 28.58, "bounds": [24.45, 28.24], "effCap": 36.59, "rho": 0.7811, "harm": 6.38, "reserve": 25.04, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": true},
+    {"t": 5, "rawMean": 27.02, "trueMean": 29.20, "bounds": [25.68, 28.37], "effCap": 36.05, "rho": 0.8101, "harm": 7.47, "reserve": 20.26, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 6, "rawMean": 28.38, "trueMean": 30.34, "bounds": [26.83, 29.93], "effCap": 38.03, "rho": 0.7977, "harm": 7.45, "reserve": 15.99, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 7, "rawMean": 26.68, "trueMean": 29.43, "bounds": [25.36, 28.00], "effCap": 35.56, "rho": 0.8274, "harm": 8.58, "reserve": 10.41, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 8, "rawMean": 27.24, "trueMean": 30.28, "bounds": [25.65, 28.83], "effCap": 36.49, "rho": 0.8299, "harm": 8.59, "reserve": 4.88, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 9, "rawMean": 27.58, "trueMean": 29.03, "bounds": [25.96, 29.20], "effCap": 37.08, "rho": 0.7828, "harm": 7.48, "reserve": 1.13, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": true, "isShock": false},
+    {"t": 10, "rawMean": 28.98, "trueMean": 32.57, "bounds": [27.42, 30.54], "effCap": 38.81, "rho": 0.8393, "harm": 9.23, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 11, "rawMean": 29.46, "trueMean": 31.02, "bounds": [27.42, 31.50], "effCap": 0.00, "rho": 0.9920, "harm": 142.11, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 12, "rawMean": 28.38, "trueMean": 31.31, "bounds": [26.76, 30.00], "effCap": 0.00, "rho": 0.9920, "harm": 142.11, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 13, "rawMean": 28.70, "trueMean": 31.23, "bounds": [27.24, 30.16], "effCap": 0.00, "rho": 0.9920, "harm": 142.15, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 14, "rawMean": 29.13, "trueMean": 31.47, "bounds": [27.16, 31.11], "effCap": 0.00, "rho": 0.9920, "harm": 142.38, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 15, "rawMean": 29.50, "trueMean": 31.81, "bounds": [27.64, 31.37], "effCap": 0.00, "rho": 0.9920, "harm": 142.62, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 16, "rawMean": 31.39, "trueMean": 33.66, "bounds": [29.40, 33.37], "effCap": 0.00, "rho": 0.9920, "harm": 143.27, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 17, "rawMean": 25.68, "trueMean": 29.03, "bounds": [24.15, 27.20], "effCap": 0.00, "rho": 0.9920, "harm": 141.08, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 18, "rawMean": 29.81, "trueMean": 31.09, "bounds": [27.92, 31.70], "effCap": 0.00, "rho": 0.9920, "harm": 142.07, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 19, "rawMean": 28.12, "trueMean": 30.35, "bounds": [26.57, 29.66], "effCap": 0.00, "rho": 0.9920, "harm": 141.74, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 20, "rawMean": 28.45, "trueMean": 29.96, "bounds": [26.93, 29.96], "effCap": 0.00, "rho": 0.9920, "harm": 141.60, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 21, "rawMean": 29.48, "trueMean": 31.65, "bounds": [27.76, 31.19], "effCap": 0.00, "rho": 0.9920, "harm": 142.50, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 22, "rawMean": 28.46, "trueMean": 42.54, "bounds": [26.80, 30.12], "effCap": 0.00, "rho": 0.9920, "harm": 147.36, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 23, "rawMean": 27.65, "trueMean": 30.86, "bounds": [25.85, 29.44], "effCap": 0.00, "rho": 0.9920, "harm": 142.04, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false}
+  ]},
+  "001": {"covRate": 0.1667, "shockCovRate": 0.0000, "meanHarm": 109.58, "terminalReserve": 0.00, "ruinStep": 4, "diag": "CombinedPropositions1And2", "sEpi": 0.168, "sVital": 0.011, "sGov": 0.684, "mLeontief": 0.011, "mArith": 0.288, "steps": [
+    {"t": 0, "rawMean": 23.06, "trueMean": 24.93, "bounds": [21.58, 24.53], "effCap": 24.27, "rho": 0.9110, "harm": 10.53, "reserve": 36.58, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 1, "rawMean": 22.82, "trueMean": 25.43, "bounds": [21.06, 24.58], "effCap": 24.02, "rho": 0.9165, "harm": 11.61, "reserve": 25.77, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 2, "rawMean": 22.77, "trueMean": 25.30, "bounds": [20.64, 24.90], "effCap": 23.97, "rho": 0.9159, "harm": 11.49, "reserve": 15.28, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 3, "rawMean": 23.13, "trueMean": 24.80, "bounds": [21.21, 25.05], "effCap": 24.34, "rho": 0.9095, "harm": 10.25, "reserve": 7.53, "hitRuin": false, "grade": "FullyAptPerformance", "covered": true, "isShock": false},
+    {"t": 4, "rawMean": 22.39, "trueMean": 24.65, "bounds": [20.47, 24.31], "effCap": 23.59, "rho": 0.9140, "harm": 11.11, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 5, "rawMean": 22.73, "trueMean": 24.94, "bounds": [21.36, 24.09], "effCap": 0.00, "rho": 0.9920, "harm": 135.22, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 6, "rawMean": 23.27, "trueMean": 25.49, "bounds": [21.73, 24.82], "effCap": 0.00, "rho": 0.9920, "harm": 135.47, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 7, "rawMean": 21.33, "trueMean": 24.13, "bounds": [19.98, 22.67], "effCap": 0.00, "rho": 0.9920, "harm": 134.86, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 8, "rawMean": 21.45, "trueMean": 24.57, "bounds": [19.83, 23.08], "effCap": 0.00, "rho": 0.9920, "harm": 135.06, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 9, "rawMean": 21.96, "trueMean": 23.45, "bounds": [20.29, 23.62], "effCap": 0.00, "rho": 0.9920, "harm": 134.55, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false},
+    {"t": 10, "rawMean": 22.36, "trueMean": 26.75, "bounds": [21.04, 23.68], "effCap": 0.00, "rho": 0.9920, "harm": 136.04, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 11, "rawMean": 23.39, "trueMean": 25.00, "bounds": [21.31, 25.48], "effCap": 0.00, "rho": 0.9920, "harm": 135.25, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false},
+    {"t": 12, "rawMean": 22.07, "trueMean": 25.09, "bounds": [20.40, 23.73], "effCap": 0.00, "rho": 0.9920, "harm": 135.29, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 13, "rawMean": 22.60, "trueMean": 25.23, "bounds": [21.08, 24.11], "effCap": 0.00, "rho": 0.9920, "harm": 135.35, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 14, "rawMean": 22.95, "trueMean": 25.37, "bounds": [20.91, 24.99], "effCap": 0.00, "rho": 0.9920, "harm": 135.42, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 15, "rawMean": 23.14, "trueMean": 25.53, "bounds": [21.21, 25.07], "effCap": 0.00, "rho": 0.9920, "harm": 135.49, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 16, "rawMean": 24.90, "trueMean": 27.25, "bounds": [22.83, 26.96], "effCap": 0.00, "rho": 0.9920, "harm": 136.26, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 17, "rawMean": 19.16, "trueMean": 22.91, "bounds": [17.69, 20.64], "effCap": 0.00, "rho": 0.9920, "harm": 134.31, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 18, "rawMean": 23.80, "trueMean": 25.15, "bounds": [21.82, 25.77], "effCap": 0.00, "rho": 0.9920, "harm": 135.32, "reserve": 0.00, "hitRuin": true, "grade": "AdroitExAnteUnluckyOutcome", "covered": true, "isShock": false},
+    {"t": 19, "rawMean": 21.96, "trueMean": 24.32, "bounds": [20.34, 23.58], "effCap": 0.00, "rho": 0.9920, "harm": 134.94, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 20, "rawMean": 22.31, "trueMean": 23.93, "bounds": [20.71, 23.91], "effCap": 0.00, "rho": 0.9920, "harm": 134.77, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 21, "rawMean": 22.99, "trueMean": 25.56, "bounds": [21.25, 24.72], "effCap": 0.00, "rho": 0.9920, "harm": 135.50, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 22, "rawMean": 21.78, "trueMean": 37.20, "bounds": [20.07, 23.48], "effCap": 0.00, "rho": 0.9920, "harm": 140.74, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 23, "rawMean": 20.89, "trueMean": 24.63, "bounds": [19.13, 22.64], "effCap": 0.00, "rho": 0.9920, "harm": 135.08, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false}
+  ]},
+  "000": {"covRate": 0.1667, "shockCovRate": 0.0000, "meanHarm": 125.83, "terminalReserve": 0.00, "ruinStep": 2, "diag": "TotalTriadicCollapse", "sEpi": 0.165, "sVital": 0.008, "sGov": 0.083, "mLeontief": 0.008, "mArith": 0.085, "steps": [
+    {"t": 0, "rawMean": 23.06, "trueMean": 24.93, "bounds": [21.58, 24.53], "effCap": 24.27, "rho": 0.9110, "harm": 11.85, "reserve": 31.12, "hitRuin": false, "grade": "LuckyAccurateOnly", "covered": false, "isShock": false},
+    {"t": 1, "rawMean": 24.29, "trueMean": 26.91, "bounds": [22.53, 26.05], "effCap": 25.57, "rho": 0.9153, "harm": 13.62, "reserve": 15.13, "hitRuin": false, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 2, "rawMean": 25.22, "trueMean": 27.75, "bounds": [23.09, 27.35], "effCap": 26.55, "rho": 0.9141, "harm": 14.43, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 3, "rawMean": 26.53, "trueMean": 28.41, "bounds": [24.61, 28.44], "effCap": 0.00, "rho": 0.9920, "harm": 139.38, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 4, "rawMean": 26.03, "trueMean": 28.63, "bounds": [24.20, 27.86], "effCap": 0.00, "rho": 0.9920, "harm": 139.69, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 5, "rawMean": 27.04, "trueMean": 29.25, "bounds": [25.68, 28.41], "effCap": 0.00, "rho": 0.9920, "harm": 140.37, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 6, "rawMean": 27.97, "trueMean": 30.40, "bounds": [26.46, 29.48], "effCap": 0.00, "rho": 0.9920, "harm": 141.18, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 7, "rawMean": 26.39, "trueMean": 29.49, "bounds": [25.18, 27.61], "effCap": 0.00, "rho": 0.9920, "harm": 141.05, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 8, "rawMean": 27.26, "trueMean": 30.35, "bounds": [25.65, 28.87], "effCap": 0.00, "rho": 0.9920, "harm": 141.37, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 9, "rawMean": 27.63, "trueMean": 29.09, "bounds": [25.98, 29.27], "effCap": 0.00, "rho": 0.9920, "harm": 140.97, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 10, "rawMean": 28.31, "trueMean": 32.64, "bounds": [27.00, 29.62], "effCap": 0.00, "rho": 0.9920, "harm": 142.69, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 11, "rawMean": 29.22, "trueMean": 31.09, "bounds": [27.20, 31.25], "effCap": 0.00, "rho": 0.9920, "harm": 142.13, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 12, "rawMean": 28.41, "trueMean": 31.37, "bounds": [26.77, 30.05], "effCap": 0.00, "rho": 0.9920, "harm": 142.13, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 13, "rawMean": 28.73, "trueMean": 31.30, "bounds": [27.25, 30.21], "effCap": 0.00, "rho": 0.9920, "harm": 142.17, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 14, "rawMean": 29.17, "trueMean": 31.54, "bounds": [27.18, 31.16], "effCap": 0.00, "rho": 0.9920, "harm": 142.40, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 15, "rawMean": 29.54, "trueMean": 31.87, "bounds": [27.66, 31.42], "effCap": 0.00, "rho": 0.9920, "harm": 142.65, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 16, "rawMean": 31.43, "trueMean": 33.72, "bounds": [29.42, 33.43], "effCap": 0.00, "rho": 0.9920, "harm": 143.30, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 17, "rawMean": 25.47, "trueMean": 29.10, "bounds": [24.03, 26.91], "effCap": 0.00, "rho": 0.9920, "harm": 141.11, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 18, "rawMean": 29.86, "trueMean": 31.15, "bounds": [27.94, 31.77], "effCap": 0.00, "rho": 0.9920, "harm": 142.10, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": true, "isShock": false},
+    {"t": 19, "rawMean": 28.15, "trueMean": 30.41, "bounds": [26.59, 29.71], "effCap": 0.00, "rho": 0.9920, "harm": 141.77, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 20, "rawMean": 28.48, "trueMean": 30.02, "bounds": [26.95, 30.02], "effCap": 0.00, "rho": 0.9920, "harm": 141.63, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 21, "rawMean": 29.23, "trueMean": 31.71, "bounds": [27.55, 30.92], "effCap": 0.00, "rho": 0.9920, "harm": 142.53, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false},
+    {"t": 22, "rawMean": 28.49, "trueMean": 42.61, "bounds": [26.81, 30.17], "effCap": 0.00, "rho": 0.9920, "harm": 147.39, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": true},
+    {"t": 23, "rawMean": 27.67, "trueMean": 30.93, "bounds": [25.86, 29.49], "effCap": 0.00, "rho": 0.9920, "harm": 142.07, "reserve": 0.00, "hitRuin": true, "grade": "InaptAndInaccurate", "covered": false, "isShock": false}
+  ]}
+};
+    function simulateTrajectory(useEpi, useVital, useGov) {
+      const key = `${useEpi ? 1 : 0}${useVital ? 1 : 0}${useGov ? 1 : 0}`;
+      return LAB_TRAJECTORIES[key];
+    }
+
+    function renderCharts(report) {
+      const svgD = document.getElementById("svg-demand");
+      const svgR = document.getElementById("svg-reserve");
+      const W = 500, H = 220, padL = 42, padR = 16, padT = 18, padB = 28;
+      const plotW = W - padL - padR, plotH = H - padT - padB;
+      const xOf = (t) => padL + (t / 23) * plotW;
+      const yDem = (v) => padT + plotH - ((Math.min(Math.max(v, 10), 55) - 10) / 45) * plotH;
+
+      let polyBandTop = [], polyBandBot = [], pathTrue = [], pathRaw = [];
+      report.steps.forEach((s) => {
+        const x = xOf(s.t).toFixed(1);
+        polyBandTop.push(`${x},${yDem(s.bounds[1]).toFixed(1)}`);
+        polyBandBot.unshift(`${x},${yDem(s.bounds[0]).toFixed(1)}`);
+        pathTrue.push(`${s.t === 0 ? 'M' : 'L'}${x},${yDem(s.trueMean).toFixed(1)}`);
+        pathRaw.push(`${s.t === 0 ? 'M' : 'L'}${x},${yDem(s.rawMean).toFixed(1)}`);
+      });
+
+      svgD.innerHTML = `
+        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + plotH}" stroke="#94a3b8" />
+        <line x1="${padL}" y1="${padT + plotH}" x2="${padL + plotW}" y2="${padT + plotH}" stroke="#94a3b8" />
+        <polygon points="${polyBandTop.concat(polyBandBot).join(' ')}" fill="rgba(37, 99, 235, 0.18)" stroke="rgba(37, 99, 235, 0.45)" stroke-width="1" />
+        <path d="${pathRaw.join(' ')}" fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="4,3" />
+        <path d="${pathTrue.join(' ')}" fill="none" stroke="#dc2626" stroke-width="2.4" />
+        <text x="${padL + 8}" y="${padT + 14}" font-size="11" fill="#2563eb">Shaded: Epistemic Bounds [<tspan font-style="italic">L</tspan><tspan baseline-shift="sub" font-size="8.5">t</tspan>, <tspan font-style="italic">U</tspan><tspan baseline-shift="sub" font-size="8.5">t</tspan>]</text>
+        <text x="${padL + 215}" y="${padT + 14}" font-size="11" fill="#dc2626">Solid: True Demand <tspan font-style="italic">S</tspan><tspan baseline-shift="sub" font-size="8.5">t</tspan></text>
+        <text x="${padL + 355}" y="${padT + 14}" font-size="11" fill="#d97706">Dashed: Archive <tspan font-style="italic">Ō</tspan><tspan baseline-shift="sub" font-size="8.5">t</tspan></text>
+      `;
+
+      const yRes = (v) => padT + plotH - (Math.min(Math.max(v, 0), 80) / 80) * plotH;
+      let pathRes = [], pathHarm = [];
+      report.steps.forEach((s) => {
+        const x = xOf(s.t).toFixed(1);
+        pathRes.push(`${s.t === 0 ? 'M' : 'L'}${x},${yRes(s.reserve).toFixed(1)}`);
+        pathHarm.push(`${s.t === 0 ? 'M' : 'L'}${x},${yRes(Math.min(s.harm, 80)).toFixed(1)}`);
+      });
+
+      svgR.innerHTML = `
+        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + plotH}" stroke="#94a3b8" />
+        <line x1="${padL}" y1="${padT + plotH}" x2="${padL + plotW}" y2="${padT + plotH}" stroke="#dc2626" stroke-width="1.5" />
+        <path d="${pathRes.join(' ')}" fill="none" stroke="#16a34a" stroke-width="2.6" />
+        <path d="${pathHarm.join(' ')}" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="3,3" />
+        <text x="${padL + 8}" y="${padT + 14}" font-size="11" fill="#16a34a">Solid Green: Vital Reserve <tspan font-style="italic">R</tspan><tspan baseline-shift="sub" font-size="8.5">t</tspan></text>
+        <text x="${padL + 195}" y="${padT + 14}" font-size="11" fill="#dc2626">Dashed Red: Convex Harm <tspan font-style="italic">H</tspan><tspan baseline-shift="sub" font-size="8.5">t</tspan> (<tspan font-style="italic">R</tspan> = 0 Ruin Floor)</text>
+      `;
+    }
+
+    function updateUI() {
+      const useEpi = document.getElementById("chk-epi").checked;
+      const useVital = document.getElementById("chk-vital").checked;
+      const useGov = document.getElementById("chk-gov").checked;
+      const rep = simulateTrajectory(useEpi, useVital, useGov);
+
+      const elDiag = document.getElementById("val-diag");
+      elDiag.textContent = rep.diag;
+      elDiag.style.color = rep.diag === "IntactTriad" ? "var(--success)" : "var(--danger)";
+
+      document.getElementById("val-cov").textContent = (rep.covRate * 100).toFixed(1) + "%";
+      document.getElementById("val-harm").textContent = rep.meanHarm.toFixed(2);
+      document.getElementById("val-res").textContent = rep.terminalReserve.toFixed(2);
+
+      const elRuin = document.getElementById("val-ruin");
+      elRuin.textContent = rep.ruinStep === null ? "None (Survived)" : `Step t = ${rep.ruinStep}`;
+      elRuin.style.color = rep.ruinStep === null ? "var(--success)" : "var(--danger)";
+
+      renderCharts(rep);
+
+      const tbody = document.getElementById("tbl-body");
+      tbody.innerHTML = rep.steps.map((s) => {
+        const badgeClass = s.grade === "FullyAptPerformance" ? "badge-ok"
+          : (s.grade === "AdroitExAnteUnluckyOutcome" ? "badge-warn" : "badge-err");
+        return `
+          <tr>
+            <td>t = ${s.t}${s.isShock ? ' (Tail Surge)' : ''}</td>
+            <td>${s.rawMean.toFixed(1)}</td>
+            <td><strong>${s.trueMean.toFixed(1)}</strong></td>
+            <td>[${s.bounds[0].toFixed(1)}, ${s.bounds[1].toFixed(1)}] ${s.covered ? '&check;' : '&times;'}</td>
+            <td>${s.effCap.toFixed(1)}</td>
+            <td>${(s.rho * 100).toFixed(1)}%</td>
+            <td>${s.harm.toFixed(2)}</td>
+            <td>${s.reserve.toFixed(2)}</td>
+            <td><span class="badge ${badgeClass}">${s.grade}</span></td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function setPreset(epi, vital, gov, btnId) {
+      document.getElementById("chk-epi").checked = epi;
+      document.getElementById("chk-vital").checked = vital;
+      document.getElementById("chk-gov").checked = gov;
+      document.querySelectorAll(".presets button").forEach((b) => {
+        b.classList.remove("active");
+        b.setAttribute("aria-pressed", "false");
+      });
+      if (btnId) {
+        const activeBtn = document.getElementById(btnId);
+        activeBtn.classList.add("active");
+        activeBtn.setAttribute("aria-pressed", "true");
+      }
+      updateUI();
+    }
+
+    function onManualToggle() {
+      document.querySelectorAll(".presets button").forEach((b) => {
+        b.classList.remove("active");
+        b.setAttribute("aria-pressed", "false");
+      });
+      updateUI();
+    }
+
+    updateUI();
+
+    const MULTILAYER_NODES = [
+      {id:"L01", ch:51, file:"51-layer-micro-kinetic-sensorimotor-order.html", order:"L01MicroKinetic", stratum:"S1", prereq:[], primary:"T5Temporal (1,1,1)", triple:"T1Framing, T5Temporal, T7Liability", iso:"Two-tape separation (télos/skopós) & TTS_survival >= TTR_recovery"},
+      {id:"L02", ch:52, file:"52-layer-meso-buffered-queue-dispatch-order.html", order:"L02MesoBufferedQueue", stratum:"S1", prereq:["L01"], primary:"T7Liability (0,1,2)", triple:"T4Formalization, T6Performative, T7Liability", iso:"Kingman heavy-traffic hyperbola rho/(1-rho) & 10 bits/s cognitive queue"},
+      {id:"L03", ch:53, file:"53-layer-macro-coupled-network-contagion-order.html", order:"L03MacroCoupledTopology", stratum:"S1", prereq:["L01","L02"], primary:"T6Performative (0,2,1)", triple:"T4Formalization, T5Temporal, T6Performative", iso:"Motter-Lai cascade tolerance alpha_tol = (1-rho)/rho as reciprocal of Kingman"},
+      {id:"L04", ch:54, file:"54-layer-geophysical-chaos-data-assimilation-order.html", order:"L04GeophysicalChaosDataAssimilation", stratum:"S1", prereq:["L01","L03"], primary:"T3Archive (1,2,0)", triple:"T3Archive, T4Formalization, T5Temporal", iso:"Lorenz Lyapunov horizon tau_L ~ (1/lambda_1) ln(delta_tol/eps_0) & 4D-Var/CRPS"},
+      {id:"L05", ch:55, file:"55-layer-fracture-continuum-structural-order.html", order:"L05ContinuumFractureStructural", stratum:"S1", prereq:["L01","L02"], primary:"T4Formalization (1,1,1)", triple:"T2Severity, T4Formalization, T7Liability", iso:"Griffith critical crack a_c as basin fold bifurcation & Weibull weakest link min_i R_i"},
+      {id:"L06", ch:56, file:"56-layer-formal-computable-type-order.html", order:"L06FormalComputableLinearType", stratum:"S2", prereq:["L01"], primary:"T1Framing (1,2,0)", triple:"T1Framing, T4Formalization, T5Temporal", iso:"Rice undecidability -> LL(1) syntactic judge() & Girard linear/affine resource types"},
+      {id:"L07", ch:57, file:"57-layer-probability-credence-measurement-order.html", order:"L07ProbabilityCredenceMeasurement", stratum:"S2", prereq:["L01","L06"], primary:"T4Formalization (2,1,0)", triple:"T1Framing, T2Severity, T4Formalization", iso:"Walley imprecise credences [P_low, P_high] = Manski bounds & Stevens scale invariance"},
+      {id:"L08", ch:58, file:"58-layer-metrological-information-geometric-order.html", order:"L08MetrologicalInfoGeometric", stratum:"S2", prereq:["L04","L07"], primary:"T3Archive (1,1,1)", triple:"T3Archive, T4Formalization, T6Performative", iso:"BIPM GUM Type A vs Type B uncertainty & Bregman Pythagorean CORP-PAV"},
+      {id:"L09", ch:59, file:"59-layer-experimental-sampling-causal-order.html", order:"L09ExperimentalSamplingCausal", stratum:"S2", prereq:["L07","L08"], primary:"T2Severity (3,0,0)", triple:"T1Framing, T2Severity, T3Archive", iso:"Fisher randomization + Kish DEFF = 1 + (m-1)*rho_cl & Simonsohn multiverse curve"},
+      {id:"L10", ch:60, file:"60-layer-cryptographic-zero-knowledge-adversarial-order.html", order:"L10CryptographicZeroKnowledgeAdversarial", stratum:"S2", prereq:["L06","L07"], primary:"T7Liability (1,0,2)", triple:"T2Severity, T6Performative, T7Liability", iso:"Kerckhoffs-Shannon secrecy, Dolev-Yao adversary & zero-knowledge soundness = e-value"},
+      {id:"L11", ch:61, file:"61-layer-biochemical-kinetic-molecular-order.html", order:"L11BiochemicalKineticMolecular", stratum:"S3", prereq:["L01","L02","L08"], primary:"T2Severity (1,1,1)", triple:"T2Severity, T5Temporal, T6Performative", iso:"Hopfield-Ninio kinetic proofreading eps_1^N = e-process & Michaelis-Menten = Kingman"},
+      {id:"L12", ch:62, file:"62-layer-morphogenetic-evolutionary-developmental-order.html", order:"L12MorphogeneticDevelopmental", stratum:"S3", prereq:["L03","L11"], primary:"T5Temporal (1,1,1)", triple:"T1Framing, T5Temporal, T6Performative", iso:"Waddington chreod / Hsp90 capacitance = Holling basin & evolutionary Itô drain"},
+      {id:"L13", ch:63, file:"63-layer-immunological-self-governance-order.html", order:"L13ImmunologicalSelfGovernance", stratum:"S3", prereq:["L11","L12"], primary:"T7Liability (1,1,1)", triple:"T2Severity, T5Temporal, T7Liability", iso:"Thymic AIRE coverage f, two-signal TCR+CD28 veto & Treg/CTLA-4/PD-1 S3* brake"},
+      {id:"L14", ch:64, file:"64-layer-taxonomy-systematics-ontology-order.html", order:"L14TaxonomySystematicsOntology", stratum:"S3", prereq:["L06","L12"], primary:"T4Formalization (2,1,0)", triple:"T1Framing, T3Archive, T4Formalization", iso:"Hennig cladistic apomorphy vs homoplasy & Bowker-Star classification torque"},
+      {id:"L15", ch:65, file:"65-layer-stratigraphy-paleobiology-deep-time-order.html", order:"L15StratigraphyPaleobiologyDeepTime", stratum:"S3", prereq:["L04","L12","L14"], primary:"T1Framing (2,1,0)", triple:"T1Framing, T3Archive, T5Temporal", iso:"Signor-Lipps fossil truncation = archival tail censorship & Raup-Sepkoski alpha"},
+      {id:"L16", ch:66, file:"66-layer-pharmacological-clinical-diagnostic-order.html", order:"L16PharmacologicalClinicalDiagnostic", stratum:"S4", prereq:["L09","L11","L13"], primary:"T4Formalization (1,2,0)", triple:"T2Severity, T4Formalization, T5Temporal", iso:"Pauker-Kassirer p* = C/(eta*L), therapeutic index TI = TD50/ED50 & Golden Hour"},
+      {id:"L17", ch:67, file:"67-layer-epidemiology-outbreak-surveillance-order.html", order:"L17EpidemiologyOutbreakSurveillance", stratum:"S4", prereq:["L02","L03","L09","L16"], primary:"T3Archive (2,1,0)", triple:"T2Severity, T3Archive, T5Temporal", iso:"Kermack-McKendrick R_0 = 1 threshold & serial interval vs tracing queue TTR"},
+      {id:"L18", ch:68, file:"68-layer-pharmacovigilance-regulatory-toxicology-order.html", order:"L18PharmacovigilanceRegulatoryToxicology", stratum:"S4", prereq:["L09","L16","L17"], primary:"T2Severity (2,0,1)", triple:"T2Severity, T3Archive, T7Liability", iso:"Bradford Hill coherence, FAERS spontaneous reporting rho_{R,Y} bias & recall veto"},
+      {id:"L19", ch:69, file:"69-layer-metascience-scientometrics-replication-order.html", order:"L19MetascienceScientometricsReplication", stratum:"S4", prereq:["L08","L09","L18"], primary:"T6Performative (2,0,1)", triple:"T2Severity, T3Archive, T6Performative", iso:"Ioannidis PPV under file-drawer bias, Smaldino-McElreath selection & e-BH FDR"},
+      {id:"L20", ch:70, file:"70-layer-acoustic-aesthetic-tragic-pedagogical-order.html", order:"L20AcousticAestheticTragicPedagogical", stratum:"S4", prereq:["L01","L08","L16"], primary:"T1Framing (1,1,1)", triple:"T1Framing, T4Formalization, T6Performative", iso:"Pythagorean comma (3/2)^12 != 2^7 -> well-temperament slack, hamartía & ZPD"},
+      {id:"L21", ch:71, file:"71-layer-linguistic-evidential-pragmatic-order.html", order:"L21LinguisticEvidentialPragmatic", stratum:"S5", prereq:["L02","L06","L14"], primary:"T7Liability (1,0,2)", triple:"T3Archive, T6Performative, T7Liability", iso:"Tuyuca/Quechua obligatory morphological evidentials vs March-Simon absorption"},
+      {id:"L22", ch:72, file:"72-layer-philological-epigraphic-textual-order.html", order:"L22PhilologicalEpigraphicTextual", stratum:"S5", prereq:["L09","L14","L21"], primary:"T3Archive (2,1,0)", triple:"T2Severity, T3Archive, T4Formalization", iso:"Lachmann stemma codicum = cluster DEFF & Leiden epigraphic [...] = Manski bounds"},
+      {id:"L23", ch:73, file:"73-layer-taphonomic-archaeological-historiographical-order.html", order:"L23TaphonomicHistoriographical", stratum:"S5", prereq:["L15","L21","L22"], primary:"T5Temporal (1,1,1)", triple:"T3Archive, T5Temporal, T7Liability", iso:"Efremov taphonomic filter = Meng rho_{R,Y} + Chao n_00 & TemporalVault"},
+      {id:"L24", ch:74, file:"74-layer-critical-archival-transitional-justice-order.html", order:"L24CriticalArchivalTransitionalJustice", stratum:"S5", prereq:["L09","L21","L23"], primary:"T1Framing (2,0,1)", triple:"T1Framing, T3Archive, T7Liability", iso:"Fricker testimonial justice, Trouillot archival silencing & Ball capture-recapture n_00"},
+      {id:"L25", ch:75, file:"75-layer-media-ecology-information-retrieval-order.html", order:"L25MediaEcologyInformationRetrieval", stratum:"S5", prereq:["L03","L19","L21"], primary:"T6Performative (2,0,1)", triple:"T1Framing, T3Archive, T6Performative", iso:"Innis bias of communication & recommender feedback = performative rho_{R,Y}"},
+      {id:"L26", ch:76, file:"76-layer-sequential-decision-bandit-real-options-order.html", order:"L26SequentialDecisionBanditRealOptions", stratum:"S6", prereq:["L01","L07","L09"], primary:"T5Temporal (2,1,0)", triple:"T1Framing, T2Severity, T5Temporal", iso:"Wald SPRT boundaries, Gittins bandit index & Dixit-Pindyck irreversible options"},
+      {id:"L27", ch:77, file:"77-layer-game-theory-strategic-adversarial-order.html", order:"L27GameTheoryStrategicAdversarial", stratum:"S6", prereq:["L07","L10","L26"], primary:"T2Severity (2,0,1)", triple:"T1Framing, T2Severity, T6Performative", iso:"Perdomo performative stability vs strategic manipulation & minimax robustness"},
+      {id:"L28", ch:78, file:"78-layer-macro-finance-econometrics-actuarial-order.html", order:"L28MacroFinanceEconometricsActuarial", stratum:"S6", prereq:["L03","L26","L27"], primary:"T6Performative (1,1,1)", triple:"T2Severity, T4Formalization, T6Performative", iso:"Cramér-Lundberg ruin, Artzner coherent CVaR vs VaR, Lucas critique & Goodhart 1975"},
+      {id:"L29", ch:79, file:"79-layer-official-statistics-forensic-accounting-order.html", order:"L29OfficialStatisticsForensicAccounting", stratum:"S6", prereq:["L08","L09","L23","L28"], primary:"T3Archive (1,1,1)", triple:"T3Archive, T4Formalization, T7Liability", iso:"Pacioli double-entry conservation invariant, Desrosières census & Sen poverty axioms"},
+      {id:"L30", ch:80, file:"80-layer-corporate-governance-principal-agent-order.html", order:"L30CorporateGovernancePrincipalAgent", stratum:"S6", prereq:["L27","L28","L29"], primary:"T1Framing (1,0,2)", triple:"T1Framing, T6Performative, T7Liability", iso:"Holmström-Milgrom multitask distortion, Hurwicz incentive compatibility & Innes liability"},
+      {id:"L31", ch:81, file:"81-layer-criminal-proof-forensic-epistemology-order.html", order:"L31CriminalProofForensicEpistemology", stratum:"S7", prereq:["L09","L23","L24"], primary:"T2Severity (2,0,1)", triple:"T1Framing, T2Severity, T7Liability", iso:"Blackstone asymmetric error loss, likelihood-ratio forensic weight & chain of custody"},
+      {id:"L32", ch:82, file:"82-layer-evidentiary-tort-constitutional-legal-order.html", order:"L32EvidentiaryTortConstitutional", stratum:"S7", prereq:["L05","L30","L31"], primary:"T7Liability (1,1,1)", triple:"T1Framing, T4Formalization, T7Liability", iso:"Learned Hand B < P*L with tail amplification & constitutional supermajority hysteresis"},
+      {id:"L33", ch:83, file:"83-layer-distributed-consensus-sre-order.html", order:"L33DistributedConsensusSre", stratum:"S7", prereq:["L02","L03","L10"], primary:"T5Temporal (0,1,2)", triple:"T5Temporal, T6Performative, T7Liability", iso:"FLP/CAP theorem, metastable retry storms at rho -> 1 & SRE error-budget freeze gate"},
+      {id:"L34", ch:84, file:"84-layer-infrastructure-nuclear-hydraulic-safety-order.html", order:"L34HighHazardInfrastructureSafety", stratum:"S7", prereq:["L04","L05","L32","L33"], primary:"T4Formalization (0,2,1)", triple:"T4Formalization, T5Temporal, T7Liability", iso:"Perrow interactive complexity x tight coupling, Rasmussen drift & hardwired SCRAM veto"},
+      {id:"L35", ch:85, file:"85-layer-polycentric-commons-urban-biospheric-order.html", order:"L35PolycentricCommonsBiospheric", stratum:"S7", prereq:["L15","L17","L29","L32","L34"], primary:"T6Performative (1,1,1)", triple:"T3Archive, T5Temporal, T6Performative", iso:"Ostrom 8 polycentric principles, Rockström planetary boundaries & Leontief triadic floor"}
+    ];
+
+    let activeStratum = "ALL";
+    let selectedLayerId = "L35";
+
+    function selectLayer(id) {
+      selectedLayerId = id;
+      renderMultilayer();
+    }
+
+    function filterStratum(s, btn) {
+      activeStratum = s;
+      document.querySelectorAll("#stratum-filters button").forEach((b) => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      renderMultilayer();
+    }
+
+    function renderMultilayer() {
+      const rows = MULTILAYER_NODES.filter((n) => activeStratum === "ALL" || n.stratum === activeStratum);
+      const sel = MULTILAYER_NODES.find((n) => n.id === selectedLayerId) || MULTILAYER_NODES[34];
+      const detail = document.getElementById("ml-detail");
+      detail.innerHTML = `
+        <strong>Selected Layer ${sel.id} (Chapter ${sel.ch} · <code>${sel.order}</code>, Stratum ${sel.stratum}):</strong>
+        ${sel.iso} —
+        <strong>Direct $\\mathcal{G}_1$ Prerequisites:</strong> ${sel.prereq.length ? sel.prereq.join(", ") : "Basal Root (None)"} ·
+        <strong>$\\mathcal{G}_2$ Guards:</strong> <code>${sel.triple}</code> ·
+        <a href="../${sel.file}" style="color:var(--primary); font-weight:600;">Open Chapter ${sel.ch} &rarr;</a>
+      `;
+      const tbody = document.getElementById("ml-tbody");
+      tbody.innerHTML = rows.map((n) => `
+        <tr onclick="selectLayer('${n.id}')" style="cursor:pointer; ${n.id === sel.id ? 'background:rgba(37,99,235,0.08);' : ''}">
+          <td><strong>${n.id}</strong></td>
+          <td><a href="../${n.file}" style="color:var(--primary); font-weight:600;">Ch. ${n.ch}</a></td>
+          <td><code>${n.order}</code></td>
+          <td><span class="badge badge-ok">Stratum ${n.stratum}</span></td>
+          <td>${n.prereq.length ? n.prereq.join(", ") : "—"}</td>
+          <td><strong>${n.primary}</strong><br/><span style="font-size:0.78rem; color:var(--muted);">${n.triple}</span></td>
+          <td>${n.iso}</td>
+        </tr>
+      `).join("");
+    }
+
+    renderMultilayer();
+  </script>
+  <script>
+    window.path_to_root = "../";
+  </script>
+  <script src="../mathjax.js"></script>
+</body>
+</html>

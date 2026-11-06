@@ -1,0 +1,44 @@
+cff-version: 1.2.0
+message: >-
+  Cite the commit you read, by its hash and date, and the repository URL.
+  The documentation is licensed under CC BY 4.0 and the code under MIT;
+  the datasets keep their own licenses (data/SOURCES.md).
+title: "Stochology: The Theory and Ethics of Aim under Uncertainty"
+type: software
+authors:
+  - family-names: Neto
+    given-names: Silvano
+    email: dev@silvanoneto.com
+repository-code: https://github.com/0b3st4f3r4/stochology
+url: https://stochology.org
+license:
+  - CC-BY-4.0
+  - MIT
+abstract: >-
+  A pure-Rust (std only, zero external dependencies) library, command-line verification suite,
+  five foundational essays (notes/), and 86-chapter (00-85) five-part textbook implementing
+  Stochology — an integrative framework and transversal research program for the theory and
+  ethics of aim (stókhos) for judgment and decision-making under structural uncertainty when
+  action must precede the outcome, whose distinct unit of analysis is the full mediation circuit
+  across World, Archive, and Institution. Organized 1-to-1 around the Sequential
+  Agent-World-Institution Loop (CommunityReserveEnv), the Leontief Nuclear Triad
+  M_Leontief = min(S_epi, S_vital, S_gov), the Three Canonical Operators (EpistemicMarginState,
+  VitalMarginState, GovernanceState), the Three Collapse Propositions, the Seven Guard Sites
+  (T1-T7, 3 direct transits + 3 reflexive locks + 1 integral three-plane closure = 7 circuit
+  transits in grammar.rs), the 35-layer Multilayer Knowledge Graph (G_1 <-> G_2, 7 strata x 5
+  orders = C(7,3) = 35 in multilayer.rs), and 14 cryptographically sealed empirical datasets
+  (data/SHA256SUMS).
+keywords:
+  - stochology
+  - decision under uncertainty
+  - epistemic margin
+  - partial identification
+  - vital margin
+  - non-ergodicity
+  - institutional governance
+  - performative prediction
+  - causal invariance
+  - formal grammar of aim
+  - multilayer knowledge graph
+  - calibration
+  - reproducibility

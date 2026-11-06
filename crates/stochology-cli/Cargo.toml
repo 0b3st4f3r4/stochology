@@ -1,0 +1,22 @@
+[package]
+name = "stochology-cli"
+description = "Command-line runner and real-dataset laboratories for Stochology"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[[bin]]
+name = "stochology"
+path = "src/main.rs"
+
+[dependencies]
+stochology = { workspace = true }
+
+[lints]
+workspace = true
