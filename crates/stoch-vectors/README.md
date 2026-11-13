@@ -6,8 +6,8 @@ exercises, and no opinion of its own: every observation here is a call into
 `step`, `accept` and `diagnose` are not reimplemented.
 
 ```
-TMPDIR=/home/silvano-neto/.cache/rs-tmp cargo test --offline
-TMPDIR=/home/silvano-neto/.cache/rs-tmp cargo run --offline -p stoch-vectors -- check
+TMPDIR="${TMPDIR:-$HOME/.cache/rs-tmp}" cargo test --offline
+TMPDIR="${TMPDIR:-$HOME/.cache/rs-tmp}" cargo run --offline -p stoch-vectors -- check
 ```
 
 ## Subcommands

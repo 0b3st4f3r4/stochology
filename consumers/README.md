@@ -3,6 +3,11 @@
 **Estes dois consumidores são dublês de teste criados para ensaiar a ABI; o gatilho
 de PLAN §4.2 continua não satisfeito.**
 
+> **Documentos de desenho citados.** `02-arquitetura.md`, `03-cadeia-de-suprimentos.md` e
+> `PLAN.md` são documentos internos de projeto e não fazem parte deste repositório. As
+> referências ficam como registro do desenho que estes dublês ensaiam; nada aqui depende de
+> abri-los para rodar.
+
 Dois consumidores, dois ecossistemas, uma só porta:
 
 | Caminho | Runtime | Caminho até a ABI |

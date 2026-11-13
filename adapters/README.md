@@ -3,6 +3,11 @@
 **Estes dois consumidores são dublês de teste criados para ensaiar a ABI; o gatilho
 de PLAN §4.2 continua não satisfeito.**
 
+> **Documentos de desenho citados.** `02-arquitetura.md`, `03-cadeia-de-suprimentos.md` e
+> `PLAN.md` são documentos internos de projeto e não fazem parte deste repositório. As
+> referências ficam como registro do desenho que estes dublês ensaiam; nada aqui depende de
+> abri-los para rodar.
+
 Este diretório guarda o adaptador de um dos dois consumidores. O adaptador não é um
 produto nem uma promessa de suporte: existe para exercitar a fronteira wasm do
 `crates/stoch-abi` a partir de um runtime de linguagem, e para que o segundo

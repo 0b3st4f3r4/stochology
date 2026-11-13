@@ -46,4 +46,4 @@ Any retitling of an appendix or of a chapter in `SUMMARY.md` requires explicit h
 
 ## 5. Licensing
 
-Documentation contributions are licensed under CC BY 4.0 ([`LICENSE-TEXT`](LICENSE-TEXT)) and the theme assets under MIT ([`LICENSE`](LICENSE)).
+Documentation contributions are licensed under CC BY 4.0 ([`LICENSE-TEXT`](LICENSE-TEXT)) and the theme assets under MIT ([`LICENSE`](LICENSE)). The vendored typesetting payload under `theme/mathjax/` keeps its upstream Apache-2.0 license ([`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md)); a contribution must not relicense it.

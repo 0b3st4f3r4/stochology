@@ -8,9 +8,10 @@
 //
 // Run: node consumers/node/run.mjs [--vectors PATH]
 
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, mkdirSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -20,6 +21,9 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
 const wasmPath = join(root, "target/wasm32-unknown-unknown/release/stoch_abi.wasm");
 const defaultVectors = join(root, "crates/stoch-core/vectors.kv");
+// Some hosts mount /tmp as a small tmpfs and the linker dies mid-link there.
+// Use the caller's TMPDIR when it has one, and keep the fallback inside $HOME.
+const tmpFallback = join(homedir(), ".cache", "rs-tmp");
 
 const args = process.argv.slice(2);
 const vectorsIndex = args.indexOf("--vectors");
@@ -29,13 +33,14 @@ const vectorsPath = vectorsIndex >= 0 ? resolve(args[vectorsIndex + 1]) : defaul
 
 function loadWasm() {
   if (!existsSync(wasmPath)) {
+    if (!process.env.TMPDIR) mkdirSync(tmpFallback, { recursive: true });
     const built = spawnSync(
       "cargo",
       ["build", "--offline", "--release", "-p", "stoch-abi", "--target", "wasm32-unknown-unknown"],
       {
         cwd: root,
         stdio: "inherit",
-        env: { ...process.env, TMPDIR: process.env.TMPDIR ?? "/home/silvano-neto/.cache/rs-tmp" },
+        env: { ...process.env, TMPDIR: process.env.TMPDIR ?? tmpFallback },
       },
     );
     if (built.status !== 0 || !existsSync(wasmPath)) {

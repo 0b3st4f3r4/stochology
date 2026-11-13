@@ -199,7 +199,7 @@ tamanho do artefacto que a §2 descreve, agora que existe.
 ## Como verificar
 
 ```sh
-export TMPDIR=/home/silvano-neto/.cache/rs-tmp   # o /tmp desta máquina é tmpfs cheio
+export TMPDIR="${TMPDIR:-$HOME/.cache/rs-tmp}"   # só quando /tmp é um tmpfs pequeno
 cargo test --offline -p stoch-abi
 cargo build --release --target wasm32-unknown-unknown -p stoch-abi
 cargo test --offline --workspace

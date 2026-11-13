@@ -16,7 +16,6 @@ swarm-*/
 .deja/
 dist/
 .venv/
-target/
 .coverage*
 *.so
 *.pyd

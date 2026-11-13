@@ -83,7 +83,7 @@ variant; both facts are asserted rather than described.
 ## Tests
 
 ```
-TMPDIR=/home/silvano-neto/.cache/rs-tmp cargo test --offline
+TMPDIR="${TMPDIR:-$HOME/.cache/rs-tmp}" cargo test --offline
 ```
 
 The `TMPDIR` prefix is a property of this machine, not of the crate: the default
