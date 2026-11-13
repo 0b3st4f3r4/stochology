@@ -1,0 +1,40 @@
+[book]
+title = "STOCHOLOGY"
+authors = ["Silvano Neto"]
+language = "en"
+src = "book-src"
+
+[build]
+build-dir = "book"
+create-missing = false
+
+[output.html]
+no-section-label = true
+default-theme = "light"
+preferred-dark-theme = "navy"
+additional-css = ["theme/book.css"]
+additional-js = ["mathjax.js"]
+# mdBook fixes five theme slots and theme/book.css re-skins all of them; the menu reads
+# them as light Marble, rust Parchment, coal Graphite, navy Ultramarine, ayu Nocturne.
+cname = "stochology.org"
+site-url = "https://stochology.org/"
+git-repository-url = "https://github.com/0b3st4f3r4/stochology"
+edit-url-template = "https://github.com/0b3st4f3r4/stochology/edit/main/{path}"
+# Content-hashed asset names, so a redeploy never serves a stale stylesheet or search
+# index. Two stable names are restored after the build by the publication workflow:
+# mathjax.js, which an external loader reaches for by name, and theme/book.css.
+hash-files = true
+
+[output.html.search]
+limit-results = 30
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 2
+# One index document per heading at depth <= this level, which makes it the only search
+# setting that moves stored bytes: level 2 folds each section into its parent heading
+# instead of indexing it separately.
+heading-split-level = 2
+
+[output.html.fold]
+enable = true
+level = 2

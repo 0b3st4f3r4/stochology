@@ -1,0 +1,129 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  structure:
+    name: structural gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: interpreter
+        run: python3 -V
+
+      - name: apparatus, spine, links, figures, table B.1, ledger, contents, concordance, guard-site cardinality
+        run: python3 .github/checks/structure.py
+
+  core:
+    name: normative core
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      # The runner's /tmp is a tmpfs, and the linker dies there with a bus error:
+      # seven of the ten doctests never link (F7). Keep both the compiler's and
+      # cargo's temporary files on the runner's disk instead.
+      - name: temporary directory on disk
+        run: |
+          mkdir -p "$RUNNER_TEMP/rs-tmp"
+          echo "TMPDIR=$RUNNER_TEMP/rs-tmp" >> "$GITHUB_ENV"
+          echo "TMPDIR=$RUNNER_TEMP/rs-tmp"
+
+      # No external dependencies by contract: the workspace must build and test
+      # with the network unavailable, so the flag is not a convenience.
+      - name: workspace tests, offline
+        run: cargo test --offline
+
+      - name: core doctests, offline
+        run: cargo test --doc --offline -p stoch-core
+
+  wasm:
+    name: wasm supply chain
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # The gates read the module's bytes themselves; no wabt at all, so this
+      # job does not depend on a tool the runner happens not to ship.
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      # Same F7 as the core job, and the wasm build links through the same host
+      # linker: temporary files must not land on the runner's tmpfs.
+      - name: temporary directory on disk
+        run: |
+          mkdir -p "$RUNNER_TEMP/rs-tmp"
+          echo "TMPDIR=$RUNNER_TEMP/rs-tmp" >> "$GITHUB_ENV"
+          echo "TMPDIR=$RUNNER_TEMP/rs-tmp"
+
+      # C1-C6, C12-C14 of 03 §8, plus the rows that cannot be decided offline,
+      # each reported open with its reason and never as pass. Every cargo
+      # invocation inside the script runs `--offline --locked`, so the artifact
+      # is built against the committed `Cargo.lock` and never against a lock the
+      # runner re-resolved for itself.
+      - name: release gates C1-C17
+        run: python3 .github/checks/wasm_gates.py
+
+  render:
+    name: render
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: peaceiris/actions-mdbook@v2
+        with:
+          mdbook-version: "0.5.3"
+
+      - name: build the book
+        run: mdbook build
+
+      # §V-8 reads the built pages, so it runs here and not in the structure job.
+      - name: published surface (§V-8)
+        run: python3 .github/checks/surface.py book
+
+      # Same hand-carry as the publish job: the artifact must render its formulas offline too.
+      - name: vendored typesetting payload
+        run: cp -r theme/mathjax book/mathjax
+
+      - name: every chapter reaches a page
+        run: |
+          entries=$(grep -c '^\- \[' book-src/SUMMARY.md)
+          pages=$(find book -name '*.html' | wc -l)
+          echo "summary entries: $entries, html pages: $pages"
+          if [ "$pages" -lt "$entries" ]; then
+            echo "fewer pages than table-of-contents entries" >&2
+            exit 1
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: book
+          path: book
+          retention-days: 7

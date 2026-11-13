@@ -1,0 +1,15 @@
+[package]
+name = "stoch-core"
+version = "0.1.0"
+edition = "2021"
+description = "Deterministic formal core of the Stochology framework: step, accept, diagnose"
+license = "CC-BY-4.0"
+repository = "https://github.com/silvanoneto/stochology"
+readme = "README.md"
+include = ["src/**", "vectors.kv", "Cargo.toml", "README.md"]
+
+[lib]
+crate-type = ["rlib"]
+
+# No dependencies: this table is absent on purpose (02-arquitetura.md §1.1).
+# A dependency here is a dependency in the .wasm artifact and in the trusted base.

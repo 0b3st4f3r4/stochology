@@ -1,0 +1,99 @@
+name: pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "book-src/**"
+      - "book.toml"
+      - "mathjax.js"
+      - "theme/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build the book
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: peaceiris/actions-mdbook@v2
+        with:
+          mdbook-version: "0.5.3"
+
+      - name: render
+        run: mdbook build
+
+      - name: legacy stable asset names
+        run: |
+          cp mathjax.js book/mathjax.js
+          mkdir -p book/theme
+          cp theme/book.css book/theme/book.css
+
+      # mdBook publishes the files it knows about, not the theme directory's contents, so the
+      # vendored typesetting payload travels by hand. It has to travel: the page's formulas must
+      # resolve from this origin, not from a CDN that may be unreachable when a reader arrives.
+      - name: vendored typesetting payload
+        run: cp -r theme/mathjax book/mathjax
+
+      - name: custom domain
+        run: printf '%s\n' stochology.org > book/CNAME
+
+      - name: every source reaches a page
+        run: |
+          fail=0
+          check() {
+            if [ -s "$1" ]; then echo "ok   $1"; else echo "FAIL $1"; fail=1; fi
+          }
+          check book/index.html
+          check book/mathjax.js
+          check book/theme/book.css
+          check book/CNAME
+          check book/figures/fig-41-three-regimes.svg
+          check book/appendix-e-lexicon.html
+          check book/mathjax/tex-chtml.js
+          check book/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff
+          if grep -qx "stochology.org" book/CNAME; then
+            echo "ok   custom domain value"
+          else
+            echo "FAIL custom domain value: $(cat book/CNAME 2>&1)"
+            fail=1
+          fi
+          for src in book-src/[0-9][0-9]-*.md book-src/appendix-*.md; do
+            page="book/$(basename "${src%.md}").html"
+            if [ ! -s "$page" ]; then echo "FAIL missing $page"; fail=1;
+            elif ! grep -q "<main>" "$page"; then echo "FAIL no <main> in $page"; fail=1;
+            fi
+          done
+          echo "sources: $(ls book-src/[0-9][0-9]-*.md book-src/appendix-*.md | wc -l)"
+          exit "$fail"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./book
+
+  deploy:
+    name: publish to stochology.org
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="500" viewBox="0 0 1100 500" fill="none" role="img" aria-labelledby="title-fig-41-regimes">
+  <title id="title-fig-41-regimes">Decision procedure of the three regimes of action under opacity</title>
+  <defs>
+    <marker id="r-sky" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--sky)"/>
+    </marker>
+    <marker id="r-emerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--emerald)"/>
+    </marker>
+    <marker id="r-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--amber)"/>
+    </marker>
+    <marker id="r-rose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--rose)"/>
+    </marker>
+  <style>
+    svg:root {
+      color-scheme: light dark;
+      --font-sans: "Inter", "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono-font: "JetBrains Mono", "Source Code Pro", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+      --canvas: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --surface: #ffffff;
+      --elevated: #f1f5f9;
+      --border: #cbd5e1;
+      --sky: #1d4ed8;
+      --sky-bg: #dbeafe;
+      --violet: #e11d48;
+      --violet-bg: #ffe4e6;
+      --emerald: #047857;
+      --emerald-bg: #d1fae5;
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+      --rose: #be123c;
+      --rose-bg: #ffe4e6;
+    }
+    @media (prefers-color-scheme: dark) {
+      svg:root {
+        --canvas: #0f1626;
+        --ink: #e2e8f0;
+        --muted: #94a3b8;
+        --surface: #0f1626;
+        --elevated: #162036;
+        --border: #1e2d4a;
+        --sky: #38bdf8;
+        --sky-bg: #0c2644;
+        --violet: #fb7185;
+        --violet-bg: #3b101d;
+        --emerald: #34d399;
+        --emerald-bg: #092e26;
+        --amber: #fbbf24;
+        --amber-bg: #362407;
+        --rose: #fb7185;
+        --rose-bg: #3b101d;
+      }
+    }
+    @supports (color: light-dark(white, black)) {
+      svg:root {
+        --canvas: light-dark(#ffffff, #0f1626);
+        --ink: light-dark(#0f172a, #e2e8f0);
+        --muted: light-dark(#475569, #94a3b8);
+        --surface: light-dark(#ffffff, #0f1626);
+        --elevated: light-dark(#f1f5f9, #162036);
+        --border: light-dark(#cbd5e1, #1e2d4a);
+        --sky: light-dark(#1d4ed8, #38bdf8);
+        --sky-bg: light-dark(#dbeafe, #0c2644);
+        --violet: light-dark(#e11d48, #fb7185);
+        --violet-bg: light-dark(#ffe4e6, #3b101d);
+        --emerald: light-dark(#047857, #34d399);
+        --emerald-bg: light-dark(#d1fae5, #092e26);
+        --amber: light-dark(#b45309, #fbbf24);
+        --amber-bg: light-dark(#fef3c7, #362407);
+        --rose: light-dark(#be123c, #fb7185);
+        --rose-bg: light-dark(#ffe4e6, #3b101d);
+      }
+    }
+    text { font-family: var(--font-sans, "Inter", "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif); }
+    .mono { font-family: var(--mono-font, "JetBrains Mono", "Source Code Pro", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace); }
+  </style>
+  </defs>
+
+  <!-- Canvas Backdrop -->
+  <rect x="1" y="1" width="1098" height="498" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
+
+  <!-- Entry -->
+  <rect x="310" y="24" width="420" height="62" rx="12" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2.4"/>
+  <text x="520" y="50" text-anchor="middle" fill="var(--ink)" font-size="13.5" font-weight="800">First-order state &#952;&#8348; unknown</text>
+  <text x="520" y="72" text-anchor="middle" fill="var(--sky)" class="mono" font-size="11.5" font-weight="700">inspect R&#8348; = (R_epi, R_vital, R_gov)</text>
+
+  <line x1="520" y1="86" x2="520" y2="112" stroke="var(--sky)" stroke-width="2.6" marker-end="url(#r-sky)"/>
+
+  <!-- Q1 -->
+  <rect x="310" y="118" width="420" height="56" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
+  <text x="520" y="142" text-anchor="middle" fill="var(--ink)" font-size="12.5" font-weight="700">Q1 &#183; all seven invariants finite, declared, sealed?</text>
+  <text x="520" y="162" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">no &#8594; the instrument itself is unknown</text>
+
+  <line x1="730" y1="146" x2="796" y2="146" stroke="var(--rose)" stroke-width="2.4" marker-end="url(#r-rose)"/>
+  <text x="763" y="136" text-anchor="middle" fill="var(--rose)" class="mono" font-size="10.5" font-weight="800">No</text>
+
+  <rect x="800" y="112" width="270" height="68" rx="12" fill="var(--rose-bg)" stroke="var(--rose)" stroke-width="2.4"/>
+  <text x="935" y="137" text-anchor="middle" fill="var(--ink)" font-size="12.5" font-weight="800">Regime III-A &#183; Quarantine</text>
+  <text x="935" y="157" text-anchor="middle" fill="var(--rose)" class="mono" font-size="10.5" font-weight="700">Unparsable &#8212; lower the bow</text>
+  <text x="935" y="172" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10">audit lens, tank and pact first</text>
+
+  <line x1="520" y1="174" x2="520" y2="196" stroke="var(--sky)" stroke-width="2.6" marker-end="url(#r-sky)"/>
+  <text x="534" y="190" text-anchor="start" fill="var(--sky)" class="mono" font-size="10.5" font-weight="800">Yes</text>
+
+  <!-- Q2 -->
+  <rect x="310" y="202" width="420" height="56" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
+  <text x="520" y="226" text-anchor="middle" fill="var(--ink)" font-size="11.5" font-weight="700">Q2 &#183; TTS_survival,&#8348; &#8805; TTR_eff,&#8348;(I&#8348;) and step vital &amp; gov floors intact?</text>
+  <text x="520" y="246" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">no &#8594; the vessel cannot outlive its own correction</text>
+
+  <line x1="730" y1="230" x2="796" y2="230" stroke="var(--amber)" stroke-width="2.4" marker-end="url(#r-amber)"/>
+  <text x="763" y="220" text-anchor="middle" fill="var(--amber)" class="mono" font-size="10.5" font-weight="800">No</text>
+
+  <rect x="800" y="196" width="270" height="68" rx="12" fill="var(--amber-bg)" stroke="var(--amber)" stroke-width="2.4"/>
+  <text x="935" y="221" text-anchor="middle" fill="var(--ink)" font-size="12.5" font-weight="800">Regime III-B &#183; Algedonic halt</text>
+  <text x="935" y="241" text-anchor="middle" fill="var(--amber)" class="mono" font-size="10.5" font-weight="700">Withhold Shot &#8212; S3* circuit-breaker</text>
+  <text x="935" y="256" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10">shed load, widen TTS, shorten TTR</text>
+
+  <line x1="520" y1="258" x2="520" y2="280" stroke="var(--sky)" stroke-width="2.6" marker-end="url(#r-sky)"/>
+  <text x="534" y="274" text-anchor="start" fill="var(--sky)" class="mono" font-size="10.5" font-weight="800">Yes</text>
+
+  <!-- Q3 -->
+  <rect x="310" y="286" width="420" height="56" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
+  <text x="520" y="310" text-anchor="middle" fill="var(--ink)" font-size="11.5" font-weight="700">Q3 &#183; avoidable-loss bounds [L&#8348;, U&#8348;] clear cost C with weight V&#8348;?</text>
+  <text x="520" y="330" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.5">no &#8594; L&#8348; &lt; C &lt; U&#8348;, or the weight is thin</text>
+
+  <line x1="730" y1="314" x2="796" y2="314" stroke="var(--sky)" stroke-width="2.4" marker-end="url(#r-sky)"/>
+  <text x="763" y="304" text-anchor="middle" fill="var(--sky)" class="mono" font-size="10.5" font-weight="800">No</text>
+
+  <rect x="800" y="280" width="270" height="68" rx="12" fill="var(--sky-bg)" stroke="var(--sky)" stroke-width="2.4"/>
+  <text x="935" y="305" text-anchor="middle" fill="var(--ink)" font-size="12.5" font-weight="800">Regime II &#183; Reversible probe</text>
+  <text x="935" y="325" text-anchor="middle" fill="var(--sky)" class="mono" font-size="10.5" font-weight="700">a*_MMR = (U&#8348; &#8722; C)/(U&#8348; &#8722; L&#8348;)</text>
+  <text x="935" y="340" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10">throttle set by the width of the doubt</text>
+
+  <line x1="520" y1="342" x2="520" y2="378" stroke="var(--emerald)" stroke-width="2.6" marker-end="url(#r-emerald)"/>
+  <text x="534" y="366" text-anchor="start" fill="var(--emerald)" class="mono" font-size="10.5" font-weight="800">Yes &#183; decisive at both bounds</text>
+
+  <!-- Regime I -->
+  <rect x="200" y="384" width="640" height="82" rx="12" fill="var(--emerald-bg)" stroke="var(--emerald)" stroke-width="2.4"/>
+  <text x="520" y="412" text-anchor="middle" fill="var(--ink)" font-size="13.5" font-weight="800">Regime I &#183; Buffered action</text>
+  <text x="520" y="433" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="11" font-weight="700">stage 1: survival filter &#183; stage 2: minimax regret over [L&#8348;, U&#8348;]</text>
+  <text x="520" y="452" text-anchor="middle" fill="var(--muted)" font-size="10.5">provision against the upper bound of plausible need, modulated by evidential weight</text>
+
+  <text x="34" y="478" fill="var(--muted)" font-size="10.5">The order is lexicographic: an unknown instrument outranks an endangered vessel, and an endangered vessel outranks the width of the interval.</text>
+</svg>

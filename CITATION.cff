@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: >-
+  Cite the commit you read, by its hash and date; the citable work is the book
+  described in preferred-citation. The manuscript is licensed under CC BY 4.0.
+title: "Stochology: The Theory and Ethics of Aim under Uncertainty"
+authors:
+  - family-names: Neto
+    given-names: Silvano
+    email: dev@silvanoneto.com
+repository: https://github.com/0b3st4f3r4/stochology
+url: https://stochology.org
+license: CC-BY-4.0
+abstract: >-
+  Stochology is an integrative framework and transversal research program for the theory and
+  ethics of aim (stókhos) for judgment and decision-making under structural uncertainty when
+  action must precede the outcome. Its organizing object is the full mediation circuit across
+  World, Archive, and Institution — an indivisibility inherited rather than discovered (Vickers
+  1965 on regulation as the appreciation of a whole situation; Beer; Simon; the institutional
+  economists). The argument is organized 1-to-1 around the Sequential Agent–World–Institution
+  Loop, the Leontief Nuclear Triad M_Leontief = min(S_epi, S_vital, S_gov), the Three Canonical
+  Operators, the Three Collapse Propositions, and the Seven Guard Sites (T1–T7: 3 direct
+  transits, 3 reflexive locks, and 1 integral three-plane closure, 7 circuit transits in all).
+  The treatise runs in five parts, 86 chapters (00–85) and five appendices; its architecture is
+  the 35-layer Multilayer Knowledge Graph, 7 strata x 5 orders = C(7,3) = 35.
+preferred-citation:
+  type: book
+  title: "Stochology: The Theory and Ethics of Aim under Uncertainty"
+  authors:
+    - family-names: Neto
+      given-names: Silvano
+      email: dev@silvanoneto.com
+  url: https://stochology.org
+  license: CC-BY-4.0
+keywords:
+  - stochology
+  - decision under uncertainty
+  - epistemic margin
+  - partial identification
+  - vital margin
+  - non-ergodicity
+  - institutional governance
+  - performative prediction
+  - causal invariance
+  - formal grammar of aim
+  - multilayer knowledge graph
+  - calibration
+  - reproducibility

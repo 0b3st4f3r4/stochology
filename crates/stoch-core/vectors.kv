@@ -1,0 +1,55 @@
+# stoch-core normative fixture: 52 records of 33 keys, spelled key=value, `01` section 6.4.
+# One record per line, pairs separated by one space; a key a record does not name is absent and is never written as a value.
+# The grammar, the errors and the per-fn required key sets are stated in crates/stoch-vectors/src/schema.rs::parse.
+id=s01 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=200 u=400 c=120 r=0 reversible=1 gov_corrupt=0 vital_floor=0 gov_floor=0 expect_variant=0 expect_error=0
+id=s02 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=200 u=400 c=300 r=0 reversible=1 expect_variant=1 expect_fraction=500000 expect_error=0
+id=s03 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=0 u=3000000 c=1000000 r=0 reversible=1 expect_variant=1 expect_fraction=666666 expect_error=0
+id=s04 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=200 u=400 c=120 r=0 reversible=1 vital_floor=1 expect_variant=2 expect_constraint=0 expect_error=0
+id=s05 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=200 u=400 c=120 r=0 reversible=1 gov_floor=1 expect_variant=2 expect_constraint=1 expect_error=0
+id=s06 fn=0 tape=1 instrument=1 missing_slot=1 tts=10 ttr=10 l=200 u=400 c=120 r=0 reversible=1 expect_variant=3 expect_error=0
+id=s07 fn=0 tape=1 instrument=1 missing_slot=2 tts=10 ttr=10 l=200 u=400 c=120 r=0 reversible=1 expect_variant=3 expect_error=0
+id=s08 fn=0 tape=1 instrument=1 missing_slot=3 tts=5 ttr=10 l=200 u=400 c=120 r=0 reversible=1 expect_variant=3 expect_error=0
+id=s09 fn=0 tape=1 instrument=1 missing_slot=4 tts=10 ttr=10 l=200 u=400 c=120 r=0 reversible=1 expect_variant=3 expect_error=0
+id=s10 fn=0 tape=1 instrument=1 missing_slot=5 tts=10 ttr=10 l=200 u=400 c=120 r=0 reversible=1 expect_variant=3 expect_error=0
+id=s11 fn=0 tape=1 instrument=1 missing_slot=6 tts=10 ttr=10 l=200 u=400 c=120 r=0 reversible=1 expect_variant=3 expect_error=0
+id=s12 fn=0 tape=1 instrument=1 missing_slot=7 tts=10 ttr=10 l=200 u=400 c=120 r=0 reversible=1 expect_variant=3 expect_error=0
+id=s13 fn=0 tape=1 instrument=0 missing_slot=0 tts=5 ttr=10 l=300 u=500 c=120 r=0 reversible=1 expect_variant=4 expect_cause=0 expect_error=0
+id=s14 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=200 u=400 c=120 r=0 reversible=1 gov_corrupt=1 expect_variant=4 expect_cause=1 expect_error=0
+id=s15 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=200 u=400 c=120 r=0 reversible=1 gov_corrupt=1 vital_floor=1 expect_variant=4 expect_cause=1 expect_error=0
+id=s16 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=200 u=400 c=300 r=0 reversible=0 expect_variant=4 expect_cause=2 expect_error=0
+id=s17 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=50 u=100 c=200 r=0 reversible=1 expect_variant=5 expect_error=0
+id=s18 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=200 u=400 c=200 r=0 reversible=1 expect_error=-10
+id=s19 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=200 u=400 c=400 r=0 reversible=1 expect_error=-10
+id=s20 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=400 u=200 c=100 r=0 reversible=1 expect_error=-2
+id=s21 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=200 u=400 c=0 r=0 reversible=1 expect_error=-3
+id=s22 fn=0 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=0 u=1000000000 c=999999999 r=0 reversible=1 expect_error=-9
+id=f01 fn=3 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=200 u=400 c=120 r=0 reversible=1 expect_error=0
+id=f02 fn=3 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 l=200 u=400 c=120 r=-1000000 reversible=1 expect_error=-4
+id=f03 fn=3 tape=1 instrument=0 missing_slot=0 tts=10 ttr=10 u=400 c=120 r=0 reversible=1 expect_error=-6
+id=f04 fn=3 tape=0 instrument=0 missing_slot=0 tts=10 ttr=10 l=200 u=400 c=120 r=0 reversible=1 expect_error=-7
+id=a01 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=0 m_epi=500000 m_vital=500000 m_gov=500000 expect_verdict=0 expect_reason=0 expect_error=0
+id=a02 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=4 m_epi=101000 m_vital=101000 m_gov=101000 expect_verdict=1 expect_reason=0 expect_error=0
+id=a03 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=1 proposition=1 step_index=7 m_epi=50000 m_vital=50000 m_gov=50000 expect_verdict=2 expect_reason=0 expect_error=0
+id=a04 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=2 proposition=1 step_index=7 m_epi=50000 m_vital=50000 m_gov=50000 expect_verdict=2 expect_reason=0 expect_error=0
+id=a05 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=3 proposition=1 step_index=7 m_epi=50000 m_vital=50000 m_gov=50000 expect_verdict=2 expect_reason=0 expect_error=0
+id=a06 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=4 proposition=2 step_index=7 m_epi=50000 m_vital=50000 m_gov=50000 expect_verdict=2 expect_reason=0 expect_error=0
+id=a07 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=5 proposition=2 step_index=7 m_epi=50000 m_vital=50000 m_gov=50000 expect_verdict=2 expect_reason=0 expect_error=0
+id=a08 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=6 proposition=3 step_index=7 m_epi=50000 m_vital=50000 m_gov=50000 expect_verdict=2 expect_reason=0 expect_error=0
+id=a09 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=7 proposition=3 step_index=7 m_epi=50000 m_vital=50000 m_gov=50000 expect_verdict=2 expect_reason=0 expect_error=0
+id=a10 fn=1 l=200 u=400 c=120 epi=0 vital=1 gov=1 site=0 m_epi=500000 m_vital=500000 m_gov=500000 expect_verdict=3 expect_reason=2 expect_error=0
+id=a11 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=0 expect_verdict=3 expect_reason=3 expect_error=0
+id=a12 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=4 proposition=1 step_index=3 m_epi=50000 m_vital=50000 m_gov=50000 expect_error=-11
+id=d01 fn=2 epi=500000 vital=600000 gov=700000 absorbed=0 expect_binding_axis=1 expect_error=0
+id=d02 fn=2 epi=700000 vital=400000 gov=600000 absorbed=0 expect_binding_axis=2 expect_error=0
+id=d03 fn=2 epi=600000 vital=700000 gov=300000 absorbed=0 expect_binding_axis=3 expect_error=0
+id=d04 fn=2 epi=500000 gov=600000 absorbed=0 expect_binding_axis=0 expect_error=0
+id=d05 fn=2 epi=400000 gov=600000 absorbed=1 expect_binding_axis=1 expect_error=0
+id=d06 fn=2 absorbed=0 expect_binding_axis=0 expect_error=0
+id=a13 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=4 m_epi=101000 m_vital=900000 m_gov=900000 expect_verdict=3 expect_reason=1 expect_error=0
+id=a14 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=4 m_epi=900000 m_vital=101000 m_gov=900000 expect_verdict=1 expect_error=0
+id=a15 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=1 m_epi=101000 m_vital=900000 m_gov=900000 expect_verdict=1 expect_error=0
+id=a16 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=1 m_epi=900000 m_vital=101000 m_gov=900000 expect_verdict=3 expect_reason=1 expect_error=0
+id=a17 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=4 m_epi=101000 m_vital=101000 m_gov=101000 expect_verdict=1 expect_error=0
+id=a18 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=1 proposition=1 step_index=7 m_epi=50000 m_vital=900000 m_gov=900000 expect_verdict=2 expect_error=0
+id=a19 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=4 proposition=2 step_index=7 m_epi=50000 m_vital=900000 m_gov=900000 expect_verdict=3 expect_reason=1 expect_error=0
+id=a20 fn=1 l=200 u=400 c=120 epi=1 vital=1 gov=1 site=1 proposition=1 step_index=7 m_epi=50000 m_vital=50000 m_gov=900000 expect_verdict=2 expect_error=0

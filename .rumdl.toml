@@ -1,0 +1,21 @@
+# Configuracao de formatacao e lint Markdown para o manuscrito Stochology.
+# Alinhada a book.toml (mdBook), MathJax (escapes \_ e \mkern) e AGENTS.md.
+
+[global]
+cache = false
+exclude = ["book", "target", ".agents", ".agent-teams", ".git"]
+disable = [
+  "MD001", # O prefacio (00-preface.md) abre secao com ### diretamente sob #.
+  "MD013", # Paragrafos em linha unica e blocos SVG/HTML sao intencionais no manuscrito.
+  "MD033", # Blocos <figure>/<svg> e badges HTML no README.md sao intencionais.
+  "MD038", # Trechos como `# ` em AGENTS.md e CONTRIBUTING.md citam o prefixo de titulo.
+  "MD040", # Diagramas/esquemas ASCII em blocos cercados podem omitir linguagem.
+  "MD041", # README.md inicia com bloco HTML centralizado (<p align="center">).
+  "MD076", # Linhas em branco intencionais entre grupos de itens (ex.: SUMMARY.md, AGENTS.md).
+]
+
+[per-file-ignores]
+"book-src/SUMMARY.md" = ["MD025"] # mdBook exige varios cabecalhos `# Part ...` em SUMMARY.md.
+
+[MD024]
+siblings-only = true

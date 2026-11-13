@@ -1,0 +1,22 @@
+# Configuracao do pre-commit para formatacao e higiene de arquivos Markdown.
+# Instale os hooks localmente com: pre-commit install
+# Formate todo o repositorio manualmente com: pre-commit run --all-files
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        types: [markdown]
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+        types: [markdown]
+      - id: mixed-line-ending
+        types: [markdown]
+        args: [--fix=lf]
+
+  - repo: https://github.com/rvben/rumdl-pre-commit
+    rev: v0.3.4
+    hooks:
+      - id: rumdl-fmt
+        args: [--no-cache]

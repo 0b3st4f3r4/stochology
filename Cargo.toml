@@ -1,0 +1,9 @@
+# Virtual workspace root.
+#
+# The manuscript is not a program, but the two crates that discharge §V of the
+# contract are. `stoch-core` is the normative core (no dependencies at all);
+# `stoch-vectors` is the harness that exercises it and holds no opinion of its
+# own about step/accept/diagnose.
+[workspace]
+resolver = "2"
+members = ["crates/stoch-core", "crates/stoch-vectors", "crates/stoch-abi"]

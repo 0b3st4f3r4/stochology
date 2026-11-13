@@ -1,0 +1,27 @@
+# Normative harness for the Stochology core.
+#
+# The manuscript is not a program and this crate is not part of the book. It is
+# the instrument that runs the fixture of `crates/stoch-core/vectors.kv` against
+# `stoch-core`, generates the coverage corpus the fixture must not lose, and
+# reconciles the artifact against Appendix B's Table B.1.
+#
+# No dependency other than the core itself: the harness is integer-only and
+# makes no claim the core does not already make.
+[package]
+name = "stoch-vectors"
+version = "0.1.0"
+edition = "2021"
+description = "Stochology normative harness: fixture, coverage corpus, separation tests, Table B.1 parity"
+license = "CC-BY-4.0"
+repository = "https://github.com/silvanoneto/stochology"
+include = ["src/**", "tests/**", "Cargo.toml", "README.md"]
+
+[lib]
+crate-type = ["rlib"]
+
+[[bin]]
+name = "stoch-vectors"
+path = "src/main.rs"
+
+[dependencies]
+stoch-core = { path = "../stoch-core" }

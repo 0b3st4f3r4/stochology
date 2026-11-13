@@ -1,0 +1,136 @@
+<div id="stoch-page-loader" role="status" aria-live="polite" aria-label="Loading Stochology...">
+  <div class="stoch-loader-inner">
+    <div class="stoch-loader-emblem-wrap">
+      <svg class="stoch-loader-emblem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none" role="img" aria-hidden="true">
+        <defs>
+          <radialGradient id="loader-glow" cx="52%" cy="52%" r="50%">
+            <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.28"/>
+            <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.16"/>
+            <stop offset="80%" stop-color="#e11d48" stop-opacity="0.09"/>
+            <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="loader-bridge-l1-l2" x1="23" y1="74" x2="51" y2="26" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#059669"/>
+            <stop offset="55%" stop-color="var(--fav-green, #10b981)"/>
+            <stop offset="100%" stop-color="var(--fav-blue, #2563eb)"/>
+          </linearGradient>
+          <linearGradient id="loader-bridge-l2-l3" x1="78" y1="26" x2="105" y2="75" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="var(--fav-blue, #2563eb)"/>
+            <stop offset="52%" stop-color="var(--fav-gold, #f59e0b)"/>
+            <stop offset="100%" stop-color="var(--fav-crimson, #e11d48)"/>
+          </linearGradient>
+          <linearGradient id="loader-bridge-l3-l1" x1="91" y1="98" x2="36" y2="98" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="var(--fav-crimson, #e11d48)"/>
+            <stop offset="50%" stop-color="var(--fav-gold, #f59e0b)"/>
+            <stop offset="100%" stop-color="var(--fav-green, #10b981)"/>
+          </linearGradient>
+          <linearGradient id="loader-prism-grad" x1="64" y1="24" x2="64" y2="87" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="var(--fav-blue, #2563eb)" stop-opacity="0.75"/>
+            <stop offset="50%" stop-color="var(--fav-gold, #f59e0b)" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="var(--fav-frame, #64748b)" stop-opacity="0.75"/>
+          </linearGradient>
+          <linearGradient id="loader-tail-fill" x1="31" y1="86" x2="96" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#059669" stop-opacity="0.46"/>
+            <stop offset="38%" stop-color="#2563eb" stop-opacity="0.48"/>
+            <stop offset="68%" stop-color="#f59e0b" stop-opacity="0.44"/>
+            <stop offset="100%" stop-color="#e11d48" stop-opacity="0.48"/>
+          </linearGradient>
+          <linearGradient id="loader-curve-stroke" x1="31" y1="85" x2="96" y2="84" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="var(--fav-ink, #0f172a)"/>
+            <stop offset="45%" stop-color="var(--fav-eyelid-mid, #1e3a8a)"/>
+            <stop offset="100%" stop-color="var(--fav-ink, #0f172a)"/>
+          </linearGradient>
+          <radialGradient id="loader-pupil-abyss" cx="45%" cy="42%" r="58%">
+            <stop offset="0%" stop-color="#020617"/>
+            <stop offset="68%" stop-color="#0f172a"/>
+            <stop offset="100%" stop-color="#451a03"/>
+          </radialGradient>
+          <linearGradient id="loader-gold-mira" x1="58" y1="52" x2="84" y2="82" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#fef08a"/>
+            <stop offset="45%" stop-color="#fbbf24"/>
+            <stop offset="100%" stop-color="#d97706"/>
+          </linearGradient>
+          <linearGradient id="loader-gold-axes" x1="41" y1="66.65" x2="72" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#d97706"/>
+            <stop offset="50%" stop-color="#fbbf24"/>
+            <stop offset="100%" stop-color="#fef08a"/>
+          </linearGradient>
+          <radialGradient id="loader-gold-core" cx="38%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="35%" stop-color="#fde047"/>
+            <stop offset="100%" stop-color="#d97706"/>
+          </radialGradient>
+          <radialGradient id="loader-node-well" cx="38%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="var(--fav-well-hi, #ffffff)"/>
+            <stop offset="100%" stop-color="var(--fav-node-bg, #e2e8f0)"/>
+          </radialGradient>
+          <linearGradient id="loader-ring-l2" x1="55" y1="15" x2="73" y2="33" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7dd3fc"/>
+            <stop offset="50%" stop-color="#2563eb"/>
+            <stop offset="100%" stop-color="#1e3a8a"/>
+          </linearGradient>
+          <radialGradient id="loader-core-l2" cx="35%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="#bae6fd"/>
+            <stop offset="45%" stop-color="#3b82f6"/>
+            <stop offset="100%" stop-color="#1d4ed8"/>
+          </radialGradient>
+          <linearGradient id="loader-ring-l1" x1="18" y1="78" x2="37" y2="96" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#6ee7b7"/>
+            <stop offset="50%" stop-color="#10b981"/>
+            <stop offset="100%" stop-color="#065f46"/>
+          </linearGradient>
+          <radialGradient id="loader-core-l1" cx="35%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="#a7f3d0"/>
+            <stop offset="45%" stop-color="#10b981"/>
+            <stop offset="100%" stop-color="#047857"/>
+          </radialGradient>
+          <linearGradient id="loader-ring-l3" x1="91" y1="78" x2="110" y2="96" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#fda4af"/>
+            <stop offset="50%" stop-color="#e11d48"/>
+            <stop offset="100%" stop-color="#881337"/>
+          </linearGradient>
+          <radialGradient id="loader-core-l3" cx="35%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="#fecdd3"/>
+            <stop offset="45%" stop-color="#f43f5e"/>
+            <stop offset="100%" stop-color="#be123c"/>
+          </radialGradient>
+        </defs>
+        <circle cx="64" cy="66" r="48" fill="url(#loader-glow)"/>
+        <path d="M 22.77 74.01 A 42 42 0 0 1 50.60 26.19" stroke="url(#loader-bridge-l1-l2)" stroke-width="4.4" stroke-linecap="round"/>
+        <path d="M 46.92 32.93 L 51.02 26.06 L 43.36 23.74" stroke="url(#loader-bridge-l1-l2)" stroke-width="4.0" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M 77.67 26.29 A 42 42 0 0 1 105.17 74.30" stroke="url(#loader-bridge-l2-l3)" stroke-width="4.4" stroke-linecap="round"/>
+        <path d="M 101.18 67.75 L 105.08 74.73 L 110.91 69.26" stroke="url(#loader-bridge-l2-l3)" stroke-width="4.0" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M 91.55 97.70 A 42 42 0 0 1 36.22 97.50" stroke="url(#loader-bridge-l3-l1)" stroke-width="4.4" stroke-linecap="round"/>
+        <path d="M 43.90 97.32 L 35.90 97.21 L 37.72 105.00" stroke="url(#loader-bridge-l3-l1)" stroke-width="4.0" stroke-linecap="round" stroke-linejoin="round"/>
+        <polygon points="64,24 100.37,87 27.63,87" stroke="url(#loader-prism-grad)" stroke-width="2.4" stroke-dasharray="3.64 3.64" stroke-linejoin="round"/>
+        <path d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84 L 96 86 L 31 86 Z" fill="url(#loader-tail-fill)"/>
+        <path d="M 31 85 C 40 85, 45 46, 54 46 C 63 46, 68 74, 96 84" stroke="url(#loader-curve-stroke)" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="44.3" y1="66.65" x2="59.5" y2="66.65" stroke="url(#loader-gold-axes)" stroke-width="2.6" stroke-dasharray="3.2 2.8" stroke-linecap="round"/>
+        <line x1="72" y1="43.5" x2="72" y2="53.5" stroke="url(#loader-gold-axes)" stroke-width="2.6" stroke-dasharray="3.4 3.2" stroke-linecap="round"/>
+        <line x1="72" y1="80.0" x2="72" y2="83.4" stroke="url(#loader-gold-axes)" stroke-width="2.6" stroke-linecap="round"/>
+        <g id="loader-golden-reticle">
+          <circle cx="72" cy="66.65" r="7.4" fill="var(--fav-node-bg, #e2e8f0)"/>
+          <circle cx="72" cy="66.65" r="6.4" fill="url(#loader-pupil-abyss)" stroke="url(#loader-gold-mira)" stroke-width="2.4"/>
+          <line x1="62.4" y1="66.65" x2="67.8" y2="66.65" stroke="url(#loader-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+          <line x1="76.2" y1="66.65" x2="81.6" y2="66.65" stroke="url(#loader-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+          <line x1="72" y1="57.05" x2="72" y2="62.45" stroke="url(#loader-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+          <line x1="72" y1="70.85" x2="72" y2="76.25" stroke="url(#loader-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+          <circle cx="72" cy="66.65" r="2.2" fill="url(#loader-gold-core)"/>
+        </g>
+        <circle cx="64" cy="24" r="9.2" fill="url(#loader-node-well)" stroke="url(#loader-ring-l2)" stroke-width="3.4"/>
+        <circle cx="64" cy="24" r="4.0" fill="url(#loader-core-l2)"/>
+        <circle cx="27.63" cy="87" r="9.2" fill="url(#loader-node-well)" stroke="url(#loader-ring-l1)" stroke-width="3.4"/>
+        <circle cx="27.63" cy="87" r="4.0" fill="url(#loader-core-l1)"/>
+        <circle cx="100.37" cy="87" r="9.2" fill="url(#loader-node-well)" stroke="url(#loader-ring-l3)" stroke-width="3.4"/>
+        <circle cx="100.37" cy="87" r="4.0" fill="url(#loader-core-l3)"/>
+      </svg>
+    </div>
+    <div class="stoch-loader-brand">
+      <span class="stoch-loader-title">STOCHOLOGY</span>
+      <span class="stoch-loader-subtitle">THEORY &amp; ETHICS OF AIM UNDER UNCERTAINTY</span>
+    </div>
+    <div class="stoch-loader-track" aria-hidden="true">
+      <div class="stoch-loader-bar"></div>
+    </div>
+  </div>
+</div>

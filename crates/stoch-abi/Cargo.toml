@@ -1,0 +1,16 @@
+[package]
+name = "stoch-abi"
+version = "0.1.0"
+edition = "2021"
+license = "CC-BY-4.0"
+description = "The linear binary boundary of the stochology core: five exports, no imports, no allocator."
+repository = "https://example.invalid/stochology"
+publish = false
+
+[lib]
+# `cdylib` is the shipped artifact. `rlib` is added so that the host tests in
+# `tests/` can link the same crate they exercise; see README divergence D1.
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+stoch-core = { path = "../stoch-core" }
