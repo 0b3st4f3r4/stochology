@@ -1,7 +1,7 @@
 # Consumer B — Python over Wasmtime (a test double)
 
-**Estes dois consumidores são dublês de teste criados para ensaiar a ABI; o gatilho
-de PLAN §4.2 continua não satisfeito.**
+**These two consumers are test doubles built to rehearse the ABI; the trigger of
+PLAN §4.2 remains unmet.**
 
 It shares no code with consumer A: it loads the same `.wasm` directly through
 Wasmtime, rebuilds the byte layouts from the chapter's table, and checks the boundary

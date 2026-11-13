@@ -1,7 +1,7 @@
 # `adapters/ts` — the TypeScript duplex of the Stochology ABI
 
-**Estes dois consumidores são dublês de teste criados para ensaiar a ABI; o gatilho
-do plano arquivado (§4.2) continua não satisfeito.**
+**These two consumers are test doubles built to rehearse the ABI; the trigger of
+the archived plan (§4.2) remains unmet.**
 
 This is the §8.2 adapter of the archived design document (`02-arquitetura.md`), written against
 `crates/stoch-abi` and against nothing else. It embeds `stoch_abi.wasm`, performs the

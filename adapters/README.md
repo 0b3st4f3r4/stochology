@@ -1,42 +1,41 @@
-# Adaptadores de teste
+# Test adapters
 
-**Estes dois consumidores são dublês de teste criados para ensaiar a ABI; o gatilho
-de PLAN §4.2 continua não satisfeito.**
+**These two consumers are test doubles built to rehearse the ABI; the trigger of
+PLAN §4.2 remains unmet.**
 
-> **Documentos de desenho citados.** `02-arquitetura.md`, `03-cadeia-de-suprimentos.md` e
-> `PLAN.md` são documentos internos de projeto e não fazem parte deste repositório. As
-> referências ficam como registro do desenho que estes dublês ensaiam; nada aqui depende de
-> abri-los para rodar.
+> **Design documents cited.** `02-arquitetura.md`, `03-cadeia-de-suprimentos.md` and
+> `PLAN.md` are internal project documents and are not part of this repository. The
+> references stand as a record of the design these doubles rehearse; nothing here needs
+> them to be opened in order to run.
 
-Este diretório guarda o adaptador de um dos dois consumidores. O adaptador não é um
-produto nem uma promessa de suporte: existe para exercitar a fronteira wasm do
-`crates/stoch-abi` a partir de um runtime de linguagem, e para que o segundo
-consumidor (Python, direto no Wasmtime, em `consumers/python/`) tenha contra o que
-discordar.
+This directory holds the adapter of one of the two consumers. The adapter is not a
+product and not a support promise: it exists to exercise the wasm boundary of
+`crates/stoch-abi` from a language runtime, and to give the second consumer (Python,
+straight on Wasmtime, in `consumers/python/`) something to disagree with.
 
-## Conteúdo
+## Contents
 
-| Caminho | Papel |
+| Path | Role |
 | :--- | :--- |
-| `ts/adapter.ts` | Adaptador TypeScript: handshake de versão em `bigint`, arena na memória do chamador, um único ponto de conversão `bigint → number` declarado, decodificação dos dois registos de saída. |
-| `ts/adapter.test.ts` | Os catorze pontos de divergência de `02-arquitetura.md` §8.2 (D1–D14), um teste por ponto. |
-| `ts/mutation.mjs` | Estudo de mutação: cada um dos catorze pontos tem uma mutação que só aquele teste apanha. |
-| `ts/README.md` | Tabela dos catorze pontos, limites conhecidos e como correr. |
+| `ts/adapter.ts` | TypeScript adapter: version handshake in `bigint`, arena in the caller's memory, a single declared `bigint → number` conversion point, decoding of both output records. |
+| `ts/adapter.test.ts` | The fourteen divergence points of `02-arquitetura.md` §8.2 (D1–D14), one test per point. |
+| `ts/mutation.mjs` | Mutation study: each of the fourteen points has a mutation that only its own test catches. |
+| `ts/README.md` | Table of the fourteen points, known limits, and how to run. |
 
-## Como correr
+## How to run
 
 ```
 node --test adapters/ts/adapter.test.ts
 node adapters/ts/mutation.mjs
 ```
 
-Ambos são necessários: o primeiro mostra que os testes passam contra a porta real, o
-segundo que cada teste falha quando o seu ponto é violado — um teste que não falha
-quando o ponto muda não prova nada sobre o ponto.
+Both are needed: the first shows the tests pass against the real port, the second that
+each test fails when its point is violated — a test that does not fail when the point
+changes proves nothing about the point.
 
-## Limite declarado
+## Declared limit
 
-O ensaio prova que dois ports concordam, nunca que os vetores cobrem o domínio
-(documento de desenho arquivado, `02-arquitetura.md` §8.3). A cobertura é assunto de
-`01-funcionalidades.md` §6.3, também arquivado, e do arnês de `crates/stoch-vectors`,
-não deste diretório.
+The rehearsal proves that two ports agree, never that the vectors cover the domain
+(archived design document, `02-arquitetura.md` §8.3). Coverage is the subject of
+`01-funcionalidades.md` §6.3, also archived, and of the harness of `crates/stoch-vectors`,
+not of this directory.

@@ -1,45 +1,45 @@
-# Consumidores-dublê da ABI
+# ABI test-double consumers
 
-**Estes dois consumidores são dublês de teste criados para ensaiar a ABI; o gatilho
-de PLAN §4.2 continua não satisfeito.**
+**These two consumers are test doubles built to rehearse the ABI; the trigger of
+PLAN §4.2 remains unmet.**
 
-> **Documentos de desenho citados.** `02-arquitetura.md`, `03-cadeia-de-suprimentos.md` e
-> `PLAN.md` são documentos internos de projeto e não fazem parte deste repositório. As
-> referências ficam como registro do desenho que estes dublês ensaiam; nada aqui depende de
-> abri-los para rodar.
+> **Design documents cited.** `02-arquitetura.md`, `03-cadeia-de-suprimentos.md` and
+> `PLAN.md` are internal project documents and are not part of this repository. The
+> references stand as a record of the design these doubles rehearse; nothing here needs
+> them to be opened in order to run.
 
-Dois consumidores, dois ecossistemas, uma só porta:
+Two consumers, two ecosystems, one port:
 
-| Caminho | Runtime | Caminho até a ABI |
+| Path | Runtime | Path to the ABI |
 | :--- | :--- | :--- |
-| `node/run.mjs` | Node 24 (TypeScript por *type stripping*) | pelo adaptador `adapters/ts/adapter.ts` |
-| `python/run.py` | Python 3 + Wasmtime | direto nas cinco exportações, sem adaptador |
+| `node/run.mjs` | Node 24 (TypeScript by *type stripping*) | through the `adapters/ts/adapter.ts` adapter |
+| `python/run.py` | Python 3 + Wasmtime | straight on the five exports, no adapter |
 
-O segundo existe para que o primeiro não seja a única testemunha: se os dois
-concordam com os mesmos bytes, o desacordo entre eles teria de vir da porta, e não de
-uma leitura partilhada. Concordarem **não** prova que os vetores cobrem o domínio
+The second exists so that the first is not the only witness: if both agree on the same
+bytes, a disagreement between them would have to come from the port, and not from a
+shared reading. Agreeing does **not** prove that the vectors cover the domain
 (`02-arquitetura.md` §8.3).
 
 ```
-node consumers/node/run.mjs        # 50 linhas comparadas com o fixture, 2 inexpressivas
-python3 consumers/python/run.py    # invariantes de fronteira, sem adaptador
+node consumers/node/run.mjs        # 50 rows compared with the fixture, 2 inexpressible
+python3 consumers/python/run.py    # boundary invariants, no adapter
 ```
 
-## Nota operacional: `pip`, Wasmtime e o tmpfs `/tmp`
+## Operational note: `pip`, Wasmtime and the `/tmp` tmpfs
 
-Instalar o Wasmtime nesta máquina com o `TMPDIR` por omissão (`/tmp`, um tmpfs que
-costuma andar acima de 80% de ocupação) falha no *unpack*:
+Installing Wasmtime on this machine with the default `TMPDIR` (`/tmp`, a tmpfs that
+usually runs above 80% occupancy) fails during unpack:
 
 ```
 OSError: [Errno 122] Disk quota exceeded
 ```
 
-Funciona com `TMPDIR` num diretório do `home`, ou com `--target` para um diretório
-sob `$HOME` acrescentado ao `PYTHONPATH`. É um problema de empacotamento da máquina,
-não do adaptador nem da porta.
+It works with `TMPDIR` set to a directory under `home`, or with `--target` pointing to a
+directory under `$HOME` added to `PYTHONPATH`. This is a packaging quirk of the machine,
+not of the adapter or of the port.
 
-## Limites abertos
+## Open limits
 
-Cada consumidor regista os seus no README do respetivo diretório; o mais importante
-está em `python/README.md` (L4): a base de arena que a ABI declara é a mesma morada em
-que vive o buffer estático de `diagnose`.
+Each consumer records its own in its directory's README; the most important is in
+`python/README.md` (L4): the arena base the ABI declares is the same address where the
+static buffer of `diagnose` lives.
