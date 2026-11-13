@@ -15,7 +15,7 @@ that triple yields when the order runs without its ancestors:
 
 1. Locate **Infectious Disease Epidemiology, Phylodynamics & Outbreak Surveillance (`L17`)** at the unique 3-combination `{T2Severity, T3Archive, T5Temporal}` in Stratum IV.
 2. Price an outbreak against its own clock, and carry the archive's two defects: non-random missingness and partial-identification bounds.
-3. Show why a `(2, 1, 0)` surveillance architecture that omits $S\_{\mathrm{gov}}$ takes **Collapse Proposition 3** while the window is still open.
+3. Show why a `(2, 1, 0)` surveillance architecture that omits $S\_{\mathrm{gov}}$ leaves the ratio $d/T$ with no site charged with publishing it, while the window is still open.
 
 ## 1. Two clocks and the ratio between them
 
@@ -91,7 +91,8 @@ $m/n\_2 \approx n\_1/N$ and so $\hat{N} = n\_1 n\_2/m$; the dark figure is $\hat
 saw. The estimator inherits the defect it is meant to repair. Two surveillance streams fed by the same
 severity-driven presentation are positively dependent, $m$ is inflated, and $\hat{N}$ is biased downward
 exactly where the dark figure is largest; heterogeneous catchability has the same effect, which is why
-Chao's (1987) estimator is stated as a lower bound and not as an estimate. Dark ascertainment is the
+the estimator Chao (1987) proposed is used here as a lower bound on the uncounted part rather than as a point
+estimate of it. Dark ascertainment is the
 archival site's name for that residue: the share of events no source in the system was built to see, which
 no count from inside the system can price and which only a design that samples independently of
 presentation can bound.

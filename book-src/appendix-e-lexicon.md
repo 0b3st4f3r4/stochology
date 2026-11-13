@@ -63,7 +63,7 @@ The appendix closes with the architecture map: one table laying the three planes
 
 ## E.4 The Architecture Map
 
-Seven constitutive tensions, one per guard site, arranged over the three transits of the mediation circuit. Each row states what the rationalization promises when it works, what it becomes when it is severed from its limits, and the safeguard that answers the inversion. The promise column is not a claim that the practice is benign; it is the claim any institution must be able to make before the practice is licensed at all.
+Seven constitutive tensions, one per guard site, arranged over the six ordered crossings of distinct planes and the integral closure that together make the seven transits of the mediation circuit. Each row states what the rationalization promises when it works, what it becomes when it is severed from its limits, and the safeguard that answers the inversion. The promise column is not a claim that the practice is benign; it is the claim any institution must be able to make before the practice is licensed at all.
 
 | Guard site | Transit and filter | Tension | Promise → inversion | Safeguard and methodological requirement |
 | :---: | :--- | :--- | :--- | :--- |

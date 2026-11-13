@@ -15,7 +15,7 @@ that triple yields when the order runs without its ancestors:
 
 1. Locate **Pharmacovigilance, Regulatory Toxicology & Post-Market Safety (`L18`)** at the unique 3-combination `{T2Severity, T3Archive, T7Liability}` in Stratum IV.
 2. Formalize **Sequential Disproportionality and *e-Process* Safety Signal Detection** (`T2Severity`) beside **Spontaneous Under-Reporting** ($\rho\_{R,Y} \ne 0$, $\hat{n}\_{00}$) (`T3Archive`) and **Regulatory Recall Veto** (`T7Liability`).
-3. Prove by the **Disciplinary Incompleteness Theorem** why a `(2, 0, 1)` regulatory architecture omitting $S\_{\mathrm{vital}}$ takes **Collapse Proposition 2** when review latency outruns the patient population's survival horizon.
+3. Show, from the survival-time condition of **Collapse Proposition 2**, why a `(2, 0, 1)` regulatory architecture omitting $S\_{\mathrm{vital}}$ takes it when review latency outruns the patient population's survival horizon.
 
 ## 1. The rule of three and the trial that cannot see the harm
 

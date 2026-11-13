@@ -232,8 +232,8 @@ shapes show how curvature governs the sign and the magnitude of the gap:
 ## 4. The Explosive Curvature of Queues and Ruin
 
 An emergency-room director or grid operator brags of raising average capacity utilization toward saturation
-in the name of "eliminating idle slack", and is then bewildered when average waiting times jump by more than
-an order of magnitude. The queue did not break. It followed the rational curve $\rho / (1 - \rho)$ into its
+in the name of "eliminating idle slack", and is then bewildered when average waiting times jump far out of proportion to the
+utilization gained. The queue did not break. It followed the rational curve $\rho / (1 - \rho)$ into its
 high-curvature wall.
 
 An institution that evaluates risk at the average, substituting $\phi(\mathbb{E}[X])$ for
@@ -247,8 +247,9 @@ where $\rho$ is utilization. Computing the derivatives:
 $$\phi'(\rho) = \frac{1}{(1 - \rho)^2}, \qquad \phi''(\rho) = \frac{2}{(1 - \rho)^3}.$$
 
 As utilization approaches 100% ($\rho \to 1$), the curvature $\phi''(\rho)$ diverges cubically, as
-$\mathcal{O}\bigl((1 - \rho)^{-3}\bigr)$. The divergence is steep enough that the curvature at half
-utilization and the curvature close to saturation differ by orders of magnitude and not by a factor. A tiny
+$\mathcal{O}\bigl((1 - \rho)^{-3}\bigr)$. The divergence is steep enough that each tenfold cut in the idle share $1 - \rho$
+multiplies the waiting factor by about ten and its curvature by about a thousand, since near saturation
+$\phi \approx (1-\rho)^{-1}$ and $\phi'' = 2(1-\rho)^{-3}$. A tiny
 fluctuation in arrival rate near saturation creates a monumental Jensen gap, and it wipes out unbuffered
 operations.
 

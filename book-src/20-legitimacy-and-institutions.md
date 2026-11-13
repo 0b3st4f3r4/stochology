@@ -194,7 +194,9 @@ administrators can overwrite threshold weights after the storm without leaving a
 operator is dismissed for "human error".
 
 "Accountability" is frequently reduced to a decorative bureaucratic slogan. To be operationally checkable
-(Holmström 1979), accountability requires three non-substitutable structural components:
+(Holmström 1979), accountability requires three non-substitutable structural components, and on the chart where
+each is present or absent their conjunction is their minimum — the product below writes that conjunction, and is not
+a graded aggregate that lets one component pay for another:
 
 $$\mathrm{Accountability} = \mathrm{Observability} \times \mathrm{Authority} \times \mathrm{Consequence}.$$
 

@@ -176,6 +176,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Benjamini, Y., & Hochberg, Y.** (1995). Controlling the false discovery rate: A practical and powerful approach to multiple testing. *Journal of the Royal Statistical Society: Series B*, 57(1), 289–300.
 - **Bennett, A., & Checkel, J. T.** (Eds.). (2015). *Process Tracing: From Metaphor to Analytic Tool*. Cambridge University Press.
 - **Berle, A. A., & Means, G. C.** (1932). *The Modern Corporation and Private Property*. Macmillan.
+- **Bernard, C.** (1878). *Leçons sur les phénomènes de la vie communs aux animaux et aux végétaux*. J.-B. Baillière, Paris.
 - **Bernoulli, J.** (1713). *Ars Conjectandi*. Thurneysen Brothers, Basel.
 - **Bhaskar, R.** (1975). *A Realist Theory of Science*. Harvester Press.
 - **Bhaskar, R.** (1993). *Dialectic: The Pulse of Freedom*. Verso.
@@ -193,6 +194,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Brier, G. W.** (1950). Verification of forecasts expressed in terms of probability. *Monthly Weather Review*, 78(1), 1–3.
 - **Brin, S., & Page, L.** (1998). The anatomy of a large-scale hypertextual Web search engine. *Computer Networks and ISDN Systems*, 30(1–7), 107–117.
 - **Bronson, N., Aghayev, A., Charapko, A., & Zhu, T.** (2021). Metastable failures in distributed systems. *Proceedings of the Workshop on Hot Topics in Operating Systems (HotOS '21)*, 221–227.
+- **Broughton, E.** (2005). The Bhopal disaster and its aftermath: a review. *Environmental Health*, 4, 6. <https://doi.org/10.1186/1476-069X-4-6>
 - **Brown, L., Gans, N., Mandelbaum, A., Sakov, A., Shen, H., Zeltyn, S., & Zhao, L.** (2005). Statistical analysis of a telephone call center: A queueing-science perspective. *Journal of the American Statistical Association*, 100(469), 36–50.
 - **Brunnermeier, M. K., & Pedersen, L. H.** (2009). Market liquidity and funding liquidity. *Review of Financial Studies*, 22(6), 2201–2238.
 - **Buchanan, J. M., & Tullock, G.** (1962). *The Calculus of Consent: Logical Foundations of Constitutional Democracy*. University of Michigan Press.
@@ -207,6 +209,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Carlson, M.** (2007). *A Brief History of the 1987 Stock Market Crash with a Discussion of the Federal Reserve Response*. Finance and Economics Discussion Series 2007-13, Board of Governors of the Federal Reserve System.
 - **Carnap, R.** (1932). Überwindung der Metaphysik durch logische Analyse der Sprache. *Erkenntnis*, 2(1), 219–241.
 - **Castro, M., & Liskov, B.** (1999). Practical Byzantine fault tolerance. *Proceedings of the Third Symposium on Operating Systems Design and Implementation (OSDI '99)*, 173–186.
+- **Centers for Disease Control and Prevention** (2024). *Guillain–Barré Syndrome (GBS) and Vaccines*. Vaccine Safety. <https://www.cdc.gov/vaccine-safety/about/guillain-barre.html>
 - **Čencov, N. N.** (1972/1982). *Statistical Decision Rules and Optimal Inference*. American Mathematical Society.
 - **Chao, A.** (1984). Nonparametric estimation of the number of classes in a population. *Scandinavian Journal of Statistics*, 11(4), 265–270.
 - **Chao, A.** (1987). Estimating the population size for capture-recapture data with unequal catchability. *Biometrics*, 43(4), 783–791.
@@ -422,6 +425,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **MacKenzie, D., & Millo, Y.** (2003). Constructing a market, performing theory: The historical sociology of a financial derivatives exchange. *American Journal of Sociology*, 109(1), 107–145.
 - **Mandelbrot, B.** (1963). The variation of certain speculative prices. *Journal of Business*, 36(4), 394–419.
 - **Mandelbrot, B. B., & Wallis, J. R.** (1968). Noah, Joseph, and operational hydrology. *Water Resources Research*, 4(5), 909–918.
+- **Mangel, M., & Samaniego, F. J.** (1984). Abraham Wald's work on aircraft survivability. *Journal of the American Statistical Association*, 79(386), 259–267.
 - **Manheim, D., & Garrabrant, S.** (2018). Categorizing variants of Goodhart's Law. *arXiv:1803.04585*.
 - **Manski, C. F.** (1989). Anatomy of the selection problem. *The Journal of Human Resources*, 24(3), 343–360.
 - **Manski, C. F.** (1990). Nonparametric bounds on treatment effects. *The American Economic Review*, 80(2), 319–323.
@@ -509,6 +513,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Prigogine, I.** (1978 [1977]). Time, structure, and fluctuations. *Science*, 201(4358), 777–785. [Nobel Lecture, 8 December 1977.]
 - **Proctor, R. N., & Schiebinger, L.** (Eds.). (2008). *Agnotology: The Making and Unmaking of Ignorance*. Stanford University Press.
 - **Prokhorenkova, L., Gusev, G., Vorobev, A., Dorogush, A. V., & Gulin, A.** (2018). CatBoost: Unbiased boosting with categorical features. *Advances in Neural Information Processing Systems (NeurIPS)*.
+- **Public Law 91-121** (1969). Department of Defense Appropriation Authorization Act, 1970, §203, 83 Stat. 204, 206 (approved 19 November 1969).
 - **Quine, W. V. O.** (1951). Two dogmas of empiricism. *The Philosophical Review*, 60(1), 20–43.
 - **R v Clark** [2003] EWCA Crim 1020. Court of Appeal (Criminal Division), England and Wales, quashing the 1999 conviction of Sally Clark.
 - **Raiffa, H.** (1968). *Decision Analysis: Introductory Lectures on Choices Under Uncertainty*. Addison-Wesley.

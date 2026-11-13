@@ -154,7 +154,7 @@ $$\mathbb{E}\bigl[(Y - \hat{f}\_n(X))^2\bigr] = \underbrace{\mathbb{E}\bigl[(f^\
 
 Two limits bracket the identity. Send $n \to \infty$ at fixed model dimension $d$ and the estimation variance vanishes ($V\_n(\mathcal{F}) \asymp \sigma\_\varepsilon^2 d / n \to 0$), while risk floors at $B\_{\mathcal{F}}^2 + \sigma\_\varepsilon^2$. However much data the archive holds, total squared error never falls below the structural bias plus the environmental noise. A mismatched family and a flood of rows still leave an error the rows cannot touch.
 
-Reverse the trade at $d = n$ with $B\_{\mathcal{F}}^2 = 0$: structural bias disappears on paper and estimation variance expands to $V\_n(\mathcal{F}) = \sigma\_\varepsilon^2 d / n = \sigma\_\varepsilon^2$, which doubles out-of-sample error. Across competing data-cleaning and functional specifications, Sara Steegen's multiverse analysis (Steegen, Tuerlinckx, Gelman & Vanpaemel 2016) shows that analyst choices across plausible model classes $\mathcal{F}\_1, \dots, \mathcal{F}\_K$ shift $B\_{\mathcal{F}}^2$ far more than sampling noise shifts $V\_n(\mathcal{F})$.
+Reverse the trade at $d = n$ with $B\_{\mathcal{F}}^2 = 0$: structural bias disappears on paper and estimation variance expands to $V\_n(\mathcal{F}) = \sigma\_\varepsilon^2 d / n = \sigma\_\varepsilon^2$, which doubles out-of-sample error. Across competing data-cleaning and functional specifications, Sara Steegen's multiverse analysis (Steegen, Tuerlinckx, Gelman & Vanpaemel 2016) shows that defensible processing choices alone can move a published result across the significance line, so the choice among plausible model classes $\mathcal{F}\_1, \dots, \mathcal{F}\_K$ is a source of variation that the sampling term $V\_n(\mathcal{F})$ of any one of them does not report.
 
 ## 2. Four leakage pathways
 
@@ -189,10 +189,11 @@ Optimizing against the historical distribution $\mathcal{D}(\theta\_0)$ leads to
 of scoring individuals changes their behavior, shifting the distribution away from the manifold on which the
 model was trained.
 
-In sociology, Donald MacKenzie demonstrated that economic models exhibit two forms of performativity:
+In sociology, Donald MacKenzie (2006) demonstrated that economic models exhibit two forms of performativity:
 *Barnesian performativity*, where adopting a model makes reality conform more closely to its assumptions, and
 *counter-performativity*, where adopting a model creates incentives that destroy the model's own preconditions
-(e.g., portfolio insurance models amplifying the 1987 market crash).
+(e.g., portfolio insurance rules that sell as the market falls, the case MacKenzie (2006) reads as
+counter-performative).
 
 Performative feedback produces four variants of **Goodhart's Law**.
 

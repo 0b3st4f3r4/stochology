@@ -313,16 +313,16 @@ The cost–loss form is arithmetic, and arithmetic can be obeyed and still lose.
 influenza at Fort Dix, New Jersey, produced one death and a strain resembling the 1918 pandemic virus. The loss
 matrix written that spring had a small $C$ (a vaccine dose and a delivery programme) against an $L$ inherited
 from 1918, so the threshold sat at a few per cent and any non-trivial probability cleared it. The
-national immunisation programme that followed reached roughly forty-five million people, was suspended on
-16 December 1976, and left some five hundred cases of Guillain–Barré syndrome and twenty-five deaths attributed to
-the vaccine (Neustadt & Fineberg 1983). The form of §2 applied exactly as advertised: the probability
+national immunisation programme that followed vaccinated over 45 million people (Centers for Disease Control
+and Prevention 2024), was suspended on 16 December 1976, and left some five hundred cases of Guillain–Barré
+syndrome (Neustadt & Fineberg 1983). The form of §2 applied exactly as advertised: the probability
 was above the threshold, the recommendation was to act, and the recommendation was wrong, not because the
 threshold was miscomputed but because the matrix omitted the vaccine's own downside tail and because $L$ was taken
 from the worst historical draw instead of from the distribution of pandemic severities. The chapter's rule is
 sound about the boundary and silent about the entries, and the entries are where the loss was booked.
 
 What the form licenses is therefore narrower than §2 implies: the threshold is a correct function of a complete
-loss matrix, and no threshold argument can certify its own completeness. The check that would have caught 1976 is
+loss matrix, and no threshold argument can certify its own completeness. The check that would have caught the 1976 programme (Neustadt & Fineberg 1983) is
 a term-by-term one: every consequential harm that the action itself can cause belongs in $C\_{\mathrm{FP}}$ or in
 $L\_{\mathrm{FN}}$, and an action whose adverse tail is unmeasured has an incomplete row, not a favourable ratio.
 

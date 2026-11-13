@@ -14,8 +14,8 @@ that triple yields when the order runs without its ancestors:
 ## By the end of this chapter you can
 
 1. Locate **Metascience, Scientometrics, Publication Bias & Replication (`L19`)** at the unique 3-combination `{T2Severity, T3Archive, T6Performative}` in Stratum IV.
-2. Formalize **Ioannidis's Positive Predictive Value Theorem** and **anytime *e-BH* false-discovery control** (`T2Severity`), **the file-drawer filter** (`T3Archive`) and **the natural selection of bad science** (`T6Performative`).
-3. Prove by the **Disciplinary Incompleteness Theorem** why a `(2, 0, 1)` metascientific audit lacking $S\_{\mathrm{vital}}$ takes **Collapse Proposition 2** when replication horizons outlast deployment.
+2. Formalize the positive predictive value Ioannidis (2005) derived, $\mathrm{PPV} = ((1-\beta)R + u\beta R)/((1-\beta)R + u\beta R + \alpha + u(1-\alpha))$, and **anytime *e-BH* false-discovery control** (`T2Severity`), **the file-drawer filter** (`T3Archive`) and **the natural selection of bad science** (`T6Performative`).
+3. Show, from the survival-time condition of **Collapse Proposition 2**, why a `(2, 0, 1)` metascientific audit lacking $S\_{\mathrm{vital}}$ takes it when replication horizons outlast deployment.
 
 ## 1. The value of a result is a property of the field
 

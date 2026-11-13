@@ -212,9 +212,10 @@ horizon scales as the logarithmic decay time of that memory,
 $\mathrm{TTR}\_{\mathrm{recovery}} = -\frac{\kappa \Delta t}{\ln \rho\_1}$, approaching
 $\tau\_{\mathrm{corr}} \to 1$ as $\rho\_1 \to 0^+$ and diverging to $+\infty$ as $\rho\_1 \to 1^-$.
 
-Clustered tail losses behave the same way one order of magnitude further out. A tail design effect above one shrinks
-the count of nominal exceedances to a far smaller effective count, so a naive plug-in rupture estimate is optimistic
-by tens of percent and its nominal confidence interval covers only a fraction of the true span.
+Clustered tail losses behave the same way further out in the tail. A tail design effect above one divides the count
+of nominal exceedances by that factor, so a plug-in rupture estimate computed on the nominal count understates the
+tail probability by exactly the design effect, and its nominal interval is centred on a probability the record never
+had.
 
 ## 4. C.S. Holling: Attraction Basins and Ecological Resilience
 

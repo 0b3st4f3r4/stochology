@@ -188,11 +188,12 @@ $\lambda > 0$ and selects the minimum-norm solution orthogonal to $\ker(X)$.
 
 ## 3. The Gram Matrix and Effective Dimension
 
-A labor-ministry briefing cites the household interviews of a national population-survey comparison cohort
-(LaLonde 1986; Dehejia & Wahba 1999) as though the ministry held that many independent measurements of earnings.
-Compute the standard errors properly and the archive behaves like a sample an order of magnitude smaller. The
-missing share of the sample was not lost to file corruption. Within-cluster correlation absorbed it, reducing the
-effective rank of the observation operator.
+A labor-ministry briefing cites the earnings records of the National Supported Work evaluation as though the ministry
+held that many independent measurements of earnings — the comparison LaLonde (1986) posed and Dehejia & Wahba (1999)
+re-estimated against its experimental benchmark. Interviews drawn in clusters of average size $\bar{m}$ with
+intra-cluster correlation $\rho$ carry the information of $n/(1 + (\bar{m} - 1)\rho)$ independent ones (Kish 1965), so the
+archive behaves like a sample smaller by that factor. The missing share of the sample was not lost to file
+corruption. Within-cluster correlation absorbed it, reducing the effective rank of the observation operator.
 
 The geometry of a feature matrix $X$ sits in its **Gram matrix** $G = X^T X \in \mathbb{R}^{p \times p}$. If $G$ is
 invertible, ordinary least squares has a unique solution $\hat{\mathbf{\beta}} = G^{-1} X^T \mathbf{y}$. Under high
@@ -285,7 +286,7 @@ $$\psi\_{\mathrm{PARITY}}(x) = \bigoplus\_{i=1}^{n} x\_i$$
 is therefore not representable by any single threshold element for $n \ge 2$, while every conjunction and every
 disjunction is. Separability is not a matter of having enough data or enough training time. It is a property of the
 image of the operator. What a hidden layer adds is a change of basis in which the target becomes separable: the
-geometric content of the 1986 recovery narrated in
+geometric content of the 1986 recovery (Rumelhart, Hinton & Williams 1986) narrated in
 [Chapter 28](28-the-machine-and-the-deception.md) §5, and the reason a rank-deficient design (rank-nullity above)
 cannot answer a question that needs the missing direction.
 

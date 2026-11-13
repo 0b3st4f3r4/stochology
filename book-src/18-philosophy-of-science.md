@@ -183,7 +183,7 @@ Two operational bounds constrain the holism. The first is **Invariant Causal Pre
 invariant regression slope across distinct environmental regimes
 ([Reactive Worlds, Performativity, and Goodhart's Law](48-reactive-worlds-performativity-goodhart.md)). A predictor
 that carries the causal relation holds its slope across regimes, while a spurious proxy fitted to the same archive
-swings by an order of magnitude more, so intersecting the subsets that survive every regime isolates the invariant
+changes slope from one regime to the next, so intersecting the subsets that survive every regime isolates the invariant
 set instead of excusing the whole web.
 
 The second is a **dated single-hypothesis counterexample**. Robert Millikan (1913) measured the elementary electron

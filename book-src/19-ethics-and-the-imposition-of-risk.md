@@ -224,10 +224,11 @@ experiences a profound psychological residue: **agent-regret**. In corporate hie
 executives routinely invert moral luck by starving frontline units of buffers and blaming operators when a shock hits.
 
 Decomposing total deficit variance into structural, operational, and exogenous shares makes the inversion measurable.
-In the case that motivates the decomposition, structural under-buffering accounts for the overwhelming majority of
-deficit variance and frontline operations for a small fraction, yet management assigns most of the blame to the
-frontline. The **blame inversion ratio** — assigned frontline blame divided by the operational share — runs to more
-than an order of magnitude. Moral luck therefore requires two structural safeguards: an ex-ante bitemporal seal judging the operator strictly on the evidence and capacity available at decision time, and a variance-attribution audit separating executive under-buffering from frontline operational error before blame is assigned.
+Write $v\_{\mathrm{op}}$ for the share of deficit variance the frontline's own decisions explain and $b\_{\mathrm{fl}}$ for
+the share of blame the frontline is assigned. The **blame inversion ratio** $b\_{\mathrm{fl}}/v\_{\mathrm{op}}$ is one
+when blame follows causation, and it grows without bound when structural under-buffering explains most of the
+variance and the frontline is still assigned most of the blame, since the denominator shrinks while the numerator
+does not. Moral luck therefore requires two structural safeguards: an ex-ante bitemporal seal judging the operator strictly on the evidence and capacity available at decision time, and a variance-attribution audit separating executive under-buffering from frontline operational error before blame is assigned.
 
 ## 5. Performative Prediction and Donald MacKenzie's Performativity
 
@@ -259,10 +260,10 @@ ghost distribution, and the system induces the very failures it claimed to forec
 
 ### The numbers nobody in the room chose
 
-A custody rule that flags repeated prior checks — or a single check, for arrestees who are unemployed and
-non-citizens — produces false positives at very different rates in two groups. The gap is a property of the rule,
-not of anyone's intent. One group receives a large share of wrongful flags per thousand negatives and the other a
-much smaller share, and the base-rate odds fix the ratio of the two rates, not the threshold. Nobody in the room chose
+A custody rule applied with one predictive value and one miss rate to two groups whose base rates differ
+produces false positives at different rates in the two. The gap is a property of the rule and the base rates,
+not of anyone's intent: by the identity of [Chapter 49](49-moral-luck-apt-agency-institutions.md) the ratio of the
+two false-positive rates is the odds ratio of the base rates, so the base-rate odds fix it, not the threshold. Nobody in the room chose
 those rates. That is the shape of a non-reciprocal risk imposition: an aggregate that nets to a gain can still be an
 injustice.
 

@@ -181,7 +181,7 @@ where $S\_{w,z}$ is the number of returning aircraft hit in zone $z$ in wave $w$
 
 This is the part that surprises planners. Collect enough data and the sampling error washes out, surely?
 
-It does not, and the reason is straightforward arithmetic. In 2018, Xiao-Li Meng proved the **Big Data Paradox** (Meng 2018). Whenever the recording mechanism $R \in \{0, 1\}$ is correlated with the outcome $Y$ (a data defect correlation $\rho\_{R,Y} \ne 0$) and observations arrive in correlated clusters (a design effect $\mathrm{DEFF} \ge 1$), the unified effective sample size obeys the harmonic precision law:
+It does not, and the reason is straightforward arithmetic. In 2018, Xiao-Li Meng proved the **Big Data Paradox** (Meng 2018): a sample mean departs from the population mean in proportion to the correlation between being recorded and the outcome, so that collecting more rows can move the estimate further from the truth. Meng's identity prices that displacement and nothing else. Add Kish's design-effect term for records that arrive in clusters, and the two compose into the harmonic precision law derived in [Chapter 34](34-sample-population-archive.md), in which the effective sample size obeys:
 
 $$\frac{1}{n\_{\mathrm{eff}}} = \frac{\mathrm{DEFF}}{n} + \left(\frac{1 - f}{f}\right)\rho\_{R,Y}^2, \qquad f = \frac{n}{N}$$
 

@@ -291,8 +291,9 @@ resolves; the agent that buffers before the outcome survives. **Chapters 43–45
 first framing, Cromwell's rule, the multiverse and the severity of a claim; then partial identification
 in the Manski–Lee tradition and Ville's *e*-processes over the LaLonde question, where a randomized
 benchmark and an observational comparison answer differently and the difference is the point; then the
-harmonic law of effective sample size, uniting Meng's Big Data Paradox, the Campbell–Moulton design
-effect, Kish's weighting, Chao's lower bound on the unseen, and bitemporal vintages. **Chapters 46 and
+harmonic law of effective sample size, uniting Meng's Big Data Paradox, the Kish–Moulton design
+effect (this book's shorthand for Kish's weight-concentration factor composed with Moulton's cluster correction,
+not an eponym the survey literature uses), Kish's weighting, Chao's lower bound on the unseen, and bitemporal vintages. **Chapters 46 and
 47** develop **Mediating Filter II · Axis 2 ($S\_{\mathrm{vital}}$: Vital Margin)** through **Canonical
 Operator II**: scale invariance, Jensen's convexity gap $\Delta\_J$ and Hill's heavy-tail index; then
 Itô's variance drain, Baker–McHale epistemic Kelly shrinkage, Kingman's heavy-traffic queues,

@@ -165,8 +165,7 @@ the order's liability finding. In a loop too fast to audit, the payer is structu
 3. Reproduce the stopping distance symbolically at two friction coefficients, and say whether a dry-surface margin with a fixed slack is still
    admissible on wet asphalt (answer: the friction term enters as $1/\mu$, so a small adhesion deficit is amplified into a deficit larger than the
    slack, and the dry margin is short).
-4. Count the direct and the transitive descendants of this order in the graph, and say why the six arrows a reader can follow are not
-   the ancestor cone.
+4. Take the fold at the root of $\mathcal{G}\_1$, whose ancestor cone is empty, and say why the fold there is the order's own reading rather than an inherited one; then say what the outgoing edges — read off the blockquotes of the chapters that name this layer as a layer they build on — do and do not license about the orders they reach.
 5. **The declaration before the measurement.** Declare the state of one limb twice — as endpoint error, then as the rate at which contact force
    changes — and say which declaration makes the ratio of §1 computable inside the loop, and which of the two a clearance specification is able to
    certify.
@@ -175,7 +174,7 @@ the order's liability finding. In a loop too fast to audit, the payer is structu
 
 From the root of $\mathcal{G}\_1$ (`in-degree = 0`), micro-kinetic sensorimotor control
 (`{T1Framing, T5Temporal, T7Liability}`) exports its reaction-latency floor and physical liability anchor
-across the six outgoing edges $\mathcal{G}\_1$ declares for it. No computation attaches a margin to it: folding a layer's three axis scores over its ancestor cone is a reading of the model, not a
+across the outgoing edges $\mathcal{G}\_1$ declares for it. No computation attaches a margin to it: folding a layer's three axis scores over its ancestor cone is a reading of the model, not a
 measurement, and no number is reported for it here. The next chapter is
 [Chapter 52, *Layer 02: Meso-Buffered Queue Order*](52-layer-meso-buffered-queue-order.md), which keeps the
 latency floor and asks what happens to it once arrivals queue against a service rate the surface does not

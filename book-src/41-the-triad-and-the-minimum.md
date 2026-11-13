@@ -196,11 +196,13 @@ at the minimum strength over its serial links: $\min\_i R\_i$. The chain is also
 
 Set a single coordinate to zero and a different mode of rupture follows, because each safeguard defends against its own failure mechanism.
 
-**Collapse Proposition 1 ($\neg S\_{\mathrm{epi}} \implies \text{Blind Undersizing}$)**: An organization maintains
-extensive physical buffers and flawless governance, but estimates demand using naive sample means that ignore
-unmeasured selection bias ($\rho\_{R,Y} \neq 0$) and cluster design effects ($\mathrm{DEFF}$). The reserve buffer
-is sized against a false point certainty and is completely overwhelmed on the first day real-world tail variability
-strikes.
+**Collapse Proposition 1 ($\neg S\_{\mathrm{epi}} \implies \text{Blind Undersizing}$)**: Where an organization
+holds extensive physical buffers and flawless governance but lacks the epistemic margin, so that it estimates
+demand using naive sample means that ignore unmeasured selection bias ($\rho\_{R,Y} \neq 0$), cluster design
+effects ($\mathrm{DEFF}$) and the width of the partial-identification bounds $\Delta\_{\mathrm{id}}$, the
+reserve buffer is sized against a false point certainty and fails on the first excursion beyond the support
+that certainty assumes. It fails if a trajectory carrying all three omissions is observed to size its buffer
+above the tail it later meets.
 
 **Collapse Proposition 2 ($\neg S\_{\mathrm{vital}} \implies \text{Impotent Lucidity}$)**: Where impeccable empirical
 bounds, auditable governance and near-full utilization or congested deliberation meet at
@@ -211,13 +213,16 @@ condition, not a claim about how often organizations satisfy it. Its empirical c
 reachable; whether a particular organization reaches it is a question for a pre-registered design
 ([Methodological Families, Process Tracing, and Reflexivity](50-methodological-families-reflexivity.md) §9.5), and
 what the proposition predicts is absorption once the barrier is crossed, not that a lean organization fails inside
-any particular window.
+any particular window. It fails if a trajectory whose survival time sits below its recovery time is observed to take
+the next step at full utilization and still be there once the recovery interval has elapsed.
 
-**Collapse Proposition 3 ($\neg S\_{\mathrm{gov}} \implies \text{Cynical Capture}$)**: An organization has
-accurate data and generous physical reserves, but operates under one-sided limited liability where decision-makers
-capture private upside while shifting downside risk onto the public. Legitimate scientific uncertainty is weaponized
-as an agnotological excuse to delay precautions, frontline warning testimony is discounted by status ($\delta\_{\mathrm{status}} \to 1$),
-and common vital reserves are privatized.
+**Collapse Proposition 3 ($\neg S\_{\mathrm{gov}} \implies \text{Cynical Capture}$)**: Where an organization
+has accurate data and generous physical reserves but lacks the governance coordinate, operating under
+one-sided limited liability where decision-makers capture private upside while shifting downside risk onto the
+public, legitimate scientific uncertainty is weaponized as an agnotological excuse to delay precautions,
+frontline warning testimony is discounted by status ($\delta\_{\mathrm{status}} \to 1$), and common vital
+reserves are privatized. It fails if an institution with one-sided limited liability and silenced frontline
+testimony is observed to hold its reserves through a shock that removes the epistemic margin.
 
 The three propositions are read as cells of a design; none of them claims anything about institutions in general, which is
 how the synthesis uses them: each states what a trajectory does once an axis is absent, and the frequency with which
@@ -253,8 +258,8 @@ operators would inflate the weakest measured coordinate by manipulating definiti
 pre-registrations, inflating denominator capacities to make utilization look low, or silencing incident reports.
 The measured index would rise while physical safety deteriorated.
 
-Hence the constitutional prohibition: **the Nuclear Triad is a diagnostic, never an optimization objective.** It is evaluated by independent auditors possessing
-sovereign authority to halt operations.
+Hence the constitutional prohibition: **the Nuclear Triad is a diagnostic, never an optimization objective.** It is read by independent auditors, and the authority to
+halt operations sits with those auditors and not with the verdict they read.
 
 The prohibition has a rationale older than the index it protects. Hegel's remark on the word *aufheben* is that it
 carries two opposed senses at once, to preserve and to put an end to, and this clause keeps them apart on purpose:
@@ -340,7 +345,7 @@ Product aggregation contracts volume against the minimum by the gap between $V\_
 
 ### When the axes are all high
 
-The diagnosis stops discriminating when all three axes are high and the decision is trivial. The procedure is to declare saturation and to use the critical axis (the smallest one) as the single lever, abandoning the composite score instead of reporting a number that no decision will move.
+The diagnosis stops discriminating when all three axes are high and the decision is trivial. The procedure is to declare saturation, to name the critical axis (the smallest one) as the one the next step will face, leaving the funding decision to the operator's own per-step state, and to abandon the composite score instead of reporting a number that no decision will move.
 
 ## 6. Two limits of the minimum, and the purchase it recommends wrongly
 

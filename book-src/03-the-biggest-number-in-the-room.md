@@ -152,8 +152,8 @@ Hill's conditional maximum-likelihood estimator (Hill 1975) measures how heavy t
 the logarithmic gap $\ln(X\_{(n-i+1)} / X\_{(n-k)})$ between an extreme claim and the tail threshold
 $X\_{(n-k)}$ over the top $k$ order statistics. The whole construction, and the display that defines
 it, belongs to [Distribution and Moment](31-distribution-and-moment.md). When claims tower above the
-threshold the average log-spacing grows and the index falls toward $1$. On archives of this kind the
-estimate lands below $2$, and a Pareto distribution with $\alpha \le 2$ has infinite population
+threshold the average log-spacing grows and the index falls toward $1$. Where the
+estimate lands below $2$ the consequence is categorical, since a Pareto distribution with $\alpha \le 2$ has infinite population
 variance, so the sample average jumps abruptly whenever a new extreme event arrives. Reporting that the
 index is unstable across choices of $k$ is part of the estimate, not a weakness of it: the tail of a
 finite record is itself uncertain, and the honest report carries both the index and its interval.

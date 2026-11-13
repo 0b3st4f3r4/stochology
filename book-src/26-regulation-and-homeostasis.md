@@ -131,9 +131,10 @@
 
 ## 1. The Anatomy of a Negative Feedback Loop
 
-In 1865 Claude Bernard observed that independent life requires the constancy of the internal environment
-(*milieu intérieur*). In 1932 Walter Cannon named the physiological processes that hold those steady states
-**homeostasis** (Cannon 1932).
+Claude Bernard argued that independent life requires the constancy of the internal environment
+(*milieu intérieur*), the thesis his lectures of 1878 compressed into the formula that the fixity of the internal milieu is the condition of free
+life (Bernard 1878). Walter Cannon, who coined the word in the 1920s, gave the physiological processes that hold those steady states their book-length account
+as **homeostasis** (Cannon 1932).
 
 Biological and cybernetic regulation keeps vital variables inside survivable boundaries by negative feedback.
 A minimal closed loop needs four parts:

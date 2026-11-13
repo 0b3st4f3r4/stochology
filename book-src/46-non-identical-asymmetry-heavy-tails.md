@@ -194,7 +194,9 @@ where $X, X' \stackrel{\text{i.i.d.}}{\sim} F$. CRPS has three virtues:
 
 ## 5.4 Bruce M. Hill's (1975) Tail Index, Four Moment Regimes, and the Breakdown of the CLT
 
-$\Delta\_J$ can grow by orders of magnitude as sample size increases, because many physical, financial and operational losses follow **Pareto power-law tails**:
+$\Delta\_J$ need not shrink as the sample grows: a larger sample reaches further into the tail, and there the
+joint excess over the independence benchmark can grow without bound, because many physical, financial and
+operational losses follow **Pareto power-law tails**:
 $$\mathbb{P}(X > x) \sim L(x)\mkern3mux^{-\alpha} \quad \text{as } x \to \infty$$
 where $L(x)$ is a slowly varying function ($\lim\_{t\to\infty} L(t x)/L(t) = 1$) and $\alpha > 0$ is the **tail index**.
 
@@ -226,18 +228,17 @@ When extreme tail observations are clustered ($\mathrm{DEFF}\_{\mathrm{tail}} > 
 
 ---
 
-## 5.5 The Same Estimator on Insurance and Flight Archives
+## 5.5 The Same Estimator on Two Kinds of Archive
 
 The battery is deliberately narrow: Hill's index with its stability envelope and its interval, the penumbra mass at the boundary the institution actually uses, the Jensen gap under a convex evaluation, CRPS against the realized outcome, and the Holling rupture probability under tail clustering. Run on a catastrophic insurance loss archive it answers the first question a capacity planner should ask, which moment if any exists, and the answer is not a point but a regime together with the envelope that keeps it in that regime.
 
-The convex evaluation is where the gap becomes institutional. A reinsurance or penalty schedule that grows faster than linearly in the loss makes the evaluation at the mean and the expected evaluation two different numbers, and the gap between them is not estimation error: it is what convexity costs, computable from the archive's own distribution and irreducible to better estimation. The same archive then supplies the ordinal question of §5.2, because the boundary between "reportable" and "not reportable" is a dial the institution sets, and the penumbra mass measures how many losses sit inside it.
+The convex evaluation is where the gap becomes institutional. A reinsurance or penalty schedule that grows faster than linearly in the loss makes the evaluation at the mean and the expected evaluation two different numbers, and the gap between them is not estimation error: it is what convexity costs, computable from the distribution the archive carries and irreducible to better estimation. The same archive then supplies the ordinal question of §5.2, because the boundary between "reportable" and "not reportable" is a dial the institution sets, and the penumbra mass measures how many losses sit inside it.
 
-The flight archives supply the comparison the insurance archive cannot. Delay tails are thinner than insurance losses, and their regime can shift across a decade, so the same estimator produces a different classification on a different archive, and a different classification on the *same* archive at a different time. That is the estimator's own uncertainty showing through: the object to report is the plateau of the index across retained counts and the interval that comes with it, not the value at a chosen count. A point estimate of $\hat{\alpha}$ without its interval invites a planner to treat a regime label as a measurement, and the four regimes of §5.4.1 differ in what they license, not in how alarming they sound.
+A flight-delay archive supplies the contrast the insurance archive cannot. A delay is truncated by the cancellation policy that ends it, so its upper tail is shaped by a rule as well as by the physics of the network, and a change of rule moves the tail; the same estimator can therefore produce a different classification on a different archive, and a different classification on the *same* archive at a different time. That is the estimator's own uncertainty showing through: the object to report is the plateau of the index across retained counts and the interval that comes with it, not the value at a chosen count. A point estimate of $\hat{\alpha}$ without its interval invites a planner to treat a regime label as a measurement, and the four regimes of §5.4.1 differ in what they license, not in how alarming they sound.
 
 ## 5.6 The same battery on a national air-transport archive
 
-The flight tables this chapter draws on are North American: several New York departure windows and a Houston
-window. A second national archive is available and is distributed as an open statistical transport series,
+A national archive of this kind is distributed as an open statistical transport series,
 naturally combined with a live tracking feed (Agência Nacional de Aviação Civil 2024), and the reason for naming it explicitly is methodological: it is a second institutional
 producer, with its own reporting thresholds and its own missingness pattern, so it
 exercises the archive-to-population inference of [Chapter 34](34-sample-population-archive.md) on a different
@@ -250,8 +251,8 @@ The battery of §5.3–§5.4 transfers without modification, and the order in wh
    the declared window; a tail index estimated across a boundary shift estimates the boundary.
 2. **Estimate the tail on the declared support.** Hill's estimator $\hat{\alpha}\_{k,n}$ is a function of the number
    of upper-order statistics retained, so the plateau, not the single value at a chosen $k$, is the object to
-   report. Compare it with the New York and Houston plateaus: a *different* $\hat{\alpha}$ is informative, and a
-   suspiciously identical one usually means the same cancellation policy is being measured.
+   report. Compare it with the plateau of any other archive the same question is put to: a *different* $\hat{\alpha}$ is
+   informative, and a suspiciously identical one usually means the same cancellation policy is being measured.
 3. **Measure concentration as a topology, not a mean.** Hub structure is a statement about the share of movements
    carried by a few primary national transfer nodes (such as the São Paulo–Guarulhos, Congonhas, and Brasília trunk corridors) relative to regional spokes, and the right summary is a concentration curve paired with the load-redistribution topology of
    [Chapter 53](53-layer-macro-coupled-topology-order.md), not an average delay.
@@ -261,13 +262,13 @@ The battery of §5.3–§5.4 transfers without modification, and the order in wh
 
 The same discipline governs the two graphical environments in which this material is usually taught. A no-code statistics front end (Orange) and a spreadsheet-adjacent package (JASP) both make it easy to run a test whose assumptions are invisible: a $t$-test on a heavy-tailed delay distribution, a correlation on a non-randomly-missing pair, a $p$-value reported without the number of comparisons behind it. The audit questions belong on a written checklist: which population was sampled, what was dropped by the join, how many models were tried before the reported one, and whether the reported interval is a confidence interval or a credible interval. A tool that will not answer those four questions about its own output has automated the production of Type III error.
 
-The national archive is **not** part of this edition's sealed evidence base, and the reason is a provenance commitment and not an oversight: a dataset earns that standing only with a pinned digest, a documented retrieval path and a stated schema contract, because a table whose upstream can change silently is not evidence. Until that is in place, the chapter's measured tails are the North American windows.
+The chapter reports no tail index for this archive or for any other, and the reason is a provenance commitment and not an oversight: an estimate earns standing as evidence only with a documented retrieval path and a stated schema, because a table whose upstream can change silently is not evidence. The battery is a procedure, and its outputs belong to whoever runs it on a declared window and states where the window came from.
 
 ---
 
 ### Two tails, two regimes
 
-The tail index can fall between two flight archives and can be accompanied by intervals that do not overlap. Both regimes have finite variance and infinite kurtosis, and neither shares a regime with catastrophic insurance losses, where the variance itself does not exist. Three archives, three regimes, and one estimator that reports all three honestly only if it also reports its interval.
+Two archives can return tail indices whose intervals do not overlap, and a third can fall in a regime neither of them shares. The estimator reports all three honestly only if it also reports its interval, because the regime label is a statement about where the interval lies and not about the point inside it.
 
 The consequence for a decision is that the regime decides which summary is admissible; the truism that tails are dangerous decides nothing. Below two the variance is a fiction, between two and four the variance exists and the fourth moment does not, and above four the classical moments are usable. A plan that quotes a variance without naming the regime is quoting a number whose existence it has not checked.
 

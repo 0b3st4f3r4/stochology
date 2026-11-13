@@ -216,7 +216,7 @@ formalized three structural threats that persist even when scale transformations
 3. **Consequential invalidity**: The social, institutional, and economic damage triggered when the metric is tied to
    high-stakes incentives and warps operational behaviour.
 
-These three psychometric threats correspond 1-to-1 with the framing (`T1`), archive (`T3`), and performative
+These three psychometric threats are answered at the framing (`T1`), archive (`T3`) and performative
 (`T6`) guard sites of the grammar of aim.
 
 ## 4. Missing is not zero

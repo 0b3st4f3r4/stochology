@@ -264,7 +264,7 @@ advance, and the naming separates it from a true belief that happened to survive
 counterfactual: the comparison sample for the classic training programme carries thousands of controls and not one
 treated unit, whereas the randomised trial that supplies the treatment effect contains both arms. Conversely, when a
 low-stakes error costs little and a process audit costs a great deal, a small Gettier contamination carries an
-expected loss smaller than the audit's own cost, so auditing costs many times the harm it prevents. That is the
+expected loss smaller than the audit's own cost, so auditing costs more than the harm it prevents. That is the
 counterexample regime where justified true belief suffices.
 
 ### When the truth cannot be checked in time
