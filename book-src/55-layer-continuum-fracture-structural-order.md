@@ -126,10 +126,10 @@ where the record is kept, and the record is kept by the party with the least aut
 margin was chosen upstream and is defended downstream.
 
 The tail goes unpriced, and its classical case is the one Dowie (1977) reported and the
-California Court of Appeal (1981) tried: a fix priced against an expected harm by a party that did not bear
-it. The value that decided it was never printed in the design. The court did not repair the arithmetic; it
+California Court of Appeal (1981) tried: a fix weighed against an expected harm by a party that did not bear
+it, at a per-death valuation that Schwartz (1991) traced to the regulator's own societal-cost estimate. The value that decided it was never printed in the design. The court did not repair the arithmetic; it
 relocated the liability after the fact. The case establishes that the calculation was possible, not that it
-was wrong: an inequality whose loss is priced by the party who does not suffer it will be satisfied, and
+was wrong: an inequality whose loss is priced before the harm by anyone other than the party who suffers it will be satisfied, and
 satisfied where the record is cleanest.
 
 Vaughan (1996) supplies the temporal form: each operation that returned made the previous estimate of the

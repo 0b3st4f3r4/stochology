@@ -27,8 +27,9 @@ by a number tending to zero.
 
 ## 2. What the reported count cannot carry
 
-Between the series and the clock stand three failures, none of them a measurement error. Transmissions are overdispersed, so a dispersion well below one
-leaves large outbreaks explosive. Capacity is a queue, so waiting time rises as $\rho/(1-\rho)$ and recovery
+Between the series and the clock stand three failures, none of them a measurement error. Transmissions are overdispersed: Lloyd-Smith, Schreiber, Kopp and Getz (2005) fitted a negative binomial to the
+offspring distribution and estimated its dispersion for SARS at $k = 0.16$, and a dispersion that far below one makes most introductions die out
+while the few that take hold are explosive, so the mean of the series describes almost no chain in it. Capacity is a queue, so waiting time rises as $\rho/(1-\rho)$ and recovery
 passes the survival clock. And the archive is not a random sample: selection into it is non-ignorable,
 clusters inflate variance by $1 + (m-1)\rho\_{\mathrm{cl}}$, prevalence is a
 partial-identification bound. With no governance site in
@@ -38,8 +39,9 @@ the triple, authorities discount early clinical warnings and spend the window th
 
 Both standard uses of $1 - 1/R\_0$ fail once susceptibility is heterogeneous. Take two equal groups whose
 susceptibilities differ by a factor, normalised so that the mean equals the same $R\_0$ as the homogeneous case. The
-next-generation matrix has equal entries within each row, so it is rank one and its spectral radius is its trace,
-which is the very $R\_0$ the homogeneous formula assumes. Immunise the susceptible half and the outbreak goes out; apply the same coverage to the other half and
+next-generation matrix, whose spectral radius is the reproduction number of a structured population (Diekmann, Heesterbeek & Metz 1990), has
+equal entries within each row, so it is rank one and its spectral radius is its trace,
+which is the very $R\_0$ the homogeneous formula assumes. Immunise the more susceptible half and the outbreak can go out; apply the same coverage to the other half and
 the radius stays above one, demanding a much larger share of that
 group. For one pathogen the homogeneous formula returns a third answer. What the threshold is a function
 of is the radius, not the coverage, so report the threshold as the pair (coverage, spectral radius) and not as coverage alone.
@@ -83,6 +85,17 @@ direction is systematic, because a severe presentation reaches a reporting site 
 The archive tilts toward severity and away from the mild cases that carry most of the
 transmission, so its severity is not the epidemic's.
 
+The size of the unrecorded part has an estimator only when a second, independent record exists. If two
+sources catch $n\_1$ and $n\_2$ cases and $m$ cases appear in both, independence between the sources gives
+$m/n\_2 \approx n\_1/N$ and so $\hat{N} = n\_1 n\_2/m$; the dark figure is $\hat{N}$ less the cases either source
+saw. The estimator inherits the defect it is meant to repair. Two surveillance streams fed by the same
+severity-driven presentation are positively dependent, $m$ is inflated, and $\hat{N}$ is biased downward
+exactly where the dark figure is largest; heterogeneous catchability has the same effect, which is why
+Chao's (1987) estimator is stated as a lower bound and not as an estimate. Dark ascertainment is the
+archival site's name for that residue: the share of events no source in the system was built to see, which
+no count from inside the system can price and which only a design that samples independently of
+presentation can bound.
+
 Retention adds a second edge behind the first, and the archival vocabulary insists on it
 because it acts after publication. A record that enters the series can be revised,
 reclassified or removed: a death certificate re-coded when the autopsy returns, a case struck when a
@@ -121,8 +134,9 @@ attention growth, not a point estimate of the pathogen's rate.
 
 ## 5. The two clocks as one ratio
 
-Two parameters travel in every report. The serial interval, written $T$, is the mean time between successive infections in a chain of
-transmission. The tracing delay, written $d$, is the time from a case being detected to its contacts being
+Two parameters travel in every report. The generation interval, written $T$, is the mean time between successive infections in a chain of
+transmission; the serial interval between successive symptom onsets is its observable proxy, and the two share a mean when incubation periods
+are independent of the generation interval. The tracing delay, written $d$, is the time from a case being detected to its contacts being
 reached and isolated. One is epidemiological, one operational, and neither is a governance object on its own.
 They are one quantity. Suppose infectiousness is spread evenly
 across the serial interval, so that a case transmits at the rate $1/T$ until time $T$. By time $d$ it has
@@ -133,8 +147,9 @@ $$R\_{\mathrm{eff}} = R\min\left(1,\mkern3mu \frac{d}{T}\right).$$
 
 Only the ratio enters. Double both clocks and $R\_{\mathrm{eff}}$ is unchanged, so two jurisdictions with
 different serial intervals and different delays can be identical in control and opposite in report. The
-same ratio governs how far the epidemic has run while the delay elapses. With $r = \ln R\_0/T$ the growth
-rate implied by the generation interval, the case count at the moment contacts are reached is
+same ratio governs how far the epidemic has run while the delay elapses. Take the generation interval as fixed at $T$, for which the growth rate
+is exactly $r = \ln R\_0/T$ (Wallinga & Lipsitch 2007; under the spread infectiousness assumed above the relation is
+$R\_0 = rT/(1 - e^{-rT})$ instead, and the exponent below is approximate), and the case count at the moment contacts are reached is
 
 $$N(t + d) = N(t)\mkern3mu e^{rd} = N(t)\mkern3mu R\_0^{d/T},$$
 
@@ -150,6 +165,13 @@ an event to become a record. So the ratio carries the archive in its numerator a
 denominator, and the defect of §4 and the ratio above are one defect seen
 from two sides. A system that shortens interviews while its detection delay grows has improved the part of $d$
 it manages and left the ratio where it was, and the improvement is reportable.
+
+The ratio prices only the transmission that tracing can reach. Fraser, Riley, Anderson and Ferguson (2004) showed that controllability by
+isolation and tracing depends on $\theta$, the share of transmission that occurs before symptoms, as much as on the reproduction number: a
+pathogen that transmits mostly after onset can be contained by isolating cases even at a high reproduction number, while one with a large
+$\theta$ escapes isolation at a modest one, because the delay $d$ starts counting only at detection and the transmission it should prevent has
+already happened. Written into the ratio, isolation at detection removes at most the share $1 - \theta$ of a case's transmission, so
+$R\_{\mathrm{eff}} \ge \theta R$ for every delay, and no improvement in $d/T$ pushes the reproduction number below one when $\theta R > 1$.
 
 The quotient is also the only form in which the two clocks can be compared at all. $T$ and $d$ carry the
 same unit, so their ratio is dimensionless: it means the same thing in a setting whose serial interval is
@@ -175,7 +197,7 @@ in order.
 1. With overdispersed transmission and a positive household correlation, show why unadjusted symptomatic test positivity misestimates prevalence, and say which of the two archive defects carries the error.
 2. Taking tracing utilisation to $\rho \to 1$, say what happens to containment when the recovery time passes the generation interval.
 3. Show how the survival clock scales with the growth rate, and say which rate makes a one-week delay survivable (answer: the clock halves at each doubling of the rate, so only the slowest buys the week).
-4. Explain why a ninety per cent effective measure arriving after four doublings has cost about fifteen times the cases it prevents (answer: four doublings accumulate $2^4 - 1 = 15$ times the starting count).
+4. Explain why a measure arriving after four doublings meets a caseload sixteen times the one it would have met at the start, and how many starting counts accrued during the wait (answer: $2^4 = 16$, of which $2^4 - 1 = 15$ accrued while the measure was pending).
 5. Take a two-group matrix of §3's form, immunise the less susceptible half instead, and compute the coverage the homogeneous formula would have accepted beside the coverage the radius demands.
 
 ## Bridge

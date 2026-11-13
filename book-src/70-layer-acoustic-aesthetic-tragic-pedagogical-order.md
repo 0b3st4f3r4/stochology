@@ -30,16 +30,24 @@ which is the same interval read as a ratio, $3^{12}/2^{19}$, and converted at tw
 concentrates it into the twelfth, where it is unusable. What temperament buys is distribution, not
 accuracy: a slack inaudible in every interval, uniform enough to let the instrument move between keys.
 
-The same conservation holds on a series with nothing to do with tuning. Half-hourly demand has a spread around a
-single mean and a smaller spread around a profile indexed by weekday and half-hour, which leaves a share of the
-variance untouched. The misfit was moved, not removed. A bin's own mean is the best summary it admits, and a
-profile that absorbs the calendar absorbs only what the calendar explains.
+The same conservation holds wherever a second pure interval is demanded. Four pure fifths, brought down two octaves, should land on a
+pure major third $5/4$, and they overshoot it:
+
+$$\frac{(3/2)^{4}}{2^{2}\cdot 5/4} = \frac{81}{80}, \qquad 1200\log\_2\frac{81}{80} \approx 21.51\ \text{cents},$$
+
+the syntonic comma. Again the fundamental theorem decides it: the left side has a factor of five in the denominator that no product of
+threes and twos can cancel. The historical temperaments are rules for where to put the two residues. Equal temperament narrows each of the
+twelve fifths by a twelfth of the Pythagorean comma, $701.96 - 700 \approx 1.96$ cents, and leaves every major third
+$400 - 1200\log\_2(5/4) \approx 13.69$ cents wide; quarter-comma meantone narrows each fifth by a quarter of the syntonic comma, $21.51/4 \approx 5.38$
+cents, so that four of them make a pure third, and pays with a wolf fifth where the circle fails to close. The well-tempered tunings sit
+between the two, spreading the residue unevenly so that every key is usable and no two sound alike. No assignment removes either comma; each
+moves it, and the choice of where it lands is a judgment about which intervals the music will lean on.
 
 ## 2. Attic tragedy as a circuit
 
-Kant's determinative judgment holds a fixed rule and subsumes the particular under it. That is the naive
+Kant's (1790) determinative judgment holds a fixed rule and subsumes the particular under it. That is the naive
 optimiser. Reflective judgment has the singular particular alone and must orient action
-without amputating what Adorno called the Non-Identical. Attic tragedy made the failure of determinative
+without amputating what Adorno (1966) called the Non-Identical. Attic tragedy made the failure of determinative
 rigidity its object: *hamartía* means missing the target, and the surviving plays dramatise the three collapse
 propositions.
 

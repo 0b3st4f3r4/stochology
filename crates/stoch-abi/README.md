@@ -8,7 +8,10 @@ núcleo com eles, e escreve os registos de saída.
 
 **Fase 4a, não ativação.** O plano (arquivado fora do repositório) exigia consumidores
 reais para ativar a fase; os dois consumidores deste crate são dublês assumidos. O
-artefacto está pronto para quando existirem.
+artefacto está pronto para quando existirem. `02-arquitetura.md` e
+`03-cadeia-de-suprimentos.md` são documentos internos de projeto e não fazem parte
+deste repositório; as referências ficam como registro do desenho, e nada aqui depende
+de abri-los.
 
 ## Superfície fechada
 

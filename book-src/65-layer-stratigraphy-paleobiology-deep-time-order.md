@@ -18,7 +18,18 @@ No measurement can test the frame it works inside. A section whose boundary was 
 
 The section is an envelope in time. Whatever passed through it and left nothing is not stored anywhere else, so the incompleteness of the record is not damage to a copy: there is no original the copy could be found wanting against. *Bias* suggests a true value that a better sample would recover. Here the sample is the only measurement of the population, and what can be recovered is the structure of the sampling, not a complete census.
 
-That structure is a rate. Preservation happens where accumulation outruns destruction, so the record thins where the rate is low. A series' observed range is a lower bound on its true range, and the shortfall widens as the archive thins. The correction multiplies the observed range, it does not divide it, and it grows largest for the archive with the fewest dated horizons (Signor & Lipps 1982; Strauss & Sadler 1989). The formula matters less than its argument: the archive's precision is a property of its density. Two sections holding the same number of specimens but different numbers of dated horizons do not carry the same information, and the difference is computable before a single taxon is named.
+That structure is a rate. Preservation happens where accumulation outruns destruction, so the record thins where the rate is low. A series' observed range is a lower bound on its true range, and the shortfall widens as the archive thins. The correction multiplies the observed range, it does not divide it, and it grows largest for the archive with the fewest dated horizons (Signor & Lipps 1982; Strauss & Sadler 1989). The correction is short enough to derive. Suppose $H$ fossiliferous horizons fall
+independently and uniformly along a true range of length $T$, and the observed range between the outermost two is $R$. Conditional on the first
+horizon, the other $H - 1$ all lie within a stretch of length $R$ with probability $(R/T)^{H-1}$, so the chance that the true end lies more than
+$aR$ beyond the last find is $(1 + a)^{-(H-1)}$. Setting that chance equal to $1 - C$ gives the extension at confidence $C$,
+
+$$a = (1 - C)^{-1/(H-1)} - 1,$$
+
+and the range is reported as $R$ extended by $aR$ at the end in question (Strauss & Sadler 1989). Both limits are visible in the formula: with
+two horizons the exponent is $-1$ and the extension is $C/(1 - C)$ times the observed range, unbounded as the confidence approaches one; as $H$
+grows, $a$ falls toward zero like $-\ln(1 - C)/(H - 1)$. The correction multiplies $R$ because the gap is measured in units of the mean spacing
+between finds, and the archive's precision is therefore a property of its density, with the formula assuming the uniformity that the
+next paragraphs deny. Two sections holding the same number of specimens but different numbers of dated horizons do not carry the same information, and the difference is computable before a single taxon is named.
 
 Direction is the second structure. What the record keeps is not a random subset of what existed: hard parts survive where soft bodies do not, shallow water where uplands do not, rapid burial where exposure does not. A bias with a known direction is a parameter. A bias treated as noise is a mystery. Carry the direction explicitly, then, because a faunal turnover measured across a boundary may be a turnover in preservation, and from inside the count the two look the same.
 

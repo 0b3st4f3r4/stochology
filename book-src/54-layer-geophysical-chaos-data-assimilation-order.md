@@ -20,7 +20,7 @@ ancestors:
 ## 1. Deterministic chaos, finite horizon
 
 The primitive hydrostatic equations on a rotating sphere are deterministic, and operational forecasting is nonetheless bounded by an impenetrable
-horizon. Lorenz's three-equation truncation of salt convection has a strange attractor, where two trajectories separated by an infinitesimal
+horizon. Lorenz's three-mode truncation of Saltzman's (1962) model of thermal convection has a strange attractor, where two trajectories separated by an infinitesimal
 perturbation diverge exponentially along the leading unstable manifold, at a rate $\lambda\_1 > 0$ per unit time, which defines the horizon
 
 $$\tau\_{\mathrm{Lyap}} = \lambda\_1^{-1}\ln\mkern-3mu\left(\delta\_{\mathrm{tol}}/\varepsilon\_0\right).$$
@@ -31,8 +31,11 @@ survival time. Point forecasts decay into climatological distributions.
 
 ## 2. Subgrid closure is a type-B uncertainty
 
-Atmospheric energy cascades from planetary scales through baroclinic eddies and convective clouds to molecular dissipation, with $E(k) = C\_K
-\varepsilon^{2/3} k^{-5/3}$ in the inertial subrange (Richardson 1922). A model spaced at a few kilometres truncates the cascade, leaving updrafts,
+Atmospheric energy cascades from planetary scales through baroclinic eddies and convective clouds to molecular dissipation, the picture of
+whirls feeding smaller whirls that Richardson (1922) drew, and Kolmogorov's (1941) similarity hypothesis fixes its shape in the inertial
+subrange: if the spectrum there depends only on the dissipation rate $\varepsilon$ and the wavenumber $k$, dimensional analysis leaves
+$E(k) = C\_K \varepsilon^{2/3} k^{-5/3}$, since $[\varepsilon] = \mathrm{m^2\,s^{-3}}$ and $[E] = \mathrm{m^3\,s^{-2}}$ admit no other
+exponents. A model spaced at a few kilometres truncates the cascade, leaving updrafts,
 cloud microphysics, gravity wave drag and boundary-layer turbulence to parameterisation. The residue is a model-form discrepancy
 $\delta\_{\mathrm{K-O}}(x)$ that no tuning removes, and since wind damage scales with the
 cube of wind speed, Jensen's inequality guarantees the convex loss gap
@@ -44,9 +47,13 @@ against heavy-tailed gusts. Sizing coastal defences against a point-mean forecas
 ## 3. What the archive can and cannot constrain
 
 Assimilation reconciles balance equations with sparse asynchronous observations, in 4D-Var as a regularised least-squares fit over a bitemporal
-window and in the ensemble Kalman filter as a flow-dependent covariance of perturbed states (Evensen 1994). On a sealed North Atlantic cyclone record with
-storm identities and six-hourly best-track rows, rapid intensification is heavy tailed, so a deterministic track model carries a sharpness penalty
-that a calibrated ensemble does not.
+window and in the ensemble Kalman filter as a flow-dependent covariance of perturbed states (Evensen 1994). The North Atlantic best-track archive keeps six-hourly
+positions and intensities per storm, with an uncertainty that the database itself documents and that changes with the observing era (Landsea &
+Franklin 2013). Its tail has an operational name: Kaplan and DeMaria (2003) defined rapid intensification as an over-water increase of at least
+30 kt (15.4 m/s) in maximum sustained wind over 24 hours, the value lying near the 95th percentile of the 24-hour intensity changes in their
+Atlantic sample. A threshold set at a percentile of the archive is a statement that the events evacuation exists for are, by construction,
+the twentieth part of the record a mean-growth model fits worst, so a deterministic track model carries a sharpness penalty there that a calibrated
+ensemble does not.
 
 The industrial form of the same act is the digital twin, separated from a simulation by the constraint: assimilation constrains only the
 variables it observes, and everything else is a prior reported with the same visual authority as the assimilated part. The archival boundary is
@@ -102,9 +109,9 @@ target the leading singular vectors of tangent-linear growth.
 
 ### The limit of validity: when the exponent is a random variable
 
-Nothing above lets $\lambda$ vary; a sealed record refuses that reading. Grouped by storm identity, its rows give storm seasons and
+Nothing above lets $\lambda$ vary; the best-track archive refuses that reading. Grouped by storm identity, its rows give storm seasons and
 consecutive twenty-four-hour windows, and the windows that raise the maximum sustained wind the fastest, the ones the evacuation exists
-for, are the ones in the tail. A horizon computed from the mean of a heavy-tailed growth rate is a horizon for no single event. The vintages of a
+for, are by the definition of Kaplan and DeMaria (2003) the ones in the tail. A horizon computed from the mean of a heavy-tailed growth rate is a horizon for no single event. The vintages of a
 bitemporal record are what make the distribution computable, because a growth statistic assembled from an unstamped record cannot separate what was
 known at the decision instant from what was learned afterwards. Compute lead
 time as a first-passage time under the distribution of the exponent, report a lower quantile, not the mean, and where no regime indicator

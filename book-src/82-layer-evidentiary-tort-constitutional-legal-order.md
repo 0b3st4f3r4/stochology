@@ -37,13 +37,51 @@ The remedy splits into two circuits. Harmed third parties are compensated immedi
 
 ## 3. Constitution and statute as circuit breakers
 
-A constitution is Elster's pre-commitment device, and each clause has an operator. The prohibition of *ex post facto* laws and bills of attainder is pre-outcome sealing plus ex-ante distinguishability, forbidding the state from changing the acceptance rule after the trajectory is seen. Separation of powers with bicameral and judicial vetoes is a conjunctive gate, premise-rigging detection and nested tri-branch coupling. Whistleblower protection and the right to refuse unsafe work are a testimonial discount fixed at zero, carried on an uncompromised algedonic channel. Statutes on automated decisions prescribe process rather than models. A duty to inform is satisfied by a declared envelope. A right to intervention is a half-open state that is real only if the review completes inside the window where the decision remains reversible. The standard applied to the artifact is Hand's comparison run on the cost of measuring the deployed error rate against the harm of the errors it makes. A statute with a deadline and a named artifact can be failed, which is what makes it a circuit rather than a norm.
+A constitution is Elster's (1979) pre-commitment device, and each clause has an operator. The prohibition of *ex post facto* laws and bills of attainder is pre-outcome sealing plus ex-ante distinguishability, forbidding the state from changing the acceptance rule after the trajectory is seen. Separation of powers with bicameral and judicial vetoes is a conjunctive gate, premise-rigging detection and nested tri-branch coupling. Whistleblower protection and the right to refuse unsafe work are a testimonial discount fixed at zero, carried on an uncompromised algedonic channel. Statutes on automated decisions prescribe process rather than models. A duty to inform is satisfied by a declared envelope. A right to intervention is a half-open state that is real only if the review completes inside the window where the decision remains reversible. The standard applied to the artifact is Hand's comparison run on the cost of measuring the deployed error rate against the harm of the errors it makes. A statute with a deadline and a named artifact can be failed, which is what makes it a circuit rather than a norm.
+
+A right that may be limited needs a test for when the limit is licensed, and constitutional courts converged on proportionality: a
+measure restricting a right must pursue a legitimate end, be suitable to it, be necessary in that no less restrictive means would serve as well,
+and be proportionate in the strict sense, its gain to the competing principle outweighing its cost to the right. Alexy (2002) gave the last step
+an explicit form, the weight formula, in which the concrete weight of principle $i$ against principle $j$ is
+
+$$W\_{i,j} = \frac{I\_i \cdot W\_i \cdot R\_i}{I\_j \cdot W\_j \cdot R\_j},$$
+
+with $I$ the intensity of interference, $W$ the abstract weight and $R$ the reliability of the empirical premises on each side. The reliability
+term is the chapter's epistemic margin written into constitutional reasoning: a restriction justified by a premise that is merely plausible
+carries less weight than one justified by a premise that is established, so a state that cannot measure the harm it claims to prevent has
+weakened its own case in the formula. The first three steps are gates and the fourth is a comparison, which is the conjunctive structure of the
+acceptance predicate in legal dress.
+
+Entrenchment is the same comparison run across time. A clause that can be amended only by a supermajority $q > 1/2$ is protected by an
+interval, not a point. Put the members' ideal positions on one dimension with distribution $F$ and single-peaked preferences; a status quo $x$
+can be displaced to the right only by a coalition of the members whose ideal lies to the right of it, at most a share $1 - F(x)$, and to the
+left only by at most $F(x)$, so $x$ survives exactly when both shares fall short of $q$:
+
+$$F^{-1}(1 - q) < x < F^{-1}(q).$$
+
+At $q = 1/2$ the interval shrinks to the median and the rule tracks the current majority; as $q$ rises the interval widens, every status quo
+inside it is stable, and which one obtains depends on where the clause was when it was written. That dependence on history is the
+hysteresis the rule buys on purpose. Buchanan and Tullock (1962) priced the trade: a more inclusive rule lowers the external cost a decision can
+impose on those outvoted and raises the cost of reaching any decision at all. A constitution that sets $q$ high has chosen a wide band of
+protected positions and accepted that a clause found wrong inside the band will stay wrong until a coalition of that size forms.
 
 ## 4. The form at both ends, and the case where it is applied correctly
 
 The cost-loss form leaves the domain of a probability at one end: a budget above the discounted loss requires a probability greater than one, which is the signature that the harm cannot be expressed in this unit, while a budget below it requires a fraction of one. The two forms coincide on a thin set. Solve for the false-alarm cost, $C\_{\mathrm{FP}} = \frac{C}{\eta L - C}L\_{\mathrm{FN}}$, which is positive only while the protection budget stays below the discounted loss. Keynes's weight behaves the same way at its ends: with a fixed prior count the weight rises with the individualized count along a curve that is steep at the start and flat near one, so the first increments of evidence buy most of the certainty and the last increment is asymptotic.
 
-*Grimshaw v. Ford Motor Co.* is the case where the form is applied correctly and the recommendation is wrong. The worksheet priced the fix at $\$11$ per vehicle across roughly twelve and a half million vehicles, or $\$137$ million, against benefits of $180$ burn deaths at $\$200{,}000$, $180$ injuries at $\$67{,}000$ and $2{,}100$ burned vehicles at $\$700$, totalling $36 + 12.06 + 1.47 = \$49.53$ million (Dowie 1977). Since $B = 137 > PL = 49.53$, Hand's inequality says the precaution was not required, which is what the manufacturer took. The arithmetic is not the error. $L$ in $B < PL$ is the loss the law will recognise, not the loss a manufacturer's table prices, and the punitive award was $\$125$ million before remittitur, some $625$ times the worksheet's figure per death (California Court of Appeal 1981). A formula whose $L$ is supplied by the party that benefits from a small $L$ recommends the cheap precaution as a matter of course, so $L$ must come from the body that bears the loss or be bounded from the record of awards.
+*Grimshaw v. Ford Motor Co.* is remembered as the case where the form was applied correctly and the recommendation was wrong, and the record is
+more instructive than the legend. The worksheet usually quoted is Grush and Saunby's (1973) submission to the federal regulator on a proposed
+rollover fuel-leakage standard for the whole industry, not a Pinto rear-impact study: it priced the fix at $\$11$ per vehicle across $11$ million
+cars and $1.5$ million light trucks, or $\$137$ million, against benefits of $180$ burn deaths at $\$200{,}000$, $180$ injuries at $\$67{,}000$
+and $2{,}100$ burned vehicles at $\$700$, totalling $36 + 12.06 + 1.47 = \$49.53$ million (Grush & Saunby 1973; Dowie 1977). Schwartz (1991)
+showed that the per-death figure was the regulator's own societal-cost estimate and not a price the manufacturer invented for its customers. That
+correction makes the case harder, not softer. Since $B = 137 > PL = 49.53$, Hand's inequality, fed the most defensible ex-ante valuation then
+on offer, says the precaution was not required. The jury in the Pinto case nevertheless returned a punitive award of $\$125$ million, some $625$
+times the worksheet's figure per death, which the trial court remitted to $\$3.5$ million and the appellate court sustained (California Court
+of Appeal 1981). The arithmetic is not the error, and neither is the provenance of the number. $L$ in $B < PL$ is the loss the law will
+recognise after the harm, read by a tribunal that sees a known hazard and a cheap remedy, and an administrative price of life set before the
+harm is a different quantity under the same letter. A precaution rule that imports $L$ from any party's table, the regulator's included, has
+answered the question the tribunal will not ask, so $L$ must be bounded from the record of awards that the bearer of the loss can obtain.
 
 ## 5. The collapse, and where the thesis stops
 

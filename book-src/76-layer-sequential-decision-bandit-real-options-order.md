@@ -25,9 +25,18 @@ that triple yields when the order runs without its ancestors:
 
 A sequential decision fixes what to do and also when to stop paying for information. On a filtered space with adapted reward $Z\_t$, the Snell envelope $U\_t = \max\bigl(Z\_t, \mathbb{E}[U\_{t+1} \mid \mathcal{F}\_t]\bigr)$ run back from $U\_T = Z\_T$ carries the value of the stopping problem, and $\tau^\ast = \inf\{t \ge 0 : Z\_t = U\_t\}$ is the smallest optimal stopping time.
 
-Wald's form prices stopping explicitly: two boundaries $A = (1-\beta)/\alpha$ and $B = \beta/(1-\alpha)$ built from the tolerated false-positive and false-negative rates, and a decision once the evidence ratio crosses either. Cheap in expectation, expensive when the first candidate is mediocre and the horizon short, because the boundary prices a sampling process the search itself does not have. The form is Wald's (1947) sequential probability ratio test, and its cheapness is why the boundary has to be published with the design. The same two rates generate a boundary; a boundary chosen after the sequence has run describes the sequence rather than testing it.
+Wald's form prices stopping explicitly: two boundaries, approximately $A = (1-\beta)/\alpha$ and $B = \beta/(1-\alpha)$, built from the tolerated false-positive and false-negative rates, and a decision once the evidence ratio crosses either. Cheap in expectation, expensive when the first candidate is mediocre and the horizon short, because the boundary prices a sampling process the search itself does not have. The form is Wald's (1947) sequential probability ratio test, and its cheapness is why the boundary has to be published with the design. The same two rates generate a boundary; a boundary chosen after the sequence has run describes the sequence rather than testing it.
 
-In rank-based selection the rule that refuses the first $r - 1$ candidates and takes the next arrival dominating every one of them wins with $P(r)$. The exact maximiser is an integer, and the continuous relaxation $r^\ast/n \to 1/e$ sits a fraction of a percentage point below it. So the rounded rule is safe to publish, and the lost fraction is the price of asking for an integer.
+In rank-based selection the rule that refuses the first $r - 1$ candidates and takes the next arrival dominating every one of them wins when
+the best of all $n$ sits at some position $k \ge r$ and the best of the first $k - 1$ sits among the refused. The first event has probability
+$1/n$ for each $k$ and the second $(r-1)/(k-1)$, so
+
+$$P(r) = \frac{r-1}{n}\sum\_{k=r}^{n}\frac{1}{k-1}, \qquad r \ge 2,$$
+
+with $P(1) = 1/n$ (Lindley 1961; Ferguson 1989). Writing $x = r/n$ and reading the sum as a Riemann sum gives $P \to -x\ln x$, maximised at
+$x = 1/e$ with value $1/e$. The finite case is a hand computation: at $n = 10$ the maximiser is $r = 4$ and
+$P(4) = \tfrac{3}{10}\bigl(\tfrac13 + \tfrac14 + \dots + \tfrac19\bigr) \approx 0.399$, already above the limit $1/e \approx 0.368$, because
+the finite sum exceeds the integral it converges to. The rounded rule is safe to publish, and what is lost is the price of asking for an integer.
 
 Gittins (1979) decouples a discounted bandit into one stopping problem per arm through an index $\nu\_i(s\_i)$, and Lai and Robbins (1985) put a floor of $\ln T$ under undiscounted regret whose constant is a mean gap over a divergence. That constant is a reciprocal of the gap between the arms, so it diverges as the better arm comes near the best one, and the logarithmic statement is empty on any horizon shorter than the constant. An arm far below announces itself, and the same ratio returns a constant below one.
 
@@ -37,11 +46,19 @@ Where the step is reversible and $\mathrm{TTS}\_{\mathrm{survival}} \ge \mathrm{
 
 ## 2. The archive that is not exchangeable
 
-Every answer above assumes exchangeability: candidates in random order, independent arms, identically distributed increments. A long price record tests that premise, a record being the cheapest statistic a stopping rule consumes. Independent continuous observations make the $k$-th a record with probability exactly $1/k$, so the expected count of records grows only as $\ln n + \gamma$. A drifting series delivers records many times more often than that benchmark, and the excess is the drift itself, not a defect of the record count: a stopping rule fitted over an accumulating trend reads the trend as arrival.
+Every answer above assumes exchangeability: candidates in random order, independent arms, identically distributed increments. Records test that
+premise, a record being the cheapest statistic a stopping rule consumes. Independent continuous observations make the $k$-th a record with
+probability exactly $1/k$, so the expected count of records is the harmonic number $\sum\_{k=1}^{n} 1/k = \ln n + \gamma + o(1)$ (Rényi 1962).
+A drifting series delivers records more often than that benchmark, and the excess is the drift itself, not a defect of the record count: a
+stopping rule fitted over an accumulating trend reads the trend as arrival.
 
 The thesis also holds only while the horizon is open. With a small fixed horizon the sequential boundaries are worse than a fixed-sample rule, and the procedure is to compute both and publish which one the institution actually used.
 
-Run the recommendation literally over disjoint windows of such a record, discarding the leading observations of each as calibration. The rule takes the window maximum far less often than the probability it was derived to deliver, and where it does take an arrival, that arrival sits close to the maximum rather than drawn at random from the window. The form applies unmodified and its recommendation is wrong by the distance between $1/e$ and zero, because the sequence carries a trend no rearrangement of arrivals removes.
+The failure under trend is exact at its limit. Let the series rise strictly, so that every observation is a record. The record count is then
+$n$ rather than $\ln n + \gamma$, the rule of §1 stops at the first arrival after the refused block, which is position $r$, and the window
+maximum sits at position $n$. The rule wins only if $r = n$, so its success probability is zero for every $r < n$ instead of $1/e$, and the
+arrival it does take is the worst it could have waited for. The form applies unmodified and its recommendation is wrong by
+up to the distance between $1/e$ and zero, because the sequence carries an order that no rearrangement of arrivals removes.
 
 ## 3. Where the signature stops seeing
 

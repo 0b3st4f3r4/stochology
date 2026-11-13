@@ -21,8 +21,10 @@ that triple yields when the order runs without its ancestors:
 
 ## 1. Type A and type B uncertainty
 
-The **Guide to the Expression of Uncertainty in Measurement** writes the combined variance of a measurement $y = f(x\_1,\dots,x\_m)$ as two
-structurally distinct terms,
+The **Guide to the Expression of Uncertainty in Measurement** evaluates each uncertainty component either by the statistical analysis of a
+series of observations (type A) or by any other means (type B), and combines the components in quadrature (BIPM et al. 2008). For a
+measurement $y = f(x\_1,\dots,x\_m)$ the combined variance therefore splits into two structurally distinct terms, written here with the cluster
+design effect this book attaches to the first,
 
 $$u\_{c}^{2}(y; n) = \frac{\sigma\_{A}^{2}\mkern3mu\mathrm{DEFF}}{n} + u\_{B}^{2}(y),$$
 
@@ -32,7 +34,7 @@ $n$. A report omits it, and it decides.
 
 Four equations of this book realise the split. The sampling term of the total epistemic margin is type A while Meng's selection floor is a
 type-B floor that never vanishes. In the partial-identification margin the sampling width is type A and the interval width $U\_t - L\_t$ is
-type-B ambiguity. In the ex-ante governance gate finite-sample scatter is type A and the Kennedy–O'Hagan discrepancy
+type-B ambiguity. In the ex-ante governance gate finite-sample scatter is type A and the Kennedy–O'Hagan (2001) discrepancy
 $\delta\_{\mathrm{KOH}}(x)$ is type-B inadequacy. And the chain of traceability, which requires each downstream instrument to inherit at least its
 upstream reference's uncertainty, is the law behind bitemporal lineage sealing.
 
@@ -47,11 +49,12 @@ reparameterisations and sufficient statistics. The squared Mahalanobis signal-to
 Fisher–Rao geodesic distance between the estimated drift and the boundary of zero net growth; whenever that distance is comparable to the type-A
 radius $1/\sqrt{n\_{\mathrm{eff}}}$, a bet sized on the plug-in estimate mistakes noise on the manifold for a real gradient.
 
-Every strictly convex differentiable potential $\phi$ generates a Bregman divergence $D\_{\phi}(x \| y) = \phi(x) - \phi(y) -
+Every strictly convex differentiable potential $\phi$ generates a Bregman (1967) divergence $D\_{\phi}(x \| y) = \phi(x) - \phi(y) -
 \langle\nabla\phi(y), x - y\rangle \ge 0$, recovering the Kullback–Leibler relative entropy when $\phi$ is negative Shannon entropy. Jensen's gap is one
 projection: for any shock $X$ the expected divergence from the mean is
-$\mathbb{E}[D\_{\phi}(X \| \mu)] = \Delta\_{J} \ge 0$. Generalised Pythagoras is another: $D\_{\phi}(y \| q) \ge D\_{\phi}(y \| p^\ast) +
-D\_{\phi}(p^\ast \| q)$ separates type-B approximation error from type-A estimation error. Isotonic calibration is the third: for quadratic $\phi$
+$\mathbb{E}[D\_{\phi}(X \| \mu)] = \Delta\_{J} \ge 0$. Generalised Pythagoras is another: if $p^\ast = \arg\min\_{p \in C} D\_{\phi}(p \| y)$ projects a point $y$ onto a closed convex set $C$,
+then every $q \in C$ satisfies $D\_{\phi}(q \| y) \ge D\_{\phi}(q \| p^\ast) + D\_{\phi}(p^\ast \| y)$, which separates the distance from the
+model class to the data, a type-B approximation error, from the distance travelled inside the class, where estimation error lives. Isotonic calibration is the third: for quadratic $\phi$
 the projection of binary outcomes onto the cone of non-decreasing probabilities yields the Brier identity with zero residual cross-term.
 
 ## 3. The three collapses and the two limits of the sum
@@ -63,10 +66,10 @@ the projection of binary outcomes onto the cone of non-decreasing probabilities 
 3. **Collapse Proposition 3** ($\neg S\_{\mathrm{gov}}$, breaking the traceability chain): publishing recalibrated composites that strip upstream
    calibration intervals or extrapolate outside the support where the discrepancy was measured.
 
-The first limit is the record's own grid. A demand archive whose temperature column is written to one decimal place carries a rectangular
-resolution uncertainty over that grid, $u\_{\mathrm{res}} = \delta/\sqrt{12}$ for grid step $\delta$, while the type-A term is $s/\sqrt{n}$; the
-crossover is $n^{\star} = 12s^{2}/\delta^{2}$ readings, and past it more half-hours cannot sharpen the mean temperature, because the grid,
-not the sample, is the binding term.
+The first limit is the record's own grid. A column written to a fixed step $\delta$, a temperature kept to one decimal place, say, carries the
+rectangular resolution uncertainty the Guide assigns to a reading known only to lie within one step, $u\_{\mathrm{res}} = \delta/\sqrt{12}$, while
+the type-A term is $s/\sqrt{n}$; the crossover is $n^{\star} = 12s^{2}/\delta^{2}$ readings, and past it more readings cannot sharpen the
+reported mean, because the grid, not the sample, is the binding term.
 
 The second limit is the geometry of §2. A Bernoulli family has Fisher information $1/[\theta(1-\theta)]$, so the Fisher–Rao separation between
 two probabilities is $2(\arcsin\sqrt{\theta\_1} - \arcsin\sqrt{\theta\_0})$, while the type-A radius is $1/\sqrt{n}$: a separation is

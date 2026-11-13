@@ -22,7 +22,7 @@ that triple yields when the order runs without its ancestors:
 
 ## 1. The fundamental problem, and the three gates
 
-Causal inference addresses a missing-data problem formalised by Neyman, Fisher and Rubin. For a unit exposed to a binary intervention there are
+Causal inference addresses a missing-data problem formalised by Neyman (1923), Fisher (1935) and Rubin (1974). For a unit exposed to a binary intervention there are
 two potential outcomes, and the individual effect $\tau\_i = Y\_i(1) - Y\_i(0)$ is unobservable because only one of them is realised.
 Randomisation guarantees orthogonality between assignment and the potential outcomes, under which the difference in observed means identifies the
 average treatment effect; in non-experimental archives the identity fails, and a severe causal claim then has to clear three gates in sequence.
@@ -30,7 +30,10 @@ average treatment effect; in non-experimental archives the identity fails, and a
 The first gate is framing. A complex observational dataset admits dozens of defensible choices about covariates, functional forms and exclusions;
 reporting the one specification that crosses a nominal threshold is $p$-hacking. Specifying all $K$ of them and reporting
 $R\_{\mathrm{multi}} = \frac{1}{K}\sum\_{k=1}^K \mathbb{I}\{\text{specification } k \text{ confirms}\}$ screens out fragile knife-edge findings
-and exposes type III framing errors.
+and exposes type III framing errors. The procedure has two published forms: the multiverse analysis of Steegen, Tuerlinckx, Gelman and
+Vanpaemel (2016), which reports the result under every combination of defensible data-processing choices, and the specification curve of
+Simonsohn, Simmons and Nelson (2020), which orders the estimates of all reasonable specifications and tests them jointly against the curve
+expected under the null. Both turn the analyst's freedom from a hidden parameter into a reported distribution.
 
 The second gate is severity. On LaLonde's National Supported Work benchmark, randomised assignment gives an experimental effect of +\$1,794.34,
 while replacing the control arm with the non-random Current Population Survey archive collapses the naive regression to -\$8,497.52 (Dehejia &
@@ -38,8 +41,9 @@ Wahba 1999). Reconciling the gap requires non-parametric worst-case bounds and m
 
 The third gate is the archive, since surveys are rarely independent and identically distributed. Kish's weight dispersion $n\_{\mathrm{Kish}} =
 \bigl(\sum\_{i} w\_i\bigr)^{2}/\sum\_{i} w\_i^{2}$ deflates the sample, and Moulton's design effect $\mathrm{DEFF} = 1 +
-(m-1)\rho\_{\mathrm{cl}}$ over $G$ clusters of average size $m$ deflates it again, so treating clustered observations as independent overstates
-precision by up to an order of magnitude.
+(m-1)\rho\_{\mathrm{cl}}$ over $G$ clusters of average size $m$ deflates it again, so treating clustered observations as independent understates
+the standard error by the factor $\sqrt{1 + (m-1)\rho\_{\mathrm{cl}}}$, which grows without bound with the cluster size at any positive
+intra-cluster correlation.
 
 ## 2. The `(3, 0, 0)` signature and the ruin of the pure methodologist
 
@@ -66,8 +70,10 @@ sample-size conversion behaves the same way, since four equally weighted units r
 weights return less in proportion to their dispersion, and with ten units per cluster and a positive intra-cluster correlation a thousand
 observations carry the information of far fewer independent ones.
 
-The estimate that passes every gate can still fail to be the decision's number. The randomised contrast decomposes by a compositional trait, and
-re-weighting the two component effects to the archive's composition gives a figure that differs from the pooled one by a substantial fraction of it,
+The estimate that passes every gate can still fail to be the decision's number. The randomised contrast decomposes by a compositional trait: with effects $\tau\_1$ and $\tau\_0$ in the two strata
+and shares $\pi\_e$ among the enrolled and $\pi\_t$ in the population the decision applies to, the pooled estimate is
+$\pi\_e\tau\_1 + (1-\pi\_e)\tau\_0$ and the decision's number is $\pi\_t\tau\_1 + (1-\pi\_t)\tau\_0$, so the two differ by
+$(\pi\_e - \pi\_t)(\tau\_1 - \tau\_0)$, a product of a compositional gap and an effect gap that no sample size reduces,
 because the pooled average is taken over the population enrolled. Nothing in the design-based form notices: randomisation identifies the average
 over the population enrolled, and the form is silent about the population the decision applies to. The remedy is a declared target population
 and not a better estimator (Hotz, Imbens & Mortimer 2005).

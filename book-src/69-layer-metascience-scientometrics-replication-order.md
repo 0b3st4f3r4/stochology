@@ -21,7 +21,7 @@ that triple yields when the order runs without its ancestors:
 
 The value of a significant result belongs to the field that produced it: how many tested hypotheses were true
 beforehand, how much power the design carried, how much freedom the analyst had among defensible analyses. With $R$ the pre-study odds, $1 - \beta$ the power, $\alpha$ the nominal rate and $u$ the free share
-of the analysis space, the predictive value is $\mathrm{PPV} = ((1-\beta)R + u\beta R)/((1-\beta)R + u\beta R +
+of the analysis space, the predictive value Ioannidis (2005) derived is $\mathrm{PPV} = ((1-\beta)R + u\beta R)/((1-\beta)R + u\beta R +
 \alpha + u(1-\alpha))$. With no analyst freedom the denominator is the power plus the nominal rate. With freedom,
 the term $u(1-\alpha)$ adds to the denominator while $u\beta R$ adds to the numerator, and since $R$ is small the
 second contribution is dwarfed by the first. So a modest share of free analysis space multiplies the
@@ -31,11 +31,22 @@ threshold.
 ## 2. Selection sets the published effect size
 
 Consider a literature whose true effect is zero, whose studies carry a range of standard errors, and which
-publishes only results that cross the conventional two-sided threshold. The smallest publishable effect sits at the
-noisiest standard error, where it equals the threshold times that standard error. The stratum mean is therefore a
+publishes only results that cross the conventional two-sided threshold. At each standard error the smallest publishable effect equals the
+threshold times that standard error, so the floor is highest where the studies are noisiest. The stratum mean is therefore a
 function of the threshold and the sampling error, not of the world. Quadruple the sample, halving the standard error, and the same
 threshold publishes effects half as large: the literature's effect size halves because the sample
 size quadrupled. That is the exact sense in which the archive reports its own size.
+
+The drawer can be priced as well as described. Rosenthal (1979) asked how many unpublished null studies would have to sit in file drawers
+to pull a set of $k$ significant results back below significance. Combine the $k$ standardised results by Stouffer's sum and add $N$ studies
+with $Z = 0$; the combined statistic is $\sum\_{i} Z\_i/\sqrt{k + N}$, and setting it equal to the one-sided critical value $z\_{\alpha}$ gives
+
+$$N\_{\mathrm{fs}} = \frac{\bigl(\sum\_{i=1}^{k} Z\_i\bigr)^{2}}{z\_{\alpha}^{2}} - k.$$
+
+The fail-safe count is a derivation and its weakness is visible in the same line: it assumes the hidden studies average exactly zero, while a
+literature that publishes only results in the hypothesised direction leaves every study on the other side in the drawer, so under a null effect
+the drawer's mean is negative and fewer hidden studies than $N\_{\mathrm{fs}}$ suffice. The number therefore bounds the drawer under the most
+charitable reading of it, and is a floor on scepticism, not a certificate.
 
 ## 3. Lucidity without a stop-work trigger
 
@@ -51,11 +62,11 @@ across academic generations (Smaldino & McElreath 2016).
 
 The audit computes the predictive value from $R$, the power and $u$, and $R$ is observable in no archive it can
 reach. The published literature is the part of the tested set that passed selection, so the denominator is
-missing by construction, and the field parameter moves. Take the route-level effects a large operational archive
-reports as significant with enough observations behind them, and re-estimate them on later vintages of the same
-routes: only a fraction keep their sign, a smaller fraction keep both sign and significance, and the mean
-effect moves toward zero and can reverse. That is what the psychological replication programme reported
-(Open Science Collaboration 2015).
+missing by construction, and the field parameter moves. The one large attempt to measure the movement directly is the
+psychological replication programme: of $100$ studies from three journals, $97$ percent of the originals had reported $p < .05$ against $36$
+percent of the replications, and the mean effect size fell from $r = 0.403$ to $r = 0.197$ (Open Science Collaboration 2015). The fall is
+what §2 predicts of a filtered archive re-read without its filter, and the replication rate is a reading of $R$ and $u$ jointly that no single
+study could have supplied.
 
 Three moves remain. Evaluate the predictive value over an admissible rectangle of $(R, u, 1-\beta)$ instead of
 at a point, because a point estimate of $R$ is a claim about uncounted unpublished work. Take $R$ from a registry
@@ -72,6 +83,31 @@ noisiest standard error the publication threshold exceeds the truth before any b
 a threshold artefact into a second artefact of opposite sign. What survives heterogeneity is bounding. Report the
 estimate under the largest admissible selection model and under none, and treat the interval between them as the
 finding.
+
+## 6. Discovery control that survives dependence and peeking
+
+A field tests many hypotheses at once, and the guarantee it needs is on the share of its claimed discoveries that are false, not on each test
+alone. The procedure that answers to the archive's two habits — results that are correlated because they share data, and results that are read
+whenever someone looks — is the e-BH procedure of Wang and Ramdas (2022). Each hypothesis $j$ of $K$ carries an e-value $E\_j \ge 0$ with
+$\mathbb{E}\_{H\_0}[E\_j] \le 1$ when it is null. Order them $E\_{(1)} \ge \dots \ge E\_{(K)}$ and reject the $k^{\ast}$ largest, where
+
+$$k^{\ast} = \max\Bigl\{k : E\_{(k)} \ge \frac{K}{\alpha k}\Bigr\}.$$
+
+The bound takes one line. With $D$ rejections, a rejected null $j$ satisfies $E\_j \ge K/(\alpha D)$, so
+$\mathbf{1}\{j \text{ rejected}\}/\max(D,1) \le \alpha E\_j / K$ pointwise, whatever the dependence among the $E$'s; summing over the $K\_0$ nulls
+and taking expectations,
+
+$$\mathrm{FDR} \le \sum\_{j \in \mathcal{H}\_0} \frac{\alpha\mkern3mu\mathbb{E}[E\_j]}{K} \le \frac{\alpha K\_0}{K} \le \alpha.$$
+
+No independence or positive-dependence condition entered: the inequality was pointwise before it was averaged, which is the property the
+p-value procedure of Benjamini and Hochberg (1995) does not have without an assumption on the dependence. The anytime reading follows from the same
+fact. An e-process evaluated at a stopping time is still an e-value (Ramdas, Grünwald, Vovk & Shafer 2023), so a field that monitors its tests
+and stops each one when it chooses keeps the bound, while a p-value read at the analyst's chosen moment does not.
+
+The price is power, and the chapter's audit has to say so. An e-value is a bet, and a bet that is safe against every dependence structure and
+every stopping rule pays out less on a single true effect than a test calibrated to one design. The procedure moves the field's freedom $u$
+out of the denominator of §1 by making peeking and pooling harmless; it does nothing for $R$, which no procedure applied to published results can
+recover, and nothing for the deployment that §3 showed outruns the audit.
 
 ## Exercises
 
