@@ -28,7 +28,10 @@ jobs:
       - name: interpreter
         run: python3 -V
 
-      - name: apparatus, spine, links, figures, table B.1, ledger, contents, concordance, guard-site cardinality
+      - name: apparatus, spine, links, figures, table B.1, ledger, citations, contents,
+          concordance, guard sites, math, notation, attribution, falsifiers,
+          concordance polarity, collapse refutation, guard footing, year citation,
+          ledger coherence, ratio limit
         run: python3 .github/checks/structure.py
 
   core:
