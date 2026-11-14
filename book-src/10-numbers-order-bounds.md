@@ -330,14 +330,6 @@ The thesis fails when the identification width exceeds the tolerance of the deci
 suspend the decision until that change exists. Picking a number inside the interval is the one move the
 width forbids.
 
-## Exercises
-
-1. Derive the width of the two-arm identification interval under attrition rates $1 - p\_1$ and $1 - p\_0$ on a bounded support, and say what fraction of that width disappears when one arm's attrition is eliminated.
-2. Add $[1,\mkern3mu 3]$ to $[-2,\mkern3mu 1]$ and multiply the result by $2$ (answer: $[-1,\mkern3mu 4]$; then $[-2,\mkern3mu 8]$).
-3. Given an interval $[L, U]$ that straddles the threshold $\tau$, decide and say why the decision does not depend on the point (answer: the interval covers $\tau$, so the case is undecidable; any point would be arbitrary).
-4. State when the interval must be replaced by a refusal and what the procedure is (answer: when $[L,\mkern3mu U]$ covers $\tau$ and is wider than twice the threshold $2\tau$; suspend, collect, and decide only on the side that does not cross $\tau$).
-5. Write the estimator with its anchor moved one notch up, $\bigl(\frac{1}{k}\sum\_{i=1}^k \ln(X\_{(n-i+1)} / X\_{(n-k+1)})\bigr)^{-1}$, and separate the two claims that are easy to run together: pathwise its sum is the $(k-1)$-term statistic with that same anchor, so it stands to Hill's sum in the ratio $(k-1)/k$ in expectation and not term by term; and the reported tail exponent is larger (a lighter inferred tail) than Hill's by $(k-1)/(k-2)$ for $k>2$, not by the reciprocal $k/(k-1)$. Say which way the error moves a reserve sized from the reported index (answer: the tail is read as lighter, so the reserve comes out smaller; §3.2 of [Distribution and Moment](31-distribution-and-moment.md) derives both factors).
-
 ## Bridge
 
 [Distribution and Moment](31-distribution-and-moment.md) and [The Non-Identical, Scale Invariance, Convexity, and Heavy Tails](46-non-identical-asymmetry-heavy-tails.md)

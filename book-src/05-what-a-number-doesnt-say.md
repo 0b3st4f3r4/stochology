@@ -231,13 +231,6 @@ the probability of the event and $\Delta L$ for how much the gap would change th
 survives while $m \le p\mkern3mu\Delta L$. Where it does not, decide at the operating point and record
 the unmeasured margin as a declared debt. Do not buy precision that cannot pay for itself.
 
-## Exercises
-
-1. Recompute the positive predictive value with prevalence $0.05$, sensitivity $0.9$ and false-alarm rate $0.05$ (answer: $45/(45 + 47.5) = 0.4865$).
-2. Using $V(n\_{\mathrm{eff}}) = n\_{\mathrm{eff}}/(n\_{\mathrm{eff}} + n\_0)$, compute the weight at $n\_{\mathrm{eff}} = n\_0$ and at $n\_{\mathrm{eff}} = 10\mkern3mun\_0$, and say what the comparison proves about the returns to collecting more rows through the same door (answer: $1/2$ and $10/11$; a tenfold gain in effective sample buys less than half a unit of weight).
-3. A report offers you a mean, a median, a standard deviation and a maximum for the same column. Say which of the four you would publish for a skewed risk distribution, which for a bounded one, and why the mean alone is never enough in either case.
-4. Find a case in which the margin does not change the decision, and explain why the limit of the thesis is economic (answer: a measurement whose wobble is small against the distance to the threshold, feeding a coarse decision; the cost of measuring exceeds the value of deciding).
-
 ## Bridge
 
 [Measuring and Erring](33-measuring-and-erring.md) turns these questions into an audit that every summary

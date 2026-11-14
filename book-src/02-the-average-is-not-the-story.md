@@ -256,13 +256,6 @@ of the mean, the average is admissible. If the mean sits well above the median a
 observation is many multiples of it, price the plan on a quantile and on the conditional loss above it,
 and report the tail index next to both.
 
-## Exercises
-
-1. Construct two five-number samples with the same mean and different medians, and say which one a reserve sized on the mean would under-provision. (Start from the football scores in section 1 and move one observation at a time.)
-2. Take the spike sample of section 2 (ninety-nine ones and a single $1{,}001$). Compute the share $S\_1$ carried by the largest observation, recompute it after removing that observation, and say what the difference teaches about robustness.
-3. Give a case where the average is the correct statistic and say why the median misleads there (answer: many independent bounded losses, as in mass life insurance; the median ignores the cost of the aggregate).
-4. State the condition under which the average stops being sufficient, and the test that detects it in a file you are given, using only the mean, the median and the maximum (answer: mean well above the median together with a maximum many times the mean; report a quantile and the conditional loss instead).
-
 ## Bridge
 
 [Distribution and Moment](31-distribution-and-moment.md) makes this precise: the distribution replaces

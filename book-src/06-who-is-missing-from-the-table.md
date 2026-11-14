@@ -235,13 +235,6 @@ actually carries.
 
 The thesis stops holding when the record itself defines the population, because then there is no outside to estimate. If the universe is the archive, absence does not exist, and the right procedure is to declare the universe rather than estimate its complement; the formalisation of that case belongs to another chapter and is not repeated here. Where the universe is genuinely larger than the record, name the two lists, fit one estimator to both, and publish the estimate with the assumption that the lists are independent — and publish the bound that assumes they are not.
 
-## Exercises
-
-1. Starting from $n\_{\mathrm{eff}} = n/\mathrm{DEFF}$, take a file of a thousand rows with a design effect of five and say what it carries. Then say what a design effect of one would restore, and which property of the recording mechanism that corresponds to.
-2. Using the simplification $n\_{\mathrm{eff}} \le n / \bigl(1 + (N - n)\rho\_{R,Y}^2\bigr)$ with $f = n/N$, show that when $(N - n)\rho\_{R,Y}^2 \gg 1$ and $f \ll 1$ the effective sample is governed by $n/(N\rho\_{R,Y}^2) = f/\rho\_{R,Y}^2$ rather than by $n$ alone, and say why multiplying raw volume $n$ at a small fixed sampling fraction $f$ and $\rho\_{R,Y} \ne 0$ buys no effective sample while shrinking the naive standard error around a biased mean.
-3. Find a case in which the missingness does not distort, and state the test that shows it (answer: missingness independent of the outcome, with a correlation whose interval contains zero; more rows then do help).
-4. State when the file is the universe, and the correct procedure in that case (answer: when the record defines the population; declare the universe instead of estimating absence).
-
 ## Bridge
 
 [Sample, Population, Archive](34-sample-population-archive.md) formalizes coverage bias and the

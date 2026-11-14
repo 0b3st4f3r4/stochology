@@ -62,14 +62,6 @@ The signature `(2, 0, 1)` says what the combination does not contain. Two episte
 2. State an archive's bias term as a ratio over the registration share, and say which of the composed selection factors a given corpus is silent about.
 3. Read a published ranking as an intervention on the corpus it ranks, using the retained-slice identities, and name the conditions under which the loop is a measurement instead.
 
-## Exercises
-
-1. **The recall factorization.** Starting from $P(\text{retrieved} \mid \text{relevant}) = P(I \mid \text{relevant})P(Rk \mid I, \text{relevant})$, say what a passage boundary does to a conditional whose antecedent and consequent fall on opposite sides, and whether any reranker can recover it.
-2. **The bias ratio.** From $\mathbb{E}[Y \mid R=1] - \mathbb{E}[Y] = \rho\_{R,Y}\sigma\_{R}\sigma\_{Y}/P(R=1)$, say what happens as the registration share tends to zero, and why the bias is not bounded by $\sigma\_{Y}$.
-3. **Two rounds of the same cut.** Apply the retained-slice identities twice with the same capacity and show which quantity is invariant across the two rounds and which two move. Say what a reader who compared only the means would conclude.
-4. **Reactivity that is absent.** Name an instrument in a field you know where those ranked never observe the ranking. Say whether the performative site survives there, and what the chapter's claim becomes in that field.
-5. **The absorbing zero.** Show that a zero in any factor of the composed selection probability cannot be repaired downstream, and connect it to one of Trouillot's four moments.
-
 ## Bridge
 
 Layer 25 closes the stratum's account of how a record is made, kept and surfaced. What it leaves open is what an agent does with a surface it cannot verify before acting: the next order takes the report as an input to a decision that must be taken before the outcome arrives. [Chapter 76](76-layer-sequential-decision-bandit-real-options-order.md) states [Layer 26](76-layer-sequential-decision-bandit-real-options-order.md), *Sequential Decision Theory, Optimal Stopping, Bandits & Real Options* — where the value of waiting is priced against the cost of acting on a surface whose bias has just been shown to be structural.

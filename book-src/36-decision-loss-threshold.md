@@ -340,13 +340,6 @@ is not applicable because its two arguments are not independent, and the decisio
 incommensurability procedure of the preceding section rather than on a number that quietly assumes its own
 irrelevance.
 
-## Exercises
-
-1. Derive both thresholds symbolically for a protection cost $C$, avertable fraction $\eta$ and avoidable loss $L$, and for a false-alarm cost against a missed-event loss, and show which denominator each one carries (answer: $C/(\eta L)$ and $C\_{\mathrm{FP}}/(C\_{\mathrm{FP}} + L\_{\mathrm{FN}})$).
-2. Say which rule a regulator should use when the protective act is unreliable, and why (answer: the efficiency form, because it discounts the loss by the reliability of the act).
-3. Take a forecast that lies between the two thresholds and show that the two rules disagree about acting, naming the quantity that makes them disagree (answer: the avertable fraction $\eta$).
-4. Construct a case where the threshold should not be applied at all and say what replaces it (answer: incommensurable loss; decide on the side that needs no comparison).
-
 ## Bridge
 
 The cost–loss framing threshold is introduced in

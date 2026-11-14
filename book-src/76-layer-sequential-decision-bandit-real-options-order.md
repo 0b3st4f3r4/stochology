@@ -66,13 +66,6 @@ A boundary worth computing in advance is a property of the reward process, not o
 
 The collapses name what the missing axis costs. Without $S\_{\mathrm{epi}}$ exploration is cut on an early winning streak with no Cromwell probability floor and the policy locks into a suboptimal arm: Blind Undersizing. Without $S\_{\mathrm{vital}}$ an $\mathcal{O}(\ln T)$ regret claim sits beside leverage above the Kelly barrier, and a finite-horizon variance shock absorbs the account: Impotent Lucidity Before Ruin. Without $S\_{\mathrm{gov}}$ the executive holds an irreversible capital project as a private call option, taking the upside volatility bonus while the downside and the cleanup land on the public: Cynical Capture and Pillaging.
 
-## Exercises
-
-1. In the perpetual real-option multiplier $\beta\_1/(\beta\_1 - 1) > 1$, show how rising volatility lowers $\beta\_1$ toward one and raises the entry threshold, and link that delay to the epistemic cost of stopping on evidence that was inspected repeatedly before the stopping rule was declared.
-2. When an agent selects the highest empirical mean among $K$ noisy arms, explain what Kelly shrinkage $k\_{\mathrm{BM}} \in (0, 1)$ and the refusal of plug-in post-selection estimates prevent.
-3. Derive the two sequential-test boundaries $A = (1-\beta)/\alpha$ and $B = \beta/(1-\alpha)$ from the tolerated error rates, and say what happens to both as the tolerated false-negative rate falls toward zero.
-4. Say what the stopping rule does not price, and what an institution must add before using it (answer: the cost of waiting and the horizon, both declared).
-
 ## Bridge
 
 Wald stopping, bandit exploration bounds and Dixit–Pindyck option values in Layer 26 (`{T1Framing, T2Severity, T5Temporal}`) join imprecise credences ([Layer 07](57-layer-probability-credence-measurement-order.md)) and cryptographic verification ([Layer 10](60-layer-cryptographic-zero-knowledge-adversarial-order.md)) along the direct $\mathcal{G}\_{1}$ edge `L26 -> L27` to model multi-agent strategic response in [Chapter 77, *Layer 27: Game Theory, Strategic Classification & Adversarial Learning Order*](77-layer-game-theory-strategic-adversarial-order.md) (Stratum VI, `{T1Framing, T2Severity, T6Performative}`).

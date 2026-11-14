@@ -337,14 +337,6 @@ written to collect.
 
 The non-revocable constitutional floor is therefore not a policy recommendation attached to the model. It is purely the arithmetic name for the tail-internalising term $\pi\_{T} = -q$ ($q \ge c$) without which the replicator equation's own sign selects the divestment.
 
-## Exercises
-
-1. Derive the breeder's equation $R = h^2 S$ from the regression of offspring value on parental value, and state what a zero-heritability population does to the response.
-2. Derive the neutral fixation probability $u(p\_0) = 1/(2N\_e)$ and the mean fixation time $\bar{t}\_{\mathrm{fix}} \approx 4N\_e$, and explain the opposing dependence of the two on effective population size.
-3. Derive Ashby's accounting in bits for a regulator that must absorb a set of disturbance states, and show why a deficit in regulator variety is not repaired by increasing the strength of the response.
-4. Construct the case in which selecting on the indicator improves the construct and state the condition (answer: causal coupling, $\partial Q/\partial M \approx 1$).
-5. State what to do when heritability goes to zero (answer: restore variation before selecting; without it there is no response).
-
 ## Bridge
 
 [Institution, Incentive, Metric](40-institution-incentive-metric.md) and [Reactive Worlds, Performativity, and Goodhart's Law](48-reactive-worlds-performativity-goodhart.md)

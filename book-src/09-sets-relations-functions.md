@@ -328,17 +328,6 @@ is then the power set, measurability is trivial, and invoking it gains nothing. 
 measurability was trivialised, and spend the effort where the sets are large enough for the distinction to
 bite.
 
-## Exercises
-
-1. Compute $\binom{7}{3}$ and verify $7 \times 5$ (answer: $35$ and $35$).
-2. Exhibit the partition of $35$ into its five classes, and say which is the smallest (answer: $12/9/9/4/1$;
-   the smallest is the triple concentrated on one axis).
-3. Show why eight guard sites destroy the bijection and which number would have to change (answer:
-   $\binom{8}{3} = 56$ and $56/8 = 7$ orders per site; keeping the factor five would need $40$ orders, which
-   is not $\binom{8}{3}$).
-4. State when formalising in a sigma-algebra does not pay, and what replaces it (answer: a small finite
-   universe; use the power set and declare that measurability was trivialised).
-
 ## Bridge
 
 [What Judging Is, and What It Is Not](27-what-judging-is.md) applies these objects to the full decision

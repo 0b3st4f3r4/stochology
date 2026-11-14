@@ -301,14 +301,6 @@ kind.
 
 The thesis fails when the question is fixed by law or by contract and the analyst cannot move it: framing is then a declared constraint rather than a choice. The procedure is to say so, move the margin to the axis that remains under control, and stop charging the analyst for a decision that was made above them.
 
-## Exercises
-
-1. For declared intervention cost $C$, mitigation effectiveness $\eta$ and loss $L$, derive the cost–loss threshold $p^\ast\_{\mathrm{CL}} = C/(\eta L)$, and state the decision it implies for an observed probability of harm that lies between the institutional and the affected threshold.
-2. Express the directional-and-evidential consistency ratio symbolically for $K$ specifications, and explain why a specification that fails on evidence should not be counted together with one that disagrees in sign.
-3. Describe an impeccable pre-registration that informs nothing, and name the quantity it failed to measure (answer: an irrelevant question tested with severity; the cost of the third kind of error).
-4. Give the case in which Cromwell's rule should be abandoned and what replaces it (answer: a hypothesis refuted by sealed data; a negligible probability with its class declared).
-5. Name the four narrowing moves of section 2 and give one example of each in a line (answer: scope, metric, comparison and silence).
-
 ## Bridge
 
 Framing, Cromwell openness, and the cost-loss threshold gap are formalised in

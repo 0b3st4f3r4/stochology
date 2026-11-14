@@ -275,13 +275,6 @@ correct quantity and the time average converges to it. The condition is a mixing
 it is violated, report the correlation time, the basin and the distance to the barrier, and refuse a single
 trajectory as evidence about the ensemble.
 
-## Exercises
-
-1. Derive the $N^{-1/2}$ decay of relative fluctuations for independent parts, and show how a common-shock correlation $\rho$ caps the achievable reduction at the floor $\rho\sigma^2$.
-2. Derive $\tau\_{\mathrm{corr}} = (1 + \rho\_1)/(1 - \rho\_1)$ and describe its behaviour as $\rho\_1 \to 1^-$, and explain why it, rather than the nominal step count, sets the effective sample size.
-3. Show a case in which long correlation does not prevent the time average from converging (answer: a window much longer than the correlation time; the average converges, only slower).
-4. Distinguish non-ergodicity from non-stationarity with one example of each (answer: non-ergodic, the time average differs from the ensemble one; non-stationary, the distribution itself changes).
-
 ## Bridge
 
 [Irreversible Time, Non-Ergodicity, and the Vital Margin](47-irreversible-time-vital-margin.md) integrates

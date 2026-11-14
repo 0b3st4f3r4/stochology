@@ -207,13 +207,6 @@ The minimum is not this book's invention. It is the production function for inpu
 The thesis stops holding when the three axes are not separately identifiable, because the minimum then has no point value. With an interval $[L\_i, U\_i]$ per axis the aggregate becomes $[\min\_i L\_i,\mkern3mu \min\_i
 U\_i]$. What you publish then is its width: declare the triad unidentified and refuse the point score as a sizing basis until the design narrows it.
 
-## Exercises
-
-1. Compute $M\_{\mathrm{Leontief}}$ and $M\_{\mathrm{arith}}$ for $(0.9,\mkern3mu 0.2,\mkern3mu 0.8)$ and their ratio (answer: $0.2$ against $0.6333$, ratio $3.17$).
-2. Rank the three removals of section 3 by the kind of damage they do (degradation, termination, capture), and say which one a budget-holder who reads only the average will under-fund, in terms of what the average cannot see.
-3. Construct a case where the minimum and the average coincide and say what it proves (answer: equal axes; non-substitutability is a claim about disagreement between axes, not about the formula).
-4. Write the procedure for when the three axes are not separately identifiable (answer: interval bounds per axis plus a published width; refuse the point score as a sizing basis).
-
 ## Bridge
 
 [The Triad and the Minimum](41-the-triad-and-the-minimum.md) provides the formal mathematical proof of

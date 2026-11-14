@@ -417,18 +417,6 @@ The condition is not exotic. $\gamma/\beta$ is a property of the loss and $\vare
 
 When the condition fails, the procedure is not another iteration. Measure $\varepsilon$ across successive rounds, as the change in response per unit change in the deployed rule, and if the sequence is not contracting, stop treating the problem as estimation. Two moves remain. Freeze the rule for a pre-registered interval, so the response is observed without being chased. Or change the object optimised to one the institution cannot reclassify. Reflexivity is then not a modelling defect to be corrected. It is a statement that this loop has no equilibrium, and an institution that keeps iterating will report convergence to whatever it last deployed.
 
-## Exercises
-
-1. **Performative Erosion in a Sequential Loop:**
-   Suppose a policy runs with a high proxy incentive pressure, a positive testimonial discount and the constitutional brake off. Trace how erosion accumulates across shifts: the proxy pressure converts slack into short-term gain, the discounted testimony keeps the alarm from arriving, and the degraded capacity lowers the reserve's replenishment rate. Why does optimizing the proxy metric temporarily mask risk while accelerating arrival at the absorbing barrier, and what does the full triad change about the recursion?
-2. **Kennedy–O'Hagan Extrapolation Guard Analysis:**
-   With prior variance $s^2$ and squared-exponential kernel length-scale $\ell$, derive analytically the distance $|x^\ast - x\_{\mathrm{anchor}}|$ at which the posterior variance $\sigma\_{\mathrm{post}}^2(x^\ast)$ recovers $95\%$ of the prior variance ceiling. Show that the answer scales as $\ell\sqrt{\ln 20}$, and explain how this prevents technocratic overconfidence when a policy model is deployed outside historical support.
-3. **Derivation of the Performative Stackelberg Gradient:**
-   Consider the performative risk function $\mathrm{PR}(\theta) = \frac{1}{2}(\mu\_0 - (1 - \varepsilon)\theta)^2 + \frac{1}{2}\sigma^2 + \frac{\lambda}{2}\theta^2$.
-   Prove that $\nabla \mathrm{PR}(\theta\_{\mathrm{PS}}) = \varepsilon(\mu\_0 + \varepsilon \theta\_{\mathrm{PS}} - \theta\_{\mathrm{PS}})$. Under what conditions on $\varepsilon$ and $\lambda$ does $\theta\_{\mathrm{PS}} > \theta\_{\mathrm{PO}}$? Why does Repeated Risk Minimization systematically over-intervene in Barnesian self-fulfilling regimes?
-4. **PAV Optimism Debiasing on Finite Datasets:**
-   Why does the in-sample Brier resolution $\mathrm{RES}\_{\mathrm{CORP}} = \frac{1}{n}\sum (\hat{\pi}\_i - \bar{y})^2$ possess a positive finite-sample bias? Explain why split-half cross-validation removes label-leakage bias without destroying isotonic monotonicity.
-
 ## Bridge
 
 This chapter delivers a gate that is honest about reactivity and still incomplete. It evaluates the

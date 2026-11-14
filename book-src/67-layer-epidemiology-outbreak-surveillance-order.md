@@ -193,14 +193,6 @@ a number that was suppressed. It is a number no local site had the standing to c
 local governance axial exposure looks like when the epistemic and vital margins are both intact and the archive is
 in order.
 
-## Exercises
-
-1. With overdispersed transmission and a positive household correlation, show why unadjusted symptomatic test positivity misestimates prevalence, and say which of the two archive defects carries the error.
-2. Taking tracing utilisation to $\rho \to 1$, say what happens to containment when the recovery time passes the generation interval.
-3. Show how the survival clock scales with the growth rate, and say which rate makes a one-week delay survivable (answer: the clock halves at each doubling of the rate, so only the slowest buys the week).
-4. Explain why a measure arriving after four doublings meets a caseload sixteen times the one it would have met at the start, and how many starting counts accrued during the wait (answer: $2^4 = 16$, of which $2^4 - 1 = 15$ accrued while the measure was pending).
-5. Take a two-group matrix of §3's form, immunise the less susceptible half instead, and compute the coverage the homogeneous formula would have accepted beside the coverage the radius demands.
-
 ## Bridge
 
 The archives and tracing bounds continue along the direct $\mathcal{G}\_1$ edge `L17 -> L18` into post-market adverse-event detection, in [Chapter 68, *Layer 18: Pharmacovigilance, Regulatory Toxicology & Post-Market Safety Order*](68-layer-pharmacovigilance-regulatory-toxicology-order.md) (Layer 18, `{T2Severity, T3Archive, T7Liability}`).

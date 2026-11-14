@@ -309,14 +309,6 @@ The risk literature separates the two shapes: a convex measure of loss is cohere
 (Artzner et al. 1999), and the queue curvature that makes waiting explode near saturation is the heavy-traffic
 approximation (Kingman 1961).
 
-## Exercises
-
-1. Derive the Jensen gap for $\varphi(x) = x^2$ and compare it with the variance (answer: $\mathbb{E}[X^2] - (\mathbb{E}[X])^2 = \mathrm{Var}(X)$, identical).
-2. Compute the gap for $\varphi(x) = 1/x$ using the harmonic mean and give its sign (answer: $E[1/X] > 1/E[X]$, a positive gap, consistent with convexity).
-3. Show a case where the average is the correct approximation and say why (answer: $f$ linear over the interval, $f'' \approx 0$, as in a per-call charge).
-4. State when the second-order Jensen expansion $\frac{1}{2}f''(\mu)\sigma^2$ suffices around $\mu = \mathbb{E}[X]$ and give the scaling test (answer: because $f'(\mu)\mathbb{E}[X-\mu] = 0$ vanishes identically, the quadratic term suffices while $|f'''(\mu)||\gamma\_1|\sigma^3 \ll 3|f''(\mu)|\sigma^2$ and fourth-order kurtosis terms remain negligible; test with two dispersions and check that $\mathbb{E}[f(X)] - f(\mu)$ scales with $\sigma^2$).
-5. Show that the elasticity of the congestion multiplier with respect to utilization is $1+\phi(\rho)$, find the utilization at which it equals two, and say what the coincidence with $\phi = 1$ implies about how many regimes the map has (answer: $\rho = 1/2$; the level crossing and the elasticity crossing are the same point, so the two regimes are two halves of one map).
-
 ## Bridge
 
 [Distribution and Moment](31-distribution-and-moment.md) examines moments and tail distributions, while

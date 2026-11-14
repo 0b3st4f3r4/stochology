@@ -276,14 +276,6 @@ the shock and repair. Split the exposure instead: reserve against the irreversib
 the reversible one publish the repair path, its cost and its latency. A reserve sized against a
 reversible loss is not prudence. It buys capacity the institution already owns.
 
-## Exercises
-
-1. Take two pairs of clocks — one with survival time well below recovery time, one well above — compute both ratios, and give the boolean verdict for each. Then explain why doubling every recovery time leaves the second pair above one and pushes the first further below.
-2. With a $100$-year return time and a $30$-year archive, what is the probability that no event occurs at all? (answer: $(1-0.01)^{30} = 0.7397$, so about seventy-four per cent).
-3. Evaluate the heavy-traffic factor at $\rho = 0.10$ and $\rho = 0.99$ and say which of the two a plan should quote (answer: $0.111$ and $99$; both, because the second is the one that decides).
-4. State when a reserve is the wrong instrument and what replaces it (answer: when the loss is reversible and recovery is cheap; absorb and repair, and reserve only for the irreversible component).
-5. With exponential shocks of mean $\mu$, shock intensity $\lambda$ and net replenishment $c$, solve the Lundberg equation for the adjustment coefficient and say what the result implies about a buffer sized only by the survival inequality (answer: $R = (c - \lambda\mu)/(c\mu)$, so the buffer holding ruin below $\varepsilon$ is $B \ge \ln(1/\varepsilon)\mkern3muc\mu/(c - \lambda\mu)$ and diverges as $c \downarrow \lambda\mu$; the inequality compares mean clocks and says nothing about the probability of ruin on the surviving side).
-
 ## Bridge
 
 [Distribution and Moment](31-distribution-and-moment.md) formalizes heavy tails using power laws and

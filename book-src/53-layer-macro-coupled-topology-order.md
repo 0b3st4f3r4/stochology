@@ -60,14 +60,6 @@ What the absence does not cost is the two margins themselves. Unlike an axial ex
 2. State the containment condition $\tau\_{r} < k\mkern3mu\tau\_{p}$ for a path of $k$ edges, and say why a topology has no safety independent of the horizon at which it is asked.
 3. Show how a shared metric creates a coupling that the design diagram does not contain, and why that coupling is the one a cascade will follow.
 
-## Exercises
-
-1. **Tolerance and load.** With $\alpha\_{\mathrm{tol}} = (1-\rho)/\rho$, say what happens to the tolerable increase as the node approaches saturation, and why the same capacity is a different margin at two operating points.
-2. **One link or two.** For a node whose failed load is spread over $z$ neighbours, derive the load factor above which a neighbour that also receives the redistribution fails, and say why the result is not linear in the number of links.
-3. **The horizon.** Take a path of $k$ edges with propagation delay $\tau\_{p}$ and a response latency $\tau\_{r}$. Say which inequality contains the cascade, and construct a case in which the same graph is safe at one value of $k$ and not at another.
-4. **The edge in the report.** Describe two units coupled only by a shared target, and say what a cascade between them would look like to an observer who read the design diagram and to one who read the metric.
-5. **Reading the signature.** Explain why $(0, 2, 1)$ is an epistemic axial exposure with two vital margins and not one, and name the question that the missing governance reading would have asked.
-
 ## Bridge
 
 This chapter delivered the cascade as a property of a graph: a tolerance that is the reciprocal of the load factor, a containment condition that compares a propagation delay against a response latency, and a coupling that is created by the reporting which monitors it. The next chapter is [Chapter 54, *Layer 04: Geophysical Fluid Dynamics, Lorenz Chaos & Data Assimilation Order*](54-layer-geophysical-chaos-data-assimilation-order.md).

@@ -347,14 +347,6 @@ as an unfinished audit rather than a finding. The same discipline applies upward
 its shares and finds them structural has established a claim about capacity, not an exoneration of the people who
 set the capacity.
 
-## Exercises
-
-1. Evaluate the heavy-traffic factor $\rho/(1-\rho)$ at a low, an intermediate and a near-saturated load level, and say which one misses the deadline (answer: the factor stays below one at low load, approaches one at intermediate load and explodes near saturation; the near-saturated one misses it).
-2. When false alerts outnumber true ones, what is the precision among survivors, and why does the design report not print it? (answer: at or below one-half; the design report quotes sensitivity and specificity instead).
-3. Construct a $3\times3$ vote matrix in which a majority of premises yields a minority conclusion (answer: two premises carried by majorities and the conclusion lost).
-4. When are the three audit requirements dispensable, and what replaces them? (answer: a single affected party; a declared record).
-5. Name the four variants of metric capture and give an institutional example of each (answer: regressional, extremal, causal and adversarial).
-
 ## Bridge
 
 Metric capture, blame inversion, and the interrupting algedonic channel are formalised in

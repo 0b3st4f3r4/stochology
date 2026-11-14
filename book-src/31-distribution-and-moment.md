@@ -386,14 +386,6 @@ below two. The conclusion about the variance survives the split intact while the
 it shifts, which is the useful pattern: the moment boundary holds because it is a property of the mechanism, and
 the index is fragile because it is a property of the sample.
 
-## Exercises
-
-1. Given a Hill index estimated on a stable plateau below two, which of the first four moments exist, and why does a widening confidence interval not threaten that verdict?
-2. Derive the Jensen gap between $\mathbb{E}[\phi(X)]$ and $\phi(\mathbb{E}[X])$, and show that it is attributable to curvature rather than to sampling.
-3. Construct a case in which the sample mean stabilises while the variance does not, and say what it refutes (answer: a tail with $1 < \alpha < 2$; it refutes "measured mean implies measured risk").
-4. Why is a proper score preferable to the mean squared error when the forecast is a distribution? Give the minimal counter-example without numbers (answer: the squared error rewards the point and ignores the shape; two forecasts with the same point error can have different scores).
-5. State the contractual condition under which the heavy tail stops governing the decision (answer: a finite indemnity ceiling declared before the event).
-
 ## Bridge
 
 Tail estimation, extreme value properties, and the convexity gap are formalised in

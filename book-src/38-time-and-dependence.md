@@ -265,14 +265,6 @@ Non-ergodicity is irrelevant when absorption cannot occur inside the horizon. Th
 
 One line, one decision, and the ledger stops being ambiguous.
 
-## Exercises
-
-1. Evaluate the heavy-traffic factor $\rho/(1-\rho)$ symbolically at a utilisation far below one and at a utilisation approaching one, and show why the ratio between the two factors is far larger than the ratio of the utilisations.
-2. Express the Itô variance drain as a share of the ensemble drift, $1 - \bigl(1 - \sigma^2/(2\mu)\bigr) = \sigma^2/(2\mu)$, and say why it is a fraction of drift rather than a quantity a longer series can shrink.
-3. Construct a return with positive mean and a path that breaks, and say what the ensemble mean hides (answer: high variance with absorbing ruin; it hides the fraction of paths absorbed).
-4. How much survival time would be needed for the Master Survival Inequality to hold, in terms of the recovery latency? (answer: at least as much as the recovery latency, with slack for the congestion wave).
-5. When is the ensemble mean the correct guide and the trajectory irrelevant? (answer: a short horizon with no possibility of absorption).
-
 ## Bridge
 
 Non-ergodicity, the Itô variance drain, and Kelly leverage sizing are formalised in

@@ -28,7 +28,7 @@ The strata are designated, not derived. Each is anchored to one guard site by a 
 
 ## How to read a chapter
 
-Four things, in order. First the blockquote: which order, which stratum, which triple and signature. Second the opening outcomes, which state what the reader should be able to do by the end of the chapter. Third the numbered sections, which argue the order's own subject and then read the signature — naming the collapse predicted by the axis or axes a deficient triple leaves empty (a layer whose empty axis is vital is a layer that will be lucid and doomed), or, in the twelve `(1, 1, 1)` keystones that span all three axes, showing how the triad holds together under its ancestor cone. Fourth the exercises and the closing bridge to the next chapter.
+Four things, in order. First the blockquote: which order, which stratum, which triple and signature. Second the opening outcomes, which state what the reader should be able to do by the end of the chapter. Third the numbered sections, which argue the order's own subject and then read the signature — naming the collapse predicted by the axis or axes a deficient triple leaves empty (a layer whose empty axis is vital is a layer that will be lucid and doomed), or, in the twelve `(1, 1, 1)` keystones that span all three axes, showing how the triad holds together under its ancestor cone. Fourth the closing bridge to the next chapter.
 
 What the chapters do not do is rank the domains. A chapter on pharmacology and a chapter on textual criticism are the same length because they are the same object, not because they matter equally to a given reader.
 

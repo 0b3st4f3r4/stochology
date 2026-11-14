@@ -67,14 +67,6 @@ The residue this order contributes is the pricing of the gap. Every other order 
 2. Price the incompleteness of a record as a rate, and say why the correction multiplies the observed range rather than dividing it.
 3. Explain why a $(2, 1, 0)$ architecture that publishes its frames, its sampling bias and its dating error still takes Collapse Proposition 3.
 
-## Exercises
-
-1. **The denominator.** Two reports cover the same deaths, one over an interval twice as long as the other. Say which quantities are preserved under the change of frame and which are statistics of the choice, and what a reader must be told to recover the first from the second.
-2. **The gap as a measurement.** Using the range-end correction, say what a section with few dated horizons can and cannot state about the end of a series, and why the correction grows as the horizon count falls.
-3. **Counting against closure.** A date carries a counting error of one part in a hundred and an unquantified closure assumption. Say which of the two the published interval reports, and what a reader should infer from an interval that is narrower than the material's alteration history.
-4. **The unpriced boundary.** Name the decision that the empty governance site leaves unassigned, and say what a published section would have to print for the gap's price to travel with the boundary.
-5. **Reading the signature.** Explain why $(2, 1, 0)$ is a governance axial exposure rather than an epistemic one, in terms of which of the three sites has no office behind it.
-
 ## Bridge
 
 Layer 15 closes this part of the stratum's account of an object known only through the record it left. What it leaves is a record whose gaps have a price and a frame that must be printed beside the number. [Chapter 66](66-layer-pharmacological-clinical-diagnostic-order.md) states [Layer 16](66-layer-pharmacological-clinical-diagnostic-order.md), *Pharmacological, Clinical & Diagnostic Order*.

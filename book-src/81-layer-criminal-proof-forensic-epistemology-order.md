@@ -45,13 +45,6 @@ The collapses follow the missing axis. Without $S\_{\mathrm{epi}}$ the court adm
 
 The thesis is that the standard is a price ratio and conviction a posterior comparison, which requires the posterior to exist and the evidence to admit a calibration. It fails when the error rate of the evidence-producing artifact is not identifiable from the record, because the proficiency trials were never run, the samples were destroyed, or the method was validated only by the examiners who use it. Then $p^\ast$ is not imprecise but undefined, and no further evidence accumulates in its favour. Move the decision up one level instead: test the artifact rather than the case, and where an artifact fails that test decide on an exclusionary rule, which requires no comparison of losses. Before any likelihood ratio is computed the artifact has to be identified, acquired and preserved in an unaltered state, and that stage is audited against an external standard rather than the laboratory's own discretion (ISO/IEC 27037:2012).
 
-## Exercises
-
-1. Substitute Blackstone's ten-to-one loss ratio into the expected-regret threshold to derive $p^\ast$, and show how an unmeasured laboratory error rate inflates false convictions when the fallacy confuses $\mathbb{P}(E \mid H\_d)$ with $\mathbb{P}(H\_d \mid E)$.
-2. Using the identity of §3, take two groups with base rates $p\_A > p\_B$ and a score with equal $\mathrm{PPV}$ and $\mathrm{FNR}$ in both, write $\mathrm{FPR}\_A/\mathrm{FPR}\_B$, and say how the ratio moves when the same defendants are re-partitioned into strata whose base rates are closer together; then say which of the two quantities, the forced ratio or the calibration, a defendant can contest.
-3. With the false-positive cost a stated multiple of the false-negative cost, derive the threshold, and the threshold when the ratio is reversed (answer: the threshold is that ratio over one plus the ratio, and its complement under the reversal).
-4. Say what a court can ask once the standard is written as a threshold (answer: which loss is being weighted and who bears it).
-
 ## Bridge
 
 Blackstone loss thresholds, chain-of-custody seals and Chouldechova fairness bounds in Layer 31 (`{T1Framing, T2Severity, T7Liability}`) join continuum structural safety ([Layer 05](55-layer-continuum-fracture-structural-order.md)) and principal-agent liability ([Layer 30](80-layer-corporate-governance-principal-agent-order.md)) along the direct $\mathcal{G}\_{1}$ edge `L31 -> L32` to anchor civil remedies and constitutional design in [Chapter 82, *Layer 32: Civil Evidentiary Law, Tort Liability & Constitutional Entrenchment Order*](82-layer-evidentiary-tort-constitutional-legal-order.md) (Stratum VII, `{T1Framing, T4Formalization, T7Liability}`).

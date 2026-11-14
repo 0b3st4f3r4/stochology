@@ -164,14 +164,6 @@ this architecture can compute, is the point at which the veto should fire. The s
 becomes cheaper than waiting is a function of the exposure the vital plane is missing, so the threshold is
 stated here as a structural requirement, not as a value.
 
-## Exercises
-
-1. Show why continuous monitoring of a rare event needs an anytime-valid threshold rather than weekly $p$-values, and how a capture–recapture bound estimates the number of unseen reaction classes.
-2. Compare a recall latency of several years against cumulative thrombotic hazard, and say why statutory authority without a stop-work clock produces **Collapse Proposition 2**.
-3. Complete the rule-of-three table for adverse-event probabilities falling by three orders of magnitude at a time and say what it implies about trial size (answer: the required size grows as $3/p$, so the rarest events are beyond any single trial).
-4. Explain why a sequentially valid signal with statutory authority can still leave exposure accumulating (answer: the authority grants permission and carries no clock).
-5. Recompute the rosiglitazone interval on the log scale, and say how far a misclassification of a handful of events would have to move the estimate before the interval crossed one.
-
 ## Bridge
 
 The layer's sequential safety signals and file-drawer liability gates continue along the direct $\mathcal{G}\_1$ edge `L18 -> L19` into the audit of whole research fields, in [Chapter 69, *Layer 19: Metascience, Scientometrics, Publication Bias & Replication Order*](69-layer-metascience-scientometrics-replication-order.md) (Layer 19, `{T2Severity, T3Archive, T6Performative}`).

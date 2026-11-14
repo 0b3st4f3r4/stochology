@@ -229,12 +229,6 @@ The severity bridge licenses a substantive claim only when the lower Imbens–Ma
 
 The thesis of this chapter is that the worst-case bounds are sharp, that nothing beyond the response indicator is assumed. The condition that invalidates it is a pair of premises the word sharpness hides: the outcome support must be bounded and known a priori, and the response must be monotone in treatment for the trimming to be legitimate at all. Violated, the first gives bounds at infinity and the second gives no interval. The procedure when the condition fails is to turn the truncation into an explicit measurement rather than an inherited default: declare the ceiling the institution actually records against (the claim limit, the payroll maximum, the treaty cap), tag it as an assumption, and report the width's sensitivity to it, which for the two-arm form is $\partial \Delta\_{\mathrm{id}}/\partial y\_{\max} = (1 - p\_{\mathrm{obs},1}) + (1 - p\_{\mathrm{obs},0})$, so every unit added to the ceiling widens the interval by the unobserved share of the two arms. Where no ceiling can be defended, report the sign of the bias and decline to quote a width at all.
 
-## Exercises
-
-1. **Identification vs. Estimation Uncertainty:** Double both the observed count and the missing count in each arm of the two-arm bound while keeping the sample moments constant. What happens to the identification width $\Delta\_{\mathrm{id}}$, and what happens to the Imbens–Manski sampling margin? Explain why the two quantities respond to different features of the data.
-2. **Peterson Competing Risks & Worst-Case Censoring:** Suppose a clinical trial of $n$ patients records $d$ deaths and $c$ patients lost to follow-up. Using $S\_{\mathrm{lower}} = 1 - (d + c)/n$ and $S\_{\mathrm{upper}} = 1 - d/n$, and the Fréchet–Hoeffding bounds for two competing risks, explain why the naive independent-censoring and independent-competing-risk estimates are dangerously over-optimistic if patients leave the study precisely when their condition deteriorates.
-3. **Width Against the Missing Fraction:** A bounded outcome in $[0, 1]$ is observed on a share $p$ of the treated units with observed mean $\bar{y}\_1$, and the control arm is fully observed at $\bar{y}\_0$. Write the two-arm Manski interval in symbols, then compute the width at $p$ and at $p/2$ and show that the width is linear in the unobserved share and that no increase in the observed sample moves it.
-
 ## Bridge
 
 This chapter delivers a set where the previous one delivered a criterion, and it leaves behind a

@@ -85,17 +85,6 @@ bias enters at full size however small the accompanying uncertainty, so the only
 The thesis also lapses when the model stops being linear: once the second-order term becomes comparable to the first, the decomposition is a
 signed offset that cannot be added to a variance, and the procedure is to propagate a distribution and report an interval.
 
-## Exercises
-
-1. **Type A against type B:** as $n \to \infty$ drives $u\_A^2 = s^2/n \to 0$, use $u\_c = \sqrt{u\_A^2 + u\_B^2}$ to show why combined
-   uncertainty approaches the type-B floor and not zero, and say which collapse proposition a report commits when it prints $u\_A$ alone.
-2. **Bregman and PAV:** show that projecting raw probabilities onto the monotone cone minimises squared Brier error with no residual cross-term,
-   and say which collapse proposition a composite published without that projection risks.
-3. Starting from $u\_{c}^{2} = \sigma\_{A}^{2}\mathrm{DEFF}/n + u\_{B}^{2}$, show that the combined uncertainty is decreasing in $n$ and reaches the
-   type-B floor only asymptotically, and say why the floor is the figure that decides.
-4. Compute the sample size at which the type-A term falls to a fraction $f$ of the type-B variance, with given $s$, design effect and $u\_B$
-   (answer: $n = s^{2}\mathrm{DEFF}/(f\mkern3muu\_{B}^{2})$, so the requirement grows as the reciprocal of the target fraction).
-
 ## Bridge
 
 Metrological traceability, type-B floors and Bregman–PAV projection at Layer 08

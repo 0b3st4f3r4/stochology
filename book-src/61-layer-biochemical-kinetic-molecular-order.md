@@ -159,21 +159,6 @@ third site is not decoration. The severity of §1 is a property of a mechanism, 
 §2 is the price of that severity, and the mark of §3 is what survives both — and what survives is what the
 next order reads, with no way to recover from it which of the two it was.
 
-## Exercises
-
-1. Derive $K\_M = (k\_{-1} + k\_2)/k\_1$ from the steady-state assumption, and state which limit of $[S]$
-   makes the law first-order and which makes it zeroth-order. Say what the assay's choice of $[S]$ does to
-   the order it observes.
-2. Show that a closed reversible cycle returns the affinity ratio it began with, and identify the exact
-   step at which irreversibility enters. Then say what the reset must destroy for the discrimination to
-   compound and not cancel.
-3. Write the $N$-step discrimination as $\varepsilon\_1^{N}$ and the delay as proportional to $N$. Eliminate
-   $N$ and express the error rate as a function of the delay. Explain why the resulting curve is a frontier
-   and not a menu.
-4. A bulk assay reports one rate for a heterogeneous population. State what the reported number is a mean
-   of, and construct the case in which selecting on the reported number changes the next reported number in
-   the absence of any change in the molecules.
-
 ## Bridge
 
 The next chapter is [Chapter 62, *Layer 12: Morphogenetic & Developmental Order*](62-layer-morphogenetic-developmental-order.md).

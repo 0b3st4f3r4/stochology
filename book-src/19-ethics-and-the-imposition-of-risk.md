@@ -282,13 +282,6 @@ The thesis fails when the risk is diffuse and no bearer can be named, because th
 with and no case-by-case consent to seek. Convert the decision into an ex-ante rule with periodic review. A rule can
 be justified to an anonymous public in a way that no single finding can (Frick 2015).
 
-## Exercises
-
-1. From two group false-positive rates, compute the wrongful flags per thousand negatives in each group and their difference, and say which quantity the ratio fixes (answer: each rate times one thousand gives the count, the difference is the excess burden, and the ratio is fixed by the base-rate odds).
-2. Compute the aggregate balance of a programme whose certain gain is smaller than its expected loss, and say what the net hides (answer: a deficit; who received the gain and who carried the loss).
-3. Construct a case of justified risk imposition and name the three conditions that justify it (answer: reciprocity, presumed consent and reversibility).
-4. State what to do when the third party cannot be identified (answer: an ex-ante rule with periodic review, not case-by-case judgment).
-
 ## Bridge
 
 [Decision, Loss, Threshold](36-decision-loss-threshold.md) analyzes asymmetric loss and threshold externalization, while

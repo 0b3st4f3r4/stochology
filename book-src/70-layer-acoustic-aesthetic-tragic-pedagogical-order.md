@@ -92,14 +92,6 @@ the stability of the standard rather than the size of the error. Because the fra
 acoustic comma, the tragic boundary, and the pedagogical zone share this procedural discipline of named frames and
 reversible fractional probes without collapsing their separate scales into one another.
 
-## Exercises
-
-1. **The Pythagorean comma as a structural discrepancy.** Compute the relative frequency residual $(3/2)^{12}/2^7 - 1$ and relate the impossibility of closing $(3/2)^p = 2^q$ in $\mathbb{Z}^+$ to Adorno's non-identical remainder.
-2. **Tragic recognition after the ruin boundary.** In *Antigone*, map Creon's refusal to hear Haemon and Tiresias onto the algedonic channel and the survival clock, and say why catharsis works as a simulated post-mortem in a sandboxed theatre.
-3. Compute in cents the excess of four pure fifths over two octaves plus one pure major third, and say what the number means for a fixed tuning (answer: the syntonic comma, which must be placed somewhere).
-4. Explain why equal temperament buys distribution rather than accuracy (answer: a uniform slack is inaudible in every interval instead of unusable in one).
-5. Take the accountability formula with weights $w$ and $1-w$ and costs $c\_H$ and $c\_A$, and say which measure absorbs the effort and where the audit begins to bind.
-
 ## Bridge
 
 Layer 20 (`{T1Framing, T4Formalization, T6Performative}`) is the terminal leaf of Stratum IV, where sensorimotor timing ([Layer 01](51-layer-micro-kinetic-sensorimotor-order.md)), metrological temperament ([Layer 08](58-layer-metrological-information-geometric-order.md)) and clinical vulnerability ([Layer 16](66-layer-pharmacological-clinical-diagnostic-order.md)) converge in formative pedagogy across the edges the graph records. Because `L20` has no outgoing DAG edge into `L21`, Stratum V opens in [Chapter 71, *Layer 21: Linguistic, Evidential & Pragmatic Order*](71-layer-linguistic-evidential-pragmatic-order.md) (Layer 21, `{T3Archive, T6Performative, T7Liability}`) from parents [Layer 02](52-layer-meso-buffered-queue-order.md), [Layer 06](56-layer-formal-computable-type-order.md) and [Layer 14](64-layer-taxonomy-systematics-ontology-order.md).

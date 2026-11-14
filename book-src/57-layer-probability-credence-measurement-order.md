@@ -184,23 +184,6 @@ survive, and cannot say who decided which states were admissible.
 3. State the invariance group of each measurement scale, the statistic it forbids, and why a non-injective
    scale cannot be repaired by any later statistic.
 
-## Exercises
-
-1. Write a frame $\Omega$ that excludes one state, and show that every act in the model is constant in that
-   state. Then say, in one sentence, what claim the exclusion made and when it was made.
-2. Derive the interval between the two extremes of $\int \Delta \mkern3mu dP$ over $\mathcal{P}$ for two acts,
-   and construct a case in which the credal set is wide and the decision invariant, and one in which it is
-   narrow and the decision undetermined. Say which quantity did the work in each.
-3. Derive the width of the worst-case bounds for a bounded outcome under arbitrary selection, show that the
-   sample size does not enter, and name the kind of premise that narrows it. State what the premise costs when
-   it is wrong.
-4. Show that $\operatorname{mean}(e^{x}) \neq e^{\operatorname{mean}(x)}$ for a sample with unequal entries,
-   and that the median commutes with every strictly increasing map. Say which of the two is licensed on an
-   ordinal scale and why the other is not.
-5. Take a trajectory interior on all three sites of this order, add one excluded state whose loss differential
-   would reverse the decision, and say what the record shows before and after. Then name the governance reading
-   that would have made the reversal visible and the point at which it had to be taken.
-
 ## Bridge
 
 The order now has its three sites: a credence is typed by the frame that admits it, its width is the distance

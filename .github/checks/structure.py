@@ -127,9 +127,8 @@ def check_spine() -> None:
         outcomes = numbered_block(text, "## By the end of this chapter you can")
         if outcomes != 3:
             fail("spine", f"{rel(path)}: {outcomes} outcomes, expected 3")
-        exercises = numbered_block(text, "## Exercises")
-        if not 3 <= exercises <= 5:
-            fail("spine", f"{rel(path)}: {exercises} exercises, expected 3-5")
+        if "## Exercises" in text:
+            fail("spine", f"{rel(path)}: Exercises section retired; the interactive companion owns exercises")
 
 
 # ------------------------------------------------------------------- 3. links

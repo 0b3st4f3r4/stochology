@@ -117,17 +117,6 @@ known at the decision instant from what was learned afterwards. Compute lead
 time as a first-passage time under the distribution of the exponent, report a lower quantile, not the mean, and where no regime indicator
 is observable report the mixture and withhold the point forecast.
 
-## Exercises
-
-1. **Lyapunov horizon against evacuation lead time:** with $\lambda\_{\max} > 0$, explain when an ensemble forecast on a cyclone archive
-   must move from track point-targeting to buffered regional evacuation under the survival-clock criterion.
-2. **Bitemporal replay:** using the vintages of a bitemporal record, show why a twin that overwrites initial sensor releases with post-storm
-   reanalysis violates `T3Archive` and invalidates ex-post calibration.
-3. With a leading exponent $\lambda$ per day and a tolerance ratio $\delta\_{\mathrm{tol}}/\varepsilon\_{0}$, compute the horizon, halve the
-   analysis error, and say how much time the improvement buys (answer: $\ln 2/\lambda$ days, whatever the baseline). Then say how the answer
-   changes when the observed fraction $w$ rises while the leading unstable direction lies inside it (answer: the gain grows with $w$, and it
-   stays additive).
-
 ## Bridge
 
 In the $\mathcal{G}\_1$ DAG, this order (`{T3Archive, T4Formalization, T5Temporal}`) declares edges into metrological geometry

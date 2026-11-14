@@ -261,12 +261,6 @@ The cost-loss matrix on this page has three entries, and the recommendation it i
 
 The thesis of this chapter is that severe testing plus a published multiverse keeps framing honest. The condition that invalidates it is enumerability: the specification curve is a bound only when the set of specifications is closed and known to the analyst at the moment of the report. Where choices are made downstream by other teams, or where specifications only become available after publication, the envelope $[L\_t, U\_t]$ is a lower bound on the true width, the consistency ratio is a property of the subset that was found, and the reported interval inherits the very selection it was built to expose. The procedure when the condition fails: declare the enumeration rule and a closure date before the curve is computed; report the envelope explicitly as a lower bound, with the allowance for unfound specifications stated beside it; and where no rule can be declared at all, withdraw the multiverse interval and report the single pre-registered specification with its severity, since a narrow claim with a stated design is auditable and a wide claim whose width nobody can reconstruct is not.
 
-## Exercises
-
-1. **Why $e\text{-BH}$ Needs No Independence Assumption:** Verify from Markov's inequality that if $E\_1, \dots, E\_K$ are non-negative random variables with $\mathbb{E}\_{H\_0}[E\_k] \le 1$, their arithmetic mean $\bar{E} = \frac{1}{K}\sum\_{k=1}^K E\_k$ also satisfies $\mathbb{E}\_{H\_0}[\bar{E}] \le 1$ regardless of correlation among the $K$ specifications.
-2. **Standpoint Elicitation:** Derive the minimum efficacy $\eta \in (0, 1]$ required for the institutional cost–loss threshold to agree with the affected community's decision at a shared prior $\pi\_0$, and show why the two thresholds coincide only when the mitigated loss equals the sum of the two error costs.
-3. **Severity Against the Floor:** Two claims clear a one-sided test at level $\alpha$; at the alternative each test was designed to detect, one has power near the ceiling and the other has power near the floor. Compute Mayo's severity for each passing claim in symbols, and say which verdict survives a re-run — and why the second test would have produced the same pass had the claim been false, which is what an unsevere test is.
-
 ## Bridge
 
 What leaves this chapter is a severity criterion and a warning. The criterion is that a claim survives

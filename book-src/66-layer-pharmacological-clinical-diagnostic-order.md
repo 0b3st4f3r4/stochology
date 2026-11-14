@@ -66,14 +66,6 @@ The residue this order contributes is the pricing of the unmeasured region. A cl
 2. Derive the trial's severity from its power at the chosen contrast, and say why a design powered for benefit is non-severe for harm.
 3. Show why a $(1, 2, 0)$ architecture that is rigorous about dose and duration still takes Collapse Proposition 3 when the false-alarm and missed-loss ledgers are held by different parties.
 
-## Exercises
-
-1. **The four coordinates.** Take a licensed indication and name its contrast, population, horizon and endpoint. Then say which of the four a later prescription is most likely to change without any new evidence, and what that change does to the claim's scope.
-2. **Reach and silence.** Using the power expression, say what happens to severity when the true difference is halved at fixed $n$, and translate the answer into a sentence an institution could print beside a negative result.
-3. **The window as a projection.** A patient and a trial subject receive the same dose for different lengths of time. Say which of the three sites the difference belongs to, and why the projected window cannot answer the question.
-4. **Two ledgers.** Give a case in which the false-alarm cost and the missed loss are borne by different parties, compute each party's threshold, and say what an office holding both would have to be able to do.
-5. **Reading the signature.** Explain why $(1, 2, 0)$ is a governance axial exposure rather than a vital one, in terms of which site has an office behind it and which has only a rate.
-
 ## Bridge
 
 Layer 16 closes this part of the stratum's account of an intervention whose claim is a point and whose harm lives outside it. What it leaves is a scope that must travel with the sentence and a ledger that has no holder. [Chapter 67](67-layer-epidemiology-outbreak-surveillance-order.md) states [Layer 17](67-layer-epidemiology-outbreak-surveillance-order.md), *Infectious Disease Epidemiology, Phylodynamics & Outbreak Surveillance Order*.

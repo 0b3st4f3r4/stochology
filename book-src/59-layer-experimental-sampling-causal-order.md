@@ -83,19 +83,6 @@ corrected does not exist, so the effective sample size is a ratio of divergent s
 with no sampling distribution. Estimate the tail index before quoting a design effect, report the design effect as a diagnostic of the weights,
 not as a conversion, and replace the sampling interval with the bound form, which needs a support, not a variance.
 
-## Exercises
-
-1. **Worst-case width against sample size:** hold the missingness fractions fixed while multiplying the sample counts by a large factor. Why does
-   the sampling margin shrink while the partial-identification width does not?
-2. **Incompleteness of the `(3, 0, 0)` methodologist:** trace an agent that is epistemic only: exact design effects and partial-identification
-   bounds, zero vital reserve, zero institutional veto, and explain why it still terminates in **Combined Propositions 2 and 3** when the vital
-   and governance axes are uncoupled.
-3. Reproduce LaLonde's two comparisons — a difference in means by treatment status on the randomised file and on the observational one — and say
-   why the second lies outside the worst-case interval.
-4. Show why the effective sample falls as the weights disperse, and compute the effective count of independent observations for $G$ clusters of
-   average size $m$ under cluster design effect $D = 1 + (m - 1)\rho\_{\mathrm{cl}}$ (answer: $n\_{\mathrm{eff}} = Gm/D$ independent observations,
-   which approaches $G$ — one per cluster — as $\rho\_{\mathrm{cl}} \to 1$).
-
 ## Bridge
 
 As the unique `(3, 0, 0)` epistemic order (Pure Epistemic Concentration), Layer 09

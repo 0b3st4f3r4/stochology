@@ -252,14 +252,6 @@ The taxonomy of metric capture is the other half of the diagnosis, and it is old
 
 The thesis fails when the error's cost is asymmetric and unknown, because the threshold is then undefined and the accusation cannot be tested. The procedure is to declare both costs before judging, refuse the accusation while the pair is not agreed between the parties, and treat the disagreement about the pair as the object of the dispute rather than the model's output.
 
-## Exercises
-
-1. For declared false-alarm cost $C$, intervention efficiency $\eta$ and loss $L$, derive the cost–loss threshold $p^\ast = C/(\eta L)$ and show how it moves when the loss is doubled.
-2. Classify "the bank optimised the complaint count and began closing complaints without resolving them" in the taxonomy of capture (answer: the causal variant; the proxy is a downstream symptom, not the cause).
-3. Give a case in which a machine accused of not seeing is innocent, and say which premise the accuser violated (answer: a separable target; the model saw what existed, the target was badly posed).
-4. Can the three-question filter be wrong? Under what declared condition should it be suspended? (answer: yes, when the cost pair is not agreed between the parties).
-5. Explain the difference between "fluent and wrong" and "metric capture" in one sentence each (answer: the first errs in content with impeccable form; the second measures better something that no longer matters).
-
 ## Bridge
 
 Metric capture is formalised in [Chapter 48](48-reactive-worlds-performativity-goodhart.md) as the fourfold

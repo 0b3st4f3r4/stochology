@@ -250,13 +250,6 @@ nearly all the evidence. For the general case: record before judging, seal the e
 the sealed state with the realised outcome. Without a sealed record the ex-ante is rewritten by whoever
 writes the report, and there is nothing left to compare.
 
-## Exercises
-
-1. Using the posterior of section 2 with survival rates $s\_h = 0.9$ and $s\_l = 0.5$, compute the competent share among survivors for base rates $\pi = 0.10$ and $\pi = 0.20$, and say what the comparison proves about selection by outcome (answer: the posterior rises in both cases but stays below one half; selection cannot manufacture competence out of a low base rate).
-2. Name the four cells that section 1 separates, and say which one dismissal by outcome punishes (answer: apt and lucky, apt and unlucky, inept and lucky, inept and unlucky; the punished cell is apt and unlucky).
-3. Construct the case in which judging by outcome is almost optimal, and name the premise of section 1 that it overturns (answer: a nearly deterministic process, where success given luck tends to zero; what falls is "the outcome never informs").
-4. Describe the minimal record that makes ex-post judgment auditable, and why the thesis does not apply without it (answer: a sealed ex-ante state plus a hash chain; without it the ex-ante is rewritten and there is nothing to compare).
-
 ## Bridge
 
 [Aim and the Three Planes](29-aim-and-the-three-planes.md) develops the formal architecture connecting

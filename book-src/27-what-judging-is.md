@@ -213,14 +213,6 @@ The audit culture that measures first and reacts later is not a straw man; as Mi
 
 The thesis holds under irreversibility. It fails when the horizon is short and the decision repeats, because the correct functional is then the ensemble mean rather than the minimum, and a reversible fractional probe replaces the retained margin. The procedure is to compare time to recover against time to act, and to reduce the claim to a probe when recovery is the cheaper branch.
 
-## Exercises
-
-1. Give the relation between coverage and uncovered turns over a fixed horizon, and explain why a coverage figure quoted without the horizon length is not a property of the trajectory.
-2. For a triple in $[0,1]^3$ compute the Leontief minimum and the arithmetic mean symbolically, and show that for any triple with one axis at zero the two operators diverge by one third of the sum of the other two (two thirds of their mean).
-3. Find the scenario in which the naive optimizer is not punished and say what that refutes (answer: a small reversible world with the reserve intact; it refutes that margin is always necessary).
-4. Describe, without notation, a case in your domain where reversing is cheaper than retaining margin (answer: a low-cost reversible action, such as an A/B test of a credit line).
-5. Name the three marks of structural uncertainty and the operator that measures each (answer: the opaque world, measured by the identification width; the silent archive, measured by the design effect and the missingness correlation; the reactive institution, measured by the performative gap).
-
 ## Bridge
 
 The unit of analysis introduced here (an irrevocable act whose consequences unfold under delayed feedback) is formalised in [Chapter 42](42-sequential-loop-naive-agent.md) as the sequential agent–world–institution loop. Two boundary policies bracket it: the naive optimizer mistakes the historical sample mean for physical truth and is destroyed by the first major shock, whereas the stochological agent maintains all three safeguards and survives across the full horizon. What judging is not, once the machine's report is taken for the judgment itself, is the subject of [Chapter 28](28-the-machine-and-the-deception.md), *The Machine and the Deception*.

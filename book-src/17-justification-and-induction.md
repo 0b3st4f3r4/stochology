@@ -277,13 +277,6 @@ report the weight since the break only. Any long equity series shows why this is
 across parallel worlds and the average along one path are different numbers, so induction over one path is induction
 over a different object from the one the ensemble describes.
 
-## Exercises
-
-1. Compute the weight for $n\_{\mathrm{eff}} \in \{25,\mkern3mu 100,\mkern3mu 1000\}$ with $n\_0 = 50$ (answer: $0.333$, $0.667$, $0.952$).
-2. Compute the loss in decibans of five ad hoc adjustments on an evidential value of $100$ (answer: $100/6 = 16.67$, so $20 - 12.22 = 7.78$ decibans lost).
-3. Give a domain where induction is unnecessary, compute the weight, and say why the margin is wasted there (answer: a closed population with $n = N$ and sampling fraction one, where the weight is $n/(n + n\_0)$; the relevant margin is measurement error).
-4. State what to do when the generator changes mid-series (answer: detect the break and restart the accumulation; the effective sample does not cross a regime).
-
 ## Bridge
 
 [The Question Before the Data](32-the-question-before-the-data.md) formalises inquiry design, while

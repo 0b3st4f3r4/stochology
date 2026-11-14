@@ -53,13 +53,6 @@ is Wald's (1945) minimax rule with nature replaced by the unobserved cost distri
 
 The collapses follow from the missing axis. Without $S\_{\mathrm{vital}}$ an agent computes an exquisite equilibrium while playing a multiplicative game with negative time-average growth, and the account is absorbed before convergence: Impotent Lucidity Before Ruin. Ignoring the strategic response altogether collapses the proxy into noise as the population learns the line, which is blindness to the evaluated population, or Blind Undersizing. Deploying a hyper-targeted classifier against a behavioural weakness extracts private gain with no social surplus, which is Cynical Capture and Pillaging.
 
-## Exercises
-
-1. At a Barnesian feedback sensitivity $\varepsilon$ below the contraction bound $\gamma/\beta$, show why repeated risk minimisation converges geometrically, and exhibit the residual after $k$ rounds as $L\_G^{k}$; then say what the fixed point does not certify about the world the classifier acts in.
-2. Classify a cosmetic manipulation accompanied by a substantive drop in the underlying quantity as adversarial rather than accidental, and say why the gaming arithmetic of this chapter makes that variant predictable.
-3. With a private gain from gaming, a detection probability and a penalty, derive the condition under which gaming pays, and say which of the three instruments a regulator can move at the lowest cost.
-4. Distinguish robustness from invariance and say which one a strategic agent defeats (answer: robustness survives input perturbation, invariance survives a change of the generating world, and the agent defeats robustness).
-
 ## Bridge
 
 Stackelberg strategic classification, minimax regret and performative fixed points in Layer 27 (`{T1Framing, T2Severity, T6Performative}`) combine with network contagion ([Layer 03](53-layer-macro-coupled-topology-order.md)) and sequential real options ([Layer 26](76-layer-sequential-decision-bandit-real-options-order.md)) along the direct $\mathcal{G}\_{1}$ edge `L27 -> L28` to govern endogenous market risk in [Chapter 78, *Layer 28: Macro-Finance, Econometrics, Actuarial Ruin & Endogenous Risk Order*](78-layer-macro-finance-econometrics-actuarial-order.md) (Stratum VI, `{T2Severity, T4Formalization, T6Performative}`).

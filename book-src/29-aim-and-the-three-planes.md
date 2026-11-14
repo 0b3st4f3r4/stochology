@@ -300,14 +300,6 @@ Three direct transits (observe, formalize, perform), three reflexive locks (fram
 
 The circuit is mandatory when the action is irreversible and the institutional plan carries a veto, and not mandatory in a reversible, single-plan action, where demanding all three planes is a cost with no corresponding risk. The procedure is a reversibility test first: if the action is cheap to undo, closing the plane of the world is enough, and the other two are deferred rather than waived.
 
-## Exercises
-
-1. How many circuit transits and guard sites does the circuit define, and how do they decompose across direct transits, reflexive locks, and integral closure? (answer: $3 + 3 + 1 = 7$: three direct transits, three reflexive locks, and one integral closure).
-2. How do the seven guard sites partition across the three triad axes $(S\_{\mathrm{epi}},\ S\_{\mathrm{vital}},\ S\_{\mathrm{gov}})$, and what verdict follows when any single guard margin drops below zero while the arithmetic mean remains positive? (answer: $3 + 2 + 2 = 7$ across epistemic, vital, and governance; the verdict is a collapse, matching the Leontief minimum derived in [Chapter 41](41-the-triad-and-the-minimum.md)).
-3. Give a case of "a bad shot that hit" in your domain and classify it in the bitemporal table (answer: a decision that did not aim well with a favourable outcome).
-4. Construct a case where demanding all three planes is waste, and say which premise falls (answer: a cheap reversible action, where closing the plane of the world suffices).
-5. Explain, without notation, why cutting the archive plane blinds the agent even when the world is well behaved (answer: without a record there is no way to separate a spike from noise at the moment of acting).
-
 ## Bridge
 
 The circuit is worked through in [Chapter 42](42-sequential-loop-naive-agent.md) as a traced trajectory, which

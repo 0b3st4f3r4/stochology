@@ -78,14 +78,6 @@ The residue is the thing this order pays for that no other order in the corpus p
 2. Explain why the reference against which the test runs is a sample of the body, and why an uncovered tissue produces a coverage failure rather than a misclassification.
 3. Say why the cost of both errors is paid by a party that did not decide, and why a brake built on the channel it disciplines makes the halt necessarily late.
 
-## Exercises
-
-1. **Conjunction against weighted sum.** With arms $(s, c)$ and thresholds $(\theta\_{s}, \theta\_{c})$, show that the conjunctive rule's false-positive probability is bounded by the smaller of the two marginal tail probabilities, and say what an additive rule would need to know to state a comparable bound.
-2. **The uncovered class.** A tissue is absent from the developmental reference. Say which of the three sites fails first, and whether raising either threshold could have prevented the response.
-3. **The margin.** Using $m(t) = C(t) - L(t)$ and the survival inequality, say what a snapshot measurement of tolerance leaves out, and why the omission is worst where restoration is slowest.
-4. **Competence and aptness.** Give a case in which the test is severe, the thresholds are correctly set, and the act is still not apt, and identify which site carries the failure.
-5. **Reading the signature.** Explain why $(1, 1, 1)$ is a keystone with no redundancy, and what follows for repair when a site on one axis fails.
-
 ## Bridge
 
 Layer 13 closes with a decision that cannot be audited by its own record: the test is severe, the reference is a sample, and the cost of both errors is paid where the decision was not made. What the chapter hands on is the asymmetry itself — a competence that can be perfect while the act is not apt, because the reference set was never the whole body. [Chapter 64](64-layer-taxonomy-systematics-ontology-order.md) states [Layer 14](64-layer-taxonomy-systematics-ontology-order.md), *Layer 14: Taxonomy, Systematics & Ontology Order*.

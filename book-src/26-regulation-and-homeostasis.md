@@ -313,14 +313,6 @@ feedback whose gain costs something, and the cost of gain is the price paid for 
 Sterling & Eyer 1988). The queue is the same object seen from the other side, and the two literatures never
 cite each other.
 
-## Exercises
-
-1. Derive the heavy-traffic factor $\rho/(1-\rho)$ and show that it is one less than the reciprocal of the slack $1-\rho$, and say what that difference implies for an efficiency report that counts slack as waste.
-2. State the survival inequality $\mathrm{TTS}\_{\mathrm{survival}} \ge \mathrm{TTR}\_{\mathrm{recovery}}$ and construct one pair of values that satisfies it and one that violates it, naming which quantity each side of the inequality tracks.
-3. Show why the elasticity of waiting time with respect to utilization exceeds one everywhere near the ceiling, and derive what that implies for the marginal value of installed capacity.
-4. Construct a case where operating at the ceiling is right, and state the condition (answer: zero variability in arrivals and service, so the wait vanishes at any load below one).
-5. Say when accepting the queue beats holding slack (answer: reversible loss with a guaranteed discharge path; measure the discharge time).
-
 ## Bridge
 
 [Irreversible Time, Non-Ergodicity, and the Vital Margin](47-irreversible-time-vital-margin.md) carries this

@@ -47,13 +47,6 @@ The collapses follow the signature, which carries no site on the epistemic axis.
 
 The thesis is that consensus makes actuation safe and asymmetric braking fast, and it assumes the brake is a decision some local agent may take. It fails when the halt path itself is routed through the consensus layer, because then the impossibility result migrates from liveness onto safety and the prescription cannot be implemented as written. Make the brake a one-way latch: any single validated sentinel trips it without a vote, the latch persists until an operator clears it, and only the release requires the quorum. What remains is a declared quantity, the number of independent latches and the drill record showing each one tripped in production under load.
 
-## Exercises
-
-1. Relate the quorum requirement of $2f + 1$ attestations out of $3f + 1$ replicas (Castro & Liskov 1999) to a conjunctive multi-branch veto and to hash-chain sealing, and say what each of the two buys that the other does not.
-2. Explain why exhausting an error budget must freeze rollouts and trip the breaker before recovery time exceeds survival time, and say which of the three components of the recovery clock an error budget does not measure.
-3. With an availability target over a stated window, derive the error budget in minutes and the availability of a chain of many such services (answer: the budget is the complement of the target times the window, and the chain multiplies the target rather than adding it).
-4. Explain why a fallback is worth its cost even when it is never exercised (answer: it turns an unrecoverable gap into a recoverable one, and the gap is where the reserve is spent).
-
 ## Bridge
 
 Byzantine quorum consensus, error-budget breakers and blameless post-mortems in Layer 33 (`{T5Temporal, T6Performative, T7Liability}`, with on-call halt entitlement and double-bind escape) join geophysical assimilation ([Layer 04](54-layer-geophysical-chaos-data-assimilation-order.md)), continuum fracture ([Layer 05](55-layer-continuum-fracture-structural-order.md)) and constitutional tort ([Layer 32](82-layer-evidentiary-tort-constitutional-legal-order.md)) along the direct $\mathcal{G}\_{1}$ edge `L33 -> L34` to govern physical containment in [Chapter 84, *Layer 34: High-Hazard Infrastructure, Nuclear & Hydraulic Safety Engineering Order*](84-layer-infrastructure-nuclear-hydraulic-safety-order.md) (Stratum VII, `{T4Formalization, T5Temporal, T7Liability}`).

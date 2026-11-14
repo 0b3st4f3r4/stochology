@@ -288,14 +288,6 @@ More data suffices only when the structural discrepancy is zero and the leakage 
 
 The alternative is a family change, and a family change is cheap.
 
-## Exercises
-
-1. Take the three partition terms symbolically and show that $\mathrm{BS}(p) = \mathrm{REL} - \mathrm{RES} + \mathrm{UNC}$ holds identically, then say what any residual left after numeric evaluation must be (answer: display rounding, not arithmetic).
-2. Form the ratios of reliability and of resolution to the total score symbolically and say what carries the score (answer: resolution).
-3. Construct a calibrated and useless model: give its reliability, resolution and score (answer: a constant forecast, with reliability $0$, resolution $0$ and score equal to the base-rate uncertainty).
-4. Describe an information leak in which validation improves and real performance degrades (answer: normalising before the train/test split).
-5. State the test that decides whether more data is enough, and what to do when it is not (answer: a structural discrepancy test against estimation error; change the family).
-
 ## Bridge
 
 Validation assumptions and the convexity slack of unobserved dispersion are formalised in

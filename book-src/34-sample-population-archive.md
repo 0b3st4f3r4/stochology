@@ -268,14 +268,6 @@ More rows do not repair a filter; they make the filter more confidently wrong, a
 
 The design effect is irrelevant when the estimand is the mean of a census with uniform weights, and in that case it is fixed at one by decision, not by measurement. The procedure is to declare the universe and the weighting rule, and to record the justification instead of reporting a number that the data cannot inform.
 
-## Exercises
-
-1. Derive the collapse factor between a raw respondent count and $n\_{\mathrm{Meng}} = f/((1-f)\rho\_{R,Y}^2)$, and show that it is independent of the respondent count at fixed coverage.
-2. Express the Keynesian weight of the Meng case in terms of the coverage ratio and the data defect correlation, and show why it does not track the weight of an unclustered archive with a larger effective sample.
-3. With observed counts $(n\_{11}, n\_{10}, n\_{01})$, write $f\_1$, $f\_2$ and $N\_{\mathrm{obs}}$, prove $(n\_{10}+n\_{01})^2/(4n\_{11}) \ge n\_{10}n\_{01}/n\_{11}$ by AM–GM, and show by Cauchy–Schwarz why heterogeneous catchability or positive list dependence makes both expressions lower bounds on $\mathbb{E}[n\_{00}]$.
-4. Using Meng's identity, show a case in which a much larger raw archive $n$ yields a worse estimate (or narrower coverage around the wrong mean) than a small random survey, and say which quantity fails to grow with $n$ (answer: a massive archive at a smaller sampling fraction $f = n/N$ with fixed $\rho\_{R,Y} \ne 0$ — or at fixed $f$ and fixed $\rho\_{R,Y} \ne 0$, where $n\_{\mathrm{Meng}} = f/((1 - f)\rho\_{R,Y}^2)$ does not grow with raw volume $n$ while the naive standard error $\sigma\_Y/\sqrt{n}$ shrinks around the biased mean).
-5. Under what condition should the design effect be fixed at one by decision and not measured? (answer: a full census or declared uniform weights).
-
 ## Bridge
 
 Selection bias, clustering, and sampling volume are formalised in

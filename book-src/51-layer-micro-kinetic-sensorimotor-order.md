@@ -156,20 +156,6 @@ cannot be moved to the instant of the act; it can only be moved in time, to the 
 written by the party that chose the load: the margin as a specification before the run, the record in the form that specification defines. That is
 the order's liability finding. In a loop too fast to audit, the payer is structurally absent from the two places where the decision is written down.
 
-## Exercises
-
-1. **Stopping distance under friction decay:** with the reaction latency held fixed, say how a control rule that classifies a trajectory by the
-   slack before an absorbing boundary misjudges a clearance sized for dry-road friction when the pavement is wet.
-2. **Dreaming against the surface claim:** say why raising the exploration temperature repairs the dream exploit
-   and leaves the friction deficit untouched, and which of the two failures a syntactic certificate over declared premises can see.
-3. Reproduce the stopping distance symbolically at two friction coefficients, and say whether a dry-surface margin with a fixed slack is still
-   admissible on wet asphalt (answer: the friction term enters as $1/\mu$, so a small adhesion deficit is amplified into a deficit larger than the
-   slack, and the dry margin is short).
-4. Take the fold at the root of $\mathcal{G}\_1$, whose ancestor cone is empty, and say why the fold there is the order's own reading rather than an inherited one; then say what the outgoing edges — read off the blockquotes of the chapters that name this layer as a layer they build on — do and do not license about the orders they reach.
-5. **The declaration before the measurement.** Declare the state of one limb twice — as endpoint error, then as the rate at which contact force
-   changes — and say which declaration makes the ratio of §1 computable inside the loop, and which of the two a clearance specification is able to
-   certify.
-
 ## Bridge
 
 From the root of $\mathcal{G}\_1$ (`in-degree = 0`), micro-kinetic sensorimotor control

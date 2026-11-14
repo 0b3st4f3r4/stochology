@@ -70,14 +70,6 @@ None of the three sites can be repaired by the other two, and that is the operat
 2. Derive the dependence of a survival rate on the observed window, and say what a durability comparison conducted on young deposits licenses and what it does not.
 3. Keep a corpus share and a population share apart in the sentence that carries them, and state the three things a claim must print for a later reader to recompute its frame.
 
-## Exercises
-
-1. **The product structure.** From $P(S \mid A) = P(D \mid A)P(B \mid D)P(S \mid B)$, say which factor a change of excavation method moves, which factor the deposit's chemistry moves, and which of the two an archive can improve.
-2. **Two windows, one material.** With $S(T) = e^{-\lambda T}$ and $\lambda\_{1} < \lambda\_{2}$, compute the ratio $S\_{1}/S\_{2}$ at two window lengths and say what a historian who pooled the two sites into one durability ranking would report.
-3. **The promotion.** A corpus reports a share of a class. Write the two statements that share could be, name the quantity that separates them, and say what the record contains that would let a reader check which one was meant.
-4. **Indexed by deposit.** A single missingness correlation is asserted for a whole civilisation. Say what is wrong with the assertion, and whether collecting more sites from the same civilisation repairs it.
-5. **The narrow case.** Describe a claim whose target is the archive itself, and say what would make the same sentence a promotion if the target changed.
-
 ## Bridge
 
 Layer 23 hands forward the filter and its window: which part of the past a deposit admitted, at what rate that admission moves with the age of the archive, and who signs the reading of survival as representation. The filter it describes is chemistry and transport; the deposit an institution made with an interest in what the file would later be able to say is not described here, and is the subject of [Chapter 74, *Critical Archival Studies, Transitional Justice & Subaltern Testimony Order*](74-layer-critical-archival-transitional-justice-order.md).

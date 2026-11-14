@@ -303,14 +303,6 @@ the smallest working example of the shape: they return a set rather than a numbe
 to be assumed before a number existed. When the region decides nothing, the honest sentence is not *the effect lies in
 this interval* but *every action survives this interval, and we are choosing on grounds the interval cannot see*.
 
-## Exercises
-
-1. Derive the width of the Manski ATE bounds from $p = P(D=1)$ and the two conditional means, and show that the derivation leaves no freedom in the width at all (answer: the two ends differ by $(1-p) + p = 1$).
-2. Compare the error contributed by a design failure with the width of the widest interval the chapter can certify, and say which is the dominant source of error (answer: the design; precision cannot move an estimand that has been shifted).
-3. Construct a case in which the Lee interval excludes the true effect (answer: non-monotone selection, where people leave treatment for a reason related to the gain).
-4. Give a test at its full declared power that informs nothing and name the missing quantity (answer: an irrelevant effect tested; the cost of the third kind of error is missing).
-5. State the procedure for deciding from an interval instead of a point (answer: decide on the worst case of the interval under the declared threshold).
-
 ## Bridge
 
 Severe testing, partial-identification bounds, and confidence adjustments are formalised in

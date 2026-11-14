@@ -54,14 +54,6 @@ The residue after the general case is what this order contributes that no other 
 2. State the cost of locating the mark inside the speech act rather than beside it — unrepairability and the one-hop limit — using the geometric decay of warrant across reporting hops.
 3. Explain why declaring a source does not transfer liability, and identify the point in the citation chain at which the obligation loses its addressee.
 
-## Exercises
-
-1. **Obligatory against optional.** With $M$ the evidential value of a declarative sentence, contrast $P(M = \varnothing) = 0$ with $P(M = \varnothing) > 0$ and say what a reader can and cannot infer from an unmarked sentence in each case.
-2. **The one-hop limit.** Using $w\_k = \prod\_{i=1}^{k}(1-\varepsilon\_i)$, say what the morpheme certifies about $k$ and what it leaves the record unable to state, and whether a second grammatical slot would fix it or merely move the regress.
-3. **Declaration as a second act.** Give a case in which a speaker names a source and the naming increases rather than decreases what the speaker is answerable for, and say which of the three sites the case turns on.
-4. **The translation.** A record is quoted in a language without obligatory evidentiality. Say which of the three sites loses its object first, and what a receiving institution could add to its citation practice that would not rebuild the grammar.
-5. **Reading the signature.** Explain why $(1, 0, 2)$ is a vital axial exposure rather than an epistemic one, in terms of where a stop-work trigger would have to sit.
-
 ## Bridge
 
 Layer 21 closes the stratum's account of the warrant a sentence carries before anyone reads it: the provenance is filled by the grammar, the filling is part of the act, and the obligation it creates belongs to the speaker who is no longer present when the sentence is quoted. What it leaves is the case in which the source is not a person but a copy, where the question is no longer how the speaker came to know, but how many independent times the thing was known at all. [Chapter 72](72-layer-philological-epigraphic-textual-order.md) states [Layer 22](72-layer-philological-epigraphic-textual-order.md), *Philological, Epigraphic & Textual Order*, and begins from the witness that has no memory and no liability: the manuscript.

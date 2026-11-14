@@ -304,13 +304,6 @@ peek must budget the width up front, and a modest number of looks can spend a la
 any data is seen. The modern consolidation of that idea into a working toolkit for sequential experiments is recent
 (Ramdas et al. 2023), and it changed practice mostly by making the budget explicit.
 
-## Exercises
-
-1. Convert $E\_T = 100$ and $E\_T = 1000$ into decibans (answer: $20.0$ and $30.0$).
-2. Derive the false-positive inflation $1 - (1 - \alpha)^n$ for $n$ looks at nominal level $\alpha$, and say why it grows with the number of looks (answer: each look is an independent chance to cross the level, so the union bound saturates toward one).
-3. Show when a fixed test is preferable and why (answer: a single look, where it has more power at the same level).
-4. State what to do when the observed datum has probability zero under the model (answer: widen the support and declare it; the likelihood ratio is undefined).
-
 ## Bridge
 
 [Probability as Language](30-probability-as-language.md) and [Reactive Worlds, Performativity, and Goodhart's Law](48-reactive-worlds-performativity-goodhart.md)

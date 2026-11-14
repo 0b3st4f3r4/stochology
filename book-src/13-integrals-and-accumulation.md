@@ -303,18 +303,6 @@ This thesis fails one regime earlier, where the index does not exceed one. The m
 integral converges and a point estimate of the shortfall has nothing to converge to. Report bounds. Reduce
 exposure. The tail index is estimated with an interval precisely so that this case is recognised (Artzner et al. 1999).
 
-## Exercises
-
-1. Derive the expected shortfall from the value-at-risk by integrating over levels above it, and say why their
-   ratio exceeds one whenever the tail has spread (answer: the shortfall integrates the excess above the
-   quantile, so the ratio measures how much of the tail the quantile refuses to see).
-2. Compute the ratio of the tighter expected shortfall to the looser one and say what it measures (answer: the
-   speed at which the tail grows as the level tightens).
-3. Construct a portfolio for which the quantile is the right measure and say why (answer: a margin requirement
-   set per threshold, where cost is independent of magnitude).
-4. Say how to report risk when the index does not exceed one, and why the point estimate misleads (answer:
-   bounds plus an exposure reduction; the mean does not exist, so a point has no meaning).
-
 ## Bridge
 
 [Distribution and Moment](31-distribution-and-moment.md) and [The Non-Identical, Scale Invariance, Convexity, and Heavy Tails](46-non-identical-asymmetry-heavy-tails.md)

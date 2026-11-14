@@ -89,13 +89,6 @@ The collapses are the missing sites. Without $S\_{\mathrm{epi}}$ a decision rest
 
 The thesis assumes the loss ratio is exogenous, that whoever applies the threshold does not choose its inputs. It fails when the two error costs and the evidence come from one actor — an expert retained by the defendant, a regulator staffed from the industry, an insurer that both prices and audits — and then a hand-derived threshold carries no more authority than the party that set it. A partial-identification bound is the instrument already available. It returns bounds rather than a point whenever the two numbers come from one noisy source, so the procedure is to identify the producer of each input, replace the point with that interval, decide where it lies wholly on one side of the admissible set, and where it straddles take the decision by a rule requiring no comparison at all.
 
-## Exercises
-
-1. Using Keynes's weight, compute the weight of a naked market-share base rate against direct trace evidence, and explain why preponderance requires both a probability above the threshold and a non-trivial weight.
-2. Show how replacing expected harm in $B < PL$ by the convex tail expectation $\mathbb{E}[\phi(X)] = \phi(\mathbb{E}[X]) + \Delta\_J$ raises the required precaution for a catastrophic hazard.
-3. With a burden and a probability-weighted loss in a stated ratio, say whether care is required, and say what changes when the burden rises above the weighted loss (answer: a burden below the weighted loss requires care and one above it does not).
-4. Explain why a more-likely-than-not standard applied to symmetric independent defendants over-awards the class (answer: the total award exceeds the total loss by a factor that grows with the number of defendants).
-
 ## Bridge
 
 In $\mathcal{G}\_{1}$, Layer 32 (`{T1Framing, T4Formalization, T7Liability}`) opens edges to high-hazard infrastructure safety ([Layer 34](84-layer-infrastructure-nuclear-hydraulic-safety-order.md)) and polycentric commons governance ([Layer 35](85-layer-polycentric-commons-urban-biospheric-order.md)). Because `L32` is **not** a parent of `L33` in $\mathcal{G}\_{1}$, the next chapter, [Chapter 83, *Layer 33: Distributed Consensus, Fault-Tolerant Computing & SRE Order*](83-layer-distributed-consensus-sre-order.md) (`{T5Temporal, T6Performative, T7Liability}`), instead builds on [Layer 02](52-layer-meso-buffered-queue-order.md), [Layer 03](53-layer-macro-coupled-topology-order.md) and [Layer 10](60-layer-cryptographic-zero-knowledge-adversarial-order.md), inheriting its severity guard from that last order.

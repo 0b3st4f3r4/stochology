@@ -96,7 +96,7 @@ The textbook ([`book-src/`](book-src/), table of contents in [`SUMMARY.md`](book
 3. **If you are picking one chapter:** Part V is self-contained by stratum; each chapter opens with the layer it carries, the guard triple it occupies, and the order it argues.
 4. **If you want the whole program in one pass:** Chapters 29 and 41, then Appendix B.
 
-Every chapter keeps the same spine: three stated outcomes, the worked sections, exercises, and one closing bridge to the next chapter. No chapter requires a computation the chapter does not show.
+Every chapter keeps the same spine: three stated outcomes, the worked sections, and one closing bridge to the next chapter; the exercises are retired pending an interactive companion. No chapter requires a computation the chapter does not show.
 
 ---
 

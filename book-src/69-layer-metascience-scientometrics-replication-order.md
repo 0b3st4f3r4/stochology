@@ -109,14 +109,6 @@ every stopping rule pays out less on a single true effect than a test calibrated
 out of the denominator of §1 by making peeking and pooling harmless; it does nothing for $R$, which no procedure applied to published results can
 recover, and nothing for the deployment that §3 showed outruns the audit.
 
-## Exercises
-
-1. In the predictive value at a given pre-study odds, nominal rate, power and analyst freedom, evaluate it for $u = 0$ and for $u > 0$, and say which term carries the change.
-2. Explain how rewarding publication volume without preregistration drives Goodhart collapse across competing laboratories, and which of the four reflexive brakes a registry of hypotheses installs.
-3. Say which term of the predictive value moves it most when the analyst has freedom at a fixed prior and power, and why that term is the one a reform can reach (answer: the freedom term, which enters the denominator as a multiplier on the false-positive rate).
-4. Say why trim-and-fill must fail where heterogeneity is present, and why the interval between two bounded estimates is the finding (answer: the imputation reads a threshold artefact as a missing tail).
-5. Take the selection example with a narrower range of standard errors, and say why the same true effect would then look more honest in the archive.
-
 ## Bridge
 
 Layer 19 (`{T2Severity, T3Archive, T6Performative}`) opens an edge to retrieval ([Layer 25](75-layer-media-ecology-information-retrieval-order.md)). Because `L19` is **not** a parent of `L20`, [Chapter 70, *Layer 20: Acoustic, Aesthetic, Tragic & Pedagogical Formative Order*](70-layer-acoustic-aesthetic-tragic-pedagogical-order.md) draws its ancestor cone from [Layer 01](51-layer-micro-kinetic-sensorimotor-order.md), [Layer 08](58-layer-metrological-information-geometric-order.md) and [Layer 16](66-layer-pharmacological-clinical-diagnostic-order.md).

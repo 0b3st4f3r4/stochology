@@ -155,19 +155,6 @@ construction, not by argument. The frame of §1 has come back as the instrument 
 this order's triple is intact: the clock of §2 times something only because a criterion of sameness says
 what is being timed, and the readout of §3 decides when the timing has arrived.
 
-## Exercises
-
-1. Derive $\lambda = \sqrt{D\tau}$ from the steady-state balance, then derive $x^{*} = \lambda\ln(c\_0/c^{*})$.
-   Say which of the three parameters moves the boundary and which only changes its steepness.
-2. Show that the escape time from a basin is exponential in the barrier over the noise. Explain why that
-   makes canalization a sharp transition in the parameters and a gradual one in time, and what a claim of
-   stability therefore has to report besides the shape of the valley.
-3. Construct a case in which the three criteria of sameness — across individuals, across time, across
-   regeneration — give different answers about the same specimen, and say which criterion a published assay
-   has silently adopted.
-4. State what the chaperone buffer is in the vocabulary of this order, and what its maturity date implies
-   for any claim that a form is stable because it has not yet changed.
-
 ## Bridge
 
 The next chapter is [Chapter 63, *Layer 13: Immunological Self-Governance Order*](63-layer-immunological-self-governance-order.md).

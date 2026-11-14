@@ -304,13 +304,6 @@ not indefinitely but as a fractional probe: buy part of the protection, read the
 option to complete or abandon. A reversible decision is priced by its reversal cost, not by its estimated
 probability, and this chapter's claim holds only for decisions that carry no such option.
 
-## Exercises
-
-1. Compute $p^\ast$ for $C = 50$, $\eta = 0.5$ and $L = 400$ (answer: $50/(0.5\times 400) = 0.25$).
-2. Keeping $C$ and $\eta$ symbolic, find the loss $L$ at which $p^\ast$ falls below a stated level $p\_{\mathrm{bar}}$, and say why the required loss grows without bound as $\eta \to 0$ (answer: $L > C/(\eta\mkern3mu p\_{\mathrm{bar}})$; a shield that protects almost nothing must be nearly free to be worth carrying at any low probability).
-3. Construct a case in which waiting is rational and name the premise of section 3 that it overturns (answer: a reversible decision whose reversal cost is below $pL$; what falls is "the decision cannot be reversed").
-4. State the invalidation condition of this chapter's thesis and the procedure once it is violated (answer: when the action is reversible, replace the fixed threshold by the comparison with the reversal cost and act as a fractional probe).
-
 ## Bridge
 
 The rest of Part I takes the ideas in this chapter apart and puts them back together with names.

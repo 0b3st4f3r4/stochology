@@ -70,14 +70,6 @@ What the order contributes is a demonstration: a classification can be epistemic
 2. State why a name is anchored to a type rather than to a kind, and why the count of names is not the count of kinds.
 3. Say why the name is the vital object of the order, and why its erasure falls hardest at the edges of the kind.
 
-## Exercises
-
-1. **Framing before evidence.** Two systematists agree on every measurement and disagree about which measurements are characters. Say what kind of disagreement this is, and why no further measurement settles it.
-2. **The many-to-one map.** With names mapping many-to-one onto kinds, say what an archive's holdings count measures, and give the two distinct reasons the count can rise without a kind being added.
-3. **Ordinal invariance.** Show that a nested hierarchy is compatible with different rank assignments, and say what the hierarchy therefore cannot record about the cut.
-4. **The tail.** Explain why a name handles typical material better than atypical material, and why that pattern is a property of the summary rather than of the material.
-5. **Reading the signature.** Explain why $(2, 1, 0)$ is a governance axial exposure, and why importing a contestation procedure would be an archival operation rather than a governance site.
-
 ## Bridge
 
 Layer 14 closes with an instrument that acts where its authors are not: the name is anchored to one dated individual, it travels without the material it summarises, and the cases it handles worst are the ones at the edge of the kind. What the chapter hands on is the residue — the category that grows because every scheme must decide each case, and the party that bears the growth is not a party to the decision. [Chapter 65](65-layer-stratigraphy-paleobiology-deep-time-order.md) states [Layer 15](65-layer-stratigraphy-paleobiology-deep-time-order.md), *Layer 15: Stratigraphy, Paleobiology & Deep-Time Order*.

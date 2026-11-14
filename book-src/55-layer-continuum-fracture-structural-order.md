@@ -171,23 +171,6 @@ fold, owned by whom.
 3. Say where the liability for a margin settles when the load and the inspection belong to different
    parties, and why the record, not the decision, becomes the evidence after a failure.
 
-## Exercises
-
-1. Carry out the energy balance for a crack of length $2a$ in a plate of unit thickness, recover $a\_{c}$, and
-   then compute what happens to the tolerated length when the remote tension is multiplied by $\lambda$. Say
-   what the answer implies for an inspection whose resolution was fixed before the load was raised.
-2. Show that the barrier height at the critical length is $2\gamma a\_{c}$, and say why a criterion stated as a
-   critical length and a criterion stated as a critical energy release rate are the same criterion only while
-   the load is held fixed.
-3. Take the quartic potential with imperfection $h$, derive the limit load $\mu\_{\max} \propto h^{2/3}$, and
-   say what the exponent does to the intuition that a flaw below tolerance is a flaw without consequence.
-4. Compose $N$ independent Weibull members into a chain and derive the system scale $r\_{0}N^{-1/m}$. Say why
-   the mean strength of the members does not appear, and what that implies for a test programme that samples
-   members from the middle of the population.
-5. Write the negligence comparison as an inequality, mark which of its three quantities is known to which
-   party, and say what happens to the comparison when the burden is borne by one party and the loss by
-   another. Then say which of the three diagnoses of §4 the resulting failure would receive.
-
 ## Bridge
 
 This chapter delivered a threshold that belongs to the flaw, not to the load, a fold that is the

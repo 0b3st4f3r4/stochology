@@ -299,13 +299,6 @@ to any continuous-time path (Itô 1951), and the rule that turns it into a sizin
 1956). Both predate any particular price series, so the overestimate is a property of the arithmetic, not a
 finding about the Dow.
 
-## Exercises
-
-1. Derive the ratio of time-average drift to ensemble drift, $1 - \sigma^2/(2\mu)$, and the share of expected growth that no single trajectory ever experiences.
-2. Given a yearly drift $\mu$ and volatility $\sigma$, write the time-average drift and say when it turns negative (answer: $\mu - \sigma^2/2$; negative once $\sigma^2 > 2\mu$).
-3. Find the volatility that annihilates the time drift at a given $\mu$ and say what follows (answer: $\sigma = \sqrt{2\mu}$; above it the typical path loses).
-4. State when the ensemble average is the correct quantity and how to reach it (answer: many independent units with rebalancing; replicate the unit instead of extending the series).
-
 ## Bridge
 
 [Distribution and Moment](31-distribution-and-moment.md) examines the mechanics of sample convergence, while

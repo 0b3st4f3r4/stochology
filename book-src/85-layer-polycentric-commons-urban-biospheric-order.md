@@ -67,13 +67,6 @@ The thesis is that a commons governed by many centres has a margin equal to the 
 
 Luhmann's systems theory would stop the argument one step earlier. On his account there is no society as a whole over which a minimum could be taken, only functionally differentiated systems that observe one another, and negation is an operation of the observer rather than a property of the object (Luhmann 1984). The reply is that the minimum is not asserted of a society; it is asserted of a circuit whose boundary can be drawn and whose three axes can be read off records. Where the boundary cannot be drawn, the invalidation condition above already says the thesis does not apply.
 
-## Exercises
-
-1. Take the cumulative fold as a minimum over the three axes of every order, and show which ancestor of the final order carries each folded axis. Then say why a single weak epistemic layer fixes the closure at that layer's margin and the closure reports Blind Undersizing.
-2. Map Ostrom's eight principles onto `T3Archive`, `T5Temporal` and `T7Liability`, using the basin width for the regeneration condition and the three-plane closure for the last one.
-3. With axis scores whose minimum is far below their arithmetic mean, write the Leontief margin and the mean, and say which of the two an institution should publish (answer: the minimum, because the mean carries a dead axis).
-4. Explain why the closure uses a minimum rather than an average (answer: an average lets one dead axis be carried by two healthy ones).
-
 ## Bridge
 
 Layer 35 (`{T3Archive, T5Temporal, T6Performative}`) closes the thirty-five-layer bijective simplex ($\binom{7}{3} = 35$) of Part V across all seven strata and all ancestor cones, which is the last word of the architecture and the first question of its formal reference, [Appendix A](appendix-a-mathematics.md).

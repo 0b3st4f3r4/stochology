@@ -456,29 +456,6 @@ That invalidates the chapter's final claim. Self-application is verifiable only 
 
 A falsifier reported with its band is worth more than one reported with its verdict, because the band tells a reader whether the verdict was a finding or a setting. The chapter's closing claim is that a programme stating the arithmetic that would refute it has earned the right to be applied to other people's decisions. The claim survives, weaker and defensible. It has earned that right when the stated arithmetic cannot be adjusted afterwards, which is a claim about sealing, and therefore one this book has already made.
 
-## Exercises
-
-1. **Failing a Hoop Test and Deciban Dynamics in Process Tracing:**
-   Suppose a historical investigator is evaluating hypothesis $H$ against rival $\neg H$ with prior $p\_0$, initial knowledge $K\_0$ and initial ignorance $I\_0$. The investigator uncovers a smoking gun with $p\_H$, $p\_{\neg H}$ and a knowledge increment, observed. A second clue is a decisive hoop test whose document the archives reveal was **never written**.
-   - Calculate the active likelihood ratio $\mathrm{LR}^-$ and its deciban contribution.
-   - Compute the cumulative decibans, the posterior odds and the posterior probability.
-   - Explain why the inference flags the hoop as refuted even if the posterior probability remains above one half, and relate this to Karl Popper's asymmetry between falsification and confirmation.
-2. **Analytical Lebesgue Volume Contraction Proof:**
-   Consider an institution choosing between pure Leontief aggregation $M\_{\mathrm{Leontief}} = \min(S\_1, S\_2, S\_3) \ge \tau$ and multiplicative product aggregation $M\_{\mathrm{prod}} = S\_1 S\_2 S\_3 \ge \tau$ over safety scores $(S\_1, S\_2, S\_3) \in [0, 1]^3$ at threshold $\tau$.
-   - Compute the analytical feasible volume $V\_{\min}(\tau) = (1-\tau)^3$.
-   - Using $V\_{\mathrm{prod}}(\tau) = 1 - \tau + \tau \ln\tau - \frac{\tau}{2}(\ln\tau)^2$, show that the contraction ratio grows as $\tau$ rises, and say at which end of the threshold range the two aggregators coincide.
-   - Explain why multiplicative gate products cause organizational burnout when applied across five independent operational divisions.
-3. **Pre-Registered Falsifier Power and Severity Calculations:**
-   Design a pre-registered empirical falsifier $F\_{\mathrm{test}}$ to evaluate whether an institutional governance safeguard prevents multitask proxy gaming, with a substantive harm-reduction cutoff $\delta\_{\min}$ and paired differences of standard deviation $\sigma\_d$.
-   - At one-sided significance level $\alpha$ and power $1 - \beta$ (positive upper quantiles $z\_{1-\alpha}$ and $z\_{1-\beta}$), compute the required effective sample size $n\_{\mathrm{eff}}^{\mathrm{req}}$, the planned standard error $\mathrm{SE}\_{\mathrm{plan}}$, and the planned pre-data cutoffs $d\_{\mathrm{crit}}^{\mathrm{plan}}$ and $d\_{\mathrm{corrob}}^{\mathrm{plan}}$, keeping the quantiles symbolic.
-   - Distinguish the between-cluster pairing design ($\sigma\_d^2 = 2\sigma^2$, with $\mathrm{DEFF}\_{\mathrm{cluster}} = 1$ at one pair per cluster or $1 + (\tilde{m} - 1)\rho\_I$ when a cluster supplies $\tilde{m}$ pairs) from the within-cluster pairing design ($\sigma\_d^2 = 2\sigma^2(1 - \rho\_I)$ after the cluster shift $u\_c$ cancels, assuming no residual pair-level correlation so $\mathrm{DEFF}\_{\mathrm{cluster}}$ is not double-charged). Show that both Kish weighting ($\mathrm{DEFF}\_{\mathrm{Kish}} = n\sum w\_i^2/(\sum w\_i)^2$) and the uncancelled selection term $((1-f)/f)\bar{\rho}^2$ apply in **both** designs, and compute how many raw pairs must be audited in each case.
-   - Given a realized effective sample size $n\_{\mathrm{eff}}$ and $\mathrm{SE}\_{\mathrm{obs}} = \sigma\_d/\sqrt{n\_{\mathrm{eff}}}$, write the realized post-data cutoffs $d\_{\mathrm{crit}}^{\mathrm{obs}}$ and $d\_{\mathrm{corrob}}^{\mathrm{obs}}$, evaluate Deborah Mayo's post-data refutation severity $\mathrm{SEV}\_{\mathrm{fals}}(\bar{d}\_{\mathrm{obs}})$ for an observed mean harm reduction $\bar{d}\_{\mathrm{obs}} \le d\_{\mathrm{crit}}^{\mathrm{obs}}$ (confirming the equivalence $\bar{d}\_{\mathrm{obs}} \le d\_{\mathrm{crit}}^{\mathrm{obs}} \iff \mathrm{SEV}\_{\mathrm{fals}}(\bar{d}\_{\mathrm{obs}}) \ge 1 - \alpha$), say whether the safeguard is refuted or corroborated, and state the $\delta\_{\min}$ inversion band $\bar{d}\_{\mathrm{obs}} \pm z\_{1-\alpha}\mkern3mu\mathrm{SE}\_{\mathrm{obs}}$.
-4. **Scarf–Samuelson Welfare Optimization vs. Bureaucratic Hoarding:**
-   An emergency food bank maintains an inventory buffer $R \ge 0$. Precautionary security is modeled by a logarithmic benefit $\kappa \ln(1 + R)$, while the marginal social cost of withholding rations from starving families today is $c\_{\mathrm{urgent}}$ per unit.
-   - Solve for the socially optimal precautionary buffer $R^\ast$.
-   - Compute net social welfare $W(R^\ast)$ and $W(R\_{\mathrm{hoard}})$ for a hoarded buffer far above the optimum.
-   - How does Reflexive Brake 2 use this calculation to prevent bureaucratic hoarding?
-
 ## Bridge
 
 The framework closes on a scalar, five methodological families, process tracing and four pre-registered

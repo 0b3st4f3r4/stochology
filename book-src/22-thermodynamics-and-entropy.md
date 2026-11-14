@@ -278,13 +278,6 @@ never present it as proof. A dissipation metaphor that cannot be evaluated is a 
 entropy does not decrease in a closed system and that statement is quantitative before it is rhetorical
 (Clausius 1865).
 
-## Exercises
-
-1. Derive the entropy export rate $\dot{S}\_{\mathrm{out}} = P/T\_0$ for a plant of power $P$ rejecting heat into ambient air, and show which of the two quantities an efficiency programme can actually move.
-2. Derive the Landauer bound $k\_B T \ln 2$ per erased bit and show why a register of any feasible size still cannot make the bit floor the binding constraint on a computation.
-3. Show a case in which holding a reserve is worse than paying a continuous flow (answer: an abundant source with a linear cost, where a large reserve becomes idle capital).
-4. State when the entropic analogy stops holding and what replaces it (answer: when no heat flow and no temperature are defined; use declared work flow as the analogy).
-
 ## Bridge
 
 [Irreversible Time, Non-Ergodicity, and the Vital Margin](47-irreversible-time-vital-margin.md) translates the

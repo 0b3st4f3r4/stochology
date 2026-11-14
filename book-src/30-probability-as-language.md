@@ -247,14 +247,6 @@ A second clause is about the arithmetic of rescue: every *ad hoc* auxiliary adju
 
 The language must be refused when the event happens once and the bet is not divisible, because no frequency exists for it and the probability has no referent. The procedure is to replace the probability by an order of magnitude with its class declared, using the invariant statistics of dominance, and to say that the substitution was made rather than to leave the reader with a number that looks like a frequency.
 
-## Exercises
-
-1. Derive how the anytime-valid radius $r\_t(\alpha)$ scales with the dispersion $\sigma$, and explain why doubling $\sigma$ doubles the width while doubling $t$ does not halve it.
-2. Derive the deflation of the evidential wealth by $K$ *ad hoc* adjustments and express the damage in decibans, and say why the deflation is multiplicative rather than additive.
-3. Explain why looking at the result after every step and stopping when it "worked" invalidates a nominal interval (answer: the stopping time is chosen by looking at the data; the nominal level assumes it was fixed in advance).
-4. Give a single, non-repeatable event for which the probabilistic language must be refused, and say what replaces it (answer: a one-off event; an order of magnitude with its class declared).
-5. Show why "more data always solves it" is false at small $t$, by expanding the anytime-valid radius and comparing its rate of decay with the fixed-sample rate.
-
 ## Bridge
 
 Sequential evidence and anytime validity are formalised in

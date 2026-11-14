@@ -290,14 +290,6 @@ the result a buffer. The rate law underneath the analogy saturates: response ris
 flattens. A reserve sized on the linear part of that curve is sized for a regime the system leaves the moment
 the load arrives.
 
-## Exercises
-
-1. Derive $\beta\_{\max} = \frac{2.303}{4} C\_{\mathrm{buf}}$ from Van Slyke's equation, and say at which composition of the conjugate pair the maximum sits.
-2. Derive the Arrhenius ratio $k(T\_2)/k(T\_1)$ and say why one barrier multiplies the rate by a larger factor over a colder window.
-3. Derive $v/V\_{\max}$ in the two Michaelis–Menten limits, far below ($C \ll K\_m$) and far above ($C \gg K\_m$) the half-saturation constant, and say which regime a buffer sized on the linear part assumes.
-4. Construct a case where the buffer is the wrong answer and say what to do instead (answer: a chronic disturbance exhausts it; cut the flow).
-5. Say when the chemical analogy invents a conservation and what replaces it (answer: an open system with creation or destruction; an explicit balance).
-
 ## Bridge
 
 [Regulation and Homeostasis](26-regulation-and-homeostasis.md) explores cybernetic feedback and queue congestion,

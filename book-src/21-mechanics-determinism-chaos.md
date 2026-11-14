@@ -302,13 +302,6 @@ then indeterminate. Declare the resolution and the maximum horizon it implies, a
 beyond it. The one exception is a predictable aggregate, whose error falls as $1/\sqrt{N}$, and it is about the
 ensemble rather than the individual path.
 
-## Exercises
-
-1. Derive $t\_{\mathrm{horizon}} = \lambda\_{\max}^{-1}\ln(\epsilon/\delta\_0)$ from the assumption of exponential separation, and show that a tenfold finer initial measurement buys a fixed additive increment rather than a tenfold longer horizon.
-2. Derive the Landauer floor $\Delta Q \ge k\_B T \ln 2$ and argue why the cost of erasing the whole state of a large register stays negligible against the energy the computation spends.
-3. Show a case in which the aggregate is predictable despite individual chaos (answer: the mean of $N$ independent trajectories, whose error falls as $1/\sqrt{N}$).
-4. State what to do when the initial error is below the resolution of the instrument (answer: declare the resolution and the maximum horizon; do not report a point forecast).
-
 ## Bridge
 
 [Time and Dependence](38-time-and-dependence.md) analyzes the amplification of variance across dynamic loops,

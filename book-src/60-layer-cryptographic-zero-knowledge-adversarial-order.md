@@ -78,19 +78,6 @@ soundness survives only in the random-oracle model, where a prover can re-draw i
 rejections buy it a factor $g$ of advantage the martingale never counted. State soundness in the random-oracle model, price the grinding budget
 inside the adversary's advantage, and forbid challenge reuse, the only part of that surface a seal check can see.
 
-## Exercises
-
-1. **Soundness against a greedy verifier:** if a verifier challenges across $k$ independent rounds with per-round cheating probability
-   $\varepsilon$, show how the evidence capital accumulates as an anytime-valid process while a single-opening seal prevents retroactive witness
-   substitution.
-2. **Verification latency against survival time:** construct a protocol that is sound and still triggers **Collapse Proposition 2**, because
-   verification takes longer than the horizon the process has left.
-3. With per-round soundness error $\varepsilon$ and a target $\alpha$, how many rounds are needed, and how many fit a verification horizon at a
-   fixed per-round cost (answer: $\lceil\ln(1/\alpha)/\ln(1/\varepsilon)\rceil$ rounds, and the margin is the ratio of that count to the number the
-   horizon pays for).
-4. Name the condition under which a physical adversary breaks the guarantee, and the procedure that keeps the claim honest (answer: cache side
-   channels or fault injection; state the adversary model and measure the verification cost in the units of the horizon).
-
 ## Bridge
 
 Completing its stratum (Stratum II),

@@ -238,12 +238,6 @@ The form this chapter builds (convex harm, a finite reserve, an absorbing barrie
 
 The thesis under test is that the absorbing barrier is the binding criterion and that the three margins are the answer to it. The condition that invalidates the thesis is a mismatch of horizons: the loop presumes that the agent whose reserve is being drawn lives at least as long as the ruin accrues. Where the accounting period is shorter than the recovery latency (a four-year mandate against a forty-year aquifer) the terminal reserve is not an outcome for the decider but an externality handed to a successor, and the instruction to preserve it has no addressee. The procedure when the condition fails is not to argue about the optimiser. Set the loop's horizon to $T = \max(T\_{\mathrm{episode}},\mkern3mu \mathrm{TTR}\_{\mathrm{recovery}})$, using the recovery latency the vital margin already computes, and bind the decision with a pre-outcome commitment that outlives the tenure: an append-only sealed record of the ex-ante state, which Chapter 49 formalises. Where no such commitment can be sealed, the episode-level optimum is quotable only as a lower bound on the institutional one.
 
-## Exercises
-
-1. **Lean Utilization Trap:** Take a policy that provisions capacity at the raw archive mean divided by a target utilisation and keeps the epistemic margin switched off. Why does it still underestimate crisis surges when the vulnerable clusters are substantially under-recorded? Answer in terms of Meng's selection correlation and Kingman's factor, and say which of the two the utilisation target moves.
-2. **Independent Exogenous Streams:** Why does drawing the environment's shocks from a substream dedicated to the time step guarantee that changing an agent's internal random draws never shifts the exogenous shocks? Give the argument in terms of non-interference between streams, and say what breaks if the environment and the agent share one source.
-3. **Vulnerability Shift and Time-to-Ruin Sensitivity:** Raise the vulnerable cluster's baseline need, or thicken the Pareto tail by lowering $\alpha$ toward $1$. How does $\tau\_{\mathrm{ruin}}$ for the naive rule move toward $t = 1$, and why does raising the initial reserve $R\_0$ provide only linear delay against power-law tail shocks?
-
 ## Bridge
 
 This chapter hands forward a loop and a defect. The loop is the one every later chapter runs: an

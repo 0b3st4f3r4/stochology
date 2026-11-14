@@ -336,14 +336,6 @@ becomes visible. The counting rule for effective sample belongs to the survey tr
 (Kish 1965), and the conditioning is the other half of the story: a rank recounted on nearly collinear columns
 produces a system whose solve is only as accurate as its condition number.
 
-## Exercises
-
-1. Compute the effective sample size from a nominal row count $n$ and a design effect $\mathrm{DEFF}$, then compute Keynes's evidential weight $V = n\_{\mathrm{eff}}/(n\_{\mathrm{eff}} + n\_0)$, and say how $V$ moves when the design effect doubles.
-2. Derive the relative deviation of the norm $1/\sqrt{2d}$ and say what it implies for distance comparisons at small and at large $d$ (answer: at small $d$ the fluctuation is a large fraction of the norm, and it vanishes only as $d$ grows).
-3. Count the monomials of the algebraic normal form for parity in $d = 3$ and the points of the domain (answer: three monomials and $2^3 = 8$ points, four of them with value one).
-4. Show a case where the linear model is exact and why the nominal dimension is then correct (answer: affine relations in $\mathbb{R}^d$ with no interaction, where the rank equals $d$).
-5. State when more rows do not buy information and what the right procedure is (answer: when the design effect dominates; reduce the clustering instead of adding rows).
-
 ## Bridge
 
 [Model, Fit, and Error](37-model-fit-and-error.md) translates orthogonal projections into the classical bias-variance

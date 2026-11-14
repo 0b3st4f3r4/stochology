@@ -275,13 +275,6 @@ power declared" and report the substitution (Gettier 1963), noting the price: ev
 one declared power and one declared failure mode, so an institution that audits a thousand claims a year owes a
 thousand such declarations.
 
-## Exercises
-
-1. Recompute the Gettier fraction $G(p, c) = c/(p + c)$ when the process is right in $p$ cases and $c$ of its misses turn out true by coincidence (answer: $c/(p+c)$, the luck share of the JTB ledger, which rises with $c$ and falls with $p$).
-2. Distinguish the three epistemic substitutes and give an indicator for each (answer: consensus as agreement share, confidence as declared power, pragmatism as observed success).
-3. Construct a case where the distinction makes no difference to any decision and say why (answer: a negligible cost of error with redundancy; the distinction has no practical consequence).
-4. State what to do when the truth is not verifiable in time (answer: audit the process with a severe test and its power declared; do not declare knowledge).
-
 ## Bridge
 
 [What Judging Is, and What It Is Not](27-what-judging-is.md) and [Inference and Evidence](35-inference-and-evidence.md)

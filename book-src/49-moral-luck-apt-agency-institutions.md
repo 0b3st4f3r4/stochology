@@ -332,22 +332,6 @@ The negative-pressure test on the Macondo well in April 2010 is the dated instan
 
 The procedure makes ex-ante distinguishability a precondition of the ex-post gate. Before the outcome, name the observation that would separate competent from incompetent performance. Where none can be named, record the case as undetermined and allocate liability by institutional design (who chose the option set, who set the clock) and not by the agent's grade. A commitment that stores an indistinguishable record converts moral luck into administrative luck, which is a change of venue, not a remedy.
 
-## Exercises
-
-1. **Chouldechova's Fairness Disparity Under Shifting Base Rates:**
-   Using Chouldechova's identity $\mathrm{FPR}\_g = \mathrm{odds}(p\_g) \frac{1 - \mathrm{PPV}\_g}{\mathrm{PPV}\_g} (1 - \mathrm{FNR}\_g)$, suppose an institutional credit or triage algorithm achieves predictive parity ($\mathrm{PPV}\_1 = \mathrm{PPV}\_2 \in (0, 1)$) and equal opportunity ($\mathrm{FNR}\_1 = \mathrm{FNR}\_2 < 1$) across two populations with base rates $p\_1 \ne p\_2$ in $(0, 1)$.
-   - Write the exact $\mathrm{FPR}$ for each group.
-   - Show that the disparity ratio $\mathrm{FPR}\_1 / \mathrm{FPR}\_2$ equals the base-rate odds ratio exactly, and that the equality holds at every choice of the shared positive predictive value $\mathrm{PPV} \in (0, 1)$ and false-negative rate $\mathrm{FNR} \in [0, 1)$.
-   - Say which of the two error rates the institution is thereby choosing to unequalize, and why that choice is a political question rather than a technical one.
-2. **List–Pettit Discursive Dilemma and Veto Design:**
-   Construct a voting matrix for five committee members auditing a high-stakes civil defense deployment requiring Epistemic ($P\_1$), Vital ($P\_2$), and Governance ($P\_3$) clearance.
-   - Design votes such that every member rejects deployment, yet premise-majority voting approves each individual premise by three of five.
-   - Explain why an institutional constitution that decides deployment by premise-majority creates catastrophic group irrationality, and show how a conjunctive brake repairs it without changing any member's vote.
-3. **Single-Opening Cryptographic Commitment:**
-   Explain how HMAC-authenticated pre-registration prevents Baron & Hershey's outcome bias from rewriting the ex-ante evaluation standard $C(\pi\_t \mid \mathcal{I}\_{t\_{\mathrm{disp}}})$. What happens when an institution attempts to open the commitment a second time or with modified parameters, and why must the confirmatory flag stay false permanently after such an attempt? Give the argument in terms of what a verifier can check without trusting the institution.
-4. **Collapse Proposition 3 in a Sequential Loop:**
-   Consider an agent that keeps the epistemic and vital margins and switches governance off, running with high proxy pressure and a positive testimonial discount. Trace how the proxy pressure and the discounted testimony pillage the reserve the first two safeguards built: why does the discount suppress algedonic escalation, and why does the proxy transfer reserve surplus into short-term gain that accelerates ruin?
-
 ## Bridge
 
 This chapter hands forward three margins and no rule for combining them. That rule is the last thing the

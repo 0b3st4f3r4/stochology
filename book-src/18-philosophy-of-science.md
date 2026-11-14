@@ -291,13 +291,6 @@ then "not testable", neither acceptance nor rejection. Declare the insufficiency
 it, and postpone the verdict. The falsifier returns exactly that third state, so a small sample cannot be read as
 either answer.
 
-## Exercises
-
-1. For each of four pre-registered falsifiers, compute the ratio of observed to critical effect and say which one refutes (answer: a ratio above one leaves the claim standing, a ratio at or below one refutes it).
-2. Compute the loss of evidential value from $1$, $3$ and $9$ ad hoc adjustments on an evidential value of $90$ (answer: $45$, $22.5$, $9$).
-3. Show a case where naive falsification is correct and say why holism is an excess there (answer: a single hypothesis, a calibrated instrument and empty auxiliaries).
-4. State when no test can be severe and what to do (answer: when power falls below the declared target; declare the case untestable, collect, and conclude nothing).
-
 ## Bridge
 
 [Underdetermination, Partial Identification, and Severe Testing](44-underdetermination-partial-identification.md)

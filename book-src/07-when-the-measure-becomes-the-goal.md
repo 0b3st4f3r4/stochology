@@ -208,13 +208,6 @@ The thesis stops holding when the expected cost of gaming exceeds the gain in th
 collapses once pressure is placed on it for control purposes (Goodhart 1975); the decomposition above
 adds the price tag, not the observation.
 
-## Exercises
-
-1. Write Murphy's decomposition, and say which term dominates when a forecast is perfectly calibrated but never distinguishes a high-risk from a low-risk regime. Then say what an institution that reads only the total score will conclude about that forecast.
-2. From $\theta\_{\mathrm{PS}} = \mu\_0/(1 + \lambda - \varepsilon)$ and $\theta\_{\mathrm{PO}} = (1 - \varepsilon)\mu\_0/((1 - \varepsilon)^2 + \lambda)$, show that the two coincide when $\varepsilon = 0$, and that their ratio grows as $\varepsilon$ approaches $1 + \lambda$. In one sentence, say what that ratio means for an institution that recalibrates without modelling its own effect.
-3. Classify four school metrics under the four variants of section 2, and say which design is most resistant (answer: rewarding single-year cohort jumps is regressional as positive noise reverts toward zero; pushing seat-time occupancy to saturation is extremal once fatigue breaks the historical regime; counting library books without instruction is causal because a correlate is moved without the mechanism; drilling narrow test-format tricks is adversarial; the most resistant indicator sits directly inside the causal mechanism within its calibrated operating range).
-4. Write the price condition that makes gaming unprofitable, and the institutional procedure that follows (answer: $p\mkern3muF > \Delta M$; publish the fine, the audit probability and the ceiling of the indicator).
-
 ## Bridge
 
 [Institution, Incentive, Metric](40-institution-incentive-metric.md) traces how bureaucratic contracts

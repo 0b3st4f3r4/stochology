@@ -339,13 +339,6 @@ the invariance test returns an empty intersection when the candidate
 set cannot be reconciled, which is the way of reporting that the variables it was given do not contain
 the mechanism, and should be read as a refusal to answer, not as a null result.
 
-## Exercises
-
-1. Compute the two group ratios on the same records under both denominators and say which comparison the denominator changes (answer: the ratio of released-who-would-be-flagged against the ratio of those carrying the flag; what changes is not the disparity but the claim about whom the rule sorts).
-2. Say why the number of environments is a design decision in the invariance test (answer: more environments narrow the accepted set and the test's power changes with it).
-3. Explain in one sentence the difference between a bound on the average effect and a prediction about an individual (answer: the bound constrains the mean, the individual can be anywhere inside the support).
-4. Give a case where the counterfactual is not identified and say what the procedure is (answer: non-monotone selection with no instrument; state the identifying assumption and its cost).
-
 ## Bridge
 
 Causal environments and invariant prediction are formalised in

@@ -310,12 +310,6 @@ Two lines with the same margins make the failure exact. Let $X$ and $Y$ be Paret
 
 When the precondition fails, declare the aggregation functional first and bound, not estimate. For a functional of two heavy-tailed arguments the bound has two ends computable from the marginals alone, independence and comonotonicity. Report the bound, name the copula assumption behind each end, and withhold the regime label. The literature that makes the move routine treats ratio and sum as distinct objects of regular variation; they are not functions of a shared exponent (Embrechts et al. 1997). A chapter that classifies regimes is as useful as the functional it classifies, and the functional is a choice made before the data arrived.
 
-## Exercises
-
-1. **Jensen Correction in the Agent's Capacity Sizing:** Explain how the positive part of the difference between the square root of the expected evaluation and the sample mean protects shift capacity when cluster demand has high right-skewness. Derive the correction from $\Delta\_J \ge 0$ and say what it does at the boundary where the gap vanishes.
-2. **Hill Threshold Sensitivity:** Evaluate Hill's estimator on the same loss archive across a range of retained counts $k$. Why does every choice in a wide range confirm the same regime, and what does a *change* of regime across that range tell a planner about the archive?
-3. **Two Tail Regimes at One Quantile:** For a unit-scale Pareto tail, the upper quantile at level $1-p$ is $p^{-1/\alpha}$. Evaluate it at two indices, one above two and one between one and two, and name the statistic each regime still supports: which of the two licenses a sample standard deviation, and which licenses only Hill's index and the shortfall.
-
 ## Bridge
 
 What this chapter delivers is the shape of the loss; what it cannot deliver is the clock. A tail index and

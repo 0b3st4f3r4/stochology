@@ -62,14 +62,6 @@ The comparison with the archival order is where the difference becomes exact. An
 2. Show that the severity scale which makes a stemma possible is reconstructed from the witnesses the stemma orders, and say what the method returns when the fixed point is not unique.
 3. State the limit of parsimony as an ordering — the count of admissible trees against the number of discriminating readings — and say what the apparatus prints in place of a decision.
 
-## Exercises
-
-1. **Nominal against effective volume.** With $n$ witnesses, average cluster size $m$ and intraclass correlation $\rho\_I$, compute $n\_{\mathrm{eff}}$ for the case in which all witnesses descend from one damaged exemplar, and say what a collation of thirty such copies can establish about the archetype.
-2. **The fixed point.** Write the pair of maps $\tau = \hat{\tau}(\sigma)$ and $\sigma = \hat{\sigma}(\tau)$ and construct a two-tree case in which each tree implies an error classification that supports it. Say what the edition can print and what it cannot.
-3. **Counting the trees.** Using $(2n-3)!!$, say how the number of admissible stemmata grows with the number of independent witnesses, and why a longer text does not close the gap at the same rate.
-4. **Stone against manuscript.** Contrast the epigraphic bracket, whose width is set by the physical break, with the philological grade, whose scale is set by the collation. Say which of the two is bounded and why the other is not.
-5. **The missing office.** Name the decision that the circuit's empty governance site leaves unassigned, and say what a printed apparatus would have to carry for a reader to make it without re-doing the collation.
-
 ## Bridge
 
 Layer 22 closes the stratum's account of the copy: how many independent times a text was known, how the corruption that orders the witnesses is graded on a scale the witnesses supply, and where a formal recension stops and hands the decision back. What it leaves is the case in which the record is not a copy of a text but a residue of a process — where the question is not how the witnesses relate to one another but which of them the ground chose to keep. [Chapter 73](73-layer-taphonomic-historiographical-order.md) states [Layer 23](73-layer-taphonomic-historiographical-order.md), *Taphonomic & Historiographical Order*, and begins from the deposit that edits the archive before any philologist opens it.

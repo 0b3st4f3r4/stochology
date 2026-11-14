@@ -322,13 +322,6 @@ repair path that prices predatory breach at a penalty multiple under Hannah Aren
 (Arendt 1958), with the remainder after the loss registered so that the absence of consent is on the record rather
 than in the silence.
 
-## Exercises
-
-1. Compute the delay allowance as survival time minus recovery time, and say what a given delay does to the margin (answer: the allowance is the difference, and a delay above it consumes the margin before the first decision).
-2. Distinguish the three deliberation tests and say what $(\text{true}, \text{false}, \text{true})$ means (answer: sound premises, failed conjunctive decision, discursive dilemma present).
-3. Construct a case in which illegitimacy is effective and say over what horizon legitimacy pays (answer: a short horizon with bounded loss; legitimacy pays in the tail and on repetition).
-4. State the procedure when contesting beforehand is impossible (answer: an irreversible barrier plus mandatory repair; consent cannot be recovered afterwards).
-
 ## Bridge
 
 [Institution, Incentive, Metric](40-institution-incentive-metric.md) and [Moral Luck, Apt Agency, and Institutional Design](49-moral-luck-apt-agency-institutions.md)

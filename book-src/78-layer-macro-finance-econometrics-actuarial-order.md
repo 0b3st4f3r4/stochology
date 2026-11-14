@@ -47,13 +47,6 @@ Layer 28 is one of the keystones whose signature carries a site on every axis, s
 
 The thesis is that risk is a functional of the return law and can be provisioned before the loss. It expires when the parties whose compliance it governs produce the inputs. Marks, correlation matrix and quantile are all the institution's own, so the estimate is a decision variable inside the exposure rather than a measurement of it, and the complete `(1, 1, 1)` signature cannot notice, since no site of it establishes the estimator's independence. The symptom is a ratio that drifts one way: model-implied capital over the haircut a counterparty would demand in a forced sale, falling as the position grows. The procedure is to substitute a settlement bound at the point of decision, report it beside the model number rather than instead of it, and size on the larger of the two — what a real-time gate does when it refuses to let a self-reported quantity stand as its own audit.
 
-## Exercises
-
-1. Contrast the thin-tailed bound $\psi(u) \le e^{-Ru}$ with the subexponential rate that holds when the tail index lies between one and two, and say why the adjustment coefficient does not exist in the second case.
-2. Show how the Itô variance drain and the volatility design effect of a fourth-moment estimate shrink plug-in Kelly leverage below the arithmetic-mean fraction.
-3. With a tail index above two, say which moments exist and which Kelly fraction applies (answer: mean and variance exist, so the classical fraction applies with a correction for estimation error).
-4. With a tail index between one and two, say why the mean has no standard error, and how many times the data are needed to halve its typical deviation (answer: the variance is infinite; the deviation shrinks as $n^{-(1-1/\alpha)}$, so halving it takes $2^{\alpha/(\alpha-1)}$ times the data, which diverges as the index falls toward one).
-
 ## Bridge
 
 Endogenous liquidity spirals, heavy-tailed actuarial ruin and Baker–McHale leverage shrinkage in Layer 28 (`{T2Severity, T4Formalization, T6Performative}`) join metrological traceability ([Layer 08](58-layer-metrological-information-geometric-order.md)), survey methodology ([Layer 09](59-layer-experimental-sampling-causal-order.md)) and bitemporal historiography ([Layer 23](73-layer-taphonomic-historiographical-order.md)) along the direct $\mathcal{G}\_{1}$ edge `L28 -> L29` to anchor national accounting in [Chapter 79, *Layer 29: Official Statistics, Forensic Accounting, Double-Entry Ledger & Welfare Index Order*](79-layer-official-statistics-forensic-accounting-order.md) (Stratum VI, `{T3Archive, T4Formalization, T7Liability}`).

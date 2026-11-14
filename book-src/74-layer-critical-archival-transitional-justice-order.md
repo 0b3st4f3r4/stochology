@@ -151,14 +151,6 @@ what this order achieves: it makes the record answerable, and it leaves the cloc
 2. Distinguish an archive of the alibi from an archive of the crime, and say what the sign of the missingness correlation does to a correction that assumed the other sign.
 3. State why the legal quantity and the planning quantity of a transitional-justice record are different objects, and name what each is destroyed by when they are confused.
 
-## Exercises
-
-1. **Two mandates, one past.** Write the terms of reference for the same episode twice, once framing the harm as discrete acts and once as structural deprivation. List the fonds each mandate sends an investigator to, and say which of them the other mandate cannot reach.
-2. **The sign of the bias.** With the earlier chapter's expression for the displacement of an archive mean, take $\rho\_{R,Y} < 0$ and say in which direction the observed mean moves, and whether the correction that improves the estimate under a positive correlation still improves it.
-3. **Thick silence.** Describe a document whose completeness is evidence of nothing about the harm it concerns, and say what a reader would have to know in order not to read its density as incidence.
-4. **List against total.** A programme must choose between paying against a named list and provisioning against a corrected total. Say what each choice gets wrong when registries overlap more than independence implies, and when they overlap less.
-5. **The missing margin.** Name the guard the triple does not carry, and describe a decision in a truth process that would have been different had that guard been present.
-
 ## Bridge
 
 Layer 24 hands forward a record whose making has been made answerable: a frame that bounds which archive can exist, a deposit whose purpose sets the sign of what it omits, and a validity question that the institution must answer for by name. What it does not hand forward is any account of what happens once the record is complete and someone must act on it before the next fact arrives, and that is where [Chapter 75, *Media Ecology, Information Retrieval & Performative Order*](75-layer-media-ecology-information-retrieval-order.md) begins.

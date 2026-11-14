@@ -257,14 +257,6 @@ The admissibility of a summary is older than the statistic: a mean is admissible
 
 Additional precision must stop when its marginal cost exceeds the loss reduction it buys. The procedure is to compare the marginal cost of measuring with the change in the value of information and to stop at the point where they cross; beyond it, every further decimal is paid for in resources the decision would rather spend elsewhere.
 
-## Exercises
-
-1. Derive the evidential weight of an archive whose effective sample is far below the domain's ignorance scale, and of one whose effective sample is far above it, and show that the ratio stays bounded above by one for every $n\_{\mathrm{eff}}$.
-2. Differentiate the weight with respect to the effective sample and use the derivative to explain why two saturated archives cannot be ranked by their weights at all.
-3. Give an example in which the mean of an ordinal scale orders two classes one way and, after a strictly increasing monotone recoding, orders them the opposite way (answer: two score vectors whose sample means swap order under a convex or concave strictly increasing relabeling $\psi$, while their Mann–Whitney stochastic dominance stays invariant).
-4. State the stopping rule for further measurement in terms of marginal cost and value of information (answer: stop when the marginal cost exceeds the change in value).
-5. Classify temperature in degrees Celsius and a satisfaction score from one to five in Stevens's four scales, and say which statistic each admits (answer: interval, so the mean; ordinal, so the median or dominance).
-
 ## Bridge
 
 Scale invariance and non-parametric stochastic dominance are formalised in

@@ -66,14 +66,6 @@ The cost is precise and it is not the cost of being wrong. It is the cost of not
 2. Distinguish Kingman's exact $GI/G/1$ upper bound from the heavy-traffic approximation (exact at every load for Poisson $M/G/1$ and asymptotically tight as $\rho \to 1^{-}$), and explain why a planner facing bursty arrivals needs the direction of the inequality.
 3. Show how a posted waiting time makes the arrival rate a function of the wait, and why the resulting fixed point is a fact about the reporting regime and not about capacity.
 
-## Exercises
-
-1. **The ceiling read as a forecast.** Take the bound of §1 and suppose the dispersion is estimated from a trace taken at a quieter load than the one planned. Say which term of the product absorbs the error, which term amplifies it, and why the amplification is largest where the estimate matters most.
-2. **Two queues, one number.** Construct two arrival processes with the same rate and the same squared coefficient of variation but different waits, and say which of the four parameters of the bound is doing the work of distinguishing them.
-3. **The fixed point.** Write $W = W(\lambda(W))$ for a queue whose arrivals respond to a posted wait, exhibit two solutions, and say what an operator who reports the shorter of the two has done to the object being reported.
-4. **The truncated loss.** With $P'(B)L = 1$ as the full-liability condition, derive the provision chosen when liability is truncated at $A < L$, and say what the difference between the two buffers is a function of.
-5. **Reading the signature.** Explain why $(0, 1, 2)$ is an epistemic axial exposure and not a vital or a governance one, in terms of which site has an office behind it and which has only a formula.
-
 ## Bridge
 
 This chapter delivered the queue as a bounded object: a wait that is bounded, not computed, an arrival rate that answers the wait it is told, and a rupture whose owner is fixed by the discipline before any capacity is provisioned. The next chapter is [Chapter 53, *Layer 03: Macro-Coupled Topology Order*](53-layer-macro-coupled-topology-order.md).

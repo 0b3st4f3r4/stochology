@@ -178,20 +178,6 @@ grammar for that arrangement, and North (1990) states why it cannot be folded ba
 rule with no enforcer is a sentence with no truth value. The zero in the signature is that unit's absence, and stating it is not the same as
 supplying it.
 
-## Exercises
-
-1. **Affine resource consumption:** trace a two-step trajectory in which a guard reading is omitted on the world-to-archive
-   transit (`T3Archive`), and say which verdict and which unparsable reason the recogniser returns.
-2. **Rice's theorem and real-time decidability:** explain why the recogniser is restricted to a decidable
-   finite-state production system and not an unrestricted verifier whose halting time could violate the survival clock.
-3. Compute the enumeration size $g^{7}$ for increasing $g$ and say which level count is the last the cap $C$ still covers at full coverage
-   (answer: the largest $g$ with $g^{7} \le C$; one more level does not).
-4. Show why a serialised seal can pass verification twice over the same content, and say which of the two ledgers the resulting replay defeats
-   (answer: the chain does not bind the content to a single position, so the replay is undetected).
-5. **Closure against an empty governance axis:** exhibit a derivation the recogniser accepts, choose $U$ so that the inclusion of §3 holds, and
-   say which of the three silences in §5 the resulting pass rests on (answer: the arity invariant is untouched, so the pass says nothing about who
-   fixed $U$).
-
 ## Bridge
 
 Having fixed decidable guard syntax and affine token accounting at Layer 06
