@@ -23,8 +23,6 @@
       --border: #cbd5e1;
       --sky: #1d4ed8;
       --sky-bg: #dbeafe;
-      --violet: #e11d48;
-      --violet-bg: #ffe4e6;
       --emerald: #047857;
       --emerald-bg: #d1fae5;
       --amber: #b45309;
@@ -42,8 +40,6 @@
         --border: #1e2d4a;
         --sky: #38bdf8;
         --sky-bg: #0c2644;
-        --violet: #fb7185;
-        --violet-bg: #3b101d;
         --emerald: #34d399;
         --emerald-bg: #092e26;
         --amber: #fbbf24;
@@ -62,8 +58,6 @@
         --border: light-dark(#cbd5e1, #1e2d4a);
         --sky: light-dark(#1d4ed8, #38bdf8);
         --sky-bg: light-dark(#dbeafe, #0c2644);
-        --violet: light-dark(#e11d48, #fb7185);
-        --violet-bg: light-dark(#ffe4e6, #3b101d);
         --emerald: light-dark(#047857, #34d399);
         --emerald-bg: light-dark(#d1fae5, #092e26);
         --amber: light-dark(#b45309, #fbbf24);

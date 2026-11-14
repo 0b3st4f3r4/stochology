@@ -14,8 +14,6 @@
       --border: #cbd5e1;
       --sky: #1d4ed8;
       --sky-bg: #dbeafe;
-      --violet: #e11d48;
-      --violet-bg: #ffe4e6;
       --emerald: #047857;
       --emerald-bg: #d1fae5;
       --amber: #b45309;
@@ -33,8 +31,6 @@
         --border: #1e2d4a;
         --sky: #38bdf8;
         --sky-bg: #0c2644;
-        --violet: #fb7185;
-        --violet-bg: #3b101d;
         --emerald: #34d399;
         --emerald-bg: #092e26;
         --amber: #fbbf24;
@@ -53,8 +49,6 @@
         --border: light-dark(#cbd5e1, #1e2d4a);
         --sky: light-dark(#1d4ed8, #38bdf8);
         --sky-bg: light-dark(#dbeafe, #0c2644);
-        --violet: light-dark(#e11d48, #fb7185);
-        --violet-bg: light-dark(#ffe4e6, #3b101d);
         --emerald: light-dark(#047857, #34d399);
         --emerald-bg: light-dark(#d1fae5, #092e26);
         --amber: light-dark(#b45309, #fbbf24);
@@ -73,8 +67,8 @@
 
   <!-- Column Headers: Knowledge of Probabilities -->
   <text x="658" y="24" text-anchor="middle" fill="var(--ink)" class="mono" font-size="12.5" font-weight="800" letter-spacing="0.06em">KNOWLEDGE OF PROBABILITIES</text>
-  <text x="414" y="48" text-anchor="middle" fill="var(--sky)" font-size="13" font-weight="700">Solid / Agreed Laws</text>
-  <text x="904" y="48" text-anchor="middle" fill="var(--violet)" font-size="13" font-weight="700">Fragile / Unknowable Odds</text>
+  <text x="414" y="48" text-anchor="middle" fill="var(--emerald)" font-size="13" font-weight="700">Solid / Agreed Laws</text>
+  <text x="904" y="48" text-anchor="middle" fill="var(--amber)" font-size="13" font-weight="700">Fragile / Unknowable Odds</text>
 
   <!-- Row Headers: Knowledge of Outcomes -->
   <text x="88" y="118" text-anchor="middle" fill="var(--ink)" font-size="13" font-weight="800">Outcomes</text>
@@ -82,33 +76,33 @@
   <text x="88" y="156" text-anchor="middle" fill="var(--muted)" font-size="11.5">&amp; Agreed</text>
 
   <text x="88" y="270" text-anchor="middle" fill="var(--ink)" font-size="13" font-weight="800">Outcomes</text>
-  <text x="88" y="290" text-anchor="middle" fill="var(--amber)" font-size="12.5" font-weight="700">Open, Contested</text>
+  <text x="88" y="290" text-anchor="middle" fill="var(--rose)" font-size="12.5" font-weight="700">Open, Contested</text>
   <text x="88" y="308" text-anchor="middle" fill="var(--muted)" font-size="11.5">or Unlisted</text>
 
   <!-- Cell 1: RISK (Top Left) -->
-  <rect x="176" y="66" width="476" height="136" rx="12" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2.2"/>
-  <text x="200" y="96" fill="var(--sky)" class="mono" font-size="11.5" font-weight="700">QUADRANT 1 · ALEATORY + PARAMETRIC</text>
+  <rect x="176" y="66" width="476" height="136" rx="12" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2.2"/>
+  <text x="200" y="96" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="700">QUADRANT 1 · ALEATORY + PARAMETRIC</text>
   <text x="200" y="124" fill="var(--ink)" font-size="17" font-weight="800">1. RISK</text>
   <text x="200" y="152" fill="var(--muted)" font-size="12">Known states and stable governing laws.</text>
   <text x="200" y="176" fill="var(--muted)" font-size="12">Remedy: Kelly caps, Laplace succession, SBC.</text>
 
   <!-- Cell 2: UNCERTAINTY (Top Right) -->
-  <rect x="668" y="66" width="472" height="136" rx="12" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2.2"/>
-  <text x="692" y="96" fill="var(--violet)" class="mono" font-size="11.5" font-weight="700">QUADRANT 2 · EPISTEMIC SPECIFICATION</text>
+  <rect x="668" y="66" width="472" height="136" rx="12" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2.2"/>
+  <text x="692" y="96" fill="var(--sky)" class="mono" font-size="11.5" font-weight="700">QUADRANT 2 · EPISTEMIC SPECIFICATION</text>
   <text x="692" y="124" fill="var(--ink)" font-size="17" font-weight="800">2. UNCERTAINTY</text>
   <text x="692" y="152" fill="var(--muted)" font-size="12">Known states, contested odds or model form.</text>
   <text x="692" y="176" fill="var(--muted)" font-size="12">Remedy: Kennedy-O'Hagan GP δ(x) &amp; ICP.</text>
 
   <!-- Cell 3: AMBIGUITY (Bottom Left) -->
-  <rect x="176" y="220" width="476" height="136" rx="12" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2.2"/>
-  <text x="200" y="250" fill="var(--emerald)" class="mono" font-size="11.5" font-weight="700">QUADRANT 3 · VALUATION &amp; SCOPE</text>
+  <rect x="176" y="220" width="476" height="136" rx="12" fill="var(--elevated)" stroke="var(--amber)" stroke-width="2.2"/>
+  <text x="200" y="250" fill="var(--amber)" class="mono" font-size="11.5" font-weight="700">QUADRANT 3 · VALUATION &amp; SCOPE</text>
   <text x="200" y="278" fill="var(--ink)" font-size="17" font-weight="800">3. AMBIGUITY</text>
   <text x="200" y="306" fill="var(--muted)" font-size="12">Disagreement over harm or who bears error cost.</text>
   <text x="200" y="330" fill="var(--muted)" font-size="12">Remedy: p* = C/(ηL) &amp; Chouldechova audit (g_ex-post).</text>
 
   <!-- Cell 4: IGNORANCE (Bottom Right) -->
-  <rect x="668" y="220" width="472" height="136" rx="12" fill="var(--elevated)" stroke="var(--amber)" stroke-width="2.2"/>
-  <text x="692" y="250" fill="var(--amber)" class="mono" font-size="11.5" font-weight="700">QUADRANT 4 · DEEP KNIGHTIAN REGIME</text>
+  <rect x="668" y="220" width="472" height="136" rx="12" fill="var(--elevated)" stroke="var(--rose)" stroke-width="2.2"/>
+  <text x="692" y="250" fill="var(--rose)" class="mono" font-size="11.5" font-weight="700">QUADRANT 4 · DEEP KNIGHTIAN REGIME</text>
   <text x="692" y="278" fill="var(--ink)" font-size="17" font-weight="800">4. IGNORANCE</text>
   <text x="692" y="306" fill="var(--muted)" font-size="12">Unlisted states &amp; Russell's Christmas Turkey.</text>
   <text x="692" y="330" fill="var(--muted)" font-size="12">Remedy: Info-Gap α̂ + Global Wald Floor + Exit.</text>
