@@ -4,11 +4,11 @@
     <marker id="arr-sky" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--sky)"/>
     </marker>
-    <marker id="arr-violet" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--violet)"/>
-    </marker>
     <marker id="arr-emerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--emerald)"/>
+    </marker>
+    <marker id="arr-rose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--rose)"/>
     </marker>
   <style>
     svg:root {
@@ -92,27 +92,27 @@
 
   <text x="455" y="228" text-anchor="middle" fill="var(--muted)" font-size="15" font-weight="700">↔</text>
 
-  <rect x="475" y="202" width="170" height="42" rx="8" fill="var(--violet-bg)" stroke="var(--violet)" stroke-width="1.6"/>
+  <rect x="475" y="202" width="170" height="42" rx="8" fill="var(--emerald-bg)" stroke="var(--emerald)" stroke-width="1.6"/>
   <text x="560" y="228" text-anchor="middle" fill="var(--ink)" font-size="13" font-weight="750">World (S_vital)</text>
 
   <text x="665" y="228" text-anchor="middle" fill="var(--muted)" font-size="15" font-weight="700">↔</text>
 
-  <rect x="685" y="202" width="170" height="42" rx="8" fill="var(--emerald-bg)" stroke="var(--emerald)" stroke-width="1.6"/>
+  <rect x="685" y="202" width="170" height="42" rx="8" fill="var(--rose-bg)" stroke="var(--rose)" stroke-width="1.6"/>
   <text x="770" y="228" text-anchor="middle" fill="var(--ink)" font-size="13" font-weight="750">Institution (S_gov)</text>
 
   <!-- Lineage 2 (Bottom Left) -->
-  <rect x="20" y="290" width="532" height="100" rx="12" fill="var(--elevated)" stroke="var(--violet)" stroke-width="2.2"/>
-  <text x="286" y="318" text-anchor="middle" fill="var(--violet)" class="mono" font-size="10.8" font-weight="700" letter-spacing="0.04em">LINEAGE 2 · MATERIAL, BIOLOGICAL &amp; THERMODYNAMIC → VITAL MARGIN</text>
+  <rect x="20" y="290" width="532" height="100" rx="12" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2.2"/>
+  <text x="286" y="318" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="10.8" font-weight="700" letter-spacing="0.04em">LINEAGE 2 · MATERIAL, BIOLOGICAL &amp; THERMODYNAMIC → VITAL MARGIN</text>
   <text x="286" y="346" text-anchor="middle" fill="var(--ink)" font-size="14.5" font-weight="800">Entropic Time, Non-Ergodicity, Normativity &amp; Performativity</text>
   <text x="286" y="372" text-anchor="middle" fill="var(--muted)" font-size="11.3">Georgescu-Roegen · Itô · Kelly · Samuelson · Peters · Canguilhem · Holling · MacKenzie</text>
 
   <!-- Lineage 3 (Bottom Right) -->
-  <rect x="568" y="290" width="532" height="100" rx="12" fill="var(--elevated)" stroke="var(--emerald)" stroke-width="2.2"/>
-  <text x="834" y="318" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="10.8" font-weight="700" letter-spacing="0.04em">LINEAGE 3 · ETHICAL &amp; POLITICO-INSTITUTIONAL → APT AGENCY</text>
+  <rect x="568" y="290" width="532" height="100" rx="12" fill="var(--elevated)" stroke="var(--rose)" stroke-width="2.2"/>
+  <text x="834" y="318" text-anchor="middle" fill="var(--rose)" class="mono" font-size="10.8" font-weight="700" letter-spacing="0.04em">LINEAGE 3 · ETHICAL &amp; POLITICO-INSTITUTIONAL → APT AGENCY</text>
   <text x="834" y="346" text-anchor="middle" fill="var(--ink)" font-size="14.5" font-weight="800">Stoic Aim, Moral Luck, Virtue Epistemology &amp; Justice</text>
   <text x="834" y="372" text-anchor="middle" fill="var(--muted)" font-size="11.3">Antipater/Cicero · Nagel/Williams · Sosa · Scanlon · List/Pettit/Fricker/Beer · Holmström/Innes</text>
 
   <!-- Arrows 2 & 3 -> Center -->
-  <path d="M 340 290 L 400 264" stroke="var(--violet)" stroke-width="2.6" marker-end="url(#arr-violet)"/>
-  <path d="M 780 290 L 720 264" stroke="var(--emerald)" stroke-width="2.6" marker-end="url(#arr-emerald)"/>
+  <path d="M 340 290 L 400 264" stroke="var(--emerald)" stroke-width="2.6" marker-end="url(#arr-emerald)"/>
+  <path d="M 780 290 L 720 264" stroke="var(--rose)" stroke-width="2.6" marker-end="url(#arr-rose)"/>
 </svg>
