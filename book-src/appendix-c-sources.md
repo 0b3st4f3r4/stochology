@@ -158,6 +158,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Arendt, H.** (1958). *The Human Condition*. University of Chicago Press. [Brazilian ed.: *A condição humana* (13th ed.). Forense Universitária, 2016.]
 - **Aristotle** (*c.* 335 BCE). *Nicomachean Ethics* (Books II & VI; H. Rackham, Trans., Loeb Classical Library 73). *Metaphysics* (Books Γ and Θ; H. Tredennick, Trans., Loeb Classical Library 271, 287). Harvard University Press.
 - **Arrhenius, S.** (1889). Über die Reaktionsgeschwindigkeit bei der Inversion von Rohrzucker durch Säuren. *Zeitschrift für Physikalische Chemie*, 4(1), 226–248.
+- **Arrow, K. J.** (1950). A difficulty in the concept of social welfare. *The Journal of Political Economy*, 58(4), 328–346.
 - **Artzner, P., Delbaen, F., Eber, J.-M., & Heath, D.** (1999). Coherent measures of risk. *Mathematical Finance*, 9(3), 203–228.
 - **Aruoba, S. B.** (2008). Data revisions are not well behaved. *Journal of Money, Credit and Banking*, 40(2–3), 319–340.
 - **Ashby, W. R.** (1956). *An Introduction to Cybernetics*. Chapman & Hall.
@@ -227,6 +228,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Cohen, L. J.** (1977). *The Probable and the Provable*. Oxford University Press.
 - **Commons, J. R.** (1934). *Institutional Economics: Its Place in Political Economy*. Macmillan, New York. The institution as a going concern irreducible to bilateral contracts, cited in Chapter 41.
 - **CONADEP, Comisión Nacional sobre la Desaparición de Personas** (1984). *Nunca Más: Informe de la Comisión Nacional sobre la Desaparición de Personas*. Editorial Universitaria de Buenos Aires.
+- **Cook, J., Supran, G., Lewandowsky, S., Oreskes, N., & Maibach, E.** (2019). *America Misled: How the Fossil Fuel Industry Deliberately Misled Americans About Climate Change*. George Mason University Center for Climate Change Communication, Fairfax, VA.
 - **Cook, M.** (2004). Universality in elementary cellular automata. *Complex Systems*, 15(1), 1–40.
 - **Corbett-Davies, S., Pierson, E., Feller, A., Goel, S., & Huq, A.** (2017). Algorithmic decision making and the cost of fairness. In *Proceedings of the 23rd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining*, 797–806.
 - **Cortes, C., & Vapnik, V.** (1995). Support-vector networks. *Machine Learning*.
@@ -236,6 +238,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Danielsson, J., & Shin, H. S.** (2003). Endogenous risk. In *Modern Risk Management: A History* (pp. 297–310). Risk Books.
 - **Darwin, C.** (1859). *On the Origin of Species by Means of Natural Selection, or the Preservation of Favoured Races in the Struggle for Life*. John Murray, London.
 - **Dasgupta, S., & Gupta, A.** (2003). An elementary proof of a theorem of Johnson and Lindenstrauss. *Random Structures & Algorithms*, 22(1), 60–65.
+- **Daston, L.** (1995). The moral economy of science. *Osiris*, 10, 3–24.
 - **Dean, J., & Barroso, L. A.** (2013). The tail at scale. *Communications of the ACM*, 56(2), 74–80.
 - **Debreu, G.** (1959). *Theory of Value: An Axiomatic Analysis of Economic Equilibrium*. John Wiley & Sons.
 - **de Finetti, B.** (1937). La prévision : ses lois logiques, ses sources subjectives. *Annales de l'Institut Henri Poincaré*, 7(1), 1–68.
@@ -245,6 +248,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Desrosières, A.** (1993). *La Politique des grands nombres: Histoire de la raison statistique*. La Découverte.
 - **Detienne, M., & Vernant, J.-P.** (1974). *Les ruses de l'intelligence: la mètis des Grecs*. Flammarion, Paris. [English ed.: *Cunning Intelligence in Greek Culture and Society* (J. Lloyd, Trans.). Harvester Press, Hassocks, 1978.] The term *mētis* as this book uses it, cited in Chapter 27.
 - **Diekmann, O., Heesterbeek, J. A. P., & Metz, J. A. J.** (1990). On the definition and the computation of the basic reproduction ratio R0 in models for infectious diseases in heterogeneous populations. *Journal of Mathematical Biology*, 28(4), 365–382.
+- **Dietz, T., Ostrom, E., & Stern, P. C.** (2003). The struggle to govern the commons. Manuscript W03-17 (dated 7/3/03, 24 pp.).
 - **Dimitriadis, T., Gneiting, T., & Jordan, A. I.** (2021). Stable reliability diagrams for probabilistic classifiers. *Proceedings of the National Academy of Sciences (PNAS)*, 118(8), e2016191118.
 - **Ding, J., Zhang, Y., Shang, Y., et al.** (2024). Understanding world or predicting future? A comprehensive survey of world models. *ACM Computing Surveys*.
 - **Dixit, A. K., & Pindyck, R. S.** (1994). *Investment under Uncertainty*. Princeton University Press.
@@ -285,6 +289,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Gettier, E. L.** (1963). Is justified true belief knowledge? *Analysis*, 23(6), 121–123.
 - **Geurts, P., Ernst, D., & Wehenkel, L.** (2006). Extremely randomized trees. *Machine Learning*.
 - **Gigerenzer, G., & Hoffrage, U.** (1995). How to improve Bayesian reasoning without instruction: Frequency formats. *Psychological Review*, 102(4), 684–704.
+- **Gilboa, I., & Schmeidler, D.** (1986). Maxmin expected utility with a non-unique prior. Working Paper No. 16-86, Foerder Institute for Economic Research, Tel-Aviv University.
 - **Girard, J.-Y.** (1987). Linear logic. *Theoretical Computer Science*, 50(1), 1–101.
 - **Girard, R.** (1986 [1982]). *The Scapegoat*. Johns Hopkins University Press. [Brazilian ed.: *O bode expiatório*. Paulus, 2004.]
 - **Gittins, J. C.** (1979). Bandit processes and dynamic allocation indices. *Journal of the Royal Statistical Society: Series B*, 41(2), 148–177.
@@ -305,11 +310,13 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Hacking, I.** (1975). *The Emergence of Probability: A Philosophical Study of Early Ideas About Probability, Induction and Statistical Inference*. Cambridge University Press, London.
 - **Hacking, I.** (1995). The looping effects of human kinds. In D. Sperber, D. Premack, & A. J. Premack (Eds.), *Causal Cognition: A Multidisciplinary Debate* (pp. 351–383). Clarendon Press, Oxford.
 - **Hacking, I.** (2002). *Historical Ontology*. Harvard University Press.
+- **Haldane, A. G., & Madouros, V.** (2012). *The dog and the frisbee*. Paper given at the Federal Reserve Bank of Kansas City's 36th Economic Policy Symposium, Jackson Hole, Wyoming, August 31, 2012, Bank of England.
 - **Hand, L.** (1947). *United States v. Carroll Towing Co.*, 159 F.2d 169 (2d Cir. 1947).
 - **Hansson, S. O.** (2013). *The Ethics of Risk: Ethical Analysis in an Uncertain World*. Palgrave Macmillan.
 - **Harding, S.** (1991). *Whose Science? Whose Knowledge? Thinking from Women's Lives*. Cornell University Press.
 - **Hardt, M., Megiddo, N., Papadimitriou, C., & Wootters, M.** (2016). Strategic classification. *Proceedings of the 2016 ACM Conference on Innovations in Theoretical Computer Science (ITCS '16)*, 111–122.
 - **Hardt, M., Price, E., & Srebro, N.** (2016). Equality of opportunity in supervised learning. *Advances in Neural Information Processing Systems (NeurIPS)*, 29, 3315–3323.
+- **Harsanyi, J. C.** (1975). Can the maximin principle serve as a basis for morality? A critique of John Rawls's theory. *The American Political Science Review*, 69(2), 594–606.
 - **Harvey, C. R., Liu, Y., & Zhu, H.** (2016). … and the cross-section of expected returns. *Review of Financial Studies*, 29(1), 5–68.
 - **Hayek, F. A.** (1945). The use of knowledge in society. *American Economic Review*, 35(4), 519–530. Dispersed knowledge and the constitutional limit it imposes on central planning, cited in Chapter 43.
 - **Hayek, F. A.** (1973). *Law, Legislation and Liberty*, first volume: *Rules and Order*. Routledge & Kegan Paul, London.
@@ -328,6 +335,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Holling, C. S.** (1973). Resilience and stability of ecological systems. *Annual Review of Ecology and Systematics*, 4, 1–23.
 - **Holling, C. S., & Meffe, G. K.** (1996). Command and control and the pathology of natural resource management. *Conservation Biology*, 10(2), 328–337.
 - **Holmström, B.** (1979). Moral hazard and observability. *The Bell Journal of Economics*, 10(1), 74–91.
+- **Holmström, B.** (2016). Pay for performance and beyond. Prize Lecture, December 8, 2016, *The Nobel Prizes 2016*, 413–442.
 - **Holmström, B., & Milgrom, P.** (1991). Multitask principal–agent analyses: Incentive contracts, asset ownership, and job design. *Journal of Law, Economics, & Organization*, 7, 24–52.
 - **Hopfield, J. J.** (1974). Kinetic proofreading: A new mechanism for reducing errors in biosynthetic processes requiring high specificity. *Proceedings of the National Academy of Sciences (PNAS)*, 71(10), 4135–4139.
 - **Hopfield, J. J.** (1982). Neural networks and physical systems with emergent collective computational abilities. *Proceedings of the National Academy of Sciences*, 79(8), 2554–2558.
@@ -369,19 +377,23 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Kennedy, M. C., & O'Hagan, A.** (2001). Bayesian calibration of computer models. *Journal of the Royal Statistical Society: Series B*, 63(3), 425–464.
 - **Kerckhoffs, A.** (1883). La cryptographie militaire. *Journal des sciences militaires*, IX, 5–38, 161–191.
 - **Kermack, W. O., & McKendrick, A. G.** (1927). A contribution to the mathematical theory of epidemics. *Proceedings of the Royal Society of London. Series A*, 115(772), 700–721.
+- **Kerr, S.** (1975). On the folly of rewarding A, while hoping for B. *Academy of Management Journal*, 18(4), 769–783.
 - **Keynes, J. M.** (1921). *A Treatise on Probability*. Macmillan.
 - **Kimball, A. W.** (1957). Errors of the third kind in statistical consulting. *Journal of the American Statistical Association*, 52(278), 133–142.
 - **Kimura, M.** (1968). Evolutionary rate at the molecular level. *Nature*, 217(5129), 624–626.
 - **Kingman, J. F. C.** (1961). The single server queue in heavy traffic. *Mathematical Proceedings of the Cambridge Philosophical Society*, 57(4), 902–904.
 - **Kingman, J. F. C.** (1962). Some inequalities for the queue GI/G/1. *Biometrika*, 49(3–4), 315–324.
 - **Kish, L.** (1965). *Survey Sampling*. John Wiley & Sons.
+- **Kitcher, P.** (1981). Explanatory unification. *Philosophy of Science*, 48(4), 507–531.
 - **Klein, S. P., Hamilton, L. S., McCaffrey, D. F., & Stecher, B. M.** (2000). What do test scores in Texas tell us? *Education Policy Analysis Archives*, 8(49).
 - **Kleinberg, J., & Raghavan, M.** (2020). How do classifiers induce agents to invest effort strategically? *ACM Transactions on Economics and Computation*, 8(4), 1–23.
+- **Klibanoff, P., Marinacci, M., & Mukerji, S.** (2005). A smooth model of decision making under ambiguity. *Econometrica*, 73(6), 1849–1892.
 - **Knight, F. H.** (1921). *Risk, Uncertainty and Profit*. Houghton Mifflin, Boston. The risk/uncertainty distinction the epistemic margin operationalizes, cited in Chapter 27.
 - **Kocher, P. C.** (1996). Timing attacks on implementations of Diffie-Hellman, RSA, DSS, and other systems. *Advances in Cryptology, CRYPTO '96*, 104–113.
 - **Kolmogorov, A. N.** (1933). *Grundbegriffe der Wahrscheinlichkeitsrechnung*. Springer, Berlin.
 - **Kolmogorov, A. N.** (1941). The local structure of turbulence in incompressible viscous fluid for very large Reynolds numbers. *Doklady Akademii Nauk SSSR*, 30(4), 299–303. [English translation: *Proceedings of the Royal Society of London A*, 434(1890), 9–13, 1991.]
 - **Koretz, D.** (2008). *Measuring Up: What Educational Testing Really Tells Us*. Harvard University Press.
+- **Kornai, J.** (1986). The soft budget constraint. *Kyklos*, 39(1), 3–30.
 - **Koselleck, R.** (2006). *Begriffsgeschichten: Studien zur Semantik und Pragmatik der politischen und sozialen Sprache*. Suhrkamp.
 - **Krantz, D. H., Luce, R. D., Suppes, P., & Tversky, A.** (1971). *Foundations of Measurement* (Vol. 1: Additive and Polynomial Representations). Academic Press.
 - **Krawczyk, H., Bellare, M., & Canetti, R.** (1997). *HMAC: Keyed-Hashing for Message Authentication* (RFC 2104). Internet Engineering Task Force (IETF).
@@ -389,6 +401,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Kullback, S., & Leibler, R. A.** (1951). On information and sufficiency. *The Annals of Mathematical Statistics*.
 - **Lachmann, K.** (1850). *In T. Lucretii Cari De Rerum Natura Libros Commentarius*. Georg Reimer, Berlin.
 - **Lai, T. L., & Robbins, H.** (1985). Asymptotically efficient adaptive allocation rules. *Advances in Applied Mathematics*, 6(1), 4–22.
+- **Lakatos, I.** (1968–1969). Criticism and the methodology of scientific research programmes. *Proceedings of the Aristotelian Society*, New Series, 69, 149–186.
 - **Lakatos, I.** (1970). Falsification and the methodology of scientific research programmes. In I. Lakatos & A. Musgrave (Eds.), *Criticism and the Growth of Knowledge* (pp. 91–196). Cambridge University Press.
 - **LaLonde, R. J.** (1986). Evaluating the econometric evaluations of training programs with experimental data. *The American Economic Review*, 76(4), 604–620.
 - **Lamport, L.** (1978). Time, clocks, and the ordering of events in a distributed system. *Communications of the ACM*, 21(7), 558–565. The happens-before relation, cited in Chapter 83.
@@ -470,6 +483,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Near, J. P., & Miceli, M. P.** (1996). Whistle-blowing: Myth and reality. *Journal of Management*, 22(3), 507–526.
 - **Neff, G., & Nagy, P.** (2016). Talking to Bots: Symbiotic agency and the case of Tay. *International Journal of Communication*, 10, 4915–4931.
 - **Negri, A.** (1981). *L'anomalia selvaggia: Saggio su potere e potenza in Baruch Spinoza*. Feltrinelli.
+- **Neth, H., & Gigerenzer, G.** (2015). Heuristics: Tools for an uncertain world. In R. Scott & S. Kosslyn (Eds.), *Emerging Trends in the Social and Behavioral Sciences* (pp. 1–18). John Wiley & Sons. <https://doi.org/10.1002/9781118900772.etrds0394>
 - **Netz, R., Noel, W., Wilson, N., & Tchernetska, N.** (Eds.). (2011). *The Archimedes Palimpsest, Volume I: Catalogue and Commentary*. Cambridge University Press.
 - **Neustadt, R. E., & Fineberg, H. V.** (1983). *The Epidemic That Never Was: Policy-Making and the Swine Flu Affair*. Vintage Books.
 - **Newcomb, S.** (1881). Note on the frequency of use of the different digits in natural numbers. *American Journal of Mathematics*, 4(1), 39–40.
@@ -485,6 +499,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Ollman, B.** (1993). *Dialectical Investigations*. Routledge, New York.
 - **Open Science Collaboration** (2015). Estimating the reproducibility of psychological science. *Science*, 349(6251), aac4716.
 - **Ostrom, E.** (1990). *Governing the Commons: The Evolution of Institutions for Collective Action*. Cambridge University Press.
+- **Ostrom, E.** (2010). Beyond markets and states: Polycentric governance of complex economic systems. Prize Lecture, December 8, 2009, *The Nobel Prizes 2009*, 408–444.
 - **Pacioli, L.** (1494). *Summa de arithmetica, geometria, proportioni et proportionalita*. Paganino de' Paganini.
 - **Parsons, T.** (1951). *The Social System*. Free Press.
 - **Pauker, S. G., & Kassirer, J. P.** (1975). Therapeutic decision making: A cost-benefit analysis. *New England Journal of Medicine*, 293(5), 229–234.
@@ -560,6 +575,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Seger, J., & Brockmann, H. J.** (1987). What is bet-hedging? *Oxford Surveys in Evolutionary Biology*, 4, 182–211.
 - **Selfridge, O. G.** (1959). Pandemonium: A paradigm for learning. *Proceedings of the Symposium on Mechanisation of Thought Processes*, Her Majesty's Stationery Office.
 - **Sen, A.** (1976). Poverty: An ordinal approach to measurement. *Econometrica*, 44(2), 219–231.
+- **Sen, A.** (1985). Well-being, agency and freedom: The Dewey Lectures 1984. *The Journal of Philosophy*, 82(4), 169–221.
 - **Shafer, G.** (2021). Testing by betting: A strategy for statistical and scientific communication. *Journal of the Royal Statistical Society: Series A*, 184(2), 407–431.
 - **Shannon, C. E.** (1949). Communication theory of secrecy systems. *Bell System Technical Journal*, 28(4), 656–715.
 - **Shen, H., & Huang, J. Z.** (2008). Interday forecasting and intraday updating of call center arrivals. *Manufacturing & Service Operations Management*, 10(3), 391–410.
@@ -578,6 +594,7 @@ The treatise is argued in six layers, and they do not map onto the parts one to 
 - **Sophocles** (*c.* 441 BCE / *c.* 409 BCE). *Antigone*; *Philoctetes*. In H. Lloyd-Jones (Ed. & Trans.), *Sophocles* (Loeb Classical Library). Harvard University Press, 1994.
 - **Sosa, E.** (2007). *A Virtue Epistemology: Apt Belief and Reflective Knowledge* (Vol. I). Oxford University Press.
 - **Sosa, E.** (2015). *Judgment and Agency*. Oxford University Press.
+- **Spanos, A.** (2021). Philosophy of econometrics. Working paper, Virginia Tech (April 2021).
 - **Spinoza, B.** (2007 [1670]). *Theological-Political Treatise*. Cambridge University Press. [Brazilian ed.: Espinosa, B. de. *Tratado teológico-político*. Martins Fontes, 2003.]
 - **Squire, P.** (1988). Why the 1936 Literary Digest poll failed. *Public Opinion Quarterly*, 52(1), 125–133.
 - **Stanford, P. K.** (2006). *Exceeding Our Grasp: Science, History, and the Problem of Unconceived Alternatives*. Oxford University Press.
