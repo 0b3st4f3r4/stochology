@@ -196,7 +196,7 @@ Across those planes run six ordered crossings of distinct planes (three direct l
 
 The closure at the liability site enforces
 
-$$M\_{\mathrm{Leontief}} = \min\bigl(S\_{\mathrm{epi}},\mkern3mu S\_{\mathrm{vital}},\mkern3mu S\_{\mathrm{gov}}\bigr) \le S\_i \quad \forall i \in \{\mathrm{epi}, \mathrm{vital}, \mathrm{gov}\}.$$
+$$M\_{\mathrm{Leontief}} = \min\bigl(S\_{\mathrm{epi}},\mkern3mu S\_{\mathrm{vital}},\mkern3mu S\_{\mathrm{gov}}\bigr) \le S\_i \quad \forall i \in \lbrace\mathrm{epi}, \mathrm{vital}, \mathrm{gov}\rbrace.$$
 
 Two boundary cases show what the minimum does. Let the governance margin go to zero with the epistemic and vital margins held high: circuit integrity collapses to zero while the compensatory arithmetic mean still reports a majority of the two surviving axes. Set all three margins equal, and the two functional forms coincide.
 

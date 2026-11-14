@@ -186,16 +186,16 @@ gravitational three-body problem, and Edward Lorenz (1963) quantified it in atmo
 Lorenz 1963). A deterministic dynamical system is **chaotic** when its phase-space flow exhibits sensitive dependence
 on initial conditions.
 
-Let $\mathbf{x}(t)$ be the true trajectory of the world and $\mathbf{x}'(t)$ be the forecast trajectory launched from a slightly perturbed initial state with Euclidean separation $\delta\_0 = \|\mathbf{x}(0) - \mathbf{x}'(0)\| > 0$. Along the most unstable tangent manifold in phase space, the separation norm between the two trajectories grows exponentially:
+Let $\mathbf{x}(t)$ be the true trajectory of the world and $\mathbf{x}'(t)$ be the forecast trajectory launched from a slightly perturbed initial state with Euclidean separation $\delta\_0 = \Vert\mathbf{x}(0) - \mathbf{x}'(0)\Vert > 0$. Along the most unstable tangent manifold in phase space, the separation norm between the two trajectories grows exponentially:
 
-$$\|\Delta \mathbf{x}(t)\| = \|\mathbf{x}(t) - \mathbf{x}'(t)\| \approx \delta\_0 e^{\lambda\_{\max} t},$$
+$$\Vert\Delta \mathbf{x}(t)\Vert = \Vert\mathbf{x}(t) - \mathbf{x}'(t)\Vert \approx \delta\_0 e^{\lambda\_{\max} t},$$
 
 where $\lambda\_{\max} > 0$ (with physical dimension of inverse time, $\text{s}^{-1}$ or $\text{day}^{-1}$) is the **maximal Lyapunov exponent**.
 
 To derive the operational **Lyapunov prediction horizon** $t\_{\mathrm{horizon}}$, suppose a decision procedure
 remains safe only while the forecast error stays below a maximum tolerable threshold $\epsilon > \delta\_0 > 0$. Set
 the trajectory divergence at the horizon equal to the tolerance ceiling,
-$\|\Delta \mathbf{x}(t\_{\mathrm{horizon}})\| = \delta\_0 e^{\lambda\_{\max} t\_{\mathrm{horizon}}} = \epsilon$,
+$\Vert\Delta \mathbf{x}(t\_{\mathrm{horizon}})\Vert = \delta\_0 e^{\lambda\_{\max} t\_{\mathrm{horizon}}} = \epsilon$,
 divide both sides by $\delta\_0$, and take the natural logarithm:
 
 $$t\_{\mathrm{horizon}} = \frac{1}{\lambda\_{\max}} \ln\left(\frac{\epsilon}{\delta\_0}\right).$$
@@ -205,7 +205,7 @@ buying a $k$-fold finer measurement adds only the fixed increment $\frac{\ln k}{
 instead of multiplying it by $k$. Two explicit cases bracket the behaviour:
 
 1. **No instability ($\lambda\_{\max} \to 0^+$):** Adjacent trajectories separate at most polynomially
-($\|\Delta \mathbf{x}(t)\| \propto \delta\_0 t$) and the exponential horizon
+($\Vert\Delta \mathbf{x}(t)\Vert \propto \delta\_0 t$) and the exponential horizon
 $t\_{\mathrm{horizon}} = \lambda\_{\max}^{-1}\ln(\epsilon / \delta\_0) \to +\infty$. Only in this non-chaotic regime
 does a tenfold reduction in initial error buy a tenfold longer forecast horizon.
 2. **Error at the tolerance ceiling ($\delta\_0 \to \epsilon^-$):** Initial measurement noise approaches the
@@ -242,7 +242,7 @@ $$\Delta Q\_{\min} = (1.380649 \times 10^{-23}\text{ J/K}) \times (300\text{ K})
 
 Claude Shannon's information entropy $H(X) = -\sum p\_i \log\_2 p\_i$ (in bits) and Ludwig Boltzmann's thermodynamic
 entropy $S = k\_B \ln \Omega$ (in $\text{J/K}$) share the same combinatorial structure. In a chaotic system with
-spectrum of Lyapunov exponents $\{\lambda\_1, \dots, \lambda\_d\}$, Pesin's identity states that fine-grained
+spectrum of Lyapunov exponents $\lbrace\lambda\_1, \dots, \lambda\_d\rbrace$, Pesin's identity states that fine-grained
 trajectory uncertainty generates new information at the **Kolmogorov–Sinai entropy rate**:
 
 $$h\_{\mathrm{KS}} = \sum\_{\lambda\_i > 0} \lambda\_i.$$

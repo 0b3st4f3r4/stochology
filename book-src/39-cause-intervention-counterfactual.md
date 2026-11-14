@@ -195,8 +195,8 @@ $$\max\bigl(0,\mkern3mu P(y \mid \mathrm{do}(x)) - P(y \mid \mathrm{do}(x'))\big
 In 2000, Jin Tian and Judea Pearl proved that synthesizing observational joint probabilities $P(x, y)$ (with marginal $P(y) = P(x, y) + P(x', y)$) with those experimental marginals tightens the sharp counterfactual bounds to (Tian & Pearl 2000):
 
 $$\begin{aligned}
-\max\Bigl\{0,\mkern4mu P(y \mid \mathrm{do}(x)) - P(y \mid \mathrm{do}(x')),\mkern4mu P(y) - P(y \mid \mathrm{do}(x')),\mkern4mu P(y \mid \mathrm{do}(x)) - P(y)\Bigr\} &\le \mathrm{PNS}, \\
-\mathrm{PNS} &\le \min\Bigl\{P(y \mid \mathrm{do}(x)),\mkern4mu P(y' \mid \mathrm{do}(x')),\mkern4mu P(x, y) + P(x', y'),\mkern4mu P(y \mid \mathrm{do}(x)) - P(y \mid \mathrm{do}(x')) + P(x, y') + P(x', y)\Bigr\}.
+\max\Bigl\lbrace{}0,\mkern4mu P(y \mid \mathrm{do}(x)) - P(y \mid \mathrm{do}(x')),\mkern4mu P(y) - P(y \mid \mathrm{do}(x')),\mkern4mu P(y \mid \mathrm{do}(x)) - P(y)\Bigr\rbrace{} &\le \mathrm{PNS}, \\\\
+\mathrm{PNS} &\le \min\Bigl\lbrace{}P(y \mid \mathrm{do}(x)),\mkern4mu P(y' \mid \mathrm{do}(x')),\mkern4mu P(x, y) + P(x', y'),\mkern4mu P(y \mid \mathrm{do}(x)) - P(y \mid \mathrm{do}(x')) + P(x, y') + P(x', y)\Bigr\rbrace{}.
 \end{aligned}$$
 
 These bounds define the
@@ -233,11 +233,11 @@ When automated decision algorithms are deployed across demographically diverse p
 frequently demand that the model be simultaneously "unbiased" and "fair". In 2017, Alexandra Chouldechova proved
 that this demand is mathematically impossible.
 
-Let $Y \in \{0, 1\}$ be the true outcome, $\hat{Y} = \mathbf{1}\{S > s^\ast\} \in \{0, 1\}$ a binary classification derived from risk score $S \in [0, 1]$ at threshold $s^\ast$ with positive prediction probability $0 < \mathbb{P}(\hat{Y} = 1 \mid A = a) < 1$, and $A \in \{0, 1\}$ a protected demographic attribute. Suppose the groups exhibit unequal non-trivial baseline prevalence rates:
+Let $Y \in \lbrace0, 1\rbrace$ be the true outcome, $\hat{Y} = \mathbf{1}\lbrace{}S > s^\ast\rbrace \in \lbrace0, 1\rbrace$ a binary classification derived from risk score $S \in [0, 1]$ at threshold $s^\ast$ with positive prediction probability $0 < \mathbb{P}(\hat{Y} = 1 \mid A = a) < 1$, and $A \in \lbrace0, 1\rbrace$ a protected demographic attribute. Suppose the groups exhibit unequal non-trivial baseline prevalence rates:
 
 $$\mathbb{P}(Y = 1 \mid A = 1) \neq \mathbb{P}(Y = 1 \mid A = 0), \qquad \mathbb{P}(Y = 1 \mid A = a) \in (0, 1).$$
 
-Chouldechova (2017, Eq. 2.5) proved that no binary classification $\hat{Y} = \mathbf{1}\{S > s^\ast\}$ can simultaneously satisfy:
+Chouldechova (2017, Eq. 2.5) proved that no binary classification $\hat{Y} = \mathbf{1}\lbrace{}S > s^\ast\rbrace$ can simultaneously satisfy:
 
 1. **Predictive parity (equal positive predictive value at the threshold)**: $\mathbb{P}(Y = 1 \mid S > s^\ast, A = 1) = \mathbb{P}(Y = 1 \mid S > s^\ast, A = 0)$.
 2. **False Positive Rate parity**: $\mathbb{P}(S > s^\ast \mid Y = 0, A = 1) = \mathbb{P}(S > s^\ast \mid Y = 0, A = 0)$.

@@ -135,7 +135,7 @@
 
 Picture a night-shift operator at a municipal water-treatment plant, in front of a console with three lights. Light 1 monitors **laboratory and sensor calibration** across the intake pipes: do the bacterial readings in the **Archive** reflect the water, or a stuck probe ($S\_{\mathrm{epi}}$)? Light 2 monitors **chlorine tanks and backup generator fuel** in the **World**, meaning the hours the plant can purify water if a storm severs the supply line ($S\_{\mathrm{vital}}$). Light 3 monitors **stop-work authority** in the **Institution**: can a technician who spots a membrane rupture pull the emergency shutoff without being fired ($S\_{\mathrm{gov}}$)?
 
-At 2:00 a.m. the chlorine reserve tank hits empty and Light 2 turns solid red. Lights 1 and 3 stay bright green. Now watch the plant director glance at the wall and announce that *"Two out of three lights are green, so the water system is $67\%$ safe."* The city is hours from a public-health catastrophe. What the additive scorecard destroyed is **which non-substitutable barrier has hit zero**.
+At 2:00 a.m. the chlorine reserve tank hits empty and Light 2 turns solid red. Lights 1 and 3 stay bright green. Now watch the plant director glance at the wall and announce that *"Two out of three lights are green, so the water system is $67\unicode{x25}$ safe."* The city is hours from a public-health catastrophe. What the additive scorecard destroyed is **which non-substitutable barrier has hit zero**.
 
 Seven chapters of this part now gather into three safeguards, none of them tradeable for another, each the canonical score of one operator on its own plane. In Stochology they are the **Nuclear Triad** $\mathcal{T}\_{\mathrm{Stochology}}$ of [the preface](00-preface.md):
 

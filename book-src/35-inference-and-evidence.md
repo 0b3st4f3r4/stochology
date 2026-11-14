@@ -148,11 +148,11 @@ conclusion.
 
 ## 2. Confidence intervals and interval width as finding
 
-A classical $95\%$ confidence interval is the set of parameter values that would not have been rejected by a
+A classical $95\unicode{x25}$ confidence interval is the set of parameter values that would not have been rejected by a
 significance test at level $\alpha = 0.05$. Three misreadings account for most uses of the interval.
 
 1. *The interval is not a Bayesian probability statement about the parameter.* The parameter $\theta^\ast$ is a
-   fixed constant, not a random variable; it is either inside the interval or outside it, and the $95\%$ belongs
+   fixed constant, not a random variable; it is either inside the interval or outside it, and the $95\unicode{x25}$ belongs
    to the apparatus across repeated applications.
 2. *The width of the interval is the primary operational finding.* A wide interval does not represent
    "noisy precision"; it shows that the available evidence cannot differentiate a massive benefit from a
@@ -189,7 +189,7 @@ foundation for belief.
 
 The deepest divide in inference separates a parameter that is hard to estimate from a parameter the data cannot identify at any sample size. Sampling variance belongs to the first. The second survives an infinite sample.
 
-Consider a binary treatment $D \in \{0, 1\}$ with potential outcomes $Y(1)$ and $Y(0)$ bounded in $[0, 1]$.
+Consider a binary treatment $D \in \lbrace0, 1\rbrace$ with potential outcomes $Y(1)$ and $Y(0)$ bounded in $[0, 1]$.
 Charles Manski (1989, 2003) proved that under arbitrary non-random selection into treatment, the Average Treatment
 Effect $\mathrm{ATE} = \mathbb{E}[Y(1) - Y(0)]$ cannot be identified as a point. Because $Y(0)$ is unobserved for
 treated units and $Y(1)$ is unobserved for untreated units, the **Manski worst-case bounds** are:
@@ -213,7 +213,7 @@ $$\Phi\left(c\_\alpha + \frac{\sqrt{n}(\hat{\theta}\_U - \hat{\theta}\_L)}{\hat{
 
 As the identification interval width expands relative to sampling error ($\sqrt{n}(\Delta) \to \infty$), the critical
 value $c\_\alpha$ smoothly transitions from the two-sided value $z\_{1-\alpha/2}$ (for point identification, $1.96$
-at $95\%$) down to the one-sided critical value $z\_{1-\alpha}$ ($1.645$ at $95\%$), preserving exact coverage
+at $95\unicode{x25}$) down to the one-sided critical value $z\_{1-\alpha}$ ($1.645$ at $95\unicode{x25}$), preserving exact coverage
 probabilities for the true parameter $\theta\_0$.
 
 Under competing risks where cause of failure is censored by an alternative hazard, Arthur V. Peterson (1976)

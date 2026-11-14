@@ -26,7 +26,7 @@ and $\mathrm{TI} \le 1$ says there is no window: the dose that helps a populatio
 
 Severity asks whether a false hypothesis would rarely have produced the result in hand. For a trial, the answer is a number fixed before the data arrive: the power at the contrast the protocol chose. With $n$ subjects per arm, a within-arm standard deviation $\sigma$, a true difference $\delta$ and a two-sided level $\alpha$,
 
-$$\text{power} = \Phi\!\left(\frac{\delta\sqrt{n/2}}{\sigma} - z\_{1-\alpha/2}\right),$$
+$$\text{power} = \Phi\mkern-3mu\left(\frac{\delta\sqrt{n/2}}{\sigma} - z\_{1-\alpha/2}\right),$$
 
 so severity is bought with subjects and with effect size, and at fixed $n$ a smaller true difference is indistinguishable from no difference at all. The instrument's reach defines its silence.
 

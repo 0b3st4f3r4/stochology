@@ -29,7 +29,7 @@ average treatment effect; in non-experimental archives the identity fails, and a
 
 The first gate is framing. A complex observational dataset admits dozens of defensible choices about covariates, functional forms and exclusions;
 reporting the one specification that crosses a nominal threshold is $p$-hacking. Specifying all $K$ of them and reporting
-$R\_{\mathrm{multi}} = \frac{1}{K}\sum\_{k=1}^K \mathbb{I}\{\text{specification } k \text{ confirms}\}$ screens out fragile knife-edge findings
+$R\_{\mathrm{multi}} = \frac{1}{K}\sum\_{k=1}^K \mathbb{I}\lbrace\text{specification } k \text{ confirms}\rbrace$ screens out fragile knife-edge findings
 and exposes type III framing errors. The procedure has two published forms: the multiverse analysis of Steegen, Tuerlinckx, Gelman and
 Vanpaemel (2016), which reports the result under every combination of defensible data-processing choices, and the specification curve of
 Simonsohn, Simmons and Nelson (2020), which orders the estimates of all reasonable specifications and tests them jointly against the curve

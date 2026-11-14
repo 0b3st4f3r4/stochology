@@ -49,11 +49,11 @@ reparameterisations and sufficient statistics. The squared Mahalanobis signal-to
 Fisher–Rao geodesic distance between the estimated drift and the boundary of zero net growth; whenever that distance is comparable to the type-A
 radius $1/\sqrt{n\_{\mathrm{eff}}}$, a bet sized on the plug-in estimate mistakes noise on the manifold for a real gradient.
 
-Every strictly convex differentiable potential $\phi$ generates a Bregman (1967) divergence $D\_{\phi}(x \| y) = \phi(x) - \phi(y) -
+Every strictly convex differentiable potential $\phi$ generates a Bregman (1967) divergence $D\_{\phi}(x \Vert y) = \phi(x) - \phi(y) -
 \langle\nabla\phi(y), x - y\rangle \ge 0$, recovering the Kullback–Leibler relative entropy when $\phi$ is negative Shannon entropy. Jensen's gap is one
 projection: for any shock $X$ the expected divergence from the mean is
-$\mathbb{E}[D\_{\phi}(X \| \mu)] = \Delta\_{J} \ge 0$. Generalised Pythagoras is another: if $p^\ast = \arg\min\_{p \in C} D\_{\phi}(p \| y)$ projects a point $y$ onto a closed convex set $C$,
-then every $q \in C$ satisfies $D\_{\phi}(q \| y) \ge D\_{\phi}(q \| p^\ast) + D\_{\phi}(p^\ast \| y)$, which separates the distance from the
+$\mathbb{E}[D\_{\phi}(X \Vert \mu)] = \Delta\_{J} \ge 0$. Generalised Pythagoras is another: if $p^\ast = \arg\min\_{p \in C} D\_{\phi}(p \Vert y)$ projects a point $y$ onto a closed convex set $C$,
+then every $q \in C$ satisfies $D\_{\phi}(q \Vert y) \ge D\_{\phi}(q \Vert p^\ast) + D\_{\phi}(p^\ast \Vert y)$, which separates the distance from the
 model class to the data, a type-B approximation error, from the distance travelled inside the class, where estimation error lives. Isotonic calibration is the third: for quadratic $\phi$
 the projection of binary outcomes onto the cone of non-decreasing probabilities yields the Brier identity with zero residual cross-term.
 
@@ -62,7 +62,7 @@ the projection of binary outcomes onto the cone of non-decreasing probabilities 
 1. **Collapse Proposition 1** ($\neg S\_{\mathrm{epi}}$, erasing type B): reporting only the type-A standard error of a massive database while
    setting definitional and selection uncertainty to zero.
 2. **Collapse Proposition 2** ($\neg S\_{\mathrm{vital}}$, ignoring the Bregman–Jensen penalty): sizing reserves at $\phi(\mathbb{E}[X])$ and
-   not $\phi(\mathbb{E}[X]) + \mathbb{E}[D\_{\phi}(X \| \mathbb{E}[X])]$ until a convex surge exhausts the buffer.
+   not $\phi(\mathbb{E}[X]) + \mathbb{E}[D\_{\phi}(X \Vert \mathbb{E}[X])]$ until a convex surge exhausts the buffer.
 3. **Collapse Proposition 3** ($\neg S\_{\mathrm{gov}}$, breaking the traceability chain): publishing recalibrated composites that strip upstream
    calibration intervals or extrapolate outside the support where the discrepancy was measured.
 

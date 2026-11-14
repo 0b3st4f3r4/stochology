@@ -71,13 +71,13 @@ The cost-loss form leaves the domain of a probability at one end: a budget above
 
 *Grimshaw v. Ford Motor Co.* is remembered as the case where the form was applied correctly and the recommendation was wrong, and the record is
 more instructive than the legend. The worksheet usually quoted is Grush and Saunby's (1973) submission to the federal regulator on a proposed
-rollover fuel-leakage standard for the whole industry, not a Pinto rear-impact study: it priced the fix at $\$11$ per vehicle across $11$ million
-cars and $1.5$ million light trucks, or $\$137$ million, against benefits of $180$ burn deaths at $\$200{,}000$, $180$ injuries at $\$67{,}000$
-and $2{,}100$ burned vehicles at $\$700$, totalling $36 + 12.06 + 1.47 = \$49.53$ million (Grush & Saunby 1973; Dowie 1977). Schwartz (1991)
+rollover fuel-leakage standard for the whole industry, not a Pinto rear-impact study: it priced the fix at $\unicode{x24}11$ per vehicle across $11$ million
+cars and $1.5$ million light trucks, or $\unicode{x24}137$ million, against benefits of $180$ burn deaths at $\unicode{x24}200{,}000$, $180$ injuries at $\unicode{x24}67{,}000$
+and $2{,}100$ burned vehicles at $\unicode{x24}700$, totalling $36 + 12.06 + 1.47 = \unicode{x24}49.53$ million (Grush & Saunby 1973; Dowie 1977). Schwartz (1991)
 showed that the per-death figure was the regulator's own societal-cost estimate and not a price the manufacturer invented for its customers. That
 correction makes the case harder, not softer. Since $B = 137 > PL = 49.53$, Hand's inequality, fed the most defensible ex-ante valuation then
-on offer, says the precaution was not required. The jury in the Pinto case nevertheless returned a punitive award of $\$125$ million, some $625$
-times the worksheet's figure per death, which the trial court remitted to $\$3.5$ million and the appellate court sustained (California Court
+on offer, says the precaution was not required. The jury in the Pinto case nevertheless returned a punitive award of $\unicode{x24}125$ million, some $625$
+times the worksheet's figure per death, which the trial court remitted to $\unicode{x24}3.5$ million and the appellate court sustained (California Court
 of Appeal 1981). The arithmetic is not the error, and neither is the provenance of the number. $L$ in $B < PL$ is the loss the law will
 recognise after the harm, read by a tribunal that sees a known hazard and a cheap remedy, and an administrative price of life set before the
 harm is a different quantity under the same letter. A precaution rule that imports $L$ from any party's table, the regulator's included, has

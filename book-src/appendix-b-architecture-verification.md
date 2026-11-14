@@ -138,13 +138,13 @@ Two generative regimes read the same productions in the opposite direction: an e
 **The productions.** The skeleton grammar generates the guard-free trajectories, and guard annotation is a separate total map over them. The separation is what keeps syntax and semantics from contaminating one another. With $\langle\textit{Scope}\rangle$ and $\langle\textit{Scalar}\rangle$ as terminals drawn from the step being judged:
 
 $$\begin{aligned}
-\langle\textit{Sentence}\rangle &::= \langle\textit{Framing}\rangle\mkern5mu\langle\textit{Counting}\rangle\mkern5mu\langle\textit{Body}\rangle \\
-\langle\textit{Framing}\rangle &::= \texttt{frame}\mkern5mu[\texttt{insulate} \mid \texttt{open}]\mkern5mu[\texttt{type3}] \\
-\langle\textit{Counting}\rangle &::= \texttt{count}\mkern5mu\langle\textit{Interval}\rangle\mkern5mu[\texttt{deff}]\mkern5mu[\texttt{vintages}] \\
-\langle\textit{Body}\rangle &::= \langle\textit{Decision}\rangle\mkern5mu[\langle\textit{Brake}\rangle]\mkern5mu(\langle\textit{Write}\rangle \mid \langle\textit{Read}\rangle)^{\ast}\mkern5mu[\texttt{halt}]\mkern5mu[\langle\textit{Step}\rangle^{\ast}] \\
-\langle\textit{Step}\rangle &::= \langle\textit{Framing}\rangle\mkern5mu\langle\textit{Counting}\rangle\mkern5mu\langle\textit{Body}\rangle \\
-\langle\textit{Decision}\rangle &::= \texttt{act}\mkern5mu\texttt{lex}(\texttt{survival}, \texttt{minimax\_regret}) \\
-\langle\textit{Brake}\rangle &::= \texttt{brake}\mkern5mu\texttt{tts} \ge \texttt{ttr} \\
+\langle\textit{Sentence}\rangle &::= \langle\textit{Framing}\rangle\mkern5mu\langle\textit{Counting}\rangle\mkern5mu\langle\textit{Body}\rangle \\\\
+\langle\textit{Framing}\rangle &::= \texttt{frame}\mkern5mu[\texttt{insulate} \mid \texttt{open}]\mkern5mu[\texttt{type3}] \\\\
+\langle\textit{Counting}\rangle &::= \texttt{count}\mkern5mu\langle\textit{Interval}\rangle\mkern5mu[\texttt{deff}]\mkern5mu[\texttt{vintages}] \\\\
+\langle\textit{Body}\rangle &::= \langle\textit{Decision}\rangle\mkern5mu[\langle\textit{Brake}\rangle]\mkern5mu(\langle\textit{Write}\rangle \mid \langle\textit{Read}\rangle)^{\ast}\mkern5mu[\texttt{halt}]\mkern5mu[\langle\textit{Step}\rangle^{\ast}] \\\\
+\langle\textit{Step}\rangle &::= \langle\textit{Framing}\rangle\mkern5mu\langle\textit{Counting}\rangle\mkern5mu\langle\textit{Body}\rangle \\\\
+\langle\textit{Decision}\rangle &::= \texttt{act}\mkern5mu\texttt{lex}(\texttt{survival}, \texttt{minimax\_regret}) \\\\
+\langle\textit{Brake}\rangle &::= \texttt{brake}\mkern5mu\texttt{tts} \ge \texttt{ttr} \\\\
 \langle\textit{Write}\rangle &::= \texttt{write}\mkern5mu\langle\textit{Scope}\rangle, \qquad
 \langle\textit{Read}\rangle ::= \texttt{read}\mkern5mu\langle\textit{Scope}\rangle, \qquad
 \langle\textit{Interval}\rangle ::= [\langle\textit{Scalar}\rangle, \langle\textit{Scalar}\rangle] \mkern5mu\mkern5mu (L \le U)

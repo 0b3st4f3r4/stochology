@@ -42,7 +42,7 @@ times too coarse: the flaw it could not resolve was harmless before the raise an
 nothing in the record changed.
 
 A point load cannot answer the question, because the question asks for the event
-$\{a \ge a\_{c}(\sigma)\}$: a probability, not a distance. A point value asserts a definite distance to a definite threshold, a claim about two
+$\lbrace{}a \ge a\_{c}(\sigma)\rbrace$: a probability, not a distance. A point value asserts a definite distance to a definite threshold, a claim about two
 distributions disguised as one number. The measurement guide of BIPM,
 IEC, IFCC, ILAC, ISO, IUPAC, IUPAP and OIML (2008/2012) states the rule, that a result without its uncertainty
 is incomplete because the value alone does not say what the instrument excluded, and Roy (1952) made it a

@@ -34,7 +34,7 @@ survival time. Point forecasts decay into climatological distributions.
 Atmospheric energy cascades from planetary scales through baroclinic eddies and convective clouds to molecular dissipation, the picture of
 whirls feeding smaller whirls that Richardson (1922) drew, and Kolmogorov's (1941) similarity hypothesis fixes its shape in the inertial
 subrange: if the spectrum there depends only on the dissipation rate $\varepsilon$ and the wavenumber $k$, dimensional analysis leaves
-$E(k) = C\_K \varepsilon^{2/3} k^{-5/3}$, since $[\varepsilon] = \mathrm{m^2\,s^{-3}}$ and $[E] = \mathrm{m^3\,s^{-2}}$ admit no other
+$E(k) = C\_K \varepsilon^{2/3} k^{-5/3}$, since $[\varepsilon] = \mathrm{m^2\mkern3mus^{-3}}$ and $[E] = \mathrm{m^3\mkern3mus^{-2}}$ admit no other
 exponents. A model spaced at a few kilometres truncates the cascade, leaving updrafts,
 cloud microphysics, gravity wave drag and boundary-layer turbulence to parameterisation. The residue is a model-form discrepancy
 $\delta\_{\mathrm{K-O}}(x)$ that no tuning removes, and since wind damage scales with the

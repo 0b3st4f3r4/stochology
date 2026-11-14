@@ -12,7 +12,7 @@ Before taphonomy had a name, the fossil was read as a specimen of life: what the
 
 Write the chain as four assemblages: what lived, what died, what was buried, what was found. A unit of the first reaches the fourth only by surviving every stage, so its probability of appearing in the record is a product
 
-$$P(S \mid A) = P(D \mid A)\,P(B \mid D)\,P(S \mid B),$$
+$$P(S \mid A) = P(D \mid A)\mkern3muP(B \mid D)\mkern3muP(S \mid B),$$
 
 with $A$ the living assemblage, $D$ the death assemblage, $B$ the buried one and $S$ the sampled one. The structure carries the argument, not any particular value. A factor at zero is absorbing: a taxon whose hard parts dissolve in the deposit's chemistry is absent from $S$ however abundant it was in $A$, and no amount of further digging multiplies a zero by anything but zero.
 

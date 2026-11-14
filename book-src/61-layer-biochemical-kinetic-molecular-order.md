@@ -89,7 +89,7 @@ $$f(E\_a) = e^{-E\_a / k\_B T},$$
 so a process whose forward move requires crossing the barrier and whose attempt frequency is $\nu$ proceeds
 at
 
-$$k = \nu\, e^{-E\_a / k\_B T},$$
+$$k = \nu\mkern3mu e^{-E\_a / k\_B T},$$
 
 which is the form Arrhenius (1889) fitted to reaction rates before the statistical reading of it existed.
 Nothing in that expression is a property of the molecule alone. Raise the temperature and the same

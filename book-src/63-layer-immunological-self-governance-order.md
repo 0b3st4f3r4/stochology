@@ -14,7 +14,7 @@ Bretscher and Cohn stated the form that test takes: a response requires specific
 
 Write the encounter as a pair $(s, c)$, specificity and costimulation, and the rule as a conjunction: respond if and only if $s \ge \theta\_{s}$ and $c \ge \theta\_{c}$, both evaluated on the same encounter. The obvious alternative is a weighted sum, $s + \lambda c \ge \theta$, and the difference between the two rules is not a matter of tuning. Under the conjunction the probability of firing on a structure that is the organism's own is bounded without any assumption about the dependence between the arms:
 
-$$P\bigl(s \ge \theta\_{s} \wedge c \ge \theta\_{c} \mid \text{self}\bigr) \;\le\; \min\bigl\{P(s \ge \theta\_{s} \mid \text{self}),\; P(c \ge \theta\_{c} \mid \text{self})\bigr\}.$$
+$$P\bigl(s \ge \theta\_{s} \wedge c \ge \theta\_{c} \mid \text{self}\bigr) \mkern5mu\le\mkern5mu \min\bigl\lbrace{}P(s \ge \theta\_{s} \mid \text{self}),\mkern5mu P(c \ge \theta\_{c} \mid \text{self})\bigr\rbrace.$$
 
 The bound is a monotonicity fact, not an independence fact, and that is why it survives contact with the biology. The two arms are positively associated: the same encounter that raises specificity also raises costimulation, so an additive rule has no bound it can state without knowing the association, while the conjunction has one that holds at every level of it. A test whose false-positive rate cannot be bounded in advance is not a test; it is a disposition.
 
@@ -34,7 +34,7 @@ The repertoire is revised after the developmental window, but slowly and at the 
 
 Write that capacity $C(t)$ and that load $L(t)$, and the margin $m(t) = C(t) - L(t)$. The organism does not fail when a single verdict is wrong; it fails when the margin is exhausted before restoration can arrive, which is the survival inequality stated in the vocabulary of tissue and not of inventory:
 
-$$\mathrm{TTS}\_{\mathrm{survival}}(m) \;\ge\; \mathrm{TTR}\_{\mathrm{restore}}(C),$$
+$$\mathrm{TTS}\_{\mathrm{survival}}(m) \mkern5mu\ge\mkern5mu \mathrm{TTR}\_{\mathrm{restore}}(C),$$
 
 where the left side is the time the remaining margin buys at the current draw-down rate and the right side is the time the suppressive arm needs to return the capacity to its baseline. An organism can be lucid about exactly what it is attacking (the response is specific, the target is known) and still cross the barrier, because the margin was thin and the restoration slow.
 

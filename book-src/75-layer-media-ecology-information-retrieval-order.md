@@ -26,7 +26,7 @@ Trouillot located the silences of history at four moments — the creation of fa
 
 The bias is one quantity, not a suspicion. Let $R = 1$ mark that a unit of the world is registered and $Y$ be the quantity of interest. Then
 
-$$\mathbb{E}[Y \mid R = 1] - \mathbb{E}[Y] = \frac{\rho\_{R,Y}\,\sigma\_{R}\,\sigma\_{Y}}{P(R = 1)},$$
+$$\mathbb{E}[Y \mid R = 1] - \mathbb{E}[Y] = \frac{\rho\_{R,Y}\mkern3mu\sigma\_{R}\mkern3mu\sigma\_{Y}}{P(R = 1)},$$
 
 which follows from $\mathrm{Cov}(R, Y) = \rho\_{R,Y}\sigma\_{R}\sigma\_{Y} = P(R=1)\bigl(\mathbb{E}[Y \mid R=1] - \mathbb{E}[Y]\bigr)$. Neither fact is reachable by a correction applied afterwards. The bias is divided by the registration share, so it grows without bound as the registered fraction shrinks. Its sign is carried by $\rho\_{R,Y}$, a property of the deposit, not of the analyst.
 

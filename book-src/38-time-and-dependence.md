@@ -220,10 +220,10 @@ Time E[Wq]
 ```
 
 The term $\frac{\rho}{1 - \rho}$ represents the **Kingman hyperbola**. Sizing an emergency department, a highway,
-or a compute cluster at $95\%$ utilization ($\rho = 0.95$) multiplies waiting time by a factor of
-$0.95 / 0.05 = 19$. Sizing at $99\%$ multiplies it by $99$. And variability enters multiplicatively:
+or a compute cluster at $95\unicode{x25}$ utilization ($\rho = 0.95$) multiplies waiting time by a factor of
+$0.95 / 0.05 = 19$. Sizing at $99\unicode{x25}$ multiplies it by $99$. And variability enters multiplicatively:
 bursty arrivals ($c\_a \gg 1$) amplify congestion delay across all utilization levels. Operating a critical system
-near $100\%$ efficiency engineers catastrophic gridlock at the arrival of the first cluster of shocks, which is the
+near $100\unicode{x25}$ efficiency engineers catastrophic gridlock at the arrival of the first cluster of shocks, which is the
 opposite of lean optimization.
 
 An electricity grid runs both regimes over a single day (Kingman 1961).

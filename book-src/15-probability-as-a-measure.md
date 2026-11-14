@@ -156,11 +156,11 @@ institution is mathematically permitted to ask.
 
 In finite institutional archives the $\sigma$-algebra $\mathcal{F}$ has a combinatorial meaning. If a logging
 schema partitions the sample space $\Omega$ into $m$ mutually exclusive, non-empty atomic cells
-$\{C\_1, \dots, C\_m\}$, the generated event algebra $\mathcal{F} = \sigma(\{C\_1, \dots, C\_m\})$ contains every union
+$\lbrace{}C\_1, \dots, C\_m\rbrace$, the generated event algebra $\mathcal{F} = \sigma(\lbrace{}C\_1, \dots, C\_m\rbrace)$ contains every union
 of those cells and has cardinality $|\mathcal{F}| = 2^m$; for $m = 3$ observable categories, exactly $2^3 = 8$
 events are measurable. Two boundary limits frame the structure: in the trivial algebra
-$\mathcal{F}\_0 = \{\emptyset, \Omega\}$ ($m = 1$), no observation distinguishes any two outcomes; in the discrete
-power-set algebra $\mathcal{F} = 2^\Omega$, every singleton $\{\omega\}$ is measurable. A hypothesis
+$\mathcal{F}\_0 = \lbrace\emptyset, \Omega\rbrace$ ($m = 1$), no observation distinguishes any two outcomes; in the discrete
+power-set algebra $\mathcal{F} = 2^\Omega$, every singleton $\lbrace\omega\rbrace$ is measurable. A hypothesis
 $H \subsetneq C\_1$ that splits a single atomic cell without an observable tag lies outside $\mathcal{F}$. No point
 probability $\mathbb{P}(H)$ exists, and the institution can report only the inner-outer measure bracket
 $[0,\mkern3mu \mathbb{P}(C\_1)]$.
@@ -203,7 +203,7 @@ Jacob Bernoulli's *Ars Conjectandi*, published posthumously in 1713, is the reas
 A **random variable** is a measurable mapping $X : \Omega \to \mathbb{R}$ whose pre-image of every Borel interval
 lies in the event space:
 
-$$X^{-1}\bigl((-\infty, c]\bigr) = \{\omega \in \Omega : X(\omega) \le c\} \in \mathcal{F}, \qquad \forall c \in \mathbb{R}.$$
+$$X^{-1}\bigl((-\infty, c]\bigr) = \lbrace\omega \in \Omega : X(\omega) \le c\rbrace \in \mathcal{F}, \qquad \forall c \in \mathbb{R}.$$
 
 A random variable is not an uncertain number. It is a deterministic measurement function evaluated on an uncertain
 world state. Measurability is what makes a statement such as "the vital reserve falls below zero" a valid event in
@@ -215,7 +215,7 @@ the threshold interval $(-\infty, c]$ back into $\mathcal{F}$ where $\mathbb{P}$
 six-hourly storm transition is an elementary record $\omega$, the wind-intensity indicator is a deterministic
 function on that record, and the hurricane threshold event is the pre-image whose empirical relative frequency
 supplies the base rate. In a sequential reserve trajectory the ruin event
-$\{R\_t \le 0\} = R\_t^{-1}\bigl((-\infty, 0]\bigr)$ is measurable with respect to the history filtration
+$\lbrace{}R\_t \le 0\rbrace = R\_t^{-1}\bigl((-\infty, 0]\bigr)$ is measurable with respect to the history filtration
 $\mathcal{F}\_t$ precisely because $R\_t$ is a deterministic accounting functional of the observed shock path up to
 step $t$.
 
@@ -272,7 +272,7 @@ deployed model degrades under Goodhart's law. Probability in institutional life 
 In measure-theoretic terms, strategic classification means there is no single passive probability measure
 $\mathbb{P}\_X$ waiting to be estimated (Hardt, Megiddo, Papadimitriou & Wootters 2016; Perdomo et al. 2020; MacKenzie 2006).
 Each institutional rule $\theta$ induces its own pushforward distribution
-$\mathbb{P}\_{\theta} = \bigl(x'(\cdot; \theta)\bigr)\_{\#}\mathbb{P}\_X$ via the best-response map
+$\mathbb{P}\_{\theta} = \bigl(x'(\cdot; \theta)\bigr)\_{\unicode{x23}}\mathbb{P}\_X$ via the best-response map
 $x \mapsto x'(x; \theta)$.
 
 Auditing the performative feedback loop means comparing two fixed points. The myopic performative stability point

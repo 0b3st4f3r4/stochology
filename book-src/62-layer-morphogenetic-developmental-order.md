@@ -60,11 +60,11 @@ not a stored coordinate. Take a source that produces a substance at a fixed rate
 it diffuses with coefficient $D$, and a decay that removes it at rate $1/\tau$. In one dimension the steady
 state balances diffusion against removal,
 
-$$D\,\frac{d^{2}c}{dx^{2}} = \frac{c}{\tau},$$
+$$D\mkern3mu\frac{d^{2}c}{dx^{2}} = \frac{c}{\tau},$$
 
 whose decaying solution is
 
-$$c(x) = c\_0\, e^{-x/\lambda}, \qquad \lambda = \sqrt{D\tau}.$$
+$$c(x) = c\_0\mkern3mu e^{-x/\lambda}, \qquad \lambda = \sqrt{D\tau}.$$
 
 The length scale is the geometric mean of a transport coefficient and a lifetime, and that is the whole
 content of the order's temporal site in one expression: a gradient reaches as far as the substance can
@@ -73,10 +73,10 @@ a tissue that must remember a position must keep paying for the source. The grad
 that was written and can be read at leisure; it is a flow that stops when the supply stops, and the
 persistence of the form is the persistence of the flow.
 
-The readout converts that scale into a boundary. A cell that responds above a threshold $c^{*}$ sits on the
+The readout converts that scale into a boundary. A cell that responds above a threshold $c^{\ast}$ sits on the
 side of the position
 
-$$x^{*} = \lambda \ln\frac{c\_0}{c^{*}},$$
+$$x^{\ast} = \lambda \ln\frac{c\_0}{c^{\ast}},$$
 
 so the boundary of a territory is a logarithm of a ratio of concentrations, and its position moves with the
 length scale, the source and the threshold at once. Nothing about that expression is a fixed address. The
@@ -89,7 +89,7 @@ valley is a basin with a barrier, and the time to leave a basin is governed by t
 sets a reaction rate. The fraction of a population above a barrier $\Delta V$ at noise level $k\_B T$ is
 $e^{-\Delta V/k\_B T}$ (Boltzmann 1877), so the mean time to cross is
 
-$$\tau\_{\mathrm{esc}} = \tau\_0\, e^{\Delta V / k\_B T},$$
+$$\tau\_{\mathrm{esc}} = \tau\_0\mkern3mu e^{\Delta V / k\_B T},$$
 
 with $\tau\_0$ the attempt time. Both consequences are about clocks, not about shapes. The transition from
 labile to fixed is sharp in the barrier and slow in time: because the exponent is
@@ -118,7 +118,7 @@ and not the depth of the buffer reports the form and omits the time at which it 
 
 Differentiate the boundary position with respect to the threshold and the performative site appears:
 
-$$\delta x^{*} = -\,\frac{\lambda}{c^{*}}\,\delta c^{*},$$
+$$\delta x^{\ast} = -\mkern3mu\frac{\lambda}{c^{\ast}}\mkern3mu\delta c^{\ast},$$
 
 so a fluctuation in a reader's sensitivity is a displacement of anatomy. This is not a measurement error to
 be averaged away. A tissue has no way to distinguish a boundary that moved because the source moved from one
@@ -131,7 +131,7 @@ crosses a level.
 The reader also has a ceiling, and the ceiling moves the boundary a second time. A response that saturates,
 as any finite array of receptors must, stops resolving above the level at which it is full, so once the
 gradient passes that level the boundary is pinned by the reader and no longer follows the source. In the
-algebra above the threshold has become a ceiling, and $\delta c^{*}$ no longer measures a sensitivity but a
+algebra above the threshold has become a ceiling, and $\delta c^{\ast}$ no longer measures a sensitivity but a
 saturation point; the tissue then reads a boundary at the furthest position the reader can still
 distinguish, whatever the gradient does beyond it. A source that keeps producing past that point changes the
 concentration and not the anatomy, and the reading is indistinguishable from a boundary that has stopped

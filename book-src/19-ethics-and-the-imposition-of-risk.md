@@ -175,7 +175,7 @@ Non-reciprocal risk imposition involves three structural asymmetries:
 
 Stochology measures the asymmetry through Alexandra Chouldechova's (2017) **fairness trilemma**
 ([Moral Luck, Apt Agency, and Institutional Design](49-moral-luck-apt-agency-institutions.md)). Take any imperfect binary risk
-classification satisfying predictive parity — equal positive predictive value ($\mathrm{PPV}\_A = \mathrm{PPV}\_B \in (0, 1)$) — across groups $g \in \{A, B\}$ with
+classification satisfying predictive parity — equal positive predictive value ($\mathrm{PPV}\_A = \mathrm{PPV}\_B \in (0, 1)$) — across groups $g \in \lbrace{}A, B\rbrace$ with
 base-rate prevalences $p\_A \ne p\_B$ in $(0, 1)$ and $\mathrm{FNR}\_g < 1$. The group false-positive rate then satisfies an exact algebraic identity:
 
 $$\mathrm{FPR}\_g = \frac{p\_g}{1 - p\_g}\mkern3mu\frac{1 - \mathrm{PPV}}{\mathrm{PPV}}\mkern3mu(1 - \mathrm{FNR}\_g), \qquad \frac{\mathrm{FPR}\_A}{\mathrm{FPR}\_B} = \frac{p\_A / (1 - p\_A)}{p\_B / (1 - p\_B)} \quad (\text{when }\mathrm{PPV}\_A=\mathrm{PPV}\_B \in (0, 1),\mkern5mu\mathrm{FNR}\_A=\mathrm{FNR}\_B < 1).$$

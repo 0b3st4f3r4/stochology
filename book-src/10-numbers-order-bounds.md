@@ -144,14 +144,14 @@ be anchored.
 
 Number systems are built in layers. Each layer answers a deficiency of the one beneath it:
 
-- The **naturals** $\mathbb{N} = \{0, 1, 2, \dots\}$ support counting and succession.
+- The **naturals** $\mathbb{N} = \lbrace0, 1, 2, \dots\rbrace$ support counting and succession.
 - The **integers** $\mathbb{Z}$ close the naturals under subtraction.
-- The **rationals** $\mathbb{Q} = \{p/q : p \in \mathbb{Z}, q \in \mathbb{N} \setminus \{0\}\}$ close the
+- The **rationals** $\mathbb{Q} = \lbrace{}p/q : p \in \mathbb{Z}, q \in \mathbb{N} \setminus \lbrace0\rbrace\rbrace$ close the
   integers under division by non-zero elements.
 
 The rational field $\mathbb{Q}$ is dense: between any two distinct rationals $q\_1 < q\_2$ sits another
 rational, $(q\_1 + q\_2)/2$. Density is not enough for analysis. The set
-$S = \{q \in \mathbb{Q} : q^2 < 2\}$ is non-empty and bounded above (by $3/2$, for instance), and it has
+$S = \lbrace{}q \in \mathbb{Q} : q^2 < 2\rbrace$ is non-empty and bounded above (by $3/2$, for instance), and it has
 no least upper bound inside $\mathbb{Q}$, because $\sqrt{2} \notin \mathbb{Q}$. Rational sequences that
 ought to converge find no endpoint.
 
@@ -173,7 +173,7 @@ set constrains every state inside it.
 
 A total order on $\mathbb{R}$ lets us write bounded intervals for $a \le b$:
 
-$$[a, b] = \{x \in \mathbb{R} : a \le x \le b\}, \qquad (a, b) = \{x \in \mathbb{R} : a < x < b\}.$$
+$$[a, b] = \lbrace{}x \in \mathbb{R} : a \le x \le b\rbrace, \qquad (a, b) = \lbrace{}x \in \mathbb{R} : a < x < b\rbrace.$$
 
 An element $M$ is an **upper bound** of $S \subset \mathbb{R}$ if $x \le M$ for all $x \in S$. The **supremum**
 $\sup S$ is the least upper bound: it satisfies $x \le \sup S$ for all $x \in S$, and for any $\epsilon > 0$,
@@ -221,7 +221,7 @@ assumptions about the missing counterfactuals. Reporting the interval $[L, U]$ s
 actually constrains.
 
 Two-arm program evaluation over an outcome bounded in $[y\_{\min}, y\_{\max}]$: let arm
-$d \in \{0, 1\}$ have response rate $p\_d \in (0, 1]$ and respondent mean
+$d \in \lbrace0, 1\rbrace$ have response rate $p\_d \in (0, 1]$ and respondent mean
 $\bar{Y}\_d \in [y\_{\min}, y\_{\max}]$. By interval subtraction, the Average Treatment Effect
 $\mathrm{ATE} = \mathbb{E}[Y(1)] - \mathbb{E}[Y(0)]$ lies in
 $[L\_{\mathrm{ATE}}, U\_{\mathrm{ATE}}] = [L\_1 - U\_0,\mkern5mu U\_1 - L\_0]$, where
@@ -281,7 +281,7 @@ bound and sample maxima grow polynomially with sample size. The tail index is es
 order statistics $X\_{(n)} \ge X\_{(n-1)} \ge \dots \ge X\_{(n-k+1)} > 0$, measured against the
 threshold just below them, $X\_{(n-k)}$, through Bruce M. Hill's (1975) maximum-likelihood estimator
 $\hat{\alpha}\_{k,n} = \bigl(\frac{1}{k}\sum\_{i=1}^k \ln(X\_{(n-i+1)} / X\_{(n-k)})\bigr)^{-1}$,
-with asymptotic $95\%$ confidence interval $\hat{\alpha}\_{k,n}(1 \pm 1.96/\sqrt{k})$ (Hill 1975;
+with asymptotic $95\unicode{x25}$ confidence interval $\hat{\alpha}\_{k,n}(1 \pm 1.96/\sqrt{k})$ (Hill 1975;
 Embrechts, Klüppelberg & Mikosch 1997). The estimate matters only through its interval. That interval decides
 a borderline case when it straddles the moment boundary: a confidence set lying strictly below $2$ certifies
 that the population variance is infinite, one lying strictly above $2$ certifies that it is finite, and one
@@ -334,7 +334,7 @@ width forbids.
 
 [Distribution and Moment](31-distribution-and-moment.md) and [The Non-Identical, Scale Invariance, Convexity, and Heavy Tails](46-non-identical-asymmetry-heavy-tails.md)
 operationalize these bounds on empirical data. The Pareto tail index $\hat{\alpha}$ is estimated alongside
-its asymptotic $95\%$ confidence bounds, non-parametric Manski worst-case bounds are constructed over
+its asymptotic $95\unicode{x25}$ confidence bounds, non-parametric Manski worst-case bounds are constructed over
 unobserved outcomes, and a bound that comes back degenerate $[0, 0]$ or inverted $L > U$ is refused rather
 than read as evidence, because an interval that cannot be read as a bound is not one.
 

@@ -147,11 +147,11 @@ else (axiom of extensionality).
 
 The operations that recur:
 
-- **Union** $A \cup B = \{x : x \in A \text{ or } x \in B\}$;
-- **Intersection** $A \cap B = \{x : x \in A \text{ and } x \in B\}$;
-- **Set difference** $A \setminus B = \{x : x \in A \text{ and } x \notin B\}$;
+- **Union** $A \cup B = \lbrace{}x : x \in A \text{ or } x \in B\rbrace$;
+- **Intersection** $A \cap B = \lbrace{}x : x \in A \text{ and } x \in B\rbrace$;
+- **Set difference** $A \setminus B = \lbrace{}x : x \in A \text{ and } x \notin B\rbrace$;
 - **Complement** $A^c = \Omega \setminus A$ relative to an ambient universe $\Omega$;
-- **Cartesian product** $A \times B = \{(a, b) : a \in A, b \in B\}$.
+- **Cartesian product** $A \times B = \lbrace(a, b) : a \in A, b \in B\rbrace$.
 
 In data systems an archive is a subset of an ambient product space: if an observation comprises $k$
 features, the admissible domain is the Cartesian product $\mathcal{X} = X\_1 \times X\_2 \times \cdots \times X\_k$.
@@ -187,7 +187,7 @@ or $a \le b$ when $(a, b) \in R$. Measurement is governed by two canonical class
 
 An **equivalence relation** is reflexive ($a \sim a$), symmetric ($a \sim b \implies b \sim a$), and
 transitive ($a \sim b \text{ and } b \sim c \implies a \sim c$). By the fundamental theorem of equivalence
-relations, any equivalence relation partitions $S$ into disjoint equivalence classes $[a] = \{x \in S : x \sim a\}$.
+relations, any equivalence relation partitions $S$ into disjoint equivalence classes $[a] = \lbrace{}x \in S : x \sim a\rbrace$.
 Every grouping in empirical work is such a partition: by clinical site, school district, sensor batch,
 demographic cohort. Treat clustered data as if each unit were independent and the partition drops out of
 the arithmetic, underestimating variance by the cluster design effect $\mathrm{DEFF} = 1 + (m - 1)\rho$
@@ -230,7 +230,7 @@ downstream analyst can invert "other" back into the distinct physical failure mo
 many-to-one compression, irreversible, is what it means for a recording pipeline to fail injectivity.
 
 A function $f : A \to B$ assigns to each element $a \in A$ a unique image $f(a) \in B$. The set $A$ is the
-domain, $B$ the codomain, and the subset $f(A) = \{f(a) : a \in A\} \subseteq B$ the image, or range.
+domain, $B$ the codomain, and the subset $f(A) = \lbrace{}f(a) : a \in A\rbrace \subseteq B$ the image, or range.
 
 Three structural properties decide whether information can be recovered without loss. A map is
 **injective** (one-to-one) when $f(a\_1) = f(a\_2) \implies a\_1 = a\_2$, so no distinct states are merged;
@@ -240,7 +240,7 @@ and **bijective** when it is both, in which case a unique two-sided inverse $f^{
 Measurement in the physical and social worlds is a function $m : \mathcal{W} \to \mathcal{A}$ mapping
 latent world states $\mathcal{W}$ into recorded archive states $\mathcal{A}$. In realistic settings $m$ is
 almost never injective: multiple distinct world states generate identical sensor readings or survey
-responses. When injectivity fails, the pre-image $m^{-1}(y) = \{w \in \mathcal{W} : m(w) = y\}$ is a set
+responses. When injectivity fails, the pre-image $m^{-1}(y) = \lbrace{}w \in \mathcal{W} : m(w) = y\rbrace$ is a set
 rather than a point. Point estimation replaces that set with an arbitrary single element. Honest partial
 identification keeps the whole pre-image set (Manski 1990). Let a fraction $1 - p$ of an outcome bounded in
 $[y\_{\min}, y\_{\max}]$ go unobserved: the pre-image of the recorded sample mean

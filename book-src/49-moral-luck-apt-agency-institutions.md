@@ -211,8 +211,8 @@ How do contracts, incentives, and classifiers distribute risk and error across h
 3. **Simon–Girard Scapegoat Blame Transfer:** When executives rig decision premises at the top (**Herbert Simon 1997 [1947]**) and trigger **René Girard's (1986 [1982]) scapegoat mechanism** by assigning most of the blame downward, the audit reports a **scapegoat blame transfer** of
    $$\Delta\_{\mathrm{scapegoat}} = \max(0, b\_{\mathrm{frontline}} - L\_{\mathrm{oper}})$$
    the excess of the blame assigned to the frontline over the operational share it actually caused, together with the ratio between the two.
-4. **Gregory Bateson's (1972/2000) Double-Bind Trap:** Combining proxy coercion ($\beta\_{\mathrm{proxy}, t} \to 1$), status-based testimonial silencing ($\delta\_{\mathrm{status}, t} \to 1$), and a disabled $S3^\ast$ brake ($\mathbf{1}\{\text{brake}\_t\} = 0$) locks operators into a double bind:
-   $$\mathrm{DB}\_t = \beta\_{\mathrm{proxy}, t} \cdot \delta\_{\mathrm{status}, t} \cdot \bigl(1 - \mathbf{1}\{\text{brake}\_t\}\bigr)$$
+4. **Gregory Bateson's (1972/2000) Double-Bind Trap:** Combining proxy coercion ($\beta\_{\mathrm{proxy}, t} \to 1$), status-based testimonial silencing ($\delta\_{\mathrm{status}, t} \to 1$), and a disabled $S3^\ast$ brake ($\mathbf{1}\lbrace\text{brake}\_t\rbrace = 0$) locks operators into a double bind:
+   $$\mathrm{DB}\_t = \beta\_{\mathrm{proxy}, t} \cdot \delta\_{\mathrm{status}, t} \cdot \bigl(1 - \mathbf{1}\lbrace\text{brake}\_t\rbrace\bigr)$$
    which vanishes under the full triad because the brake is on and the status discount is zero.
 
 The nexus formalizes the degeneration of institutional authority into alienated *potestas* and sovereign capture. In the political analysis of [Chapter 20](20-legitimacy-and-institutions.md), decision-making power severed from the constituent *potentia* of those who bear the physical risks turns centralized command into an apparatus of capture. Unilateral premise-rigging, testimonial silencing and asymmetric limited liability let sovereign actors hoard private gains while externalizing catastrophic tail risks onto frontline operators and affected third parties. Genuine institutional governance replaces alienated command with horizontal algedonic entitlements, symmetrical liability, and pre-committed cryptographic covenants.
@@ -221,7 +221,7 @@ The nexus formalizes the degeneration of institutional authority into alienated 
 
 An algorithmic classifier deployed across groups with unequal base rates $p\_A \ne p\_B$ is routinely promised simultaneous "fairness" across all criteria. Alexandra Chouldechova (2017) proved the promise impossible.
 
-**Theorem (Chouldechova, 2017, Eq. 2.5):** Let $Y \in \{0, 1\}$ be the true outcome, $\hat{Y} \in \{0, 1\}$ the binary classification, $p = \mathbb{P}(Y = 1)$ the group base rate, $\mathrm{PPV} = \mathbb{P}(Y = 1 \mid \hat{Y} = 1)$, $\mathrm{FNR} = \mathbb{P}(\hat{Y} = 0 \mid Y = 1)$, and $\mathrm{FPR} = \mathbb{P}(\hat{Y} = 1 \mid Y = 0)$. For any binary classifier with $0 < p < 1$ and $\mathrm{PPV} > 0$:
+**Theorem (Chouldechova, 2017, Eq. 2.5):** Let $Y \in \lbrace0, 1\rbrace$ be the true outcome, $\hat{Y} \in \lbrace0, 1\rbrace$ the binary classification, $p = \mathbb{P}(Y = 1)$ the group base rate, $\mathrm{PPV} = \mathbb{P}(Y = 1 \mid \hat{Y} = 1)$, $\mathrm{FNR} = \mathbb{P}(\hat{Y} = 0 \mid Y = 1)$, and $\mathrm{FPR} = \mathbb{P}(\hat{Y} = 1 \mid Y = 0)$. For any binary classifier with $0 < p < 1$ and $\mathrm{PPV} > 0$:
 
 $$\mathrm{FPR} = \frac{p}{1 - p} \cdot \frac{1 - \mathrm{PPV}}{\mathrm{PPV}} \cdot \bigl(1 - \mathrm{FNR}\bigr)$$
 
@@ -251,7 +251,7 @@ Institutional accountability collapses when automated dashboards overwhelm the h
 
 ### 8.4.1 The Two-Tier Cognitive Queue Under Channel Limits
 
-Jieyu Zheng and Markus Meister (2025) put human behavioral and sensory-motor conscious throughput at roughly **ten bits per second**. Andrew Wong et al. (2021) documented in external validation across 27,697 hospitalised patients that the widely deployed Epic Sepsis Model achieved a sensitivity of **$33\%$** and a positive predictive value of **$12\%$** (from which the derived false-alarm proportion is $1 - \mathrm{PPV} = 0.88$, or $88\%$), and with it widespread alert fatigue.
+Jieyu Zheng and Markus Meister (2025) put human behavioral and sensory-motor conscious throughput at roughly **ten bits per second**. Andrew Wong et al. (2021) documented in external validation across 27,697 hospitalised patients that the widely deployed Epic Sepsis Model achieved a sensitivity of **$33\unicode{x25}$** and a positive predictive value of **$12\unicode{x25}$** (from which the derived false-alarm proportion is $1 - \mathrm{PPV} = 0.88$, or $88\unicode{x25}$), and with it widespread alert fatigue.
 
 The audit models the human as a server. An operator inspecting $B\_{\mathrm{audit}}$ bits requires cognitive service time $\tau\_{\mathrm{cog}} = B\_{\mathrm{audit}} / C\_{\mathrm{human}}$. The alert arrival rate fixes the cognitive utilization $\rho\_{\mathrm{cog}}$, and actuation latency against the crisis survival window completes the queue. Three panels follow from that one model:
 
@@ -266,7 +266,7 @@ The design conclusion is not "fewer statistics". The number of statistics an aud
 Alerts are translated into Gerd Gigerenzer & Ulrich Hoffrage's (1995) integer natural frequency trees. Conditional probabilities in prevalence form are where base-rate neglect is easiest to commit, and frequency counts are where it is hardest:
 
 - In a cohort of shifts with a small crisis prevalence $\pi$, the tree counts the true crises and the non-crises, then splits each by the detector's behaviour.
-- A noisy detector with a high true-positive rate and a non-trivial false-positive rate rings on most crises and on a large share of the non-crises. The non-crises outnumber the crises, so the positive predictive value of an alarm collapses and the false-discovery share rises toward one. That is the arithmetic behind the derived false-alarm proportion from Wong et al.'s (2021) measured positive predictive value of $12\%$, and the reason alert fatigue is a property of prevalence and not of detector quality.
+- A noisy detector with a high true-positive rate and a non-trivial false-positive rate rings on most crises and on a large share of the non-crises. The non-crises outnumber the crises, so the positive predictive value of an alarm collapses and the false-discovery share rises toward one. That is the arithmetic behind the derived false-alarm proportion from Wong et al.'s (2021) measured positive predictive value of $12\unicode{x25}$, and the reason alert fatigue is a property of prevalence and not of detector quality.
 - The Turing–Good weight in decibans, $W = 10\log\_{10}(\mathrm{TPR}/\mathrm{FPR})$, makes the same point in the currency of evidence: a detector whose weight is small can be *accurate* per classification and useless per alarm.
 - A throughput-filtered detector with a lower false-positive rate raises the positive predictive value on the same prevalence, not because it detects more crises but because it stops reporting the non-crises: with $\mathrm{PPV} = \pi\mathrm{TPR}/(\pi\mathrm{TPR} + (1-\pi)\mathrm{FPR})$, dividing the false-positive rate by $k$ multiplies the predictive value by nearly $k$ wherever false alarms dominate the denominator. The gain is bought with missed crises, which is the trade the frequency tree makes visible.
 

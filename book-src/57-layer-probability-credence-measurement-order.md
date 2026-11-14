@@ -106,7 +106,7 @@ $$\operatorname{mean}\bigl(f(x)\bigr) \neq f\bigl(\operatorname{mean}(x)\bigr) \
 
 so two codings equivalent under the scale's own group return different means and the same median. The repair
 is the dominance index of Chapter 30, which counts the pairs on which one sample exceeds the other and is
-invariant across the group, because $\mathbf{1}\{f(x\_i) > f(y\_j)\} = \mathbf{1}\{x\_i > y\_j\}$ for every
+invariant across the group, because $\mathbf{1}\lbrace{}f(x\_i) > f(y\_j)\rbrace = \mathbf{1}\lbrace{}x\_i > y\_j\rbrace$ for every
 increasing $f$, while the arithmetic mean moves with the relabelling. Averaging a triage code fabricates an
 interval whose unit is whatever spacing the coder happened to use.
 

@@ -155,7 +155,7 @@ A database of millions of rows can carry *less* effective information than a sim
 
 Consider a finite population of size $N$ with values $Y\_1, \dots, Y\_N$, population mean $\bar{Y}\_N = \frac{1}{N}\sum\_{i=1}^N Y\_i$, and finite-population standard deviation $\sigma\_Y = \sqrt{\frac{1}{N}\sum\_{i=1}^N (Y\_i - \bar{Y}\_N)^2}$.
 
-Let $R\_i \in \{0, 1\}$ be the recording/response indicator for individual $i$. The recorded sample size is $n = \sum\_{i=1}^N R\_i$, the sampling fraction is $f = n / N$, and the observed sample mean is $\bar{Y}\_n = \frac{1}{n}\sum\_{i=1}^N R\_i Y\_i$. Note that the population mean of $R$ is $\bar{R}\_N = \frac{n}{N} = f$, and its variance is:
+Let $R\_i \in \lbrace0, 1\rbrace$ be the recording/response indicator for individual $i$. The recorded sample size is $n = \sum\_{i=1}^N R\_i$, the sampling fraction is $f = n / N$, and the observed sample mean is $\bar{Y}\_n = \frac{1}{n}\sum\_{i=1}^N R\_i Y\_i$. Note that the population mean of $R$ is $\bar{R}\_N = \frac{n}{N} = f$, and its variance is:
 $$\sigma\_R^2 = \frac{1}{N}\sum\_{i=1}^N (R\_i - f)^2 = f(1 - f)$$
 The finite-population covariance between the recording mechanism $R$ and the variable of interest $Y$ is:
 $$\mathrm{Cov}\_N(R, Y) = \frac{1}{N}\sum\_{i=1}^N (R\_i - f)(Y\_i - \bar{Y}\_N) = \frac{1}{N}\sum\_{i=1}^N R\_i Y\_i - f \bar{Y}\_N = \frac{n}{N}\bar{Y}\_n - f \bar{Y}\_N = f\bigl(\bar{Y}\_n - \bar{Y}\_N\bigr)$$
@@ -179,7 +179,7 @@ which holds for every selection mechanism compatible with the observed marginal 
 
 Against any critical threshold $\bar{Y}\_{\mathrm{crit}}$ (in particular $\bar{Y}\_{\mathrm{crit}} = 0$ for sign reversal), equating the displacement $\bar{\rho}\mkern3mu\sigma\_Y\sqrt{(1 - f)/f}$ under $|\rho\_{R,Y}| \le \bar{\rho}$ to $|\bar{Y}\_n - \bar{Y}\_{\mathrm{crit}}|$ yields the **breakdown correlation** (for $0 < f < 1$ and $\sigma\_Y > 0$):
 
-$$\rho^\star\_{R,Y} = \min\!\left(1,\mkern4mu \frac{\lvert\bar{Y}\_n - \bar{Y}\_{\mathrm{crit}}\rvert}{\sigma\_Y}\sqrt{\frac{f}{1 - f}}\right).$$
+$$\rho^\star\_{R,Y} = \min\mkern-3mu\left(1,\mkern4mu \frac{\lvert\bar{Y}\_n - \bar{Y}\_{\mathrm{crit}}\rvert}{\sigma\_Y}\sqrt{\frac{f}{1 - f}}\right).$$
 
 Below $\rho^\star\_{R,Y}$ the threshold verdict is invariant to missingness; at $\bar{\rho} \ge \rho^\star\_{R,Y}$ (when the ratio is at most $1$) the Manski–Meng band crosses $\bar{Y}\_{\mathrm{crit}}$ and overturns it.
 
@@ -272,7 +272,7 @@ The clustering side has the same pair of ends. As $\mathrm{CV}(m) \to 0$ the Mou
 
 ### The quantile the effective sample cannot deliver
 
-The recommendation of this chapter is to correct the design effect, report the effective sample beside the nominal one, and size the decision from it. Applied to a promise stated as a quantile, that recommendation misleads, and the arithmetic is short. An institution staffing to the upper limit of a confidence interval for the *mean* of a daily series can leave a large share of days short if its promise is stated as a quantile, because the mean's design effect does not control a quantile estimand: under clustering the exceedance indicator $\mathbf{1}\{Y\_i \le q\_p\}$ carries its own quantile intra-cluster correlation and the standard error passes through the local density $f\_Y(q\_p)$ rather than the sample standard deviation $s$. Symbolically, even in independent draws $\mathrm{se}(\bar{y}) = s/\sqrt{n}$ and $\mathrm{se}(\hat{q}\_p) = \sqrt{p(1-p)}/(\sqrt{n}\mkern3muf\_Y(q\_p))$ target different functionals of the distribution and scale through different quantities, so one $n\_{\mathrm{eff}}$ for the mean cannot serve both estimands. The dated case where this was learned one step removed is the 1936 *Literary Digest* poll, which collected millions of ballots and was wrong, and whose lesson was taken as being about defect, not about volume (Squire 1988).
+The recommendation of this chapter is to correct the design effect, report the effective sample beside the nominal one, and size the decision from it. Applied to a promise stated as a quantile, that recommendation misleads, and the arithmetic is short. An institution staffing to the upper limit of a confidence interval for the *mean* of a daily series can leave a large share of days short if its promise is stated as a quantile, because the mean's design effect does not control a quantile estimand: under clustering the exceedance indicator $\mathbf{1}\lbrace{}Y\_i \le q\_p\rbrace$ carries its own quantile intra-cluster correlation and the standard error passes through the local density $f\_Y(q\_p)$ rather than the sample standard deviation $s$. Symbolically, even in independent draws $\mathrm{se}(\bar{y}) = s/\sqrt{n}$ and $\mathrm{se}(\hat{q}\_p) = \sqrt{p(1-p)}/(\sqrt{n}\mkern3muf\_Y(q\_p))$ target different functionals of the distribution and scale through different quantities, so one $n\_{\mathrm{eff}}$ for the mean cannot serve both estimands. The dated case where this was learned one step removed is the 1936 *Literary Digest* poll, which collected millions of ballots and was wrong, and whose lesson was taken as being about defect, not about volume (Squire 1988).
 
 ### When the archive has no single denominator
 

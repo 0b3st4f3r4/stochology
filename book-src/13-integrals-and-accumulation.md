@@ -165,7 +165,7 @@ Two boundary cases show interval additivity deciding the buffer:
 A catastrophe actuary averaging annual losses can slice the sum two ways. Riemann slices the domain
 vertically, marching day by day along the horizontal axis. Lebesgue slices the codomain horizontally: group the
 world states $\omega \in \Omega$ that produce roughly the same loss $X(\omega) \approx x$, multiply that level by
-$\mathbb{P}(\{\omega : X(\omega) \in dx\})$, accumulate across levels. The shift from chronological
+$\mathbb{P}(\lbrace\omega : X(\omega) \in dx\rbrace)$, accumulate across levels. The shift from chronological
 summation to measure-weighted accumulation by level is why expectation is a Lebesgue integral.
 
 In rigorous probability, expectation is the Lebesgue integral of a measurable random variable
@@ -188,9 +188,9 @@ integral is negligible. Set $S(t) \sim t^{-\alpha}$ with $\alpha \le 1$ and the 
 $\mathbb{E}[X] = \infty$. The expectation is then driven entirely by the unbounded upper tail.
 
 The derivation shows why horizontal slicing is natural. For any realization $X(\omega) \ge 0$, write the number
-itself as an integral of a step indicator, $X(\omega) = \int\_0^\infty \mathbf{1}\{X(\omega) > t\}\mkern3mudt$, and
+itself as an integral of a step indicator, $X(\omega) = \int\_0^\infty \mathbf{1}\lbrace{}X(\omega) > t\rbrace\mkern3mudt$, and
 apply Tonelli–Fubini to swap the expectation and the threshold integral,
-$\mathbb{E}[X] = \int\_\Omega \bigl(\int\_0^\infty \mathbf{1}\{X(\omega) > t\}\mkern3mudt\bigr)\mkern3mud\mathbb{P}(\omega) = \int\_0^\infty \mathbb{P}(X > t)\mkern3mudt$.
+$\mathbb{E}[X] = \int\_\Omega \bigl(\int\_0^\infty \mathbf{1}\lbrace{}X(\omega) > t\rbrace\mkern3mudt\bigr)\mkern3mud\mathbb{P}(\omega) = \int\_0^\infty \mathbb{P}(X > t)\mkern3mudt$.
 For a Pareto survival tail $S(t) = (t/x\_m)^{-\alpha}$ on $t \ge x\_m > 0$ the integral evaluates to
 $\mathbb{E}[X] = x\_m + \int\_{x\_m}^\infty (t/x\_m)^{-\alpha}\mkern3mudt = \frac{\alpha}{\alpha - 1}x\_m < \infty$ when $\alpha > 1$,
 and diverges to $+\infty$ as $\alpha \to 1^+$.
@@ -245,7 +245,7 @@ of **coherent risk measures**: monotonicity, subadditivity, positive homogeneity
 Subadditivity, $\rho(X + Y) \le \rho(X) + \rho(Y)$, says that diversifying across two exposures cannot raise
 total risk.
 
-The industry metric is Value-at-Risk at level $\alpha \in (0, 1)$, $\mathrm{VaR}\_\alpha(X) = \inf\{x : \mathbb{P}(X \le x) \ge \alpha\}$,
+The industry metric is Value-at-Risk at level $\alpha \in (0, 1)$, $\mathrm{VaR}\_\alpha(X) = \inf\lbrace{}x : \mathbb{P}(X \le x) \ge \alpha\rbrace$,
 and it reads a single quantile. $\mathrm{VaR}$ is not subadditive. Combine two independent fat-tailed risks and
 the portfolio can carry a higher $\mathrm{VaR}$ than the sum of the individual $\mathrm{VaR}$ values, so
 diversification is penalized.
@@ -253,9 +253,9 @@ diversification is penalized.
 **Expected Shortfall** (Conditional Value-at-Risk, $\mathrm{CVaR}\_\alpha$) integrates every loss above
 $\mathrm{VaR}\_\alpha$:
 
-$$\mathrm{CVaR}\_\alpha(X) = \frac{1}{1 - \alpha} \int\_\alpha^1 \mathrm{VaR}\_u(X)\mkern3mudu = \frac{1}{1 - \alpha}\Bigl(\mathbb{E}\bigl[X\mkern2mu\mathbf{1}\{X > \mathrm{VaR}\_\alpha(X)\}\bigr] + \mathrm{VaR}\_\alpha(X)\bigl(1 - \alpha - \mathbb{P}(X > \mathrm{VaR}\_\alpha(X))\bigr)\Bigr),$$
+$$\mathrm{CVaR}\_\alpha(X) = \frac{1}{1 - \alpha} \int\_\alpha^1 \mathrm{VaR}\_u(X)\mkern3mudu = \frac{1}{1 - \alpha}\Bigl(\mathbb{E}\bigl[X\mkern2mu\mathbf{1}\lbrace{}X > \mathrm{VaR}\_\alpha(X)\rbrace\bigr] + \mathrm{VaR}\_\alpha(X)\bigl(1 - \alpha - \mathbb{P}(X > \mathrm{VaR}\_\alpha(X))\bigr)\Bigr),$$
 
-which simplifies to $\mathbb{E}[X \mid X \ge \mathrm{VaR}\_\alpha(X)]$ whenever the loss distribution has no point mass at $\mathrm{VaR}\_\alpha(X) = \inf\{x : F\_X(x) \ge \alpha\}$. Being an integral over the whole upper tail, Expected Shortfall is coherent and subadditive across both continuous and discrete distributions. It rewards diversification and penalizes heavy-tailed extreme losses that standard quantiles ignore.
+which simplifies to $\mathbb{E}[X \mid X \ge \mathrm{VaR}\_\alpha(X)]$ whenever the loss distribution has no point mass at $\mathrm{VaR}\_\alpha(X) = \inf\lbrace{}x : F\_X(x) \ge \alpha\rbrace$. Being an integral over the whole upper tail, Expected Shortfall is coherent and subadditive across both continuous and discrete distributions. It rewards diversification and penalizes heavy-tailed extreme losses that standard quantiles ignore.
 
 For a continuous loss law, the empirical threshold $q\_{0.95}$ is paired with the tail average over realizations above $q\_{0.95}$ (splitting any discrete boundary atom so total tail weight equals $1 - \alpha$). Two analytical boundary cases and one operational counterexample fix the relation between the quantile and the tail integral:
 
@@ -273,12 +273,12 @@ $$\mathbb{E}[Y] \in \bigl[p \mathbb{E}[Y \mid R=1] + (1 - p)y\_{\min},\mkern5mu 
 
 Worst-case bounds give reserve sizing that withstands arbitrary, adversarial selection in the missing data.
 
-Additivity of the Lebesgue integral over the partition $\Omega = \{R = 1\} \cup \{R = 0\}$ gives the interval
+Additivity of the Lebesgue integral over the partition $\Omega = \lbrace{}R = 1\rbrace \cup \lbrace{}R = 0\rbrace$ gives the interval
 directly (Manski 1990; Manski 2003):
 
-$$\mathbb{E}[Y] = \int\_{\{R=1\}} Y\mkern3mud\mathbb{P} + \int\_{\{R=0\}} Y\mkern3mud\mathbb{P} = p\mkern3mu\mathbb{E}[Y \mid R = 1] + (1 - p)\mkern3mu\mathbb{E}[Y \mid R = 0].$$
+$$\mathbb{E}[Y] = \int\_{\lbrace{}R=1\rbrace} Y\mkern3mud\mathbb{P} + \int\_{\lbrace{}R=0\rbrace} Y\mkern3mud\mathbb{P} = p\mkern3mu\mathbb{E}[Y \mid R = 1] + (1 - p)\mkern3mu\mathbb{E}[Y \mid R = 0].$$
 
-Because $y\_{\min} \le Y(\omega) \le y\_{\max}$ pointwise on $\{R = 0\}$, integrating the constant bounds over a set
+Because $y\_{\min} \le Y(\omega) \le y\_{\max}$ pointwise on $\lbrace{}R = 0\rbrace$, integrating the constant bounds over a set
 of measure $1 - p$ traps the unobserved integral inside $[(1 - p)y\_{\min},\mkern3mu (1 - p)y\_{\max}]$. The
 identification width $\Delta\_{\mathrm{id}} = (1 - p)(y\_{\max} - y\_{\min})$ is irreducible: first for a single arm,
 then, by interval subtraction, for two-arm causal comparisons. In the National Supported Work trial (LaLonde 1986),

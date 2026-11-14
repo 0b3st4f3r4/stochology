@@ -150,7 +150,7 @@ operational cleaning, and what the database schema had a category for.
 The **fitted population** ($n\_{\mathrm{fit}}$) is the subset of the archive retained by the statistical
 pipeline: the rows with complete feature vectors that survived listwise deletion.
 
-To bridge the archive back to the target population without bias, Daniel G. Horvitz and Donovan J. Thompson (1952) proved that if every unit $i \in \{1, \dots, N\}$ in the target population has a known, strictly positive probability $\pi\_i = \mathbb{P}(R\_i = 1) \in (0, 1]$ of being recorded ($R\_i = 1$), weighting each observed record by its inverse inclusion probability $w\_i = 1/\pi\_i$ recovers an exactly unbiased estimator of the finite-population mean:
+To bridge the archive back to the target population without bias, Daniel G. Horvitz and Donovan J. Thompson (1952) proved that if every unit $i \in \lbrace1, \dots, N\rbrace$ in the target population has a known, strictly positive probability $\pi\_i = \mathbb{P}(R\_i = 1) \in (0, 1]$ of being recorded ($R\_i = 1$), weighting each observed record by its inverse inclusion probability $w\_i = 1/\pi\_i$ recovers an exactly unbiased estimator of the finite-population mean:
 
 $$\hat{Y}\_{\mathrm{HT}} = \frac{1}{N}\sum\_{i=1}^{N} \frac{R\_i Y\_i}{\pi\_i}, \qquad \mathbb{E}\bigl[\hat{Y}\_{\mathrm{HT}}\bigr] = \frac{1}{N}\sum\_{i=1}^{N} \frac{\mathbb{E}[R\_i] Y\_i}{\pi\_i} = \bar{Y}\_N.$$
 
@@ -162,7 +162,7 @@ the open target population, a gulf no in-sample goodness-of-fit statistic can de
 
 ## 2. Volume is not representation: Meng's Big Data Paradox
 
-Suppose a national retail bank collects satisfaction surveys from a small fraction $f = n/N$ of its account holders, and dissatisfied customers are slightly less likely to complete the form, inducing a tiny correlation $\rho\_{R,Y} < 0$ between the response indicator $R\_i \in \{0, 1\}$ and satisfaction $Y\_i$. Management celebrates a multi-million-row archive as a near-census with a textbook standard error shrunk by the square root of the row count. In reality, that massive volume has merely locked in a systematic upward distortion.
+Suppose a national retail bank collects satisfaction surveys from a small fraction $f = n/N$ of its account holders, and dissatisfied customers are slightly less likely to complete the form, inducing a tiny correlation $\rho\_{R,Y} < 0$ between the response indicator $R\_i \in \lbrace0, 1\rbrace$ and satisfaction $Y\_i$. Management celebrates a multi-million-row archive as a near-census with a textbook standard error shrunk by the square root of the row count. In reality, that massive volume has merely locked in a systematic upward distortion.
 
 The stubborn intuition that massive sample sizes guarantee asymptotic truth holds under one condition:
 that the data recording mechanism is statistically independent of the outcome being measured. When recording is
@@ -186,7 +186,7 @@ Read as an identity in the unknown defect, this is not an estimate of $n\_{\math
 
 On the location scale, the same identity fixes a **breakdown correlation** against any declared decision threshold $\bar{Y}\_{\mathrm{crit}}$. Under $|\rho\_{R,Y}| \le \bar{\rho}$, the Manski–Meng partial-identification interval for $\bar{Y}\_N$ is $\bigl[\bar{Y}\_n - \bar{\rho}\mkern3mu\sigma\_Y\sqrt{(1-f)/f},\mkern5mu \bar{Y}\_n + \bar{\rho}\mkern3mu\sigma\_Y\sqrt{(1-f)/f}\bigr]$. Setting the half-width equal to the observed distance $|\bar{Y}\_n - \bar{Y}\_{\mathrm{crit}}|$ gives the critical defect correlation (capped at $1$ by Cauchy–Schwarz, for $0 < f < 1$ and $\sigma\_Y > 0$):
 
-$$\rho^\star\_{R,Y} = \min\!\left(1,\mkern4mu \frac{\lvert\bar{Y}\_n - \bar{Y}\_{\mathrm{crit}}\rvert}{\sigma\_Y}\sqrt{\frac{f}{1 - f}}\right).$$
+$$\rho^\star\_{R,Y} = \min\mkern-3mu\left(1,\mkern4mu \frac{\lvert\bar{Y}\_n - \bar{Y}\_{\mathrm{crit}}\rvert}{\sigma\_Y}\sqrt{\frac{f}{1 - f}}\right).$$
 
 Whenever $|\rho\_{R,Y}| < \rho^\star\_{R,Y}$, every admissible population mean stays on the same side of $\bar{Y}\_{\mathrm{crit}}$ as $\bar{Y}\_n$; once $\bar{\rho} \ge \rho^\star\_{R,Y}$ with the ratio at most $1$, the interval straddles $\bar{Y}\_{\mathrm{crit}}$ and missingness reverses the decision (or, for $\bar{Y}\_{\mathrm{crit}} = 0$, the sign).
 
@@ -217,7 +217,7 @@ $$\mathrm{DEFF}\_{\mathrm{Kish}} = 1 + \mathrm{CV}^2(w) = \frac{\sum\_i w\_i^2}{
 
 Under the two-component model with weights independent of cluster membership, the exact composition is additive, $\mathrm{DEFF}\_{\mathrm{total}} = \mathrm{DEFF}\_{\mathrm{cluster}} + \mathrm{DEFF}\_{\mathrm{Kish}} - 1 = 1 + (\tilde{m} - 1)\rho\_I + \mathrm{CV}^2(w)$, whereas multiplying the two factors ($\mathrm{DEFF}\_{\mathrm{cluster}}\cdot\mathrm{DEFF}\_{\mathrm{Kish}} = \mathrm{DEFF}\_{\mathrm{total}} + (\tilde{m} - 1)\rho\_I\mkern3mu\mathrm{CV}^2(w)$) serves only as a conservative upper bound that exceeds it by the non-negative cross term. The sampling-variance effective sample size entering standard-error denominators is $n\_{\mathrm{eff}}^{\mathrm{var}} = n / \mathrm{DEFF}\_{\mathrm{total}}$; combining $1/n\_{\mathrm{eff}}^{\mathrm{var}}$ with Meng's finite-population selection-bias penalty evaluated at a declared bound $\bar{\rho} \ge |\rho\_{R,Y}|$ (since $\rho\_{R,Y}$ itself depends on the unobserved population mean) yields the harmonic effective count governing Keynesian evidential weight:
 
-$$\frac{1}{n\_{\mathrm{eff}}(\bar{\rho})} = \frac{1}{n\_{\mathrm{eff}}^{\mathrm{var}}} + \left(\frac{1-f}{f}\right)\bar{\rho}^2 = \frac{\mathrm{DEFF}\_{\mathrm{total}}}{n} + \left(\frac{1-f}{f}\right)\bar{\rho}^2 \;\le\; \frac{\mathrm{DEFF}\_{\mathrm{cluster}}\cdot\mathrm{DEFF}\_{\mathrm{Kish}}}{n} + \left(\frac{1-f}{f}\right)\bar{\rho}^2.$$
+$$\frac{1}{n\_{\mathrm{eff}}(\bar{\rho})} = \frac{1}{n\_{\mathrm{eff}}^{\mathrm{var}}} + \left(\frac{1-f}{f}\right)\bar{\rho}^2 = \frac{\mathrm{DEFF}\_{\mathrm{total}}}{n} + \left(\frac{1-f}{f}\right)\bar{\rho}^2 \mkern5mu\le\mkern5mu \frac{\mathrm{DEFF}\_{\mathrm{cluster}}\cdot\mathrm{DEFF}\_{\mathrm{Kish}}}{n} + \left(\frac{1-f}{f}\right)\bar{\rho}^2.$$
 
 Classical philology reached the same arithmetic from the other direction, under the name *stemma codicum*. In
 Karl Lachmann's (1850) methodology, counting how many surviving Renaissance

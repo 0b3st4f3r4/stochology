@@ -141,7 +141,7 @@ $$\mathcal{O}\_{\mathrm{gov}}(\pi\_t, \mathcal{I}\_t) = \min\bigl(g\_{\text{ex-a
 
 ## 7.1 Isotonic CORP-Murphy Brier Score Decomposition via PAV
 
-Any probabilistic forecast $p\_1, \dots, p\_n \in (0, 1)$ deployed against binary outcomes $y\_1, \dots, y\_n \in \{0, 1\}$ raises two questions that must be kept apart. **Honest calibration**: do events predicted at a given probability happen that often? **Discriminative resolution**: can the model separate high-risk shifts from calm shifts?
+Any probabilistic forecast $p\_1, \dots, p\_n \in (0, 1)$ deployed against binary outcomes $y\_1, \dots, y\_n \in \lbrace0, 1\rbrace$ raises two questions that must be kept apart. **Honest calibration**: do events predicted at a given probability happen that often? **Discriminative resolution**: can the model separate high-risk shifts from calm shifts?
 
 The classical mean squared error of probabilistic forecasts is the **Brier Score** (Brier, 1950):
 $$\mathrm{BS}(p) = \frac{1}{n}\sum\_{i=1}^n (p\_i - y\_i)^2$$
@@ -176,7 +176,7 @@ This debiasing provides a rigorous finite-sample guarantee against overfitting.
 ### 7.1.3 Continuous Ranked Probability Score (CRPS) Decomposition
 
 Hersbach (2000) demonstrated that the Continuous Ranked Probability Score (CRPS) of a predictive cumulative distribution $F$ against realized outcome $y \in \mathbb{R}$ can be expressed as an integral of Brier scores across all thresholds $\tau \in \mathbb{R}$:
-$$\mathrm{CRPS}(F, y) = \int\_{-\infty}^\infty \mathrm{BS}\bigl(F(\tau),\mkern3mu \mathbf{1}\{y \le \tau\}\bigr)\mkern3mu d\tau$$
+$$\mathrm{CRPS}(F, y) = \int\_{-\infty}^\infty \mathrm{BS}\bigl(F(\tau),\mkern3mu \mathbf{1}\lbrace{}y \le \tau\rbrace\bigr)\mkern3mu d\tau$$
 Stochology applies the CORP-PAV operator to each binary slice along a threshold quadrature grid, so the integral of reliability, resolution, and uncertainty reconstructs the overall CRPS to quadrature precision. The gain over quoting a single CRPS is that the decomposition says *where* the loss lives: in the calibration of the forecast, in its inability to separate regimes, or in the base rate of the phenomenon, which no forecast can move.
 
 ---
@@ -191,7 +191,7 @@ Jonas Peters, Peter Bühlmann, and Nicolai Meinshausen (2016) formalized the pri
 $$Y^{(e)} \mid X\_{\mathbf{PA}(Y)}^{(e)} \sim F\_Y \quad \forall e \in \mathcal{E}$$
 Conversely, any regression model relying on a non-causal proxy $X\_{\mathrm{proxy}}$ will exhibit structural coefficient drift across environments as external conditions change.
 
-The operator tests non-empty candidate predictor subsets $S \subseteq \{0, \dots, d-1\}$ ($S \ne \emptyset$; the empty set $S = \emptyset$ tests invariance of the marginal distribution of $Y^{(e)}$ directly across environments without regression degrees of freedom). For each non-empty subset $S$, it computes the pooled residual sum of squares $\mathrm{RSS}\_{\mathrm{restricted}}$ and the environment-specific residual sum of squares $\mathrm{RSS}\_{\mathrm{unrestricted}}$ on globally centered data (without per-environment intercepts), constructing the dimensionless Chow $F$-statistic:
+The operator tests non-empty candidate predictor subsets $S \subseteq \lbrace0, \dots, d-1\rbrace$ ($S \ne \emptyset$; the empty set $S = \emptyset$ tests invariance of the marginal distribution of $Y^{(e)}$ directly across environments without regression degrees of freedom). For each non-empty subset $S$, it computes the pooled residual sum of squares $\mathrm{RSS}\_{\mathrm{restricted}}$ and the environment-specific residual sum of squares $\mathrm{RSS}\_{\mathrm{unrestricted}}$ on globally centered data (without per-environment intercepts), constructing the dimensionless Chow $F$-statistic:
 $$F\_S = \frac{(\mathrm{RSS}\_{\mathrm{restricted}} - \mathrm{RSS}\_{\mathrm{unrestricted}}) / df\_1}{\mathrm{RSS}\_{\mathrm{unrestricted}} / df\_2}$$
 where $df\_1 = (|\mathcal{E}| - 1)|S|$ and $df\_2 = n\_{\mathrm{total}} - |\mathcal{E}||S|$. A subset $S$ is accepted into the invariant set $\mathcal{A}$ if its invariance test passes ($F\_S \le F\_{1-\alpha}(df\_1, df\_2)$ for $|S| \ge 1$). The estimated causal parent set is the intersection:
 $$\hat{S}^\ast = \bigcap\_{S \in \mathcal{A}} S$$
@@ -318,12 +318,12 @@ Consider predicting a target $Y$ from two candidates, $X\_1$ a true cause and $X
 
 Evaluating candidate subsets by the Chow statistic of §7.2.1:
 
-1. **Candidate $S = \{X\_1\}$:** the slope is the same in both environments up to sampling error, the restricted and unrestricted residuals agree, and the subset is **accepted**.
-2. **Candidate $S = \{X\_2\}$:** the slope moves by the ratio $\kappa\_1/\kappa\_2$, the Chow statistic is large, and the subset is **rejected**.
+1. **Candidate $S = \lbrace{}X\_1\rbrace$:** the slope is the same in both environments up to sampling error, the restricted and unrestricted residuals agree, and the subset is **accepted**.
+2. **Candidate $S = \lbrace{}X\_2\rbrace$:** the slope moves by the ratio $\kappa\_1/\kappa\_2$, the Chow statistic is large, and the subset is **rejected**.
 3. **Empty Set $S = \emptyset$:** the residual variance differs between regimes, so the empty subset is **rejected**.
-4. **Candidate $S = \{X\_1, X\_2\}$:** conditioning on the true cause shields $Y$, so the conditional distribution is invariant and the subset is **accepted**.
+4. **Candidate $S = \lbrace{}X\_1, X\_2\rbrace$:** conditioning on the true cause shields $Y$, so the conditional distribution is invariant and the subset is **accepted**.
 
-Take the intersection: $\hat{S}^\ast = \{X\_1\} \cap \{X\_1, X\_2\} = \{X\_1\}$. The spurious proxy is eliminated and the true causal parent isolated. The exercise is worth running in symbols because it shows what the intersection buys, which is invariance and not fit, and why the empty set is the dangerous failure mode and not the conservative one.
+Take the intersection: $\hat{S}^\ast = \lbrace{}X\_1\rbrace \cap \lbrace{}X\_1, X\_2\rbrace = \lbrace{}X\_1\rbrace$. The spurious proxy is eliminated and the true causal parent isolated. The exercise is worth running in symbols because it shows what the intersection buys, which is invariance and not fit, and why the empty set is the dangerous failure mode and not the conservative one.
 
 ---
 

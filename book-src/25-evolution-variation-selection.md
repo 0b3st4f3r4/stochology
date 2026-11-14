@@ -193,7 +193,7 @@ selectively neutral, driven not by Darwinian selection but by stochastic **genet
 populations (Kimura 1968).
 
 In a finite diploid population of effective size $N\_e$, binomial gamete sampling induces a single-generation
-allele-frequency variance $\mathrm{Var}(\Delta p) = p(1 - p) / (2N\_e)$. A newly arising neutral mutation has initial frequency $p\_0 = 1/(2N\_e)$ and reaches $100\%$ fixation purely by chance with probability $u(p\_0) = 1/(2N\_e)$ across mean fixation time $\bar{t}\_{\mathrm{fix}} \approx 4N\_e$ generations; the chance of fixation therefore shrinks inversely with population size while the waiting time grows with it. Selection coefficient $s$ dominates drift only when $|s| \gg 1/(2N\_e)$; when $|s| \ll 1/(2N\_e)$, sampling noise governs fixation (Kimura 1968).
+allele-frequency variance $\mathrm{Var}(\Delta p) = p(1 - p) / (2N\_e)$. A newly arising neutral mutation has initial frequency $p\_0 = 1/(2N\_e)$ and reaches $100\unicode{x25}$ fixation purely by chance with probability $u(p\_0) = 1/(2N\_e)$ across mean fixation time $\bar{t}\_{\mathrm{fix}} \approx 4N\_e$ generations; the chance of fixation therefore shrinks inversely with population size while the waiting time grows with it. Selection coefficient $s$ dominates drift only when $|s| \gg 1/(2N\_e)$; when $|s| \ll 1/(2N\_e)$, sampling noise governs fixation (Kimura 1968).
 
 In small or insular institutions, bureaucratic drift mirrors genetic drift. Procedural quirks, jargon and
 habits become permanent fixtures, and not because they improve operational performance. Random turnover and the
@@ -289,25 +289,25 @@ $$\dot{x} = x(1-x)(\pi\_{R} - \pi\_{T}) = -c\mkern3mux(1-x),$$
 
 with $\pi\_{R} = -c$ and $\pi\_{T} = 0$, or equivalently in log-odds form
 
-$$\frac{d}{dt}\ln\!\left(\frac{x}{1-x}\right) = \frac{\dot{x}}{x(1-x)} = \pi\_{R} - \pi\_{T} = -\gamma\_{\mathrm{select}}, \qquad \gamma\_{\mathrm{select}} := c > 0.$$
+$$\frac{d}{dt}\ln\mkern-3mu\left(\frac{x}{1-x}\right) = \frac{\dot{x}}{x(1-x)} = \pi\_{R} - \pi\_{T} = -\gamma\_{\mathrm{select}}, \qquad \gamma\_{\mathrm{select}} := c > 0.$$
 
 The reserve share therefore falls monotonically as $x(t) = x\_0 e^{-ct}/(1 - x\_0 + x\_0 e^{-ct})$, and the deterministic time in the calm to fall from $x\_0$ to $x\_1 \in (0, x\_0)$ is
 
-$$t^{\ast} = \frac{1}{\gamma\_{\mathrm{select}}}\ln\!\left(\frac{x\_0(1-x\_1)}{x\_1(1-x\_0)}\right) = \frac{1}{c}\ln\!\left(\frac{x\_0(1-x\_1)}{x\_1(1-x\_0)}\right) > 0.$$
+$$t^{\ast} = \frac{1}{\gamma\_{\mathrm{select}}}\ln\mkern-3mu\left(\frac{x\_0(1-x\_1)}{x\_1(1-x\_0)}\right) = \frac{1}{c}\ln\mkern-3mu\left(\frac{x\_0(1-x\_1)}{x\_1(1-x\_0)}\right) > 0.$$
 
 **Proposition (competitive extinction, exponential case).** Let the first shock time satisfy $\tau\_{\mathrm{shock}} \sim \mathrm{Exp}(1/T)$ with mean interval $T > 0$, and let a unit that carries no reserve be absorbed at the first shock it meets. For any $0 < x\_1 < x\_0 < 1$, the probability that the reserve share reaches $x\_1$ before the first shock is
 
-$$\mathbb{P}(\tau\_{\mathrm{shock}} > t^{\ast}) = \exp\!\left(-\frac{t^{\ast}}{T}\right) = \left[\frac{x\_1(1-x\_0)}{x\_0(1-x\_1)}\right]^{1/(cT)},$$
+$$\mathbb{P}(\tau\_{\mathrm{shock}} > t^{\ast}) = \exp\mkern-3mu\left(-\frac{t^{\ast}}{T}\right) = \left[\frac{x\_1(1-x\_0)}{x\_0(1-x\_1)}\right]^{1/(cT)},$$
 
 which increases strictly in $cT$ for fixed $x\_0 > x\_1$ and tends to $1$ as $cT \to \infty$. The proof is one line: the decay time $t^{\ast}$ is deterministic in the calm, so reaching $x\_1$ before the first shock is the event $\tau\_{\mathrm{shock}} > t^{\ast}$, whose probability under $\mathrm{Exp}(1/T)$ is the survival function $\exp(-t^{\ast}/T)$.
 
 The competitor does not need to survive the shock in order to win the calm; it wins if the divestment completes first. Because $\mathbb{E}[\tau\_{\mathrm{shock}}] = T$, the expected log-odds at the arrival of the first shock is
 
-$$\mathbb{E}\!\left[\ln\!\left(\frac{x(\tau\_{\mathrm{shock}})}{1-x(\tau\_{\mathrm{shock}})}\right)\right] = \ln\!\left(\frac{x\_0}{1-x\_0}\right) - \gamma\_{\mathrm{select}} T.$$
+$$\mathbb{E}\mkern-3mu\left[\ln\mkern-3mu\left(\frac{x(\tau\_{\mathrm{shock}})}{1-x(\tau\_{\mathrm{shock}})}\right)\right] = \ln\mkern-3mu\left(\frac{x\_0}{1-x\_0}\right) - \gamma\_{\mathrm{select}} T.$$
 
 The exact condition $\gamma\_{\mathrm{select}} > 1/T$ (equivalently $\gamma\_{\mathrm{select}} T > 1$) is therefore the threshold under which the log-odds $\ln\bigl(x/(1-x)\bigr)$ decay by more than $1$ nat in expectation before the first shock arrives:
 
-$$\mathbb{E}\!\left[\ln\!\left(\frac{x(\tau\_{\mathrm{shock}})}{1-x(\tau\_{\mathrm{shock}})}\right)\right] < \ln\!\left(\frac{x\_0}{1-x\_0}\right) - 1.$$
+$$\mathbb{E}\mkern-3mu\left[\ln\mkern-3mu\left(\frac{x(\tau\_{\mathrm{shock}})}{1-x(\tau\_{\mathrm{shock}})}\right)\right] < \ln\mkern-3mu\left(\frac{x\_0}{1-x\_0}\right) - 1.$$
 
 That inequality is the multipolar trap in its exact form. Every unit prefers the profile in which all hold the
 reserve to the profile in which none does, and every unit prefers to be the one that divests while the others

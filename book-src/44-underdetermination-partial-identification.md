@@ -151,7 +151,7 @@ The operator pairs the e-process with a time-uniform confidence sequence radius,
 Instead of inventing unverifiable missingness assumptions to force a point number, **Canonical Operator I** computes **sharp non-parametric bounds**:
 
 1. **Algebraic Derivation of Manski (1990, 2003) Two-Arm ATE Bounds Under Attrition:**
-   Let $Y(1), Y(0) \in [y\_{\min}, y\_{\max}]$ denote potential outcomes under treatment and control. In an imperfect trial or observational cohort, reporting is recorded by binary indicator $R\_d \in \{0, 1\}$ for subjects assigned to arm $d \in \{0, 1\}$. By the Law of Total Expectation, the marginal mean for arm $d$ decomposes into observed and unobserved strata:
+   Let $Y(1), Y(0) \in [y\_{\min}, y\_{\max}]$ denote potential outcomes under treatment and control. In an imperfect trial or observational cohort, reporting is recorded by binary indicator $R\_d \in \lbrace0, 1\rbrace$ for subjects assigned to arm $d \in \lbrace0, 1\rbrace$. By the Law of Total Expectation, the marginal mean for arm $d$ decomposes into observed and unobserved strata:
    $$\mathbb{E}[Y(d)] = \mathbb{E}[Y(d) \mid R\_d = 1]\mkern3mu\mathbb{P}(R\_d = 1) + \mathbb{E}[Y(d) \mid R\_d = 0]\mkern3mu\mathbb{P}(R\_d = 0)$$
    Because the unobserved counterfactual $\mathbb{E}[Y(d) \mid R\_d = 0]$ is unknown, Charles Manski's sharp worst-case single-arm bounds insert the physical domain extrema $[y\_{\min}, y\_{\max}]$:
    $$L\_{\mathrm{M}}(d) = p\_{\mathrm{obs}, d}\mkern3mu\bar{Y}\_{\mathrm{obs}, d} + (1 - p\_{\mathrm{obs}, d})\mkern3muy\_{\min}, \qquad U\_{\mathrm{M}}(d) = p\_{\mathrm{obs}, d}\mkern3mu\bar{Y}\_{\mathrm{obs}, d} + (1 - p\_{\mathrm{obs}, d})\mkern3muy\_{\max}$$

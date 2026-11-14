@@ -259,7 +259,7 @@ state is absorbing: the trajectory stays ruined for every remaining interval.
 ### Order is a flow, not a state
 
 Order is a flow, not a state. A watt rejected at ambient temperature $T\_0$ carries $1/T\_0$ watts per kelvin out of the building, and
-the erasure ceiling the same power draw could support is $P\,T\_{\mathrm{year}}/(k_B T\_0 \ln 2)$ bits a year,
+the erasure ceiling the same power draw could support is $P\mkern3muT\_{\mathrm{year}}/(k_B T\_0 \ln 2)$ bits a year,
 linear in the power and set by the ambient temperature (Landauer 1961), so erasure is not the binding term at any
 institutional power draw. The binding constraint on an institution is how fast negentropy arrives, which is a question about time.
 

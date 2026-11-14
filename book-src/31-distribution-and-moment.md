@@ -263,7 +263,7 @@ scoring rules** that reward both calibration (honesty) and sharpness (resolution
 formalized the **Continuous Ranked Probability Score (CRPS)** for a predictive cumulative distribution $F$ and an
 observed scalar outcome $y$:
 
-$$\mathrm{CRPS}(F, y) = \int\_{-\infty}^{\infty} \bigl(F(x) - \mathbf{1}\_{\{x \ge y\}}\bigr)^2\mkern3mu dx.$$
+$$\mathrm{CRPS}(F, y) = \int\_{-\infty}^{\infty} \bigl(F(x) - \mathbf{1}\_{\lbrace{}x \ge y\rbrace}\bigr)^2\mkern3mu dx.$$
 
 CRPS measures the integrated squared distance between the predicted distribution and the empirical Heaviside step function of the realization. It generalizes mean absolute error to probabilistic forecasts and keeps the same units as the variable. It also decomposes cleanly:
 

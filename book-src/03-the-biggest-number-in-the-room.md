@@ -177,7 +177,7 @@ $$\mathbb{P}(\text{0 events in } n\text{ years}) = \left(1 - \frac{1}{T}\right)^
 Walk the two limits by hand to see what is missing at decision time:
 
 - **A short window against a centennial shock ($n \ll T$).** For a $T = 100$-year flood watched over a $n = 10$-year administrative tenure, $\mathbb{P}(\text{0 events}) = 0.99^{10} = 0.9044$ (a ninety per cent chance of complete silence); over a $n = 30$-year mortgage window, $\mathbb{P}(\text{0 events}) = 0.99^{30} = 0.7397$, and even over a full century ($n = T = 100$), $(1 - 1/T)^T \to e^{-1} \approx 0.3679$, so a hundred-year archive still has better than a one-in-three chance of never recording a hundred-year event.
-- **How long detection takes ($n / T \to \infty$).** As $n / T \to \infty$, $(1 - 1/T)^n \approx e^{-n/T} \to 0$; to have a $95\%$ chance of observing at least one $T$-year event inside the archive requires $n \ge \ln(20)\mkern3muT \approx 3.0\mkern3muT$ years (three centuries of continuous records for a hundred-year flood).
+- **How long detection takes ($n / T \to \infty$).** As $n / T \to \infty$, $(1 - 1/T)^n \approx e^{-n/T} \to 0$; to have a $95\unicode{x25}$ chance of observing at least one $T$-year event inside the archive requires $n \ge \ln(20)\mkern3muT \approx 3.0\mkern3muT$ years (three centuries of continuous records for a hundred-year flood).
 
 A second trap sits inside the **Institution**. The record is kept by the organization that would pay for
 the event, and when a shock destroys the record-keeper the failed cohort leaves the archive — Wald's
@@ -218,7 +218,7 @@ absorbing ruin barrier. No retrospective apology recovers it.
 That comparison is a condition, not a figure of speech. With replenishment stopped, the reserve is
 $B - S(t)$ for a cumulative shock $S$ with stationary independent increments whose mean rate is the
 crisis burn rate $\dot{D}\_{\mathrm{crisis}}$; ruin arrives at the first passage
-$\tau = \inf\{t \ge 0 : S(t) \ge B\}$, and the fluid path — the shock arriving exactly at its mean rate
+$\tau = \inf\lbrace{}t \ge 0 : S(t) \ge B\rbrace$, and the fluid path — the shock arriving exactly at its mean rate
 — meets the barrier at $B/\dot{D}\_{\mathrm{crisis}}$, which is $\mathrm{TTS}\_{\mathrm{survival}}$ by
 construction. A failed survival inequality is therefore a computed comparison: the fluid reserve is at
 zero strictly before recovery, and no refinement of the archive changes the sign. Survival itself is

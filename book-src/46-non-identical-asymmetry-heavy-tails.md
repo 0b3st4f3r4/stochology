@@ -182,8 +182,8 @@ Every nonlinear evaluation therefore reports the full distribution summary:
 
 ### 5.3.1 CRPS Integral Representation vs. MSE Failure
 
-Under heavy-tailed losses, classical Mean Squared Error ($\mathrm{MSE} = (y - \hat{y})^2$) is pathological: squaring an extreme loss produces massive variance in the evaluation metric itself. Gneiting & Raftery's CRPS solves this by integrating the squared difference between the cumulative distribution function $F(t)$ and the empirical Heaviside step $\mathbf{1}\{y \le t\}$ across all thresholds $t \in \mathbb{R}$:
-$$\mathrm{CRPS}(F, y) = \int\_{-\infty}^\infty \bigl(F(t) - \mathbf{1}\{y \le t\}\bigr)^2 dt = \mathbb{E}\_F|X - y| - \frac{1}{2}\mathbb{E}\_F|X - X'|$$
+Under heavy-tailed losses, classical Mean Squared Error ($\mathrm{MSE} = (y - \hat{y})^2$) is pathological: squaring an extreme loss produces massive variance in the evaluation metric itself. Gneiting & Raftery's CRPS solves this by integrating the squared difference between the cumulative distribution function $F(t)$ and the empirical Heaviside step $\mathbf{1}\lbrace{}y \le t\rbrace$ across all thresholds $t \in \mathbb{R}$:
+$$\mathrm{CRPS}(F, y) = \int\_{-\infty}^\infty \bigl(F(t) - \mathbf{1}\lbrace{}y \le t\rbrace\bigr)^2 dt = \mathbb{E}\_F|X - y| - \frac{1}{2}\mathbb{E}\_F|X - X'|$$
 where $X, X' \stackrel{\text{i.i.d.}}{\sim} F$. CRPS has three virtues:
 
 1. **Strict Propriety:** The expected CRPS is minimized if and only if the forecaster reports the true data-generating distribution $F$;

@@ -143,7 +143,7 @@ A real vector space $\mathbb{R}^n$ is a set of $n$-tuples closed under vector ad
 and scalar multiplication ($c\mathbf{u}$). A **linear subspace** $V \subseteq \mathbb{R}^n$ is a subset closed
 under both operations.
 
-A collection of vectors $\{\mathbf{v}\_1, \dots, \mathbf{v}\_k\}$ is linearly independent if $\sum\_{i=1}^k c\_i \mathbf{v}\_i = \mathbf{0}$
+A collection of vectors $\lbrace\mathbf{v}\_1, \dots, \mathbf{v}\_k\rbrace$ is linearly independent if $\sum\_{i=1}^k c\_i \mathbf{v}\_i = \mathbf{0}$
 implies $c\_1 = \cdots = c\_k = 0$. A **basis** is a minimal linearly independent spanning set for $V$. The number
 of elements in any basis defines the **dimension** $\dim(V)$.
 
@@ -156,9 +156,9 @@ dimension.
 An $m \times n$ matrix $A$ is a linear operator from an input domain $\mathbb{R}^n$ into a codomain
 $\mathbb{R}^m$: $\mathbf{x} \mapsto A\mathbf{x}$. Two subspaces fix its geometry:
 
-- The **kernel** (or null space): $\ker(A) = \{\mathbf{x} \in \mathbb{R}^n : A\mathbf{x} = \mathbf{0}\}$, the
+- The **kernel** (or null space): $\ker(A) = \lbrace\mathbf{x} \in \mathbb{R}^n : A\mathbf{x} = \mathbf{0}\rbrace$, the
   set of inputs that the operator annihilates.
-- The **image** (or column space): $\mathrm{im}(A) = \{A\mathbf{x} : \mathbf{x} \in \mathbb{R}^n\} \subseteq \mathbb{R}^m$,
+- The **image** (or column space): $\mathrm{im}(A) = \lbrace{}A\mathbf{x} : \mathbf{x} \in \mathbb{R}^n\rbrace \subseteq \mathbb{R}^m$,
   the subspace of reachable outputs.
 
 By the **rank-nullity theorem**:
@@ -203,7 +203,7 @@ variance inflates.
 The true dimensionality of correlated data is captured without column counts by the **effective dimension**
 (Roy & Vetterli, 2007), defined from the eigenvalues $\lambda\_1 \ge \cdots \ge \lambda\_p \ge 0$ of $G$:
 
-$$d\_{\mathrm{eff}} = \frac{\bigl(\mathrm{tr}(G)\bigr)^2}{\|G\|\_F^2} = \frac{\left(\sum\_{i=1}^p \lambda\_i\right)^2}{\sum\_{i=1}^p \lambda\_i^2}.$$
+$$d\_{\mathrm{eff}} = \frac{\bigl(\mathrm{tr}(G)\bigr)^2}{\Vert{}G\Vert\_F^2} = \frac{\left(\sum\_{i=1}^p \lambda\_i\right)^2}{\sum\_{i=1}^p \lambda\_i^2}.$$
 
 With all $p$ features orthogonal and equal in variance ($\lambda\_i = \lambda$) this gives
 $d\_{\mathrm{eff}} = p^2 \lambda^2 / (p \lambda^2) = p$. With features perfectly collinear ($\lambda\_1 = \mathrm{tr}(G), \lambda\_{i > 1} = 0$)
@@ -214,16 +214,16 @@ across rows and across columns:
 
 - **Row-space effective sample size and the Kish floor:** $n$ survey units carry inverse-propensity Horvitz–Thompson weights $w\_i = 1/\pi\_i$ (Horvitz & Thompson 1952; Kish 1965), and the same participation ratio applies to the diagonal weight operator $W = \mathrm{diag}(w\_1, \dots, w\_n)$:
 
-  $$n\_{\mathrm{eff}}^{\mathrm{Kish}} = \frac{\bigl(\mathrm{tr}(W)\bigr)^2}{\|W\|\_F^2} = \frac{\left(\sum\_{i=1}^n w\_i\right)^2}{\sum\_{i=1}^n w\_i^2} = \frac{n}{\mathrm{DEFF}\_{\mathrm{Kish}}}.$$
+  $$n\_{\mathrm{eff}}^{\mathrm{Kish}} = \frac{\bigl(\mathrm{tr}(W)\bigr)^2}{\Vert{}W\Vert\_F^2} = \frac{\left(\sum\_{i=1}^n w\_i\right)^2}{\sum\_{i=1}^n w\_i^2} = \frac{n}{\mathrm{DEFF}\_{\mathrm{Kish}}}.$$
 
   In the **homogeneous-stratum limit**, where every unit has equal inclusion probability ($\pi\_i \equiv \pi\_0$), all weights are equal, $\mathrm{DEFF}\_{\mathrm{Kish}} = 1$, and the nominal sample size equals the effective dimension ($n\_{\mathrm{eff}} = n$). Dispersion in the weights pushes the design effect above one and compresses the nominal row count. Keynes's evidential weight $V = n\_{\mathrm{eff}} / (n\_{\mathrm{eff}} + n\_0)$ (Keynes 1921) falls with it, and rises toward one only as the effective sample grows large against the reference scale $n\_0$.
 - **Cluster design effect:** Group observations into demographic clusters (Moulton 1986) and the intracluster correlation divides the nominal row count by $\mathrm{DEFF}\_{\mathrm{cluster}}$. Double the design effect and $n\_{\mathrm{eff}}$ halves without a single row leaving the file. An archive can grow in rows while losing evidential weight.
-- **Counterexample: when column collinearity defeats a perfect sampling design:** An archive with homogeneous independent rows ($\mathrm{DEFF} = 1$, so $n\_{\mathrm{eff}} = n$) can still carry two standardized regressors with sample correlation $r$. The $2 \times 2$ correlation Gram matrix $G = \bigl[\begin{smallmatrix} 1 & r \\ r & 1 \end{smallmatrix}\bigr]$ has eigenvalues $\lambda\_1 = 1 + r$ and $\lambda\_2 = 1 - r$, giving eigenvalue ratio $\lambda\_2 / \lambda\_1 = (1 - r)/(1 + r)$ and effective feature dimension $d\_{\mathrm{eff}} = 4/\bigl((1 + r)^2 + (1 - r)^2\bigr) = 2/(1 + r^2)$, which tends to $1$ as $r \to 1$ despite $p = 2$. Here the bottleneck sits in the columns of $G$, not in the rows. More interviews leave $\lambda\_2 / \lambda\_1$ ill-conditioned, and the remedy is dropping or orthogonalizing the redundant feature, not redesigning the survey.
+- **Counterexample: when column collinearity defeats a perfect sampling design:** An archive with homogeneous independent rows ($\mathrm{DEFF} = 1$, so $n\_{\mathrm{eff}} = n$) can still carry two standardized regressors with sample correlation $r$. The $2 \times 2$ correlation Gram matrix $G = \bigl[\begin{smallmatrix} 1 & r \\\\ r & 1 \end{smallmatrix}\bigr]$ has eigenvalues $\lambda\_1 = 1 + r$ and $\lambda\_2 = 1 - r$, giving eigenvalue ratio $\lambda\_2 / \lambda\_1 = (1 - r)/(1 + r)$ and effective feature dimension $d\_{\mathrm{eff}} = 4/\bigl((1 + r)^2 + (1 - r)^2\bigr) = 2/(1 + r^2)$, which tends to $1$ as $r \to 1$ despite $p = 2$. Here the bottleneck sits in the columns of $G$, not in the rows. More interviews leave $\lambda\_2 / \lambda\_1$ ill-conditioned, and the remedy is dropping or orthogonalizing the redundant feature, not redesigning the survey.
 
 ## 4. Orthogonal Projections and Least Squares
 
 Given an observation vector $\mathbf{y} \in \mathbb{R}^n$ and the subspace $S = \mathrm{im}(X)$ spanned by the regressors,
-the point of $S$ that minimizes the Euclidean distance $\|\mathbf{y} - \hat{\mathbf{y}}\|\_2$ is the
+the point of $S$ that minimizes the Euclidean distance $\Vert\mathbf{y} - \hat{\mathbf{y}}\Vert\_2$ is the
 **orthogonal projection** of $\mathbf{y}$ onto $S$:
 
 $$\hat{\mathbf{y}} = P\_X \mathbf{y}, \qquad P\_X = X(X^T X)^{-1} X^T.$$
@@ -237,18 +237,18 @@ columns are appended to $X$. Uninformative features mechanically enlarge the sub
 to zero while out-of-sample prediction error inflates. That is the linear geometry of overfitting.
 
 Pythagoras makes the monotonicity a statement about lengths. Because $P\_X \mathbf{y} \in S$ and $(I - P\_X)\mathbf{y} \in S^\perp$
-are orthogonal, $\|\mathbf{y}\|\_2^2 = \|P\_X \mathbf{y}\|\_2^2 + \|\mathbf{y} - P\_X \mathbf{y}\|\_2^2$. Appending a
+are orthogonal, $\Vert\mathbf{y}\Vert\_2^2 = \Vert{}P\_X \mathbf{y}\Vert\_2^2 + \Vert\mathbf{y} - P\_X \mathbf{y}\Vert\_2^2$. Appending a
 column $\mathbf{x}\_{p+1}$ enlarges the subspace to $S' = \mathrm{im}([X\mkern5mu\mathbf{x}\_{p+1}]) \supseteq S$, so
 the minimum distance from $\mathbf{y}$ to $S'$ cannot exceed its distance to $S$. At saturation, where $p = n$
 linearly independent noise columns span all of $\mathbb{R}^n$, the projection becomes the identity matrix
-$P\_X = I\_n$: the in-sample residual $\|\mathbf{y} - \hat{\mathbf{y}}\|\_2$ goes to $0$ and nothing about the
+$P\_X = I\_n$: the in-sample residual $\Vert\mathbf{y} - \hat{\mathbf{y}}\Vert\_2$ goes to $0$ and nothing about the
 signal has been learned.
 
 ## 5. High-Dimensional Geometry and Concentration of Measure
 
 When dimensionality $d$ is large, Euclidean geometry behaves in ways that confound low-dimensional intuition:
 
-1. **Surface concentration**: Inside a $d$-dimensional hypersphere of radius $R$, the fraction of volume within a concentric sphere of radius $(1 - \epsilon)R$ is $(1 - \epsilon)^d \le e^{-\epsilon d}$. For large $d$, virtually $100\%$ of the volume of the sphere sits in a paper-thin shell of thickness $\mathcal{O}(R/d)$ against the boundary.
+1. **Surface concentration**: Inside a $d$-dimensional hypersphere of radius $R$, the fraction of volume within a concentric sphere of radius $(1 - \epsilon)R$ is $(1 - \epsilon)^d \le e^{-\epsilon d}$. For large $d$, virtually $100\unicode{x25}$ of the volume of the sphere sits in a paper-thin shell of thickness $\mathcal{O}(R/d)$ against the boundary.
 2. **Equatorial concentration**: On a high-dimensional sphere almost all the surface area lies within a narrow equatorial band of distance $\mathcal{O}(1/\sqrt{d})$ from any arbitrary equator. Two random vectors drawn independently and uniformly from the sphere are almost orthogonal with high probability: $\langle \mathbf{u}, \mathbf{v} \rangle \approx 0$.
 3. **The Johnson–Lindenstrauss Lemma** (Johnson & Lindenstrauss 1984; Dasgupta & Gupta 2003): For any set of $N$ points in arbitrary dimension $\mathbb{R}^D$, any distortion parameter $\epsilon \in (0, 1)$, and any integer dimension
 
@@ -258,12 +258,12 @@ When dimensionality $d$ is large, Euclidean geometry behaves in ways that confou
 
 A direct moment calculation shows how quickly norm concentration sets in. Let
 $\mathbf{x} = (x\_1, \dots, x\_d)^\top \in \mathbb{R}^d$ have independent coordinates with mean $0$, unit variance,
-and fourth moment $\mathbb{E}[x\_i^4] = 3$. The squared Euclidean norm $\|\mathbf{x}\|\_2^2 = \sum\_{i=1}^d x\_i^2$ then
-has expectation $\mathbb{E}[\|\mathbf{x}\|\_2^2] = d$ and variance $\mathrm{Var}(\|\mathbf{x}\|\_2^2) = 2d$. A first-order
-Taylor expansion of the square root around $d$ puts the relative standard deviation of $\|\mathbf{x}\|\_2 / \sqrt{d}$
+and fourth moment $\mathbb{E}[x\_i^4] = 3$. The squared Euclidean norm $\Vert\mathbf{x}\Vert\_2^2 = \sum\_{i=1}^d x\_i^2$ then
+has expectation $\mathbb{E}[\Vert\mathbf{x}\Vert\_2^2] = d$ and variance $\mathrm{Var}(\Vert\mathbf{x}\Vert\_2^2) = 2d$. A first-order
+Taylor expansion of the square root around $d$ puts the relative standard deviation of $\Vert\mathbf{x}\Vert\_2 / \sqrt{d}$
 at:
 
-$$\frac{\mathrm{SD}(\|\mathbf{x}\|\_2)}{\sqrt{d}} \approx \frac{\sqrt{2d}}{2d} = \frac{1}{\sqrt{2d}}.$$
+$$\frac{\mathrm{SD}(\Vert\mathbf{x}\Vert\_2)}{\sqrt{d}} \approx \frac{\sqrt{2d}}{2d} = \frac{1}{\sqrt{2d}}.$$
 
 In high ambient dimension $d$ random feature vectors lie almost on a deterministic spherical shell of radius
 $\sqrt{d}$, and the relative fluctuation shrinks as $1/\sqrt{2d}$. An epistemic margin penalizes unpruned
@@ -274,11 +274,11 @@ specification dimensionality for that reason. It does not reward raw feature cou
 One example fixes what "linear model" means more sharply than any amount of rank algebra, and it is the example
 that interrupted the first wave of connectionist research: the exclusive disjunction.
 
-Work over the two-element field $\mathbb{F}\_2 = \{0, 1\}$ with addition modulo two. A dichotomy on $n$ binary
+Work over the two-element field $\mathbb{F}\_2 = \lbrace0, 1\rbrace$ with addition modulo two. A dichotomy on $n$ binary
 features is **affinely separable** when there exist a weight vector $w \in \mathbb{R}^n$ and a threshold
 $\theta$ such that $w \cdot x \ge \theta$ exactly on the positive class. Counting over $\mathbb{F}\_2$ gives
 the structural statement: the map $x \mapsto w \cdot x$ is $\mathbb{F}\_2$-linear only when every weight is
-itself in $\{0, 1\}$, and then the image is a linear functional whose value is fixed by the parity of the
+itself in $\lbrace0, 1\rbrace$, and then the image is a linear functional whose value is fixed by the parity of the
 coordinates that carry unit weight. The parity predicate
 
 $$\psi\_{\mathrm{PARITY}}(x) = \bigoplus\_{i=1}^{n} x\_i$$
@@ -306,13 +306,13 @@ used.
 Counting the algebraic normal form (ANF) over $\mathbb{F}\_2^d$ pinpoints where the complexity of parity lives
 (Minsky & Papert 1969; Rumelhart et al. 1986). Over $\mathbb{F}\_2$, the polynomial
 $\psi\_{\mathrm{PARITY}}(x) = x\_1 \oplus x\_2 \oplus \cdots \oplus x\_d = \sum\_{i=1}^d x\_i \bmod 2$ contains exactly $d$
-degree-1 monomials and zero higher-order interaction terms. Embed it in the real hypercube $\{0, 1\}^d \subset \mathbb{R}^d$
+degree-1 monomials and zero higher-order interaction terms. Embed it in the real hypercube $\lbrace0, 1\rbrace^d \subset \mathbb{R}^d$
 and the modulo-two wraparound forces every vertex to carry the opposite class label of all $d$ of its immediate
 Hamming neighbours: at $d = 3$ there are $3$ ANF monomials across $2^3 = 8$ domain points ($2^{3-1} = 4$ with value
 $1$ and $4$ with value $0$), and at $d = 4$ there are $4$ ANF monomials across $2^4 = 16$ domain points
 ($2^{4-1} = 8$ with value $1$).
 
-No single real hyperplane $w \cdot x = \theta$ slices $\{0, 1\}^d$ so that adjacent vertices alternate sign in every
+No single real hyperplane $w \cdot x = \theta$ slices $\lbrace0, 1\rbrace^d$ so that adjacent vertices alternate sign in every
 coordinate direction at once. Rosenblatt's update rule converges on conjunction and on disjunction, stalls well
 short of exactness on exclusive disjunction, and exhibits identically zero correlation across every non-constant
 order-three local feature on the four-bit hypercube until a hidden-layer basis change restores unit accuracy.

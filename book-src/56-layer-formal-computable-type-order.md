@@ -137,7 +137,7 @@ Let each premise carry a window $[a\_i, b\_i]$ inside which it is licensed. A wr
 
 $$\mathrm{licence}(t) = 1 \iff \Bigl( t \in \bigcap\_{i=1}^{n} [a\_i, b\_i] \Bigr) \wedge \mathrm{wellformed},$$
 
-and the quantity that decides whether the discipline is being kept is the count of lapsed premises, $\ell(t) = \#\{i : t > b\_i\}$. A re-check is
+and the quantity that decides whether the discipline is being kept is the count of lapsed premises, $\ell(t) = \unicode{x23}\lbrace{}i : t > b\_i\rbrace$. A re-check is
 forced at a write exactly when $\ell(t) > 0$, so over $m$ writes at most $m$ re-checks are forced, and fewer only where the windows straddle
 consecutive writes. That bound is the reason the check can be repeated at all: it is a re-reading of a finite object, priced in the same units at
 every repetition, which a semantic verification is not.

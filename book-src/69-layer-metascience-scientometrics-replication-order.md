@@ -91,10 +91,10 @@ alone. The procedure that answers to the archive's two habits — results that a
 whenever someone looks — is the e-BH procedure of Wang and Ramdas (2022). Each hypothesis $j$ of $K$ carries an e-value $E\_j \ge 0$ with
 $\mathbb{E}\_{H\_0}[E\_j] \le 1$ when it is null. Order them $E\_{(1)} \ge \dots \ge E\_{(K)}$ and reject the $k^{\ast}$ largest, where
 
-$$k^{\ast} = \max\Bigl\{k : E\_{(k)} \ge \frac{K}{\alpha k}\Bigr\}.$$
+$$k^{\ast} = \max\Bigl\lbrace{}k : E\_{(k)} \ge \frac{K}{\alpha k}\Bigr\rbrace.$$
 
 The bound takes one line. With $D$ rejections, a rejected null $j$ satisfies $E\_j \ge K/(\alpha D)$, so
-$\mathbf{1}\{j \text{ rejected}\}/\max(D,1) \le \alpha E\_j / K$ pointwise, whatever the dependence among the $E$'s; summing over the $K\_0$ nulls
+$\mathbf{1}\lbrace{}j \text{ rejected}\rbrace/\max(D,1) \le \alpha E\_j / K$ pointwise, whatever the dependence among the $E$'s; summing over the $K\_0$ nulls
 and taking expectations,
 
 $$\mathrm{FDR} \le \sum\_{j \in \mathcal{H}\_0} \frac{\alpha\mkern3mu\mathbb{E}[E\_j]}{K} \le \frac{\alpha K\_0}{K} \le \alpha.$$

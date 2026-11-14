@@ -267,8 +267,8 @@ fail, which is what pre-authorised automatic shutdown is for.
 Setting $\delta\_{\mathrm{status}} = 0$ forbids discounting a witness by rank, status, or credential, not filtering by
 evidence. Because human behavioral and sensory-motor throughput is bounded near $10\text{ bits/s}$ (Zheng & Meister 2025),
 routing every uncorroborated alert unfiltered destroys attentional capacity — as illustrated by external validation of the
-Epic Sepsis Model across 27,697 hospitalised patients, which reported a sensitivity of $33\%$ and a positive predictive
-value of $12\%$, yielding a derived false-alarm proportion $1 - \mathrm{PPV} = 0.88$ (Wong et al. 2021). The normative
+Epic Sepsis Model across 27,697 hospitalised patients, which reported a sensitivity of $33\unicode{x25}$ and a positive predictive
+value of $12\unicode{x25}$, yielding a derived false-alarm proportion $1 - \mathrm{PPV} = 0.88$ (Wong et al. 2021). The normative
 architecture therefore pairs $\delta\_{\mathrm{status}} = 0$ at reception with sequential filtering by corroborated
 likelihood ratio $\prod\_{s \le t} e\_s \ge E\_{\mathrm{trip}}$ before consuming executive cognitive bandwidth.
 

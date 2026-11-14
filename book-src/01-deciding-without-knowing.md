@@ -174,7 +174,7 @@ and you act when acting costs less in expectation than waiting:
 
 $$C + (1 - \eta) p L < p L \iff C < \eta p L \iff p > p^\ast = \frac{C}{\eta L}$$
 
-Read the fraction once and it explains itself. $C$ is upstairs because you pay it $100\%$ of the time you act, rain or
+Read the fraction once and it explains itself. $C$ is upstairs because you pay it $100\unicode{x25}$ of the time you act, rain or
 shine. $L$ and $\eta$ are downstairs because the umbrella only removes part of the soaking: what you
 still absorb is $(1 - \eta) p L$, so the harm actually avoided is $p L - (1 - \eta) p L = \eta p L$.
 
@@ -189,7 +189,7 @@ The other end is sharper than it looks. Push the mitigated harm up to twice the 
 $\eta L \to 2C \implies p^\ast \to 1/2$, and waiting until rain is more likely than not, $p > 0.50$,
 becomes rational, but at that point and no earlier: $p^\ast = \frac{C}{\eta L} = \frac{1}{2} \iff \eta L = 2C$,
 where the harm avoided, $\eta L$, is exactly twice the cost paid. A shield that merely saves more than it costs is not enough. Where
-$\eta L > C$ the trigger still sits above $50\%$, and where $\eta L \le C$ it passes one altogether:
+$\eta L > C$ the trigger still sits above $50\unicode{x25}$, and where $\eta L \le C$ it passes one altogether:
 $\eta L \le C \implies p^\ast \ge 1$, so preventive action never pays, not even under certainty
 ($p = 1$). The boundary sits at $p^\ast \ge 1$ exactly, and nothing below it buys cover.
 

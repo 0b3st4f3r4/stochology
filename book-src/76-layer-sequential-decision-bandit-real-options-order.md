@@ -23,7 +23,7 @@ that triple yields when the order runs without its ancestors:
 
 ## 1. Stopping rules, bandit bounds and option value
 
-A sequential decision fixes what to do and also when to stop paying for information. On a filtered space with adapted reward $Z\_t$, the Snell envelope $U\_t = \max\bigl(Z\_t, \mathbb{E}[U\_{t+1} \mid \mathcal{F}\_t]\bigr)$ run back from $U\_T = Z\_T$ carries the value of the stopping problem, and $\tau^\ast = \inf\{t \ge 0 : Z\_t = U\_t\}$ is the smallest optimal stopping time.
+A sequential decision fixes what to do and also when to stop paying for information. On a filtered space with adapted reward $Z\_t$, the Snell envelope $U\_t = \max\bigl(Z\_t, \mathbb{E}[U\_{t+1} \mid \mathcal{F}\_t]\bigr)$ run back from $U\_T = Z\_T$ carries the value of the stopping problem, and $\tau^\ast = \inf\lbrace{}t \ge 0 : Z\_t = U\_t\rbrace$ is the smallest optimal stopping time.
 
 Wald's form prices stopping explicitly: two boundaries, approximately $A = (1-\beta\_W)/\alpha\_W$ and $B = \beta\_W/(1-\alpha\_W)$, built from the tolerated false-positive rate $\alpha\_W$ and false-negative rate $\beta\_W$, and a decision once the evidence ratio crosses either. Cheap in expectation, expensive when the first candidate is mediocre and the horizon short, because the boundary prices a sampling process the search itself does not have. The form is Wald's (1947) sequential probability ratio test, and its cheapness is why the boundary has to be published with the design. The same two rates generate a boundary; a boundary chosen after the sequence has run describes the sequence rather than testing it.
 

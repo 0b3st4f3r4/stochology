@@ -201,7 +201,7 @@ sum the top $k$ order statistics carry, $X\_{(n-k+1)}, \dots, X\_{(n)}$,
 
 $$S\_k = \frac{\sum\_{i=n-k+1}^{n} X\_{(i)}}{\sum\_{i=1}^{n} X\_i}$$
 
-Two exact boundary cases bracket it. In an egalitarian sample ($X\_1 = \dots = X\_n > 0$), $S\_k = k / n$, so the top $1\%$ of observations carries $1\%$ of the total. In the single-spike sample of ninety-nine ones and a single $1{,}001$, the largest observation ($k = 1$, or $1\%$ of the rows) carries $S\_1 = 1001 / 1100 = 91.0\%$ of the entire sum, and $S\_1 \to 1$ as $X\_{(n)} \to \infty$. A fire portfolio's top percentile of claims can carry a share of the total the mean gives no hint of, and its largest claim can sit many multiples of the median away. Spread and tail concentration are not nuisances to be averaged away. They are where the failures happen.
+Two exact boundary cases bracket it. In an egalitarian sample ($X\_1 = \dots = X\_n > 0$), $S\_k = k / n$, so the top $1\unicode{x25}$ of observations carries $1\unicode{x25}$ of the total. In the single-spike sample of ninety-nine ones and a single $1{,}001$, the largest observation ($k = 1$, or $1\unicode{x25}$ of the rows) carries $S\_1 = 1001 / 1100 = 91.0\unicode{x25}$ of the entire sum, and $S\_1 \to 1$ as $X\_{(n)} \to \infty$. A fire portfolio's top percentile of claims can carry a share of the total the mean gives no hint of, and its largest claim can sit many multiples of the median away. Spread and tail concentration are not nuisances to be averaged away. They are where the failures happen.
 
 ## 4. Why plans break: Big data and the illusion of certainty
 

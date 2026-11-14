@@ -232,7 +232,7 @@ $$\text{Brier Loss} = \text{Miscalibration (REL)} - \text{Resolution (RES)} + \t
 This decomposition allows an audit to verify whether a model's error stems from miscalibration (fixable via
 isotonic recalibration), low informational resolution, or irreducible environmental stochasticity.
 
-Given binary outcomes $y\_i \in \{0, 1\}$ with base rate $\bar{y} = \frac{1}{N}\sum\_{i=1}^N y\_i$ and raw probability forecasts $p\_i \in [0, 1]$, the isotonic projection computes the non-decreasing projection $\pi\_i = \mathrm{PAV}(p\_i)$ (Dimitriadis, Gneiting & Jordan 2021). The **Consistent, Optimal, Reproducible, PAV-based (CORP)** Murphy partition (Murphy 1973) defines three non-negative quantities:
+Given binary outcomes $y\_i \in \lbrace0, 1\rbrace$ with base rate $\bar{y} = \frac{1}{N}\sum\_{i=1}^N y\_i$ and raw probability forecasts $p\_i \in [0, 1]$, the isotonic projection computes the non-decreasing projection $\pi\_i = \mathrm{PAV}(p\_i)$ (Dimitriadis, Gneiting & Jordan 2021). The **Consistent, Optimal, Reproducible, PAV-based (CORP)** Murphy partition (Murphy 1973) defines three non-negative quantities:
 
 $$\mathrm{REL}\_{\mathrm{CORP}} = \mathrm{BS}(p) - \mathrm{BS}(\pi) = \frac{1}{N}\sum\_{i=1}^N (p\_i - \pi\_i)^2 + \frac{2}{N}\sum\_{i=1}^N (p\_i - \pi\_i)(\pi\_i - y\_i) \ge 0, \quad \mathrm{RES}\_{\mathrm{CORP}} = \frac{1}{N}\sum\_{i=1}^N (\pi\_i - \bar{y})^2, \quad \mathrm{UNC}\_0 = \bar{y}(1 - \bar{y}),$$
 
