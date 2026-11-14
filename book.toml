@@ -10,12 +10,14 @@ create-missing = false
 
 [output.html]
 no-section-label = true
-default-theme = "light"
-preferred-dark-theme = "navy"
+default-theme = "rust"
+preferred-dark-theme = "parchment-dark"
 additional-css = ["theme/book.css"]
 additional-js = ["mathjax.js"]
 # mdBook fixes five theme slots and theme/book.css re-skins all of them; the menu reads
-# them as light Marble, rust Parchment, coal Graphite, navy Ultramarine, ayu Nocturne.
+# them as light Porcelain, rust Sienna, coal Malachite, navy Lapis, ayu Carmine, and
+# carries seven more palettes that have no slot of their own (Verdigris, Claret, Celadon,
+# Amethyst, Kyanite, Porphyry, Ember) appended by mathjax.js in the order it prints them.
 cname = "stochology.org"
 site-url = "https://stochology.org/"
 git-repository-url = "https://github.com/0b3st4f3r4/stochology"

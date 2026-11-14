@@ -1,0 +1,24 @@
+Web fonts shipped with the Stochology site
+==========================================
+
+These files are unmodified subsets (latin) served from the Google Fonts API.
+They are loaded only when a reader selects the face in the "Aa" menu.
+
+  literata-400.woff2, literata-italic.woff2
+    Literata — Copyright 2018 The Literata Project Authors
+    SIL Open Font License 1.1 — https://fonts.google.com/specimen/Literata
+
+  narrow-400.woff2
+    Archivo Narrow — Copyright 2012 The Archivo Narrow Project Authors
+    SIL Open Font License 1.1 — https://fonts.google.com/specimen/Archivo+Narrow
+
+  slab-400.woff2
+    Roboto Slab — Copyright 2013 The Roboto Slab Project Authors
+    Apache License 2.0 — https://fonts.google.com/specimen/Roboto+Slab
+
+  typewriter-400.woff2, typewriter-700.woff2, typewriter-italic.woff2
+    Courier Prime — Copyright 2013 The Courier Prime Project Authors
+    SIL Open Font License 1.1 — https://fonts.google.com/specimen/Courier+Prime
+
+The remaining faces in the menu (Sans, Serif, Mono) use the families the site already
+ships, plus the reader's system fonts.

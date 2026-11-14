@@ -1,5 +1,128 @@
 # Appendix E — Lexicon and the Architecture Map
 
+<figure class="stoch-figure stoch-logo-figure">
+  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology Appendix E — Lexicon and the Architecture Map">
+  <defs>
+    <linearGradient id="ape-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
+      <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
+      <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
+      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
+    </linearGradient>
+    <radialGradient id="ape-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="82%" stop-color="#e11d48" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ape-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
+      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
+      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="ape-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
+      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
+    </linearGradient>
+    <linearGradient id="ape-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
+      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
+      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    </linearGradient>
+    <radialGradient id="ape-pupil" cx="45%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="68%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </radialGradient>
+    <linearGradient id="ape-gold-mira" x1="54" y1="48" x2="84" y2="82" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="45%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <radialGradient id="ape-gold-core" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </radialGradient>
+    <radialGradient id="ape-node-well" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
+      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
+    </radialGradient>
+    <linearGradient id="ape-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <radialGradient id="ape-core-epi" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="45%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </radialGradient>
+    <linearGradient id="ape-ring-vital" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6ee7b7"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#065f46"/>
+    </linearGradient>
+    <radialGradient id="ape-core-vital" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="45%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </radialGradient>
+    <linearGradient id="ape-ring-gov" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fda4af"/>
+      <stop offset="50%" stop-color="#e11d48"/>
+      <stop offset="100%" stop-color="#881337"/>
+    </linearGradient>
+    <radialGradient id="ape-core-gov" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fecdd3"/>
+      <stop offset="45%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </radialGradient>
+  </defs>
+  <g>
+    <circle cx="64" cy="66" r="48" fill="url(#ape-glow)"/>
+    <circle cx="64" cy="66" r="47" fill="none" stroke="var(--logo-gold, #f59e0b)" stroke-width="1.4" stroke-dasharray="2.4 3.2" stroke-opacity="0.55"/>
+    <path d="M 24 44 Q 44 34 64 40 Q 84 34 104 44 L 104 94 Q 84 84 64 90 Q 44 84 24 94 Z" fill="url(#ape-fill)" stroke="var(--logo-blue, #2563eb)" stroke-width="2.2" stroke-linejoin="round"/>
+    <line x1="64" y1="40" x2="64" y2="90" stroke="var(--logo-blue, #2563eb)" stroke-width="1.8" stroke-opacity="0.55"/>
+    <line x1="32" y1="56" x2="56" y2="56" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6" stroke-opacity="0.75"/>
+    <line x1="32" y1="65" x2="56" y2="65" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6" stroke-opacity="0.75"/>
+    <line x1="32" y1="74" x2="56" y2="74" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6" stroke-opacity="0.75"/>
+    <line x1="72" y1="56" x2="96" y2="56" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6" stroke-opacity="0.75"/>
+    <line x1="72" y1="65" x2="88" y2="65" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6" stroke-opacity="0.75"/>
+    <line x1="72" y1="74" x2="92" y2="74" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6" stroke-opacity="0.75"/>
+    <g>
+      <circle cx="64.00" cy="66.00" r="6.66" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64.00" cy="66.00" r="5.76" fill="url(#ape-pupil)" stroke="url(#ape-gold-mira)" stroke-width="2.16"/>
+      <line x1="55.36" y1="66.00" x2="60.22" y2="66.00" stroke="url(#ape-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
+      <line x1="67.78" y1="66.00" x2="72.64" y2="66.00" stroke="url(#ape-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
+      <line x1="64.00" y1="57.36" x2="64.00" y2="62.22" stroke="url(#ape-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
+      <line x1="64.00" y1="69.78" x2="64.00" y2="74.64" stroke="url(#ape-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
+      <circle cx="64.00" cy="66.00" r="1.98" fill="url(#ape-gold-core)"/>
+    </g>
+    <path d="M 82 33 L 90 33 L 90 53 L 86 48.5 L 82 53 Z" fill="var(--logo-crimson, #e11d48)" fill-opacity="0.85" stroke="var(--logo-crimson, #e11d48)" stroke-width="1.4" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(148, 0)">
+    <text x="2" y="27" fill="var(--logo-sub, #1d4ed8)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="10.5" font-weight="700" letter-spacing="1.2">STOCHOLOGY · TECHNICAL REFERENCE</text>
+    <text x="498" y="27" text-anchor="end" fill="var(--logo-meta, #475569)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="10.5" font-weight="700" letter-spacing="1.0">APPENDIX E · LEXICON</text>
+    <text x="0" y="59" fill="var(--logo-ink, #0f172a)" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="20.6" font-weight="800" letter-spacing="1.25">LEXICON AND THE ARCHITECTURE MAP</text>
+    <line x1="2" y1="78" x2="384" y2="78" stroke="url(#ape-ring)" stroke-width="1.6" stroke-opacity="0.82"/>
+    <circle cx="400" cy="78" r="2.0" fill="var(--logo-ticks, #64748b)" fill-opacity="0.42"/>
+    <circle cx="415" cy="78" r="6.2" stroke="var(--logo-gold, #f59e0b)" stroke-width="1.5" stroke-dasharray="2.2 1.6"/>
+    <circle cx="415" cy="78" r="4.0" fill="var(--logo-node-bg, #e2e8f0)" stroke="var(--logo-blue, #2563eb)" stroke-width="2.2"/>
+    <circle cx="415" cy="78" r="1.8" fill="var(--logo-gold, #f59e0b)"/>
+    <circle cx="430" cy="78" r="3.8" fill="var(--logo-node-bg, #e2e8f0)" stroke="var(--logo-blue, #2563eb)" stroke-width="2.0"/>
+    <circle cx="430" cy="78" r="1.6" fill="var(--logo-blue, #2563eb)"/>
+    <circle cx="445" cy="78" r="2.0" fill="var(--logo-ticks, #64748b)" fill-opacity="0.42"/>
+    <circle cx="460" cy="78" r="2.0" fill="var(--logo-ticks, #64748b)" fill-opacity="0.42"/>
+    <circle cx="475" cy="78" r="2.0" fill="var(--logo-ticks, #64748b)" fill-opacity="0.42"/>
+    <circle cx="490" cy="78" r="3.8" fill="var(--logo-node-bg, #e2e8f0)" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.0"/>
+    <circle cx="490" cy="78" r="1.6" fill="var(--logo-crimson, #e11d48)"/>
+    <text x="2" y="104" fill="var(--logo-meta, #475569)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="10.8" font-weight="600" letter-spacing="0.65">CLASSICAL · TECHNICAL · POLITICAL TERMS · ONE ARCHITECTURE MAP</text>
+  </g>
+  </svg>
+</figure>
+
 Three vocabularies carry this treatise and none of them is self-explanatory to a reader arriving from a single discipline. The first is classical: the Greek and Latin terms in which the conjectural arts named their own practice, and which the framework adopts rather than translates because the translation loses the distinction the term was coined to keep. The second is technical: the operators, indices and inequalities the chapters use, each defined once here with the source that warrants it, so that a symbol met in a chapter can be resolved without re-reading the argument that introduced it. The third is political: the vocabulary of constituent and constituted power in which the institutional plane is argued.
 
 A lexicon is not a summary. Each entry states what the term names and stops; the argument for the term is the chapter that uses it, and where the chapter and this appendix could be read as disagreeing, the chapter governs. As a boundary of scope, the marginal theorems referenced across entries belong to their named literature sources, while the treatise's own contribution consists in the coupled invariants, breakdown thresholds and non-compensatory bounds linking those entries across planes — without which the work would remain only a pedagogical anthology.

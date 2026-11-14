@@ -15,16 +15,40 @@
     opacity: 1;
     visibility: visible;
   }
-  :is(html.coal, html.navy, html.ayu) #stoch-page-loader {
+  :is(html.coal, html.navy, html.ayu, html.parchment-dark) #stoch-page-loader {
     background-color: #050a13;
     color: #dee9f6;
+  }
+  html.kyanite #stoch-page-loader {
+    background-color: #060f10;
+    color: #e2f2f0;
+  }
+  html.porphyry #stoch-page-loader {
+    background-color: #0f0a14;
+    color: #efe6f8;
   }
   html.rust #stoch-page-loader {
     background-color: #f4efe4;
     color: #16120d;
   }
+  html.graphite-light #stoch-page-loader {
+    background-color: #eef1f4;
+    color: #0b1118;
+  }
+  html.nocturne-light #stoch-page-loader {
+    background-color: #f7f4f1;
+    color: #14161b;
+  }
+  html.celadon #stoch-page-loader {
+    background-color: #eef3f2;
+    color: #0a1616;
+  }
+  html.amethyst #stoch-page-loader {
+    background-color: #f5f1f8;
+    color: #150f1e;
+  }
   @media (prefers-color-scheme: dark) {
-    html:not(.light):not(.rust) #stoch-page-loader {
+    html:not(.light):not(.rust):not(.graphite-light):not(.nocturne-light):not(.celadon):not(.amethyst) #stoch-page-loader {
       background-color: #050a13;
       color: #dee9f6;
     }

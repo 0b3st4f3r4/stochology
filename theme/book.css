@@ -19,13 +19,36 @@
 
    mdBook exports five theme *slots* (html class = light | rust | coal | navy |
    ayu). The slots carry our palettes; the visible names are applied in
-   mathjax.js::initThemeLabels and mirrored in book.toml:
+   mathjax.js::initThemeLabels and mirrored in book.toml. Each name is the
+   material or pigment the palette is built from, so the menu reads as a shelf
+   of surfaces rather than a list of modes:
 
-     light  → Marble       instrument paper  · ultramarine accent, crimson alert
-     rust   → Parchment    warm paper        · oxide accent
-     coal   → Graphite     dark neutral      · emerald accent
-     navy   → Ultramarine  dark deep blue    · sky accent          (preferred dark)
-     ayu    → Nocturne     dark ink          · rose accent
+     light  → Porcelain       pale cool sheet   · ultramarine accent, crimson alert
+     rust   → Sienna          burnt oxide paper · oxide accent
+     coal   → Malachite       near-black stone  · emerald accent
+     navy   → Lapis           deep blue stone   · sky accent          (preferred dark)
+     ayu    → Carmine         dark ink          · rose accent
+
+   Seven more palettes have no slot of their own — two petrels, two violets and
+   the three the earlier set added — so their id is their class and mathjax.js
+   appends them to the palette menu, in the order the menu prints:
+
+     graphite-light → Verdigris  pale cool sheet    · emerald patina
+     nocturne-light → Claret     warm cream sheet   · wine accent
+     celadon        → Celadon    pale petrol sheet  · teal accent
+     amethyst       → Amethyst   pale violet sheet  · violet accent
+     kyanite        → Kyanite    deep petrol stone  · aqua accent
+     porphyry       → Porphyry   imperial aubergine · orchid accent
+     parchment-dark → Ember      candlelit vellum   · amber accent
+
+   Menu order: Auto, then every light sheet, then every dark one, with a gold
+   closing each block:
+
+     light   Verdigris, Porcelain, Claret, Celadon, Amethyst, Sienna (gold of the lights)
+     dark    Malachite, Lapis, Carmine, Kyanite, Porphyry, Ember (gold of the darks)
+
+   Verdigris stays before Porcelain and Claret after it, and the four new palettes
+   stay before both golds, which is what pins this order.
 
    Contract: every palette block defines the same colour tokens, in the same order,
    and every component reads tokens only — never a raw colour, never a theme name.
@@ -56,8 +79,17 @@
 
   /* Type */
   --font-sans: "Inter", "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-serif: "Charter", "Sitka Text", "Iowan Old Style", "Palatino Linotype", Palatino,
-    Georgia, "Times New Roman", serif;
+  --font-serif: "Charter", "Bitstream Charter", "Sitka Text", "Iowan Old Style",
+    "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  /* Four further reading faces, shipped with the book so the menu changes the page and not
+     only the label. A stack of system families was tried first and measured: on this machine
+     it resolved to the three faces already offered, so the options were labels over an
+     unchanged page. These four are woff2 files under fonts/, one axis each, latin subset,
+     and they load only when chosen. */
+  --font-literata: "Literata", "Charter", Georgia, serif;
+  --font-narrow: "Archivo Narrow", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-slab: "Roboto Slab", "Rockwell", Georgia, serif;
+  --font-typewriter: "Courier Prime", "Courier New", Courier, monospace;
   --mono-font: "JetBrains Mono", "IBM Plex Mono", "Source Code Pro", ui-monospace,
     "Cascadia Code", Menlo, Consolas, monospace;
   --font-read: var(--font-sans);
@@ -109,7 +141,7 @@
 
 /* ---------- Palettes ------------------------------------------------------ */
 
-/* Marble — instrument paper · the default. Cold neutral, ultramarine signal. */
+/* Porcelain — pale cool sheet · the default. Cold neutral, ultramarine signal. */
 :root {
   color-scheme: light;
   --canvas: #f3f5f8; --surface: #ffffff; --elevated: #e9eef4;
@@ -124,7 +156,7 @@
   --logo-blue: #1f5fd0; --logo-green: #0f9d6e; --logo-crimson: #d61f4a; --logo-gold: #c07a06;
 }
 
-/* Parchment — warm oxide paper · solar gold shelved for oxide. */
+/* Sienna — burnt oxide paper · solar gold shelved for oxide. */
 .rust {
   color-scheme: light;
   --canvas: #f4efe4; --surface: #fbf7ee; --elevated: #eae2d2;
@@ -139,7 +171,7 @@
   --logo-blue: #1d4ed8; --logo-green: #15803d; --logo-crimson: #be123c; --logo-gold: #b06606;
 }
 
-/* Graphite — dark neutral · emerald signal. */
+/* Malachite — near-black stone · emerald signal. */
 .coal {
   color-scheme: dark;
   --canvas: #070a0f; --surface: #0e151e; --elevated: #17212d;
@@ -154,7 +186,7 @@
   --logo-blue: #6cc7ff; --logo-green: #35e0a1; --logo-crimson: #ff8fa1; --logo-gold: #f7c65a;
 }
 
-/* Ultramarine — dark deep blue · sky signal (preferred dark). */
+/* Lapis — deep blue stone · sky signal (preferred dark). */
 .navy {
   color-scheme: dark;
   --canvas: #04080f; --surface: #0c182a; --elevated: #14243d;
@@ -169,7 +201,7 @@
   --logo-blue: #4fc3ff; --logo-green: #43dba6; --logo-crimson: #ff8fa1; --logo-gold: #ffc861;
 }
 
-/* Nocturne — dark ink · rose signal. */
+/* Carmine — dark ink · rose signal. */
 .ayu {
   color-scheme: dark;
   --canvas: #0a0c11; --surface: #131820; --elevated: #1b222c;
@@ -182,6 +214,125 @@
   --rose: #ff7a94; --rose-bg: #330d17;
   --scroll-thumb: #6c7380; --scroll-track: #10141b;
   --logo-blue: #52c1e8; --logo-green: #43dba6; --logo-crimson: #ff7a94; --logo-gold: #ffc861;
+}
+
+/* Verdigris — cool pale sheet · emerald signal. The dark neutral turned to daylight: the
+   greys stay cool and the signal is the same emerald, inked dark enough to read on paper. */
+.graphite-light {
+  color-scheme: light;
+  --canvas: #eef1f4; --surface: #f9fbfc; --elevated: #e1e7ed;
+  --ink: #0b1118; --muted: #45525f; --border: #b3bec9; --hairline: #d8e0e7;
+  --accent: #05704f; --accent-2: #0b5ea8; --on-accent: #ffffff;
+  --code-bg: #e6ebf0; --code-border: #bcc7d1; --code-ink: #0b1118;
+  --sky: #0b5ea8; --sky-bg: #dbe9f6;
+  --emerald: #05704f; --emerald-bg: #d7f0e7;
+  --amber: #8a5a05; --amber-bg: #fbeed2;
+  --rose: #a81238; --rose-bg: #fbe2e7;
+  --scroll-thumb: #7f8b97; --scroll-track: #e1e7ed;
+  --logo-blue: #0b5ea8; --logo-green: #07855f; --logo-crimson: #a81238; --logo-gold: #a06a06;
+}
+
+/* Claret — warm cream sheet · rose signal. The ink palette inverted without going cold:
+   the canvas keeps a trace of the nocturne's warmth and the rose is inked for daylight. */
+.nocturne-light {
+  color-scheme: light;
+  --canvas: #f7f4f1; --surface: #ffffff; --elevated: #ece7e2;
+  --ink: #14161b; --muted: #545a66; --border: #c6c1bd; --hairline: #e4e0dc;
+  --accent: #b0123a; --accent-2: #8a5a05; --on-accent: #ffffff;
+  --code-bg: #efeae6; --code-border: #c6c1bd; --code-ink: #6b2f0a;
+  --sky: #0d5f86; --sky-bg: #dceef7;
+  --emerald: #0a6b4e; --emerald-bg: #d9f2e9;
+  --amber: #8a5a05; --amber-bg: #fbeed2;
+  --rose: #b0123a; --rose-bg: #fbe2e7;
+  --scroll-thumb: #9a928c; --scroll-track: #ece7e2;
+  --logo-blue: #0d5f86; --logo-green: #0a6b4e; --logo-crimson: #b0123a; --logo-gold: #a06a06;
+}
+
+/* Ember — candlelit vellum · oxide signal. The warm paper at night: the sheet keeps
+   its earth undertone, the oxide accent is lifted to a lamp's amber, and the code ink stays
+   the warm amber a scribe's margin would carry. */
+.parchment-dark {
+  color-scheme: dark;
+  --canvas: #14110c; --surface: #1c1811; --elevated: #262019;
+  --ink: #f0e7d6; --muted: #b6a992; --border: #3d3427; --hairline: #2a2318;
+  --accent: #e9a13b; --accent-2: #ff8095; --on-accent: #1a1108;
+  --code-bg: #201a12; --code-border: #362d21; --code-ink: #f4d7a8;
+  --sky: #7fb2ff; --sky-bg: #101f3a;
+  --emerald: #5fd6a4; --emerald-bg: #082a1f;
+  --amber: #f2b64a; --amber-bg: #33240a;
+  --rose: #ff8fa1; --rose-bg: #3a1018;
+  --scroll-thumb: #6b6252; --scroll-track: #191510;
+  --logo-blue: #7fb2ff; --logo-green: #5fd6a4; --logo-crimson: #ff8fa1; --logo-gold: #f2b64a;
+}
+
+/* Celadon — pale petrol sheet · teal signal. The glaze the name comes from: a paper
+   with a green undertone instead of a blue one, and a signal dark enough to sit on it
+   as a rule rather than a glow. The second signal is terracotta, the pair the potter
+   actually fires. */
+.celadon {
+  color-scheme: light;
+  --canvas: #eef3f2; --surface: #fbfdfc; --elevated: #dfeae8;
+  --ink: #07191a; --muted: #41585a; --border: #b2c6c4; --hairline: #d7e4e2;
+  --accent: #0b6b6b; --accent-2: #a04d18; --on-accent: #ffffff;
+  --code-bg: #e3ecea; --code-border: #b8cbc9; --code-ink: #07191a;
+  --sky: #0b5ea8; --sky-bg: #dbe9f6;
+  --emerald: #056247; --emerald-bg: #d6efe6;
+  --amber: #8a5a05; --amber-bg: #fbeed2;
+  --rose: #a81238; --rose-bg: #fbe2e7;
+  --scroll-thumb: #7c8f8d; --scroll-track: #dfeae8;
+  --logo-blue: #0b5ea8; --logo-green: #07855f; --logo-crimson: #a81238; --logo-gold: #a06a06;
+}
+
+/* Kyanite — deep petrol stone · aqua signal. The same material at night: the canvas
+   keeps the green cast, the signal is the stone's own sheen raised to a lamp, and the
+   warm second signal is the one thing in the palette allowed to be orange. */
+.kyanite {
+  color-scheme: dark;
+  --canvas: #060f10; --surface: #0c1a1b; --elevated: #122527;
+  --ink: #dff4f1; --muted: #9fb9b7; --border: #2a4244; --hairline: #16292b;
+  --accent: #3fd6cf; --accent-2: #ff9d6b; --on-accent: #04100f;
+  --code-bg: #0d1d1e; --code-border: #24403f; --code-ink: #b7f2ec;
+  --sky: #7fb2ff; --sky-bg: #0d1c33;
+  --emerald: #5fd6a4; --emerald-bg: #082a1f;
+  --amber: #f2b64a; --amber-bg: #33240a;
+  --rose: #ff8fa1; --rose-bg: #3a1018;
+  --scroll-thumb: #52706f; --scroll-track: #0a1617;
+  --logo-blue: #7fb2ff; --logo-green: #5fd6a4; --logo-crimson: #ff8fa1; --logo-gold: #f2b64a;
+}
+
+/* Amethyst — pale violet sheet · violet signal. The gem at its palest: a lavender paper
+   with the ink kept neutral rather than purple, so the signal carries the hue alone and
+   the prose does not read as tinted. Gold is the second signal, as on the stone. */
+.amethyst {
+  color-scheme: light;
+  --canvas: #f5f1f8; --surface: #ffffff; --elevated: #eae2f0;
+  --ink: #150f1e; --muted: #574c66; --border: #c8bcd4; --hairline: #e5dcec;
+  --accent: #6b2ea0; --accent-2: #8a5a05; --on-accent: #ffffff;
+  --code-bg: #ede6f2; --code-border: #cabfd6; --code-ink: #150f1e;
+  --sky: #0b5ea8; --sky-bg: #dbe9f6;
+  --emerald: #056247; --emerald-bg: #d6efe6;
+  --amber: #8a5a05; --amber-bg: #fbeed2;
+  --rose: #a81238; --rose-bg: #fbe2e7;
+  --scroll-thumb: #8b7f99; --scroll-track: #eae2f0;
+  --logo-blue: #0b5ea8; --logo-green: #07855f; --logo-crimson: #a81238; --logo-gold: #a06a06;
+}
+
+/* Porphyry — imperial aubergine · orchid signal. The stone the purple was named for:
+   the canvas is nearly black with a red-violet cast, the signal is lifted to an orchid
+   that can be read as text, and the code ink stays in the same family so a listing
+   does not look pasted onto the page. */
+.porphyry {
+  color-scheme: dark;
+  --canvas: #0f0a14; --surface: #171020; --elevated: #211730;
+  --ink: #efe6f8; --muted: #b3a6c6; --border: #3a2c4b; --hairline: #241a30;
+  --accent: #d59bff; --accent-2: #ffb86b; --on-accent: #150a20;
+  --code-bg: #1a1224; --code-border: #33243f; --code-ink: #e9d7ff;
+  --sky: #7fb2ff; --sky-bg: #0d1c33;
+  --emerald: #5fd6a4; --emerald-bg: #082a1f;
+  --amber: #f2b64a; --amber-bg: #33240a;
+  --rose: #ff8fa1; --rose-bg: #3a1018;
+  --scroll-thumb: #5d4c72; --scroll-track: #130d1a;
+  --logo-blue: #7fb2ff; --logo-green: #5fd6a4; --logo-crimson: #ff8fa1; --logo-gold: #f2b64a;
 }
 
 /* ---------- Derived tokens & mdBook chrome (declared once) --------------- */
@@ -233,14 +384,14 @@
   --searchbar-bg: var(--surface); --searchbar-border-color: var(--border);
   --searchbar-fg: var(--ink);
   --searchbar-shadow-color: rgba(10, 63, 158, 0.2);
-  --searchbar-shadow-color: color-mix(in oklch, var(--accent) 20%, transparent);
+  --searchbar-shadow-color: color-mix(in oklab, var(--accent) 20%, transparent);
   --searchresults-header-fg: var(--muted); --searchresults-border-color: var(--border);
   --searchresults-li-bg: var(--elevated);
   --search-mark-bg: rgba(192, 122, 6, 0.3);
-  --search-mark-bg: color-mix(in oklch, var(--amber) 30%, transparent);
+  --search-mark-bg: color-mix(in oklab, var(--amber) 30%, transparent);
   --warning-border: var(--amber); --footnote-highlight: var(--accent);
   --overlay-bg: rgba(2, 6, 23, 0.4);
-  --overlay-bg: color-mix(in oklch, var(--canvas) 60%, transparent);
+  --overlay-bg: color-mix(in oklab, var(--canvas) 60%, transparent);
   --blockquote-note-color: var(--plane-e); --blockquote-tip-color: var(--plane-v);
   --blockquote-important-color: var(--violet);
   --blockquote-warning-color: var(--plane-g); --blockquote-caution-color: var(--rose);
@@ -248,19 +399,25 @@
   /* State and rule tokens. Every derived value declares its fallback first: a custom
      property holding an unresolvable function is only rejected when substituted into a
      real property, so a bare `color-mix()` would blank the surface on the very engines
-     the fallback exists for. */
+     the fallback exists for.
+
+     Mixes are interpolated in `oklab`, never `oklch`. In oklch an operand whose chroma is
+     nearly zero has a *powerless* hue, and the interpolation then carries no hue at all:
+     a deep petrol ink mixed with its pale paper came out a warm grey, and the topbar icons
+     of five palettes were painted in a hue their palette does not contain. oklab has no
+     hue component to lose, so a tint keeps the direction of the ink it is made from. */
   --state-hover: var(--elevated);
-  --state-hover: color-mix(in oklch, var(--ink) 8%, var(--canvas));
+  --state-hover: color-mix(in oklab, var(--ink) 8%, var(--canvas));
   --rule-soft: var(--hairline);
-  --rule-soft: color-mix(in oklch, var(--ink) 18%, var(--canvas));
+  --rule-soft: color-mix(in oklab, var(--ink) 18%, var(--canvas));
   --shadow-ink: var(--muted);
-  --shadow-ink: color-mix(in oklch, var(--canvas) 22%, black);
+  --shadow-ink: color-mix(in oklab, var(--canvas) 22%, black);
   --shadow-alpha: 7%;
   /* A plate is framed, not lifted: the only default "shadow" is the hairline the frame
      already draws. --shadow-lift exists for the one element that is genuinely a layer. */
   --shadow: none;
   --shadow-lift: 0 24px 64px -12px rgba(2, 6, 23, 0.35);
-  --shadow-lift: 0 24px 64px -12px color-mix(in oklch, var(--shadow-ink) 62%, transparent);
+  --shadow-lift: 0 24px 64px -12px color-mix(in oklab, var(--shadow-ink) 62%, transparent);
 }
 
 /* `contrast-color()` (CSS Color 5) returns whichever of black/white has the greater contrast
@@ -294,6 +451,73 @@
    text surface that reads --font-read follows it. Figures and code keep their own stacks. */
 :root[data-stoch-font="serif"] { --font-read: var(--font-serif); }
 :root[data-stoch-font="mono"] { --font-read: var(--mono-font); }
+:root[data-stoch-font="literata"] { --font-read: var(--font-literata); }
+:root[data-stoch-font="narrow"] { --font-read: var(--font-narrow); }
+:root[data-stoch-font="slab"] { --font-read: var(--font-slab); }
+:root[data-stoch-font="typewriter"] { --font-read: var(--font-typewriter); }
+
+/* Each menu row is set in the face it offers, so the choice is visible before it is made. */
+.stoch-font-popup [data-font="sans"] { font-family: var(--font-sans); }
+.stoch-font-popup [data-font="literata"] { font-family: var(--font-literata); }
+.stoch-font-popup [data-font="narrow"] { font-family: var(--font-narrow); }
+.stoch-font-popup [data-font="serif"] { font-family: var(--font-serif); }
+.stoch-font-popup [data-font="slab"] { font-family: var(--font-slab); }
+.stoch-font-popup [data-font="mono"] { font-family: var(--mono-font); }
+.stoch-font-popup [data-font="typewriter"] { font-family: var(--font-typewriter); }
+
+/* The four shipped faces. Files live in the source directory so the builder copies them to
+   fonts/ beside the page; the CSS itself is emitted under theme/, hence the parent hop. A
+   family is downloaded only when a reader selects it, since no rendered text asks for it
+   until data-stoch-font names it. */
+@font-face {
+  font-family: "Literata";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/literata-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Literata";
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/literata-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Archivo Narrow";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/narrow-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/slab-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Courier Prime";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/typewriter-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Courier Prime";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/typewriter-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Courier Prime";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/typewriter-italic.woff2") format("woff2");
+}
 
 html {
   font-family: var(--font-read);
@@ -315,7 +539,7 @@ body {
 
 ::selection {
   background-color: rgba(79, 195, 255, 0.24);
-  background-color: color-mix(in oklch, var(--accent) 24%, transparent);
+  background-color: color-mix(in oklab, var(--accent) 24%, transparent);
 }
 
 /* The measure sits on its own margin rule: a hairline in the gutter, ticked every two units,
@@ -765,7 +989,7 @@ table thead {
   position: sticky;
   inset-block-start: 0;
   z-index: 2;
-  background-color: color-mix(in oklch, var(--ink) 7%, var(--surface));
+  background-color: color-mix(in oklab, var(--ink) 7%, var(--surface));
 }
 
 table thead th {
@@ -776,8 +1000,8 @@ table thead th {
   font-size: 0.76em;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: color-mix(in oklch, var(--ink) 78%, var(--canvas));
-  background-color: color-mix(in oklch, var(--ink) 7%, var(--surface));
+  color: color-mix(in oklab, var(--ink) 78%, var(--canvas));
+  background-color: color-mix(in oklab, var(--ink) 7%, var(--surface));
   border-block-end: var(--rule-heavy) solid var(--accent);
   border-inline: none;
   text-wrap: balance;
@@ -867,10 +1091,71 @@ blockquote > p:last-child {
    Chrome: menu bar, sidebar, search
    ========================================================================== */
 
+/* The bar is a pane of glass, not a painted strip: the page keeps travelling under it and the
+   bar shows that it is in front rather than that the page ended. The tint is the palette's
+   own canvas at three-quarters strength, so what shows through is the palette's content and
+   not a grey film, and the saturate() keeps a heading sliding beneath from going muddy where
+   the tint thins it. The rule below stays a hairline of the palette's border, because the
+   glass has to end somewhere the eye can find. */
 #mdbook-menu-bar {
-  background-color: var(--canvas);
-  border-block-end: var(--rule) solid var(--border);
-  backdrop-filter: blur(8px);
+  background-color: color-mix(in oklab, var(--canvas) 54%, transparent);
+  border-block-end: var(--rule) solid color-mix(in oklab, var(--border) 72%, transparent);
+  -webkit-backdrop-filter: saturate(160%) blur(18px);
+  backdrop-filter: saturate(160%) blur(18px);
+}
+
+/* Without a backdrop filter the tint would be a half-seen paragraph behind the icons, which is
+   the one thing worse than an opaque bar: the text under it is unreadable and the controls are
+   not separable from it. There the bar goes back to the solid canvas. */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  #mdbook-menu-bar {
+    background-color: var(--canvas);
+  }
+}
+
+/* A reader who has asked the system for less transparency is asking for exactly this bar to
+   stop being glass; the tint and the blur both go, and the solid canvas under the same rule
+   keeps the bar distinguishable from the page. */
+@media (prefers-reduced-transparency: reduce) {
+  #mdbook-menu-bar {
+    background-color: var(--canvas);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* The bar is pinned, and a pinned bar with the page sliding under it has to say so: without
+   a lift, a paragraph scrolling beneath the rule reads as content that stopped existing at a
+   straight edge. The lift is scroll-driven and needs no listener — `animation-timeline`
+   maps the document offset onto the shadow, so the bar is exactly flat while it sits at the
+   top of the page (nothing is under it there) and carries the shadow only once something
+   has slid beneath. The tint is the palette's own shadow ink, so the shadow cools or warms
+   with the surface it falls on instead of being a grey that fights every palette. */
+@supports (animation-timeline: scroll()) {
+  #mdbook-menu-bar {
+    animation: stoch-topbar-lift linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 72px;
+  }
+
+  @keyframes stoch-topbar-lift {
+    from {
+      box-shadow: 0 0 0 0 transparent;
+    }
+    to {
+      box-shadow:
+        0 1px 0 0 color-mix(in oklab, var(--border) 60%, transparent),
+        0 12px 26px -18px color-mix(in oklab, var(--shadow-ink) 55%, transparent);
+    }
+  }
+}
+
+/* Without a scroll timeline the bar keeps the shadow at rest rather than losing it: the page
+   still passes under it, and an unshadowed pinned bar is the worse of the two failures. */
+@supports not (animation-timeline: scroll()) {
+  #mdbook-menu-bar {
+    box-shadow: 0 12px 26px -18px color-mix(in oklab, var(--shadow-ink) 55%, transparent);
+  }
 }
 
 .menu-title {
@@ -1021,6 +1306,10 @@ blockquote > p:last-child {
   #stoch-page-loader {
     display: none !important;
   }
+
+  .stoch-logo-figure svg {
+    color: #000;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1093,7 +1382,7 @@ blockquote > p:last-child {
   /* The state is the accent itself, mixed into whatever the panel is: a neutral hover
      tint disappears on the dark palettes, where the panel and the tint sit two points
      apart. The rail stays solid so the row reads at a glance either way. */
-  background-color: color-mix(in oklch, var(--accent) 16%, transparent);
+  background-color: color-mix(in oklab, var(--accent) 16%, transparent);
 }
 
 /* The open chapter is a row on the panel, not a pill inside it: the wrapper bleeds through
@@ -1226,18 +1515,76 @@ blockquote > p:last-child {
   display: flex;
   align-items: center;
   gap: calc(var(--u) * 2);
+  /* mdBook gives the two clusters five and fifteen pixels of inline margin, so the rail was
+     inset thirteen pixels on one end and twenty-three on the other. The bar's own padding is
+     the inset both ends should share. */
+  margin-inline: 0;
+}
+
+/* One control, one box. Left to its own rules the bar runs four widths — the sidebar toggle
+   48, theme and search 45.3, the typeface plate 32.5, the right anchors 32 — because mdBook
+   pads each glyph instead of sizing each control, and the padding then rides on a glyph that
+   is not the same width twice. The gaps measured equal and the rail still read as uneven,
+   since what the eye averages is the distance between glyphs, not between borders. Every
+   control is therefore one square of `--bar-control`, padding gone, glyph centred in it, so
+   the gap is the gap wherever the reader looks. The sidebar toggle is a label wrapping the
+   glyph and the anchors are block boxes around a span; the grid is what makes all three
+   types centre the same way. */
+#mdbook-menu-bar {
+  --bar-control: calc(var(--u) * 11);
+  padding-inline: calc(var(--u) * 2);
+}
+
+#mdbook-menu-bar :is(.icon-button, #stoch-font-toggle, .right-buttons a) {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  inline-size: var(--bar-control);
+  min-inline-size: var(--bar-control);
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+/* The right anchors already carried a 32px block around a 16px glyph, left-aligned inside it:
+   the box was centred and the ink was not, which showed as three glyphs sitting four pixels
+   off the centre their neighbours share. The span is made to centre what it holds instead of
+   being a plate of its own width. */
+#mdbook-menu-bar .right-buttons .fa-svg {
+  inline-size: auto;
+  display: grid;
+  place-items: center;
 }
 
 /* mdBook inks the bar's icon buttons from its own token, which the palettes here do not
    own; pinning them to the palette's secondary ink keeps the chrome legible on the dark
-   slots without letting it outshine the page. */
-#mdbook-menu-bar :is(.icon-button, .stoch-font-toggle) {
+   slots without letting it outshine the page.
+
+   One rule for the whole bar, and the right cluster is in it. mdBook colours the print and
+   download glyphs through `.menu-bar a .fa-svg { color: var(--icons) }` — a span inside an
+   anchor, which neither `.icon-button` nor `.stoch-font-toggle` matches. Left alone, the same
+   bar carries two tones: the left cluster 72% ink over canvas, the right cluster the flat
+   `--muted` token. On a light palette that made the right glyphs darker than their neighbours
+   and on a dark one lighter, and on the warm palettes it swapped the hue as well — Claret's
+   right glyphs came out cool blue-grey beside a warm left cluster. The anchor itself also kept
+   the user agent's link colour, blue unvisited and lavender once visited, which is a third
+   tone in a chrome that names none. Both the anchor and its span are therefore pinned here,
+   and hover and focus are answered by the palette rather than by the browser. */
+#mdbook-menu-bar :is(.icon-button, .stoch-font-toggle, .right-buttons a, .right-buttons .fa-svg) {
   color: var(--ink) !important;
-  color: color-mix(in oklch, var(--ink) 72%, var(--canvas)) !important;
+  color: color-mix(in oklab, var(--ink) 72%, var(--canvas)) !important;
 }
 
-#mdbook-menu-bar :is(.icon-button, .stoch-font-toggle):hover {
+#mdbook-menu-bar :is(.icon-button, .stoch-font-toggle, .right-buttons a, .right-buttons .fa-svg):hover,
+#mdbook-menu-bar .right-buttons a:hover .fa-svg {
   color: var(--accent) !important;
+}
+
+/* The bar had no focus style of its own, so `:focus-visible` fell back to the user agent's
+   ring — a blue that belongs to no palette and is the loudest mark in a warm chrome. The ring
+   is the one the rest of the document already uses. */
+#mdbook-menu-bar :is(.icon-button, .stoch-font-toggle, .right-buttons a):focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
 }
 
 #mdbook-menu-bar .stoch-font-toggle > li {
@@ -1522,7 +1869,7 @@ blockquote > p:last-child {
      (WCAG 1.4.11); `--border` is a hairline token and measures ~1.6:1 on the dark slots, so the
      frame is mixed from `--muted`, with `--border` kept as the fallback. */
   border: var(--rule) dashed var(--border);
-  border: var(--rule) dashed color-mix(in oklch, var(--muted) 70%, var(--canvas));
+  border: var(--rule) dashed color-mix(in oklab, var(--muted) 70%, var(--canvas));
   border-radius: var(--radius-sm);
   background-color: var(--canvas);
   min-inline-size: 0;
@@ -1553,7 +1900,7 @@ blockquote > p:last-child {
   accent-color: var(--accent);
   /* The native box keeps its own rendering; the ring gives it a boundary in the palettes where
      the UA's default grey disappears into the dark card. */
-  box-shadow: 0 0 0 var(--rule) color-mix(in oklch, var(--muted) 70%, var(--canvas));
+  box-shadow: 0 0 0 var(--rule) color-mix(in oklab, var(--muted) 70%, var(--canvas));
   border-radius: var(--radius-sm);
 }
 
@@ -1667,7 +2014,7 @@ blockquote > p:last-child {
 
 .stoch-check-verify:hover {
   background-color: var(--accent);
-  background-color: color-mix(in oklch, var(--accent) 86%, var(--ink));
+  background-color: color-mix(in oklab, var(--accent) 86%, var(--ink));
   border-color: var(--accent);
   color: var(--on-accent);
 }
@@ -1712,7 +2059,7 @@ blockquote > p:last-child {
 /* Verdict: `data-tone` is the only colour hook, and every tone also prints a marker so the
    state never depends on hue alone. Text tone on its own tint measures 5.15–8.91:1 (amber),
    5.24–6.11:1 (rose), 5.53–8.91:1 (emerald) and 5.78–6.92:1 (muted on elevated) across the
-   five palettes, measured from the rendered colours in Marble and Ultramarine. */
+   five palettes, measured from the rendered colours in Porcelain and Lapis. */
 .stoch-check-verdict {
   display: flex;
   align-items: safe center;
@@ -1863,7 +2210,7 @@ dialog.stoch-svg-zoom-dialog[open] {
 
 dialog.stoch-svg-zoom-dialog::backdrop {
   background-color: rgba(2, 6, 23, 0.72);
-  background-color: color-mix(in oklch, var(--shadow-ink) 72%, transparent);
+  background-color: color-mix(in oklab, var(--shadow-ink) 72%, transparent);
   backdrop-filter: blur(4px);
 }
 
@@ -2008,10 +2355,17 @@ dialog.stoch-svg-zoom-dialog::backdrop {
   }
 
   /* mdBook's highlight themes colour spans for a dark canvas; on paper those colours are a
-     wash. The three dark slots fall back to the print code ink. */
-  :is(.coal, .navy, .ayu) :is(pre, pre code, .hljs, .hljs *) {
+     wash. Every dark palette falls back to its own print code ink. */
+  :is(.coal, .navy, .ayu, .parchment-dark, .kyanite, .porphyry) :is(pre, pre code, .hljs, .hljs *) {
     background-color: var(--code-bg) !important;
     color: var(--code-ink) !important;
+  }
+
+  /* The chrome is not printed, but the scroll-driven lift would still be resolved on the
+     sticky bar; drop it so no shadow is computed at all. */
+  #mdbook-menu-bar {
+    box-shadow: none !important;
+    animation: none !important;
   }
 
   /* Keep a figure, a panel or a table in one piece, and drop the depth effects. */

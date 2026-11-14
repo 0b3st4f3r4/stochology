@@ -620,14 +620,72 @@
   // re-skins each slot with a Stochology palette; this renames the visible list so the
   // menu speaks palette names while the slots keep mdBook's own persistence and
   // highlight-stylesheet mapping intact.
+  //
+  // Seven palettes have no slot at all: two petrels (Celadon, Kyanite), two violets
+  // (Amethyst, Porphyry) and the earlier three (Verdigris, Claret, Ember). mdBook reads its
+  // slot list once, from the buttons already in the document when
+  // its own module runs, and book.js is loaded before this file — so these entries are added
+  // here, after that reading, and they come with the responsibilities mdBook would otherwise
+  // carry: the class *is* the id, the highlight stylesheet has to follow the palette's own
+  // polarity (mdBook switches it only for coal, navy and ayu), and a saved one has to be
+  // re-applied on load and on every OS scheme change, because mdBook then validates the saved
+  // id against the list it read and falls back to a slot it knows. Nothing else is taken
+  // over: a click on one of these still reaches mdBook's own handler, which stores the id and
+  // swaps the class, and this file only repairs what that handler cannot see.
   var PALETTE_LABELS = {
     default_theme: "Auto",
-    light: "Marble",
-    rust: "Parchment",
-    coal: "Graphite",
-    navy: "Ultramarine",
-    ayu: "Nocturne"
+    light: "Porcelain",
+    rust: "Sienna",
+    coal: "Malachite",
+    navy: "Lapis",
+    ayu: "Carmine",
+    "graphite-light": "Verdigris",
+    "nocturne-light": "Claret",
+    celadon: "Celadon",
+    amethyst: "Amethyst",
+    kyanite: "Kyanite",
+    porphyry: "Porphyry",
+    "parchment-dark": "Ember"
   };
+
+  // The palettes without a slot, and the polarity each one carries: `dark` is what the
+  // highlight stylesheet and the diagram renderer have to be told, since neither can read it
+  // off a class mdBook does not know.
+  var SLOTLESS_PALETTES = {
+    "graphite-light": { dark: false },
+    "nocturne-light": { dark: false },
+    celadon: { dark: false },
+    amethyst: { dark: false },
+    kyanite: { dark: true },
+    porphyry: { dark: true },
+    "parchment-dark": { dark: true }
+  };
+
+  // The printed menu order: Auto, then every light sheet, then every dark one, with a
+  // gold closing each block — Sienna the gold of the lights, Ember the gold of the darks.
+  // Three earlier choices pin the sequence: Verdigris before Porcelain, Claret after it,
+  // and the petrels and violets before both golds. Polarity is the outer sort, so a reader
+  // scanning the list reads a shelf of pale surfaces and then a shelf of dark ones.
+  var PALETTE_MENU_ORDER = [
+    "default_theme",
+    "graphite-light",
+    "light",
+    "nocturne-light",
+    "celadon",
+    "amethyst",
+    "rust",
+    "coal",
+    "navy",
+    "ayu",
+    "kyanite",
+    "porphyry",
+    "parchment-dark"
+  ];
+
+  // The five classes mdBook owns. A palette without a slot takes the surface over by clearing
+  // them, never by leaving one behind: two palette blocks on the same element would leave the
+  // later block in the stylesheet to decide, and that is not the reader's choice.
+  var MDBOOK_PALETTE_CLASSES = ["light", "rust", "coal", "navy", "ayu"];
 
   // Native menu plumbing. Both menus are popovers, which puts them in the top layer (the
   // stacking order costs no z-index), hands light dismissal and Escape to the browser, and
@@ -767,6 +825,32 @@
     return saved || "default_theme";
   }
 
+  // The palette mdBook itself put on `html`, whatever the storage says: with a gold as the
+  // configured default, an unsaved page under a dark OS lands on a palette mdBook has no slot
+  // for, and mdBook's own set_theme then leaves the light highlight sheet enabled.
+  function classSlotlessId() {
+    var html = document.documentElement;
+    for (var id in SLOTLESS_PALETTES) {
+      if (!Object.prototype.hasOwnProperty.call(SLOTLESS_PALETTES, id)) continue;
+      if (html.classList.contains(id)) return id;
+    }
+    return null;
+  }
+
+  // Repair what mdBook could not know about a default it was configured with but has no slot
+  // for: the highlight sheet follows the palette's polarity, the theme-color meta follows the
+  // canvas. The menu selection is left to mdBook while nothing is stored — that page is in
+  // Auto, and Auto is what the list should report.
+  function reconcileSlotlessDefault(list) {
+    var current = classSlotlessId();
+    if (!current) return false;
+    applyPaletteHighlight(!!SLOTLESS_PALETTES[current].dark);
+    if (isSlotlessPalette(paletteActiveSlot())) markPaletteSelected(list, current);
+    syncPaletteChecks(list);
+    refreshThemeColorMeta();
+    return true;
+  }
+
   function syncPaletteChecks(list) {
     var active = paletteActiveSlot();
     var buttons = list.querySelectorAll("button.theme");
@@ -776,9 +860,122 @@
     }
   }
 
+  function isSlotlessPalette(id) {
+    return Object.prototype.hasOwnProperty.call(SLOTLESS_PALETTES, id);
+  }
+
+  // mdBook enables ayu's highlight for ayu and tomorrow-night for coal and navy; a palette it
+  // has no slot for falls through to the light stylesheet, whose token inks were chosen for a
+  // white page. A dark palette on that sheet renders code in near-black on a near-black
+  // plate, so the links are switched here rather than left to the fall-through.
+  function applyPaletteHighlight(dark) {
+    var light = document.getElementById("mdbook-highlight-css");
+    var ayu = document.getElementById("mdbook-ayu-highlight-css");
+    var tomorrow = document.getElementById("mdbook-tomorrow-night-css");
+    if (!light || !ayu) return;
+    light.disabled = !!dark;
+    ayu.disabled = !dark;
+    if (tomorrow) tomorrow.disabled = true;
+  }
+
+  // mdBook paints the selected entry with `.theme-selected` and the accessible state with
+  // `aria-checked`; both have to name the same entry after a palette it cannot track is
+  // restored, or the menu reports one palette and prints another.
+  function markPaletteSelected(list, id) {
+    var buttons = list.querySelectorAll("button.theme");
+    for (var i = 0; i < buttons.length; i++) {
+      var slot = buttons[i].id.replace(/^mdbook-theme-/, "");
+      var on = slot === id;
+      buttons[i].setAttribute("aria-checked", on ? "true" : "false");
+      if (on) buttons[i].classList.add("theme-selected");
+      else buttons[i].classList.remove("theme-selected");
+    }
+  }
+
+  // `keep` is the palette being applied: mdBook has already written that class, and clearing
+  // it here would undo the click that is being repaired. Every other one goes, because two
+  // palette blocks on the same element leave the winner to stylesheet order.
+  function clearSlotlessPalettes(keep) {
+    var html = document.documentElement;
+    Object.keys(SLOTLESS_PALETTES).forEach(function (id) {
+      if (id !== keep) html.classList.remove(id);
+    });
+  }
+
+  function refreshThemeColorMeta() {
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) return;
+    setTimeout(function () {
+      meta.setAttribute("content", getComputedStyle(document.documentElement).backgroundColor);
+    }, 1);
+  }
+
+  // Build the three extra entries out of an existing one, so the markup, the role and the
+  // keyboard handling are mdBook's own, then order the whole list as it is printed. Reordering
+  // is `appendChild`: the list is its child sequence, and moving a node keeps its wiring.
+  function installSlotlessPalettes(list) {
+    var entries = list.querySelectorAll("li");
+    var template = null;
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].querySelector("button.theme")) {
+        template = entries[i];
+        break;
+      }
+    }
+    if (!template) return;
+    Object.keys(SLOTLESS_PALETTES).forEach(function (id) {
+      if (list.querySelector("#mdbook-theme-" + id)) return;
+      var item = template.cloneNode(true);
+      var button = item.querySelector("button.theme");
+      if (!button) return;
+      button.id = "mdbook-theme-" + id;
+      button.textContent = PALETTE_LABELS[id];
+      button.classList.remove("theme-selected");
+      button.setAttribute("aria-checked", "false");
+      list.appendChild(item);
+    });
+    var byId = {};
+    entries = list.querySelectorAll("li");
+    for (var j = 0; j < entries.length; j++) {
+      var entryButton = entries[j].querySelector("button.theme");
+      if (entryButton) byId[entryButton.id.replace(/^mdbook-theme-/, "")] = entries[j];
+    }
+    for (var k = 0; k < PALETTE_MENU_ORDER.length; k++) {
+      var entry = byId[PALETTE_MENU_ORDER[k]];
+      if (entry) list.appendChild(entry);
+    }
+  }
+
+  // mdBook validates the saved id against the slot list it read at load; a palette without a
+  // slot was not in that list, so mdBook's own init lands on a fallback slot and the surface
+  // has to be taken back. This runs after that init, which is why the fallback is what gets
+  // replaced rather than fought over.
+  function restoreSlotlessPalette(list) {
+    var saved = paletteActiveSlot();
+    if (!isSlotlessPalette(saved)) {
+      // "default_theme" means nothing is stored, so the class on the page is whatever mdBook
+      // picked from the configured defaults — and either default may be a palette without a
+      // slot. Clearing here would erase the reader's Auto page, so the repair is left to
+      // reconcileSlotlessDefault instead.
+      if (saved !== "default_theme") clearSlotlessPalettes();
+      return;
+    }
+    var html = document.documentElement;
+    for (var i = 0; i < MDBOOK_PALETTE_CLASSES.length; i++) {
+      html.classList.remove(MDBOOK_PALETTE_CLASSES[i]);
+    }
+    clearSlotlessPalettes(saved);
+    html.classList.add(saved);
+    applyPaletteHighlight(!!SLOTLESS_PALETTES[saved].dark);
+    markPaletteSelected(list, saved);
+    syncPaletteChecks(list);
+    refreshThemeColorMeta();
+  }
+
   function initThemeLabels() {
     var list = document.getElementById("mdbook-theme-list");
     if (!list) return;
+    installSlotlessPalettes(list);
     Object.keys(PALETTE_LABELS).forEach(function (slot) {
       var button = list.querySelector("#mdbook-theme-" + slot);
       if (button) {
@@ -798,9 +995,44 @@
       if (selected) selected.focus();
     });
     syncPaletteChecks(list);
+    restoreSlotlessPalette(list);
+    reconcileSlotlessDefault(list);
+    // mdBook re-runs its own set_theme when the OS scheme flips, which puts back a slot it
+    // knows; this listener is registered after that handler and re-asserts the saved palette
+    // once it has had its turn.
+    if (window.matchMedia) {
+      var scheme = window.matchMedia("(prefers-color-scheme: dark)");
+      var reassert = function () {
+        restoreSlotlessPalette(list);
+        reconcileSlotlessDefault(list);
+      };
+      if (typeof scheme.addEventListener === "function") scheme.addEventListener("change", reassert);
+      else if (typeof scheme.addListener === "function") scheme.addListener(reassert);
+    }
     // Selecting a slot closes the menu in both paths; mdBook's own module leaves it open.
+    // This listener is registered after mdBook's own click handler, so by the time it runs the
+    // id is stored and the class is swapped: what is left to do is the part mdBook cannot do
+    // for a palette without a slot.
     list.addEventListener("click", function (event) {
-      if (!event.target.closest(".theme")) return;
+      var button = event.target.closest(".theme");
+      if (!button) return;
+      var id = button.id.replace(/^mdbook-theme-/, "");
+      if (isSlotlessPalette(id)) {
+        clearSlotlessPalettes(id);
+        applyPaletteHighlight(!!SLOTLESS_PALETTES[id].dark);
+        markPaletteSelected(list, id);
+        refreshThemeColorMeta();
+      } else if (id === "default_theme") {
+        // Auto is not a palette: mdBook has already dropped the stored slot and re-applied
+        // whichever default the system scheme asks for, and that default may be a palette
+        // with no slot of its own. Clearing the slotless classes here would delete the very
+        // class Auto just put on the page and leave the reader on the bare root palette, so
+        // what is left to do is the repair mdBook cannot make, not a clear.
+        reconcileSlotlessDefault(list);
+      } else {
+        clearSlotlessPalettes();
+        markPaletteSelected(list, id);
+      }
       syncPaletteChecks(list);
       hideMenu(list);
       toggle.setAttribute("aria-expanded", "false");
@@ -835,8 +1067,12 @@
   var TYPEFACE_KEY = "stoch-typeface";
   var TYPEFACES = [
     { id: "sans", label: "Sans" },
+    { id: "literata", label: "Literata" },
+    { id: "narrow", label: "Narrow" },
     { id: "serif", label: "Serif" },
-    { id: "mono", label: "Mono" }
+    { id: "slab", label: "Slab" },
+    { id: "mono", label: "Mono" },
+    { id: "typewriter", label: "Typewriter" }
   ];
 
   function readTypeface() {
@@ -1829,6 +2065,8 @@
     dismissPageLoader();
   }
 
+  // The five slots answer for themselves; a palette without a slot carries its polarity in
+  // SLOTLESS_PALETTES, because its class is an id mdBook never taught this function.
   function isDarkThemeActive() {
     var cl = document.documentElement.classList;
     if (cl.contains("navy") || cl.contains("coal") || cl.contains("ayu")) {
@@ -1836,6 +2074,10 @@
     }
     if (cl.contains("light") || cl.contains("rust")) {
       return false;
+    }
+    for (var id in SLOTLESS_PALETTES) {
+      if (!Object.prototype.hasOwnProperty.call(SLOTLESS_PALETTES, id)) continue;
+      if (cl.contains(id)) return !!SLOTLESS_PALETTES[id].dark;
     }
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
   }
