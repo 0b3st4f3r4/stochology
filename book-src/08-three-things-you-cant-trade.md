@@ -1,35 +1,91 @@
 # Three Things You Can't Trade
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH08 · LEONTIEF — The Non-Substitutable Triad">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH08 · LEONTIEF — The Non-Substitutable Triad">
   <defs>
+    <!-- Divider Progression: Vital Emerald -> Epistemic Sapphire -> Stókhos Gold -> Institutional Crimson -->
     <linearGradient id="ch08-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch08-glow" cx="50%" cy="50%" r="50%">
+    <!-- Multi-spectral Atmospheric Glow -->
+    <radialGradient id="ch08-glow" cx="52%" cy="52%" r="50%">
       <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
-      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#e11d48" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch08-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
+    <!-- Geodesic Triad Prism Skeleton Gradient (M_Leontief = min(S_epi, S_vital, S_gov)) -->
+    <linearGradient id="ch08-triad-prism" x1="64" y1="22" x2="64" y2="92" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.80"/>
+      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="var(--logo-ticks, #64748b)" stop-opacity="0.75"/>
     </linearGradient>
-    <linearGradient id="ch08-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
+    <!-- Volumetric Triad Basin Shading -->
+    <linearGradient id="ch08-triad-fill" x1="24" y1="92" x2="104" y2="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.20"/>
+      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#e11d48" stop-opacity="0.20"/>
     </linearGradient>
-    <linearGradient id="ch08-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
-      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
-      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    <!-- Outer Leontief Right-Angled L-Isoquant Gradient -->
+    <linearGradient id="ch08-iso-outer" x1="44" y1="36" x2="94" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="var(--logo-blue, #2563eb)"/>
+      <stop offset="100%" stop-color="#818cf8"/>
     </linearGradient>
+    <!-- Inner Leontief Right-Angled L-Isoquant Gradient -->
+    <linearGradient id="ch08-iso-inner" x1="56" y1="28" x2="100" y2="68" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="50%" stop-color="var(--logo-green, #10b981)"/>
+      <stop offset="100%" stop-color="#a7f3d0"/>
+    </linearGradient>
+    <!-- Expansion Trajectory Ray Vector -->
+    <linearGradient id="ch08-ray-grad" x1="36" y1="88" x2="72" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <!-- 3D Spherical Node Gradients (Canonical Nuclear Triad: r=9.2 outer, r=4.0 core) -->
+    <radialGradient id="ch08-node-well" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
+      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
+    </radialGradient>
+    <!-- Axis 1 [S_epi]: Epistemic Margin Sapphire Sphere -->
+    <linearGradient id="ch08-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <radialGradient id="ch08-core-epi" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="45%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </radialGradient>
+    <!-- Axis 2 [S_vital]: Vital Margin Emerald Sphere -->
+    <linearGradient id="ch08-ring-vital" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6ee7b7"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#065f46"/>
+    </linearGradient>
+    <radialGradient id="ch08-core-vital" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="45%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </radialGradient>
+    <!-- Axis 3 [S_gov]: Institutional Governance Crimson Sphere -->
+    <linearGradient id="ch08-ring-gov" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fda4af"/>
+      <stop offset="50%" stop-color="#e11d48"/>
+      <stop offset="100%" stop-color="#881337"/>
+    </linearGradient>
+    <radialGradient id="ch08-core-gov" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fecdd3"/>
+      <stop offset="45%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </radialGradient>
+    <!-- Golden Stókhos Reticle Gradients -->
     <radialGradient id="ch08-pupil" cx="45%" cy="42%" r="58%">
       <stop offset="0%" stop-color="#020617"/>
       <stop offset="68%" stop-color="#0f172a"/>
@@ -45,60 +101,38 @@
       <stop offset="35%" stop-color="#fde047"/>
       <stop offset="100%" stop-color="#d97706"/>
     </radialGradient>
-    <radialGradient id="ch08-node-well" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
-      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
-    </radialGradient>
-    <linearGradient id="ch08-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7dd3fc"/>
-      <stop offset="50%" stop-color="#2563eb"/>
-      <stop offset="100%" stop-color="#1e3a8a"/>
-    </linearGradient>
-    <radialGradient id="ch08-core-epi" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#bae6fd"/>
-      <stop offset="45%" stop-color="#3b82f6"/>
-      <stop offset="100%" stop-color="#1d4ed8"/>
-    </radialGradient>
-    <linearGradient id="ch08-ring-vital" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#6ee7b7"/>
-      <stop offset="50%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#065f46"/>
-    </linearGradient>
-    <radialGradient id="ch08-core-vital" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#a7f3d0"/>
-      <stop offset="45%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#047857"/>
-    </radialGradient>
-    <linearGradient id="ch08-ring-gov" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fda4af"/>
-      <stop offset="50%" stop-color="#e11d48"/>
-      <stop offset="100%" stop-color="#881337"/>
-    </linearGradient>
-    <radialGradient id="ch08-core-gov" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#fecdd3"/>
-      <stop offset="45%" stop-color="#f43f5e"/>
-      <stop offset="100%" stop-color="#be123c"/>
-    </radialGradient>
   </defs>
   <g>
+    <!-- Atmospheric Glow & Reference Coordinate Horizon -->
     <circle cx="64" cy="66" r="48" fill="url(#ch08-glow)"/>
-    <polygon points="64,22 104,92 24,92" fill="url(#ch08-fill)" stroke="url(#ch08-triad-stroke)" stroke-width="2.2" stroke-dasharray="3.5 3"/>
-    <path d="M 44 36 L 44 80 L 94 80" stroke="var(--logo-blue, #2563eb)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M 56 28 L 56 68 L 100 68" stroke="var(--logo-green, #10b981)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="64.00" cy="22.00" r="6.72" fill="url(#ch08-node-well)" stroke="url(#ch08-ring-epi)" stroke-width="2.48"/>
-    <circle cx="64.00" cy="22.00" r="2.88" fill="url(#ch08-core-epi)"/>
-    <circle cx="24.00" cy="92.00" r="6.72" fill="url(#ch08-node-well)" stroke="url(#ch08-ring-vital)" stroke-width="2.48"/>
-    <circle cx="24.00" cy="92.00" r="2.88" fill="url(#ch08-core-vital)"/>
-    <circle cx="104.00" cy="92.00" r="6.72" fill="url(#ch08-node-well)" stroke="url(#ch08-ring-gov)" stroke-width="2.48"/>
-    <circle cx="104.00" cy="92.00" r="2.88" fill="url(#ch08-core-gov)"/>
-    <g>
-      <circle cx="56.00" cy="68.00" r="6.81" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="56.00" cy="68.00" r="5.89" fill="url(#ch08-pupil)" stroke="url(#ch08-gold-mira)" stroke-width="2.21"/>
-      <line x1="47.17" y1="68.00" x2="52.14" y2="68.00" stroke="url(#ch08-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="59.86" y1="68.00" x2="64.83" y2="68.00" stroke="url(#ch08-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="56.00" y1="59.17" x2="56.00" y2="64.14" stroke="url(#ch08-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="56.00" y1="71.86" x2="56.00" y2="76.83" stroke="url(#ch08-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <circle cx="56.00" cy="68.00" r="2.02" fill="url(#ch08-gold-core)"/>
+    <!-- Geodesic Triangular Boundary (The Nuclear Triad Skeleton) -->
+    <polygon points="64,22 104,92 24,92" fill="url(#ch08-triad-fill)" stroke="url(#ch08-triad-prism)" stroke-width="2.6" stroke-dasharray="3.64 3.64" stroke-linejoin="round"/>
+    <!-- Nested Leontief Non-Substitutable L-Isoquants (M_Leontief = min(S_epi, S_vital, S_gov)) -->
+    <!-- Outer Isoquant -->
+    <path d="M 44 36 L 44 80 L 94 80" stroke="url(#ch08-iso-outer)" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Inner Isoquant -->
+    <path d="M 56 28 L 56 68 L 100 68" stroke="url(#ch08-iso-inner)" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Expansion Trajectory Ray Vector through Critical Bottleneck Corners -->
+    <line x1="36" y1="88" x2="72" y2="52" stroke="url(#ch08-ray-grad)" stroke-width="2.4" stroke-dasharray="3 2" stroke-linecap="round"/>
+    <!-- Three Authority Nuclear Triad 3D Nodes (r=9.2 outer, r=4.0 core matching logo.svg standard) -->
+    <!-- Axis 1 [S_epi]: Epistemic Margin Apex at (64, 22) -->
+    <circle cx="64" cy="22" r="9.2" fill="url(#ch08-node-well)" stroke="url(#ch08-ring-epi)" stroke-width="3.4"/>
+    <circle cx="64" cy="22" r="4.0" fill="url(#ch08-core-epi)"/>
+    <!-- Axis 2 [S_vital]: Vital Margin Bottom-Left at (24, 92) -->
+    <circle cx="24" cy="92" r="9.2" fill="url(#ch08-node-well)" stroke="url(#ch08-ring-vital)" stroke-width="3.4"/>
+    <circle cx="24" cy="92" r="4.0" fill="url(#ch08-core-vital)"/>
+    <!-- Axis 3 [S_gov]: Institutional Governance Bottom-Right at (104, 92) -->
+    <circle cx="104" cy="92" r="9.2" fill="url(#ch08-node-well)" stroke="url(#ch08-ring-gov)" stroke-width="3.4"/>
+    <circle cx="104" cy="92" r="4.0" fill="url(#ch08-core-gov)"/>
+    <!-- Active Bottleneck Stókhos Reticle at Isoquant Vertex (56, 68) -->
+    <g id="ch08-reticle">
+      <circle cx="56" cy="68" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="56" cy="68" r="6.4" fill="url(#ch08-pupil)" stroke="url(#ch08-gold-mira)" stroke-width="2.4"/>
+      <line x1="46.4" y1="68" x2="51.8" y2="68" stroke="url(#ch08-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="60.2" y1="68" x2="65.6" y2="68" stroke="url(#ch08-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="56" y1="58.4" x2="56" y2="63.8" stroke="url(#ch08-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="56" y1="72.2" x2="56" y2="77.6" stroke="url(#ch08-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="56" cy="68" r="2.2" fill="url(#ch08-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

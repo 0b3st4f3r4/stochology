@@ -1,35 +1,57 @@
 # The Biggest Number in the Room
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH03 · EXTREMISTAN — Mediocristan And Heavy Tails">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH03 · EXTREMISTAN — Mediocristan And Heavy Tails">
   <defs>
+    <!-- Divider Progression: Vital Emerald -> Epistemic Sapphire -> Stókhos Gold -> Institutional Crimson -->
     <linearGradient id="ch03-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch03-glow" cx="50%" cy="50%" r="50%">
+    <!-- Multi-spectral Atmospheric Glow -->
+    <radialGradient id="ch03-glow" cx="52%" cy="52%" r="50%">
       <stop offset="0%" stop-color="#34d399" stop-opacity="0.25"/>
-      <stop offset="50%" stop-color="#10b981" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#fbbf24" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#fbbf24" stop-opacity="0.16"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.10"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch03-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
+    <!-- Extremistan Pareto Power-Law Heavy Tail Fire Density -->
+    <linearGradient id="ch03-tail-fire" x1="22" y1="92" x2="106" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#059669" stop-opacity="0.46"/>
+      <stop offset="38%" stop-color="#2563eb" stop-opacity="0.48"/>
+      <stop offset="68%" stop-color="#f59e0b" stop-opacity="0.44"/>
+      <stop offset="100%" stop-color="#e11d48" stop-opacity="0.52"/>
     </linearGradient>
-    <linearGradient id="ch03-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
-    </linearGradient>
-    <linearGradient id="ch03-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
+    <!-- Pareto Tail Ink Stroke -->
+    <linearGradient id="ch03-ink-curve" x1="22" y1="70" x2="106" y2="70" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
       <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
       <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
     </linearGradient>
+    <!-- Mediocristan Thin-Tailed Gaussian Curve Stroke -->
+    <linearGradient id="ch03-gauss-stroke" x1="22" y1="68" x2="74" y2="68" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#64748b"/>
+      <stop offset="50%" stop-color="#94a3b8"/>
+      <stop offset="100%" stop-color="#64748b"/>
+    </linearGradient>
+    <!-- 3D Spherical Node Gradients -->
+    <radialGradient id="ch03-node-well" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
+      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
+    </radialGradient>
+    <linearGradient id="ch03-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <radialGradient id="ch03-core-epi" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="45%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </radialGradient>
+    <!-- Golden Stókhos Reticle Gradients -->
     <radialGradient id="ch03-pupil" cx="45%" cy="42%" r="58%">
       <stop offset="0%" stop-color="#020617"/>
       <stop offset="68%" stop-color="#0f172a"/>
@@ -45,58 +67,32 @@
       <stop offset="35%" stop-color="#fde047"/>
       <stop offset="100%" stop-color="#d97706"/>
     </radialGradient>
-    <radialGradient id="ch03-node-well" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
-      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
-    </radialGradient>
-    <linearGradient id="ch03-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7dd3fc"/>
-      <stop offset="50%" stop-color="#2563eb"/>
-      <stop offset="100%" stop-color="#1e3a8a"/>
-    </linearGradient>
-    <radialGradient id="ch03-core-epi" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#bae6fd"/>
-      <stop offset="45%" stop-color="#3b82f6"/>
-      <stop offset="100%" stop-color="#1d4ed8"/>
-    </radialGradient>
-    <linearGradient id="ch03-ring-vital" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#6ee7b7"/>
-      <stop offset="50%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#065f46"/>
-    </linearGradient>
-    <radialGradient id="ch03-core-vital" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#a7f3d0"/>
-      <stop offset="45%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#047857"/>
-    </radialGradient>
-    <linearGradient id="ch03-ring-gov" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fda4af"/>
-      <stop offset="50%" stop-color="#e11d48"/>
-      <stop offset="100%" stop-color="#881337"/>
-    </linearGradient>
-    <radialGradient id="ch03-core-gov" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#fecdd3"/>
-      <stop offset="45%" stop-color="#f43f5e"/>
-      <stop offset="100%" stop-color="#be123c"/>
-    </radialGradient>
   </defs>
   <g>
+    <!-- Atmospheric Glow & Reference Coordinate Horizon -->
     <circle cx="64" cy="66" r="48" fill="url(#ch03-glow)"/>
     <circle cx="64" cy="66" r="42" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.45"/>
-    <path d="M 22 92 C 34 92, 40 44, 48 44 C 56 44, 62 92, 74 92" stroke="var(--logo-ticks, #64748b)" stroke-width="1.8" stroke-dasharray="3 2.5" stroke-linecap="round"/>
-    <path d="M 26 92 C 36 32, 52 74, 106 84 L 106 92 L 26 92 Z" fill="url(#ch03-fill)"/>
-    <path d="M 26 92 C 36 32, 52 74, 106 84" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.8" stroke-linecap="round"/>
-    <line x1="96" y1="92" x2="96" y2="34" stroke="url(#ch03-gold-mira)" stroke-width="3.0" stroke-linecap="round"/>
-    <circle cx="38.00" cy="54.00" r="6.55" fill="url(#ch03-node-well)" stroke="url(#ch03-ring-epi)" stroke-width="2.42"/>
-    <circle cx="38.00" cy="54.00" r="2.81" fill="url(#ch03-core-epi)"/>
-    <g>
-      <circle cx="96.00" cy="34.00" r="6.66" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="96.00" cy="34.00" r="5.76" fill="url(#ch03-pupil)" stroke="url(#ch03-gold-mira)" stroke-width="2.16"/>
-      <line x1="87.36" y1="34.00" x2="92.22" y2="34.00" stroke="url(#ch03-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="99.78" y1="34.00" x2="104.64" y2="34.00" stroke="url(#ch03-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="96.00" y1="25.36" x2="96.00" y2="30.22" stroke="url(#ch03-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="96.00" y1="37.78" x2="96.00" y2="42.64" stroke="url(#ch03-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <circle cx="96.00" cy="34.00" r="1.98" fill="url(#ch03-gold-core)"/>
+    <!-- Volumetric Pareto Heavy Tail Density Area -->
+    <path d="M 22 92 C 30 92, 42 78, 52 70 C 66 60, 84 48, 106 48 L 106 94 L 22 94 Z" fill="url(#ch03-tail-fire)"/>
+    <line x1="20" y1="94" x2="108" y2="94" stroke="var(--logo-ticks, #64748b)" stroke-width="1.4"/>
+    <!-- Pareto Power Law Tail Contour -->
+    <path d="M 22 92 C 30 92, 42 78, 52 70 C 66 60, 84 48, 106 48" stroke="url(#ch03-ink-curve)" stroke-width="3.2" stroke-linecap="round"/>
+    <!-- Mediocristan Gaussian Bell Curve -->
+    <path d="M 22 92 C 34 92, 40 44, 48 44 C 56 44, 62 92, 74 92" stroke="url(#ch03-gauss-stroke)" stroke-width="2.2" stroke-dasharray="3.5 2.5" stroke-linecap="round"/>
+    <!-- Single-Observation Catastrophe / Ruin Warning Threshold -->
+    <line x1="96" y1="94" x2="96" y2="34" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.2" stroke-dasharray="2.5 2" stroke-linecap="round"/>
+    <!-- Mediocristan Gaussian Expected Mean Node at (48, 44) -->
+    <circle cx="48" cy="44" r="8.0" fill="url(#ch03-node-well)" stroke="url(#ch03-ring-epi)" stroke-width="3.0"/>
+    <circle cx="48" cy="44" r="3.6" fill="url(#ch03-core-epi)"/>
+    <!-- Extremistan Ruin Horizon Stókhos Reticle at (96, 48) -->
+    <g id="ch03-reticle">
+      <circle cx="96" cy="48" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="96" cy="48" r="6.4" fill="url(#ch03-pupil)" stroke="url(#ch03-gold-mira)" stroke-width="2.4"/>
+      <line x1="86.4" y1="48" x2="91.8" y2="48" stroke="url(#ch03-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="100.2" y1="48" x2="105.6" y2="48" stroke="url(#ch03-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="96" y1="38.4" x2="96" y2="43.8" stroke="url(#ch03-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="96" y1="52.2" x2="96" y2="57.6" stroke="url(#ch03-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="96" cy="48" r="2.2" fill="url(#ch03-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

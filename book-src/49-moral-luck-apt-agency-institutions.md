@@ -1,7 +1,7 @@
 # Moral Luck, Apt Agency, and Institutional Design
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH49 · S_GOV — Moral Luck And Institutional Design">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH49 · S_GOV — Moral Luck And Institutional Design">
   <defs>
     <linearGradient id="ch49-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
@@ -11,8 +11,8 @@
     </linearGradient>
     <radialGradient id="ch49-glow" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.24"/>
-      <stop offset="50%" stop-color="#fbbf24" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#38bdf8" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#fbbf24" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#38bdf8" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="ch49-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
@@ -84,20 +84,20 @@
     <circle cx="64" cy="66" r="48" fill="url(#ch49-glow)"/>
     <polygon points="64,22 100,43 100,89 64,110 28,89 28,43" fill="url(#ch49-fill)" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.6" stroke-linejoin="round"/>
     <polygon points="64,36 88,80 40,80" stroke="var(--logo-blue, #2563eb)" stroke-width="2.2" stroke-dasharray="3.5 2.5" stroke-linejoin="round"/>
-    <circle cx="64.00" cy="22.00" r="6.55" fill="url(#ch49-node-well)" stroke="url(#ch49-ring-epi)" stroke-width="2.42"/>
-    <circle cx="64.00" cy="22.00" r="2.81" fill="url(#ch49-core-epi)"/>
-    <circle cx="28.00" cy="89.00" r="6.55" fill="url(#ch49-node-well)" stroke="url(#ch49-ring-vital)" stroke-width="2.42"/>
-    <circle cx="28.00" cy="89.00" r="2.81" fill="url(#ch49-core-vital)"/>
-    <circle cx="100.00" cy="89.00" r="6.55" fill="url(#ch49-node-well)" stroke="url(#ch49-ring-gov)" stroke-width="2.42"/>
-    <circle cx="100.00" cy="89.00" r="2.81" fill="url(#ch49-core-gov)"/>
+    <circle cx="64" cy="22" r="6.6" fill="url(#ch49-node-well)" stroke="url(#ch49-ring-epi)" stroke-width="2.4"/>
+    <circle cx="64" cy="22" r="2.8" fill="url(#ch49-core-epi)"/>
+    <circle cx="28" cy="89" r="6.6" fill="url(#ch49-node-well)" stroke="url(#ch49-ring-vital)" stroke-width="2.4"/>
+    <circle cx="28" cy="89" r="2.8" fill="url(#ch49-core-vital)"/>
+    <circle cx="100" cy="89" r="6.6" fill="url(#ch49-node-well)" stroke="url(#ch49-ring-gov)" stroke-width="2.4"/>
+    <circle cx="100" cy="89" r="2.8" fill="url(#ch49-core-gov)"/>
     <g>
-      <circle cx="64.00" cy="66.00" r="6.96" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="64.00" cy="66.00" r="6.02" fill="url(#ch49-pupil)" stroke="url(#ch49-gold-mira)" stroke-width="2.26"/>
-      <line x1="54.98" y1="66.00" x2="60.05" y2="66.00" stroke="url(#ch49-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <line x1="67.95" y1="66.00" x2="73.02" y2="66.00" stroke="url(#ch49-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <line x1="64.00" y1="56.98" x2="64.00" y2="62.05" stroke="url(#ch49-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <line x1="64.00" y1="69.95" x2="64.00" y2="75.02" stroke="url(#ch49-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <circle cx="64.00" cy="66.00" r="2.07" fill="url(#ch49-gold-core)"/>
+      <circle cx="64" cy="66" r="7.0" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64" cy="66" r="6.0" fill="url(#ch49-pupil)" stroke="url(#ch49-gold-mira)" stroke-width="2.2"/>
+      <line x1="55.0" y1="66" x2="60.0" y2="66" stroke="url(#ch49-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="68.0" y1="66" x2="73.0" y2="66" stroke="url(#ch49-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64" y1="57.0" x2="64" y2="62.0" stroke="url(#ch49-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64" y1="70.0" x2="64" y2="75.0" stroke="url(#ch49-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="64" cy="66" r="2.0" fill="url(#ch49-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

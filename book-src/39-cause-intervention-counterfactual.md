@@ -1,7 +1,7 @@
 # Cause, Intervention, Counterfactual
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH39 · CAUSALITY — Cause, Intervention, And Counterfactual">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH39 · CAUSALITY — Cause, Intervention, And Counterfactual">
   <defs>
     <linearGradient id="ch39-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
@@ -11,8 +11,8 @@
     </linearGradient>
     <radialGradient id="ch39-glow" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.24"/>
-      <stop offset="50%" stop-color="#fbbf24" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#38bdf8" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#fbbf24" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#38bdf8" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="ch39-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
@@ -83,21 +83,22 @@
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#ch39-glow)"/>
     <path d="M 64 26 L 30 86" stroke="var(--logo-ticks, #64748b)" stroke-width="2.2" stroke-dasharray="3 2.5"/>
-    <line x1="36" y1="48" x2="54" y2="60" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.8" stroke-linecap="round"/>
+    <line x1="34" y1="46" x2="56" y2="62" stroke="var(--logo-crimson, #e11d48)" stroke-width="3.0" stroke-linecap="round"/>
+    <line x1="42" y1="50" x2="48" y2="58" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.2" stroke-linecap="round"/>
     <path d="M 64 26 L 98 86" stroke="var(--logo-blue, #2563eb)" stroke-width="2.6" stroke-linecap="round"/>
     <path d="M 30 86 L 98 86" stroke="var(--logo-green, #10b981)" stroke-width="3.0" stroke-linecap="round"/>
-    <circle cx="64.00" cy="26.00" r="6.72" fill="url(#ch39-node-well)" stroke="url(#ch39-ring-epi)" stroke-width="2.48"/>
-    <circle cx="64.00" cy="26.00" r="2.88" fill="url(#ch39-core-epi)"/>
-    <circle cx="98.00" cy="86.00" r="6.72" fill="url(#ch39-node-well)" stroke="url(#ch39-ring-vital)" stroke-width="2.48"/>
-    <circle cx="98.00" cy="86.00" r="2.88" fill="url(#ch39-core-vital)"/>
+    <circle cx="64" cy="26" r="6.6" fill="url(#ch39-node-well)" stroke="url(#ch39-ring-epi)" stroke-width="2.4"/>
+    <circle cx="64" cy="26" r="2.8" fill="url(#ch39-core-epi)"/>
+    <circle cx="30" cy="86" r="6.6" fill="url(#ch39-node-well)" stroke="url(#ch39-ring-vital)" stroke-width="2.4"/>
+    <circle cx="30" cy="86" r="2.8" fill="url(#ch39-core-vital)"/>
     <g>
-      <circle cx="30.00" cy="86.00" r="6.66" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="30.00" cy="86.00" r="5.76" fill="url(#ch39-pupil)" stroke="url(#ch39-gold-mira)" stroke-width="2.16"/>
-      <line x1="21.36" y1="86.00" x2="26.22" y2="86.00" stroke="url(#ch39-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="33.78" y1="86.00" x2="38.64" y2="86.00" stroke="url(#ch39-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="30.00" y1="77.36" x2="30.00" y2="82.22" stroke="url(#ch39-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="30.00" y1="89.78" x2="30.00" y2="94.64" stroke="url(#ch39-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <circle cx="30.00" cy="86.00" r="1.98" fill="url(#ch39-gold-core)"/>
+      <circle cx="98" cy="86" r="7.0" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="98" cy="86" r="6.0" fill="url(#ch39-pupil)" stroke="url(#ch39-gold-mira)" stroke-width="2.2"/>
+      <line x1="89.0" y1="86" x2="94.0" y2="86" stroke="url(#ch39-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="102.0" y1="86" x2="107.0" y2="86" stroke="url(#ch39-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="98" y1="77.0" x2="98" y2="82.0" stroke="url(#ch39-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="98" y1="90.0" x2="98" y2="95.0" stroke="url(#ch39-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="98" cy="86" r="2.0" fill="url(#ch39-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

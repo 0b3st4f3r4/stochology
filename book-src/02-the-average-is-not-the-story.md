@@ -1,63 +1,50 @@
 # The Average Is Not the Story
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH02 · CONVEXITY — Averages And Jensen'S Gap">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH02 · CONVEXITY — Averages And Jensen'S Gap">
   <defs>
+    <!-- Divider Progression: Vital Emerald -> Epistemic Sapphire -> Stókhos Gold -> Institutional Crimson -->
     <linearGradient id="ch02-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch02-glow" cx="50%" cy="50%" r="50%">
+    <!-- Multi-spectral Atmospheric Glow -->
+    <radialGradient id="ch02-glow" cx="52%" cy="52%" r="50%">
       <stop offset="0%" stop-color="#34d399" stop-opacity="0.25"/>
-      <stop offset="50%" stop-color="#10b981" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#fbbf24" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#2563eb" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#fbbf24" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch02-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
+    <!-- Convex Basin Volumetric Shading -->
+    <linearGradient id="ch02-convex-fill" x1="24" y1="34" x2="104" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.28"/>
+      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#e11d48" stop-opacity="0.24"/>
     </linearGradient>
-    <linearGradient id="ch02-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
-    </linearGradient>
-    <linearGradient id="ch02-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
+    <!-- Convex Payoff Curve Ink Stroke -->
+    <linearGradient id="ch02-ink-curve" x1="24" y1="66" x2="104" y2="66" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
       <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
       <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
     </linearGradient>
-    <radialGradient id="ch02-pupil" cx="45%" cy="42%" r="58%">
-      <stop offset="0%" stop-color="#020617"/>
-      <stop offset="68%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#451a03"/>
-    </radialGradient>
-    <linearGradient id="ch02-gold-mira" x1="54" y1="48" x2="84" y2="82" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#fef08a"/>
-      <stop offset="45%" stop-color="#fbbf24"/>
+    <!-- Secant Chord Gradient: Sapphire-to-Crimson -->
+    <linearGradient id="ch02-secant-grad" x1="28" y1="84" x2="100" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)"/>
+      <stop offset="52%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
+    </linearGradient>
+    <!-- Jensen Gap Caliper Ruler: Golden Luminous -->
+    <linearGradient id="ch02-gap-ruler" x1="64" y1="62" x2="64" y2="85" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
       <stop offset="100%" stop-color="#d97706"/>
     </linearGradient>
-    <radialGradient id="ch02-gold-core" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="35%" stop-color="#fde047"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </radialGradient>
+    <!-- 3D Spherical Node Gradients -->
     <radialGradient id="ch02-node-well" cx="38%" cy="35%" r="65%">
       <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
       <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
-    </radialGradient>
-    <linearGradient id="ch02-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7dd3fc"/>
-      <stop offset="50%" stop-color="#2563eb"/>
-      <stop offset="100%" stop-color="#1e3a8a"/>
-    </linearGradient>
-    <radialGradient id="ch02-core-epi" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#bae6fd"/>
-      <stop offset="45%" stop-color="#3b82f6"/>
-      <stop offset="100%" stop-color="#1d4ed8"/>
     </radialGradient>
     <linearGradient id="ch02-ring-vital" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#6ee7b7"/>
@@ -79,25 +66,54 @@
       <stop offset="45%" stop-color="#f43f5e"/>
       <stop offset="100%" stop-color="#be123c"/>
     </radialGradient>
+    <!-- Golden Stókhos Reticle Gradients -->
+    <radialGradient id="ch02-pupil" cx="45%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="68%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </radialGradient>
+    <linearGradient id="ch02-gold-mira" x1="54" y1="48" x2="84" y2="82" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="45%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <radialGradient id="ch02-gold-core" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </radialGradient>
   </defs>
   <g>
+    <!-- Atmospheric Glow & Reference Coordinate Horizon -->
     <circle cx="64" cy="66" r="48" fill="url(#ch02-glow)"/>
     <circle cx="64" cy="66" r="42" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.45"/>
-    <path d="M 24 88 Q 64 102 104 34" stroke="url(#ch02-ink-curve)" stroke-width="3.0" stroke-linecap="round"/>
-    <line x1="28" y1="84" x2="100" y2="40" stroke="var(--logo-blue, #2563eb)" stroke-width="2.2" stroke-dasharray="4 3" stroke-linecap="round"/>
-    <line x1="64" y1="62" x2="64" y2="85" stroke="url(#ch02-gold-mira)" stroke-width="2.8" stroke-linecap="round"/>
-    <circle cx="28.00" cy="84.00" r="6.55" fill="url(#ch02-node-well)" stroke="url(#ch02-ring-vital)" stroke-width="2.42"/>
-    <circle cx="28.00" cy="84.00" r="2.81" fill="url(#ch02-core-vital)"/>
-    <circle cx="100.00" cy="40.00" r="6.55" fill="url(#ch02-node-well)" stroke="url(#ch02-ring-gov)" stroke-width="2.42"/>
-    <circle cx="100.00" cy="40.00" r="2.81" fill="url(#ch02-core-gov)"/>
-    <g>
-      <circle cx="64.00" cy="62.00" r="6.81" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="64.00" cy="62.00" r="5.89" fill="url(#ch02-pupil)" stroke="url(#ch02-gold-mira)" stroke-width="2.21"/>
-      <line x1="55.17" y1="62.00" x2="60.14" y2="62.00" stroke="url(#ch02-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="67.86" y1="62.00" x2="72.83" y2="62.00" stroke="url(#ch02-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="64.00" y1="53.17" x2="64.00" y2="58.14" stroke="url(#ch02-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="64.00" y1="65.86" x2="64.00" y2="70.83" stroke="url(#ch02-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <circle cx="64.00" cy="62.00" r="2.02" fill="url(#ch02-gold-core)"/>
+    <!-- Volumetric Convex Basin Shading & Floor Axis -->
+    <path d="M 24 88 Q 64 104 104 34 L 104 96 L 24 96 Z" fill="url(#ch02-convex-fill)"/>
+    <line x1="20" y1="96" x2="108" y2="96" stroke="var(--logo-ticks, #64748b)" stroke-width="1.4" stroke-dasharray="3 3" stroke-opacity="0.5"/>
+    <!-- Strictly Convex Payoff Curve f(x) -->
+    <path d="M 24 88 Q 64 104 104 34" stroke="url(#ch02-ink-curve)" stroke-width="3.4" stroke-linecap="round"/>
+    <!-- Secant Chord Connecting Points A and B -->
+    <line x1="28" y1="84" x2="100" y2="40" stroke="url(#ch02-secant-grad)" stroke-width="2.6" stroke-dasharray="4 3" stroke-linecap="round"/>
+    <!-- Jensen's Gap Caliper: E[f(x)] >= f(E[x]) -->
+    <line x1="64" y1="62" x2="64" y2="85" stroke="url(#ch02-gap-ruler)" stroke-width="2.8" stroke-linecap="round"/>
+    <line x1="59" y1="62" x2="69" y2="62" stroke="url(#ch02-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="59" y1="85" x2="69" y2="85" stroke="url(#ch02-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- 3D Spherical Nodes at Secant Anchors -->
+    <!-- Point A (Vital Margin Reserve) at (28, 84) -->
+    <circle cx="28" cy="84" r="8.5" fill="url(#ch02-node-well)" stroke="url(#ch02-ring-vital)" stroke-width="3.2"/>
+    <circle cx="28" cy="84" r="3.8" fill="url(#ch02-core-vital)"/>
+    <!-- Point B (Governance Threshold) at (100, 40) -->
+    <circle cx="100" cy="40" r="8.5" fill="url(#ch02-node-well)" stroke="url(#ch02-ring-gov)" stroke-width="3.2"/>
+    <circle cx="100" cy="40" r="3.8" fill="url(#ch02-core-gov)"/>
+    <!-- Expectation Point Stókhos Reticle at Secant Center (64, 62) -->
+    <g id="ch02-reticle">
+      <circle cx="64" cy="62" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64" cy="62" r="6.4" fill="url(#ch02-pupil)" stroke="url(#ch02-gold-mira)" stroke-width="2.4"/>
+      <line x1="54.4" y1="62" x2="59.8" y2="62" stroke="url(#ch02-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="68.2" y1="62" x2="73.6" y2="62" stroke="url(#ch02-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64" y1="52.4" x2="64" y2="57.8" stroke="url(#ch02-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64" y1="66.2" x2="64" y2="71.6" stroke="url(#ch02-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="64" cy="62" r="2.2" fill="url(#ch02-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

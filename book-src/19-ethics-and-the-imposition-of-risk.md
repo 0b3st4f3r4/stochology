@@ -1,50 +1,23 @@
 # Ethics and the Imposition of Risk
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH19 · ASYMMETRY — Ethics And The Imposition Of Risk">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH19 · ASYMMETRY — Ethics And The Imposition Of Risk">
   <defs>
+    <!-- Canonical Ring Gradient -->
     <linearGradient id="ch19-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch19-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.24"/>
-      <stop offset="50%" stop-color="#fbbf24" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#38bdf8" stop-opacity="0.08"/>
+    <!-- 1. Atmospheric Cosmic Field -->
+    <radialGradient id="ch19-glow" cx="52%" cy="52%" r="50%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
+      <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch19-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
-    </linearGradient>
-    <linearGradient id="ch19-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
-    </linearGradient>
-    <linearGradient id="ch19-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
-      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
-      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
-    </linearGradient>
-    <radialGradient id="ch19-pupil" cx="45%" cy="42%" r="58%">
-      <stop offset="0%" stop-color="#020617"/>
-      <stop offset="68%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#451a03"/>
-    </radialGradient>
-    <linearGradient id="ch19-gold-mira" x1="54" y1="48" x2="84" y2="82" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#fef08a"/>
-      <stop offset="45%" stop-color="#fbbf24"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </linearGradient>
-    <radialGradient id="ch19-gold-core" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="35%" stop-color="#fde047"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </radialGradient>
+    <!-- 3D Spherical Node Gradients -->
     <radialGradient id="ch19-node-well" cx="38%" cy="35%" r="65%">
       <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
       <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
@@ -79,24 +52,58 @@
       <stop offset="45%" stop-color="#f43f5e"/>
       <stop offset="100%" stop-color="#be123c"/>
     </radialGradient>
+    <!-- Stókhos Reticle Gradients -->
+    <radialGradient id="ch19-pupil" cx="45%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="68%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </radialGradient>
+    <linearGradient id="ch19-gold-mira" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="45%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <radialGradient id="ch19-gold-core" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </radialGradient>
+    <!-- Ink curve gradient -->
+    <linearGradient id="ch19-ink-curve" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
+      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
+      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    </linearGradient>
+    <linearGradient id="ch19-beam-grad" x1="24" y1="54" x2="104" y2="78" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#94a3b8"/>
+      <stop offset="50%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="ch19-fulcrum-fill" x1="64" y1="66" x2="64" y2="94" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="60%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
   </defs>
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#ch19-glow)"/>
-    <circle cx="64" cy="66" r="42" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.45"/>
-    <polygon points="64,68 74,94 54,94" fill="url(#ch19-fill)" stroke="var(--logo-ink, #0f172a)" stroke-width="2.2" stroke-linejoin="round"/>
-    <line x1="24" y1="54" x2="104" y2="78" stroke="url(#ch19-ink-curve)" stroke-width="3.0" stroke-linecap="round"/>
-    <circle cx="26.00" cy="54.00" r="6.72" fill="url(#ch19-node-well)" stroke="url(#ch19-ring-epi)" stroke-width="2.48"/>
-    <circle cx="26.00" cy="54.00" r="2.88" fill="url(#ch19-core-epi)"/>
-    <circle cx="102.00" cy="78.00" r="7.22" fill="url(#ch19-node-well)" stroke="url(#ch19-ring-gov)" stroke-width="2.67"/>
-    <circle cx="102.00" cy="78.00" r="3.10" fill="url(#ch19-core-gov)"/>
+    <polygon points="64,66 76,94 52,94" fill="url(#ch19-fulcrum-fill)" stroke="var(--logo-ticks, #64748b)" stroke-width="2.2" stroke-linejoin="round"/>
+    <line x1="44" y1="94" x2="84" y2="94" stroke="var(--logo-ticks, #64748b)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="24" y1="54" x2="104" y2="78" stroke="url(#ch19-beam-grad)" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M 24 54 L 18 68 L 32 68 Z" fill="none" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6"/>
+    <path d="M 104 78 L 96 92 L 112 92 Z" fill="none" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6"/>
+    <circle cx="25" cy="54" r="7.5" fill="url(#ch19-node-well)" stroke="url(#ch19-ring-epi)" stroke-width="2.8"/>
+    <circle cx="25" cy="54" r="3.2" fill="url(#ch19-core-epi)"/>
+    <circle cx="104" cy="78" r="10.5" fill="url(#ch19-node-well)" stroke="url(#ch19-ring-gov)" stroke-width="3.6"/>
+    <circle cx="104" cy="78" r="4.6" fill="url(#ch19-core-gov)"/>
     <g>
-      <circle cx="64.00" cy="66.00" r="6.66" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="64.00" cy="66.00" r="5.76" fill="url(#ch19-pupil)" stroke="url(#ch19-gold-mira)" stroke-width="2.16"/>
-      <line x1="55.36" y1="66.00" x2="60.22" y2="66.00" stroke="url(#ch19-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="67.78" y1="66.00" x2="72.64" y2="66.00" stroke="url(#ch19-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="64.00" y1="57.36" x2="64.00" y2="62.22" stroke="url(#ch19-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="64.00" y1="69.78" x2="64.00" y2="74.64" stroke="url(#ch19-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <circle cx="64.00" cy="66.00" r="1.98" fill="url(#ch19-gold-core)"/>
+      <circle cx="64" cy="66" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64" cy="66" r="6.4" fill="url(#ch19-pupil)" stroke="url(#ch19-gold-mira)" stroke-width="2.4"/>
+      <line x1="54.40" y1="66.00" x2="59.80" y2="66.00" stroke="url(#ch19-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="68.20" y1="66.00" x2="73.60" y2="66.00" stroke="url(#ch19-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64.00" y1="56.40" x2="64.00" y2="61.80" stroke="url(#ch19-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64.00" y1="70.20" x2="64.00" y2="75.60" stroke="url(#ch19-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="64" cy="66" r="2.2" fill="url(#ch19-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">
@@ -117,7 +124,7 @@
     <circle cx="490" cy="78" r="1.8" fill="var(--logo-gold, #f59e0b)"/>
     <text x="2" y="104" fill="var(--logo-meta, #475569)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="10.8" font-weight="600" letter-spacing="0.65">RECIPROCITY OF EXPOSURE · PAUKER–KASSIRER ASYMMETRY · MORAL HAZARD</text>
   </g>
-  </svg>
+</svg>
 </figure>
 
 > Fourth chapter of the philosophical block in Part II. The subject is not what is good, but who may

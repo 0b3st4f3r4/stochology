@@ -1,50 +1,23 @@
 # Numbers, Order, and Bounds
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH10 · BOUNDS — Order, Supremum, And Infimum">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH10 · BOUNDS — Order, Supremum, And Infimum">
   <defs>
+    <!-- Canonical Ring Gradient -->
     <linearGradient id="ch10-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch10-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
-      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#fbbf24" stop-opacity="0.08"/>
+    <!-- 1. Atmospheric Cosmic Field -->
+    <radialGradient id="ch10-glow" cx="52%" cy="52%" r="50%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
+      <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch10-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
-    </linearGradient>
-    <linearGradient id="ch10-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
-    </linearGradient>
-    <linearGradient id="ch10-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
-      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
-      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
-    </linearGradient>
-    <radialGradient id="ch10-pupil" cx="45%" cy="42%" r="58%">
-      <stop offset="0%" stop-color="#020617"/>
-      <stop offset="68%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#451a03"/>
-    </radialGradient>
-    <linearGradient id="ch10-gold-mira" x1="54" y1="48" x2="84" y2="82" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#fef08a"/>
-      <stop offset="45%" stop-color="#fbbf24"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </linearGradient>
-    <radialGradient id="ch10-gold-core" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="35%" stop-color="#fde047"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </radialGradient>
+    <!-- 3D Spherical Node Gradients -->
     <radialGradient id="ch10-node-well" cx="38%" cy="35%" r="65%">
       <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
       <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
@@ -79,26 +52,73 @@
       <stop offset="45%" stop-color="#f43f5e"/>
       <stop offset="100%" stop-color="#be123c"/>
     </radialGradient>
+    <!-- Stókhos Reticle Gradients -->
+    <radialGradient id="ch10-pupil" cx="45%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="68%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </radialGradient>
+    <linearGradient id="ch10-gold-mira" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="45%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <radialGradient id="ch10-gold-core" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </radialGradient>
+    <!-- Ink curve gradient -->
+    <linearGradient id="ch10-ink-curve" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
+      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
+      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    </linearGradient>
+    <linearGradient id="ch10-lattice-fill" x1="64" y1="26" x2="64" y2="106" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#e11d48" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#10b981" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0.25"/>
+    </linearGradient>
+    <linearGradient id="ch10-bound-sup" x1="24" y1="26" x2="104" y2="26" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fda4af"/>
+      <stop offset="50%" stop-color="#e11d48"/>
+      <stop offset="100%" stop-color="#881337"/>
+    </linearGradient>
+    <linearGradient id="ch10-bound-inf" x1="24" y1="106" x2="104" y2="106" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <linearGradient id="ch10-hasse-edge" x1="64" y1="106" x2="64" y2="26" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f43f5e"/>
+    </linearGradient>
   </defs>
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#ch10-glow)"/>
-    <line x1="26" y1="26" x2="102" y2="26" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.4" stroke-linecap="round"/>
-    <line x1="26" y1="106" x2="102" y2="106" stroke="var(--logo-blue, #2563eb)" stroke-width="2.4" stroke-linecap="round"/>
-    <polygon points="64,26 98,66 64,106 30,66" fill="url(#ch10-fill)" stroke="url(#ch10-ink-curve)" stroke-width="2.2" stroke-linejoin="round"/>
-    <circle cx="30.00" cy="66.00" r="6.38" fill="url(#ch10-node-well)" stroke="url(#ch10-ring-vital)" stroke-width="2.36"/>
-    <circle cx="30.00" cy="66.00" r="2.74" fill="url(#ch10-core-vital)"/>
-    <circle cx="98.00" cy="66.00" r="6.38" fill="url(#ch10-node-well)" stroke="url(#ch10-ring-gov)" stroke-width="2.36"/>
-    <circle cx="98.00" cy="66.00" r="2.74" fill="url(#ch10-core-gov)"/>
-    <circle cx="64.00" cy="106.00" r="6.38" fill="url(#ch10-node-well)" stroke="url(#ch10-ring-epi)" stroke-width="2.36"/>
-    <circle cx="64.00" cy="106.00" r="2.74" fill="url(#ch10-core-epi)"/>
+    <line x1="24" y1="26" x2="104" y2="26" stroke="url(#ch10-bound-sup)" stroke-width="3.2" stroke-linecap="round"/>
+    <line x1="24" y1="21" x2="24" y2="31" stroke="url(#ch10-bound-sup)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="104" y1="21" x2="104" y2="31" stroke="url(#ch10-bound-sup)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="24" y1="106" x2="104" y2="106" stroke="url(#ch10-bound-inf)" stroke-width="3.2" stroke-linecap="round"/>
+    <line x1="24" y1="101" x2="24" y2="111" stroke="url(#ch10-bound-inf)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="104" y1="101" x2="104" y2="111" stroke="url(#ch10-bound-inf)" stroke-width="2.4" stroke-linecap="round"/>
+    <polygon points="64,26 98,66 64,106 30,66" fill="url(#ch10-lattice-fill)" stroke="url(#ch10-ink-curve)" stroke-width="2.8" stroke-linejoin="round"/>
+    <line x1="64" y1="106" x2="64" y2="26" stroke="url(#ch10-hasse-edge)" stroke-width="1.8" stroke-dasharray="3 3"/>
+    <circle cx="30" cy="66" r="8.5" fill="url(#ch10-node-well)" stroke="url(#ch10-ring-vital)" stroke-width="3.0"/>
+    <circle cx="30" cy="66" r="3.8" fill="url(#ch10-core-vital)"/>
+    <circle cx="98" cy="66" r="8.5" fill="url(#ch10-node-well)" stroke="url(#ch10-ring-gov)" stroke-width="3.0"/>
+    <circle cx="98" cy="66" r="3.8" fill="url(#ch10-core-gov)"/>
+    <circle cx="64" cy="106" r="8.5" fill="url(#ch10-node-well)" stroke="url(#ch10-ring-epi)" stroke-width="3.0"/>
+    <circle cx="64" cy="106" r="3.8" fill="url(#ch10-core-epi)"/>
     <g>
-      <circle cx="64.00" cy="26.00" r="6.66" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="64.00" cy="26.00" r="5.76" fill="url(#ch10-pupil)" stroke="url(#ch10-gold-mira)" stroke-width="2.16"/>
-      <line x1="55.36" y1="26.00" x2="60.22" y2="26.00" stroke="url(#ch10-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="67.78" y1="26.00" x2="72.64" y2="26.00" stroke="url(#ch10-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="64.00" y1="17.36" x2="64.00" y2="22.22" stroke="url(#ch10-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="64.00" y1="29.78" x2="64.00" y2="34.64" stroke="url(#ch10-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <circle cx="64.00" cy="26.00" r="1.98" fill="url(#ch10-gold-core)"/>
+      <circle cx="64" cy="26" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64" cy="26" r="6.4" fill="url(#ch10-pupil)" stroke="url(#ch10-gold-mira)" stroke-width="2.4"/>
+      <line x1="54.40" y1="26.00" x2="59.80" y2="26.00" stroke="url(#ch10-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="68.20" y1="26.00" x2="73.60" y2="26.00" stroke="url(#ch10-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64.00" y1="16.40" x2="64.00" y2="21.80" stroke="url(#ch10-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64.00" y1="30.20" x2="64.00" y2="35.60" stroke="url(#ch10-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="64" cy="26" r="2.2" fill="url(#ch10-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">
@@ -119,7 +139,7 @@
     <circle cx="490" cy="78" r="2.0" fill="var(--logo-ticks, #64748b)" fill-opacity="0.42"/>
     <text x="2" y="104" fill="var(--logo-meta, #475569)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="10.8" font-weight="600" letter-spacing="0.65">PARTIAL ORDERS · COMPLETENESS AXIOM · WORST-CASE INTERVAL ENVELOPES</text>
   </g>
-  </svg>
+</svg>
 </figure>
 
 > Second chapter of the mathematical block in Part II. The subject is the number line, and the reason

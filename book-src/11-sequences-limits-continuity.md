@@ -1,50 +1,23 @@
 # Sequences, Limits, and Continuity
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH11 · CONTINUITY — Sequences, Limits, And Stability">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH11 · CONTINUITY — Sequences, Limits, And Stability">
   <defs>
+    <!-- Canonical Ring Gradient -->
     <linearGradient id="ch11-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch11-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#34d399" stop-opacity="0.25"/>
-      <stop offset="50%" stop-color="#10b981" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#fbbf24" stop-opacity="0.08"/>
+    <!-- 1. Atmospheric Cosmic Field -->
+    <radialGradient id="ch11-glow" cx="52%" cy="52%" r="50%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
+      <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch11-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
-    </linearGradient>
-    <linearGradient id="ch11-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
-    </linearGradient>
-    <linearGradient id="ch11-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
-      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
-      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
-    </linearGradient>
-    <radialGradient id="ch11-pupil" cx="45%" cy="42%" r="58%">
-      <stop offset="0%" stop-color="#020617"/>
-      <stop offset="68%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#451a03"/>
-    </radialGradient>
-    <linearGradient id="ch11-gold-mira" x1="54" y1="48" x2="84" y2="82" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#fef08a"/>
-      <stop offset="45%" stop-color="#fbbf24"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </linearGradient>
-    <radialGradient id="ch11-gold-core" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="35%" stop-color="#fde047"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </radialGradient>
+    <!-- 3D Spherical Node Gradients -->
     <radialGradient id="ch11-node-well" cx="38%" cy="35%" r="65%">
       <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
       <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
@@ -79,24 +52,63 @@
       <stop offset="45%" stop-color="#f43f5e"/>
       <stop offset="100%" stop-color="#be123c"/>
     </radialGradient>
+    <!-- Stókhos Reticle Gradients -->
+    <radialGradient id="ch11-pupil" cx="45%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="68%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </radialGradient>
+    <linearGradient id="ch11-gold-mira" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="45%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <radialGradient id="ch11-gold-core" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </radialGradient>
+    <!-- Ink curve gradient -->
+    <linearGradient id="ch11-ink-curve" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
+      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
+      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    </linearGradient>
+    <linearGradient id="ch11-corridor-fill" x1="20" y1="66" x2="106" y2="66" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.24"/>
+      <stop offset="60%" stop-color="#38bdf8" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#fbbf24" stop-opacity="0.12"/>
+    </linearGradient>
+    <linearGradient id="ch11-corridor-edge" x1="20" y1="66" x2="106" y2="66" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <linearGradient id="ch11-wave-stroke" x1="20" y1="66" x2="106" y2="66" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="35%" stop-color="#38bdf8"/>
+      <stop offset="70%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
   </defs>
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#ch11-glow)"/>
-    <path d="M 20 34 L 106 56" stroke="var(--logo-blue, #2563eb)" stroke-width="1.6" stroke-dasharray="3 2.5"/>
-    <path d="M 20 98 L 106 76" stroke="var(--logo-blue, #2563eb)" stroke-width="1.6" stroke-dasharray="3 2.5"/>
-    <path d="M 22 38 C 34 94, 46 42, 58 82 C 70 52, 82 74, 98 66" stroke="url(#ch11-ink-curve)" stroke-width="2.6" stroke-linecap="round"/>
-    <circle cx="28.00" cy="66.00" r="6.05" fill="url(#ch11-node-well)" stroke="url(#ch11-ring-epi)" stroke-width="2.23"/>
-    <circle cx="28.00" cy="66.00" r="2.59" fill="url(#ch11-core-epi)"/>
-    <circle cx="52.00" cy="62.00" r="6.05" fill="url(#ch11-node-well)" stroke="url(#ch11-ring-vital)" stroke-width="2.23"/>
-    <circle cx="52.00" cy="62.00" r="2.59" fill="url(#ch11-core-vital)"/>
+    <polygon points="20,34 106,56 106,76 20,98" fill="url(#ch11-corridor-fill)"/>
+    <line x1="20" y1="34" x2="106" y2="56" stroke="url(#ch11-corridor-edge)" stroke-width="2.0" stroke-dasharray="4 2.5"/>
+    <line x1="20" y1="98" x2="106" y2="76" stroke="url(#ch11-corridor-edge)" stroke-width="2.0" stroke-dasharray="4 2.5"/>
+    <line x1="18" y1="66" x2="110" y2="66" stroke="var(--logo-ticks, #64748b)" stroke-width="1.4" stroke-dasharray="2 3"/>
+    <path d="M 20 66 Q 34 22 48 66 Q 62 98 76 66 Q 88 50 98 66 L 106 66" stroke="url(#ch11-wave-stroke)" stroke-width="3.4" stroke-linecap="round"/>
+    <circle cx="48" cy="66" r="8.5" fill="url(#ch11-node-well)" stroke="url(#ch11-ring-vital)" stroke-width="3.0"/>
+    <circle cx="48" cy="66" r="3.8" fill="url(#ch11-core-vital)"/>
+    <circle cx="76" cy="66" r="8.5" fill="url(#ch11-node-well)" stroke="url(#ch11-ring-gov)" stroke-width="3.0"/>
+    <circle cx="76" cy="66" r="3.8" fill="url(#ch11-core-gov)"/>
     <g>
-      <circle cx="98.00" cy="66.00" r="6.81" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="98.00" cy="66.00" r="5.89" fill="url(#ch11-pupil)" stroke="url(#ch11-gold-mira)" stroke-width="2.21"/>
-      <line x1="89.17" y1="66.00" x2="94.14" y2="66.00" stroke="url(#ch11-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="101.86" y1="66.00" x2="106.83" y2="66.00" stroke="url(#ch11-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="98.00" y1="57.17" x2="98.00" y2="62.14" stroke="url(#ch11-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="98.00" y1="69.86" x2="98.00" y2="74.83" stroke="url(#ch11-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <circle cx="98.00" cy="66.00" r="2.02" fill="url(#ch11-gold-core)"/>
+      <circle cx="98" cy="66" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="98" cy="66" r="6.4" fill="url(#ch11-pupil)" stroke="url(#ch11-gold-mira)" stroke-width="2.4"/>
+      <line x1="88.40" y1="66.00" x2="93.80" y2="66.00" stroke="url(#ch11-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="102.20" y1="66.00" x2="107.60" y2="66.00" stroke="url(#ch11-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="98.00" y1="56.40" x2="98.00" y2="61.80" stroke="url(#ch11-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="98.00" y1="70.20" x2="98.00" y2="75.60" stroke="url(#ch11-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="98" cy="66" r="2.2" fill="url(#ch11-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">
@@ -117,7 +129,7 @@
     <circle cx="490" cy="78" r="2.0" fill="var(--logo-ticks, #64748b)" fill-opacity="0.42"/>
     <text x="2" y="104" fill="var(--logo-meta, #475569)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="10.8" font-weight="600" letter-spacing="0.65">CAUCHY CONVERGENCE · COMPACTNESS · DISCONTINUOUS FOLD BIFURCATIONS</text>
   </g>
-  </svg>
+</svg>
 </figure>
 
 > Third chapter of the mathematical block in Part II. The subject is what it means for something to

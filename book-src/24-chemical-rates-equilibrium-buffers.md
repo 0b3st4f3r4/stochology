@@ -1,50 +1,23 @@
 # Chemical Rates, Equilibrium, and Buffers
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH24 · BUFFERS — Chemical Kinetics And Buffer Capacity">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH24 · BUFFERS — Chemical Kinetics And Buffer Capacity">
   <defs>
+    <!-- Canonical Ring Gradient -->
     <linearGradient id="ch24-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch24-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#34d399" stop-opacity="0.25"/>
-      <stop offset="50%" stop-color="#10b981" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#fbbf24" stop-opacity="0.08"/>
+    <!-- 1. Atmospheric Cosmic Field -->
+    <radialGradient id="ch24-glow" cx="52%" cy="52%" r="50%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
+      <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch24-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
-    </linearGradient>
-    <linearGradient id="ch24-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
-    </linearGradient>
-    <linearGradient id="ch24-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
-      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
-      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
-    </linearGradient>
-    <radialGradient id="ch24-pupil" cx="45%" cy="42%" r="58%">
-      <stop offset="0%" stop-color="#020617"/>
-      <stop offset="68%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#451a03"/>
-    </radialGradient>
-    <linearGradient id="ch24-gold-mira" x1="54" y1="48" x2="84" y2="82" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#fef08a"/>
-      <stop offset="45%" stop-color="#fbbf24"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </linearGradient>
-    <radialGradient id="ch24-gold-core" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="35%" stop-color="#fde047"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </radialGradient>
+    <!-- 3D Spherical Node Gradients -->
     <radialGradient id="ch24-node-well" cx="38%" cy="35%" r="65%">
       <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
       <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
@@ -79,24 +52,51 @@
       <stop offset="45%" stop-color="#f43f5e"/>
       <stop offset="100%" stop-color="#be123c"/>
     </radialGradient>
+    <!-- Stókhos Reticle Gradients -->
+    <radialGradient id="ch24-pupil" cx="45%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="68%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </radialGradient>
+    <linearGradient id="ch24-gold-mira" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="45%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <radialGradient id="ch24-gold-core" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </radialGradient>
+    <!-- Ink curve gradient -->
+    <linearGradient id="ch24-ink-curve" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
+      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
+      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    </linearGradient>
+    <linearGradient id="ch24-barrier-fill" x1="20" y1="94" x2="106" y2="38" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#10b981" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#065f46" stop-opacity="0.15"/>
+    </linearGradient>
   </defs>
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#ch24-glow)"/>
-    <circle cx="64" cy="66" r="42" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.45"/>
-    <rect x="42" y="54" width="44" height="24" rx="4" fill="var(--logo-green, #10b981)" fill-opacity="0.20" stroke="var(--logo-green, #10b981)" stroke-width="1.6" stroke-dasharray="3 2"/>
-    <path d="M 22 98 C 34 96, 38 66, 52 66 L 76 66 C 90 66, 94 36, 106 34" stroke="url(#ch24-ink-curve)" stroke-width="3.0" stroke-linecap="round"/>
-    <circle cx="26.00" cy="94.00" r="6.22" fill="url(#ch24-node-well)" stroke="url(#ch24-ring-epi)" stroke-width="2.29"/>
-    <circle cx="26.00" cy="94.00" r="2.66" fill="url(#ch24-core-epi)"/>
-    <circle cx="102.00" cy="38.00" r="6.22" fill="url(#ch24-node-well)" stroke="url(#ch24-ring-gov)" stroke-width="2.29"/>
-    <circle cx="102.00" cy="38.00" r="2.66" fill="url(#ch24-core-gov)"/>
+    <path d="M 20 94 C 32 94, 38 42, 50 42 C 62 42, 68 84, 78 84 C 88 84, 94 38, 106 38 L 106 98 L 20 98 Z" fill="url(#ch24-barrier-fill)"/>
+    <path d="M 20 94 C 32 94, 38 42, 50 42 C 62 42, 68 84, 78 84 C 88 84, 94 38, 106 38" stroke="url(#ch24-ink-curve)" stroke-width="3.2" stroke-linecap="round"/>
+    <line x1="66" y1="84" x2="90" y2="84" stroke="var(--logo-green, #10b981)" stroke-width="2.4" stroke-dasharray="4 2" stroke-linecap="round"/>
+    <circle cx="26" cy="94" r="8.5" fill="url(#ch24-node-well)" stroke="url(#ch24-ring-epi)" stroke-width="3.0"/>
+    <circle cx="26" cy="94" r="3.8" fill="url(#ch24-core-epi)"/>
+    <circle cx="102" cy="38" r="8.5" fill="url(#ch24-node-well)" stroke="url(#ch24-ring-gov)" stroke-width="3.0"/>
+    <circle cx="102" cy="38" r="3.8" fill="url(#ch24-core-gov)"/>
     <g>
-      <circle cx="64.00" cy="66.00" r="6.81" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="64.00" cy="66.00" r="5.89" fill="url(#ch24-pupil)" stroke="url(#ch24-gold-mira)" stroke-width="2.21"/>
-      <line x1="55.17" y1="66.00" x2="60.14" y2="66.00" stroke="url(#ch24-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="67.86" y1="66.00" x2="72.83" y2="66.00" stroke="url(#ch24-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="64.00" y1="57.17" x2="64.00" y2="62.14" stroke="url(#ch24-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="64.00" y1="69.86" x2="64.00" y2="74.83" stroke="url(#ch24-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <circle cx="64.00" cy="66.00" r="2.02" fill="url(#ch24-gold-core)"/>
+      <circle cx="50" cy="42" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="50" cy="42" r="6.4" fill="url(#ch24-pupil)" stroke="url(#ch24-gold-mira)" stroke-width="2.4"/>
+      <line x1="40.40" y1="42.00" x2="45.80" y2="42.00" stroke="url(#ch24-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="54.20" y1="42.00" x2="59.60" y2="42.00" stroke="url(#ch24-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="50.00" y1="32.40" x2="50.00" y2="37.80" stroke="url(#ch24-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="50.00" y1="46.20" x2="50.00" y2="51.60" stroke="url(#ch24-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="50" cy="42" r="2.2" fill="url(#ch24-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">
@@ -117,7 +117,7 @@
     <circle cx="490" cy="78" r="2.0" fill="var(--logo-ticks, #64748b)" fill-opacity="0.42"/>
     <text x="2" y="104" fill="var(--logo-meta, #475569)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="10.8" font-weight="600" letter-spacing="0.65">ACTIVATION BARRIERS · HENDERSON–HASSELBALCH PLATEAU · FINITE EXHAUSTION</text>
   </g>
-  </svg>
+</svg>
 </figure>
 
 > Fourth chapter of the natural-science block in Part II. The subject is the speed of processes and the

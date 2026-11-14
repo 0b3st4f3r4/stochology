@@ -1,7 +1,7 @@
 # Underdetermination, Partial Identification, and Severe Testing
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH44 · S_EPI — Partial Identification And Bounds">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH44 · S_EPI — Partial Identification And Bounds">
   <defs>
     <linearGradient id="ch44-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
@@ -10,9 +10,9 @@
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
     <radialGradient id="ch44-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
-      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#fbbf24" stop-opacity="0.08"/>
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.24"/>
+      <stop offset="48%" stop-color="#2563eb" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="ch44-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
@@ -83,20 +83,20 @@
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#ch44-glow)"/>
     <circle cx="64" cy="66" r="42" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.45"/>
-    <rect x="22" y="54" width="84" height="24" rx="4" fill="var(--logo-blue, #2563eb)" fill-opacity="0.16" stroke="var(--logo-blue, #2563eb)" stroke-width="2.0" stroke-dasharray="4 2.5"/>
-    <rect x="42" y="48" width="46" height="36" rx="4" fill="var(--logo-green, #10b981)" fill-opacity="0.22" stroke="var(--logo-green, #10b981)" stroke-width="2.6"/>
-    <circle cx="22.00" cy="66.00" r="6.38" fill="url(#ch44-node-well)" stroke="url(#ch44-ring-epi)" stroke-width="2.36"/>
-    <circle cx="22.00" cy="66.00" r="2.74" fill="url(#ch44-core-epi)"/>
-    <circle cx="106.00" cy="66.00" r="6.38" fill="url(#ch44-node-well)" stroke="url(#ch44-ring-gov)" stroke-width="2.36"/>
-    <circle cx="106.00" cy="66.00" r="2.74" fill="url(#ch44-core-gov)"/>
+    <rect x="20" y="52" width="88" height="28" rx="4" fill="var(--logo-blue, #2563eb)" fill-opacity="0.16" stroke="var(--logo-blue, #2563eb)" stroke-width="2.0" stroke-dasharray="4 2.5"/>
+    <rect x="40" y="46" width="48" height="40" rx="4" fill="var(--logo-green, #10b981)" fill-opacity="0.22" stroke="var(--logo-green, #10b981)" stroke-width="2.6"/>
+    <circle cx="20" cy="66" r="6.6" fill="url(#ch44-node-well)" stroke="url(#ch44-ring-epi)" stroke-width="2.4"/>
+    <circle cx="20" cy="66" r="2.8" fill="url(#ch44-core-epi)"/>
+    <circle cx="108" cy="66" r="6.6" fill="url(#ch44-node-well)" stroke="url(#ch44-ring-gov)" stroke-width="2.4"/>
+    <circle cx="108" cy="66" r="2.8" fill="url(#ch44-core-gov)"/>
     <g>
-      <circle cx="68.00" cy="66.00" r="6.96" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="68.00" cy="66.00" r="6.02" fill="url(#ch44-pupil)" stroke="url(#ch44-gold-mira)" stroke-width="2.26"/>
-      <line x1="58.98" y1="66.00" x2="64.05" y2="66.00" stroke="url(#ch44-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <line x1="71.95" y1="66.00" x2="77.02" y2="66.00" stroke="url(#ch44-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <line x1="68.00" y1="56.98" x2="68.00" y2="62.05" stroke="url(#ch44-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <line x1="68.00" y1="69.95" x2="68.00" y2="75.02" stroke="url(#ch44-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <circle cx="68.00" cy="66.00" r="2.07" fill="url(#ch44-gold-core)"/>
+      <circle cx="64" cy="66" r="7.0" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64" cy="66" r="6.0" fill="url(#ch44-pupil)" stroke="url(#ch44-gold-mira)" stroke-width="2.2"/>
+      <line x1="55.0" y1="66" x2="60.0" y2="66" stroke="url(#ch44-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="68.0" y1="66" x2="73.0" y2="66" stroke="url(#ch44-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64" y1="57.0" x2="64" y2="62.0" stroke="url(#ch44-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64" y1="70.0" x2="64" y2="75.0" stroke="url(#ch44-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="64" cy="66" r="2.0" fill="url(#ch44-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

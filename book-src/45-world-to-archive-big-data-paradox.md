@@ -1,7 +1,7 @@
 # From World to Archive: Evidential Weight, Big Data Paradox, and the Uncounted
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH45 · S_EPI — World To Archive And Big Data Paradox">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH45 · S_EPI — World To Archive And Big Data Paradox">
   <defs>
     <linearGradient id="ch45-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
@@ -10,9 +10,9 @@
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
     <radialGradient id="ch45-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
-      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#fbbf24" stop-opacity="0.08"/>
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.24"/>
+      <stop offset="48%" stop-color="#2563eb" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="ch45-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
@@ -82,20 +82,20 @@
   </defs>
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#ch45-glow)"/>
-    <polygon points="22,26 22,106 78,76 78,56" fill="url(#ch45-fill)" stroke="var(--logo-blue, #2563eb)" stroke-width="2.4" stroke-linejoin="round"/>
-    <line x1="78" y1="66" x2="104" y2="66" stroke="url(#ch45-gold-mira)" stroke-width="3.0" stroke-linecap="round"/>
-    <circle cx="22.00" cy="36.00" r="6.22" fill="url(#ch45-node-well)" stroke="url(#ch45-ring-epi)" stroke-width="2.29"/>
-    <circle cx="22.00" cy="36.00" r="2.66" fill="url(#ch45-core-epi)"/>
-    <circle cx="22.00" cy="96.00" r="6.22" fill="url(#ch45-node-well)" stroke="url(#ch45-ring-gov)" stroke-width="2.29"/>
-    <circle cx="22.00" cy="96.00" r="2.66" fill="url(#ch45-core-gov)"/>
+    <polygon points="22,24 22,108 78,76 78,56" fill="url(#ch45-fill)" stroke="var(--logo-blue, #2563eb)" stroke-width="2.4" stroke-linejoin="round"/>
+    <rect x="78" y="44" width="30" height="44" rx="3" fill="var(--logo-crimson, #e11d48)" fill-opacity="0.16" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.0" stroke-dasharray="3.5 2.5"/>
+    <circle cx="22" cy="24" r="6.6" fill="url(#ch45-node-well)" stroke="url(#ch45-ring-epi)" stroke-width="2.4"/>
+    <circle cx="22" cy="24" r="2.8" fill="url(#ch45-core-epi)"/>
+    <circle cx="22" cy="108" r="6.6" fill="url(#ch45-node-well)" stroke="url(#ch45-ring-vital)" stroke-width="2.4"/>
+    <circle cx="22" cy="108" r="2.8" fill="url(#ch45-core-vital)"/>
     <g>
-      <circle cx="98.00" cy="66.00" r="6.81" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="98.00" cy="66.00" r="5.89" fill="url(#ch45-pupil)" stroke="url(#ch45-gold-mira)" stroke-width="2.21"/>
-      <line x1="89.17" y1="66.00" x2="94.14" y2="66.00" stroke="url(#ch45-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="101.86" y1="66.00" x2="106.83" y2="66.00" stroke="url(#ch45-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="98.00" y1="57.17" x2="98.00" y2="62.14" stroke="url(#ch45-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="98.00" y1="69.86" x2="98.00" y2="74.83" stroke="url(#ch45-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <circle cx="98.00" cy="66.00" r="2.02" fill="url(#ch45-gold-core)"/>
+      <circle cx="78" cy="66" r="7.0" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="78" cy="66" r="6.0" fill="url(#ch45-pupil)" stroke="url(#ch45-gold-mira)" stroke-width="2.2"/>
+      <line x1="69.0" y1="66" x2="74.0" y2="66" stroke="url(#ch45-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="82.0" y1="66" x2="87.0" y2="66" stroke="url(#ch45-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="78" y1="57.0" x2="78" y2="62.0" stroke="url(#ch45-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="78" y1="70.0" x2="78" y2="75.0" stroke="url(#ch45-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="78" cy="66" r="2.0" fill="url(#ch45-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

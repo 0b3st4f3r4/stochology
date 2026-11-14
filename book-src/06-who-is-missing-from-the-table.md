@@ -1,35 +1,65 @@
 # Who Is Missing From the Table
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH06 · ARCHIVE — The Mutilated Archive">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH06 · ARCHIVE — The Mutilated Archive">
   <defs>
+    <!-- Divider Progression: Vital Emerald -> Epistemic Sapphire -> Stókhos Gold -> Institutional Crimson -->
     <linearGradient id="ch06-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch06-glow" cx="50%" cy="50%" r="50%">
+    <!-- Multi-spectral Atmospheric Glow -->
+    <radialGradient id="ch06-glow" cx="52%" cy="52%" r="50%">
       <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
-      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#fbbf24" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#2563eb" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#fbbf24" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch06-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
+    <!-- Submerged Dark Archive Abyss Gradient -->
+    <linearGradient id="ch06-abyss-fill" x1="28" y1="88" x2="100" y2="104" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#020617" stop-opacity="0.80"/>
+      <stop offset="50%" stop-color="#0f172a" stop-opacity="0.70"/>
+      <stop offset="100%" stop-color="#1e293b" stop-opacity="0.45"/>
     </linearGradient>
-    <linearGradient id="ch06-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
+    <!-- Observed Survived Matrix Envelope Fill -->
+    <linearGradient id="ch06-survivor-fill" x1="28" y1="28" x2="100" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.18"/>
     </linearGradient>
-    <linearGradient id="ch06-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
-      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
-      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    <!-- Survivorship Truncation Razor Gradient -->
+    <linearGradient id="ch06-trunc-cut" x1="26" y1="90" x2="102" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-crimson, #e11d48)"/>
+      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)"/>
+      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
+    <!-- 3D Spherical Node Gradients -->
+    <radialGradient id="ch06-node-well" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
+      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
+    </radialGradient>
+    <linearGradient id="ch06-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <radialGradient id="ch06-core-epi" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="45%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </radialGradient>
+    <linearGradient id="ch06-ring-gov" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fda4af"/>
+      <stop offset="50%" stop-color="#e11d48"/>
+      <stop offset="100%" stop-color="#881337"/>
+    </linearGradient>
+    <radialGradient id="ch06-core-gov" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fecdd3"/>
+      <stop offset="45%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </radialGradient>
+    <!-- Golden Stókhos Reticle Gradients -->
     <radialGradient id="ch06-pupil" cx="45%" cy="42%" r="58%">
       <stop offset="0%" stop-color="#020617"/>
       <stop offset="68%" stop-color="#0f172a"/>
@@ -45,58 +75,45 @@
       <stop offset="35%" stop-color="#fde047"/>
       <stop offset="100%" stop-color="#d97706"/>
     </radialGradient>
-    <radialGradient id="ch06-node-well" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
-      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
-    </radialGradient>
-    <linearGradient id="ch06-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7dd3fc"/>
-      <stop offset="50%" stop-color="#2563eb"/>
-      <stop offset="100%" stop-color="#1e3a8a"/>
-    </linearGradient>
-    <radialGradient id="ch06-core-epi" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#bae6fd"/>
-      <stop offset="45%" stop-color="#3b82f6"/>
-      <stop offset="100%" stop-color="#1d4ed8"/>
-    </radialGradient>
-    <linearGradient id="ch06-ring-vital" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#6ee7b7"/>
-      <stop offset="50%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#065f46"/>
-    </linearGradient>
-    <radialGradient id="ch06-core-vital" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#a7f3d0"/>
-      <stop offset="45%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#047857"/>
-    </radialGradient>
-    <linearGradient id="ch06-ring-gov" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fda4af"/>
-      <stop offset="50%" stop-color="#e11d48"/>
-      <stop offset="100%" stop-color="#881337"/>
-    </linearGradient>
-    <radialGradient id="ch06-core-gov" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#fecdd3"/>
-      <stop offset="45%" stop-color="#f43f5e"/>
-      <stop offset="100%" stop-color="#be123c"/>
-    </radialGradient>
   </defs>
   <g>
+    <!-- Atmospheric Glow & Reference Coordinate Horizon -->
     <circle cx="64" cy="66" r="48" fill="url(#ch06-glow)"/>
-    <circle cx="54" cy="66" r="36" fill="url(#ch06-fill)" stroke="var(--logo-blue, #2563eb)" stroke-width="2.2"/>
-    <path d="M 54 30 A 36 36 0 0 0 54 102 A 24 36 0 0 1 54 30 Z" fill="var(--logo-crimson, #e11d48)" fill-opacity="0.32" stroke="var(--logo-crimson, #e11d48)" stroke-width="1.8" stroke-dasharray="3 2"/>
-    <line x1="78" y1="26" x2="78" y2="52" stroke="var(--logo-ink, #0f172a)" stroke-width="3.2" stroke-linecap="round"/>
-    <line x1="78" y1="80" x2="78" y2="106" stroke="var(--logo-ink, #0f172a)" stroke-width="3.2" stroke-linecap="round"/>
-    <line x1="56" y1="66" x2="102" y2="66" stroke="url(#ch06-gold-mira)" stroke-width="2.6" stroke-linecap="round"/>
-    <circle cx="34.00" cy="66.00" r="6.38" fill="url(#ch06-node-well)" stroke="url(#ch06-ring-gov)" stroke-width="2.36"/>
-    <circle cx="34.00" cy="66.00" r="2.74" fill="url(#ch06-core-gov)"/>
-    <g>
-      <circle cx="102.00" cy="66.00" r="6.66" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="102.00" cy="66.00" r="5.76" fill="url(#ch06-pupil)" stroke="url(#ch06-gold-mira)" stroke-width="2.16"/>
-      <line x1="93.36" y1="66.00" x2="98.22" y2="66.00" stroke="url(#ch06-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="105.78" y1="66.00" x2="110.64" y2="66.00" stroke="url(#ch06-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="102.00" y1="57.36" x2="102.00" y2="62.22" stroke="url(#ch06-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="102.00" y1="69.78" x2="102.00" y2="74.64" stroke="url(#ch06-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <circle cx="102.00" cy="66.00" r="1.98" fill="url(#ch06-gold-core)"/>
+    <!-- Archive Sampling Frame -->
+    <rect x="28" y="28" width="72" height="76" rx="6" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.45"/>
+    <!-- Submerged Dark Abyss (Unrecorded Fatal Realizations) -->
+    <path d="M 28 88 L 100 36 L 100 104 L 28 104 Z" fill="url(#ch06-abyss-fill)"/>
+    <!-- Survived Sample Space (Recorded Surface) -->
+    <path d="M 28 28 L 100 28 L 100 36 L 28 88 Z" fill="url(#ch06-survivor-fill)"/>
+    <!-- Ghosted Fatal Outcomes (Missing Rows in Archive) -->
+    <circle cx="44" cy="94" r="3.2" stroke="var(--logo-crimson, #e11d48)" stroke-width="1.4" stroke-dasharray="2 1.5" stroke-opacity="0.65"/>
+    <circle cx="62" cy="88" r="3.2" stroke="var(--logo-crimson, #e11d48)" stroke-width="1.4" stroke-dasharray="2 1.5" stroke-opacity="0.65"/>
+    <circle cx="80" cy="78" r="3.2" stroke="var(--logo-crimson, #e11d48)" stroke-width="1.4" stroke-dasharray="2 1.5" stroke-opacity="0.65"/>
+    <circle cx="50" cy="80" r="2.8" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-dasharray="1.5 1.5" stroke-opacity="0.4"/>
+    <circle cx="72" cy="96" r="2.8" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-dasharray="1.5 1.5" stroke-opacity="0.4"/>
+    <!-- Survived Recorded Sample Points (Institutional Selection) -->
+    <circle cx="46" cy="46" r="3.4" fill="var(--logo-blue, #2563eb)" fill-opacity="0.85"/>
+    <circle cx="68" cy="40" r="3.6" fill="var(--logo-green, #10b981)" fill-opacity="0.85"/>
+    <circle cx="84" cy="34" r="3.4" fill="var(--logo-blue, #2563eb)" fill-opacity="0.85"/>
+    <circle cx="54" cy="34" r="2.6" fill="var(--logo-green, #10b981)" fill-opacity="0.65"/>
+    <!-- Wald Survivorship Truncation Boundary Razor -->
+    <line x1="26" y1="90" x2="102" y2="34" stroke="url(#ch06-trunc-cut)" stroke-width="3.2" stroke-linecap="round"/>
+    <!-- 3D Spherical Nodes -->
+    <!-- Epistemic Grounded Archive Anchor at (28, 88) -->
+    <circle cx="28" cy="88" r="8.5" fill="url(#ch06-node-well)" stroke="url(#ch06-ring-epi)" stroke-width="3.2"/>
+    <circle cx="28" cy="88" r="3.8" fill="url(#ch06-core-epi)"/>
+    <!-- Institutional Survivor Authority Anchor at (102, 34) -->
+    <circle cx="102" cy="34" r="8.5" fill="url(#ch06-node-well)" stroke="url(#ch06-ring-gov)" stroke-width="3.2"/>
+    <circle cx="102" cy="34" r="3.8" fill="url(#ch06-core-gov)"/>
+    <!-- Truncation Horizon Inspection Stókhos Reticle at (64, 62) -->
+    <g id="ch06-reticle">
+      <circle cx="64" cy="62" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64" cy="62" r="6.4" fill="url(#ch06-pupil)" stroke="url(#ch06-gold-mira)" stroke-width="2.4"/>
+      <line x1="54.4" y1="62" x2="59.8" y2="62" stroke="url(#ch06-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="68.2" y1="62" x2="73.6" y2="62" stroke="url(#ch06-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64" y1="52.4" x2="64" y2="57.8" stroke="url(#ch06-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64" y1="66.2" x2="64" y2="71.6" stroke="url(#ch06-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="64" cy="62" r="2.2" fill="url(#ch06-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

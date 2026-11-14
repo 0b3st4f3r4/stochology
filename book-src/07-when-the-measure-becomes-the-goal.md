@@ -1,35 +1,82 @@
 # When the Measure Becomes the Goal
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH07 · GOODHART — When Metrics Become Targets">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH07 · GOODHART — When Metrics Become Targets">
   <defs>
+    <!-- Divider Progression: Vital Emerald -> Epistemic Sapphire -> Stókhos Gold -> Institutional Crimson -->
     <linearGradient id="ch07-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch07-glow" cx="50%" cy="50%" r="50%">
+    <!-- Multi-spectral Atmospheric Glow -->
+    <radialGradient id="ch07-glow" cx="52%" cy="52%" r="50%">
       <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.24"/>
-      <stop offset="50%" stop-color="#fbbf24" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#38bdf8" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#fbbf24" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#38bdf8" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch07-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
+    <!-- Pre-Intervention Coupled History Conduit (Metric is informative proxy) -->
+    <linearGradient id="ch07-braid-pre" x1="22" y1="92" x2="66" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
+      <stop offset="50%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="var(--logo-gold, #f59e0b)"/>
     </linearGradient>
-    <linearGradient id="ch07-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
+    <!-- Post-Intervention Proxy Gaming Surge Conduit (Skyrocketing target) -->
+    <linearGradient id="ch07-proxy-surge" x1="66" y1="56" x2="106" y2="24" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="45%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
     </linearGradient>
-    <linearGradient id="ch07-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
-      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
-      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    <!-- Post-Intervention Vital System Collapse Drain Conduit (Depleted reality) -->
+    <linearGradient id="ch07-vital-drop" x1="66" y1="56" x2="106" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
+      <stop offset="55%" stop-color="#047857"/>
+      <stop offset="100%" stop-color="#022c22"/>
     </linearGradient>
+    <!-- Intervention Policy Barrier Line -->
+    <linearGradient id="ch07-barrier-grad" x1="66" y1="22" x2="66" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <!-- 3D Spherical Node Gradients -->
+    <radialGradient id="ch07-node-well" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
+      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
+    </radialGradient>
+    <linearGradient id="ch07-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <radialGradient id="ch07-core-epi" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="45%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </radialGradient>
+    <linearGradient id="ch07-ring-gov" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fda4af"/>
+      <stop offset="50%" stop-color="#e11d48"/>
+      <stop offset="100%" stop-color="#881337"/>
+    </linearGradient>
+    <radialGradient id="ch07-core-gov" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fecdd3"/>
+      <stop offset="45%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </radialGradient>
+    <linearGradient id="ch07-ring-vital" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6ee7b7"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#065f46"/>
+    </linearGradient>
+    <radialGradient id="ch07-core-vital" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="45%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </radialGradient>
+    <!-- Golden Stókhos Reticle Gradients -->
     <radialGradient id="ch07-pupil" cx="45%" cy="42%" r="58%">
       <stop offset="0%" stop-color="#020617"/>
       <stop offset="68%" stop-color="#0f172a"/>
@@ -45,59 +92,40 @@
       <stop offset="35%" stop-color="#fde047"/>
       <stop offset="100%" stop-color="#d97706"/>
     </radialGradient>
-    <radialGradient id="ch07-node-well" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
-      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
-    </radialGradient>
-    <linearGradient id="ch07-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7dd3fc"/>
-      <stop offset="50%" stop-color="#2563eb"/>
-      <stop offset="100%" stop-color="#1e3a8a"/>
-    </linearGradient>
-    <radialGradient id="ch07-core-epi" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#bae6fd"/>
-      <stop offset="45%" stop-color="#3b82f6"/>
-      <stop offset="100%" stop-color="#1d4ed8"/>
-    </radialGradient>
-    <linearGradient id="ch07-ring-vital" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#6ee7b7"/>
-      <stop offset="50%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#065f46"/>
-    </linearGradient>
-    <radialGradient id="ch07-core-vital" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#a7f3d0"/>
-      <stop offset="45%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#047857"/>
-    </radialGradient>
-    <linearGradient id="ch07-ring-gov" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fda4af"/>
-      <stop offset="50%" stop-color="#e11d48"/>
-      <stop offset="100%" stop-color="#881337"/>
-    </linearGradient>
-    <radialGradient id="ch07-core-gov" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#fecdd3"/>
-      <stop offset="45%" stop-color="#f43f5e"/>
-      <stop offset="100%" stop-color="#be123c"/>
-    </radialGradient>
   </defs>
   <g>
+    <!-- Atmospheric Glow & Reference Coordinate Horizon -->
     <circle cx="64" cy="66" r="48" fill="url(#ch07-glow)"/>
     <circle cx="64" cy="66" r="42" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.45"/>
-    <line x1="66" y1="24" x2="66" y2="108" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6" stroke-dasharray="3 3"/>
-    <path d="M 22 92 C 40 78, 54 64, 66 56 C 78 48, 92 34, 106 24" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.8" stroke-dasharray="4 2.5" stroke-linecap="round"/>
-    <path d="M 22 92 C 40 78, 54 64, 66 56 C 78 62, 90 82, 106 96" stroke="var(--logo-green, #10b981)" stroke-width="3.0" stroke-linecap="round"/>
-    <circle cx="104.00" cy="26.00" r="6.55" fill="url(#ch07-node-well)" stroke="url(#ch07-ring-gov)" stroke-width="2.42"/>
-    <circle cx="104.00" cy="26.00" r="2.81" fill="url(#ch07-core-gov)"/>
-    <circle cx="104.00" cy="94.00" r="6.55" fill="url(#ch07-node-well)" stroke="url(#ch07-ring-vital)" stroke-width="2.42"/>
-    <circle cx="104.00" cy="94.00" r="2.81" fill="url(#ch07-core-vital)"/>
-    <g>
-      <circle cx="66.00" cy="56.00" r="6.81" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="66.00" cy="56.00" r="5.89" fill="url(#ch07-pupil)" stroke="url(#ch07-gold-mira)" stroke-width="2.21"/>
-      <line x1="57.17" y1="56.00" x2="62.14" y2="56.00" stroke="url(#ch07-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="69.86" y1="56.00" x2="74.83" y2="56.00" stroke="url(#ch07-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="66.00" y1="47.17" x2="66.00" y2="52.14" stroke="url(#ch07-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="66.00" y1="59.86" x2="66.00" y2="64.83" stroke="url(#ch07-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <circle cx="66.00" cy="56.00" r="2.02" fill="url(#ch07-gold-core)"/>
+    <!-- High-Stakes Target Intervention Barrier (Goodhart / Campbell Threshold) -->
+    <line x1="66" y1="22" x2="66" y2="110" stroke="url(#ch07-barrier-grad)" stroke-width="2.4" stroke-dasharray="3.5 2.5" stroke-linecap="round"/>
+    <!-- Pre-Intervention Coupled History (Metric is a reliable proxy) -->
+    <path d="M 22 92 C 38 84, 52 70, 66 56" stroke="url(#ch07-braid-pre)" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M 22 95 C 38 87, 52 73, 66 59" stroke="var(--logo-blue, #2563eb)" stroke-width="1.6" stroke-dasharray="2 2" stroke-opacity="0.65"/>
+    <!-- Post-Intervention Divergence / Goodhart Bifurcation -->
+    <!-- Proxy Metric Gaming Surge (Skyrocketing target under optimization) -->
+    <path d="M 66 56 C 78 46, 92 34, 106 24" stroke="url(#ch07-proxy-surge)" stroke-width="3.4" stroke-dasharray="4 2.5" stroke-linecap="round"/>
+    <!-- Vital System Drain (Plunging underlying reality) -->
+    <path d="M 66 56 C 78 64, 90 84, 106 96" stroke="url(#ch07-vital-drop)" stroke-width="3.6" stroke-linecap="round"/>
+    <!-- 3D Spherical Nodes -->
+    <!-- Initial Base Epistemic Anchor at (22, 92) -->
+    <circle cx="22" cy="92" r="8.0" fill="url(#ch07-node-well)" stroke="url(#ch07-ring-epi)" stroke-width="3.0"/>
+    <circle cx="22" cy="92" r="3.6" fill="url(#ch07-core-epi)"/>
+    <!-- Proxy Gaming Node (Goodhart Surge) at (106, 24) -->
+    <circle cx="106" cy="24" r="8.5" fill="url(#ch07-node-well)" stroke="url(#ch07-ring-gov)" stroke-width="3.2"/>
+    <circle cx="106" cy="24" r="3.8" fill="url(#ch07-core-gov)"/>
+    <!-- Vital Reserve Collapse Floor Node at (106, 96) -->
+    <circle cx="106" cy="96" r="8.5" fill="url(#ch07-node-well)" stroke="url(#ch07-ring-vital)" stroke-width="3.2"/>
+    <circle cx="106" cy="96" r="3.8" fill="url(#ch07-core-vital)"/>
+    <!-- Bifurcation Apex Stókhos Reticle at (66, 56) -->
+    <g id="ch07-reticle">
+      <circle cx="66" cy="56" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="66" cy="56" r="6.4" fill="url(#ch07-pupil)" stroke="url(#ch07-gold-mira)" stroke-width="2.4"/>
+      <line x1="56.4" y1="56" x2="61.8" y2="56" stroke="url(#ch07-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="70.2" y1="56" x2="75.6" y2="56" stroke="url(#ch07-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="66" y1="46.4" x2="66" y2="51.8" stroke="url(#ch07-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="66" y1="60.2" x2="66" y2="65.6" stroke="url(#ch07-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="66" cy="56" r="2.2" fill="url(#ch07-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

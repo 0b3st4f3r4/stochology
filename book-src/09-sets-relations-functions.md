@@ -1,50 +1,23 @@
 # Sets, Relations, Functions
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH09 · RELATIONS — Sets, Relations, And Morphisms">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH09 · RELATIONS — Sets, Relations, And Morphisms">
   <defs>
+    <!-- Canonical Ring Gradient -->
     <linearGradient id="ch09-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch09-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
-      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#fbbf24" stop-opacity="0.08"/>
+    <!-- 1. Atmospheric Cosmic Field -->
+    <radialGradient id="ch09-glow" cx="52%" cy="52%" r="50%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
+      <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch09-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
-    </linearGradient>
-    <linearGradient id="ch09-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
-    </linearGradient>
-    <linearGradient id="ch09-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
-      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
-      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
-    </linearGradient>
-    <radialGradient id="ch09-pupil" cx="45%" cy="42%" r="58%">
-      <stop offset="0%" stop-color="#020617"/>
-      <stop offset="68%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#451a03"/>
-    </radialGradient>
-    <linearGradient id="ch09-gold-mira" x1="54" y1="48" x2="84" y2="82" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#fef08a"/>
-      <stop offset="45%" stop-color="#fbbf24"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </linearGradient>
-    <radialGradient id="ch09-gold-core" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="35%" stop-color="#fde047"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </radialGradient>
+    <!-- 3D Spherical Node Gradients -->
     <radialGradient id="ch09-node-well" cx="38%" cy="35%" r="65%">
       <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
       <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
@@ -79,25 +52,68 @@
       <stop offset="45%" stop-color="#f43f5e"/>
       <stop offset="100%" stop-color="#be123c"/>
     </radialGradient>
+    <!-- Stókhos Reticle Gradients -->
+    <radialGradient id="ch09-pupil" cx="45%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="68%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </radialGradient>
+    <linearGradient id="ch09-gold-mira" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="45%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <radialGradient id="ch09-gold-core" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </radialGradient>
+    <!-- Ink curve gradient -->
+    <linearGradient id="ch09-ink-curve" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
+      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
+      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    </linearGradient>
+    <radialGradient id="ch09-set-epi" cx="45%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.30"/>
+      <stop offset="70%" stop-color="#2563eb" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#1e3a8a" stop-opacity="0.08"/>
+    </radialGradient>
+    <radialGradient id="ch09-set-vital" cx="55%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.30"/>
+      <stop offset="70%" stop-color="#10b981" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#065f46" stop-opacity="0.08"/>
+    </radialGradient>
+    <linearGradient id="ch09-lens-fill" x1="64" y1="44" x2="64" y2="88" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fde047" stop-opacity="0.32"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.28"/>
+    </linearGradient>
+    <linearGradient id="ch09-morphism-arrow" x1="38" y1="46" x2="90" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="45%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
   </defs>
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#ch09-glow)"/>
-    <circle cx="46" cy="66" r="26" fill="var(--logo-blue, #2563eb)" fill-opacity="0.16" stroke="var(--logo-blue, #2563eb)" stroke-width="2.4"/>
-    <circle cx="82" cy="66" r="26" fill="var(--logo-green, #10b981)" fill-opacity="0.16" stroke="var(--logo-green, #10b981)" stroke-width="2.4"/>
-    <path d="M 38 48 Q 64 26 90 48" stroke="url(#ch09-gold-mira)" stroke-width="2.6" stroke-linecap="round"/>
-    <path d="M 84 48 L 91 49 L 89 42" stroke="url(#ch09-gold-mira)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="36.00" cy="66.00" r="6.55" fill="url(#ch09-node-well)" stroke="url(#ch09-ring-epi)" stroke-width="2.42"/>
-    <circle cx="36.00" cy="66.00" r="2.81" fill="url(#ch09-core-epi)"/>
-    <circle cx="92.00" cy="66.00" r="6.55" fill="url(#ch09-node-well)" stroke="url(#ch09-ring-vital)" stroke-width="2.42"/>
-    <circle cx="92.00" cy="66.00" r="2.81" fill="url(#ch09-core-vital)"/>
+    <circle cx="46" cy="66" r="28" fill="url(#ch09-set-epi)" stroke="var(--logo-blue, #2563eb)" stroke-width="2.6"/>
+    <circle cx="82" cy="66" r="28" fill="url(#ch09-set-vital)" stroke="var(--logo-green, #10b981)" stroke-width="2.6"/>
+    <path d="M 64 44.55 A 28 28 0 0 1 64 87.45 A 28 28 0 0 1 64 44.55 Z" fill="url(#ch09-lens-fill)"/>
+    <path d="M 38 46 Q 63.29 20.71 88.59 44.62" stroke="url(#ch09-morphism-arrow)" stroke-width="3.2" stroke-linecap="round"/>
+    <path d="M 82.83 43.81 L 90 46 L 87.81 38.83" stroke="url(#ch09-morphism-arrow)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="36" cy="66" r="8.5" fill="url(#ch09-node-well)" stroke="url(#ch09-ring-epi)" stroke-width="3.0"/>
+    <circle cx="36" cy="66" r="3.8" fill="url(#ch09-core-epi)"/>
+    <circle cx="92" cy="66" r="8.5" fill="url(#ch09-node-well)" stroke="url(#ch09-ring-vital)" stroke-width="3.0"/>
+    <circle cx="92" cy="66" r="3.8" fill="url(#ch09-core-vital)"/>
     <g>
-      <circle cx="64.00" cy="66.00" r="6.51" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="64.00" cy="66.00" r="5.63" fill="url(#ch09-pupil)" stroke="url(#ch09-gold-mira)" stroke-width="2.11"/>
-      <line x1="55.55" y1="66.00" x2="60.30" y2="66.00" stroke="url(#ch09-gold-mira)" stroke-width="2.11" stroke-linecap="round"/>
-      <line x1="67.70" y1="66.00" x2="72.45" y2="66.00" stroke="url(#ch09-gold-mira)" stroke-width="2.11" stroke-linecap="round"/>
-      <line x1="64.00" y1="57.55" x2="64.00" y2="62.30" stroke="url(#ch09-gold-mira)" stroke-width="2.11" stroke-linecap="round"/>
-      <line x1="64.00" y1="69.70" x2="64.00" y2="74.45" stroke="url(#ch09-gold-mira)" stroke-width="2.11" stroke-linecap="round"/>
-      <circle cx="64.00" cy="66.00" r="1.94" fill="url(#ch09-gold-core)"/>
+      <circle cx="64" cy="66" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64" cy="66" r="6.4" fill="url(#ch09-pupil)" stroke="url(#ch09-gold-mira)" stroke-width="2.4"/>
+      <line x1="54.40" y1="66.00" x2="59.80" y2="66.00" stroke="url(#ch09-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="68.20" y1="66.00" x2="73.60" y2="66.00" stroke="url(#ch09-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64.00" y1="56.40" x2="64.00" y2="61.80" stroke="url(#ch09-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64.00" y1="70.20" x2="64.00" y2="75.60" stroke="url(#ch09-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="64" cy="66" r="2.2" fill="url(#ch09-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">
@@ -118,7 +134,7 @@
     <circle cx="490" cy="78" r="2.0" fill="var(--logo-ticks, #64748b)" fill-opacity="0.42"/>
     <text x="2" y="104" fill="var(--logo-meta, #475569)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="10.8" font-weight="600" letter-spacing="0.65">PARTITIONS AND EQUIVALENCE · PREORDERS · STRUCTURE-PRESERVING MAPS</text>
   </g>
-  </svg>
+</svg>
 </figure>
 
 > First chapter of the mathematical block in Part II. Nothing here is specific to judgment; it is the

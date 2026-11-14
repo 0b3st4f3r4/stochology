@@ -64,7 +64,10 @@
 
   /* Layout */
   --sidebar-target-width: 304px;
-  --content-max-width: 912px;
+  /* One measure for the whole reading column: prose, plates, tables, equations and the
+     emblem all stop at the same edge. It is set in `ch`, so it follows the reading face the
+     reader picks; mdBook applies it to `.content main`, where the body face resolves it. */
+  --content-max-width: 74ch;
   --page-padding: calc(var(--u) * 6);
   --menu-bar-height: 52px;
   /* How far the reading sheet is offset from the window's inline edge. mdBook parks the table
@@ -570,7 +573,7 @@ body {
   background-origin: padding-box, padding-box;
 }
 
-/* 1180px is where a 912px measure plus a 60px gutter still fits beside the sidebar. */
+/* 1180px is where the measure (under 912px at any reading face) plus a 60px gutter still fits beside the sidebar. */
 @media (max-width: 1179px) {
   #mdbook-content {
     background-image: none;
@@ -649,9 +652,10 @@ body {
   color: var(--muted);
 }
 
-/* Justified prose, measure capped at 74ch; hyphenation keeps the justified rivers down. */
+/* Justified prose; the measure is the column's own (--content-max-width), shared with every
+   plate, so text and figures end on one edge. Hyphenation keeps the justified rivers down. */
 .content :is(p, ul, ol, blockquote) {
-  max-inline-size: 74ch;
+  max-inline-size: 100%;
   text-align: justify;
   hyphens: auto;
   line-height: var(--leading-prose);
@@ -719,8 +723,11 @@ body {
   border: var(--rule) solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: none;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
+  /* No scroll container at full width: the crop marks sit one unit outside the frame and
+     the emblem settles with a small vertical translate, and either one inside an
+     overflow:auto box raises a scrollbar on a screen where the plate already fits. The
+     plate only scrolls where it is given a minimum width (see the 640px query below). */
+  overflow: visible;
   box-sizing: border-box;
   position: relative;
 }
@@ -757,7 +764,7 @@ mjx-container[jax="CHTML"][display="true"]::after {
 .content img[src$="logo.svg"],
 .stoch-logo-figure {
   inline-size: 100%;
-  max-inline-size: 680px;
+  max-inline-size: 820px;
   block-size: auto;
   margin-block: calc(var(--u) * 2) calc(var(--u) * 4);
   padding: 0;
@@ -841,6 +848,11 @@ mjx-container[jax="CHTML"][display="true"]::after {
 }
 
 @media (max-width: 640px) {
+  .stoch-figure:not(.stoch-logo-figure) {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
   .stoch-figure:not(.stoch-logo-figure) > svg {
     min-inline-size: 540px;
   }
@@ -941,6 +953,20 @@ mjx-container[jax="CHTML"][display="true"] {
   overflow: auto hidden;
   max-inline-size: 100%;
   box-sizing: border-box;
+}
+
+/* A display equation is a scroll container (a long derivation must scroll, not overflow the
+   measure), and a crop mark one unit outside its corner is scrollable overflow: it raised a
+   horizontal scrollbar under every equation at every width. Inside a scroller the marks sit on
+   the frame's own corners instead, where the vertical clip was already cutting them anyway. */
+mjx-container[jax="CHTML"][display="true"]::before {
+  inset-block-start: 0;
+  inset-inline-start: 0;
+}
+
+mjx-container[jax="CHTML"][display="true"]::after {
+  inset-block-end: 0;
+  inset-inline-end: 0;
 }
 
 mjx-container[jax="CHTML"]:not([display="true"]) {
@@ -1654,73 +1680,9 @@ blockquote > p:last-child {
   }
 }
 
-/* Chapter paging. mdBook pins two bare chevrons to the viewport edges; at a centred measure
-   that leaves the left chevron sitting inside the reading column. Here each becomes a framed
-   plate standing in the page's outer margin, and its offset is measured from the sheet's own
-   centre, so the pair stays symmetric and clear of the text.
-
-   The breakpoint is where the narrowest gutter can still hold a plate and its gap with the
-   sidebar open: 912px of measure plus 312px of sidebar leaves about 98px of gutter at 1420px,
-   which holds a 38px plate and 32px of clearance with room to spare. Below that the pair is
-   withdrawn and mdBook's own paging takes over. */
-@media (min-width: 1420px) {
-  .nav-wide-wrapper .nav-chapters {
-    position: fixed;
-    inset-block: 42% auto;
-    inline-size: calc(var(--u) * 9);
-    block-size: calc(var(--u) * 9);
-    min-inline-size: 0;
-    max-inline-size: none;
-    margin: 0;
-    display: grid;
-    place-items: center;
-    border: var(--rule) solid var(--border);
-    border-radius: var(--radius-sm);
-    background-color: var(--surface);
-    color: var(--ink) !important;
-    transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
-  }
-
-  .nav-wide-wrapper .nav-chapters svg {
-    inline-size: calc(var(--u) * 2.75);
-    block-size: calc(var(--u) * 2.75);
-    fill: currentColor;
-  }
-
-  /* The measure is centred in the *sheet*, not in the window: when the sidebar is open the
-     sheet starts after it, so the sheet's centre sits half the sheet offset past the window's.
-     From that centre, walk out half the measure, then the gap, then the plate's own width —
-     expressed as a translate so the plate's size is read from its own box. The earlier offsets
-     subtracted the gap from the wrong side, which parked both plates against the text and put
-     the pair on top of the prose as soon as the sidebar was hidden. */
-  .nav-wide-wrapper .nav-chapters.previous {
-    /* `100%` here is the initial containing block, so it already excludes a classic scrollbar;
-       `50vw` does not, which shifted the pair a few pixels off-centre whenever one was present.
-       The sheet's centre is therefore measured as offset plus half of what remains of it. */
-    inset-inline-start: calc(
-      var(--stoch-sheet-offset) + (100% - var(--stoch-sheet-offset)) / 2 -
-        var(--content-max-width) / 2
-    );
-    inset-inline-end: auto;
-    /* One plate-width plus the gutter gap, outwards from the measure's edge. The gap is eight
-       units: five shortened to a hard square, which read as touching the prose. */
-    transform: translateX(calc(-100% - var(--u) * 8));
-  }
-
-  .nav-wide-wrapper .nav-chapters.next {
-    inset-inline-end: calc(
-      (100% - var(--stoch-sheet-offset)) / 2 - var(--content-max-width) / 2
-    );
-    inset-inline-start: auto;
-    transform: translateX(calc(100% + var(--u) * 8));
-  }
-
-  .nav-wide-wrapper .nav-chapters:hover {
-    border-color: var(--accent);
-    background-color: var(--elevated);
-    color: var(--accent) !important;
-  }
-}
+/* Chapter paging is mdBook's own: two bare chevrons pinned to the window's edges, full height,
+   at every width where mdBook shows them. The 74ch measure leaves them a wide gutter, so no
+   framed plate or measure-relative offset is drawn over them. */
 
 /* Cross-document view transitions. mdBook serves one full document per chapter, so a chapter
    change is a real navigation: `@view-transition { navigation: auto }` is the whole opt-in,
@@ -2251,6 +2213,47 @@ dialog.stoch-svg-zoom-dialog::backdrop {
   font-family: var(--font-label);
   font-size: 0.74em;
   font-weight: 600;
+}
+
+/* Trigger and dialog controls are the reader's machinery, drawn like every other control
+   plate in the book: hairline frame on the surface, accent on hover, focus ring on keys. */
+.stoch-svg-zoom-trigger,
+.stoch-svg-zoom-btn {
+  display: inline-flex;
+  align-items: safe center;
+  justify-content: center;
+  gap: calc(var(--u) * 1.5);
+  border: var(--rule) solid var(--border);
+  background-color: var(--surface);
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.stoch-svg-zoom-trigger {
+  color: var(--muted);
+}
+
+.stoch-svg-zoom-trigger:hover,
+.stoch-svg-zoom-btn:hover {
+  background-color: var(--state-hover);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.stoch-svg-zoom-trigger:focus-visible,
+.stoch-svg-zoom-btn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.stoch-svg-zoom-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+  background-color: var(--surface);
+  border-color: var(--border);
+  color: var(--muted);
 }
 
 .stoch-svg-zoom-viewport {

@@ -1,7 +1,7 @@
 # The Question Before the Data
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH32 · FRAMING — The Question Before The Data">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH32 · FRAMING — The Question Before The Data">
   <defs>
     <linearGradient id="ch32-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
@@ -10,9 +10,9 @@
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
     <radialGradient id="ch32-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
-      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#fbbf24" stop-opacity="0.08"/>
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.24"/>
+      <stop offset="48%" stop-color="#2563eb" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="ch32-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
@@ -82,19 +82,21 @@
   </defs>
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#ch32-glow)"/>
-    <rect x="28" y="34" width="52" height="52" rx="4" stroke="var(--logo-ticks, #64748b)" stroke-width="1.8" stroke-dasharray="3 2.5"/>
-    <rect x="44" y="42" width="52" height="52" rx="4" fill="url(#ch32-fill)" stroke="var(--logo-blue, #2563eb)" stroke-width="2.4"/>
-    <line x1="34" y1="40" x2="90" y2="88" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.2" stroke-linecap="round"/>
-    <circle cx="34.00" cy="40.00" r="6.38" fill="url(#ch32-node-well)" stroke="url(#ch32-ring-gov)" stroke-width="2.36"/>
-    <circle cx="34.00" cy="40.00" r="2.74" fill="url(#ch32-core-gov)"/>
+    <rect x="26" y="32" width="54" height="54" rx="4" stroke="var(--logo-ticks, #64748b)" stroke-width="1.8" stroke-dasharray="3 2.5"/>
+    <rect x="42" y="42" width="54" height="54" rx="4" fill="url(#ch32-fill)" stroke="var(--logo-blue, #2563eb)" stroke-width="2.4"/>
+    <line x1="34" y1="38" x2="92" y2="90" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="34" cy="38" r="6.6" fill="url(#ch32-node-well)" stroke="url(#ch32-ring-epi)" stroke-width="2.4"/>
+    <circle cx="34" cy="38" r="2.8" fill="url(#ch32-core-epi)"/>
+    <circle cx="92" cy="90" r="6.6" fill="url(#ch32-node-well)" stroke="url(#ch32-ring-gov)" stroke-width="2.4"/>
+    <circle cx="92" cy="90" r="2.8" fill="url(#ch32-core-gov)"/>
     <g>
-      <circle cx="70.00" cy="68.00" r="6.81" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="70.00" cy="68.00" r="5.89" fill="url(#ch32-pupil)" stroke="url(#ch32-gold-mira)" stroke-width="2.21"/>
-      <line x1="61.17" y1="68.00" x2="66.14" y2="68.00" stroke="url(#ch32-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="73.86" y1="68.00" x2="78.83" y2="68.00" stroke="url(#ch32-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="70.00" y1="59.17" x2="70.00" y2="64.14" stroke="url(#ch32-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="70.00" y1="71.86" x2="70.00" y2="76.83" stroke="url(#ch32-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <circle cx="70.00" cy="68.00" r="2.02" fill="url(#ch32-gold-core)"/>
+      <circle cx="68" cy="68" r="7.0" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="68" cy="68" r="6.0" fill="url(#ch32-pupil)" stroke="url(#ch32-gold-mira)" stroke-width="2.2"/>
+      <line x1="59.0" y1="68" x2="64.0" y2="68" stroke="url(#ch32-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="72.0" y1="68" x2="77.0" y2="68" stroke="url(#ch32-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="68" y1="59.0" x2="68" y2="64.0" stroke="url(#ch32-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="68" y1="72.0" x2="68" y2="77.0" stroke="url(#ch32-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="68" cy="68" r="2.0" fill="url(#ch32-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

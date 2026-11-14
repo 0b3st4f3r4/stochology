@@ -1,7 +1,7 @@
 # Appendix D — Claim Ledger
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology Appendix D — The Claim Provenance Ledger">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology Appendix D — The Claim Provenance Ledger">
   <defs>
     <linearGradient id="apd-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
@@ -11,8 +11,8 @@
     </linearGradient>
     <radialGradient id="apd-glow" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
-      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#e11d48" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="apd-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
@@ -79,28 +79,34 @@
       <stop offset="45%" stop-color="#f43f5e"/>
       <stop offset="100%" stop-color="#be123c"/>
     </radialGradient>
+    <linearGradient id="apd-ring-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
   </defs>
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#apd-glow)"/>
     <polygon points="64,22 104,66 64,110 24,66" fill="url(#apd-fill)" stroke="url(#apd-triad-stroke)" stroke-width="2.4" stroke-linejoin="round"/>
-    <line x1="44" y1="44" x2="84" y2="88" stroke="var(--logo-blue, #2563eb)" stroke-width="2.0"/>
-    <line x1="84" y1="44" x2="44" y2="88" stroke="var(--logo-green, #10b981)" stroke-width="2.0"/>
-    <circle cx="64.00" cy="22.00" r="6.38" fill="url(#apd-node-well)" stroke="url(#apd-ring-epi)" stroke-width="2.36"/>
-    <circle cx="64.00" cy="22.00" r="2.74" fill="url(#apd-core-epi)"/>
-    <circle cx="24.00" cy="66.00" r="6.38" fill="url(#apd-node-well)" stroke="url(#apd-ring-vital)" stroke-width="2.36"/>
-    <circle cx="24.00" cy="66.00" r="2.74" fill="url(#apd-core-vital)"/>
-    <circle cx="104.00" cy="66.00" r="6.38" fill="url(#apd-node-well)" stroke="url(#apd-ring-gov)" stroke-width="2.36"/>
-    <circle cx="104.00" cy="66.00" r="2.74" fill="url(#apd-core-gov)"/>
-    <circle cx="64.00" cy="110.00" r="6.38" fill="url(#apd-node-well)" stroke="url(#apd-ring-epi)" stroke-width="2.36"/>
-    <circle cx="64.00" cy="110.00" r="2.74" fill="url(#apd-core-epi)"/>
-    <g>
-      <circle cx="64.00" cy="66.00" r="6.81" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="64.00" cy="66.00" r="5.89" fill="url(#apd-pupil)" stroke="url(#apd-gold-mira)" stroke-width="2.21"/>
-      <line x1="55.17" y1="66.00" x2="60.14" y2="66.00" stroke="url(#apd-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="67.86" y1="66.00" x2="72.83" y2="66.00" stroke="url(#apd-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="64.00" y1="57.17" x2="64.00" y2="62.14" stroke="url(#apd-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <line x1="64.00" y1="69.86" x2="64.00" y2="74.83" stroke="url(#apd-gold-mira)" stroke-width="2.21" stroke-linecap="round"/>
-      <circle cx="64.00" cy="66.00" r="2.02" fill="url(#apd-gold-core)"/>
+    <polygon points="64,36 92,66 64,96 36,66" fill="none" stroke="url(#apd-ink-curve)" stroke-width="1.3" stroke-dasharray="3 2" stroke-opacity="0.55" stroke-linejoin="round"/>
+    <line x1="44" y1="46" x2="84" y2="86" stroke="var(--logo-blue, #2563eb)" stroke-width="2.0" stroke-linecap="round"/>
+    <line x1="84" y1="46" x2="44" y2="86" stroke="var(--logo-green, #10b981)" stroke-width="2.0" stroke-linecap="round" stroke-dasharray="4 2.5"/>
+    <circle cx="64.00" cy="22.00" r="6.8" fill="url(#apd-node-well)" stroke="url(#apd-ring-epi)" stroke-width="2.4"/>
+    <circle cx="64.00" cy="22.00" r="2.9" fill="url(#apd-core-epi)"/>
+    <circle cx="24.00" cy="66.00" r="6.8" fill="url(#apd-node-well)" stroke="url(#apd-ring-vital)" stroke-width="2.4"/>
+    <circle cx="24.00" cy="66.00" r="2.9" fill="url(#apd-core-vital)"/>
+    <circle cx="104.00" cy="66.00" r="6.8" fill="url(#apd-node-well)" stroke="url(#apd-ring-gov)" stroke-width="2.4"/>
+    <circle cx="104.00" cy="66.00" r="2.9" fill="url(#apd-core-gov)"/>
+    <circle cx="64.00" cy="110.00" r="6.8" fill="url(#apd-node-well)" stroke="url(#apd-ring-gold)" stroke-width="2.4"/>
+    <circle cx="64.00" cy="110.00" r="2.9" fill="url(#apd-gold-core)"/>
+    <g id="apd-reticle">
+      <circle cx="64.00" cy="66.00" r="7.2" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64.00" cy="66.00" r="6.2" fill="url(#apd-pupil)" stroke="url(#apd-gold-mira)" stroke-width="2.2"/>
+      <line x1="58.8" y1="66.00" x2="63.5" y2="66.00" stroke="url(#apd-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64.5" y1="66.00" x2="69.2" y2="66.00" stroke="url(#apd-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64.00" y1="60.8" x2="64.00" y2="65.5" stroke="url(#apd-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64.00" y1="66.5" x2="64.00" y2="71.2" stroke="url(#apd-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="64.00" cy="66.00" r="2.1" fill="url(#apd-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

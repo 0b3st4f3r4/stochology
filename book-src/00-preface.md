@@ -1,7 +1,7 @@
 # Preface
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-labelledby="stochology-logo-title stochology-logo-desc">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-labelledby="stochology-logo-title stochology-logo-desc">
   <title id="stochology-logo-title">Stochology — Theory &amp; Ethics of Aim Under Uncertainty</title>
   <desc id="stochology-logo-desc">The Stochology emblem and wordmark: a sequential mediation circuit across World and Vital Margin (S_vital, Emerald), Mutilated Archive and Epistemic Margin (S_epi, Sapphire), and Institution and Governance (S_gov, Crimson), enclosing the non-substitutable Leontief Nuclear Triad M_Leontief = min(S_epi, S_vital, S_gov), a heavy-tailed Pareto density (alpha &lt; 2), and the golden Stókhos reticle at the intersection of the severe epistemic threshold p* = C / (eta_eff * L_inst) and the vital survival floor (TTS_survival &gt;= TTR_recovery).</desc>
   <defs>

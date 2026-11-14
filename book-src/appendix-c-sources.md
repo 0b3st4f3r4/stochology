@@ -1,7 +1,7 @@
 # Appendix C — Bibliography
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology Appendix C — Bibliography">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology Appendix C — Bibliography">
   <defs>
     <linearGradient id="apc-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
@@ -11,8 +11,8 @@
     </linearGradient>
     <radialGradient id="apc-glow" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
-      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#e11d48" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="apc-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
@@ -82,22 +82,28 @@
   </defs>
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#apc-glow)"/>
-    <rect x="26" y="30" width="76" height="72" rx="6" fill="url(#apc-fill)" stroke="var(--logo-blue, #2563eb)" stroke-width="2.2"/>
-    <line x1="26" y1="54" x2="102" y2="54" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6"/>
-    <line x1="26" y1="78" x2="102" y2="78" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6"/>
-    <line x1="54" y1="30" x2="54" y2="102" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6"/>
-    <circle cx="40.00" cy="42.00" r="6.22" fill="url(#apc-node-well)" stroke="url(#apc-ring-epi)" stroke-width="2.29"/>
-    <circle cx="40.00" cy="42.00" r="2.66" fill="url(#apc-core-epi)"/>
-    <circle cx="78.00" cy="90.00" r="6.22" fill="url(#apc-node-well)" stroke="url(#apc-ring-vital)" stroke-width="2.29"/>
-    <circle cx="78.00" cy="90.00" r="2.66" fill="url(#apc-core-vital)"/>
-    <g>
-      <circle cx="78.00" cy="66.00" r="6.66" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="78.00" cy="66.00" r="5.76" fill="url(#apc-pupil)" stroke="url(#apc-gold-mira)" stroke-width="2.16"/>
-      <line x1="69.36" y1="66.00" x2="74.22" y2="66.00" stroke="url(#apc-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="81.78" y1="66.00" x2="86.64" y2="66.00" stroke="url(#apc-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="78.00" y1="57.36" x2="78.00" y2="62.22" stroke="url(#apc-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="78.00" y1="69.78" x2="78.00" y2="74.64" stroke="url(#apc-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <circle cx="78.00" cy="66.00" r="1.98" fill="url(#apc-gold-core)"/>
+    <rect x="26" y="30" width="76" height="72" rx="6" fill="url(#apc-fill)" stroke="url(#apc-triad-stroke)" stroke-width="2.2"/>
+    <line x1="26" y1="54" x2="102" y2="54" stroke="var(--logo-blue, #2563eb)" stroke-width="1.5" stroke-opacity="0.65" stroke-linecap="round"/>
+    <line x1="26" y1="78" x2="102" y2="78" stroke="var(--logo-blue, #2563eb)" stroke-width="1.5" stroke-opacity="0.65" stroke-dasharray="4 2.5" stroke-linecap="round"/>
+    <line x1="54" y1="30" x2="54" y2="102" stroke="var(--logo-blue, #2563eb)" stroke-width="1.5" stroke-opacity="0.5" stroke-linecap="round"/>
+    <line x1="32" y1="66" x2="48" y2="66" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-opacity="0.55" stroke-linecap="round"/>
+    <line x1="32" y1="90" x2="48" y2="90" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-opacity="0.55" stroke-linecap="round"/>
+    <line x1="62" y1="42" x2="94" y2="42" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-opacity="0.55" stroke-linecap="round"/>
+    <line x1="62" y1="90" x2="94" y2="90" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-opacity="0.55" stroke-linecap="round"/>
+    <circle cx="40.00" cy="42.00" r="6.6" fill="url(#apc-node-well)" stroke="url(#apc-ring-epi)" stroke-width="2.4"/>
+    <circle cx="40.00" cy="42.00" r="2.8" fill="url(#apc-core-epi)"/>
+    <circle cx="78.00" cy="42.00" r="4.2" fill="url(#apc-node-well)" stroke="url(#apc-ring-vital)" stroke-width="1.8"/>
+    <circle cx="78.00" cy="42.00" r="1.8" fill="url(#apc-core-vital)"/>
+    <circle cx="78.00" cy="90.00" r="6.6" fill="url(#apc-node-well)" stroke="url(#apc-ring-gov)" stroke-width="2.4"/>
+    <circle cx="78.00" cy="90.00" r="2.8" fill="url(#apc-core-gov)"/>
+    <g id="apc-reticle">
+      <circle cx="78.00" cy="66.00" r="7.0" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="78.00" cy="66.00" r="6.0" fill="url(#apc-pupil)" stroke="url(#apc-gold-mira)" stroke-width="2.2"/>
+      <line x1="72.8" y1="66.00" x2="77.5" y2="66.00" stroke="url(#apc-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="78.5" y1="66.00" x2="83.2" y2="66.00" stroke="url(#apc-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="78.00" y1="60.8" x2="78.00" y2="65.5" stroke="url(#apc-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="78.00" y1="66.5" x2="78.00" y2="71.2" stroke="url(#apc-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="78.00" cy="66.00" r="2.0" fill="url(#apc-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

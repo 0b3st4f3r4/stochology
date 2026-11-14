@@ -1,50 +1,23 @@
 # Thermodynamics and Entropy
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH22 · ENTROPY — Thermodynamics And Irreversibility">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH22 · ENTROPY — Thermodynamics And Irreversibility">
   <defs>
+    <!-- Canonical Ring Gradient -->
     <linearGradient id="ch22-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch22-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#34d399" stop-opacity="0.25"/>
-      <stop offset="50%" stop-color="#10b981" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#fbbf24" stop-opacity="0.08"/>
+    <!-- 1. Atmospheric Cosmic Field -->
+    <radialGradient id="ch22-glow" cx="52%" cy="52%" r="50%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
+      <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch22-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
-    </linearGradient>
-    <linearGradient id="ch22-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
-    </linearGradient>
-    <linearGradient id="ch22-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
-      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
-      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
-    </linearGradient>
-    <radialGradient id="ch22-pupil" cx="45%" cy="42%" r="58%">
-      <stop offset="0%" stop-color="#020617"/>
-      <stop offset="68%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#451a03"/>
-    </radialGradient>
-    <linearGradient id="ch22-gold-mira" x1="54" y1="48" x2="84" y2="82" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#fef08a"/>
-      <stop offset="45%" stop-color="#fbbf24"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </linearGradient>
-    <radialGradient id="ch22-gold-core" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="35%" stop-color="#fde047"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </radialGradient>
+    <!-- 3D Spherical Node Gradients -->
     <radialGradient id="ch22-node-well" cx="38%" cy="35%" r="65%">
       <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
       <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
@@ -79,24 +52,78 @@
       <stop offset="45%" stop-color="#f43f5e"/>
       <stop offset="100%" stop-color="#be123c"/>
     </radialGradient>
+    <!-- Stókhos Reticle Gradients -->
+    <radialGradient id="ch22-pupil" cx="45%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="68%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </radialGradient>
+    <linearGradient id="ch22-gold-mira" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="45%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <radialGradient id="ch22-gold-core" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </radialGradient>
+    <!-- Ink curve gradient -->
+    <linearGradient id="ch22-ink-curve" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
+      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
+      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    </linearGradient>
+    <linearGradient id="ch22-cycle-grad" x1="32" y1="36" x2="96" y2="82" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.30"/>
+      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#065f46" stop-opacity="0.20"/>
+    </linearGradient>
+    <linearGradient id="ch22-cycle-stroke" x1="34" y1="36" x2="98" y2="82" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="55%" stop-color="var(--logo-green, #10b981)"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="ch22-exhaust-vent" x1="82" y1="81.5" x2="105.22" y2="100.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fb7185" stop-opacity="0.55"/>
+      <stop offset="45%" stop-color="var(--logo-crimson, #e11d48)"/>
+      <stop offset="100%" stop-color="#881337"/>
+    </linearGradient>
+    <radialGradient id="ch22-particle" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fecdd3"/>
+      <stop offset="55%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#9f1239"/>
+    </radialGradient>
   </defs>
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#ch22-glow)"/>
-    <circle cx="64" cy="66" r="42" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.45"/>
-    <path d="M 32 36 Q 68 38 96 64 Q 62 94 32 82 Z" fill="url(#ch22-fill)" stroke="var(--logo-green, #10b981)" stroke-width="2.6" stroke-linejoin="round"/>
-    <line x1="64" y1="62" x2="104" y2="96" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.6" stroke-linecap="round"/>
-    <circle cx="32.00" cy="36.00" r="6.55" fill="url(#ch22-node-well)" stroke="url(#ch22-ring-epi)" stroke-width="2.42"/>
-    <circle cx="32.00" cy="36.00" r="2.81" fill="url(#ch22-core-epi)"/>
-    <circle cx="96.00" cy="64.00" r="6.55" fill="url(#ch22-node-well)" stroke="url(#ch22-ring-vital)" stroke-width="2.42"/>
-    <circle cx="96.00" cy="64.00" r="2.81" fill="url(#ch22-core-vital)"/>
+    <!-- Carnot cycle on the P–V plane: hot isotherm, adiabat, cold isotherm, adiabat -->
+    <path d="M 34 36 C 46 46, 60 49, 74 50 C 80 64, 88 76, 98 82 C 78 81, 58 79, 46 74 C 40 64, 36 50, 34 36 Z" fill="url(#ch22-cycle-grad)" stroke="url(#ch22-cycle-stroke)" stroke-width="3.0" stroke-linejoin="round"/>
+    <path d="M 50.21 42.43 L 53.25 46.40 L 48.48 47.90" stroke="url(#ch22-cycle-stroke)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 72.66 82.90 L 69.00 79.50 L 73.45 77.22" stroke="url(#ch22-cycle-stroke)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="98" cy="82" r="2.6" fill="var(--logo-node-bg, #e2e8f0)" stroke="var(--logo-green, #10b981)" stroke-width="1.6"/>
+    <circle cx="46" cy="74" r="2.6" fill="var(--logo-node-bg, #e2e8f0)" stroke="var(--logo-green, #10b981)" stroke-width="1.6"/>
+    <!-- Irreversible heat rejection: crimson exhaust dispersing into entropy -->
+    <line x1="82" y1="81.5" x2="103.67" y2="99.23" stroke="url(#ch22-exhaust-vent)" stroke-width="3.0" stroke-linecap="round"/>
+    <path d="M 102.92 94.42 L 105.22 100.50 L 98.81 99.45" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="112" cy="92" r="1.9" fill="url(#ch22-particle)" fill-opacity="0.85"/>
+    <circle cx="118" cy="98" r="1.5" fill="url(#ch22-particle)" fill-opacity="0.6"/>
+    <circle cx="113" cy="104" r="1.6" fill="url(#ch22-particle)" fill-opacity="0.65"/>
+    <circle cx="121" cy="90" r="1.1" fill="url(#ch22-particle)" fill-opacity="0.4"/>
+    <circle cx="123" cy="104" r="1.0" fill="url(#ch22-particle)" fill-opacity="0.3"/>
+    <circle cx="106" cy="108" r="1.2" fill="url(#ch22-particle)" fill-opacity="0.45"/>
+    <circle cx="34" cy="36" r="8.5" fill="url(#ch22-node-well)" stroke="url(#ch22-ring-epi)" stroke-width="3.0"/>
+    <circle cx="34" cy="36" r="3.8" fill="url(#ch22-core-epi)"/>
+    <circle cx="74" cy="50" r="8.5" fill="url(#ch22-node-well)" stroke="url(#ch22-ring-vital)" stroke-width="3.0"/>
+    <circle cx="74" cy="50" r="3.8" fill="url(#ch22-core-vital)"/>
     <g>
-      <circle cx="60.00" cy="64.00" r="6.66" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="60.00" cy="64.00" r="5.76" fill="url(#ch22-pupil)" stroke="url(#ch22-gold-mira)" stroke-width="2.16"/>
-      <line x1="51.36" y1="64.00" x2="56.22" y2="64.00" stroke="url(#ch22-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="63.78" y1="64.00" x2="68.64" y2="64.00" stroke="url(#ch22-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="60.00" y1="55.36" x2="60.00" y2="60.22" stroke="url(#ch22-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <line x1="60.00" y1="67.78" x2="60.00" y2="72.64" stroke="url(#ch22-gold-mira)" stroke-width="2.16" stroke-linecap="round"/>
-      <circle cx="60.00" cy="64.00" r="1.98" fill="url(#ch22-gold-core)"/>
+      <circle cx="64" cy="64" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64" cy="64" r="6.4" fill="url(#ch22-pupil)" stroke="url(#ch22-gold-mira)" stroke-width="2.4"/>
+      <line x1="54.40" y1="64.00" x2="59.80" y2="64.00" stroke="url(#ch22-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="68.20" y1="64.00" x2="73.60" y2="64.00" stroke="url(#ch22-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64.00" y1="54.40" x2="64.00" y2="59.80" stroke="url(#ch22-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64.00" y1="68.20" x2="64.00" y2="73.60" stroke="url(#ch22-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="64" cy="64" r="2.2" fill="url(#ch22-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">
@@ -117,7 +144,7 @@
     <circle cx="490" cy="78" r="1.6" fill="var(--logo-crimson, #e11d48)"/>
     <text x="2" y="104" fill="var(--logo-meta, #475569)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="10.8" font-weight="600" letter-spacing="0.65">SECOND LAW DISSIPATION · FREE-ENERGY WORK · MAINTENANCE COST OF ORDER</text>
   </g>
-  </svg>
+</svg>
 </figure>
 
 > Second chapter of the natural-science block in Part II. The subject is why some processes run in one

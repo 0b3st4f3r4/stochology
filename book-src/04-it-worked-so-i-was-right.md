@@ -1,35 +1,76 @@
 # It Worked, So I Was Right
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH04 · TELIC AIM — Outcome Luck Vs. Apt Agency">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH04 · TELIC AIM — Outcome Luck Vs. Apt Agency">
   <defs>
+    <!-- Divider Progression: Vital Emerald -> Epistemic Sapphire -> Stókhos Gold -> Institutional Crimson -->
     <linearGradient id="ch04-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch04-glow" cx="50%" cy="50%" r="50%">
+    <!-- Multi-spectral Atmospheric Glow -->
+    <radialGradient id="ch04-glow" cx="52%" cy="52%" r="50%">
       <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.24"/>
-      <stop offset="50%" stop-color="#fbbf24" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#38bdf8" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#fbbf24" stop-opacity="0.16"/>
+      <stop offset="80%" stop-color="#38bdf8" stop-opacity="0.10"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch04-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
+    <!-- Concentric Target Radar Disc Fill -->
+    <radialGradient id="ch04-radar-rings" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#2563eb" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Adroit Aim Laser Gradient: Solar Gold Télos -->
+    <linearGradient id="ch04-apt-vector" x1="24" y1="88" x2="98" y2="38" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
     </linearGradient>
-    <linearGradient id="ch04-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
+    <!-- Outcome Luck Deflection Arc: Crimson Perturbation -->
+    <linearGradient id="ch04-luck-divergence" x1="64" y1="66" x2="98" y2="94" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="45%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
     </linearGradient>
-    <linearGradient id="ch04-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
-      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
-      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    <!-- 3D Spherical Node Gradients -->
+    <radialGradient id="ch04-node-well" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
+      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
+    </radialGradient>
+    <linearGradient id="ch04-ring-vital" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6ee7b7"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#065f46"/>
     </linearGradient>
+    <radialGradient id="ch04-core-vital" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="45%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </radialGradient>
+    <linearGradient id="ch04-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <radialGradient id="ch04-core-epi" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="45%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </radialGradient>
+    <linearGradient id="ch04-ring-gov" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fda4af"/>
+      <stop offset="50%" stop-color="#e11d48"/>
+      <stop offset="100%" stop-color="#881337"/>
+    </linearGradient>
+    <radialGradient id="ch04-core-gov" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fecdd3"/>
+      <stop offset="45%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </radialGradient>
+    <!-- Golden Stókhos Reticle Gradients -->
     <radialGradient id="ch04-pupil" cx="45%" cy="42%" r="58%">
       <stop offset="0%" stop-color="#020617"/>
       <stop offset="68%" stop-color="#0f172a"/>
@@ -45,61 +86,41 @@
       <stop offset="35%" stop-color="#fde047"/>
       <stop offset="100%" stop-color="#d97706"/>
     </radialGradient>
-    <radialGradient id="ch04-node-well" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
-      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
-    </radialGradient>
-    <linearGradient id="ch04-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7dd3fc"/>
-      <stop offset="50%" stop-color="#2563eb"/>
-      <stop offset="100%" stop-color="#1e3a8a"/>
-    </linearGradient>
-    <radialGradient id="ch04-core-epi" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#bae6fd"/>
-      <stop offset="45%" stop-color="#3b82f6"/>
-      <stop offset="100%" stop-color="#1d4ed8"/>
-    </radialGradient>
-    <linearGradient id="ch04-ring-vital" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#6ee7b7"/>
-      <stop offset="50%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#065f46"/>
-    </linearGradient>
-    <radialGradient id="ch04-core-vital" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#a7f3d0"/>
-      <stop offset="45%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#047857"/>
-    </radialGradient>
-    <linearGradient id="ch04-ring-gov" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fda4af"/>
-      <stop offset="50%" stop-color="#e11d48"/>
-      <stop offset="100%" stop-color="#881337"/>
-    </linearGradient>
-    <radialGradient id="ch04-core-gov" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#fecdd3"/>
-      <stop offset="45%" stop-color="#f43f5e"/>
-      <stop offset="100%" stop-color="#be123c"/>
-    </radialGradient>
   </defs>
   <g>
+    <!-- Atmospheric Glow -->
     <circle cx="64" cy="66" r="48" fill="url(#ch04-glow)"/>
+    <!-- Concentric Target Radar Geometry (Accurate, Adroit, Apt) -->
     <circle cx="64" cy="66" r="42" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.45"/>
-    <line x1="58" y1="24" x2="58" y2="108" stroke="url(#ch04-gold-mira)" stroke-width="2.2" stroke-dasharray="3.5 2.5"/>
-    <path d="M 24 66 L 58 66 L 98 38" stroke="var(--logo-green, #10b981)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M 58 66 L 98 94" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.8" stroke-dasharray="4 3" stroke-linecap="round"/>
-    <circle cx="24.00" cy="66.00" r="6.72" fill="url(#ch04-node-well)" stroke="url(#ch04-ring-epi)" stroke-width="2.48"/>
-    <circle cx="24.00" cy="66.00" r="2.88" fill="url(#ch04-core-epi)"/>
-    <circle cx="98.00" cy="38.00" r="6.55" fill="url(#ch04-node-well)" stroke="url(#ch04-ring-vital)" stroke-width="2.42"/>
-    <circle cx="98.00" cy="38.00" r="2.81" fill="url(#ch04-core-vital)"/>
-    <circle cx="98.00" cy="94.00" r="6.55" fill="url(#ch04-node-well)" stroke="url(#ch04-ring-gov)" stroke-width="2.42"/>
-    <circle cx="98.00" cy="94.00" r="2.81" fill="url(#ch04-core-gov)"/>
-    <g>
-      <circle cx="58.00" cy="66.00" r="7.03" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="58.00" cy="66.00" r="6.08" fill="url(#ch04-pupil)" stroke="url(#ch04-gold-mira)" stroke-width="2.28"/>
-      <line x1="48.88" y1="66.00" x2="54.01" y2="66.00" stroke="url(#ch04-gold-mira)" stroke-width="2.28" stroke-linecap="round"/>
-      <line x1="61.99" y1="66.00" x2="67.12" y2="66.00" stroke="url(#ch04-gold-mira)" stroke-width="2.28" stroke-linecap="round"/>
-      <line x1="58.00" y1="56.88" x2="58.00" y2="62.01" stroke="url(#ch04-gold-mira)" stroke-width="2.28" stroke-linecap="round"/>
-      <line x1="58.00" y1="69.99" x2="58.00" y2="75.12" stroke="url(#ch04-gold-mira)" stroke-width="2.28" stroke-linecap="round"/>
-      <circle cx="58.00" cy="66.00" r="2.09" fill="url(#ch04-gold-core)"/>
+    <circle cx="64" cy="66" r="28" fill="url(#ch04-radar-rings)" stroke="var(--logo-blue, #2563eb)" stroke-width="1.4" stroke-opacity="0.45"/>
+    <circle cx="64" cy="66" r="14" stroke="var(--logo-gold, #f59e0b)" stroke-width="1.6" stroke-dasharray="2.5 2.5" stroke-opacity="0.75"/>
+    <!-- Pre-Outcome Seal Horizon Boundary -->
+    <line x1="64" y1="22" x2="64" y2="110" stroke="var(--logo-ticks, #64748b)" stroke-width="1.4" stroke-dasharray="3 3" stroke-opacity="0.5"/>
+    <!-- Adroit Aim Vector (Ex-Ante Apt Trajectory to Epistemic Target) -->
+    <path d="M 24 88 L 64 66 L 88.51 45.82" stroke="url(#ch04-apt-vector)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 87.18 51.48 L 90.05 44.55 L 82.70 46.04" stroke="url(#ch04-apt-vector)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Outcome Luck Deflection Arc (Ex-Post Divergence / Moral Luck) -->
+    <path d="M 64 66 Q 80 84 98 94" stroke="url(#ch04-luck-divergence)" stroke-width="2.8" stroke-dasharray="4 2.5" stroke-linecap="round"/>
+    <path d="M 64 66 Q 74 60 96 66" stroke="var(--logo-ticks, #64748b)" stroke-width="1.4" stroke-dasharray="2 2" stroke-opacity="0.5"/>
+    <!-- 3D Spherical Nodes -->
+    <!-- Launch Agency Anchor at (24, 88) -->
+    <circle cx="24" cy="88" r="8.5" fill="url(#ch04-node-well)" stroke="url(#ch04-ring-vital)" stroke-width="3.2"/>
+    <circle cx="24" cy="88" r="3.8" fill="url(#ch04-core-vital)"/>
+    <!-- Apt Agency Target Node at (98, 38) -->
+    <circle cx="98" cy="38" r="8.5" fill="url(#ch04-node-well)" stroke="url(#ch04-ring-epi)" stroke-width="3.2"/>
+    <circle cx="98" cy="38" r="3.8" fill="url(#ch04-core-epi)"/>
+    <!-- Outcome Luck Warning Node at (98, 94) -->
+    <circle cx="98" cy="94" r="8.5" fill="url(#ch04-node-well)" stroke="url(#ch04-ring-gov)" stroke-width="3.2"/>
+    <circle cx="98" cy="94" r="3.8" fill="url(#ch04-core-gov)"/>
+    <!-- Central Telic Aim Nexus Stókhos Reticle at (64, 66) -->
+    <g id="ch04-reticle">
+      <circle cx="64" cy="66" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64" cy="66" r="6.4" fill="url(#ch04-pupil)" stroke="url(#ch04-gold-mira)" stroke-width="2.4"/>
+      <line x1="54.4" y1="66" x2="59.8" y2="66" stroke="url(#ch04-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="68.2" y1="66" x2="73.6" y2="66" stroke="url(#ch04-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64" y1="56.4" x2="64" y2="61.8" stroke="url(#ch04-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64" y1="70.2" x2="64" y2="75.6" stroke="url(#ch04-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="64" cy="66" r="2.2" fill="url(#ch04-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

@@ -1,50 +1,39 @@
 # What a Number Doesn't Say
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH05 · CREDENCE — Natural Frequencies And Base Rates">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH05 · CREDENCE — Natural Frequencies And Base Rates">
   <defs>
+    <!-- Divider Progression: Vital Emerald -> Epistemic Sapphire -> Stókhos Gold -> Institutional Crimson -->
     <linearGradient id="ch05-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch05-glow" cx="50%" cy="50%" r="50%">
+    <!-- Multi-spectral Atmospheric Glow -->
+    <radialGradient id="ch05-glow" cx="52%" cy="52%" r="50%">
       <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
-      <stop offset="50%" stop-color="#2563eb" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#fbbf24" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#2563eb" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#fbbf24" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch05-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
+    <!-- Natural Frequency Population Trunk Gradient -->
+    <linearGradient id="ch05-trunk-grad" x1="26" y1="66" x2="64" y2="66" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
     </linearGradient>
-    <linearGradient id="ch05-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
+    <!-- True Positive Signal Conduit: Vital Emerald -->
+    <linearGradient id="ch05-signal-branch" x1="64" y1="42" x2="102" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
+      <stop offset="100%" stop-color="#34d399"/>
     </linearGradient>
-    <linearGradient id="ch05-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
-      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
-      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    <!-- False Positive Alarm Flood Conduit: Governance Crimson -->
+    <linearGradient id="ch05-alarm-branch" x1="64" y1="90" x2="102" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fb7185"/>
+      <stop offset="50%" stop-color="var(--logo-crimson, #e11d48)"/>
+      <stop offset="100%" stop-color="#881337"/>
     </linearGradient>
-    <radialGradient id="ch05-pupil" cx="45%" cy="42%" r="58%">
-      <stop offset="0%" stop-color="#020617"/>
-      <stop offset="68%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#451a03"/>
-    </radialGradient>
-    <linearGradient id="ch05-gold-mira" x1="54" y1="48" x2="84" y2="82" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#fef08a"/>
-      <stop offset="45%" stop-color="#fbbf24"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </linearGradient>
-    <radialGradient id="ch05-gold-core" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="35%" stop-color="#fde047"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </radialGradient>
+    <!-- 3D Spherical Node Gradients -->
     <radialGradient id="ch05-node-well" cx="38%" cy="35%" r="65%">
       <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
       <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
@@ -79,28 +68,62 @@
       <stop offset="45%" stop-color="#f43f5e"/>
       <stop offset="100%" stop-color="#be123c"/>
     </radialGradient>
+    <!-- Golden Stókhos Reticle Gradients -->
+    <radialGradient id="ch05-pupil" cx="45%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="68%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </radialGradient>
+    <linearGradient id="ch05-gold-mira" x1="54" y1="48" x2="84" y2="82" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="45%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <radialGradient id="ch05-gold-core" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </radialGradient>
   </defs>
   <g>
+    <!-- Atmospheric Glow & Reference Coordinate Horizon -->
     <circle cx="64" cy="66" r="48" fill="url(#ch05-glow)"/>
     <circle cx="64" cy="66" r="42" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.45"/>
-    <path d="M 64 24 L 34 62 L 22 96" stroke="var(--logo-blue, #2563eb)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M 34 62 L 48 96" stroke="var(--logo-ticks, #64748b)" stroke-width="2.0" stroke-dasharray="3 2.5" stroke-linecap="round"/>
-    <path d="M 64 24 L 94 62 L 80 96" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M 94 62 L 106 96" stroke="var(--logo-green, #10b981)" stroke-width="2.2" stroke-linecap="round"/>
-    <circle cx="64.00" cy="24.00" r="6.89" fill="url(#ch05-node-well)" stroke="url(#ch05-ring-epi)" stroke-width="2.54"/>
-    <circle cx="64.00" cy="24.00" r="2.95" fill="url(#ch05-core-epi)"/>
-    <circle cx="34.00" cy="62.00" r="6.30" fill="url(#ch05-node-well)" stroke="url(#ch05-ring-vital)" stroke-width="2.33"/>
-    <circle cx="34.00" cy="62.00" r="2.70" fill="url(#ch05-core-vital)"/>
-    <circle cx="94.00" cy="62.00" r="6.30" fill="url(#ch05-node-well)" stroke="url(#ch05-ring-gov)" stroke-width="2.33"/>
-    <circle cx="94.00" cy="62.00" r="2.70" fill="url(#ch05-core-gov)"/>
-    <g>
-      <circle cx="22.00" cy="96.00" r="6.29" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="22.00" cy="96.00" r="5.44" fill="url(#ch05-pupil)" stroke="url(#ch05-gold-mira)" stroke-width="2.04"/>
-      <line x1="13.84" y1="96.00" x2="18.43" y2="96.00" stroke="url(#ch05-gold-mira)" stroke-width="2.04" stroke-linecap="round"/>
-      <line x1="25.57" y1="96.00" x2="30.16" y2="96.00" stroke="url(#ch05-gold-mira)" stroke-width="2.04" stroke-linecap="round"/>
-      <line x1="22.00" y1="87.84" x2="22.00" y2="92.43" stroke="url(#ch05-gold-mira)" stroke-width="2.04" stroke-linecap="round"/>
-      <line x1="22.00" y1="99.57" x2="22.00" y2="104.16" stroke="url(#ch05-gold-mira)" stroke-width="2.04" stroke-linecap="round"/>
-      <circle cx="22.00" cy="96.00" r="1.87" fill="url(#ch05-gold-core)"/>
+    <!-- Population Root Bifurcation Conduits -->
+    <!-- Rare Condition Branch (Low Base Rate Prevalence) -->
+    <path d="M 26 66 C 38 66, 48 48, 64 42" stroke="url(#ch05-trunk-grad)" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- Non-Condition Majority Branch (High Base Rate) -->
+    <path d="M 26 66 C 38 66, 48 84, 64 90" stroke="url(#ch05-trunk-grad)" stroke-width="3.6" stroke-linecap="round"/>
+    <!-- Diagnostic Test Outflows -->
+    <!-- Condition Node -> True Positive Signal (Emerald) -->
+    <path d="M 64 42 C 76 42, 86 34, 102 32" stroke="url(#ch05-signal-branch)" stroke-width="2.4" stroke-linecap="round"/>
+    <!-- Condition Node -> False Negative Miss -->
+    <path d="M 64 42 C 76 42, 86 50, 102 52" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6" stroke-dasharray="3 2" stroke-linecap="round"/>
+    <!-- Non-Condition Node -> False Positive Alarm Surge (Crimson Flood: Base Rate Fallacy) -->
+    <path d="M 64 90 C 76 90, 84 82, 102 80" stroke="url(#ch05-alarm-branch)" stroke-width="3.8" stroke-linecap="round"/>
+    <!-- Non-Condition Node -> True Negative Specificity -->
+    <path d="M 64 90 C 76 90, 84 98, 102 102" stroke="var(--logo-ticks, #64748b)" stroke-width="2.2" stroke-dasharray="4 2.5" stroke-linecap="round"/>
+    <!-- 3D Spherical Nodes -->
+    <!-- Root Population Node at (26, 66) -->
+    <circle cx="26" cy="66" r="8.5" fill="url(#ch05-node-well)" stroke="url(#ch05-ring-epi)" stroke-width="3.2"/>
+    <circle cx="26" cy="66" r="3.8" fill="url(#ch05-core-epi)"/>
+    <!-- True Positive Signal Node at (102, 32) -->
+    <circle cx="102" cy="32" r="8.5" fill="url(#ch05-node-well)" stroke="url(#ch05-ring-vital)" stroke-width="3.2"/>
+    <circle cx="102" cy="32" r="3.8" fill="url(#ch05-core-vital)"/>
+    <!-- False Alarm Surge Node at (102, 80) (Massive Visual Gravity) -->
+    <circle cx="102" cy="80" r="9.2" fill="url(#ch05-node-well)" stroke="url(#ch05-ring-gov)" stroke-width="3.4"/>
+    <circle cx="102" cy="80" r="4.0" fill="url(#ch05-core-gov)"/>
+    <!-- Intermediate Base-Rate Junction Anchor at (64, 90) -->
+    <circle cx="64" cy="90" r="4.8" fill="var(--logo-node-bg, #e2e8f0)" stroke="var(--logo-ticks, #64748b)" stroke-width="1.8"/>
+    <!-- Diagnostic Screening Threshold Stókhos Reticle at (64, 42) -->
+    <g id="ch05-reticle">
+      <circle cx="64" cy="42" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64" cy="42" r="6.4" fill="url(#ch05-pupil)" stroke="url(#ch05-gold-mira)" stroke-width="2.4"/>
+      <line x1="54.4" y1="42" x2="59.8" y2="42" stroke="url(#ch05-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="68.2" y1="42" x2="73.6" y2="42" stroke="url(#ch05-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64" y1="32.4" x2="64" y2="37.8" stroke="url(#ch05-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="64" y1="46.2" x2="64" y2="51.6" stroke="url(#ch05-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="64" cy="42" r="2.2" fill="url(#ch05-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

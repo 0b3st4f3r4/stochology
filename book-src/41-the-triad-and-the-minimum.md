@@ -1,7 +1,7 @@
 # The Triad and the Minimum
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH41 · SYNTHESIS — The Nuclear Triad And The Minimum">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH41 · SYNTHESIS — The Nuclear Triad And The Minimum">
   <defs>
     <linearGradient id="ch41-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
@@ -11,8 +11,8 @@
     </linearGradient>
     <radialGradient id="ch41-glow" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
-      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#e11d48" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="ch41-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
@@ -82,24 +82,24 @@
   </defs>
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#ch41-glow)"/>
-    <polygon points="64,22 102,44 102,88 64,110 26,88 26,44" fill="url(#ch41-fill)" stroke="url(#ch41-triad-stroke)" stroke-width="2.2" stroke-linejoin="round"/>
-    <line x1="64" y1="66" x2="64" y2="22" stroke="var(--logo-blue, #2563eb)" stroke-width="2.4"/>
-    <line x1="64" y1="66" x2="26" y2="88" stroke="var(--logo-green, #10b981)" stroke-width="2.4"/>
-    <line x1="64" y1="66" x2="102" y2="88" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.4"/>
-    <circle cx="26.00" cy="88.00" r="6.55" fill="url(#ch41-node-well)" stroke="url(#ch41-ring-vital)" stroke-width="2.42"/>
-    <circle cx="26.00" cy="88.00" r="2.81" fill="url(#ch41-core-vital)"/>
-    <circle cx="102.00" cy="88.00" r="6.55" fill="url(#ch41-node-well)" stroke="url(#ch41-ring-gov)" stroke-width="2.42"/>
-    <circle cx="102.00" cy="88.00" r="2.81" fill="url(#ch41-core-gov)"/>
-    <circle cx="64.00" cy="66.00" r="6.55" fill="url(#ch41-node-well)" stroke="url(#ch41-ring-epi)" stroke-width="2.42"/>
-    <circle cx="64.00" cy="66.00" r="2.81" fill="url(#ch41-core-epi)"/>
+    <polygon points="64,22 102,44 102,88 64,110 26,88 26,44" fill="url(#ch41-fill)" stroke="url(#ch41-triad-stroke)" stroke-width="2.4" stroke-linejoin="round"/>
+    <line x1="64" y1="22" x2="64" y2="66" stroke="var(--logo-blue, #2563eb)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="26" y1="88" x2="64" y2="66" stroke="var(--logo-green, #10b981)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="102" y1="88" x2="64" y2="66" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="64" cy="22" r="6.6" fill="url(#ch41-node-well)" stroke="url(#ch41-ring-epi)" stroke-width="2.4"/>
+    <circle cx="64" cy="22" r="2.8" fill="url(#ch41-core-epi)"/>
+    <circle cx="26" cy="88" r="6.6" fill="url(#ch41-node-well)" stroke="url(#ch41-ring-vital)" stroke-width="2.4"/>
+    <circle cx="26" cy="88" r="2.8" fill="url(#ch41-core-vital)"/>
+    <circle cx="102" cy="88" r="6.6" fill="url(#ch41-node-well)" stroke="url(#ch41-ring-gov)" stroke-width="2.4"/>
+    <circle cx="102" cy="88" r="2.8" fill="url(#ch41-core-gov)"/>
     <g>
-      <circle cx="64.00" cy="22.00" r="6.96" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="64.00" cy="22.00" r="6.02" fill="url(#ch41-pupil)" stroke="url(#ch41-gold-mira)" stroke-width="2.26"/>
-      <line x1="54.98" y1="22.00" x2="60.05" y2="22.00" stroke="url(#ch41-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <line x1="67.95" y1="22.00" x2="73.02" y2="22.00" stroke="url(#ch41-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <line x1="64.00" y1="12.98" x2="64.00" y2="18.05" stroke="url(#ch41-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <line x1="64.00" y1="25.95" x2="64.00" y2="31.02" stroke="url(#ch41-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <circle cx="64.00" cy="22.00" r="2.07" fill="url(#ch41-gold-core)"/>
+      <circle cx="64" cy="66" r="7.0" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64" cy="66" r="6.0" fill="url(#ch41-pupil)" stroke="url(#ch41-gold-mira)" stroke-width="2.2"/>
+      <line x1="55.0" y1="66" x2="60.0" y2="66" stroke="url(#ch41-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="68.0" y1="66" x2="73.0" y2="66" stroke="url(#ch41-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64" y1="57.0" x2="64" y2="62.0" stroke="url(#ch41-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64" y1="70.0" x2="64" y2="75.0" stroke="url(#ch41-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="64" cy="66" r="2.0" fill="url(#ch41-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

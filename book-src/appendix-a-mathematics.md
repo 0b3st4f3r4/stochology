@@ -1,7 +1,7 @@
 # Appendix A — Mathematical Reference
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology Appendix A — Mathematical Reference">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology Appendix A — Mathematical Reference">
   <defs>
     <linearGradient id="apa-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
@@ -11,8 +11,8 @@
     </linearGradient>
     <radialGradient id="apa-glow" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
-      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#e11d48" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="apa-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
@@ -82,22 +82,27 @@
   </defs>
   <g>
     <circle cx="64" cy="66" r="48" fill="url(#apa-glow)"/>
-    <circle cx="64" cy="66" r="40" stroke="url(#apa-triad-stroke)" stroke-width="2.2" stroke-dasharray="4 3"/>
-    <polygon points="64,24 102,86 26,86" fill="url(#apa-fill)" stroke="url(#apa-ink-curve)" stroke-width="2.4" stroke-linejoin="round"/>
-    <circle cx="64.00" cy="24.00" r="6.89" fill="url(#apa-node-well)" stroke="url(#apa-ring-epi)" stroke-width="2.54"/>
-    <circle cx="64.00" cy="24.00" r="2.95" fill="url(#apa-core-epi)"/>
-    <circle cx="26.00" cy="86.00" r="6.89" fill="url(#apa-node-well)" stroke="url(#apa-ring-vital)" stroke-width="2.54"/>
-    <circle cx="26.00" cy="86.00" r="2.95" fill="url(#apa-core-vital)"/>
-    <circle cx="102.00" cy="86.00" r="6.89" fill="url(#apa-node-well)" stroke="url(#apa-ring-gov)" stroke-width="2.54"/>
-    <circle cx="102.00" cy="86.00" r="2.95" fill="url(#apa-core-gov)"/>
-    <g>
-      <circle cx="64.00" cy="66.00" r="6.96" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="64.00" cy="66.00" r="6.02" fill="url(#apa-pupil)" stroke="url(#apa-gold-mira)" stroke-width="2.26"/>
-      <line x1="54.98" y1="66.00" x2="60.05" y2="66.00" stroke="url(#apa-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <line x1="67.95" y1="66.00" x2="73.02" y2="66.00" stroke="url(#apa-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <line x1="64.00" y1="56.98" x2="64.00" y2="62.05" stroke="url(#apa-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <line x1="64.00" y1="69.95" x2="64.00" y2="75.02" stroke="url(#apa-gold-mira)" stroke-width="2.26" stroke-linecap="round"/>
-      <circle cx="64.00" cy="66.00" r="2.07" fill="url(#apa-gold-core)"/>
+    <circle cx="64" cy="66" r="42" fill="none" stroke="var(--logo-ticks, #64748b)" stroke-width="1.3" stroke-dasharray="3 2.5" stroke-opacity="0.55"/>
+    <circle cx="64" cy="66" r="30" fill="none" stroke="var(--logo-ticks, #64748b)" stroke-width="1.0" stroke-dasharray="2 3" stroke-opacity="0.35"/>
+    <polygon points="64,24 102,86 26,86" fill="url(#apa-fill)" stroke="url(#apa-triad-stroke)" stroke-width="2.4" stroke-linejoin="round"/>
+    <polygon points="64,36 92,80 36,80" fill="none" stroke="url(#apa-ink-curve)" stroke-width="1.4" stroke-opacity="0.65" stroke-linejoin="round"/>
+    <line x1="64" y1="36" x2="64" y2="58" stroke="url(#apa-triad-stroke)" stroke-width="1.2" stroke-dasharray="2.5 2" stroke-opacity="0.6"/>
+    <line x1="36" y1="80" x2="57" y2="70" stroke="url(#apa-triad-stroke)" stroke-width="1.2" stroke-dasharray="2.5 2" stroke-opacity="0.6"/>
+    <line x1="92" y1="80" x2="71" y2="70" stroke="url(#apa-triad-stroke)" stroke-width="1.2" stroke-dasharray="2.5 2" stroke-opacity="0.6"/>
+    <circle cx="64.00" cy="24.00" r="7.2" fill="url(#apa-node-well)" stroke="url(#apa-ring-epi)" stroke-width="2.6"/>
+    <circle cx="64.00" cy="24.00" r="3.2" fill="url(#apa-core-epi)"/>
+    <circle cx="26.00" cy="86.00" r="7.2" fill="url(#apa-node-well)" stroke="url(#apa-ring-vital)" stroke-width="2.6"/>
+    <circle cx="26.00" cy="86.00" r="3.2" fill="url(#apa-core-vital)"/>
+    <circle cx="102.00" cy="86.00" r="7.2" fill="url(#apa-node-well)" stroke="url(#apa-ring-gov)" stroke-width="2.6"/>
+    <circle cx="102.00" cy="86.00" r="3.2" fill="url(#apa-core-gov)"/>
+    <g id="apa-reticle">
+      <circle cx="64.00" cy="66.00" r="7.2" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64.00" cy="66.00" r="6.2" fill="url(#apa-pupil)" stroke="url(#apa-gold-mira)" stroke-width="2.2"/>
+      <line x1="58.8" y1="66.00" x2="63.5" y2="66.00" stroke="url(#apa-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64.5" y1="66.00" x2="69.2" y2="66.00" stroke="url(#apa-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64.00" y1="60.8" x2="64.00" y2="65.5" stroke="url(#apa-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64.00" y1="66.5" x2="64.00" y2="71.2" stroke="url(#apa-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="64.00" cy="66.00" r="2.1" fill="url(#apa-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">

@@ -1,35 +1,61 @@
 # Deciding Without Knowing
 
 <figure class="stoch-figure stoch-logo-figure">
-  <svg xmlns="http://www.w3.org/2000/svg" width="660" height="132" viewBox="0 0 660 132" fill="none" role="img" aria-label="Stochology CH01 · STÓKHOS — The Archer And The Crosswind">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH01 · STÓKHOS — The Archer And The Crosswind">
   <defs>
+    <!-- Divider Progression: Vital Emerald -> Epistemic Sapphire -> Stókhos Gold -> Institutional Crimson -->
     <linearGradient id="ch01-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
       <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
       <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
       <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
     </linearGradient>
-    <radialGradient id="ch01-glow" cx="50%" cy="50%" r="50%">
+    <!-- Atmospheric Glow -->
+    <radialGradient id="ch01-glow" cx="52%" cy="52%" r="50%">
       <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
-      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.14"/>
-      <stop offset="82%" stop-color="#e11d48" stop-opacity="0.08"/>
+      <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ch01-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
-      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
+    <!-- Composite Recurve Bow Gradient: Vital Emerald Physical Tension -->
+    <linearGradient id="ch01-bow-grad" x1="32" y1="24" x2="32" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="50%" stop-color="var(--logo-green, #10b981)"/>
+      <stop offset="100%" stop-color="#047857"/>
     </linearGradient>
-    <linearGradient id="ch01-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
-      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
+    <!-- Stókhos Arrow Trajectory: Sapphire Nock to Solar Gold Tip -->
+    <linearGradient id="ch01-arrow-grad" x1="20" y1="66" x2="88" y2="66" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)"/>
+      <stop offset="60%" stop-color="var(--logo-gold, #f59e0b)"/>
+      <stop offset="100%" stop-color="#ffffff"/>
     </linearGradient>
-    <linearGradient id="ch01-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
-      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
-      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    <!-- Turbulent Crosswinds: Epistemic Upper & Governance Lower Streamlines -->
+    <linearGradient id="ch01-wind-epi" x1="38" y1="38" x2="88" y2="38" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#1e3a8a" stop-opacity="0.2"/>
     </linearGradient>
+    <linearGradient id="ch01-wind-gov" x1="48" y1="92" x2="90" y2="92" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fb7185" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#881337" stop-opacity="0.2"/>
+    </linearGradient>
+    <!-- 3D Spherical Node Gradients -->
+    <radialGradient id="ch01-node-well" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
+      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
+    </radialGradient>
+    <linearGradient id="ch01-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <radialGradient id="ch01-core-epi" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="45%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </radialGradient>
+    <!-- Golden Stókhos Reticle Gradients -->
     <radialGradient id="ch01-pupil" cx="45%" cy="42%" r="58%">
       <stop offset="0%" stop-color="#020617"/>
       <stop offset="68%" stop-color="#0f172a"/>
@@ -45,61 +71,40 @@
       <stop offset="35%" stop-color="#fde047"/>
       <stop offset="100%" stop-color="#d97706"/>
     </radialGradient>
-    <radialGradient id="ch01-node-well" cx="38%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
-      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
-    </radialGradient>
-    <linearGradient id="ch01-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7dd3fc"/>
-      <stop offset="50%" stop-color="#2563eb"/>
-      <stop offset="100%" stop-color="#1e3a8a"/>
-    </linearGradient>
-    <radialGradient id="ch01-core-epi" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#bae6fd"/>
-      <stop offset="45%" stop-color="#3b82f6"/>
-      <stop offset="100%" stop-color="#1d4ed8"/>
-    </radialGradient>
-    <linearGradient id="ch01-ring-vital" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#6ee7b7"/>
-      <stop offset="50%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#065f46"/>
-    </linearGradient>
-    <radialGradient id="ch01-core-vital" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#a7f3d0"/>
-      <stop offset="45%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#047857"/>
-    </radialGradient>
-    <linearGradient id="ch01-ring-gov" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fda4af"/>
-      <stop offset="50%" stop-color="#e11d48"/>
-      <stop offset="100%" stop-color="#881337"/>
-    </linearGradient>
-    <radialGradient id="ch01-core-gov" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#fecdd3"/>
-      <stop offset="45%" stop-color="#f43f5e"/>
-      <stop offset="100%" stop-color="#be123c"/>
-    </radialGradient>
   </defs>
   <g>
+    <!-- Atmospheric Glow & Reference Coordinate Horizon -->
     <circle cx="64" cy="66" r="48" fill="url(#ch01-glow)"/>
     <circle cx="64" cy="66" r="42" stroke="var(--logo-ticks, #64748b)" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.45"/>
-    <path d="M 32 28 Q 54 66 32 104" stroke="url(#ch01-ring-vital)" stroke-width="3.6" stroke-linecap="round"/>
-    <line x1="32" y1="28" x2="22" y2="66" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6"/>
-    <line x1="32" y1="104" x2="22" y2="66" stroke="var(--logo-ticks, #64748b)" stroke-width="1.6"/>
-    <path d="M 48 40 C 60 36, 72 44, 88 38" stroke="var(--logo-blue, #2563eb)" stroke-width="1.8" stroke-dasharray="3 2.5" stroke-linecap="round"/>
-    <path d="M 50 92 C 62 88, 74 96, 90 90" stroke="var(--logo-crimson, #e11d48)" stroke-width="1.8" stroke-dasharray="3 2.5" stroke-linecap="round"/>
-    <line x1="22" y1="66" x2="88" y2="66" stroke="url(#ch01-ink-curve)" stroke-width="2.8" stroke-linecap="round"/>
-    <path d="M 81 60 L 90 66 L 81 72" stroke="url(#ch01-gold-mira)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="24.00" cy="66.00" r="6.89" fill="url(#ch01-node-well)" stroke="url(#ch01-ring-epi)" stroke-width="2.54"/>
-    <circle cx="24.00" cy="66.00" r="2.95" fill="url(#ch01-core-epi)"/>
-    <g>
-      <circle cx="94.00" cy="66.00" r="7.03" fill="var(--logo-node-bg, #e2e8f0)"/>
-      <circle cx="94.00" cy="66.00" r="6.08" fill="url(#ch01-pupil)" stroke="url(#ch01-gold-mira)" stroke-width="2.28"/>
-      <line x1="84.88" y1="66.00" x2="90.01" y2="66.00" stroke="url(#ch01-gold-mira)" stroke-width="2.28" stroke-linecap="round"/>
-      <line x1="97.99" y1="66.00" x2="103.12" y2="66.00" stroke="url(#ch01-gold-mira)" stroke-width="2.28" stroke-linecap="round"/>
-      <line x1="94.00" y1="56.88" x2="94.00" y2="62.01" stroke="url(#ch01-gold-mira)" stroke-width="2.28" stroke-linecap="round"/>
-      <line x1="94.00" y1="69.99" x2="94.00" y2="75.12" stroke="url(#ch01-gold-mira)" stroke-width="2.28" stroke-linecap="round"/>
-      <circle cx="94.00" cy="66.00" r="2.09" fill="url(#ch01-gold-core)"/>
+    <!-- Composite Recurve Bow (Vital Margin S_vital Tension) -->
+    <path d="M 32 24 C 44 42, 48 54, 42 66 C 48 78, 44 90, 32 108" stroke="url(#ch01-bow-grad)" stroke-width="4.0" stroke-linecap="round"/>
+    <circle cx="32" cy="24" r="2.2" fill="#047857"/>
+    <circle cx="32" cy="108" r="2.2" fill="#047857"/>
+    <!-- Drawn Bowstring under Tension -->
+    <path d="M 32 24 L 20 66 L 32 108" stroke="var(--logo-ticks, #64748b)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Arrow Vector (Stókhos Aim Shaft & Barbed Point) -->
+    <line x1="20" y1="66" x2="83" y2="66" stroke="url(#ch01-arrow-grad)" stroke-width="3.0" stroke-linecap="round"/>
+    <path d="M 77 60 L 85 66 L 77 72 Z" fill="url(#ch01-gold-mira)" stroke="url(#ch01-gold-mira)" stroke-width="1.6" stroke-linejoin="round"/>
+    <line x1="27" y1="66" x2="23" y2="61" stroke="var(--logo-gold, #f59e0b)" stroke-width="1.6" stroke-linecap="round"/>
+    <line x1="27" y1="66" x2="23" y2="71" stroke="var(--logo-gold, #f59e0b)" stroke-width="1.6" stroke-linecap="round"/>
+    <line x1="24" y1="66" x2="20" y2="62" stroke="var(--logo-gold, #f59e0b)" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="24" y1="66" x2="20" y2="70" stroke="var(--logo-gold, #f59e0b)" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Turbulent Crosswinds (Epistemic Upper Streamline & Governance Lower Streamline) -->
+    <path d="M 46 38 C 58 34, 72 44, 88 38" stroke="url(#ch01-wind-epi)" stroke-width="2.2" stroke-dasharray="4 2.5" stroke-linecap="round"/>
+    <path d="M 38 48 C 52 44, 62 50, 74 46" stroke="url(#ch01-wind-epi)" stroke-width="1.6" stroke-dasharray="3 2" stroke-linecap="round" stroke-opacity="0.65"/>
+    <path d="M 48 94 C 60 90, 74 98, 90 92" stroke="url(#ch01-wind-gov)" stroke-width="2.2" stroke-dasharray="4 2.5" stroke-linecap="round"/>
+    <!-- Archer's Nock Node (3D Epistemic Sphere at Release Point) -->
+    <circle cx="20" cy="66" r="8.5" fill="url(#ch01-node-well)" stroke="url(#ch01-ring-epi)" stroke-width="3.2"/>
+    <circle cx="20" cy="66" r="3.8" fill="url(#ch01-core-epi)"/>
+    <!-- Pauker-Kassirer Decision Threshold Reticle at Target (94, 66) -->
+    <g id="ch01-reticle">
+      <circle cx="94" cy="66" r="7.4" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="94" cy="66" r="6.4" fill="url(#ch01-pupil)" stroke="url(#ch01-gold-mira)" stroke-width="2.4"/>
+      <line x1="84.4" y1="66" x2="89.8" y2="66" stroke="url(#ch01-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="98.2" y1="66" x2="103.6" y2="66" stroke="url(#ch01-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="94" y1="56.4" x2="94" y2="61.8" stroke="url(#ch01-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <line x1="94" y1="70.2" x2="94" y2="75.6" stroke="url(#ch01-gold-mira)" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="94" cy="66" r="2.2" fill="url(#ch01-gold-core)"/>
     </g>
   </g>
   <g transform="translate(148, 0)">
