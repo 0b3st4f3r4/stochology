@@ -1,0 +1,14 @@
+[package]
+name = "stoch-crdt"
+version = "0.1.0"
+edition = "2021"
+description = "Zero-float, dependency-free causal-conservative CRDTs, revocable rehabilitation, and DTN queues for Stochology"
+license = "CC-BY-4.0"
+repository = "https://github.com/silvanoneto/stochology"
+include = ["src/**", "tests/**", "Cargo.toml"]
+
+[lib]
+crate-type = ["rlib"]
+
+# No dependencies: this table is absent on purpose so stoch-crdt remains inside
+# the pure integer-only trusted base checked by the C5 and C6 release gates.

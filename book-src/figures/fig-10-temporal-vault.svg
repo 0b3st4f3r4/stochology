@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="370" viewBox="0 0 1100 370" fill="none" role="img" aria-labelledby="title-fig-10-vault">
+  <title id="title-fig-10-vault">State Machine of the Single-Opening Temporal Vault</title>
+  <defs>
+    <marker id="v-sky" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--sky)"/>
+    </marker>
+    <marker id="v-emerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--emerald)"/>
+    </marker>
+    <marker id="v-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--amber)"/>
+    </marker>
+    <marker id="v-rose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--rose)"/>
+    </marker>
+  <style>
+    svg:root {
+      color-scheme: light dark;
+      --font-sans: "Inter", "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono-font: "JetBrains Mono", "Source Code Pro", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+      --canvas: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --surface: #ffffff;
+      --elevated: #f1f5f9;
+      --border: #cbd5e1;
+      --sky: #1d4ed8;
+      --sky-bg: #dbeafe;
+      --emerald: #047857;
+      --emerald-bg: #d1fae5;
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+      --rose: #be123c;
+      --rose-bg: #ffe4e6;
+    }
+    @media (prefers-color-scheme: dark) {
+      svg:root {
+        --canvas: #0f1626;
+        --ink: #e2e8f0;
+        --muted: #94a3b8;
+        --surface: #0f1626;
+        --elevated: #162036;
+        --border: #1e2d4a;
+        --sky: #38bdf8;
+        --sky-bg: #0c2644;
+        --emerald: #34d399;
+        --emerald-bg: #092e26;
+        --amber: #fbbf24;
+        --amber-bg: #362407;
+        --rose: #fb7185;
+        --rose-bg: #3b101d;
+      }
+    }
+    @supports (color: light-dark(white, black)) {
+      svg:root {
+        --canvas: light-dark(#ffffff, #0f1626);
+        --ink: light-dark(#0f172a, #e2e8f0);
+        --muted: light-dark(#475569, #94a3b8);
+        --surface: light-dark(#ffffff, #0f1626);
+        --elevated: light-dark(#f1f5f9, #162036);
+        --border: light-dark(#cbd5e1, #1e2d4a);
+        --sky: light-dark(#1d4ed8, #38bdf8);
+        --sky-bg: light-dark(#dbeafe, #0c2644);
+        --emerald: light-dark(#047857, #34d399);
+        --emerald-bg: light-dark(#d1fae5, #092e26);
+        --amber: light-dark(#b45309, #fbbf24);
+        --amber-bg: light-dark(#fef3c7, #362407);
+        --rose: light-dark(#be123c, #fb7185);
+        --rose-bg: light-dark(#ffe4e6, #3b101d);
+      }
+    }
+    text { font-family: var(--font-sans, "Inter", "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif); }
+    .mono { font-family: var(--mono-font, "JetBrains Mono", "Source Code Pro", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace); }
+  </style>
+  </defs>
+
+  <!-- Canvas Backdrop -->
+  <rect x="1" y="1" width="1098" height="368" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
+
+  <!-- State 0: sealed ex ante -->
+  <rect x="250" y="18" width="540" height="70" rx="12" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2.4"/>
+  <text x="520" y="47" text-anchor="middle" fill="var(--ink)" class="mono" font-size="14.5" font-weight="800">Sealed Ex Ante (no unsealing attempt)</text>
+  <text x="520" y="70" text-anchor="middle" fill="var(--sky)" class="mono" font-size="11.5" font-weight="700">64-Hex SHA-256 + RFC 2104 Keyed HMAC-SHA256 Seal</text>
+
+  <!-- Transition: unsealing with the key -->
+  <line x1="520" y1="88" x2="520" y2="128" stroke="var(--sky)" stroke-width="2.6" marker-end="url(#v-sky)"/>
+  <text x="506" y="114" text-anchor="end" fill="var(--sky)" class="mono" font-size="12" font-weight="800">First ex-post unsealing (with auditor key)</text>
+
+  <!-- Gate Evaluation Node -->
+  <rect x="250" y="134" width="540" height="64" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
+  <text x="520" y="161" text-anchor="middle" fill="var(--ink)" font-size="14" font-weight="800">Verify Keyed HMAC &amp; Pre-Registered Rule (single unsealing)</text>
+  <text x="520" y="182" text-anchor="middle" fill="var(--muted)" class="mono" font-size="11">Separate Cryptographic Key Integrity from Realized Exogenous Outcome</text>
+
+  <!-- Three-way Branch: Adroit & Apt / Adroit & Unlucky / Post-Commitment Deviation -->
+  <line x1="340" y1="198" x2="190" y2="248" stroke="var(--emerald)" stroke-width="2.4" marker-end="url(#v-emerald)"/>
+  <text x="252" y="220" text-anchor="end" fill="var(--emerald)" class="mono" font-size="11" font-weight="800">Key OK &amp; Target Met</text>
+
+  <line x1="540" y1="198" x2="540" y2="248" stroke="var(--sky)" stroke-width="2.4" marker-end="url(#v-sky)"/>
+  <text x="548" y="226" text-anchor="start" fill="var(--sky)" class="mono" font-size="11" font-weight="800">Key OK &amp; Adverse Outcome</text>
+
+  <line x1="720" y1="198" x2="890" y2="248" stroke="var(--amber)" stroke-width="2.4" marker-end="url(#v-amber)"/>
+  <text x="815" y="220" text-anchor="start" fill="var(--amber)" class="mono" font-size="11" font-weight="800">Bad Key / Seal Breach</text>
+
+  <!-- Terminal State 1: Adroit & Apt -->
+  <rect x="26" y="254" width="328" height="94" rx="12" fill="var(--emerald-bg)" stroke="var(--emerald)" stroke-width="2.4"/>
+  <text x="190" y="285" text-anchor="middle" fill="var(--ink)" class="mono" font-size="13.5" font-weight="800">Adroit &amp; Apt (Confirmatory)</text>
+  <text x="190" y="309" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="11" font-weight="700">Status: Pre-Registered Holdout Verified</text>
+  <text x="190" y="331" text-anchor="middle" fill="var(--muted)" font-size="11">Intact HMAC seal &amp; outcome target satisfied</text>
+
+  <!-- Terminal State 2: Adroit & Unlucky (Exogenous Risk · Non-Tampered) -->
+  <rect x="376" y="254" width="328" height="94" rx="12" fill="var(--sky-bg)" stroke="var(--sky)" stroke-width="2.4"/>
+  <text x="540" y="285" text-anchor="middle" fill="var(--ink)" class="mono" font-size="13.5" font-weight="800">Adroit &amp; Unlucky</text>
+  <text x="540" y="309" text-anchor="middle" fill="var(--sky)" class="mono" font-size="11" font-weight="700">Exogenous Risk · Non-Tampered</text>
+  <text x="540" y="331" text-anchor="middle" fill="var(--muted)" font-size="11">Intact key; adverse realization, not deviation</text>
+
+  <!-- Terminal State 3: Post-Commitment Deviation / Tampered -->
+  <rect x="726" y="254" width="348" height="94" rx="12" fill="var(--amber-bg)" stroke="var(--amber)" stroke-width="2.4"/>
+  <text x="900" y="285" text-anchor="middle" fill="var(--ink)" class="mono" font-size="13.5" font-weight="800">Post-Commitment Deviation</text>
+  <text x="900" y="309" text-anchor="middle" fill="var(--amber)" class="mono" font-size="11" font-weight="700">Status: Tampered / Exploratory Only</text>
+  <text x="900" y="331" text-anchor="middle" fill="var(--muted)" font-size="11">Requires brand-new untouched future vault</text>
+
+  <!-- Blocked Repeated Unsealing Callout -->
+  <rect x="820" y="102" width="256" height="68" rx="10" fill="var(--rose-bg)" stroke="var(--rose)" stroke-width="2"/>
+  <text x="948" y="130" text-anchor="middle" fill="var(--rose)" class="mono" font-size="11.5" font-weight="800">Repeated unsealing attempt</text>
+  <text x="948" y="152" text-anchor="middle" fill="var(--ink)" class="mono" font-size="11" font-weight="700">Post-Commitment Deviation (Gate 3)</text>
+  <line x1="790" y1="154" x2="814" y2="142" stroke="var(--rose)" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#v-rose)"/>
+</svg>

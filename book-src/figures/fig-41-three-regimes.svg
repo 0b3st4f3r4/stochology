@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="500" viewBox="0 0 1100 500" fill="none" role="img" aria-labelledby="title-fig-41-regimes">
+  <title id="title-fig-41-regimes">Decision procedure of the three regimes of action under opacity</title>
+  <defs>
+    <marker id="r-sky" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--sky)"/>
+    </marker>
+    <marker id="r-emerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--emerald)"/>
+    </marker>
+    <marker id="r-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--amber)"/>
+    </marker>
+    <marker id="r-rose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="var(--rose)"/>
+    </marker>
+  <style>
+    svg:root {
+      color-scheme: light dark;
+      --font-sans: "Inter", "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono-font: "JetBrains Mono", "Source Code Pro", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+      --canvas: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --surface: #ffffff;
+      --elevated: #f1f5f9;
+      --border: #cbd5e1;
+      --sky: #1d4ed8;
+      --sky-bg: #dbeafe;
+      --emerald: #047857;
+      --emerald-bg: #d1fae5;
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+      --rose: #be123c;
+      --rose-bg: #ffe4e6;
+    }
+    @media (prefers-color-scheme: dark) {
+      svg:root {
+        --canvas: #0f1626;
+        --ink: #e2e8f0;
+        --muted: #94a3b8;
+        --surface: #0f1626;
+        --elevated: #162036;
+        --border: #1e2d4a;
+        --sky: #38bdf8;
+        --sky-bg: #0c2644;
+        --emerald: #34d399;
+        --emerald-bg: #092e26;
+        --amber: #fbbf24;
+        --amber-bg: #362407;
+        --rose: #fb7185;
+        --rose-bg: #3b101d;
+      }
+    }
+    @supports (color: light-dark(white, black)) {
+      svg:root {
+        --canvas: light-dark(#ffffff, #0f1626);
+        --ink: light-dark(#0f172a, #e2e8f0);
+        --muted: light-dark(#475569, #94a3b8);
+        --surface: light-dark(#ffffff, #0f1626);
+        --elevated: light-dark(#f1f5f9, #162036);
+        --border: light-dark(#cbd5e1, #1e2d4a);
+        --sky: light-dark(#1d4ed8, #38bdf8);
+        --sky-bg: light-dark(#dbeafe, #0c2644);
+        --emerald: light-dark(#047857, #34d399);
+        --emerald-bg: light-dark(#d1fae5, #092e26);
+        --amber: light-dark(#b45309, #fbbf24);
+        --amber-bg: light-dark(#fef3c7, #362407);
+        --rose: light-dark(#be123c, #fb7185);
+        --rose-bg: light-dark(#ffe4e6, #3b101d);
+      }
+    }
+    text { font-family: var(--font-sans, "Inter", "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif); }
+    .mono { font-family: var(--mono-font, "JetBrains Mono", "Source Code Pro", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace); }
+  </style>
+  </defs>
+
+  <!-- Canvas Backdrop -->
+  <rect x="1" y="1" width="1098" height="498" rx="14" fill="var(--canvas)" stroke="var(--border)" stroke-width="1.5"/>
+
+  <!-- Entry -->
+  <rect x="310" y="24" width="420" height="62" rx="12" fill="var(--elevated)" stroke="var(--sky)" stroke-width="2.4"/>
+  <text x="520" y="50" text-anchor="middle" fill="var(--ink)" font-size="13.5" font-weight="800">First-order state θ<tspan dy="2.5" font-size="72%">t</tspan><tspan dy="-2.5"> unknown</tspan></text>
+  <text x="520" y="72" text-anchor="middle" fill="var(--sky)" class="mono" font-size="11.5" font-weight="700">inspect R<tspan dy="2.2" font-size="72%">t</tspan><tspan dy="-2.2"> = (R</tspan><tspan dy="2.2" font-size="72%">epi</tspan><tspan dy="-2.2">, R</tspan><tspan dy="2.2" font-size="72%">vital</tspan><tspan dy="-2.2">, R</tspan><tspan dy="2.2" font-size="72%">gov</tspan><tspan dy="-2.2">)</tspan></text>
+
+  <line x1="520" y1="86" x2="520" y2="112" stroke="var(--sky)" stroke-width="2.6" marker-end="url(#r-sky)"/>
+
+  <!-- Q1 -->
+  <rect x="310" y="118" width="420" height="56" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
+  <text x="520" y="142" text-anchor="middle" fill="var(--ink)" font-size="11.5" font-weight="700">Q1 · TTS<tspan dy="2.2" font-size="72%">survival,t</tspan><tspan dy="-2.2"> ≥ TTR</tspan><tspan dy="2.2" font-size="72%">eff,t</tspan><tspan dy="-2.2">(I</tspan><tspan dy="2.2" font-size="72%">t</tspan><tspan dy="-2.2">) (survives own recovery)?</tspan></text>
+  <text x="520" y="162" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.2">no → pre-empts missing slots; co-reports corrupt gov channel</text>
+
+  <line x1="730" y1="146" x2="796" y2="146" stroke="var(--amber)" stroke-width="2.4" marker-end="url(#r-amber)"/>
+  <text x="763" y="136" text-anchor="middle" fill="var(--amber)" class="mono" font-size="10.5" font-weight="800">No</text>
+
+  <rect x="800" y="112" width="270" height="68" rx="12" fill="var(--amber-bg)" stroke="var(--amber)" stroke-width="2.4"/>
+  <text x="935" y="137" text-anchor="middle" fill="var(--ink)" font-size="12.5" font-weight="800">Regime III-B · Algedonic halt</text>
+  <text x="935" y="157" text-anchor="middle" fill="var(--amber)" class="mono" font-size="10.5" font-weight="700">Withhold Shot — S3* anti-DoS halt</text>
+  <text x="935" y="172" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10">shed load, widen TTS, shorten TTR</text>
+
+  <line x1="520" y1="174" x2="520" y2="196" stroke="var(--sky)" stroke-width="2.6" marker-end="url(#r-sky)"/>
+  <text x="534" y="190" text-anchor="start" fill="var(--sky)" class="mono" font-size="10.5" font-weight="800">Yes</text>
+
+  <!-- Q2 -->
+  <rect x="310" y="202" width="420" height="56" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
+  <text x="520" y="226" text-anchor="middle" fill="var(--ink)" font-size="11.5" font-weight="700">Q2 · all seven invariants sealed &amp; gov channel / floors intact?</text>
+  <text x="520" y="246" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10.2">missing slot → Quarantine · corrupt → III-B · floor → inward</text>
+
+  <line x1="730" y1="230" x2="796" y2="230" stroke="var(--rose)" stroke-width="2.4" marker-end="url(#r-rose)"/>
+  <text x="763" y="220" text-anchor="middle" fill="var(--rose)" class="mono" font-size="10.5" font-weight="800">No</text>
+
+  <rect x="800" y="196" width="270" height="68" rx="12" fill="var(--rose-bg)" stroke="var(--rose)" stroke-width="2.4"/>
+  <text x="935" y="221" text-anchor="middle" fill="var(--ink)" font-size="12.5" font-weight="800">Regime III-A / III-B · Lower Bow</text>
+  <text x="935" y="241" text-anchor="middle" fill="var(--rose)" class="mono" font-size="10.5" font-weight="700">Quarantine, Halt, or Inward Load-Shed</text>
+  <text x="935" y="256" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10">audit lens, channel &amp; step floors</text>
+
+  <line x1="520" y1="258" x2="520" y2="280" stroke="var(--sky)" stroke-width="2.6" marker-end="url(#r-sky)"/>
+  <text x="534" y="274" text-anchor="start" fill="var(--sky)" class="mono" font-size="10.5" font-weight="800">Yes</text>
+
+  <!-- Q3 -->
+  <rect x="310" y="286" width="420" height="56" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>
+  <text x="520" y="310" text-anchor="middle" fill="var(--ink)" font-size="11.5" font-weight="700">Q3 · [L<tspan dy="2.2" font-size="72%">t</tspan><tspan dy="-2.2">, U</tspan><tspan dy="2.2" font-size="72%">t</tspan><tspan dy="-2.2">] decisive vs. cost C (above or ≤ C)?</tspan></text>
+  <text x="520" y="330" text-anchor="middle" fill="var(--muted)" class="mono" font-size="8.8">straddle (L<tspan dy="2.0" font-size="72%">t</tspan><tspan dy="-2.0"> &lt; C &lt; U</tspan><tspan dy="2.0" font-size="72%">t</tspan><tspan dy="-2.0">): probe if reversible; halt / impasse if irreversible</tspan></text>
+
+  <line x1="730" y1="314" x2="796" y2="314" stroke="var(--sky)" stroke-width="2.4" marker-end="url(#r-sky)"/>
+  <text x="763" y="304" text-anchor="middle" fill="var(--sky)" class="mono" font-size="10.5" font-weight="800">No</text>
+
+  <rect x="800" y="280" width="270" height="68" rx="12" fill="var(--sky-bg)" stroke="var(--sky)" stroke-width="2.4"/>
+  <text x="935" y="305" text-anchor="middle" fill="var(--ink)" font-size="12.5" font-weight="800">Regime II · Reversible probe</text>
+  <text x="935" y="325" text-anchor="middle" fill="var(--sky)" class="mono" font-size="10.5" font-weight="700">a<tspan dy="-2.8" font-size="75%">*</tspan><tspan dy="5.0" font-size="72%">MMR</tspan><tspan dy="-2.2"> = (U</tspan><tspan dy="2.2" font-size="72%">t</tspan><tspan dy="-2.2"> − C)/(U</tspan><tspan dy="2.2" font-size="72%">t</tspan><tspan dy="-2.2"> − L</tspan><tspan dy="2.2" font-size="72%">t</tspan><tspan dy="-2.2">)</tspan></text>
+  <text x="935" y="340" text-anchor="middle" fill="var(--muted)" class="mono" font-size="10">throttle set by the width of the doubt</text>
+
+  <line x1="520" y1="342" x2="520" y2="378" stroke="var(--emerald)" stroke-width="2.6" marker-end="url(#r-emerald)"/>
+  <text x="534" y="366" text-anchor="start" fill="var(--emerald)" class="mono" font-size="10.5" font-weight="800">Yes · decisive at both bounds</text>
+
+  <!-- Regime I -->
+  <rect x="200" y="384" width="640" height="82" rx="12" fill="var(--emerald-bg)" stroke="var(--emerald)" stroke-width="2.4"/>
+  <text x="520" y="412" text-anchor="middle" fill="var(--ink)" font-size="13.5" font-weight="800">Regime I · Buffered action / Safe Abstention</text>
+  <text x="520" y="433" text-anchor="middle" fill="var(--emerald)" class="mono" font-size="10.5" font-weight="700">L<tspan dy="2.2" font-size="72%">t</tspan><tspan dy="-2.2"> &gt; C or L</tspan><tspan dy="2.2" font-size="72%">t</tspan><tspan dy="-2.2"> = C &lt; U</tspan><tspan dy="2.2" font-size="72%">t</tspan><tspan dy="-2.2"> → a = 1 · U</tspan><tspan dy="2.2" font-size="72%">t</tspan><tspan dy="-2.2"> ≤ C → Safe Abstention (a = 0)</tspan></text>
+  <text x="520" y="452" text-anchor="middle" fill="var(--muted)" font-size="10.5">decisive interval clearance: full commitment above cost, non-lethal abstention below</text>
+
+  <text x="34" y="478" fill="var(--muted)" font-size="10.5">The order is lexicographic: an expiring vessel outranks missing instrumentation, which outranks governance corruption, floors, and interval width.</text>
+</svg>

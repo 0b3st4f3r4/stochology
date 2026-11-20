@@ -1,0 +1,3494 @@
+/* ==========================================================================
+   Stochology — book theme · one stylesheet, one measurement contract
+   The Ethics of Aim and Judgment under Uncertainty · stochology.org
+
+   The surface is an instrument, not a page of glass. Nothing here glows, nothing
+   floats, nothing is softly rounded: a book that argues about margins, bounds and
+   reserves should measure its own surface in hairlines and ticks, so a reader can
+   see where a claim starts, where it stops, and what frame holds it. Three rules
+   carry the look:
+
+     1. One unit. Every length is a multiple of --u (4px). Gaps, padding and rule
+        thickness are not eyeballed per component; they are counts of --u.
+     2. Rules, not shadows. Structure is drawn with 1px lines and ruled ticks. A
+        plate has a frame, never a lift; only the modal zoom dialog is allowed to
+        sit above the page, because it genuinely is a layer.
+     3. Semantics own the colour. The triad's three planes have fixed hues —
+        epistemic (sky), vital (emerald), governance (amber) — and those hues are
+        spent only where a plane is being named. Accent carries interaction.
+
+   theme/index.hbs publishes twelve Stochology palettes directly in the menu
+   (mirrored in book.toml). Each name is the material or pigment the palette is
+   built from, so the menu reads as a shelf of surfaces rather than a list of modes:
+
+     verdigris  pale cool sheet    · emerald patina
+     porcelain  pale cool sheet    · ultramarine accent, crimson alert
+     claret     warm cream sheet   · wine accent
+     celadon    pale petrol sheet  · teal accent
+     amethyst   pale violet sheet  · violet accent
+     sienna     burnt oxide paper  · oxide accent        (default light)
+     malachite  near-black stone   · emerald accent
+     lapis      deep blue stone    · sky accent
+     carmine    dark ink           · rose accent
+     kyanite    deep petrol stone  · aqua accent
+     porphyry   imperial aubergine · orchid accent
+     ember      candlelit vellum   · amber accent        (default dark)
+
+   Menu order: Auto, then every light sheet, then every dark one, with a gold
+   closing each block:
+
+     light   Verdigris, Porcelain, Claret, Celadon, Amethyst, Sienna (gold of the lights)
+     dark    Malachite, Lapis, Carmine, Kyanite, Porphyry, Ember (gold of the darks)
+
+   Verdigris stays before Porcelain and Claret after it, and the four petrel/violet
+   palettes stay before both golds, which is what pins this order.
+
+   Contract: every palette block defines the same colour tokens, in the same order,
+   and every component reads tokens only — never a raw colour, never a theme name.
+   Derived values (--state-hover, --shadow-ink, --shadow, --rule-soft, and the
+   contrast-color() value of --on-accent) are declared once in the shared
+   `:root:root` block, so a palette only names its colours and every other step is
+   computed from them.
+   ========================================================================== */
+
+:root {
+  /* The unit. One grid for the whole surface. */
+  --u: 4px;
+
+  /* Layout */
+  --sidebar-target-width: 304px;
+  /* One measure for the whole reading column: prose, plates, tables, equations and the
+     emblem all stop at the same edge. It is set in `ch`, so it follows the reading face the
+     reader picks; mdBook applies it to `.content main`, where the body face resolves it. */
+  --content-max-width: 74ch;
+  --page-padding: calc(var(--u) * 6);
+  --menu-bar-height: 52px;
+  /* How far the reading sheet is offset from the window's inline edge. mdBook parks the table
+     of contents by a start margin on the page wrapper, so the offset must use the same width the
+     sidebar actually occupies — including its resize indicator — and must fall to zero when the
+     sidebar is away. Anything drawn in the outer gutter is positioned from this, never from the
+     sidebar token directly: a gutter computed as if the sidebar were present lands on the text
+     the moment a reader hides it. */
+  --stoch-sheet-offset: calc(
+    var(--sidebar-width, var(--sidebar-target-width)) + var(--sidebar-resize-indicator-width, 0px)
+  );
+
+  /* Type */
+  --font-sans: "Inter", "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Charter", "Bitstream Charter", "Sitka Text", "Iowan Old Style",
+    "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  /* Four further reading faces, shipped with the book so the menu changes the page and not
+     only the label. A stack of system families was tried first and measured: on this machine
+     it resolved to the three faces already offered, so the options were labels over an
+     unchanged page. These four are woff2 files under fonts/, one axis each, latin subset,
+     and they load only when chosen. */
+  --font-literata: "Literata", "Charter", Georgia, serif;
+  --font-narrow: "Archivo Narrow", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-slab: "Roboto Slab", "Rockwell", Georgia, serif;
+  --font-typewriter: "Courier Prime", "Courier New", Courier, monospace;
+  --mono-font: "JetBrains Mono", "IBM Plex Mono", "Source Code Pro", ui-monospace,
+    "Cascadia Code", Menlo, Consolas, monospace;
+  --font-read: var(--font-sans);
+  /* Every label, caption, metadata line and control is set in the machine face. */
+  --font-label: var(--mono-font);
+  --code-font-size: 0.86em;
+
+  /* Heading scale: six named steps, one per level. */
+  --h1-size: clamp(1.78em, 1.4em + 1.2vw, 2.24em);
+  --h2-size: clamp(1.34em, 1.16em + 0.55vw, 1.6em);
+  --h3-size: clamp(1.12em, 1.03em + 0.28vw, 1.26em);
+  --h4-size: 1.01em;
+  --h5-size: 0.9em;
+  --h6-size: 0.82em;
+
+  /* Leading: justified prose needs more air than ragged text. */
+  --leading-body: 1.76;
+  --leading-prose: 1.86;
+  --leading-tight: 1.24;
+  --leading-ui: 1.5;
+
+  /* Geometry. Instrument corners are cut, not pillowed. */
+  --radius-sm: 2px;
+  --radius: 3px;
+  --radius-lg: 4px;
+  --radius-pill: 999px;
+  --rule: 1px;
+  --rule-heavy: 2px;
+  --tick-gap: calc(var(--u) * 2);
+  --focus-ring: var(--rule-heavy) solid var(--accent);
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+  accent-color: var(--accent);
+}
+
+/* mdBook 0.5 parks the table of contents with a checkbox rather than a class: `:checked` is the
+   sidebar shown, and the page wrapper loses its start margin when it is not. Below 620px the
+   sidebar overlays the page instead of pushing it, so the sheet is flush there as well. */
+:root:has(#mdbook-sidebar-toggle-anchor:not(:checked)) {
+  --stoch-sheet-offset: 0px;
+}
+
+@media (max-width: 619px) {
+  :root {
+    --stoch-sheet-offset: 0px;
+  }
+}
+
+/* ---------- Palettes ------------------------------------------------------ */
+
+/* Porcelain — pale cool sheet · fallback default. Cold neutral, ultramarine signal. */
+:root,
+.porcelain {
+  color-scheme: light;
+  --canvas: #f3f5f8; --surface: #ffffff; --elevated: #e9eef4;
+  --ink: #0a1020; --muted: #465569; --border: #b5c0cd; --hairline: #dde4ec;
+  --accent: #0a3f9e; --accent-2: #b01238; --on-accent: #ffffff;
+  --code-bg: #eef1f5; --code-border: #c3cdd9; --code-ink: #0a1020;
+  --sky: #0a3f9e; --sky-bg: #e2ebf8;
+  --emerald: #056247; --emerald-bg: #dcf3e9;
+  --amber: #8a4a05; --amber-bg: #fbeed2;
+  --rose: #b01238; --rose-bg: #fbe3e8;
+  --scroll-thumb: #8d9bab; --scroll-track: #e9eef4;
+  --logo-blue: #1f5fd0; --logo-green: #0f9d6e; --logo-crimson: #d61f4a; --logo-gold: #c07a06;
+}
+
+/* Sienna — burnt oxide paper · solar gold shelved for oxide (default light). */
+.sienna {
+  color-scheme: light;
+  --canvas: #f4efe4; --surface: #fbf7ee; --elevated: #eae2d2;
+  --ink: #16120d; --muted: #584c3e; --border: #cdbfa6; --hairline: #e3d9c7;
+  --accent: #aa752a; --accent-2: #a04e5c; --on-accent: #ffffff;
+  --code-bg: #ece3d1; --code-border: #cdbfa6; --code-ink: #1c150d;
+  --sky: #1d4ed8; --sky-bg: #dfe8f8;
+  --emerald: #0f6236; --emerald-bg: #dcf0e2;
+  --amber: #8a4a05; --amber-bg: #f9ebcd;
+  --rose: #a81238; --rose-bg: #fbe2e7;
+  --scroll-thumb: #a8a29e; --scroll-track: #eae2d2;
+  --logo-blue: #1d4ed8; --logo-green: #15803d; --logo-crimson: #be123c; --logo-gold: #b06606;
+}
+
+/* Malachite — near-black stone · emerald signal. */
+.malachite {
+  color-scheme: dark;
+  --canvas: #070a0f; --surface: #0e151e; --elevated: #17212d;
+  --ink: #e7eef6; --muted: #a3b1bf; --border: #2b3947; --hairline: #1b2632;
+  --accent: #35e0a1; --accent-2: #6cc7ff; --on-accent: #04140e;
+  --code-bg: #111a23; --code-border: #26323f; --code-ink: #e7eef6;
+  --sky: #6cc7ff; --sky-bg: #0a2436;
+  --emerald: #35e0a1; --emerald-bg: #062a20;
+  --amber: #f7c65a; --amber-bg: #2c2005;
+  --rose: #ff8fa1; --rose-bg: #340d16;
+  --scroll-thumb: #4a5866; --scroll-track: #0d1219;
+  --logo-blue: #6cc7ff; --logo-green: #35e0a1; --logo-crimson: #ff8fa1; --logo-gold: #f7c65a;
+}
+
+/* Lapis — deep blue stone · sky signal. */
+.lapis {
+  color-scheme: dark;
+  --canvas: #04080f; --surface: #0c182a; --elevated: #14243d;
+  --ink: #e2ecf8; --muted: #9fb2c7; --border: #24374f; --hairline: #16233a;
+  --accent: #4fc3ff; --accent-2: #ffc861; --on-accent: #03121d;
+  --code-bg: #0e1826; --code-border: #1b2b41; --code-ink: #dee9f6;
+  --sky: #4fc3ff; --sky-bg: #082b40;
+  --emerald: #43dba6; --emerald-bg: #062a22;
+  --amber: #ffc861; --amber-bg: #2e2105;
+  --rose: #ff8fa1; --rose-bg: #330d17;
+  --scroll-thumb: #43536a; --scroll-track: #0a1220;
+  --logo-blue: #4fc3ff; --logo-green: #43dba6; --logo-crimson: #ff8fa1; --logo-gold: #ffc861;
+}
+
+/* Carmine — dark ink · rose signal. */
+.carmine {
+  color-scheme: dark;
+  --canvas: #0a0c11; --surface: #131820; --elevated: #1b222c;
+  --ink: #ece8dc; --muted: #a6afb9; --border: #333c49; --hairline: #222a36;
+  --accent: #ff7a94; --accent-2: #ffc861; --on-accent: #1a0509;
+  --code-bg: #141a22; --code-border: #262e3a; --code-ink: #ffc98a;
+  --sky: #52c1e8; --sky-bg: #082b3a;
+  --emerald: #43dba6; --emerald-bg: #062a22;
+  --amber: #ffc861; --amber-bg: #2e2105;
+  --rose: #ff7a94; --rose-bg: #330d17;
+  --scroll-thumb: #6c7380; --scroll-track: #10141b;
+  --logo-blue: #52c1e8; --logo-green: #43dba6; --logo-crimson: #ff7a94; --logo-gold: #ffc861;
+}
+
+/* Verdigris — cool pale sheet · emerald signal. The dark neutral turned to daylight: the
+   greys stay cool and the signal is the same emerald, inked dark enough to read on paper. */
+.verdigris {
+  color-scheme: light;
+  --canvas: #eef1f4; --surface: #f9fbfc; --elevated: #e1e7ed;
+  --ink: #0b1118; --muted: #45525f; --border: #b3bec9; --hairline: #d8e0e7;
+  --accent: #05704f; --accent-2: #0b5ea8; --on-accent: #ffffff;
+  --code-bg: #e6ebf0; --code-border: #bcc7d1; --code-ink: #0b1118;
+  --sky: #0b5ea8; --sky-bg: #dbe9f6;
+  --emerald: #05704f; --emerald-bg: #d7f0e7;
+  --amber: #8a5a05; --amber-bg: #fbeed2;
+  --rose: #a81238; --rose-bg: #fbe2e7;
+  --scroll-thumb: #7f8b97; --scroll-track: #e1e7ed;
+  --logo-blue: #0b5ea8; --logo-green: #07855f; --logo-crimson: #a81238; --logo-gold: #a06a06;
+}
+
+/* Claret — warm cream sheet · rose signal. The ink palette inverted without going cold:
+   the canvas keeps a trace of the nocturne's warmth and the rose is inked for daylight. */
+.claret {
+  color-scheme: light;
+  --canvas: #f7f4f1; --surface: #ffffff; --elevated: #ece7e2;
+  --ink: #14161b; --muted: #545a66; --border: #c6c1bd; --hairline: #e4e0dc;
+  --accent: #b0123a; --accent-2: #8a5a05; --on-accent: #ffffff;
+  --code-bg: #efeae6; --code-border: #c6c1bd; --code-ink: #6b2f0a;
+  --sky: #0d5f86; --sky-bg: #dceef7;
+  --emerald: #0a6b4e; --emerald-bg: #d9f2e9;
+  --amber: #8a5a05; --amber-bg: #fbeed2;
+  --rose: #b0123a; --rose-bg: #fbe2e7;
+  --scroll-thumb: #9a928c; --scroll-track: #ece7e2;
+  --logo-blue: #0d5f86; --logo-green: #0a6b4e; --logo-crimson: #b0123a; --logo-gold: #a06a06;
+}
+
+/* Ember — candlelit vellum · oxide signal (default dark). The warm paper at night: the sheet
+   keeps its earth undertone, the oxide accent is lifted to a lamp's amber, and the code ink
+   stays the warm amber a scribe's margin would carry. */
+.ember {
+  color-scheme: dark;
+  --canvas: #14110c; --surface: #1c1811; --elevated: #262019;
+  --ink: #f0e7d6; --muted: #b6a992; --border: #3d3427; --hairline: #2a2318;
+  --accent: #e9a13b; --accent-2: #ff8095; --on-accent: #1a1108;
+  --code-bg: #201a12; --code-border: #362d21; --code-ink: #f4d7a8;
+  --sky: #7fb2ff; --sky-bg: #101f3a;
+  --emerald: #5fd6a4; --emerald-bg: #082a1f;
+  --amber: #f2b64a; --amber-bg: #33240a;
+  --rose: #ff8fa1; --rose-bg: #3a1018;
+  --scroll-thumb: #6b6252; --scroll-track: #191510;
+  --logo-blue: #7fb2ff; --logo-green: #5fd6a4; --logo-crimson: #ff8fa1; --logo-gold: #f2b64a;
+}
+
+/* Celadon — pale petrol sheet · teal signal. The glaze the name comes from: a paper
+   with a green undertone instead of a blue one, and a signal dark enough to sit on it
+   as a rule rather than a glow. The second signal is terracotta, the pair the potter
+   actually fires. */
+.celadon {
+  color-scheme: light;
+  --canvas: #eef3f2; --surface: #fbfdfc; --elevated: #dfeae8;
+  --ink: #07191a; --muted: #41585a; --border: #b2c6c4; --hairline: #d7e4e2;
+  --accent: #0b6b6b; --accent-2: #a04d18; --on-accent: #ffffff;
+  --code-bg: #e3ecea; --code-border: #b8cbc9; --code-ink: #07191a;
+  --sky: #0b5ea8; --sky-bg: #dbe9f6;
+  --emerald: #056247; --emerald-bg: #d6efe6;
+  --amber: #8a5a05; --amber-bg: #fbeed2;
+  --rose: #a81238; --rose-bg: #fbe2e7;
+  --scroll-thumb: #7c8f8d; --scroll-track: #dfeae8;
+  --logo-blue: #0b5ea8; --logo-green: #07855f; --logo-crimson: #a81238; --logo-gold: #a06a06;
+}
+
+/* Kyanite — deep petrol stone · aqua signal. The same material at night: the canvas
+   keeps the green cast, the signal is the stone's own sheen raised to a lamp, and the
+   warm second signal is the one thing in the palette allowed to be orange. */
+.kyanite {
+  color-scheme: dark;
+  --canvas: #060f10; --surface: #0c1a1b; --elevated: #122527;
+  --ink: #dff4f1; --muted: #9fb9b7; --border: #2a4244; --hairline: #16292b;
+  --accent: #3fd6cf; --accent-2: #ff9d6b; --on-accent: #04100f;
+  --code-bg: #0d1d1e; --code-border: #24403f; --code-ink: #b7f2ec;
+  --sky: #7fb2ff; --sky-bg: #0d1c33;
+  --emerald: #5fd6a4; --emerald-bg: #082a1f;
+  --amber: #f2b64a; --amber-bg: #33240a;
+  --rose: #ff8fa1; --rose-bg: #3a1018;
+  --scroll-thumb: #52706f; --scroll-track: #0a1617;
+  --logo-blue: #7fb2ff; --logo-green: #5fd6a4; --logo-crimson: #ff8fa1; --logo-gold: #f2b64a;
+}
+
+/* Amethyst — pale violet sheet · violet signal. The gem at its palest: a lavender paper
+   with the ink kept neutral rather than purple, so the signal carries the hue alone and
+   the prose does not read as tinted. Gold is the second signal, as on the stone. */
+.amethyst {
+  color-scheme: light;
+  --canvas: #f5f1f8; --surface: #ffffff; --elevated: #eae2f0;
+  --ink: #150f1e; --muted: #574c66; --border: #c8bcd4; --hairline: #e5dcec;
+  --accent: #6b2ea0; --accent-2: #8a5a05; --on-accent: #ffffff;
+  --code-bg: #ede6f2; --code-border: #cabfd6; --code-ink: #150f1e;
+  --sky: #0b5ea8; --sky-bg: #dbe9f6;
+  --emerald: #056247; --emerald-bg: #d6efe6;
+  --amber: #8a5a05; --amber-bg: #fbeed2;
+  --rose: #a81238; --rose-bg: #fbe2e7;
+  --scroll-thumb: #8b7f99; --scroll-track: #eae2f0;
+  --logo-blue: #0b5ea8; --logo-green: #07855f; --logo-crimson: #a81238; --logo-gold: #a06a06;
+}
+
+/* Porphyry — imperial aubergine · orchid signal. The stone the purple was named for:
+   the canvas is nearly black with a red-violet cast, the signal is lifted to an orchid
+   that can be read as text, and the code ink stays in the same family so a listing
+   does not look pasted onto the page. */
+.porphyry {
+  color-scheme: dark;
+  --canvas: #0f0a14; --surface: #171020; --elevated: #211730;
+  --ink: #efe6f8; --muted: #b3a6c6; --border: #3a2c4b; --hairline: #241a30;
+  --accent: #d59bff; --accent-2: #ffb86b; --on-accent: #150a20;
+  --code-bg: #1a1224; --code-border: #33243f; --code-ink: #e9d7ff;
+  --sky: #7fb2ff; --sky-bg: #0d1c33;
+  --emerald: #5fd6a4; --emerald-bg: #082a1f;
+  --amber: #f2b64a; --amber-bg: #33240a;
+  --rose: #ff8fa1; --rose-bg: #3a1018;
+  --scroll-thumb: #5d4c72; --scroll-track: #130d1a;
+  --logo-blue: #7fb2ff; --logo-green: #5fd6a4; --logo-crimson: #ff8fa1; --logo-gold: #f2b64a;
+}
+
+/* ---------- Derived tokens & mdBook chrome (declared once) --------------- */
+
+/* `:root:root` (specificity 0,2,0) is deliberate: mdBook ships its own defaults on
+   `html:not(.js)` (0,1,1), which otherwise wins over any plain `:root` alias. */
+:root:root {
+  /* The emblem inherits the palette instead of carrying its own copy. */
+  --logo-ink: var(--ink); --logo-sub: var(--accent); --logo-meta: var(--muted);
+  --logo-frame: var(--border); --logo-ticks: var(--muted);
+  --logo-node-bg: var(--canvas); --logo-well-hi: var(--elevated);
+
+  /* Favicon and topbar emblem tokens */
+  --fav-ink: var(--ink);
+  --fav-eyelid-mid: var(--accent);
+  --fav-frame: var(--border);
+  --fav-node-bg: var(--canvas);
+  --fav-well-hi: var(--elevated);
+  --fav-blue: var(--logo-blue);
+  --fav-green: var(--logo-green);
+  --fav-crimson: var(--logo-crimson);
+  --fav-gold: var(--logo-gold);
+
+  /* The three planes, named once. Colour is spent only where a plane is named. */
+  --plane-e: var(--sky);      /* epistemic margin   */
+  --plane-v: var(--emerald);  /* vital margin       */
+  --plane-g: var(--rose);    /* institutional gov. */
+
+  /* Five diagnostic names, four tones: violet folds into rose (same value). */
+  --violet: var(--rose); --violet-bg: var(--rose-bg);
+
+  /* mdBook chrome */
+  --bg: var(--canvas); --fg: var(--ink);
+  --surface-bg: var(--surface); --elevated-bg: var(--elevated);
+  --fg-muted: var(--muted); --border-subtle: var(--hairline);
+  --inline-code-bg: var(--code-bg); --inline-code-border: var(--code-border);
+  --inline-code-color: var(--code-ink);
+  --brand-accent: var(--accent); --brand-accent-secondary: var(--accent-2);
+  --sidebar-bg: var(--surface); --sidebar-fg: var(--ink);
+  --sidebar-active: var(--accent); --sidebar-spacer: var(--hairline);
+  --sidebar-non-existant: var(--muted); --sidebar-header-border-color: var(--accent);
+  --scrollbar: var(--muted); --icons: var(--muted); --icons-hover: var(--ink);
+  --links: var(--accent);
+  --theme-popup-bg: var(--surface); --theme-popup-border: var(--border);
+  --theme-hover: var(--state-hover);
+  --quote-bg: var(--surface); --quote-border: var(--accent);
+  --table-border-color: var(--border); --table-header-bg: var(--elevated);
+  --table-alternate-bg: var(--canvas);
+  --searchbar-bg: var(--surface); --searchbar-border-color: var(--border);
+  --searchbar-fg: var(--ink);
+  --searchbar-shadow-color: rgba(10, 63, 158, 0.2);
+  --searchbar-shadow-color: color-mix(in oklab, var(--accent) 20%, transparent);
+  --searchresults-header-fg: var(--muted); --searchresults-border-color: var(--border);
+  --searchresults-li-bg: var(--elevated);
+  --search-mark-bg: rgba(192, 122, 6, 0.3);
+  --search-mark-bg: color-mix(in oklab, var(--amber) 30%, transparent);
+  --warning-border: var(--amber); --footnote-highlight: var(--accent);
+  --overlay-bg: rgba(2, 6, 23, 0.4);
+  --overlay-bg: color-mix(in oklab, var(--canvas) 60%, transparent);
+  --blockquote-note-color: var(--plane-e); --blockquote-tip-color: var(--plane-v);
+  --blockquote-important-color: var(--violet);
+  --blockquote-warning-color: var(--plane-g); --blockquote-caution-color: var(--rose);
+
+  /* State and rule tokens. Every derived value declares its fallback first: a custom
+     property holding an unresolvable function is only rejected when substituted into a
+     real property, so a bare `color-mix()` would blank the surface on the very engines
+     the fallback exists for.
+
+     Mixes are interpolated in `oklab`, never `oklch`. In oklch an operand whose chroma is
+     nearly zero has a *powerless* hue, and the interpolation then carries no hue at all:
+     a deep petrol ink mixed with its pale paper came out a warm grey, and the topbar icons
+     of five palettes were painted in a hue their palette does not contain. oklab has no
+     hue component to lose, so a tint keeps the direction of the ink it is made from. */
+  --state-hover: var(--elevated);
+  --state-hover: color-mix(in oklab, var(--ink) 8%, var(--canvas));
+  --rule-soft: var(--hairline);
+  --rule-soft: color-mix(in oklab, var(--ink) 18%, var(--canvas));
+  --shadow-ink: var(--muted);
+  --shadow-ink: color-mix(in oklab, var(--canvas) 22%, black);
+  --shadow-alpha: 7%;
+  /* A plate is framed, not lifted: the only default "shadow" is the hairline the frame
+     already draws. --shadow-lift exists for the one element that is genuinely a layer. */
+  --shadow: none;
+  --shadow-lift: 0 24px 64px -12px rgba(2, 6, 23, 0.35);
+  --shadow-lift: 0 24px 64px -12px color-mix(in oklab, var(--shadow-ink) 62%, transparent);
+}
+
+/* `contrast-color()` (CSS Color 5) returns whichever of black/white has the greater contrast
+   with its argument, so `--on-accent` stops being a hand-typed value that has to be re-checked
+   every time an accent moves. The palettes keep their literal as the fallback above. */
+@supports (color: contrast-color(red)) {
+  :root:root {
+    --on-accent: contrast-color(var(--accent));
+  }
+}
+
+@supports not (scrollbar-color: auto) {
+  :where(html, .sidebar-scrollbox, .table-wrapper, pre)::-webkit-scrollbar {
+    inline-size: 10px;
+    block-size: 10px;
+  }
+  :where(html, .sidebar-scrollbox, .table-wrapper, pre)::-webkit-scrollbar-thumb {
+    background: var(--scroll-thumb);
+    border-radius: 0;
+  }
+  :where(html, .sidebar-scrollbox, .table-wrapper, pre)::-webkit-scrollbar-track {
+    background: var(--scroll-track);
+  }
+}
+
+/* ==========================================================================
+   Base typography & reading rhythm
+   ========================================================================== */
+
+/* The reading typeface is a token: the menu writes data-stoch-font on <html>, and every
+   text surface that reads --font-read follows it. Figures and code keep their own stacks. */
+:root[data-stoch-font="serif"] { --font-read: var(--font-serif); }
+:root[data-stoch-font="mono"] { --font-read: var(--mono-font); }
+:root[data-stoch-font="literata"] { --font-read: var(--font-literata); }
+:root[data-stoch-font="narrow"] { --font-read: var(--font-narrow); }
+:root[data-stoch-font="slab"] { --font-read: var(--font-slab); }
+:root[data-stoch-font="typewriter"] { --font-read: var(--font-typewriter); }
+
+/* Each menu row is set in the face it offers, so the choice is visible before it is made. */
+.stoch-font-popup [data-font="sans"] { font-family: var(--font-sans); }
+.stoch-font-popup [data-font="literata"] { font-family: var(--font-literata); }
+.stoch-font-popup [data-font="narrow"] { font-family: var(--font-narrow); }
+.stoch-font-popup [data-font="serif"] { font-family: var(--font-serif); }
+.stoch-font-popup [data-font="slab"] { font-family: var(--font-slab); }
+.stoch-font-popup [data-font="mono"] { font-family: var(--mono-font); }
+.stoch-font-popup [data-font="typewriter"] { font-family: var(--font-typewriter); }
+
+/* The four shipped faces. Files live in the source directory so the builder copies them to
+   fonts/ beside the page; the CSS itself is emitted under theme/, hence the parent hop. A
+   family is downloaded only when a reader selects it, since no rendered text asks for it
+   until data-stoch-font names it. */
+@font-face {
+  font-family: "Literata";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/literata-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Literata";
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/literata-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Archivo Narrow";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/narrow-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/slab-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Courier Prime";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/typewriter-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Courier Prime";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/typewriter-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Courier Prime";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/typewriter-italic.woff2") format("woff2");
+}
+
+html {
+  font-family: var(--font-read);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Digits are data in this book: they align in columns and the zero is struck, so a reader
+   can tell 0 from O in a table of bounds without measuring the glyphs. */
+body {
+  line-height: var(--leading-body);
+  text-align: start;
+  overflow-wrap: break-word;
+  font-variant-numeric: tabular-nums slashed-zero;
+  font-feature-settings: "tnum" 1, "zero" 1;
+}
+
+::selection {
+  background-color: rgba(79, 195, 255, 0.24);
+  background-color: color-mix(in oklab, var(--accent) 24%, transparent);
+}
+
+/* The measure sits on its own margin rule: a hairline in the gutter, ticked every two units,
+   with a longer mark every fifth tick. It is the page's own vital reserve — the space the
+   text does not take — and it disappears when the viewport is too narrow to hold it.
+
+   The rule is a background of the content box, not a positioned pseudo-element: the content
+   box is a scroll container in this theme, so an absolutely placed child in the negative
+   gutter is clipped before it paints. Backgrounds are painted on the padding box and are
+   never clipped by that scrollport, which keeps the rule inside the page's own furniture. */
+.page,
+.content {
+  position: relative;
+}
+
+.content {
+  padding-block: calc(var(--u) * 3) calc(var(--u) * 16);
+}
+
+#mdbook-content {
+  background-image:
+    linear-gradient(var(--rule-soft), var(--rule-soft)),
+    repeating-linear-gradient(to bottom, var(--border) 0 var(--rule), transparent var(--rule) var(--tick-gap));
+  background-size: var(--rule) 100%, calc(var(--u) * 1.5) 100%;
+  background-position: calc(var(--u) * 2.5) 0, calc(var(--u) * 2) 0;
+  background-repeat: no-repeat, no-repeat;
+  background-clip: padding-box, padding-box;
+  background-origin: padding-box, padding-box;
+}
+
+/* 1180px is where the measure (under 912px at any reading face) plus a 60px gutter still fits beside the sidebar. */
+@media (max-width: 1179px) {
+  #mdbook-content {
+    background-image: none;
+  }
+}
+
+.content :is(h1, h2, h3, h4, h5, h6) {
+  text-wrap: balance;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.015em;
+  font-weight: 700;
+  color: var(--ink);
+  scroll-margin-block-start: calc(var(--menu-bar-height) + var(--u) * 3);
+}
+
+/* H1 · chapter title — a measured span: hairline edge, accent start mark, no ornament. */
+.content h1 {
+  position: relative;
+  font-size: var(--h1-size);
+  font-weight: 750;
+  letter-spacing: -0.022em;
+  margin-block: calc(var(--u) * 5) calc(var(--u) * 5);
+  padding-block: calc(var(--u) * 3) calc(var(--u) * 3);
+  border-block-start: var(--rule) solid var(--hairline);
+  border-block-end: var(--rule) solid var(--border);
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: calc(var(--u) * 12) var(--rule-heavy);
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+
+/* H2 · section — chapters carry their own ordinals; the rule belongs to the page. The rule
+   stays a single hairline: a ticked ladder at every section head reads as a row of stray
+   marks at reading size, and the page already carries its measure in the gutter. */
+.content h2 {
+  font-size: var(--h2-size);
+  margin-block: calc(var(--u) * 10) calc(var(--u) * 2);
+  padding-block-end: calc(var(--u) * 1.5);
+  border-block-end: var(--rule) solid var(--border);
+}
+
+/* H3 · subsection — the tick ladder shrinks to a single mark; hierarchy is size, not chrome. */
+.content h3 {
+  font-size: var(--h3-size);
+  margin-block: calc(var(--u) * 8) calc(var(--u) * 1.5);
+  padding-inline-start: calc(var(--u) * 3);
+  border-inline-start: var(--rule-heavy) solid var(--rule-soft);
+}
+
+/* H4 · paragraph lead-in — one step up in size, same weight as the body. */
+.content h4 {
+  font-size: var(--h4-size);
+  font-weight: 650;
+  margin-block: calc(var(--u) * 6) calc(var(--u) * 1.5);
+}
+
+.content h4[id=""]:has(+ .stoch-logo-figure) {
+  margin: 0;
+  block-size: 0;
+  overflow: hidden;
+}
+
+/* H5–H6 · micro levels — tracked capitals in the machine face, no extra size step. */
+.content h5,
+.content h6 {
+  font-family: var(--font-label);
+  font-size: var(--h5-size);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-block: calc(var(--u) * 6) calc(var(--u) * 1.5);
+}
+
+.content h6 {
+  font-size: var(--h6-size);
+  color: var(--muted);
+}
+
+/* Justified prose; the measure is the column's own (--content-max-width), shared with every
+   plate, so text and figures end on one edge. Hyphenation keeps the justified rivers down. */
+.content :is(p, ul, ol, blockquote) {
+  max-inline-size: 100%;
+  text-align: justify;
+  hyphens: auto;
+  line-height: var(--leading-prose);
+  overflow-wrap: break-word;
+}
+
+/* Card surfaces and widget UI keep their own width and a ragged-right measure. */
+.content :is(p, li, blockquote) {
+  text-wrap: pretty;
+}
+
+.content li:not(:last-child) {
+  margin-block-end: calc(var(--u) * 1.5);
+}
+
+.content ol,
+.content ul {
+  padding-inline-start: calc(var(--u) * 6);
+}
+
+.content li::marker {
+  font-family: var(--font-label);
+  font-size: 0.9em;
+  color: var(--muted);
+}
+
+.content a:not(.header) {
+  font-weight: 500;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: var(--rule);
+  text-decoration-color: var(--rule-soft);
+}
+
+.content a:not(.header):hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+/* A link that leaves the book is marked as a departure, not decorated as a button. */
+.content a[href^="http"]:not(.header)::after {
+  content: "↗";
+  font-family: var(--font-label);
+  font-size: 0.72em;
+  margin-inline-start: 0.18em;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   Plates: figures, inline SVGs, Mermaid, equations
+   ========================================================================== */
+
+/* One plate geometry, three surfaces. Crop marks are the frame's own units: they say the
+   contents were placed on a sheet, not floated on a card. */
+.stoch-figure,
+.content img[src*="figures/"][src$=".svg"] {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  block-size: auto;
+  margin-block: calc(var(--u) * 7);
+  margin-inline: 0;
+  padding: calc(var(--u) * 5) calc(var(--u) * 6);
+  background-color: var(--surface);
+  border: var(--rule) solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: none;
+  /* No scroll container at full width: the crop marks sit one unit outside the frame and
+     the emblem settles with a small vertical translate, and either one inside an
+     overflow:auto box raises a scrollbar on a screen where the plate already fits. The
+     plate only scrolls where it is given a minimum width (see the 640px query below). */
+  overflow: visible;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.stoch-figure::before,
+.stoch-figure::after,
+mjx-container[jax="CHTML"][display="true"]::before,
+mjx-container[jax="CHTML"][display="true"]::after {
+  content: "";
+  position: absolute;
+  inline-size: calc(var(--u) * 2);
+  block-size: calc(var(--u) * 2);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.stoch-figure::before,
+mjx-container[jax="CHTML"][display="true"]::before {
+  inset-block-start: calc(var(--u) * -1);
+  inset-inline-start: calc(var(--u) * -1);
+  border-block-start: var(--rule-heavy) solid var(--accent);
+  border-inline-start: var(--rule-heavy) solid var(--accent);
+}
+
+.stoch-figure::after,
+mjx-container[jax="CHTML"][display="true"]::after {
+  inset-block-end: calc(var(--u) * -1);
+  inset-inline-end: calc(var(--u) * -1);
+  border-block-end: var(--rule-heavy) solid var(--accent);
+  border-inline-end: var(--rule-heavy) solid var(--accent);
+}
+
+/* The emblem is wordmark, not a figure card. */
+.content img[src$="logo.svg"],
+.stoch-logo-figure {
+  inline-size: 100%;
+  max-inline-size: 820px;
+  block-size: auto;
+  margin-block: calc(var(--u) * 2) calc(var(--u) * 4);
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.stoch-logo-figure::before,
+.stoch-logo-figure::after {
+  content: none;
+}
+
+.stoch-figure > img[src*="figures/"][src$=".svg"] {
+  margin-block: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.content p:has(> img[src$=".svg"]) {
+  max-inline-size: 100%;
+}
+
+.stoch-figure > svg {
+  display: block;
+  margin-inline: auto;
+  /* The chapter emblems carry a fixed width attribute; without this a phone clips the
+     plate's own title mid-word instead of scaling the drawing down to the measure. */
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+/* Chapter emblem motion.
+   Only the seal moves. The emblem is the chapter's mark, drawn once when it comes into view:
+   its parts settle in reading order, the rule and the labels arriving after the drawing, and
+   then it stops. Data plates arrive still — a figure that animates itself is asking to be
+   watched, and an instrument's plate reports a measurement rather than performing one.
+   `js-plates` is set by the script before any part is hidden, so a script that fails earlier
+   leaves the emblem fully drawn; reduced motion and paper go straight to that resting state. */
+.js-plates .stoch-logo-figure svg > g > * {
+  opacity: 0;
+}
+
+.js-plates .stoch-logo-figure.is-settled svg > g > * {
+  animation: stoch-emblem-settle 520ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 20ms);
+}
+
+/* The rise is a property of its own, never the `transform` property: the emblem's text block is
+   positioned by a transform attribute, and animating `transform` on the group would drop the
+   whole text column onto the drawing. */
+@keyframes stoch-emblem-settle {
+  from {
+    opacity: 0;
+    translate: 0 calc(var(--u) * 1);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-plates .stoch-logo-figure svg > g > * {
+    opacity: 1;
+    animation: none !important;
+    translate: none;
+  }
+}
+
+/* Under 900px the measure is the viewport: give the text the margin it loses, so a phone
+   line stays near seventy characters instead of running edge to edge. */
+@media (max-width: 900px) {
+  .content {
+    padding-inline: calc(var(--u) * 5);
+  }
+}
+
+@media (max-width: 640px) {
+  .stoch-figure:not(.stoch-logo-figure) {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .stoch-figure:not(.stoch-logo-figure) > svg {
+    min-inline-size: 540px;
+  }
+}
+
+/* Caption: a ledger line under the plate, label in the machine face. */
+.stoch-figure figcaption {
+  margin-block-start: calc(var(--u) * 4);
+  padding-block-start: calc(var(--u) * 3);
+  border-block-start: var(--rule) solid var(--hairline);
+  font-size: 0.82em;
+  line-height: var(--leading-ui);
+  color: var(--muted);
+  max-inline-size: 100%;
+}
+
+.stoch-figure figcaption strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.stoch-mermaid-figure .mermaid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Ten units: the mermaid source can arrive as one short line, and the frame must not collapse
+     before it is drawn. */
+  min-block-size: calc(var(--u) * 10);
+  overflow-x: auto;
+}
+
+.stoch-mermaid-figure .mermaid:not([data-processed="true"]) {
+  font-family: var(--mono-font);
+  font-size: 0.76em;
+  color: var(--muted);
+  white-space: pre-wrap;
+  opacity: 0.65;
+  padding: calc(var(--u) * 3);
+}
+
+.stoch-figure-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-block-end: calc(var(--u) * 2);
+}
+
+/* ==========================================================================
+   Code, equations, tables, quotes
+   ========================================================================== */
+
+/* mdBook tags every code element `hljs`; the token pair must out-rank `.hljs`. */
+:not(pre) > code,
+:not(pre) > code.hljs {
+  background-color: var(--code-bg);
+  color: var(--code-ink);
+  border: var(--rule) solid var(--code-border);
+  border-radius: var(--radius-sm);
+  padding-block: 0.1em;
+  padding-inline: 0.38em;
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+pre {
+  margin-block: calc(var(--u) * 6);
+}
+
+pre > code,
+pre > code.hljs {
+  background-color: var(--code-bg);
+  color: var(--code-ink);
+  padding: calc(var(--u) * 4) calc(var(--u) * 5);
+  border-radius: var(--radius);
+  border: var(--rule) solid var(--border);
+  box-shadow: none;
+  line-height: var(--leading-ui);
+  font-size: var(--code-font-size);
+}
+
+pre:focus-visible,
+.table-wrapper:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* A displayed equation is a plate too, but its accent rail is the plane it argues from. */
+mjx-container[jax="CHTML"][display="true"] {
+  display: block;
+  position: relative;
+  margin-block: calc(var(--u) * 6) !important;
+  padding: calc(var(--u) * 4) calc(var(--u) * 5);
+  background-color: var(--surface);
+  border: var(--rule) solid var(--border);
+  border-inline-start: var(--rule-heavy) solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: none;
+  overflow: auto hidden;
+  max-inline-size: 100%;
+  box-sizing: border-box;
+}
+
+/* A display equation is a scroll container (a long derivation must scroll, not overflow the
+   measure), and a crop mark one unit outside its corner is scrollable overflow: it raised a
+   horizontal scrollbar under every equation at every width. Inside a scroller the marks sit on
+   the frame's own corners instead, where the vertical clip was already cutting them anyway. */
+mjx-container[jax="CHTML"][display="true"]::before {
+  inset-block-start: 0;
+  inset-inline-start: 0;
+}
+
+mjx-container[jax="CHTML"][display="true"]::after {
+  inset-block-end: 0;
+  inset-inline-end: 0;
+}
+
+mjx-container[jax="CHTML"]:not([display="true"]) {
+  max-inline-size: 100%;
+  overflow-x: auto;
+  vertical-align: baseline;
+}
+
+/* The ledger frame: a header rule in the accent, hairline row rules, no zebra painting. */
+.table-wrapper {
+  margin-block: calc(var(--u) * 6);
+  overflow: auto;
+  max-inline-size: 100%;
+  container-type: inline-size;
+  border-radius: 0;
+  border: var(--rule) solid var(--border);
+  border-block-start: var(--rule-heavy) solid var(--border);
+  background-color: var(--surface);
+  box-shadow: none;
+  scrollbar-gutter: stable;
+}
+
+table {
+  inline-size: 100%;
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9em;
+  line-height: var(--leading-ui);
+}
+
+table caption {
+  caption-side: top;
+  padding: calc(var(--u) * 2.5) calc(var(--u) * 3);
+  text-align: start;
+  font-family: var(--font-label);
+  font-size: 0.76em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-block-end: var(--rule) solid var(--hairline);
+}
+
+table thead {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  background-color: color-mix(in oklab, var(--ink) 7%, var(--surface));
+}
+
+table thead th {
+  padding: calc(var(--u) * 3) calc(var(--u) * 3.5);
+  text-align: start;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 0.76em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--ink) 78%, var(--canvas));
+  background-color: color-mix(in oklab, var(--ink) 7%, var(--surface));
+  border-block-end: var(--rule-heavy) solid var(--accent);
+  border-inline: none;
+  text-wrap: balance;
+}
+
+table tbody :is(td, th) {
+  padding: calc(var(--u) * 3.5) calc(var(--u) * 3.5);
+  vertical-align: top;
+  border: none;
+  text-align: start;
+}
+
+table tbody tr:not(:last-child) :is(td, th) {
+  border-block-end: var(--rule) solid var(--border);
+}
+
+/* In a ledger the row boundary is structural, not decoration: the eye follows it down a
+   column of four-line cells, so it takes the same weight as the frame. */
+table tbody tr:last-child :is(td, th) {
+  border-block-end: none;
+}
+
+table tbody tr:hover {
+  background-color: var(--state-hover);
+}
+
+@container (width < 640px) {
+  .table-wrapper table[data-responsive-stacked="true"],
+  .table-wrapper table[data-responsive-stacked="true"] :is(thead, tbody, tr, td, th) {
+    display: block;
+    inline-size: 100%;
+    box-sizing: border-box;
+  }
+
+  /* MANDATORY: hide the column header from layout and screen readers. */
+  .table-wrapper table[data-responsive-stacked="true"] thead {
+    display: none;
+  }
+
+  .table-wrapper table[data-responsive-stacked="true"] tbody tr {
+    padding: calc(var(--u) * 2.5) calc(var(--u) * 3);
+    border-block-end: var(--rule-heavy) solid var(--border);
+  }
+
+  .table-wrapper table[data-responsive-stacked="true"] tbody td {
+    padding: calc(var(--u) * 1.5) calc(var(--u) * 1) calc(var(--u) * 1.5) 0;
+    text-align: start !important;
+  }
+
+  .table-wrapper table[data-responsive-stacked="true"] tbody td[data-col-label]::before {
+    content: attr(data-col-label) ": ";
+    display: inline-block;
+    font-family: var(--font-label);
+    font-size: 0.72em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-inline-end: 0.45em;
+  }
+}
+
+/* Quotation: a claim borrowed from elsewhere is carried on the triad's own rail — epistemic,
+   vital, governance, in that order — so the margin of every quote is a reminder of what a
+   borrowed claim owes. */
+blockquote {
+  position: relative;
+  margin-block: calc(var(--u) * 6);
+  padding: calc(var(--u) * 3.5) calc(var(--u) * 5);
+  background-color: var(--quote-bg);
+  border: 0;
+  border-inline-start: var(--u) solid var(--quote-border);
+  border-image: linear-gradient(
+    to bottom,
+    var(--plane-e) 0 33.4%,
+    var(--plane-v) 33.4% 66.7%,
+    var(--plane-g) 66.7% 100%
+  ) 1;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+blockquote > p:last-child {
+  margin-block-end: 0;
+}
+
+/* ==========================================================================
+   Chrome: menu bar, sidebar, search
+   ========================================================================== */
+
+/* The bar is a pane of glass, not a painted strip: the page keeps travelling under it and the
+   bar shows that it is in front rather than that the page ended. The tint is the palette's
+   own canvas at three-quarters strength, so what shows through is the palette's content and
+   not a grey film, and the saturate() keeps a heading sliding beneath from going muddy where
+   the tint thins it. The rule below stays a hairline of the palette's border, because the
+   glass has to end somewhere the eye can find. */
+#mdbook-menu-bar {
+  background-color: color-mix(in oklab, var(--canvas) 54%, transparent);
+  border-block-end: var(--rule) solid color-mix(in oklab, var(--border) 72%, transparent);
+  -webkit-backdrop-filter: saturate(160%) blur(18px);
+  backdrop-filter: saturate(160%) blur(18px);
+}
+
+/* Without a backdrop filter the tint would be a half-seen paragraph behind the icons, which is
+   the one thing worse than an opaque bar: the text under it is unreadable and the controls are
+   not separable from it. There the bar goes back to the solid canvas. */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  #mdbook-menu-bar {
+    background-color: var(--canvas);
+  }
+}
+
+/* A reader who has asked the system for less transparency is asking for exactly this bar to
+   stop being glass; the tint and the blur both go, and the solid canvas under the same rule
+   keeps the bar distinguishable from the page. */
+@media (prefers-reduced-transparency: reduce) {
+  #mdbook-menu-bar {
+    background-color: var(--canvas);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* The bar is pinned, and a pinned bar with the page sliding under it has to say so: without
+   a lift, a paragraph scrolling beneath the rule reads as content that stopped existing at a
+   straight edge. The lift is scroll-driven and needs no listener — `animation-timeline`
+   maps the document offset onto the shadow, so the bar is exactly flat while it sits at the
+   top of the page (nothing is under it there) and carries the shadow only once something
+   has slid beneath. The tint is the palette's own shadow ink, so the shadow cools or warms
+   with the surface it falls on instead of being a grey that fights every palette. */
+@supports (animation-timeline: scroll()) {
+  #mdbook-menu-bar {
+    animation: stoch-topbar-lift linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 72px;
+  }
+
+  @keyframes stoch-topbar-lift {
+    from {
+      box-shadow: 0 0 0 0 transparent;
+    }
+    to {
+      box-shadow:
+        0 1px 0 0 color-mix(in oklab, var(--border) 60%, transparent),
+        0 12px 26px -18px color-mix(in oklab, var(--shadow-ink) 55%, transparent);
+    }
+  }
+}
+
+/* Without a scroll timeline the bar keeps the shadow at rest rather than losing it: the page
+   still passes under it, and an unshadowed pinned bar is the worse of the two failures. */
+@supports not (animation-timeline: scroll()) {
+  #mdbook-menu-bar {
+    box-shadow: 0 12px 26px -18px color-mix(in oklab, var(--shadow-ink) 55%, transparent);
+  }
+}
+
+.menu-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.02em;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  cursor: pointer;
+  padding-inline: calc(var(--u) * 2);
+  line-height: normal;
+  text-decoration: none;
+}
+
+.menu-title .stoch-topbar-home-link {
+  display: inline-flex;
+  align-items: safe center;
+  justify-content: center;
+  min-inline-size: calc(var(--u) * 9);
+  min-block-size: calc(var(--u) * 9);
+  color: inherit;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+}
+
+.menu-title .stoch-topbar-home-link:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.menu-title .stoch-topbar-emblem {
+  display: block;
+  block-size: 32px;
+  inline-size: 32px;
+  max-block-size: calc(var(--menu-bar-height, 52px) - 16px);
+  max-inline-size: 100%;
+  border-radius: 50%;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.menu-title:hover .stoch-topbar-emblem,
+.menu-title .stoch-topbar-home-link:focus-visible .stoch-topbar-emblem {
+  transform: scale(1.06);
+}
+
+/* ==========================================================================
+   Page preloader: the triad calibration screen
+   ========================================================================== */
+
+#stoch-page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--canvas);
+  color: var(--ink);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: all;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#stoch-page-loader.stoch-loader-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.stoch-loader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 4);
+  padding: calc(var(--u) * 8);
+  text-align: center;
+}
+
+.stoch-loader-emblem-wrap {
+  position: relative;
+  inline-size: calc(var(--u) * 18);
+  block-size: calc(var(--u) * 18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stoch-loader-emblem {
+  inline-size: 100%;
+  block-size: 100%;
+  display: block;
+  animation: stoch-loader-pulse 2.4s steps(24, end) infinite;
+}
+
+@keyframes stoch-loader-pulse {
+  0%, 100% { opacity: 0.86; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.03); }
+}
+
+.stoch-loader-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--u) * 1);
+}
+
+/* Loader type is sized in `em` against the page's 16px body, never in `rem`: mdBook sets the
+   root at 62.5%, so a rem here would render the wordmark at ten pixels. */
+.stoch-loader-title {
+  font-family: var(--font-label);
+  font-size: 1.05em;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  color: var(--ink);
+  text-indent: 0.34em;
+}
+
+.stoch-loader-subtitle {
+  font-family: var(--font-label);
+  font-size: 0.66em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-indent: 0.16em;
+}
+
+/* The track is a ruler, and the bar is the needle travelling across it. */
+.stoch-loader-track {
+  inline-size: calc(var(--u) * 40);
+  block-size: calc(var(--u) * 3);
+  background-color: transparent;
+  background-image: repeating-linear-gradient(
+    90deg, var(--border) 0 var(--rule), transparent var(--rule) calc(var(--u) * 2.5)
+  );
+  border-block-end: var(--rule) solid var(--border);
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.stoch-loader-bar {
+  position: absolute;
+  inset-block: 0;
+  inline-size: calc(var(--u) * 6);
+  border-radius: 0;
+  background-color: var(--accent);
+  animation: stoch-loader-sweep 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes stoch-loader-sweep {
+  0% { inset-inline-start: calc(var(--u) * -6); }
+  100% { inset-inline-start: 100%; }
+}
+
+@media print {
+  #stoch-page-loader {
+    display: none !important;
+  }
+
+  .stoch-logo-figure svg {
+    color: #000;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #stoch-page-loader {
+    display: none !important;
+  }
+  .stoch-loader-emblem,
+  .stoch-loader-bar {
+    animation: none !important;
+  }
+}
+
+/* The sidebar is an index: a spine, ruled groups, one active rail. */
+.sidebar {
+  border-inline-end: var(--rule) solid var(--border);
+  background-color: var(--surface);
+}
+
+.sidebar .sidebar-scrollbox {
+  padding: calc(var(--u) * 4) calc(var(--u) * 3);
+  overscroll-behavior: contain;
+}
+
+.chapter {
+  line-height: 1.7;
+}
+
+.chapter li.part-title {
+  font-family: var(--font-label);
+  font-size: 0.68em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-block: calc(var(--u) * 7) calc(var(--u) * 1.5);
+  padding-inline-start: calc(var(--u) * 2);
+  border-block-start: var(--rule) solid var(--hairline);
+  padding-block-start: calc(var(--u) * 2);
+}
+
+.chapter li.chapter-item {
+  margin-block-start: var(--u);
+}
+
+.chapter-link-wrapper {
+  /* A `<span>` in mdBook's markup, so it is `display: block` on purpose: an inline box
+     ignores block edges, which silently disables the full-bleed margin below. */
+  display: block;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.15s ease;
+}
+
+.chapter li a {
+  display: block;
+  flex: 1;
+  padding: calc(var(--u) * 1.4) calc(var(--u) * 2);
+  border-radius: var(--radius-sm);
+  font-size: 0.94em;
+  font-weight: 450;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.chapter-link-wrapper:hover,
+.chapter li a.active {
+  background-color: var(--state-hover);
+}
+
+.chapter li a.active {
+  font-weight: 650;
+  /* The state is the accent itself, mixed into whatever the panel is: a neutral hover
+     tint disappears on the dark palettes, where the panel and the tint sit two points
+     apart. The rail stays solid so the row reads at a glance either way. */
+  background-color: color-mix(in oklab, var(--accent) 16%, transparent);
+}
+
+/* The open chapter is a row on the panel, not a pill inside it: the wrapper bleeds through
+   the scrollbox padding so the highlight reaches the panel's own edge and the accent rail
+   stands on that edge instead of floating a few pixels inside it. `:has()` keeps the state
+   on the anchor, where mdBook writes it. */
+.chapter-link-wrapper:has(> a.active) {
+  margin-inline: calc(var(--u) * -3);
+  border-radius: 0;
+  background-color: var(--state-hover);
+  /* The rail rides the wrapper, not the anchor: the wrapper is the box that reaches the
+     panel edge, and a rail drawn inside the anchor would float a padding-width inboard. */
+  box-shadow: inset var(--rule-heavy) 0 0 0 var(--accent);
+}
+
+.chapter-link-wrapper:has(> a.active) > a {
+  border-radius: 0;
+  padding-inline-start: calc(var(--u) * 3);
+}
+
+/* Palette and typeface menus open under their own toggle, never at the page corner.
+   Both are popovers, so the top layer owns the stacking order and neither menu spends a
+   z-index. Below the @supports block that follows, these base rules are the fallback:
+   mathjax.js toggles `display` and writes the measured horizontal offset. */
+.theme-popup {
+  position: fixed;
+  inset-block-start: var(--menu-bar-height);
+  inset-inline-start: auto;
+  border: var(--rule) solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-lift);
+}
+
+.stoch-font-popup {
+  min-inline-size: 9.5em;
+}
+
+/* mdBook hides .theme-popup with `display: none`, which would also hide it while the
+   element is a popover. The :popover-open state restores the box only while the popover is
+   actually showing; the UA `[popover]:not(:popover-open)` rule still hides it otherwise. */
+.theme-popup[popover]:popover-open {
+  display: block;
+}
+
+/* Typeface control: a menu-bar button drawn as a plate, not as two loose letters. It carries
+   a border and a mono label so it reads as a control beside the icon buttons, which are
+   inked glyphs with no frame.
+
+   `box-sizing: border-box` is not decoration: mdBook's stylesheet does not set it globally, so
+   a padded content box grew to 32px + padding + rules and the plate came out wider than the
+   square it is meant to be. The label is sized in `em`, not `rem`, because mdBook sets
+   `html { font-size: 62.5% }` — in this document one root em is ten pixels, and a rem-based
+   label renders at eight. */
+#mdbook-menu-bar .stoch-font-toggle {
+  /* A glyph in a row of glyphs, not a framed plate. Every other control in the bar is bare —
+     no border, no radius, no fill — so a frame here read as a control of a different kind
+     dropped into the middle of the row. Layout box sizing, grid centering and zero inline
+     padding are shared below by `#mdbook-menu-bar :is(.icon-button, #stoch-font-toggle, .right-buttons a)`.
+     The id in this selector is load-bearing. `#mdbook-menu-bar .icon-button` sets the leading
+     to the whole bar height, and an id-qualified rule outbids a bare class no matter the source
+     order: the label's line box was a bar tall, so its baseline dropped to the bottom of the
+     box and the word read as hanging low. Matching that specificity is what puts it back on
+     the bar's axis. */
+  list-style: none;
+  margin: 0;
+  padding-block: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-family: var(--font-label);
+  font-size: 0.82em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-decoration: none !important;
+}
+
+/* Native menu placement. Each toggle is the anchor of its own menu, and the menu opens in
+   the block-end direction, clamped to the inline-end edge so the list hangs under the
+   button: `span-inline-start` gives an area that ends at the toggle's inline-end, and
+   `justify-self: end` puts the menu's own inline-end on that line. `@position-try` moves
+   the menu to the other inline side, or above the toggle, when the preferred area would
+   leave the viewport. `inset: auto` hands both axes to `position-area` and cancels the
+   popover UA `margin: auto`. */
+@supports (anchor-name: --stoch-menu) {
+  #mdbook-theme-toggle {
+    anchor-name: --stoch-palette-toggle;
+  }
+
+  #stoch-font-toggle {
+    anchor-name: --stoch-typeface-toggle;
+  }
+
+  .theme-popup {
+    position-anchor: --stoch-palette-toggle;
+    position-area: block-end span-inline-start;
+    position-try-fallbacks: --stoch-menu-inline-end, --stoch-menu-block-start;
+    justify-self: end;
+    inset: auto;
+    margin: 0;
+  }
+
+  .stoch-font-popup {
+    position-anchor: --stoch-typeface-toggle;
+  }
+
+  @position-try --stoch-menu-inline-end {
+    position-area: block-end span-inline-end;
+    justify-self: start;
+  }
+
+  @position-try --stoch-menu-block-start {
+    position-area: block-start span-inline-start;
+    justify-self: end;
+    margin-block-end: var(--u);
+  }
+}
+
+/* The bar is a rail, so its clusters share one rhythm: mdBook spaces the right cluster with
+   its own margins and leaves the left one tight enough that the search glyph crowds the
+   typeface plate. */
+#mdbook-menu-bar :is(.left-buttons, .right-buttons) {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 2);
+  /* mdBook gives the two clusters five and fifteen pixels of inline margin, so the rail was
+     inset thirteen pixels on one end and twenty-three on the other. The bar's own padding is
+     the inset both ends should share. */
+  margin-inline: 0;
+}
+
+/* One control, one box. Left to its own rules the bar runs four widths — the sidebar toggle
+   48, theme and search 45.3, the typeface plate 32.5, the right anchors 32 — because mdBook
+   pads each glyph instead of sizing each control, and the padding then rides on a glyph that
+   is not the same width twice. The gaps measured equal and the rail still read as uneven,
+   since what the eye averages is the distance between glyphs, not between borders. Every
+   control is therefore one square of `--bar-control`, padding gone, glyph centred in it, so
+   the gap is the gap wherever the reader looks. The sidebar toggle is a label wrapping the
+   glyph and the anchors are block boxes around a span; the grid is what makes all three
+   types centre the same way. */
+#mdbook-menu-bar {
+  --bar-control: calc(var(--u) * 11);
+  padding-inline: calc(var(--u) * 2);
+}
+
+#mdbook-menu-bar :is(.icon-button, #stoch-font-toggle, .right-buttons a) {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  inline-size: var(--bar-control);
+  min-inline-size: var(--bar-control);
+  min-block-size: var(--bar-control);
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+/* The right anchors already carried a 32px block around a 16px glyph, left-aligned inside it:
+   the box was centred and the ink was not, which showed as three glyphs sitting four pixels
+   off the centre their neighbours share. The span is made to centre what it holds instead of
+   being a plate of its own width. */
+#mdbook-menu-bar .right-buttons .fa-svg {
+  inline-size: auto;
+  display: grid;
+  place-items: center;
+}
+
+/* mdBook inks the bar's icon buttons from its own token, which the palettes here do not
+   own; pinning them to the palette's secondary ink keeps the chrome legible on the dark
+   slots without letting it outshine the page.
+
+   One rule for the whole bar, and the right cluster is in it. mdBook colours the print and
+   download glyphs through `.menu-bar a .fa-svg { color: var(--icons) }` — a span inside an
+   anchor, which neither `.icon-button` nor `.stoch-font-toggle` matches. Left alone, the same
+   bar carries two tones: the left cluster 72% ink over canvas, the right cluster the flat
+   `--muted` token. On a light palette that made the right glyphs darker than their neighbours
+   and on a dark one lighter, and on the warm palettes it swapped the hue as well — Claret's
+   right glyphs came out cool blue-grey beside a warm left cluster. The anchor itself also kept
+   the user agent's link colour, blue unvisited and lavender once visited, which is a third
+   tone in a chrome that names none. Both the anchor and its span are therefore pinned here,
+   and hover and focus are answered by the palette rather than by the browser. */
+#mdbook-menu-bar :is(.icon-button, .stoch-font-toggle, .right-buttons a, .right-buttons .fa-svg) {
+  color: var(--ink) !important;
+  color: color-mix(in oklab, var(--ink) 72%, var(--canvas)) !important;
+}
+
+#mdbook-menu-bar :is(.icon-button, .stoch-font-toggle, .right-buttons a, .right-buttons .fa-svg):hover,
+#mdbook-menu-bar .right-buttons a:hover .fa-svg {
+  color: var(--accent) !important;
+}
+
+/* The bar had no focus style of its own, so `:focus-visible` fell back to the user agent's
+   ring — a blue that belongs to no palette and is the loudest mark in a warm chrome. The ring
+   is the one the rest of the document already uses. */
+#mdbook-menu-bar :is(.icon-button, .stoch-font-toggle, .right-buttons a):focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+#mdbook-menu-bar .stoch-font-toggle > li {
+  list-style: none;
+  line-height: 1;
+}
+
+#mdbook-searchbar {
+  border-radius: var(--radius-sm);
+  padding: calc(var(--u) * 2) calc(var(--u) * 3);
+  font-size: 0.94em;
+}
+
+/* ==========================================================================
+   Reading progress & chapter-to-chapter navigation (platform only, no JS)
+   ========================================================================== */
+
+/* The progress bar is a fixed pseudo-element of <body>, and neither of the two tempting
+   hosts works. #mdbook-menu-bar carries `backdrop-filter`, which makes it a containing block
+   for fixed descendants, so the bar would be positioned against (and clipped by) the menu bar
+   instead of the viewport; .page-wrapper carries `transform` while the sidebar slides. <body>
+   is neither, so `inset-block-start` resolves against the viewport and one length places the
+   bar.
+
+   Offset `0`: a 2px rule on the top edge of the *viewport*, deliberately painted over the
+   first rows of the sticky menu bar instead of under it (product decision, A2b). A reading
+   fio belongs to the window, not to the chrome, and pinning it to the window edge means it
+   cannot move when the menu bar rewraps on a narrow viewport. `z-index: 120` is what lets it
+   paint there — above the sticky chrome (101), below the skip link (9999), and the menus are
+   unaffected because they live in the top layer, outside this stacking context. Two pixels
+   cover neither a glyph nor a label: the chrome's hit boxes do reach the viewport edge, but
+   its icons and text are centred inside that height. At scroll 0 the bar is also at
+   `scaleX(0)`, so nothing is painted over the chrome while the chrome is pinned there.
+
+   `animation-timeline: scroll(root block)` maps 0% -> scaleX(0) and 100% -> scaleX(1) onto
+   the document scroll offset, so there is no scroll listener, no JS and no per-frame layout
+   work; the compositor owns the transform. On a page with no scroll range the timeline is
+   inactive and the `transform: scaleX(0)` base value keeps the bar invisible. */
+@supports (animation-timeline: scroll()) {
+  body::after {
+    content: "";
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: var(--rule-heavy);
+    /* Above the sticky chrome (z-index 101) so it is never lost behind a translucent bar,
+       below the skip link (9999) and below the top-layer popovers of the menus. */
+    z-index: 120;
+    pointer-events: none;
+    background-color: var(--accent);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    animation: stoch-reading-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+
+  @keyframes stoch-reading-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}
+
+/* A progress bar is a screen affordance: paper has no scroll offset to report. */
+@media print {
+  body::after {
+    display: none !important;
+  }
+}
+
+/* Chapter paging is mdBook's own: two bare chevrons pinned to the window's edges, full height,
+   at every width where mdBook shows them. The 74ch measure leaves them a wide gutter, so no
+   framed plate or measure-relative offset is drawn over them. */
+
+/* Cross-document view transitions. mdBook serves one full document per chapter, so a chapter
+   change is a real navigation: `@view-transition { navigation: auto }` is the whole opt-in,
+   with no router and no JS. The chapter title is the one named group, because it is the only
+   element that exists on both documents with a single identity per page; naming every heading
+   would be inert anyway, since a view-transition-name must be unique among rendered elements
+   and print.html concatenates all h1 elements into one document. */
+@supports (view-transition-name: none) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  .content h1:first-of-type {
+    view-transition-name: stoch-chapter-title;
+  }
+}
+
+/* ==========================================================================
+   Shared components: buttons, inputs, focus rings
+   ========================================================================== */
+
+/* Skip link */
+.stoch-skip-link {
+  position: fixed;
+  inset-block-start: -100px;
+  inset-inline-start: calc(var(--u) * 3);
+  z-index: 9999;
+  padding: calc(var(--u) * 2) calc(var(--u) * 4);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface);
+  color: var(--ink) !important;
+  border: var(--rule-heavy) solid var(--accent);
+  box-shadow: none;
+  font-family: var(--font-label);
+  font-size: 0.82em;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: inset-block-start 0.15s ease;
+}
+
+.stoch-skip-link:focus-visible {
+  inset-block-start: calc(var(--u) * 3);
+  inset-inline-start: calc(var(--u) * 3);
+}
+
+/* ==========================================================================
+   Exercise self-check widget (hydrated by mathjax.js::setupExerciseChecks)
+   ========================================================================== */
+
+/* DOM contract, owned by the enhancer — every selector below exists because the JS writes that
+   exact class, and no rule here reaches for a state the JS does not publish:
+
+     div.stoch-check[data-check-id][data-kind=value|derive|rubric][data-revealed=true|false]
+       details.stoch-check-disclosure
+         summary.stoch-check-summary
+         div.stoch-check-body > p            (one paragraph per line of the authored block)
+       fieldset.stoch-check-criteria         (kind=rubric only, before the form)
+         legend.stoch-check-legend
+         div.stoch-check-criterion > input.stoch-check-box + label.stoch-check-criterion-label
+       form.stoch-check-controls[novalidate]
+         span.stoch-check-field > label.stoch-check-label + input.stoch-check-input  (kind=value)
+         button.stoch-check-btn.stoch-check-verify|done|review|reveal|clear
+       p.stoch-check-verdict[data-tone=ok|warn|bad|idle][role=status]
+
+   The widget is a div *around* the <details>, not the <details> itself: the form has to stay
+   reachable while the answer is collapsed, otherwise "conferir antes de revelar" is impossible.
+   That is why `.stoch-check-controls` is a sibling of `.stoch-check-disclosure` here and never
+   inside it — no selector below depends on `[open]` to show the controls. */
+
+.stoch-check {
+  margin-block: calc(var(--u) * 4) calc(var(--u) * 7);
+  padding: calc(var(--u) * 3.5) calc(var(--u) * 4) calc(var(--u) * 4);
+  border: var(--rule) solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--surface);
+  font-size: 0.95em;
+  line-height: var(--leading-ui);
+  box-shadow: none;
+}
+
+/* A revealed answer is the state the reader came for, so the frame says so without shouting. */
+.stoch-check[data-revealed="true"] {
+  border-color: var(--accent);
+}
+
+/* The summary is the disclosure target: 30px block size keeps the 24px touch floor with room
+   for the mono label, and the marker is redrawn because `display: flex` drops ::marker. */
+.stoch-check-summary {
+  display: flex;
+  align-items: safe center;
+  gap: calc(var(--u) * 2);
+  min-block-size: 30px;
+  padding-block: var(--u);
+  font-family: var(--font-label);
+  font-size: 0.74em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  cursor: pointer;
+  list-style: none;
+}
+
+.stoch-check-summary::-webkit-details-marker {
+  display: none;
+}
+
+.stoch-check-summary::before {
+  content: "▸";
+  flex: 0 0 auto;
+  font-size: 0.9em;
+  color: var(--muted);
+  transition: transform 0.15s ease;
+}
+
+.stoch-check-disclosure[open] > .stoch-check-summary::before {
+  content: "▾";
+}
+
+.stoch-check-summary:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Solutions are fragments, not prose: never justified, never hyphenated to fit a measure. */
+.content .stoch-check .stoch-check-body > p,
+.stoch-check-body > p {
+  margin-block: calc(var(--u) * 2);
+  max-inline-size: 72ch;
+  text-align: start;
+  hyphens: manual;
+  color: var(--ink);
+}
+
+.stoch-check-body > p:first-child {
+  margin-block-start: calc(var(--u) * 1.5);
+}
+
+/* Ledger of criteria: a dashed frame so it reads as sub-structure of the exercise. */
+.stoch-check-criteria {
+  margin-block: calc(var(--u) * 3) calc(var(--u) * 1);
+  margin-inline: 0;
+  padding: calc(var(--u) * 2) calc(var(--u) * 3) calc(var(--u) * 2.5);
+  /* A dashed group frame is a boundary, so it has to clear 3:1 against the card it sits on
+     (WCAG 1.4.11); `--border` is a hairline token and measures ~1.6:1 on the dark slots, so the
+     frame is mixed from `--muted`, with `--border` kept as the fallback. */
+  border: var(--rule) dashed var(--border);
+  border: var(--rule) dashed color-mix(in oklab, var(--muted) 70%, var(--canvas));
+  border-radius: var(--radius-sm);
+  background-color: var(--canvas);
+  min-inline-size: 0;
+}
+
+.stoch-check-legend {
+  padding-inline: calc(var(--u) * 1.5);
+  font-family: var(--font-label);
+  font-size: 0.66em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stoch-check-criterion {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--u) * 2);
+  padding-block: 0.16em;
+}
+
+.stoch-check-box {
+  flex: 0 0 auto;
+  inline-size: 16px;
+  block-size: 16px;
+  margin-block-start: 0.18em;
+  accent-color: var(--accent);
+  /* The native box keeps its own rendering; the ring gives it a boundary in the palettes where
+     the UA's default grey disappears into the dark card. */
+  box-shadow: 0 0 0 var(--rule) color-mix(in oklab, var(--muted) 70%, var(--canvas));
+  border-radius: var(--radius-sm);
+}
+
+.stoch-check-box:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.stoch-check-criterion-label {
+  font-size: 0.86em;
+  line-height: 1.5;
+  color: var(--ink);
+  text-align: start;
+}
+
+/* Controls: the reader's own machinery, so a button clears the 24px target floor at 30px
+   and keeps the machine face the rest of the chrome uses. */
+.stoch-check-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--u) * 1.5) calc(var(--u) * 2);
+  margin-block-start: calc(var(--u) * 3);
+}
+
+.stoch-check-field {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--u) * 1.5);
+  margin-inline-end: var(--u);
+}
+
+.stoch-check-label {
+  font-family: var(--font-label);
+  font-size: 0.66em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stoch-check-input {
+  inline-size: 8em;
+  max-inline-size: 100%;
+  min-block-size: 30px;
+  padding: calc(var(--u) * 1.2) calc(var(--u) * 2);
+  border: var(--rule) solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-label);
+  font-size: 0.84em;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.stoch-check-input::placeholder {
+  color: var(--muted);
+}
+
+.stoch-check-input:hover {
+  border-color: var(--accent);
+}
+
+.stoch-check-input:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+  border-color: var(--accent);
+}
+
+.stoch-check-btn {
+  display: inline-flex;
+  align-items: safe center;
+  justify-content: center;
+  gap: calc(var(--u) * 1.5);
+  min-block-size: 30px;
+  min-inline-size: calc(var(--u) * 11);
+  padding: calc(var(--u) * 1.5) calc(var(--u) * 3);
+  border: var(--rule) solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-label);
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.stoch-check-btn:hover {
+  background-color: var(--state-hover);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.stoch-check-btn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Conferir answers about the reader's attempt, so it is the one filled control. The hover step
+   is a palette derivation with a declared fallback, never a hand-typed shade. */
+.stoch-check-verify {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.stoch-check-verify:hover {
+  background-color: var(--accent);
+  background-color: color-mix(in oklab, var(--accent) 86%, var(--ink));
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.stoch-check-reveal {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.stoch-check-done {
+  border-color: var(--plane-v);
+  background-color: var(--emerald-bg);
+  color: var(--emerald);
+}
+
+.stoch-check-done:hover {
+  border-color: var(--plane-v);
+  color: var(--emerald);
+}
+
+.stoch-check-review {
+  border-color: var(--plane-g);
+  background-color: var(--amber-bg);
+  color: var(--amber);
+}
+
+.stoch-check-review:hover {
+  border-color: var(--plane-g);
+  color: var(--amber);
+}
+
+/* Limpar is the quiet way out of the reader's own state: last in the row, muted until hovered. */
+.stoch-check-clear {
+  margin-inline-start: auto;
+  color: var(--muted);
+}
+
+.stoch-check-clear:hover {
+  color: var(--accent);
+}
+
+/* Verdict: `data-tone` is the only colour hook, and every tone also prints a marker so the
+   state never depends on hue alone. Text tone on its own tint measures 5.15–8.91:1 (amber),
+   5.24–6.11:1 (rose), 5.53–8.91:1 (emerald) and 5.78–6.92:1 (muted on elevated) across the
+   five palettes, measured from the rendered colours in Porcelain and Lapis. */
+.stoch-check-verdict {
+  display: flex;
+  align-items: safe center;
+  gap: calc(var(--u) * 2);
+  margin-block: calc(var(--u) * 3) 0;
+  min-block-size: 28px;
+  padding: calc(var(--u) * 1.5) calc(var(--u) * 3);
+  border: var(--rule) solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--elevated);
+  color: var(--muted);
+  font-family: var(--font-label);
+  font-size: 0.74em;
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: start;
+}
+
+.stoch-check-verdict::before {
+  flex: 0 0 auto;
+  font-weight: 700;
+}
+
+.stoch-check-verdict:empty {
+  display: none;
+}
+
+.stoch-check-verdict[data-tone="ok"] {
+  border-color: var(--plane-v);
+  background-color: var(--emerald-bg);
+  color: var(--emerald);
+}
+
+.stoch-check-verdict[data-tone="ok"]::before {
+  content: "✓";
+}
+
+.stoch-check-verdict[data-tone="warn"] {
+  border-color: var(--plane-g);
+  background-color: var(--amber-bg);
+  color: var(--amber);
+}
+
+.stoch-check-verdict[data-tone="warn"]::before {
+  content: "!";
+}
+
+.stoch-check-verdict[data-tone="bad"] {
+  border-color: var(--rose);
+  background-color: var(--rose-bg);
+  color: var(--rose);
+}
+
+.stoch-check-verdict[data-tone="bad"]::before {
+  content: "✗";
+}
+
+.stoch-check-verdict[data-tone="idle"] {
+  border-color: var(--border);
+  background-color: var(--elevated);
+  color: var(--muted);
+}
+
+.stoch-check-verdict[data-tone="idle"]::before {
+  content: "·";
+}
+
+/* The page-wide reset sits in its own row after the Exercises heading, not inside it. */
+.stoch-check-reset-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-block: calc(var(--u) * 2) calc(var(--u) * 5);
+}
+
+.stoch-check-reset-row .stoch-check-btn.stoch-check-reset {
+  min-block-size: 26px;
+  padding-block: calc(var(--u) * 1.2);
+  font-size: 0.68em;
+  color: var(--muted);
+}
+
+.stoch-check-reset-row .stoch-check-btn.stoch-check-reset:hover {
+  color: var(--accent);
+}
+
+/* Paper carries the solutions, not the reader's machinery: the JS opens every disclosure in
+   `beforeprint`, the summary would be a label without a control, and the controls themselves
+   have nothing to do. The `display: block` is the belt to that braces in case an engine skips
+   the disclosure entirely. */
+@media print {
+  .stoch-check {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  .stoch-check-summary {
+    display: none !important;
+  }
+
+  .stoch-check-body {
+    display: block !important;
+  }
+
+  .stoch-check-controls,
+  .stoch-check-reset-row {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   SVG zoom dialog (<dialog> injected by mathjax.js)
+   ========================================================================== */
+
+.stoch-svg-zoom-trigger {
+  min-block-size: 28px;
+  padding: calc(var(--u) * 1) calc(var(--u) * 3);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-label);
+  font-size: 0.7em;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--muted);
+}
+
+dialog.stoch-svg-zoom-dialog {
+  inline-size: min(96vw, 1340px);
+  max-inline-size: 96vw;
+  block-size: fit-content;
+  max-block-size: min(92vh, 92dvh);
+  margin: auto;
+  padding: 0;
+  border: var(--rule-heavy) solid var(--accent);
+  border-radius: var(--radius-lg);
+  background-color: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-lift);
+  overflow: hidden;
+}
+
+dialog.stoch-svg-zoom-dialog:not([open]) {
+  display: none !important;
+}
+
+dialog.stoch-svg-zoom-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+dialog.stoch-svg-zoom-dialog::backdrop {
+  background-color: rgba(2, 6, 23, 0.72);
+  background-color: color-mix(in oklab, var(--shadow-ink) 72%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.stoch-svg-zoom-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--u) * 2.5) calc(var(--u) * 4);
+  padding: calc(var(--u) * 3) calc(var(--u) * 4.5);
+  background-color: var(--elevated);
+  border-block-end: var(--rule) solid var(--border);
+}
+
+.stoch-svg-zoom-title {
+  margin: 0;
+  font-size: 0.9em;
+  font-weight: 650;
+  color: var(--ink);
+  flex: 1 1 16em;
+  min-inline-size: 0;
+}
+
+.stoch-svg-zoom-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(var(--u) * 1.5);
+  margin: 0;
+}
+
+.stoch-svg-zoom-btn {
+  min-block-size: 30px;
+  min-inline-size: calc(var(--u) * 8);
+  padding: calc(var(--u) * 1) calc(var(--u) * 2.5);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-label);
+  font-size: 0.74em;
+  font-weight: 600;
+}
+
+/* Trigger and dialog controls are the reader's machinery, drawn like every other control
+   plate in the book: hairline frame on the surface, accent on hover, focus ring on keys. */
+.stoch-svg-zoom-trigger,
+.stoch-svg-zoom-btn {
+  display: inline-flex;
+  align-items: safe center;
+  justify-content: center;
+  gap: calc(var(--u) * 1.5);
+  border: var(--rule) solid var(--border);
+  background-color: var(--surface);
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.stoch-svg-zoom-trigger {
+  color: var(--muted);
+}
+
+.stoch-svg-zoom-trigger:hover,
+.stoch-svg-zoom-btn:hover {
+  background-color: var(--state-hover);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.stoch-svg-zoom-trigger:focus-visible,
+.stoch-svg-zoom-btn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.stoch-svg-zoom-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+  background-color: var(--surface);
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+.stoch-svg-zoom-viewport {
+  flex: 1 1 auto;
+  display: block;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: calc(var(--u) * 5);
+  background-color: var(--canvas);
+  min-block-size: 260px;
+  /* The viewport keeps the dialog's own head and foot clear: 85px of chrome, in units. */
+  max-block-size: calc(min(92vh, 92dvh) - var(--u) * 21);
+  box-sizing: border-box;
+}
+
+.stoch-svg-zoom-stage {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: none;
+  margin-inline: auto;
+  transition: inline-size 0.12s ease;
+}
+
+.stoch-svg-zoom-stage > :is(svg, img) {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: none !important;
+  block-size: auto !important;
+  margin-inline: auto;
+}
+
+.stoch-svg-zoom-caption {
+  padding: calc(var(--u) * 2.5) calc(var(--u) * 4.5);
+  background-color: var(--elevated);
+  border-block-start: var(--rule) solid var(--border);
+  font-size: 0.78em;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.stoch-svg-zoom-caption:empty {
+  display: none;
+}
+
+/* ==========================================================================
+   Home frontispiece (`book-src/index.md`)
+   ========================================================================== */
+
+.content:has(.stoch-home) h1:first-of-type {
+  font-size: clamp(2.1em, 1.7em + 1.4vw, 2.75em);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  color: var(--ink);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-image: none;
+}
+
+.stoch-home {
+  container: stoch-home / inline-size;
+  inline-size: 100%;
+}
+
+.content .stoch-home :is(p, li, dd, figcaption) {
+  text-align: start;
+  hyphens: manual;
+}
+
+.content .stoch-home a:focus-visible {
+  outline: var(--rule-heavy) solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- Movement I: Frontispiece Masthead ---------- */
+
+.stoch-home-masthead {
+  padding-block: calc(var(--u) * 5) calc(var(--u) * 5);
+  border-block-start: var(--rule-heavy) solid var(--accent);
+  border-block-end: var(--rule) solid var(--border);
+  margin-block-end: calc(var(--u) * 7);
+}
+
+.stoch-home-masthead-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: calc(var(--u) * 4);
+  align-items: center;
+  margin-block-end: calc(var(--u) * 5);
+}
+
+@container stoch-home (inline-size >= 480px) {
+  .stoch-home-masthead-grid {
+    grid-template-columns: calc(var(--u) * 26) minmax(0, 1fr);
+    gap: calc(var(--u) * 5);
+  }
+}
+
+.stoch-home-seal.stoch-logo-figure {
+  inline-size: calc(var(--u) * 24);
+  max-inline-size: 100%;
+  margin: 0;
+}
+
+@container stoch-home (inline-size >= 480px) {
+  .stoch-home-seal.stoch-logo-figure {
+    inline-size: calc(var(--u) * 26);
+  }
+}
+
+.stoch-home-seal.stoch-logo-figure svg {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+.stoch-home-title-block {
+  min-inline-size: 0;
+}
+
+.content .stoch-home .stoch-home-kicker {
+  margin: 0 0 calc(var(--u) * 1.5);
+  font-family: var(--font-label);
+  font-size: 0.74em;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.4;
+}
+
+.content .stoch-home .stoch-home-lead {
+  margin-block: 0 calc(var(--u) * 5);
+  font-size: 1.06em;
+  line-height: var(--leading-body);
+  color: var(--ink);
+}
+
+.stoch-home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: safe center;
+  gap: calc(var(--u) * 3) calc(var(--u) * 5);
+  margin-block-end: calc(var(--u) * 6);
+}
+
+.content .stoch-home a.stoch-home-cta {
+  display: inline-flex;
+  align-items: safe center;
+  justify-content: center;
+  gap: calc(var(--u) * 1.5);
+  min-block-size: calc(var(--u) * 11);
+  padding: calc(var(--u) * 2.5) calc(var(--u) * 5);
+  border: var(--rule-heavy) solid var(--accent);
+  border-radius: var(--radius-sm);
+  background-color: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-label);
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.content .stoch-home a.stoch-home-cta:hover {
+  background-color: var(--accent);
+  background-color: color-mix(in oklab, var(--accent) 84%, var(--ink));
+  border-color: var(--ink);
+  color: var(--on-accent);
+}
+
+.stoch-home-alt-entry {
+  font-size: 0.94em;
+  line-height: 1.5;
+  color: var(--muted);
+  min-inline-size: 0;
+}
+
+.content .stoch-home .stoch-home-alt-entry a {
+  display: inline-block;
+  padding-block: calc(var(--u) * 0.5);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: var(--rule);
+}
+
+.content .stoch-home .stoch-home-alt-entry a:hover {
+  color: var(--accent);
+}
+
+.stoch-home-ledger {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(var(--u) * 3) calc(var(--u) * 4);
+  margin: 0;
+  padding-block-start: calc(var(--u) * 4);
+  border-block-start: var(--rule) solid var(--hairline);
+}
+
+@container stoch-home (inline-size >= 540px) {
+  .stoch-home-ledger {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.stoch-home-ledger > div {
+  min-inline-size: 0;
+}
+
+.stoch-home-ledger dt {
+  font-family: var(--font-label);
+  font-size: 0.68em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-block-end: calc(var(--u) * 0.5);
+}
+
+.stoch-home-ledger dd {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.content .stoch-home .stoch-home-section-intro {
+  margin-block: calc(var(--u) * 2) calc(var(--u) * 5);
+  color: var(--muted);
+  font-size: 0.97em;
+  line-height: var(--leading-body);
+}
+
+/* ---------- Epigraph Carousel (∞ · Ten Ancestral Horizons) ---------- */
+
+.stoch-home-epigraph {
+  margin-block: 0 calc(var(--u) * 8);
+  padding-block: calc(var(--u) * 3.5) calc(var(--u) * 4);
+  border-block-end: var(--rule) solid var(--border);
+}
+
+.stoch-home-epigraph-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--u) * 2) calc(var(--u) * 4);
+  margin-block-end: calc(var(--u) * 3);
+  padding-block-end: calc(var(--u) * 2);
+  border-block-end: var(--rule) solid var(--hairline);
+}
+
+.stoch-home-epigraph-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--u) * 2.5);
+  min-inline-size: 0;
+}
+
+.stoch-home-epigraph-kicker {
+  font-family: var(--font-label);
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.4;
+}
+
+.stoch-home-epigraph-mark {
+  display: block;
+  flex: 0 0 auto;
+  inline-size: calc(var(--u) * 11);
+  block-size: auto;
+}
+
+.stoch-home-epigraph-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.5);
+}
+
+.stoch-epigraph-counter {
+  font-family: var(--font-label);
+  font-size: 0.72em;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-inline-end: calc(var(--u) * 1);
+}
+
+.stoch-carousel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: calc(var(--u) * 8);
+  min-block-size: calc(var(--u) * 8);
+  padding: 0;
+  border: var(--rule) solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-label);
+  font-size: 0.9em;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.stoch-carousel-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.stoch-carousel-btn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.stoch-epigraph-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  touch-action: manipulation;
+  scrollbar-width: none;
+}
+
+.stoch-epigraph-track::-webkit-scrollbar {
+  display: none;
+}
+
+.stoch-epigraph-track:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stoch-epigraph-track {
+    scroll-behavior: smooth;
+  }
+}
+
+.stoch-epigraph-track > :first-child {
+  order: clamp(0, var(--current) - (var(--children-count, sibling-count()) - 3), 1);
+}
+
+.stoch-epigraph-track > :last-child {
+  order: calc(-1 * clamp(0, 2 - var(--current), 1));
+}
+
+.stoch-epigraph-slide {
+  flex: 0 0 100%;
+  min-inline-size: 0;
+  box-sizing: border-box;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: calc(var(--u) * 3);
+  margin: 0;
+  padding: calc(var(--u) * 4.5) calc(var(--u) * 5);
+  background-color: var(--surface);
+  border: var(--rule) solid var(--border);
+  border-inline-start: var(--rule-heavy) solid var(--accent);
+  border-radius: var(--radius-sm);
+}
+
+.content .stoch-home .stoch-home-epigraph-region {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 0.67em;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.4;
+}
+
+.content .stoch-home .stoch-home-epigraph-quote {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  border-image: none;
+  border-radius: 0;
+  text-align: start;
+  hyphens: none;
+}
+
+.content .stoch-home .stoch-home-epigraph-original {
+  margin: 0 0 calc(var(--u) * 2.5);
+  font-size: 0.96em;
+  line-height: 1.65;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.content .stoch-home .stoch-home-epigraph-original[lang="lzh"] {
+  font-family: "Noto Serif CJK TC", "Songti TC", "PMingLiU", var(--font-literata), var(--font-serif);
+  font-style: normal;
+}
+
+.content .stoch-home .stoch-home-epigraph-original[lang="sa"] {
+  font-family: "Noto Serif Devanagari", "Noto Sans Devanagari", var(--font-serif);
+  font-style: normal;
+}
+
+.content .stoch-home .stoch-home-epigraph-original[lang="ar"] {
+  font-family: "Noto Naskh Arabic", "Amiri", "Noto Sans Arabic", serif;
+  font-style: normal;
+  font-size: 1.06em;
+  line-height: 1.82;
+  text-align: start;
+}
+
+.content .stoch-home .stoch-home-epigraph-original:is([lang="grc"], [lang="ak"], [lang="pi"], [lang="nci"], [lang="ay"], [lang="mi"]) {
+  font-family: var(--font-literata), "Noto Serif", "DejaVu Serif", var(--font-serif);
+  font-style: italic;
+}
+
+.content .stoch-home .stoch-home-epigraph-translation {
+  margin: 0;
+  font-family: var(--font-literata), var(--font-serif);
+  font-style: italic;
+  font-size: 1em;
+  line-height: 1.6;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+.content .stoch-home .stoch-home-epigraph-attrib {
+  padding-block-start: calc(var(--u) * 2.5);
+  border-block-start: var(--rule) solid var(--hairline);
+  font-family: var(--font-label);
+  font-size: 0.7em;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.stoch-home-epigraph-attrib cite {
+  font-style: italic;
+}
+
+.stoch-home-epigraph-source {
+  display: block;
+  margin-block-start: calc(var(--u) * 0.5);
+  font-size: 0.92em;
+  color: var(--muted);
+}
+
+.stoch-epigraph-markers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: calc(var(--u) * 0.5);
+  margin-block-start: calc(var(--u) * 3);
+}
+
+.stoch-epigraph-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 24px;
+  min-block-size: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.stoch-epigraph-marker::before {
+  content: "";
+  display: block;
+  inline-size: 7px;
+  block-size: 7px;
+  border: var(--rule) solid var(--muted);
+  border-radius: var(--radius-pill);
+  background-color: transparent;
+  transition: inline-size 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
+}
+
+.stoch-epigraph-marker:hover::before {
+  border-color: var(--accent);
+}
+
+.stoch-epigraph-marker[aria-current="true"]::before {
+  inline-size: 20px;
+  border-color: var(--accent);
+  background-color: var(--accent);
+}
+
+.stoch-epigraph-marker:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 1px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- Movement II: Mediation Circuit Plate & Triad Specification ---------- */
+
+.stoch-triad-folio {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: calc(var(--u) * 5);
+  align-items: start;
+  margin-block: calc(var(--u) * 4) calc(var(--u) * 8);
+}
+
+@container stoch-home (inline-size >= 640px) {
+  .stoch-triad-folio {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.05fr);
+    gap: calc(var(--u) * 6);
+  }
+}
+
+.stoch-home-plate {
+  margin: 0;
+  padding: calc(var(--u) * 2);
+  background-color: var(--surface);
+  border: var(--rule) solid var(--border);
+  border-radius: var(--radius);
+  min-inline-size: 0;
+}
+
+@container stoch-home (inline-size >= 480px) {
+  .stoch-home-plate {
+    padding: calc(var(--u) * 3);
+  }
+}
+
+.stoch-home-plate svg {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+.stoch-home-plate figcaption {
+  margin-block-start: calc(var(--u) * 3);
+  padding-block-start: calc(var(--u) * 2.5);
+  border-block-start: var(--rule) solid var(--hairline);
+  font-size: 0.82em;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.stoch-home-plate figcaption strong {
+  color: var(--ink);
+}
+
+.content .stoch-home ol.stoch-triad-spec {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-inline-size: 0;
+}
+
+.content .stoch-home ol.stoch-triad-spec > li {
+  margin: 0;
+  padding: calc(var(--u) * 3.5) 0 calc(var(--u) * 3.5) calc(var(--u) * 4);
+  border-inline-start: calc(var(--u) * 0.75) solid var(--accent);
+}
+
+.content .stoch-home ol.stoch-triad-spec > li:not(:last-child) {
+  border-block-end: var(--rule) solid var(--hairline);
+}
+
+.content .stoch-home ol.stoch-triad-spec > li[data-plane="e"] {
+  border-inline-start-color: var(--plane-e);
+}
+
+.content .stoch-home ol.stoch-triad-spec > li[data-plane="v"] {
+  border-inline-start-color: var(--plane-v);
+}
+
+.content .stoch-home ol.stoch-triad-spec > li[data-plane="g"] {
+  border-inline-start-color: var(--plane-g);
+}
+
+.stoch-triad-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: calc(var(--u) * 1) calc(var(--u) * 3);
+  margin-block-end: calc(var(--u) * 1);
+}
+
+.stoch-triad-kicker {
+  font-family: var(--font-label);
+  font-size: 0.7em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stoch-triad-row[data-plane="e"] .stoch-triad-kicker { color: var(--plane-e); }
+.stoch-triad-row[data-plane="v"] .stoch-triad-kicker { color: var(--plane-v); }
+.stoch-triad-row[data-plane="g"] .stoch-triad-kicker { color: var(--plane-g); }
+
+.stoch-triad-span {
+  font-family: var(--font-label);
+  font-size: 0.72em;
+  color: var(--muted);
+}
+
+.content .stoch-home .stoch-triad-row h3 {
+  margin: 0 0 calc(var(--u) * 1.5);
+  padding: 0;
+  border: 0;
+  font-size: 1.04em;
+  line-height: var(--leading-tight);
+}
+
+.content .stoch-home .stoch-triad-row h3 a {
+  display: inline-block;
+  padding-block: calc(var(--u) * 0.5);
+  min-block-size: calc(var(--u) * 6);
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration-color: var(--muted);
+  text-decoration-color: color-mix(in oklab, var(--accent) 55%, var(--muted));
+}
+
+.content .stoch-home .stoch-triad-row h3 a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+.content .stoch-home .stoch-triad-row p {
+  margin: 0;
+  font-size: 0.91em;
+  line-height: var(--leading-ui);
+  color: var(--muted);
+}
+
+.content .stoch-home .stoch-triad-row p strong {
+  color: var(--ink);
+}
+
+/* ---------- Movement III: Ways Into the Treatise (Ruled Itinerary List) ---------- */
+
+.content .stoch-home ol.stoch-itinerary-list,
+.content .stoch-home ol.stoch-atlas-list {
+  list-style: none;
+  padding: 0;
+  margin-block: calc(var(--u) * 3) calc(var(--u) * 7);
+  border-block-start: var(--rule-heavy) solid var(--border);
+  border-block-end: var(--rule) solid var(--border);
+}
+
+.content .stoch-home ol.stoch-itinerary-list > li,
+.content .stoch-home ol.stoch-atlas-list > li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: calc(var(--u) * 1) calc(var(--u) * 5);
+  margin: 0;
+  padding-block: calc(var(--u) * 3.5);
+}
+
+@container stoch-home (inline-size >= 540px) {
+  .content .stoch-home ol.stoch-itinerary-list > li {
+    grid-template-columns: calc(var(--u) * 44) minmax(0, 1fr);
+    align-items: baseline;
+  }
+
+  .content .stoch-home ol.stoch-atlas-list > li {
+    grid-template-columns: calc(var(--u) * 32) minmax(0, 1fr);
+    align-items: baseline;
+  }
+}
+
+.content .stoch-home ol.stoch-itinerary-list > li:not(:last-child),
+.content .stoch-home ol.stoch-atlas-list > li:not(:last-child) {
+  border-block-end: var(--rule) solid var(--hairline);
+}
+
+.stoch-itinerary-code,
+.stoch-atlas-code {
+  font-family: var(--font-label);
+  font-size: 0.74em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stoch-itinerary-body,
+.stoch-atlas-body {
+  min-inline-size: 0;
+}
+
+.content .stoch-home :is(.stoch-itinerary-body, .stoch-atlas-body) > a {
+  display: inline-block;
+  padding-block: calc(var(--u) * 0.5);
+  min-block-size: calc(var(--u) * 6);
+  font-size: 1.02em;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration-color: var(--accent);
+}
+
+.content .stoch-home :is(.stoch-itinerary-body, .stoch-atlas-body) > a:hover {
+  color: var(--accent);
+}
+
+.content .stoch-home :is(.stoch-itinerary-body, .stoch-atlas-body) > p {
+  margin-block: calc(var(--u) * 1) 0;
+  font-size: 0.91em;
+  line-height: var(--leading-ui);
+  color: var(--muted);
+}
+
+.content .stoch-home .stoch-atlas-strata {
+  margin-block-start: calc(var(--u) * 1.5);
+  padding-inline-start: calc(var(--u) * 3);
+  border-inline-start: var(--rule-heavy) solid var(--hairline);
+  font-family: var(--font-label);
+  font-size: 0.78em;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.content .stoch-home .stoch-atlas-strata strong {
+  color: var(--ink);
+}
+
+/* ---------- Movement IV: Reference Appendices Colophon ---------- */
+
+.content .stoch-home h3.stoch-colophon-heading {
+  margin-block: calc(var(--u) * 7) calc(var(--u) * 3);
+}
+
+.content .stoch-home ul.stoch-colophon-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: calc(var(--u) * 2) calc(var(--u) * 5);
+  border-block-start: var(--rule) solid var(--border);
+  padding-block-start: calc(var(--u) * 3.5);
+}
+
+@container stoch-home (inline-size >= 560px) {
+  .content .stoch-home ul.stoch-colophon-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.content .stoch-home ul.stoch-colophon-list > li {
+  margin: 0;
+  min-inline-size: 0;
+  font-size: 0.9em;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.stoch-colophon-code {
+  font-family: var(--font-label);
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-inline-end: calc(var(--u) * 1.5);
+}
+
+.content .stoch-home ul.stoch-colophon-list a {
+  display: inline-block;
+  padding-block: calc(var(--u) * 0.5);
+  font-weight: 650;
+  color: var(--ink);
+  text-decoration-color: var(--muted);
+  text-decoration-color: color-mix(in oklab, var(--accent) 55%, var(--muted));
+}
+
+.content .stoch-home ul.stoch-colophon-list a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+@media (pointer: coarse) {
+  .content .stoch-home a.stoch-home-cta {
+    min-block-size: calc(var(--u) * 11);
+  }
+  .content .stoch-home :is(.stoch-home-alt-entry a, .stoch-triad-row h3 a, .stoch-itinerary-body > a, .stoch-atlas-body > a, ul.stoch-colophon-list a) {
+    display: inline-block;
+    min-block-size: calc(var(--u) * 11);
+    padding-block: calc(var(--u) * 2);
+    line-height: 1.4;
+  }
+}
+
+@media (forced-colors: active) {
+  .stoch-home-plate svg * {
+    forced-color-adjust: auto;
+  }
+  .content .stoch-home a.stoch-home-cta {
+    background-color: ButtonFace;
+    color: ButtonText;
+    border-color: ButtonText;
+  }
+}
+
+@media print {
+  .stoch-home-masthead,
+  .stoch-home-plate,
+  .stoch-triad-row,
+  .stoch-itinerary-row,
+  .stoch-atlas-row {
+    break-inside: avoid;
+  }
+}
+
+/* ==========================================================================
+   Print — the same tokens, on paper
+   ========================================================================== */
+
+/* Paper has no dark mode and no hover. `:root:root` (0,2,0) out-ranks the palette classes on
+   <html>, so one block repaints every slot light: on #ffffff the print tokens measure
+   17.06:1 (ink), 7.24:1 (muted), 8.9:1 (accent) and 6.4–8.6:1 for the four diagnostic tones,
+   all above the 4.5:1 floor for normal text. */
+@media print {
+  :root:root {
+    color-scheme: light;
+    --canvas: #ffffff; --surface: #ffffff; --elevated: #f4f6f8;
+    --ink: #0f172a; --muted: #414b57; --border: #b7bfc9; --hairline: #d8dde3;
+    --accent: #17418f; --accent-2: #a2102f; --on-accent: #ffffff;
+    --code-bg: #f4f5f7; --code-border: #ccd3da; --code-ink: #0f172a;
+    --sky: #17418f; --sky-bg: #eaf0f9;
+    --emerald: #05603a; --emerald-bg: #e8f4ee;
+    --amber: #7a3d06; --amber-bg: #fdf4e6;
+    --rose: #a2102f; --rose-bg: #fcecef;
+    --scroll-thumb: #b7bfc9; --scroll-track: #ffffff;
+    --shadow: none; --shadow-lift: none; --state-hover: #eef1f5;
+  }
+
+  /* Page geometry and the running head. CSS Paged Media puts the head in `@page` margin boxes.
+     Measured in Chromium: the boxes and the page counters print ("Stochology" in the top
+     margin, the page count at the bottom), while `string-set` is unsupported, so `@top-right`
+     stays empty there and the *current* chapter head needs an engine with named strings. The
+     declaration is correct for those engines; nothing is lost where it is not. */
+
+  /* Emblem motion is a screen affordance; on paper the seal is already drawn. */
+  .js-plates .stoch-logo-figure svg > g > * {
+    opacity: 1 !important;
+    animation: none !important;
+    translate: none !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 20mm 17mm 18mm;
+    @top-left { content: "Stochology"; font: 8.5pt var(--font-sans); color: var(--muted); }
+    @top-right { content: string(stoch-running-head, first); font: 8.5pt var(--font-sans);
+      color: var(--muted); }
+    @bottom-center { content: counter(page) " / " counter(pages);
+      font: 8.5pt var(--mono-font); color: var(--muted); }
+  }
+
+  .content h1 {
+    string-set: stoch-running-head content();
+  }
+
+  /* A citation you cannot click has to be readable: the URL follows the link text. */
+  .content a[href^="http"]::after {
+    content: " ⟨" attr(href) "⟩";
+    font-size: 0.8em;
+    font-weight: 400;
+    color: var(--muted);
+    overflow-wrap: anywhere;
+  }
+
+  /* mdBook's highlight themes colour spans for a dark canvas; on paper those colours are a
+     wash. Every dark palette falls back to its own print code ink. */
+  :is(.malachite, .lapis, .carmine, .ember, .kyanite, .porphyry) :is(pre, pre code, .hljs, .hljs *) {
+    background-color: var(--code-bg) !important;
+    color: var(--code-ink) !important;
+  }
+
+  /* The chrome is not printed, but the scroll-driven lift would still be resolved on the
+     sticky bar; drop it so no shadow is computed at all. */
+  #mdbook-menu-bar {
+    box-shadow: none !important;
+    animation: none !important;
+  }
+
+  /* Keep a figure, a panel or a table in one piece, and drop the depth effects. */
+  :is(h1, h2, h3, h4) {
+    break-after: avoid;
+  }
+
+  .stoch-home-epigraph-controls,
+  .stoch-epigraph-markers {
+    display: none;
+  }
+
+  .stoch-epigraph-track {
+    display: block;
+    overflow: visible;
+  }
+
+  .stoch-epigraph-slide {
+    break-inside: avoid;
+    margin-block-end: calc(var(--u) * 3);
+  }
+
+  .content :is(p, li, blockquote) {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .content :is(p, ul, ol, blockquote) {
+    text-align: start;
+  }
+
+  /* The gutter rule and the crop marks are screen furniture; paper keeps its own margins. */
+  #mdbook-content {
+    background-image: none !important;
+  }
+
+  .stoch-figure::before,
+  .stoch-figure::after,
+  mjx-container[jax="CHTML"][display="true"]::before,
+  mjx-container[jax="CHTML"][display="true"]::after {
+    display: none !important;
+  }
+
+  /* mdBook's print stylesheet hard-codes a GitHub blue for links; the palette owns them. */
+  .content a:not(.header),
+  .content a:visited {
+    color: var(--accent);
+    text-decoration-color: var(--border);
+  }
+}
+
+/* ==========================================================================
+   Accessibility & interaction guards
+   ========================================================================== */
+
+.visually-hidden:where(:not(:focus-within, :active)),
+.stoch-sr-only {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  inline-size: 1px !important;
+  block-size: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* ==========================================================================
+   Editorial Split Heroes (Opening, Parts I-VII, Closing)
+   ========================================================================== */
+
+.stoch-art-plate--hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  inline-size: 100%;
+  max-inline-size: 100%;
+  margin-block: calc(var(--u) * 6) calc(var(--u) * 8);
+  margin-inline: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: var(--rule) solid color-mix(in srgb, var(--hero-accent, #f0ad38) 28%, #2c2721);
+  background: var(--hero-bg, #12100e);
+  color: #f4efe4;
+  position: relative;
+  box-sizing: border-box;
+  --hero-bg: #12100e;
+  --hero-accent: #f0ad38;
+}
+
+.stoch-art-plate--hero::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: 3.5px;
+  background: var(--hero-accent, #f0ad38);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.stoch-art-plate--opening::before,
+.stoch-art-plate--prologue::before {
+  background: linear-gradient(
+    to right,
+    #0d7d57 0 33.33%,
+    #1b52c4 33.33% 66.66%,
+    #c82838 66.66% 100%
+  );
+}
+
+.stoch-art-plate--closing {
+  margin-block-start: calc(var(--u) * 8);
+}
+
+.stoch-art-plate--closing::before {
+  background: linear-gradient(
+    to right,
+    #c82838 0 33.33%,
+    #1b52c4 33.33% 66.66%,
+    #0d7d57 66.66% 100%
+  );
+}
+
+.stoch-art-plate[data-part="part-i"] { --hero-bg: #14100c; --hero-accent: #e58c3a; }
+.stoch-art-plate[data-part="part-ii"] { --hero-bg: #0c1322; --hero-accent: #5ca8ff; }
+.stoch-art-plate[data-part="part-iii"] { --hero-bg: #091617; --hero-accent: #3fd6cf; }
+.stoch-art-plate[data-part="part-iv"] { --hero-bg: #0a1511; --hero-accent: #36cf97; }
+.stoch-art-plate[data-part="part-v"] { --hero-bg: #140e1c; --hero-accent: #c594ff; }
+.stoch-art-plate[data-part="part-vi"] { --hero-bg: #16120b; --hero-accent: #f0ad38; }
+.stoch-art-plate[data-part="part-vii"] { --hero-bg: #170c10; --hero-accent: #f2556b; }
+
+.stoch-art-plate-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--hero-bg, #12100e);
+  max-block-size: 460px;
+}
+
+.stoch-art-plate-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    var(--hero-bg, #12100e) 0%,
+    color-mix(in srgb, var(--hero-bg, #12100e) 40%, transparent) 16%,
+    transparent 34%
+  );
+}
+
+.stoch-art-plate-media img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.stoch-art-plate-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: calc(var(--u) * 4);
+  padding: calc(var(--u) * 5) calc(var(--u) * 5) calc(var(--u) * 6);
+  background: radial-gradient(
+      circle at 0% 100%,
+      color-mix(in srgb, var(--hero-accent, #f0ad38) 12%, transparent),
+      transparent 62%
+    ),
+    var(--hero-bg, #12100e);
+  text-align: start;
+}
+
+.stoch-art-plate-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--u) * 2);
+}
+
+.stoch-art-plate-kicker {
+  font-family: var(--mono-font);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--hero-accent, #f0ad38);
+}
+
+.stoch-art-plate-mark {
+  font-family: var(--display-font, var(--sans-font, system-ui));
+  font-size: clamp(2.8rem, 5.2vw, 4.4rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  color: rgba(244, 239, 228, 0.92);
+  padding-block-end: calc(var(--u) * 2.5);
+  border-block-end: 2.5px solid var(--hero-accent, #f0ad38);
+  min-inline-size: 3.4rem;
+}
+
+.stoch-art-plate-body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 2.5);
+  text-align: start;
+}
+
+.stoch-art-plate-title {
+  font-family: var(--display-font, var(--sans-font, system-ui));
+  font-size: clamp(1.35rem, 2.3vw, 1.75rem);
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #f4efe4;
+}
+
+.stoch-art-plate-deck {
+  font-size: 0.89rem;
+  line-height: 1.58;
+  color: #cfc6b6;
+  text-align: start;
+  hyphens: none;
+}
+
+@media (min-width: 720px) {
+  .stoch-art-plate--hero {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    align-items: stretch;
+  }
+
+  .stoch-art-plate-copy {
+    order: 1;
+    gap: calc(var(--u) * 5);
+    padding: calc(var(--u) * 7) calc(var(--u) * 6) calc(var(--u) * 7) calc(var(--u) * 7);
+  }
+
+  .stoch-art-plate-media {
+    order: 2;
+    aspect-ratio: 848 / 1219;
+    max-block-size: none;
+  }
+
+  .stoch-art-plate-media::after {
+    background: linear-gradient(
+      to right,
+      var(--hero-bg, #12100e) 0%,
+      color-mix(in srgb, var(--hero-bg, #12100e) 35%, transparent) 12%,
+      transparent 28%
+    );
+  }
+}
+
+@media (forced-colors: active) {
+  /* The measurement furniture is decoration in a forced palette: structure must survive
+     without it, so only real borders and text remain. */
+  #mdbook-content,
+  .stoch-figure::before,
+  .stoch-figure::after,
+  .stoch-art-plate::before,
+  .stoch-art-plate::after,
+  .content h1,
+  .content h2 {
+    background-image: none !important;
+  }
+
+  .stoch-art-plate--hero,
+  .stoch-art-plate-copy {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+  }
+
+  .stoch-art-plate-kicker,
+  .stoch-art-plate-mark,
+  .stoch-art-plate-title,
+  .stoch-art-plate-deck {
+    color: CanvasText;
+    border-color: CanvasText;
+  }
+
+  .stoch-art-plate--hero::before,
+  .stoch-art-plate-media::after {
+    display: none;
+  }
+
+  blockquote {
+    border-image: none;
+    border-inline-start-color: CanvasText;
+  }
+
+  .stoch-home-epigraph-mark path {
+    stroke: CanvasText;
+  }
+
+  .stoch-epigraph-marker[aria-current="true"]::before {
+    background-color: Highlight;
+    border-color: Highlight;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Both platform features above are motion, so both switch off here: the scroll-driven bar
+     leaves the page entirely (the blanket `animation-duration: 0.01ms` above cannot be trusted
+     with a progress-based timeline, and a bar that snaps to 100% is worse than none), and the
+     cross-document opt-in is withdrawn, with the transition pseudo-elements pinned to no
+     animation as the belt to that braces. */
+  body::after {
+    display: none !important;
+  }
+
+  @view-transition {
+    navigation: none;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

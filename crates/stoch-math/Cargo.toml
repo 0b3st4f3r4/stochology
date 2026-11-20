@@ -1,0 +1,14 @@
+[package]
+name = "stoch-math"
+version = "0.1.0"
+edition = "2021"
+description = "Fixed-point epistemic, spectral, and delay-stability pre-operators for Stochology"
+license = "CC-BY-4.0"
+repository = "https://github.com/silvanoneto/stochology"
+include = ["src/**", "tests/**", "Cargo.toml"]
+
+[lib]
+crate-type = ["rlib"]
+
+# No dependencies: this table is absent on purpose so stoch-math remains part
+# of the pure integer-only trusted base without widening stoch-core or stoch-abi.

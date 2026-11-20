@@ -1,0 +1,335 @@
+# The Triad and the Minimum
+
+<figure class="stoch-figure stoch-logo-figure">
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="132" viewBox="0 0 800 132" fill="none" role="img" aria-label="Stochology CH41 · SYNTHESIS — The Nuclear Triad And The Minimum">
+  <defs>
+    <linearGradient id="ch41-ring" x1="2" y1="78" x2="386" y2="78" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-green, #10b981)"/>
+      <stop offset="38%" stop-color="var(--logo-blue, #2563eb)"/>
+      <stop offset="68%" stop-color="var(--logo-gold, #f59e0b)"/>
+      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)"/>
+    </linearGradient>
+    <radialGradient id="ch41-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.24"/>
+      <stop offset="48%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="80%" stop-color="#e11d48" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#090e1a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ch41-triad-stroke" x1="18" y1="24" x2="110" y2="104" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.85"/>
+      <stop offset="50%" stop-color="var(--logo-gold, #f59e0b)" stop-opacity="0.90"/>
+      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="ch41-fill" x1="22" y1="30" x2="106" y2="98" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-green, #10b981)" stop-opacity="0.26"/>
+      <stop offset="48%" stop-color="var(--logo-blue, #2563eb)" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="var(--logo-crimson, #e11d48)" stop-opacity="0.26"/>
+    </linearGradient>
+    <linearGradient id="ch41-ink-curve" x1="20" y1="66" x2="108" y2="66" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="var(--logo-ink, #0f172a)"/>
+      <stop offset="50%" stop-color="var(--logo-sub, #1d4ed8)"/>
+      <stop offset="100%" stop-color="var(--logo-ink, #0f172a)"/>
+    </linearGradient>
+    <radialGradient id="ch41-pupil" cx="45%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="68%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </radialGradient>
+    <linearGradient id="ch41-gold-mira" x1="54" y1="48" x2="84" y2="82" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="45%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <radialGradient id="ch41-gold-core" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </radialGradient>
+    <radialGradient id="ch41-node-well" cx="38%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="var(--logo-well-hi, var(--elevated-bg, #ffffff))"/>
+      <stop offset="100%" stop-color="var(--logo-node-bg, #e2e8f0)"/>
+    </radialGradient>
+    <linearGradient id="ch41-ring-epi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <radialGradient id="ch41-core-epi" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="45%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </radialGradient>
+    <linearGradient id="ch41-ring-vital" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6ee7b7"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#065f46"/>
+    </linearGradient>
+    <radialGradient id="ch41-core-vital" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#a7f3d0"/>
+      <stop offset="45%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </radialGradient>
+    <linearGradient id="ch41-ring-gov" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fda4af"/>
+      <stop offset="50%" stop-color="#e11d48"/>
+      <stop offset="100%" stop-color="#881337"/>
+    </linearGradient>
+    <radialGradient id="ch41-core-gov" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fecdd3"/>
+      <stop offset="45%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </radialGradient>
+  </defs>
+  <g>
+    <circle cx="64" cy="66" r="48" fill="url(#ch41-glow)"/>
+    <polygon points="64,22 102,44 102,88 64,110 26,88 26,44" fill="url(#ch41-fill)" stroke="url(#ch41-triad-stroke)" stroke-width="2.4" stroke-linejoin="round"/>
+    <line x1="64" y1="22" x2="64" y2="66" stroke="var(--logo-blue, #2563eb)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="26" y1="88" x2="64" y2="66" stroke="var(--logo-green, #10b981)" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="102" y1="88" x2="64" y2="66" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="64" cy="22" r="6.6" fill="url(#ch41-node-well)" stroke="url(#ch41-ring-epi)" stroke-width="2.4"/>
+    <circle cx="64" cy="22" r="2.8" fill="url(#ch41-core-epi)"/>
+    <circle cx="26" cy="88" r="6.6" fill="url(#ch41-node-well)" stroke="url(#ch41-ring-vital)" stroke-width="2.4"/>
+    <circle cx="26" cy="88" r="2.8" fill="url(#ch41-core-vital)"/>
+    <circle cx="102" cy="88" r="6.6" fill="url(#ch41-node-well)" stroke="url(#ch41-ring-gov)" stroke-width="2.4"/>
+    <circle cx="102" cy="88" r="2.8" fill="url(#ch41-core-gov)"/>
+    <g>
+      <circle cx="64" cy="66" r="7.0" fill="var(--logo-node-bg, #e2e8f0)"/>
+      <circle cx="64" cy="66" r="6.0" fill="url(#ch41-pupil)" stroke="url(#ch41-gold-mira)" stroke-width="2.2"/>
+      <line x1="55.0" y1="66" x2="60.0" y2="66" stroke="url(#ch41-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="68.0" y1="66" x2="73.0" y2="66" stroke="url(#ch41-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64" y1="57.0" x2="64" y2="62.0" stroke="url(#ch41-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="64" y1="70.0" x2="64" y2="75.0" stroke="url(#ch41-gold-mira)" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="64" cy="66" r="2.0" fill="url(#ch41-gold-core)"/>
+    </g>
+  </g>
+  <g transform="translate(148, 0)">
+    <text x="2" y="27" fill="var(--logo-sub, #1d4ed8)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="10.5" font-weight="700" letter-spacing="1.2">PART III · FOUNDATIONS OF JUDGMENT</text>
+    <text x="498" y="27" text-anchor="end" fill="var(--logo-meta, #475569)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="10.5" font-weight="700" letter-spacing="1.0">CH41 · SYNTHESIS</text>
+    <text x="0" y="59" fill="var(--logo-ink, #0f172a)" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="20.2" font-weight="800" letter-spacing="1.15">THE NUCLEAR TRIAD AND THE MINIMUM</text>
+    <line x1="2" y1="78" x2="384" y2="78" stroke="url(#ch41-ring)" stroke-width="1.6" stroke-opacity="0.82"/>
+    <circle cx="400" cy="78" r="3.8" fill="var(--logo-node-bg, #e2e8f0)" stroke="var(--logo-blue, #2563eb)" stroke-width="2.0"/>
+    <circle cx="400" cy="78" r="1.6" fill="var(--logo-blue, #2563eb)"/>
+    <circle cx="415" cy="78" r="2.0" fill="var(--logo-ticks, #64748b)" fill-opacity="0.42"/>
+    <circle cx="430" cy="78" r="2.0" fill="var(--logo-ticks, #64748b)" fill-opacity="0.42"/>
+    <circle cx="445" cy="78" r="6.2" stroke="var(--logo-gold, #f59e0b)" stroke-width="1.5" stroke-dasharray="2.2 1.6"/>
+    <circle cx="445" cy="78" r="4.0" fill="var(--logo-node-bg, #e2e8f0)" stroke="var(--logo-green, #10b981)" stroke-width="2.2"/>
+    <circle cx="445" cy="78" r="1.8" fill="var(--logo-gold, #f59e0b)"/>
+    <circle cx="460" cy="78" r="2.0" fill="var(--logo-ticks, #64748b)" fill-opacity="0.42"/>
+    <circle cx="475" cy="78" r="2.0" fill="var(--logo-ticks, #64748b)" fill-opacity="0.42"/>
+    <circle cx="490" cy="78" r="3.8" fill="var(--logo-node-bg, #e2e8f0)" stroke="var(--logo-crimson, #e11d48)" stroke-width="2.0"/>
+    <circle cx="490" cy="78" r="1.6" fill="var(--logo-crimson, #e11d48)"/>
+    <text x="2" y="104" fill="var(--logo-meta, #475569)" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="10.8" font-weight="600" letter-spacing="0.65">LEONTIEF NON-SUBSTITUTABILITY · THREE COLLAPSE PROPOSITIONS · FACTORIAL CUBE</text>
+  </g>
+  </svg>
+</figure>
+
+## By the end of this chapter you can
+
+1. Name the three safeguards and say, for each, which failure it prevents and which it cannot.
+2. Explain why the three combine by minimum and not by average, in words and with the operator's geometry, not one arithmetic contrast.
+3. Recognise the three collapse patterns in a case description, and say which safeguard is missing.
+
+## 1. Three non-substitutable safeguards
+
+Enduring judgment under uncertainty requires three safeguards held at once. None of them can stand in for another, extending the three-axis complementarity previewed in [Chapter 08](08-three-things-you-cant-trade.md) and organized on the mediation circuit of [Chapter 29](29-aim-and-the-three-planes.md).
+
+The **Epistemic Margin** ($S\_{\mathrm{epi}}$) measures what the empirical archive honestly permits an agent to claim. It gathers partial-identification intervals, declared selection filters, recognized schema silences, and verified Keynesian evidential weight. It is the unique defense against **Blind Undersizing**, acting upon a false point certainty. Yet knowing the bounds cannot ensure that the physical system holds enough reserves to survive the unknown range.
+
+The **Vital Margin** ($S\_{\mathrm{vital}}$) measures what the physical, operational, or financial infrastructure can absorb without crossing an absorbing ruin barrier. It tracks reserve inventory, uncommitted capacity, queue headroom below the Kingman hyperbola, and whether emergency survival time outlasts recovery latency. It is the unique defense against **Impotent Lucidity**, seeing disaster clearly while lacking the buffer to endure it. Still, physical slack alone cannot detect that statistical premises were rigged.
+
+The **Institutional Governance Margin** ($S\_{\mathrm{gov}}$) tracks who decides, who audits, and who bears the loss. It pairs status-blind algedonic channels and zero status-based testimonial discounting ($\delta\_{\mathrm{status}} = 0$) with corroborated likelihood-ratio sequential filtering, symmetric downside liability, and cryptographic pre-outcome commitment. It is the unique defense against **Cynical Capture**, the weaponization of manufactured doubt to plunder common reserves under limited liability. Governance alone, however, cannot conjure physical stock or empirical evidence out of thin air.
+
+Each safeguard blocks a lethal failure mode that the other two cannot reach. An institution holding two axes while neglecting the third is not two-thirds safe. It is structurally exposed, and ruin enters through the neglected axis.
+
+That no single axis reduces to another is a long-standing institutional finding. Commons argued that an organization is not a mere veil over bilateral contracts, but a rule-making participant whose going concern outlives any single transaction inside it (Commons 1934). North located that irreducibility in the shared rules and enforcement mechanisms that make exchange possible in the first place (North 1990). Williamson showed further that a firm's boundary tracks the cost of contracting across that boundary rather than the production technology inside it (Williamson 1985). What the governance safeguard supplies—and what no bilateral contract reproduces—is the standing rule that outlives the parties who wrote it.
+
+## 2. Why the Leontief minimum: ordinal box invariance and chart-conditional volume
+
+Within each axis $a \in \lbrace\mathrm{epi}, \mathrm{vital}, \mathrm{gov}\rbrace$, individual site margins $m\_j$ first fold to their axis minimum $s\_a = \min\_{j \in a} m\_j$. A fixed, strictly increasing chart $\varphi\_a$ then maps $s\_a$ onto the unit score $S\_a = \varphi\_a(s\_a) \in [0, 1]$, carrying the threshold to $\tau\_a = \varphi\_a(\tau\_{a,\mathrm{native}})$. Why combine those three scores with their minimum rather than an average or a product?
+
+Any compensatory aggregator that averages the three coordinates allows surplus on one axis to mask total bankruptcy on another:
+
+$$\text{Arithmetic Mean: } \frac{S\_{\mathrm{epi}} + S\_{\mathrm{vital}} + S\_{\mathrm{gov}}}{3}.$$
+
+In plain words, an arithmetic score can portray an institution as healthy while one coordinate sits at annihilation. Because the mean lies between its smallest and largest inputs, high epistemic rigor and strong governance hide a vital axis sitting on the ruin floor. That same compensatory trap afflicts executive scoring matrices like Thomas Saaty's Analytic Hierarchy Process (AHP; Saaty 1980). Even when pairwise comparisons are perfectly transitive, principal eigenvector weighting still awards a passing composite score when survival slack reaches zero. Multiplicative executive heuristics such as ICE and RICE repeat the error by letting reach and confidence mask negligible vital margin.
+
+Pure multiplicative aggregation ($S\_{\mathrm{epi}} S\_{\mathrm{vital}} S\_{\mathrm{gov}}$) fails from the opposite direction: it distorts the geometry of safe configurations. Picture the unit cube $[0, 1]^3$ and fix a common viability threshold $\tau \in (0, 1)$. Survival requires every axis to clear $\tau$ simultaneously, which carves out a corner product box $[\tau, 1]^3$ rather than a curved corner-cut. Under the **Leontief minimum aggregator**,
+
+$$M\_{\mathrm{Leontief}} = \min\bigl(S\_{\mathrm{epi}},\mkern3mu S\_{\mathrm{vital}},\mkern3mu S\_{\mathrm{gov}}\bigr),$$
+
+the viable region where all three coordinates satisfy $S\_i \ge \tau$ is simply that orthant box, with volume:
+
+$$V\_{\min}(\tau) = (1 - \tau)^3.$$
+
+Read carefully, that volume is a Lebesgue measure inside the single declared chart, not a chart-free invariant. Under Stevens's (1946) ordinal scale discipline, suppose we apply any separate, top-anchored $C^1$ strictly increasing cube recoding $\psi\_a : [0, 1] \to [0, 1]$ ($\psi\_a(1) = 1$) to each normalized coordinate $S\_a \mapsto \psi\_a(S\_a)$, rather than uncoordinated site margins $m\_j$. That transformation preserves coordinate-wise ordering and carries the Leontief box $\prod\_a [\tau\_a, 1]$ cleanly to a new product box $\prod\_a [\psi\_a(\tau\_a), 1]$. Its pushed-forward Lebesgue volume rescales to $\int\_{\prod\_a [\tau\_a, 1]} \lvert \det J\_\psi(S) \rvert \mkern3mu dS$ with Jacobian determinant $\det J\_\psi(S) = \prod\_a \psi\_a'(S\_a) > 0$, as derived in [Appendix A.4](appendix-a-mathematics.md#a4-leontief-structural-complementarity-of-the-nuclear-triad). The comparison below therefore reads both aggregators within one fixed chart; §6 supplies the ordinal level comparability (OLC) rule needed to identify the weakest axis cleanly.
+
+Social-choice theory clarifies why thresholds are stated in structural headroom rather than subjective utility. Arrow (1950) proved that excluding cardinal interpersonal comparability forces wide-domain aggregation toward either imposition or dictatorship. Sen (1985) formalized how **informational invariance** separates **open incompleteness** from assertive incompleteness and showed that both utilitarianism and utility-maximin rely on welfarist comparisons. Even Vickrey–Harsanyi expected-utility values, built from choices over equiprobable lotteries, conflate risk attitudes across units unless bounded by non-utility primary criteria (Sen 1985). In $M\_{\mathrm{Leontief}}$, each coordinate $S\_a \in [0, 1]$ tracks structural headroom relative to its survival threshold $\tau\_a$, preserving ordinal box invariance without inventing cardinal exchange rates across planes.
+
+Now place multiplicative aggregation inside that same fixed chart. Suppose every axis genuinely clears $\tau \in (0, 1]$, yet the product rule demands $S\_{\mathrm{epi}} S\_{\mathrm{vital}} S\_{\mathrm{gov}} \ge \tau$—forcing every pair of high scores to subsidize the third well above $\tau$. Letting $e := S\_{\mathrm{epi}}$, $v := S\_{\mathrm{vital}}$, and $g := S\_{\mathrm{gov}}$ (with $e \ge \tau > 0$ and $ev \ge \tau > 0$), the product-viable set $\Omega\_{\mathrm{prod}}(\tau) := \lbrace{}S \in [0, 1]^3 : S\_{\mathrm{epi}} S\_{\mathrm{vital}} S\_{\mathrm{gov}} \ge \tau\rbrace$ sits strictly inside $[\tau, 1]^3$, whereas $V\_{\min}(\tau) = \int\_\tau^1 \int\_\tau^1 \int\_\tau^1 dg\mkern2mu dv\mkern2mu de = (1 - \tau)^3$. Integrating the product region gives:
+
+$$V\_{\mathrm{prod}}(\tau) = \int\_\tau^1 de \int\_{\tau/e}^1 dv \int\_{\tau/(ev)}^1 dg = \int\_\tau^1 \left(1 - \frac{\tau}{e} + \frac{\tau\ln\tau}{e} - \frac{\tau\ln e}{e}\right) de = 1 - \tau + \tau\ln\tau - \frac{1}{2}\tau(\ln\tau)^2 = 1 - \tau \sum\_{k=0}^2 \frac{(-\ln \tau)^k}{k!}.$$
+
+This tail formula follows directly from $-\ln(S\_{\mathrm{epi}} S\_{\mathrm{vital}} S\_{\mathrm{gov}}) \sim \mathrm{Erlang}(3, 1)$ on $[0, 1]^3$, whereas inclusion–exclusion over the three marginal caps $\lbrace{}S\_a < \tau\rbrace$ yields $1 - 3\tau + 3\tau^2 - \tau^3 = (1 - \tau)^3 = V\_{\min}(\tau)$, matching at $V\_{\mathrm{prod}}(0) = 1 = V\_{\min}(0)$. Taken in plain English, the product rule carves away the interior wedge $[\tau, 1]^3 \setminus \Omega\_{\mathrm{prod}}(\tau)$. For every $\tau \in (0, 1)$, it imposes a **viable-volume contraction** $V\_{\min}(\tau) - V\_{\mathrm{prod}}(\tau) > 0$, wrongly failing balanced institutions whose three margins each clear the bar. Within any single chart, only the Leontief minimum isolates the coordinate-wise box of non-substitutable survival.
+
+Two common misreadings must be walled off immediately. First, $M\_{\mathrm{Leontief}}$ is never an unconditional action rule. Harsanyi (1975) used his New York–Chicago flight example and zero-savings critique to show that maximin used as an **unconditional choice rule** paralyzes ordinary life and forbids productive accumulation whenever tiny worst-case risks exist. Stochology fully accepts Harsanyi's refutation of maximin-as-action. Here $M\_{\mathrm{Leontief}}$ serves strictly as a retrospective **trajectory diagnostic** folded after execution, while live action runs through Regimes I–III in §5. Harsanyi (1975) noted himself that maximin remains useful where cardinal utilities cannot be compared and basic rules forbid absurd outcomes—the exact boundary held here: the minimum is not a weighted sum, nor an action command.
+
+Second, $M\_{\mathrm{Leontief}}$ resembles **Maxmin Expected Utility (MEU)** (Gilboa & Schmeidler 1986) only by formal analogy, not mathematical identity. MEU represents uncertainty aversion under C-Independence as $\min\_{P \in C} \int u \circ f \mkern3mu dP$ over a closed convex set $C$ of priors for one utility $u$. By contrast, $M\_{\mathrm{Leontief}}$ binds three structurally distinct planes—epistemic margin, vital buffer, and institutional governance—at their weakest link. Klibanoff, Marinacci, and Mukerji (2005) further showed that smooth ambiguity preferences $\mathbb{E}\_\mu \phi(\mathbb{E}\_\pi u \circ f)$ trade off across priors under finite ambiguity aversion and reach MEU only in the infinite-aversion limit across utility domain $U$ ($\lim\_n (\inf\_{x \in U} \alpha\_n(x)) = +\infty$). Whether mild interior regimes away from absorbing ruin barriers allow partial physical slack substitution is therefore left open to pre-registered empirical falsifier $F\_4$ in [Chapter 50](50-methodological-families-reflexivity.md), never closed by axiomatic decree.
+
+Materials science gives this weakest-link geometry its physical anchor. Waloddi Weibull derived his extreme-value distribution from serial chain mechanics (Weibull 1939). A chain under tension never snaps at the mean strength of its links, nor at a smooth product once a microscopic Griffith crack propagates; it snaps at its single weakest link, $\min\_i R\_i$. That chain also refutes the picture of the world drawn by logical atomism, where elementary facts stand independently and non-substitutability reduces to an arbitrary convention of addition (Russell 1918–1919; Wittgenstein 1921). A viable orthant whose volume collapses to zero whenever any single coordinate exhausts its headroom ($1 - \tau\_a = 0$, giving $M\_{\mathrm{Leontief}} = 0$) is an indivisible whole, not a heap of independent atoms.
+
+## 3. The three collapse propositions
+
+Set any single coordinate to zero and a distinct failure mode follows, because each safeguard blocks its own mechanism of ruin.
+
+**Collapse Proposition 1 ($\neg S\_{\mathrm{epi}} \implies \text{Blind Undersizing}$)**: Where an organization
+holds extensive physical buffers and flawless governance but lacks the epistemic margin, so that it estimates
+demand using naive sample means that ignore unmeasured selection bias ($\rho\_{R,Y} \neq 0$), cluster design
+effects ($\mathrm{DEFF}$) and the width of the partial-identification bounds $\Delta\_{\mathrm{id}}$, the
+reserve buffer is sized against a false point certainty and fails on the first excursion beyond the support
+that certainty assumes. It fails if a trajectory carrying all three omissions is observed to size its buffer
+above the tail it later meets.
+
+That point-certainty trap fixes Collapse Proposition 1's **empirical boundary**. Neth and Gigerenzer (2015) distinguish measurable risk from radical uncertainty and apply the bias–variance decomposition to explain why simple estimation-free heuristics (such as $1/N$ equal weighting) outperform complex optimization whenever parameter estimation variance overwhelms fine tuning.
+
+Haldane and Madouros (2012) document both sides of this boundary in banking data. Across roughly 100 large global banks holding assets above $\unicode{x24}100\text{ billion}$ at end-2006 (37 of which failed), pre-crisis unweighted leverage averaged 1.2 percentage points lower in failing than in surviving banks—significant at the 1% level—while Basel Tier 1 risk-weighted capital was insignificant (Haldane & Madouros 2012). Preventing failure across those large banks would have required a leverage floor above 7%, versus an error-minimizing floor near 4% (Haldane & Madouros 2012). Yet across 8,500 simpler US FDIC-insured regional banks—nearly all below $\unicode{x24}100\text{ billion}$, with 442 failures since 2007—that ranking reversed: risk-based capital was significant at 1% while simple leverage was insignificant (Haldane & Madouros 2012). In matching GARCH simulations, a "true" parametric model needed over 100,000 days (400 years) and materially around 250,000 days (1,000 years) to beat a simple structural rule (Haldane & Madouros 2012). Proposition 1 thus indicts false point precision built by ignoring $\rho\_{R,Y} \neq 0$, $\mathrm{DEFF}$, and $\Delta\_{\mathrm{id}}$, not robust structural floors that renounce fragile estimation.
+
+**Collapse Proposition 2 ($\neg S\_{\mathrm{vital}} \implies \text{Impotent Lucidity}$)**: Where impeccable empirical
+bounds, auditable governance and near-full utilization or congested deliberation meet at
+$\mathrm{TTS}\_{\mathrm{survival}} < \mathrm{TTR}\_{\mathrm{recovery}} = \mathrm{TTR}\_{\mathrm{eff}}(\mathcal{I}\_t) = \tau\_{\mathrm{detect}} + \tau\_{\mathrm{delib}}(\mathcal{I}\_t) + \tau\_{\mathrm{actuate}}$, the trajectory is absorbed: the Kingman queuing
+hyperbola diverges, the Itô variance drain consumes working capital, and the system reaches the ruin barrier
+while fully understanding the equations of its own demise. This is a theorem of the ruin model under the stated
+condition, not a claim about how often organizations satisfy it. Its empirical content is that the condition is
+reachable; whether a particular organization reaches it is a question for a pre-registered design
+([Five Methodological Families, Process Tracing, and Reflexive Self-Application](50-methodological-families-reflexivity.md) §9.5), and
+what the proposition predicts is absorption once the barrier is crossed, not that a lean organization fails inside
+any particular window. It fails if a trajectory whose survival time sits below its recovery time is observed to take
+the next step at full utilization and still be there once the recovery interval has elapsed.
+
+Proposition 2 carries an equally sharp **boundary condition** around budget hardness. Absorption holds for a self-contained balance sheet under a hard budget constraint; an external guarantor can temporarily postpone exit by softening that constraint through subsidies, tax relief, soft credit rescheduling, or cost-plus pricing (Kornai 1986). When failing banks or firms rely on external bailouts whenever bills come due, their ledger survives not because $\mathrm{TTS}\_{\mathrm{survival}} < \mathrm{TTR}\_{\mathrm{recovery}}$ proved harmless, but because deficits shifted onto an outside insurer absorbing moral hazard. As Kornai (1986) emphasizes, soft rescue dulls precaution and creates a lasting tension between financial discipline and solidarity, so empirical tests of Proposition 2 must isolate bailout transfers before counting unit survival as a refutation.
+
+**Collapse Proposition 3 ($\neg S\_{\mathrm{gov}} \implies \text{Cynical Capture}$)**: Where an organization
+has accurate data and generous physical reserves but lacks the governance coordinate, operating under
+one-sided limited liability where decision-makers capture private upside while shifting downside risk onto the
+public, legitimate scientific uncertainty is weaponized as an agnotological excuse to delay precautions,
+frontline warning testimony is discounted by status ($\delta\_{\mathrm{status}} \to 1$), and common vital
+reserves are privatized. It fails if an institution with one-sided limited liability and silenced frontline
+testimony is observed to hold its reserves through a shock that removes the epistemic margin.
+
+Empirical and contract-theoretic research pins down both the capture mechanism and its contrary boundaries. Kerr (1975) showed that narrow quantitative reward targets work in highly predictable tasks yet drive goal displacement everywhere else, even when an operator's "fortunate bystander" habit masks the rot while uncodified norms hold. Formally, Holmström and Milgrom (1991) proved that linear piece-rate pay under perfect effort substitution drives effort on unmeasured duties such as safety straight to zero. Holmström (2016) documents that breakdown across three public audits. The Atlanta Public Schools investigation found cheating on the 2009 Competency Test in 44 out of 56 schools with 178 teachers and principals altering answers, alongside cross-selling abuses at Wells Fargo and aggressive drilling targets that weakened safety at BPX—leading Holmström (2016) to conclude that misaligned metrics demand low-powered incentives.
+
+Proxy gaming often pairs with manufactured ignorance. Proctor and Schiebinger (2008) trace engineered ignorance as a deliberate "active construct," illustrated by a 1969 Brown & Williamson internal memo stating "Doubt is our product." In climate risk, Cook et al. (2019) contrast Exxon's 1977 internal projection—that doubling $\mathrm{CO}\_2$ could warm Earth by $1^\circ\text{C}$ to $3^\circ\text{C}$ by 2050 A.D. ($\mathrm{CO}\_2$ emissions causing $1\text{–}3^\circ\text{C}$ warming)—with its 2000 public advertorial claiming incomplete knowledge equals total ignorance, an argument categorized under their five-part FLICC denial taxonomy.
+
+On the **contrary boundary**, Holmström and Milgrom (1991) specify four conditions where unmeasured-effort collapse does not happen: tasks act as complements in private cost, intrinsic motivation remains active up to satiation under fixed pay, agents hold residual asset ownership, or measurable and unmeasurable duties are split across agents within inseparability limits. In commons governance, Ostrom (2010) finds core polycentric design principles supported across "two-thirds" of reviewed field studies, and laboratory experiments pairing face-to-face communication with self-selected sanctioning reached "90 percent of optimal" returns net of minor defection fines. Top-down external mandates, by contrast, crowd out voluntary cooperation, especially where harms detach spatially from causes and cross-scale monitoring breaks down (Ostrom 2010; Dietz, Ostrom, & Stern 2003).
+
+Once governance fails—turning epistemic uncertainty into a shield and common reserves into private booty—preserving collective stocks requires a binding constitutional floor ($q \ge c$) above competing firms. Only that shared floor stops the replicator differential $\gamma\_{\mathrm{select}} := c - q$ from crowding out prudent operators across calm spells regardless of data quality ([Chapter 25](25-evolution-variation-selection.md); [Chapter 40](40-institution-incentive-metric.md)). That is why the governance coordinate is **not one reading among three**: it fixes the sign of the differential on which the epistemic and vital margins are priced.
+
+Read properly, the three propositions characterize design configurations, not statistical rates across existing institutions. Each states what a trajectory becomes once an axis disappears; how frequently real institutions drop an axis is an empirical question left to [Chapter 50](50-methodological-families-reflexivity.md) (§9.6). When two safeguards vanish together, the lone surviving axis speeds disaster: sharper data makes capture more efficient, and deeper reserves hide blind undersizing until collapse hits all at once.
+
+### The form of the collapse
+
+As a triad, the three propositions express a determinate negation rather than a simple shopping list of hazards. Hegel's Preface to the *Phenomenology* defines the structure: the negation of a form is never blank nothingness, but carries the specific content of what it negates (Hegel 1807). Dropping one axis transforms the surviving two instead of leaving them intact. Removing the epistemic margin turns sound governance and physical buffers into protection sized for a mirage. Removing the vital margin turns clear knowledge into impotent lucidity before ruin. Removing governance turns honest doubt into an alibi and shared reserves into a prize. Because each pathology lives inside the remaining axes, the three margins are internally related in Bertell Ollman's sense (Ollman 1993): the Leontief minimum states the arithmetic of that interdependence. Ascending from Part II's isolated bases to this concrete mediation circuit mirrors what E. V. Ilienkov reconstructed in Marx—advancing from abstract determinations to a concrete unity rather than a heap of anecdotes (Ilienkov 1960).
+
+Calling these patterns internal contradictions invites a classical logical objection. Aristotle's *Metaphysics* Γ bars any true contradiction, and Popper restated the formal worry: in classical logic a contradiction entails every statement, so a dialectic admitting contradictions collapses inference itself (Aristotle c. 335 BCE; Popper 1940). Elster pressed a social-scientific version, arguing that supposed "contradictions" reduce without loss to scoped causal mechanisms (Elster 1978). The Collapse Propositions dodge that explosion completely: they name material incompatibilities between institutional planes, not logical contradictions from which conclusions may be deduced. A collapse diagnosis describes the whole system's failure mode; it never serves as an inferential premise.
+
+Standard social theory offers three gentler nouns for the same breakdown, each keeping the surface symptom while omitting its generative motor. Parsons and Merton speak of dysfunction—friction on a baseline social equilibrium (Parsons 1951; Merton 1949). General equilibrium speaks of disequilibrium—a temporary mismatch of independent plans that prices clear (Debreu 1959). Boudon speaks of perverse effects—unintended consequences emerging when individual rationalities collide (Boudon 1977). Each captures real phenomena, yet none expresses how an institution's catastrophe is manufactured by the very success of its remaining mechanisms.
+
+## 4. The triad as a diagnostic, not an optimizable score
+
+The greatest operational threat to this framework is that the Leontief minimum becomes an executive target. Any published score tied to bonuses invites metric gaming. If operators were rewarded for maximizing $M\_{\mathrm{Leontief}}$ directly, they would inflate whichever coordinate looked smallest on paper: fabricating pro forma pre-registrations, padding denominator capacities to disguise congestion, or silencing frontline incident reports. The score would climb while real physical safety collapsed.
+
+Hence the constitutional boundary: **the Nuclear Triad is a diagnostic, never an optimization objective.** Independent auditors read the score after the fact, and operational halting authority remains separate from any composite index.
+
+That distinction carries a long philosophical lineage. Hegel observed that *aufheben* simultaneously means to preserve and to put an end to (Hegel 1812–1816). Here that double sense separates cleanly: the triad is preserved as a retrospective reading and terminated as a control rule. Similarly, Vickers described institutional regulation as the appreciation of a whole situation before scoring or acting on its parts (Vickers 1965). Any composite index has already performed an act of appreciation, so rewarding the index replaces systemic judgment with checklist gaming.
+
+Where diagnostic authority sits matters operationally. After a trajectory finishes, an auditor computes the **co-diagnostic pair** $\mathcal{D}\_{\mathrm{diag}} = \bigl(M\_{\mathrm{Leontief}}, \Theta\_{\mathrm{basin}}\bigr)$ ([Appendix A, *Mathematical Reference*](appendix-a-mathematics.md) §A.7). It pairs the three-axis minimum $M\_{\mathrm{Leontief}}$ with the reception-basin infimum $\Theta\_{\mathrm{basin}} = \inf\_{1 \le t \le T} \Theta\_{\mathrm{basin}, t}$, tracking cross-perimeter spillover without adding a fourth coordinate or mixing local viability with externalized harm. Live shifts, by contrast, act solely from each step's sealed per-step state, never from either retrospective summary.
+
+Three record tests verify this separation on transcripts without needing new empirical data:
+
+- **Prefix test.** Two admissible steps with identical sealed state (control tape, guard readings, contingency) must receive the same action regime regardless of prior trajectory history—unless that history was explicitly sealed into the step's state carriers beforehand.
+- **Contingency test.** Two transcripts sharing control tapes and guard readings but differing in contingency tapes must return the same verdict, reflecting the non-commutation invariance proved in [Appendix B](appendix-b-architecture-verification.md).
+- **Seal test.** Once a closing verdict is sealed, no recorded step may be retroactively re-derived to make the fold steer past action. That ban blocks unattested rewriting, unlike an attested counter-inductive reopening of $T\_1$ ([Chapter 29](29-aim-and-the-three-planes.md); Canguilhem 1943/1966), which enters quarantine, writes a new forward declaration, and seals subsequent steps cleanly.
+
+Alongside transcript invariance, a **Reflexive Brake Audit** checks ex post whether the framework's own protections are being gamed (detailed as the four Goodhart brakes in [Chapter 50](50-methodological-families-reflexivity.md) §9.3). None of these four diagnostic flags triggers live shutdowns:
+
+1. *Epistemic Brake*: Flags an ex-post breach when partial-identification bounds exceed policy tolerance or when trivial interval padding destroys CORP discriminative resolution.
+2. *Vital Brake*: Flags an ex-post breach when reserve slack drops below safety floors (or utilization breaches safety ceilings), when $\mathrm{TTS}\_{\mathrm{survival}} < \mathrm{TTR}\_{\mathrm{eff}}(\mathcal{I}\_t)$, or when hoarding reserves breaches the opportunity-cost ceiling balancing buffer protection (Scarf 1960) against over-retention drag (Samuelson 1971).
+3. *Governance Brake*: Flags an ex-post breach when testimonial discounting ($\delta\_{\mathrm{status}} > 0$) or performative drift surfaces, or when bureaucratic lag ($\tau\_{\mathrm{bureaucratic}} > \mathrm{TTS}\_{\mathrm{survival}}$) blocks the pre-committed *kairós* emergency path. Live halting belongs strictly to the per-step operator below.
+4. *Composite Brake*: Reads $\mathcal{D}\_{\mathrm{diag}} = \bigl(M\_{\mathrm{Leontief}}, \Theta\_{\mathrm{basin}}\bigr)$ ex post and forbids turning either coordinate into a bonus target or checklist. When either coordinate breaches tolerance, it identifies the failing axis or spillover boundary without tripping a live switch.
+
+## 5. Reflexive termination of higher-order uncertainty and the three regimes of action
+
+When the world's first-order state $\theta\_t$ is unknown, trying to cure ignorance by estimating second-order hyperpriors over *skopós* triggers an infinite regress. Asking a model to account for everything its description leaves out does not yield a sharper sub-description; it returns the vast, unusable complement of everything outside the lens. To decide before outcomes arrive, the instrument must stipulate a finite closure on its own mediation circuit (*télos*). That pivot is a **stopping decision of the instrument, not a theorem about infinite inquiry**: it trades endless second-order speculation for pre-outcome decidability, at a price paid in explicit bound width.
+
+Philosophically, this stop adapts Fichte and Savage from opposite sides. In the *Wissenschaftslehre*, Fichte resolved an infinite regress of grounds by having the subject posit itself (Fichte 1794); Stochology drops the metaphysics and posits the instrument's finite closure instead. Savage (1954), conversely, treated the state space as pre-given before any act so that decision merely picks a function over a finished world. Stochology keeps Savage's decision map yet insists that the state space is actively closed by the agent's own cut, whose omissions must be priced. Across the $P = 3$ mediation planes, three self-referential trunk questions (*What does my lens exclude? How much error can my breath absorb? Who pays and who can halt me?*) unpack into $n = P(P - 1) + 1 = 3 \cdot 2 + 1 = 7$ guard sites ([Chapter 29](29-aim-and-the-three-planes.md); [Appendix B](appendix-b-architecture-verification.md)), where three classifications of the same seven sites agree:
+
+1. **By Triad Axis (`3 + 2 + 2 = 7`):** $\mathcal{G}\_{\mathrm{epi}} = \lbrace{}T\_1, T\_2, T\_3\rbrace$, $\mathcal{G}\_{\mathrm{vital}} = \lbrace{}T\_4, T\_5\rbrace$, $\mathcal{G}\_{\mathrm{gov}} = \lbrace{}T\_6, T\_7\rbrace$;
+2. **By Circuit Transit (`3 + 3 + 1 = 7`):** three direct transits ($T\_3, T\_4, T\_6$), three reflexive locks ($T\_1, T\_2, T\_5$), and one integral three-plane closure ($T\_7$);
+3. **By Plane of Origin (`2 + 2 + 2 + 1 = 7`):** two sites originating in the World ($T\_3, T\_5$), two in the Archive ($T\_2, T\_4$), two in the Institution ($T\_1, T\_6$), and one integral closure ($T\_7$).
+
+Halting the regress at the circuit does not shrink epistemic error to zero. Instead, it converts unmeasurable ignorance about the outer world into bounded uncertainty over the agent's own archive defect and stopping horizon—just as any sequential stopping rule must price waiting time and horizon truncation rather than treating them as free ([Chapter 36](36-decision-loss-threshold.md)). Because any defect bound over the agent's self-description remains an assumption rather than a measurement, the regress ends **bounded, not grounded**: publishing a point self-description merely hides an invented precision. Empirical distributionally robust optimization marks the contrast clearly. Wasserstein or $\phi$-divergence ambiguity balls anchor worst-case expectations around empirical data rather than climbing hyperprior ladders (Mohajerin Esfahani & Kuhn 2018; Duchi & Namkoong 2021), yet the ball radius itself still enters as an explicit assumed boundary to be priced. Nor is the stop universal: it binds only this declared circuit, buying in return a concrete action regime before reality settles the bet.
+
+Live action is issued exclusively by a per-step canonical operator reading the sealed step state—declared bounds, provisioned capacity, reserve buffers, and guard readings—while the co-diagnostic $\mathcal{D}\_{\mathrm{diag}} = (M\_{\mathrm{Leontief}}, \Theta\_{\mathrm{basin}})$ waits until the trajectory closes ([Appendix B](appendix-b-architecture-verification.md)). That operator evaluates three questions in strict lexicographic order, because each later question depends on an earlier guarantee. In structure, this three-way triage parallels the clinical taxonomy preserved in the Edwin Smith Surgical Papyrus—separating ailments treatable directly, conditions contested under open risk, and hopeless cases forbidden from false-certainty intervention (Breasted 1930)—while replacing ancient prognostics with hard survival clocks and partial-identification bounds:
+
+1. *Does the vessel outlive its own correction?* Given finite declared clocks $\mathrm{TTS}\_{\mathrm{survival}, t}$ and $\mathrm{TTR}\_{\mathrm{eff}, t}(\mathcal{I}\_t)$, verify $\mathrm{TTS}\_{\mathrm{survival}, t} \ge \mathrm{TTR}\_{\mathrm{recovery}, t} = \mathrm{TTR}\_{\mathrm{eff}, t}(\mathcal{I}\_t) = \tau\_{\mathrm{detect}} + \tau\_{\mathrm{delib}}(\mathcal{I}\_t) + \tau\_{\mathrm{actuate}}$ (missing or non-finite clocks drop straight to **Regime III-A: Quarantine**). Whenever finite clocks show $\mathrm{TTS}\_{\mathrm{survival}, t} < \mathrm{TTR}\_{\mathrm{eff}, t}(\mathcal{I}\_t)$, **Regime III-B (Algedonic Halt)** fires immediately **even if another instrument slot is missing**—blocking *compliance denial-of-service*—and co-reports any concurrent alarm corruption. Physically, this priority respects the human deliberative bottleneck near $10\text{ bits/s}$ (Zheng & Meister 2025): under simultaneous strain across $\lbrace T\_1, \dots, T\_7\rbrace$, bureaucratic clearance pushes $\tau\_{\mathrm{delib}}(\mathcal{I}\_t)$ beyond remaining survival time.
+2. *Is the instrument known, and are the channel and floors intact?* Given $\mathrm{TTS}\_{\mathrm{survival}, t} \ge \mathrm{TTR}\_{\mathrm{eff}, t}(\mathcal{I}\_t)$, any unsealed parameter or open $T\_1$ quarantine awaiting re-declared bounds routes to **Regime III-A (Quarantine)**. Once sealed, any corrupted governance alarm triggers **Regime III-B (Algedonic Halt)** ahead of reading reserve floors, and any breached vital or governance floor shifts action inward to restore buffers.
+3. *Is the identification region decisive?* Once clocks, seals, alarm channels, and floors clear, compare avoidable-loss bounds against cost threshold $C$. Lower bounds above cost ($L\_t > C$, or boundary $L\_t = C < U\_t$) authorize full commitment, upper bounds at or below cost ($U\_t \le C$) warrant safe abstention, and strictly straddling bounds ($L\_t < C < U\_t$) license either a reversible fractional probe or an irreversible-probe halt distinguishing safe probe refusal from a binary lethal-omission impasse.
+
+![The decision procedure of the three regimes of action](figures/fig-41-three-regimes.svg)
+
+To read the avoidance inequality cleanly, let $[p\_{L,t}, p\_{U,t}]$ bound hazard probability, unsubscripted $L > 0$ mark unmitigated loss (distinct from step-$t$ lower bound $L\_t$), $\eta \in (0, 1]$ capture mitigation effectiveness, and $C > 0$ represent intervention cost in the same unit. Avoidable-loss bounds then read $[L\_t, U\_t] := [p\_{L,t}\mkern2mu\eta L,\mkern3mu p\_{U,t}\mkern2mu\eta L]$, with cost–loss threshold $p^\ast\_{\mathrm{CL}} := C/(\eta L)$.
+
+**Regime I — Buffered Action ($L\_t > C$, or boundary $L\_t = C < U\_t$).** Even the conservative lower bound clears intervention cost ($p\_{L,t} > p^\ast\_{\mathrm{CL}}$, or $p\_{L,t} = p^\ast\_{\mathrm{CL}} < p\_{U,t}$), survival clocks satisfy $\mathrm{TTS}\_{\mathrm{survival}} \ge \mathrm{TTR}\_{\mathrm{eff}}(\mathcal{I}\_t)$, and governance gates are sealed and intact. Deploy full-scale operational intervention ($a = 1$).
+
+**Regime II — Reversible Fractional Probe ($L\_t < C < U\_t$).** Here the sealed loss interval strictly straddles cost $C$, survival headroom holds, and the action is **physically and institutionally reversible**. Full inaction pretends the best case ($L\_t$) is certain, whereas full rollout pretends the worst case ($U\_t$) is certain. To minimize maximum regret across both extremes, the operator deploys the **Minimax Regret (MMR) probe fraction**:
+
+$$a^\ast\_{\mathrm{MMR}} = \frac{U\_t - C}{U\_t - L\_t} = \frac{p\_{U,t} - p^\ast\_{\mathrm{CL}}}{p\_{U,t} - p\_{L,t}} \in (0, 1).$$
+
+Read aloud, the wider the uncertainty gap above cost relative to the total interval, the larger the safe probe; under compounding wealth dynamics, Kelly shrinkage caps that fraction further, while every probe generates fresh observations that shrink future bounds. Whenever the candidate act is physically irreversible (such as crossing an ecological tipping point or nuclear criticality), fractional probing is banned and Regime III engages. Waiting safely ($a = 0$) triggers **unilateral probe refusal**, whereas a strictly binary choice ($a \in \lbrace0, 1\rbrace$) where inaction guarantees ruin triggers a distinct **lethal-omission impasse** ([Chapter 43](43-inquiry-openness-multiverse.md)), escalating immediately to standpoint governance.
+
+**Regime I — Safe Abstention ($U\_t \le C$).** When clocks, channels, and floors clear and upper loss sits at or below cost ($U\_t < C$, boundary $L\_t < C = U\_t$ where $a^\ast\_{\mathrm{MMR}} = 0$, or $L\_t = U\_t = C$), benign inaction ($a = 0$) acts as the peaceful twin of buffered action without triggering an emergency.
+
+**Regime III — Lowering the Bow.** External action stops whenever step 1 fails ($\mathrm{TTS}\_{\mathrm{survival}} < \mathrm{TTR}\_{\mathrm{eff}}(\mathcal{I}\_t)$), step 2 hits unsealed parameters (**Regime III-A: Quarantine**), alarm corruption (**Regime III-B: Algedonic Halt**), or breached floors, or step 3 meets an irreversible straddle with safe waiting (**unilateral probe refusal**). Authority pivots inward to shed load, raise algedonic alerts, and rebuild physical reserves—while flagging any **binary lethal-omission impasse** ($a \in \lbrace0, 1\rbrace$) for standpoint escalation ([Chapter 43](43-inquiry-openness-multiverse.md)).
+
+This lexicographic order never trades physical survival for telemetry paperwork: impending ruin pre-empts missing slots against compliance denial-of-service, while intact clocks clear seals, alarms, and physical floors before any cost–loss calculation runs.
+
+Empirical failures ground all three regimes rather than abstract axioms:
+
+- *Precision without representativeness:* Meng's (2018) analysis of the 2016 US election polls shows tiny non-random selection shrinking a huge survey to a small draw; pricing this archival defect prevents running Regime II on a bent throttle.
+- *Intervals straddling cost:* Manski's (2003) partial identification, Lee's (2009) monotone attrition bounds, and Peterson's (1976) competing-risks bounds leave intervals $[L\_t, U\_t]$ spanning $C$, motivating Regime II's minimax-regret probe.
+- *Ruin outpacing authority:* When disruption outruns recovery latency, no archive refinement saves the vessel; Sosa's (2015) full aptness demands withholding the shot, voiced through Beer's (1972) algedonic halt.
+
+### What the mean reports in a broken cell
+
+Drive one safeguard to zero while two hold at unity: the arithmetic mean still reads $2/3$, whereas $M\_{\mathrm{Leontief}} = 0$. Since $M\_{\mathrm{Leontief}} \le S\_a$ everywhere, averages hide single-axis collapse unless all coordinates happen to match.
+
+### When the axes are all high
+
+When all three coordinates sit high and the live decision is trivial, declare saturation, note whichever axis nears its next constraint, leave allocation to per-step state, and drop any composite headline score.
+
+## 6. Two limits of the minimum, and the purchase it recommends wrongly
+
+### The viable volume at both ends of the threshold
+
+Compare both threshold extremes on $[0, 1]^3$. Writing deficits $x\_a := 1 - S\_a \ge 0$ ($a \in \lbrace{}1, 2, 3\rbrace{}$) as $\tau = 1 - \epsilon \to 1^-$ ($\epsilon \to 0^+$), the Leontief box keeps $V\_{\min}(1 - \epsilon) = \epsilon^3$, whereas first-order product truncation cuts down to the simplex $\lbrace{}x\_1 + x\_2 + x\_3 \le \epsilon\rbrace$ with $V\_{\mathrm{prod}}(1 - \epsilon) = \frac{1}{6}\epsilon^3 + O(\epsilon^4)$, rejecting five-sixths of valid balanced states. As $\tau \to 0$, $V\_{\mathrm{prod}}(\tau)/V\_{\min}(\tau) \to 1$, so relative distortion $1 - V\_{\mathrm{prod}}(\tau)/V\_{\min}(\tau)$ rises monotonically from $0$ to $5/6$ across $\tau \in (0, 1)$.
+
+Changing $\tau\_2$ to $\tau\_1$ scales orthant volume by $V\_{\min}(\tau\_1)/V\_{\min}(\tau\_2) = \bigl((1-\tau\_1)/(1-\tau\_2)\bigr)^3$: doubling headroom $1 - \tau$ (from $\tau = 3/4$ to $1/2$) multiplies viable volume eightfold. Within the top-anchored **restricted affine monoid** $\psi\_a(x) = \alpha\_a x + (1 - \alpha\_a)$ ($0 < \alpha\_a \le 1$, closed under composition with identity $\alpha\_a = 1$), constant Jacobian $\det J\_\psi = \prod\_a \alpha\_a \in (0, 1]$ cancels in $V\_{\min}(\tau\_1)/V\_{\min}(\tau\_2)$ and scales both regions inside $\psi([0, 1]^3)$ ([Appendix A.4](appendix-a-mathematics.md#a4-leontief-structural-complementarity-of-the-nuclear-triad)). Once $\alpha\_a < 1$, $\Omega\_{\mathrm{prod}}$ ceases to stay a product level set, while nonlinear per-axis recodings alter both volumes and weakest-axis identity.
+
+### A district where the smallest coordinate is not the binding one
+
+Place the three coordinates on a recurring municipal procurement district holding finite physical stock to see how an uncalibrated minimum misleads action. Design A scores low on its epistemic summary yet high on vital stock and governance. Design B scores moderately on epistemology and lower on vital stock and governance, so a naive raw minimum ranks Design B as safer.
+
+The ledger quickly exposes the mistake. Because a decade of records bounds weekly demand strictly, Design A sizes capacity to that known support ceiling—making deficit identically zero while carrying surplus grows reserves safely over time. Design B sizes below that bound: whenever several high-demand weeks hit back-to-back, expediting costs drain its working reserve straight past zero into ruin, even though its raw minimum score looked cleaner.
+
+That reversal happened because the district compared uncalibrated scores as common currency and turned rankings into spending rules. Design A's epistemic uncertainty carried a hard finite ceiling ($S\_{\mathrm{epi}} > 0$), so physical slack hedged the tail without contradicting non-substitutability at zero. Whether physical slack can partially trade off against degraded epistemic margins far from absorbing barriers stays open to pre-registered falsifier $F\_4$ in [Chapter 50](50-methodological-families-reflexivity.md) (§9.5.3).
+
+### Where the minimum stops being a diagnosis
+
+The minimum diagnoses reliably only when its three axes share one scale satisfying **ordinal level comparability (OLC)**—invariant under any common strictly increasing rescaling across all three axes, rather than requiring cardinal dollars. Without OLC, independent rescaling flips weakest-axis identity: applying a strictly concave monotone map $f : [0, 1] \to [0, 1]$ ($f(0) = 0, f(1) = 1, f'' < 0$, so $f(x) > x$ on $(0, 1)$) solely to the smallest axis $S\_1$ flips any neighbor in $S\_1 < S\_2 < f(S\_1)$ with zero change in reality.
+
+This constraint adapts Sen's (1985) informational-invariance test cleanly. Pure ordinal scaling tests single-axis threshold breaches, whereas cross-axis ranking requires OLC calibration (§2's ex-post bound already avoids Harsanyi's live maximin critique). Even under OLC, finite-sample minimum estimators carry downward bias $b\_{\min}(\hat{\theta}) \le 0$ ([Appendix A](appendix-a-mathematics.md) §A.6), demanding simultaneous confidence rectangles rather than bare argmin point scores. Whenever OLC fails, drop cross-axis ranking and report three separate boolean flags against tolerance bands or smallest physical exposure to ruin.
+
+Continuous constant-elasticity aggregators $\bigl(\frac{1}{3}\sum\_a S\_a^{(\rho\_{\mathrm{CES}} - 1)/\rho\_{\mathrm{CES}}}\bigr)^{\rho\_{\mathrm{CES}}/(\rho\_{\mathrm{CES}} - 1)}$ on strictly positive coordinates $S\_a > 0$ ($\rho\_{\mathrm{CES}} > 0, \rho\_{\mathrm{CES}} \neq 1$) recover $M\_{\mathrm{Leontief}}$ as $\rho\_{\mathrm{CES}} \to 0^+$ and the unweighted geometric mean as $\rho\_{\mathrm{CES}} \to 1$. Such interior indices serve solely as declared, case-by-case sensitivity diagnostics far from absorbing barriers—never replacing the non-compensatory diagnostic minimum (never a weighted sum) and never steering the per-step operator, leaving bounded interior compensation open to falsifier $F\_4$ ([Chapter 50](50-methodological-families-reflexivity.md)).
+
+## Bridge
+
+[Part III — Conclusion](part-iii-conclusion.md) gathers the foundational arc across the epistemic, vital, and governance planes before turning the framework over to Part IV. Part IV opens in [The Sequential Loop and the Naive Optimizer](42-sequential-loop-naive-agent.md) with a continuous community reserve case contrasting a naive unbuffered agent against a full triadic agent through terminal reserve and ruin step. Chapters [43](43-inquiry-openness-multiverse.md)–[50](50-methodological-families-reflexivity.md) then construct each piece of the mediation circuit in sequence, culminating in the four Goodhart brakes, process-tracing deciban gates, and pre-registered falsifiers $F\_1$–$F\_5$ ([Chapter 50](50-methodological-families-reflexivity.md)). Part V finally generalizes this exact three-axis triad—with no fourth coordinate—across all $\binom{7}{3} = 35$ guard triples in seven knowledge strata ([Appendix B](appendix-b-architecture-verification.md)), where every signature $(n\_{\mathrm{epi}}, n\_{\mathrm{vital}}, n\_{\mathrm{gov}})$ holds the line between an aim and ruin.
