@@ -148,6 +148,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 
 ## C.2 Consolidated Bibliography
 
+- **Abe, J. M., Akama, S., & Nakamatsu, K.** (2015). *Introduction to Annotated Logics: Foundations for Paracomplete and Paraconsistent Reasoning* (Intelligent Systems Reference Library, Vol. 88). Springer.
 - **Acerbi, C., & Tasche, D.** (2002). On the coherence of expected shortfall. *Journal of Banking & Finance*, 26(7), 1487–1503. <https://doi.org/10.1016/S0378-4266(02)00283-2>
 - **Adelmann, J. A., Vetter, R., & Iber, D.** (2023a). Patterning precision under non-linear morphogen decay and molecular noise. *eLife*, 12, e84757 (PMCID PMC10139688). <https://doi.org/10.7554/eLife.84757>
 - **Adelmann, J. A., Vetter, R., & Iber, D.** (2023b). The impact of cell size on morphogen gradient precision. *Development*, 150(10), dev201702 (PMCID PMC10281552). <https://doi.org/10.1242/dev.201702>
@@ -189,6 +190,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Assael, Y., Sommerschield, T., Cooley, A., Shillingford, B., Pavlopoulos, J., Suresh, P., Herms, B., Grayston, J., Maynard, B., Dietrich, N., Wulgaert, R., Prag, J., Mullen, A., & Mohamed, S.** (2025). Contextualizing ancient texts with generative neural networks. *Nature*, 645(8079), 141–147. <https://doi.org/10.1038/s41586-025-09292-5>
 - **Assael, Y., Sommerschield, T., & Prag, J.** (2019). Restoring ancient text using deep learning: a case study on Greek epigraphy. *Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)*, 6368–6375. <https://doi.org/10.18653/v1/D19-1668>
 - **Assael, Y., Sommerschield, T., Shillingford, B., Bordbar, M., Pavlopoulos, J., Chatzipanagiotou, M., Androutsopoulos, I., Prag, J., & de Freitas, N.** (2022). Restoring and attributing ancient texts using deep neural networks. *Nature*, 603(7900), 280–283. <https://doi.org/10.1038/s41586-022-04448-z>
+- **Assmann, J.** (2010 [2003]). *The Price of Monotheism* (R. Savage, Trans.). Stanford University Press.
 - **Austin, J. L.** (1962). *How to Do Things with Words*. Oxford University Press.
 - **Baker, R. D., & McHale, I. G.** (2013). Optimal betting under parameter uncertainty: Improving the Kelly criterion. *Decision Analysis*, 10(3), 189–199.
 - **Bakunin, M.** (1873/1990). *Gosudarstvennost' i anarkhiya*. Izdatel'stvo Sotsial'no-Revolyutsionnoy Partii, Zurich/Geneva. [Critical English ed.: *Statism and Anarchy* (M. S. Shatz, Ed. & Trans.). Cambridge University Press, 1990.]
@@ -199,9 +201,11 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Barnes, B.** (1983). Social life as bootstrapped induction. *Sociology*, 17(4), 524–545.
 - **Baron, J., & Hershey, J. C.** (1988). Outcome bias in decision evaluation. *Journal of Personality and Social Psychology*, 54(4), 569–579.
 - **Basel Committee on Banking Supervision** (2019). *Minimum Capital Requirements for Market Risk*. Bank for International Settlements, Basel, January 2019.
+- **Batens, D.** (2000). A survey of inconsistency-adaptive logics. In D. Batens, C. Mortensen, G. Priest, & J. P. Van Bendegem (Eds.), *Frontiers of Paraconsistent Logic* (pp. 49–73). Research Studies Press, Baldock.
 - **Bateson, G.** (1972/2000). *Steps to an Ecology of Mind: Collected Essays in Anthropology, Psychiatry, Evolution, and Epistemology*. University of Chicago Press.
 - **Bebchuk, L. A., & Fried, J. M.** (2004). *Pay Without Performance: The Unfulfilled Promise of Executive Compensation*. Harvard University Press.
 - **Beer, S.** (1972). *Brain of the Firm: The Managerial Cybernetics of Organization*. Allen Lane the Penguin Press, London. [The Viable System Model in full in *The Heart of Enterprise*. Wiley, Chichester, 1979.]
+- **Belnap, N. D.** (1977). A useful four-valued logic. In J. M. Dunn & G. Epstein (Eds.), *Modern Uses of Multiple-Valued Logic* (pp. 5–37). D. Reidel, Dordrecht. <https://doi.org/10.1007/978-94-010-1161-7%5F2>
 - **Bender, E. M., Gebru, T., McMillan-Major, A., & Shmitchell, S.** (2021). On the dangers of stochastic parrots: Can language models be too big? *Proceedings of the ACM Conference on Fairness, Accountability, and Transparency (FAccT)*.
 - **Benford, F.** (1938). The law of anomalous numbers. *Proceedings of the American Philosophical Society*, 78(4), 551–572.
 - **Ben-Haim, Y.** (2006). *Info-Gap Decision Theory: Decisions Under Severe Uncertainty* (2nd ed.). Academic Press.
@@ -221,6 +225,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Björkegren, D., Blumenstock, J. E., & Knight, S.** (2020). Manipulation-proof machine learning. Working paper arXiv:2004.03865v1 (9 April 2020). <https://arxiv.org/pdf/2004.03865>
 - **Black, J.** (2008). Constructing and contesting legitimacy and accountability in polycentric regulatory regimes. *Regulation & Governance*, 2(2), 137–164.
 - **Blackstone, W.** (1765–1769). *Commentaries on the Laws of England* (4 vols.). Clarendon Press, Oxford.
+- **Blair, H. A., & Subrahmanian, V. S.** (1989). Paraconsistent logic programming. *Theoretical Computer Science*, 68(2), 135–154.
 - **Bodhi, Bhikkhu** (2012). *The Numerical Discourses of the Buddha: A Translation of the Aṅguttara Nikāya* (AN 3.65, *Kālāma Sutta*). Wisdom Publications, Boston.
 - **Boeger, H.** (2022). Kinetic proofreading. *Annual Review of Biochemistry*, 91, 423–447. <https://doi.org/10.1146/annurev-biochem-040320-103630>
 - **Boettiger, C., & Hastings, A.** (2012). Early warning signals and the prosecutor's fallacy. *Proceedings of the Royal Society B: Biological Sciences*, 279(1748), 4734–4740.
@@ -228,6 +233,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Boltzmann, L.** (1877). Über die Beziehung zwischen dem zweiten Hauptsatze der mechanischen Wärmetheorie und der Wahrscheinlichkeitsrechnung. *Wiener Berichte*, 76, 373–435.
 - **Bonjean Stanton, M. C., & Roelich, K.** (2021). Decision making under deep uncertainties: A review of the applicability of methods in practice. *Technological Forecasting and Social Change*, 171, 120939. <https://doi.org/10.1016/j.techfore.2021.120939>
 - **Bornemann-Cimenti, H., Szilagyi, I. S., Klivinyi, C., Lang-Illievich, K., & Hammer, S.** (2026). Moral injury beyond burnout: A scientometric review of clinician distress and its blind spots in critical care. *Healthcare*, 14(18), 3075. <https://doi.org/10.3390/healthcare14183075>
+- **Bottéro, J.** (1992 [1987]). *Mesopotamia: Writing, Reasoning, and the Gods*. University of Chicago Press, Chicago.
 - **Bottou, L., & Bousquet, O.** (2008). The tradeoffs of large scale learning. *Advances in Neural Information Processing Systems (NeurIPS)*, 20, 161–168.
 - **Boudon, R.** (1977). *Effets pervers et ordre social*. Presses Universitaires de France.
 - **Bourdieu, P.** (2004 [2001]). *Science of Science and Reflexivity* (R. Nice, Trans.). University of Chicago Press.
@@ -268,6 +274,8 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Cardiac Arrhythmia Suppression Trial (CAST) Investigators** (1989). Preliminary report: Effect of encainide and flecainide on mortality in a randomized trial of arrhythmia suppression after myocardial infarction. *New England Journal of Medicine*, 321(6), 406–412.
 - **Carlson, M.** (2007). *A Brief History of the 1987 Stock Market Crash with a Discussion of the Federal Reserve Response*. Finance and Economics Discussion Series 2007-13, Board of Governors of the Federal Reserve System.
 - **Carnap, R.** (1932). Überwindung der Metaphysik durch logische Analyse der Sprache. *Erkenntnis*, 2(1), 219–241.
+- **Carnielli, W., & Coniglio, M. E.** (2016). *Paraconsistent Logic: Consistency, Contradiction and Negation* (Logic, Epistemology, and the Unity of Science, Vol. 40). Springer.
+- **Carnielli, W., Coniglio, M. E., & Marcos, J.** (2007). Logics of Formal Inconsistency. In *Handbook of Philosophical Logic* (2nd ed., Vol. 14, pp. 1–93). Springer.
 - **Carroll, S. R., Garba, I., Figueroa-Rodríguez, O. L., Holbrook, J., Lovett, R., Materechera, S., Parsons, M., Raseroka, K., Rodriguez-Lonebear, D., Rowe, R., Sara, R., Walker, J. D., Anderson, J., & Hudson, M.** (2020). The CARE Principles for Indigenous Data Governance. *Data Science Journal*, 19, 43. <https://doi.org/10.5334/dsj-2020-043>
 - **Castro, M., & Liskov, B.** (1999). Practical Byzantine fault tolerance. *Proceedings of the Third Symposium on Operating Systems Design and Implementation (OSDI '99)*, 173–186.
 - **Čencov, N. N.** (1972/1982). *Statistical Decision Rules and Optimal Inference*. American Mathematical Society.
@@ -304,6 +312,14 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Cramér, H.** (1930). *On the Mathematical Theory of Risk*. Skandia Jubilee Volume, Stockholm.
 - **Croushore, D., & Stark, T.** (2001). A real-time data set for macroeconomists. *Journal of Econometrics*, 105(1), 111–130. [Precursor: Federal Reserve Bank of Philadelphia Working Paper No. 99-4, 1999.]
 - **Cunningham, M., Gupta, R., & Butler, M.** (2024). Checkpoint inhibitor hepatotoxicity: Pathogenesis and management. *Hepatology*, 79(1), 198–212. <https://doi.org/10.1097/HEP.0000000000000045>
+- **da Costa, N. C. A.** (1974). On the theory of inconsistent formal systems. *Notre Dame Journal of Formal Logic*, 15(4), 497–510.
+- **da Costa, N. C. A.** (1980). *Ensaio sobre os Fundamentos da Lógica*. Hucitec / EDUSP, São Paulo.
+- **da Costa, N. C. A.** (1989). Logics that are both paraconsistent and paracomplete. *Atti della Accademia Nazionale dei Lincei. Rendiconti Lincei. Matematica e Applicazioni*, Series 8, 83(1), 29–32.
+- **da Costa, N. C. A.** (1993 [1963]). *Sistemas Formais Inconsistentes* (Série Clássicos). Editora da UFPR, Curitiba.
+- **da Costa, N. C. A., & Alves, E. H.** (1977). A semantical analysis of the calculi $C\_n$. *Notre Dame Journal of Formal Logic*, 18(4), 621–630.
+- **da Costa, N. C. A., & Carnielli, W. A.** (1986). On paraconsistent deontic logic. *Philosophia*, 16(3–4), 293–305. <https://doi.org/10.1007/BF02379748>
+- **da Costa, N. C. A., & French, S.** (1990). The model-theoretic approach in the philosophy of science. *Philosophy of Science*, 57(2), 248–265.
+- **da Costa, N. C. A., & French, S.** (2003). *Science and Partial Truth: A Unitary Approach to Models and Scientific Reasoning* (Oxford Studies in the Philosophy of Science). Oxford University Press, Oxford.
 - **da Silva, D. G., Duarte, M. d. L. C., Dias, E. P., Porto d’Ávila, A., de Souza, N. K., de Oliveira, A. M., & de Mattos, L. G.** (2026). Care for hospitalized children undergoing institutionalization: Distress and defensive strategies of nurses. *Revista Brasileira de Enfermagem*, 79(2), e20240529. <https://doi.org/10.1590/0034-7167-2024-0529>
 - **Danielsson, J., & Shin, H. S.** (2003). Endogenous risk. In *Modern Risk Management: A History* (pp. 297–310). Risk Books.
 - **Darwin, C.** (1859). *On the Origin of Species by Means of Natural Selection, or the Preservation of Favoured Races in the Struggle for Life*. John Murray, London.
@@ -338,6 +354,8 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Duchi, J. C., & Namkoong, H.** (2021). Learning models with uniform performance via distributionally robust optimization. *The Annals of Statistics*, 49(3), 1378–1406 (preprint arXiv:1810.08750v6, 2020). <https://doi.org/10.1214/20-aos2004>
 - **Duhem, P.** (1906). *La Théorie physique: son objet et sa structure*. Chevalier & Rivière.
 - **Duncan, W. D., Diller, M., Dooley, D., Hogan, W. R., & Beverley, J.** (2024). Concretizing plan specifications as realizables within the OBO foundry. *Journal of Biomedical Semantics*, 15, 15. <https://doi.org/10.1186/s13326-024-00315-0>
+- **Dunn, J. M.** (1976). Intuitive semantics for first-degree entailments and "coupled trees." *Philosophical Studies*, 29(3), 149–168.
+- **Dussel, E.** (2008 [2006]). *Twenty Theses on Politics*. Duke University Press.
 - **Dwork, C., Kenthapadi, K., McSherry, F., Mironov, I., & Naor, M.** (2006a). Our data, ourselves: Privacy via distributed noise generation. In S. Vaudenay (Ed.), *Advances in Cryptology — EUROCRYPT 2006*, *Lecture Notes in Computer Science* (Vol. 4004, pp. 486–503). Springer. <https://doi.org/10.1007/11761679%5F29>
 - **Dwork, C., McSherry, F., Nissim, K., & Smith, A.** (2006b). Calibrating noise to sensitivity in private data analysis. In S. Halevi & T. Rabin (Eds.), *Theory of Cryptography (TCC 2006)*, *Lecture Notes in Computer Science* (Vol. 3876, pp. 265–284). Springer. <https://doi.org/10.1007/11681878%5F14>
 - **Edmondson, A. C., & Harvey, J.-F.** (2017). *Cross-Boundary Teaming for Innovation: Integrating Research on Teams and Knowledge in Organizations*. Harvard Business School Working Paper No. 17-013.
@@ -377,6 +395,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Ford, M. C., & Kay, J. A.** (2024). Rejoinder on ergodicity economics. *Econ Journal Watch*, 21(1), 69–78.
 - **Frankfurt, H. G.** (2005). *On Bullshit*. Princeton University Press.
 - **Fraser, C., Riley, S., Anderson, R. M., & Ferguson, N. M.** (2004). Factors that make an infectious disease outbreak controllable. *Proceedings of the National Academy of Sciences*, 101(16), 6146–6151.
+- **Freeman, J.** (1972–1973). The tyranny of structurelessness. *Berkeley Journal of Sociology*, 17, 151–165.
 - **Freire, P.** (1970). *Pedagogy of the Oppressed* (M. B. Ramos, Trans.). Herder and Herder, New York.
 - **Freyd, J. J.** (1997). Violations of power, adaptive blindness and betrayal trauma theory. *Feminism & Psychology*, 7(1), 22–32.
 - **Frick, J.** (2015). Contractualism and social risk. *Philosophy & Public Affairs*, 43(3), 175–223.
@@ -496,6 +515,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Jansen, K., Shikama-Dorn, N., Attar, M., Maio, S., Lopopolo, M., Buck, D., Holländer, G. A., & Sansom, S. N.** (2021). RBFOX splicing factors contribute to a broad but selective recapitulation of peripheral tissue splicing patterns in the thymus. *Genome Research*, 31(11), 2022–2034. <https://doi.org/10.1101/gr.275245.121>
 - **Janzing, D., Minorics, L., & Blöbaum, P.** (2020). Feature relevance quantification in explainable AI: A causal problem. *Proceedings of the 23rd International Conference on Artificial Intelligence and Statistics (AISTATS)*, PMLR 108, 2907–2916. <https://arxiv.org/pdf/1910.13413>
 - **Jarzynski, C.** (1997). Nonequilibrium equality for free energy differences. *Physical Review Letters*, 78(14), 2690–2693.
+- **Jaśkowski, S.** (1969 [1948]). Propositional calculus for contradictory deductive systems (*Rachunek zdań dla systemów dedukcyjnych sprzecznych*, O. Wojtasiewicz, Trans.). *Studia Logica*, 24, 143–157.
 - **JCGM** (2008/2011). *Evaluation of Measurement Data — Supplement 1 to the "Guide to the Expression of Uncertainty in Measurement" — Propagation of Distributions Using a Monte Carlo Method* (JCGM 101:2008); and *Supplement 2 to the "Guide to the Expression of Uncertainty in Measurement" — Extension to Any Number of Output Quantities* (JCGM 102:2011). Joint Committee for Guides in Metrology (BIPM, IEC, IFCC, ILAC, ISO, IUPAC, IUPAP, & OIML).
 - **Jensen, J. L. W. V.** (1906). Sur les fonctions convexes et les inégalités entre les valeurs moyennes. *Acta Mathematica*, 30(1), 175–193.
 - **Jensen, M. C., & Meckling, W. H.** (1976). Theory of the firm: Managerial behavior, agency costs and ownership structure. *Journal of Financial Economics*, 3(4), 305–360.
@@ -659,6 +679,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Metz, T.** (2007). Toward an African moral theory. *The Journal of Political Philosophy*, 15(3), 321–341.
 - **Miao, W., Liu, L., Tchetgen Tchetgen, E., & Geng, Z.** (2019). Identification, doubly robust estimation, and semiparametric efficiency theory of nonignorable missing data with a shadow variable. *arXiv:1509.02556*. <https://arxiv.org/pdf/1509.02556>
 - **Michaelis, L., & Menten, M. L.** (1913). Die Kinetik der Invertinwirkung. *Biochemische Zeitschrift*, 49, 333–369.
+- **Mikenberg, I., da Costa, N. C. A., & Chuaqui, R.** (1986). Pragmatic truth and approximation to truth. *The Journal of Symbolic Logic*, 51(1), 201–221.
 - **Mill, J. S.** (1863). *Utilitarianism*. Parker, Son, and Bourn, London (originally *Fraser's Magazine*, 1861). [Open text: <https://www.utilitarianism.com/mill2.htm>.]
 - **Milli, S., Miller, J., Dragan, A. D., & Hardt, M.** (2019). The social cost of strategic classification. *Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT\*)*, 230–239.
 - **Millikan, R. A.** (1913). On the elementary electrical charge and the Avogadro constant. *Physical Review*, 2(2), 109–143.
@@ -714,6 +735,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Ostrom, E.** (1990). *Governing the Commons: The Evolution of Institutions for Collective Action*. Cambridge University Press.
 - **Ostrom, E.** (2010). Beyond markets and states: Polycentric governance of complex economic systems. Prize Lecture, December 8, 2009, *The Nobel Prizes 2009*, 408–444.
 - **Pacioli, L.** (1494). *Summa de arithmetica, geometria, proportioni et proportionalita*. Paganino de' Paganini.
+- **Panofsky, E.** (1951). *Gothic Architecture and Scholasticism*. Saint Vincent Archabbey, Latrobe, PA.
 - **Park, P., Ko, J. W., & Jeong, C.** (2011). Reciprocally convex approach to stability of systems with time-varying delays. *Automatica*, 47(1), 235–238. <https://doi.org/10.1016/j.automatica.2010.10.014>
 - **Parra Jounou, I., & Tronto, J. C.** (2024). Care ethics in theory and practice: Joan C. Tronto in conversation with Iris Parra Jounou. *Contemporary Political Theory*, 23, 269–283. <https://doi.org/10.1057/s41296-024-00680-6>
 - **Parsons, T.** (1951). *The Social System*. Free Press.
@@ -751,6 +773,8 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Presidential Commission on the Space Shuttle Challenger Accident** (1986). *Report of the Presidential Commission on the Space Shuttle Challenger Accident* (Vol. 1). U.S. Government Printing Office, Washington, DC (NASA NTRS 19860015255). <https://ntrs.nasa.gov/citations/19860015255>
 - **Presidential Task Force on Market Mechanisms** (1988). *Report of The Presidential Task Force on Market Mechanisms* (Brady Report). U.S. Government Printing Office, Washington, DC.
 - **Price, G. R.** (1970). Selection and covariance. *Nature*, 227, 520–521.
+- **Priest, G.** (1979). The logic of paradox. *Journal of Philosophical Logic*, 8, 219–241.
+- **Priest, G.** (2006 [1987]). *In Contradiction: A Study of the Transconsistent* (2nd ed.). Oxford University Press, Oxford.
 - **Prigogine, I.** (1978 [1977]). Time, structure, and fluctuations. *Science*, 201(4358), 777–785. [Nobel Lecture, 8 December 1977.]
 - **Proctor, R. N., & Schiebinger, L.** (Eds.). (2008). *Agnotology: The Making and Unmaking of Ignorance*. Stanford University Press. [Includes R. N. Proctor, Ch. 1, "Agnotology: A Missing Term to Describe the Cultural Production of Ignorance (and Its Study)," pp. 1–33.]
 - **Prokhorenkova, L., Gusev, G., Vorobev, A., Dorogush, A. V., & Gulin, A.** (2018). CatBoost: Unbiased boosting with categorical features. *Advances in Neural Information Processing Systems (NeurIPS)*.
@@ -819,6 +843,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Schunck, F., Wiedermann, M., Heitzig, J., & Donges, J. F.** (2024). A dynamic network model of societal complexity and resilience inspired by Tainter's theory of collapse. *Entropy*, 26(2), Article 98. <https://doi.org/10.3390/e26020098>
 - **Schwartz, J. M., & Cook, T.** (2002). Archives, records, and power: the making of modern memory. *Archival Science*, 2(1–2), 1–19. <https://doi.org/10.1007/bf02435628>
 - **Scott, J. C.** (1998). *Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed*. Yale University Press.
+- **Seaford, R.** (2004). *Money and the Early Greek Mind: Homer, Philosophy, Tragedy*. Cambridge University Press, Cambridge.
 - **Seaman, S., Galati, J., Jackson, D., & Carlin, J.** (2013). What is meant by "missing at random"? *Statistical Science*, 28(2), 257–268 (preprint arXiv:1306.2812). <https://arxiv.org/pdf/1306.2812>
 - **Searle, J. R.** (1969). *Speech Acts: An Essay in the Philosophy of Language*. Cambridge University Press.
 - **Searle, J. R.** (1975). A taxonomy of illocutionary acts. In K. Gunderson (Ed.), *Language, Mind, and Knowledge* (*Minnesota Studies in the Philosophy of Science*, Vol. 7, pp. 344–369). University of Minnesota Press. <https://conservancy.umn.edu/server/api/core/bitstreams/f1857cae-5ee1-453c-803e-4e11854b2bf6/content>
@@ -853,6 +878,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Sniedovich, M.** (2007). The art and science of modeling decision-making under severe uncertainty. *Decision Making in Manufacturing and Services*, 1(1–2), 111–136.
 - **Sniedovich, M.** (2012). Black Swans, New Nostradamuses, Voodoo decision theories, and the science of decision making in the face of severe uncertainty. *International Transactions in Operational Research*, 19(1–2), 253–281. <https://doi.org/10.1111/j.1475-3995.2010.00790.x>
 - **Snodgrass, R. T.** (2000). *Developing Time-Oriented Database Applications in SQL*. Morgan Kaufmann, San Francisco. <https://www2.cs.arizona.edu/~rts/tdbbook.pdf>
+- **Sohn-Rethel, A.** (1978 [1970]). *Intellectual and Manual Labour: A Critique of Epistemology*. Macmillan.
 - **Sophocles** (*c.* 441 BCE / *c.* 429 BCE / 409 BCE). *Antigone* (Loeb Classical Library 21); *Oedipus Tyrannus* (Loeb Classical Library 20); *Philoctetes* (Loeb Classical Library 21). In H. Lloyd-Jones (Ed. & Trans.), *Sophocles* (Loeb Classical Library). Harvard University Press, 1994.
 - **Sosa, E.** (2007). *A Virtue Epistemology: Apt Belief and Reflective Knowledge* (Vol. I). Oxford University Press.
 - **Sosa, E.** (2015). *Judgment and Agency*. Oxford University Press.
@@ -911,6 +937,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Van Slyke, D. D.** (1922). On the measurement of buffer values and on the relationship of buffer value to the dissociation constant of the buffer and the concentration and reaction of the buffer solution. *Journal of Biological Chemistry*, 52(2), 525–570.
 - **VanderWeele, T. J., & Ding, P.** (2017). Sensitivity analysis in observational research: introducing the E-value. *Annals of Internal Medicine*, 167(4), 268–274.
 - **Vaughan, D.** (1996). *The Challenger Launch Decision: Risky Technology, Culture, and Deviance at NASA*. University of Chicago Press.
+- **Vernant, J.-P.** (1982 [1962]). *The Origins of Greek Thought*. Cornell University Press.
 - **Vickers, G.** (1965). *The Art of Judgment: A Study of Policy Making*. Chapman & Hall. [Reissued London: Sage, 1995; Part One, "Policy-Making as a Mental Skill", carries the chapters "The Regulation of Institutions", "Appreciation", and "The Appreciative System", the account of regulation as a function that judges a situation before it commits to a decision.]
 - **Ville, J.** (1939). *Étude critique de la notion de collectif*. Gauthier-Villars.
 - **Volz, E. M., Koelle, K., & Bedford, T.** (2013). Viral phylodynamics. *PLoS Computational Biology*, 9(3), e1002947. <https://doi.org/10.1371/journal.pcbi.1002947>

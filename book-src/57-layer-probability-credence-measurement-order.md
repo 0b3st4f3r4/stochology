@@ -35,6 +35,8 @@ $$\underline{P}(A) = \inf\_{P \in \mathcal{P}} P(A), \qquad \overline{P}(A) = \s
 
 Read aloud, $\underline{P}(A)$ is the tightest pessimistic chance and $\overline{P}(A)$ is the tightest optimistic chance compatible with the frame. Shrinking $\mathcal{P}' \subset \mathcal{P}$ without evidence fakes precision, while conditioning on $B \in \mathcal{F}$ ($\underline{P}(B) > 0$) can widen (*dilate*) intervals. Under signature `(2, 1, 0)`, lacking an *ex ante* authorship log naming who fixed $(\Omega, \mathcal{F})$, $B$, and blank-field codes allows post-hoc frame trimming to counterfeit epistemic certainty.
 
+The symmetric dual arises when two authenticated registers assert both $A$ and $\neg A$ for the same unit rather than leaving a cell empty. Encoding that conflict via Belnap–Dunn's `Both` state (Dunn 1976; Belnap 1977) or within non-alethic logic $N\_n$ (da Costa 1989) blocks both classical explosion and silent overwrite, widening the credal bracket $[\underline{P}(A), \overline{P}(A)]$ (Walley 1991) or routing contested records to `Unparsable` quarantine until custody resolves provenance ([Measuring and Erring](33-measuring-and-erring.md) §4; [Layer 06](56-layer-formal-computable-type-order.md)).
+
 ## 2. Severity: the width of a credal set is an evidential distance
 
 Here, $T\_2$ (`T2Severity`) protects against fake precision by refusing to shrink uncertainty intervals below what the missingness and evidence genuinely support. An imprecise credence $[\underline{P}(A), \overline{P}(A)]$ is not a normal estimate waiting for more samples: while parametric prior spread narrows as $n$ grows, identification ambiguity from missing or selected records stays wide no matter how big $n$ gets.
