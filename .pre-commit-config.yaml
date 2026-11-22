@@ -1,4 +1,4 @@
-# Configuracao do pre-commit para formatacao e higiene de arquivos Markdown.
+# Configuracao do pre-commit para formatacao Markdown e auditoria de seguranca Rust.
 # Instale os hooks localmente com: pre-commit install
 # Formate todo o repositorio manualmente com: pre-commit run --all-files
 
@@ -20,3 +20,12 @@ repos:
     hooks:
       - id: rumdl-fmt
         args: [--no-cache]
+
+  - repo: local
+    hooks:
+      - id: cargo-audit
+        name: Rust dependency security audit (cargo-audit)
+        entry: python3 .github/checks/security_audit.py
+        language: system
+        pass_filenames: false
+        files: (^|/)Cargo\.(toml|lock)$|^\.github/checks/security_audit\.py$
