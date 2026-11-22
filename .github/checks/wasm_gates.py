@@ -471,6 +471,58 @@ def gate_c6(report: Report, root: Path) -> None:
     )
 
 
+def gate_c11(report: Report, root: Path, shipped_wasm: Path) -> None:
+    node_bin = shutil.which("node")
+    consumer = root / "consumers" / "node" / "run.mjs"
+    vectors = root / "crates" / "stoch-core" / "vectors.kv"
+    if not node_bin or not consumer.is_file() or not vectors.is_file():
+        report.open(
+            "C11",
+            OPEN_ARTIFACT,
+            "Node >= 22 or consumers/node/run.mjs is absent; cannot verify JS/Wasm fixture parity",
+        )
+        return
+
+    ver = subprocess.run([node_bin, "-v"], capture_output=True, text=True)
+    major = 0
+    if ver.returncode == 0:
+        raw = ver.stdout.strip().lstrip("v").split(".")[0]
+        if raw.isdigit():
+            major = int(raw)
+    if major < 22:
+        report.open(
+            "C11",
+            OPEN_ARTIFACT,
+            f"Node {ver.stdout.strip() or '?'} < v22 cannot run TypeScript type-stripping parity",
+        )
+        return
+
+    res = subprocess.run(
+        [
+            node_bin,
+            str(consumer),
+            "--wasm",
+            str(shipped_wasm),
+            "--vectors",
+            str(vectors),
+        ],
+        cwd=root,
+        capture_output=True,
+        text=True,
+    )
+    ok = (
+        res.returncode == 0
+        and "0 diverging" in res.stdout
+        and "consumer A agrees with the normative vectors" in res.stdout
+    )
+    summary = (res.stdout.strip().splitlines()[-1] if res.stdout.strip() else "") or res.stderr.strip()
+    report.local(
+        "C11",
+        ok,
+        f"Node {ver.stdout.strip()} over consumers/node/run.mjs against shipped stoch_abi.wasm: {summary}",
+    )
+
+
 def gate_c12(report: Report, root: Path) -> None:
     fixture = root / "crates/stoch-core/vectors.kv"
     lib = read(root / "crates/stoch-core/src/lib.rs")
@@ -578,13 +630,7 @@ def run(root: Path, tmpdir: Path, keep: bool) -> int:
         "no TypeScript sources and no `tsconfig`: `tsc --strict --noEmit` has nothing to "
         "type-check and `tsc` is not installed here",
     )
-    report.open(
-        "C11", OPEN_ARTIFACT,
-        "parity needs the TypeScript harness (`ts/harness.mjs` -> `out-ts.txt`) to diff against "
-        "the Rust side; it does not exist. `cargo test -p stoch-abi` alone is not parity, and "
-        "the node smoke of `crates/stoch-abi/tests/wasm-smoke.mjs` exercises one host, not two",
-    )
-
+    gate_c11(report, root, shipped)
     gate_c12(report, root)
     gate_c13(report, root, scratch / "tmp")
     gate_c14(report, root, scratch / "tmp")

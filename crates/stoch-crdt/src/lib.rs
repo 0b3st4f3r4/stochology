@@ -414,6 +414,155 @@ impl SignedWitness {
     }
 }
 
+/// Self-verifying certificate proving a single witness issued conflicting claims
+/// for `(subject, epoch)` across partitioned logs.
+///
+/// Claims are stored in canonical `(claim_a <= claim_b)` order so identical
+/// conflicting receipts produce identical certificates regardless of arrival order.
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
+pub struct EquivocationCertificate {
+    /// Equivocating issuer identifier.
+    pub issuer: [u8; 32],
+    /// Subject peer identifier.
+    pub subject: [u8; 32],
+    /// Epoch in which conflicting receipts were authored.
+    pub epoch: u64,
+    /// Lexicographically smaller `(conductance_millionths, digest)` claim.
+    pub claim_a: (i64, [u8; 32]),
+    /// Lexicographically larger `(conductance_millionths, digest)` claim.
+    pub claim_b: (i64, [u8; 32]),
+}
+
+impl EquivocationCertificate {
+    /// Constructs a canonically ordered equivocation certificate from two conflicting claims.
+    pub fn from_claims(
+        issuer: [u8; 32],
+        subject: [u8; 32],
+        epoch: u64,
+        first: (i64, [u8; 32]),
+        second: (i64, [u8; 32]),
+    ) -> Result<Self, CrdtError> {
+        let (claim_a, claim_b) = if second < first {
+            (second, first)
+        } else {
+            (first, second)
+        };
+        let cert = Self {
+            issuer,
+            subject,
+            epoch,
+            claim_a,
+            claim_b,
+        };
+        cert.verify()?;
+        Ok(cert)
+    }
+
+    /// Verifies that the certificate is non-self and pairs two strictly distinct claims.
+    pub fn verify(&self) -> Result<(), CrdtError> {
+        if self.issuer == self.subject {
+            return Err(CrdtError::QuorumViolation(
+                "equivocation certificate cannot cite self-attestation",
+            ));
+        }
+        if self.claim_a == self.claim_b {
+            return Err(CrdtError::QuorumViolation(
+                "equivocation certificate requires two distinct claims",
+            ));
+        }
+        Ok(())
+    }
+}
+
+/// Paraconsistent witness reconciliation outcome separating locally consistent
+/// quorums (`circ A`) from partitioned conflict states (`Both`) carrying proofs.
+#[derive(Clone, PartialEq, Eq, Debug)]
+pub enum WitnessOutcome {
+    /// All active witnesses for `(subject, epoch)` are locally consistent; holds lower median.
+    Consistent {
+        /// Lower median conductance in millionths across active witnesses.
+        median_millionths: i64,
+    },
+    /// Active witness equivocation occurred; holds conservative minimum and self-verifying proofs.
+    Conflicted {
+        /// Conservative component-wise minimum across all observed active claims (no LWW erasure).
+        conservative_min_millionths: i64,
+        /// Canonical self-verifying certificates documenting each detected equivocation.
+        certificates: Vec<EquivocationCertificate>,
+    },
+}
+
+/// Reconciles neighbor health receipts for `(subject, epoch)` without erasing dissent.
+///
+/// Enforces:
+/// 1. Self-reports (`issuer == subject`) are rejected;
+/// 2. Only peers currently in [`ExilePhase::Active`] contribute witness readings;
+/// 3. Conflicting claims from the same `issuer` surface as [`WitnessOutcome::Conflicted`]
+///    carrying canonical [`EquivocationCertificate`]s and a conservative minimum rather than
+///    a last-write-wins overwrite.
+pub fn cross_witness_reconcile(
+    subject: &[u8; 32],
+    epoch: u64,
+    receipts: &[(&SignedWitness, ExilePhase)],
+) -> Result<WitnessOutcome, CrdtError> {
+    let mut per_issuer: BTreeMap<[u8; 32], BTreeSet<(i64, [u8; 32])>> = BTreeMap::new();
+    for (receipt, issuer_phase) in receipts {
+        if receipt.subject != *subject || receipt.epoch != epoch {
+            continue;
+        }
+        receipt.ensure_non_self()?;
+        if !issuer_phase.has_witness_power() {
+            continue;
+        }
+        per_issuer
+            .entry(receipt.issuer)
+            .or_default()
+            .insert((receipt.conductance_millionths, receipt.digest));
+    }
+    if per_issuer.is_empty() {
+        return Err(CrdtError::QuorumViolation(
+            "no active cross-witness receipts available",
+        ));
+    }
+
+    let mut certificates = Vec::new();
+    for (issuer, claims) in &per_issuer {
+        if claims.len() > 1 {
+            let mut iter = claims.iter();
+            if let Some(&first) = iter.next() {
+                for &other in iter {
+                    certificates.push(EquivocationCertificate::from_claims(
+                        *issuer, *subject, epoch, first, other,
+                    )?);
+                }
+            }
+        }
+    }
+
+    if !certificates.is_empty() {
+        let conservative_min_millionths = per_issuer
+            .values()
+            .flat_map(|claims| claims.iter().map(|(v, _)| *v))
+            .min()
+            .ok_or(CrdtError::QuorumViolation(
+                "no active cross-witness receipts available",
+            ))?;
+        return Ok(WitnessOutcome::Conflicted {
+            conservative_min_millionths,
+            certificates,
+        });
+    }
+
+    let mut values: Vec<i64> = per_issuer
+        .values()
+        .filter_map(|claims| claims.iter().next().map(|(v, _)| *v))
+        .collect();
+    values.sort_unstable();
+    Ok(WitnessOutcome::Consistent {
+        median_millionths: values[(values.len() - 1) / 2],
+    })
+}
+
 /// Computes the lower median conductance for `subject` at `epoch` from neighbor receipts.
 ///
 /// Enforces three invariants:
@@ -425,33 +574,12 @@ pub fn cross_witness_median(
     epoch: u64,
     receipts: &[(&SignedWitness, ExilePhase)],
 ) -> Result<i64, CrdtError> {
-    let mut per_issuer: BTreeMap<[u8; 32], (i64, [u8; 32])> = BTreeMap::new();
-    for (receipt, issuer_phase) in receipts {
-        if receipt.subject != *subject || receipt.epoch != epoch {
-            continue;
-        }
-        receipt.ensure_non_self()?;
-        if !issuer_phase.has_witness_power() {
-            continue;
-        }
-        if let Some((prev_val, prev_digest)) = per_issuer.get(&receipt.issuer) {
-            if *prev_val != receipt.conductance_millionths || *prev_digest != receipt.digest {
-                return Err(CrdtError::QuorumViolation(
-                    "equivocating witness receipts from same issuer in epoch",
-                ));
-            }
-        } else {
-            per_issuer.insert(receipt.issuer, (receipt.conductance_millionths, receipt.digest));
-        }
+    match cross_witness_reconcile(subject, epoch, receipts)? {
+        WitnessOutcome::Consistent { median_millionths } => Ok(median_millionths),
+        WitnessOutcome::Conflicted { .. } => Err(CrdtError::QuorumViolation(
+            "equivocating witness receipts from same issuer in epoch",
+        )),
     }
-    if per_issuer.is_empty() {
-        return Err(CrdtError::QuorumViolation(
-            "no active cross-witness receipts available",
-        ));
-    }
-    let mut values: Vec<i64> = per_issuer.values().map(|(v, _)| *v).collect();
-    values.sort_unstable();
-    Ok(values[(values.len() - 1) / 2])
 }
 
 /// Objective, delay-free proof that a peer under-reported its neighbor count or degree.
@@ -775,6 +903,26 @@ mod tests {
             ),
             Err(CrdtError::QuorumViolation(_))
         ));
+
+        // Paraconsistent reconciliation keeps dissent via conservative min + EquivocationCertificate.
+        let outcome = cross_witness_reconcile(
+            &target,
+            5,
+            &[(&w1, ExilePhase::Active), (&w2, ExilePhase::Active), (&w2_equiv, ExilePhase::Active)],
+        )
+        .expect("reconciles into conflicted outcome");
+        match outcome {
+            WitnessOutcome::Conflicted {
+                conservative_min_millionths,
+                certificates,
+            } => {
+                assert_eq!(conservative_min_millionths, 100_000);
+                assert_eq!(certificates.len(), 1);
+                assert_eq!(certificates[0].issuer, id(2));
+                assert_eq!(certificates[0].verify(), Ok(()));
+            }
+            WitnessOutcome::Consistent { .. } => panic!("expected conflicted witness outcome"),
+        }
     }
 
     #[test]

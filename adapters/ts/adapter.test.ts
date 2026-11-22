@@ -27,7 +27,9 @@ import {
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
-const wasmPath = join(root, "target/wasm32-unknown-unknown/release/stoch_abi.wasm");
+const wasmPath =
+  process.env.STOCH_WASM_PATH ||
+  join(root, "target/wasm32-unknown-unknown/release/stoch_abi.wasm");
 const fixturePath = join(root, "crates/stoch-core/vectors.kv");
 const bytes = new Uint8Array(await readFile(wasmPath));
 

@@ -186,8 +186,12 @@ digest against `sha256sum` of the file on disk, and sensitivity to a single flip
 `tests/module.rs` reads the binary: it walks the section table and the export section and
 compares the set of names — it does not look for a name inside a report.
 
-Optional, with a real wasm engine: `node crates/stoch-abi/tests/wasm-smoke.mjs`
-instantiates the published `.wasm` and calls the five exports through the `i32` boundary
-(arena at `200000`, below the data segment), including the `-14` refusal cases and the
-digest `ec0ebb3b4f67ad5c`. It is not part of `cargo test` because the workspace does not
-depend on a JavaScript runtime.
+Cross-engine parity and mutation checks live in [`adapters/ts/`](../../adapters/ts/README.md)
+and [`consumers/node/`](../../consumers/node/README.md), plus the Rust Wasmtime runtime
+parity test in `crates/host-workspace/stoch-aot/`:
+
+```sh
+node --test adapters/ts/adapter.test.ts
+node adapters/ts/mutation.mjs
+node consumers/node/run.mjs
+```

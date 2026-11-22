@@ -1,8 +1,10 @@
 //! Constitutional emergency leases (Brake 3 non-self-extending sunsets), signed frontline
-//! contestations (*Philoctetes* with zero status discounting), and discrete caregiver
-//! allostatic load (`W_allostatic_t`) feeding online `Params.vital_floor_breached`.
+//! contestations (*Philoctetes* with zero status discounting), discrete caregiver
+//! allostatic load (`W_allostatic_t`) feeding online `Params.vital_floor_breached`, and
+//! contestatory peaceful lineage branching (`ForkLocalLineage`).
 
 use ed25519_dalek::{Signature, VerifyingKey};
+use stoch_custody::CustodyLedger;
 
 use crate::HostError;
 
@@ -189,5 +191,33 @@ impl AllostaticCareLedger {
     #[must_use]
     pub const fn vital_floor_breached(&self, floor_threshold: u64) -> bool {
         self.s_vital_care() < floor_threshold
+    }
+}
+
+/// Operations managing non-coercive peaceful lineage branching without Byzantine sanctions.
+pub struct ForkLocalLineage;
+
+impl ForkLocalLineage {
+    /// Persists a peaceful local abstention (`r2-refuse`) against `target_id` without spending
+    /// any `UCAN` authorization token in `SPENT_UCANS`.
+    pub fn r2_refuse(ledger: &CustodyLedger, target_id: &[u8; 32]) -> Result<(), HostError> {
+        ledger.refuse_r2_target(target_id)?;
+        Ok(())
+    }
+
+    /// Hot-revokes a prior peaceful local abstention (`r2-unrefuse`) leaving `SPENT_UCANS` and
+    /// sealed custody tapes intact.
+    pub fn r2_unrefuse(ledger: &CustodyLedger, target_id: &[u8; 32]) -> Result<bool, HostError> {
+        Ok(ledger.unrefuse_r2_target(target_id)?)
+    }
+
+    /// Checks whether the remaining honest signers after peaceful abstentions can still meet `threshold`.
+    #[must_use]
+    pub fn remaining_quorum_viable(
+        total_peers: usize,
+        abstained_peers: usize,
+        threshold: usize,
+    ) -> bool {
+        total_peers.saturating_sub(abstained_peers) >= threshold
     }
 }

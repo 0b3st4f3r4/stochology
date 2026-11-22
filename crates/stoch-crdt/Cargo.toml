@@ -1,11 +1,12 @@
 [package]
 name = "stoch-crdt"
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
 description = "Zero-float, dependency-free causal-conservative CRDTs, revocable rehabilitation, and DTN queues for Stochology"
-license = "CC-BY-4.0"
-repository = "https://github.com/silvanoneto/stochology"
-include = ["src/**", "tests/**", "Cargo.toml"]
+license.workspace = true
+repository.workspace = true
+readme = "README.md"
+include = ["src/**", "tests/**", "Cargo.toml", "README.md"]
 
 [lib]
 crate-type = ["rlib"]

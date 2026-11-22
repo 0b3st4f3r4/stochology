@@ -1,11 +1,12 @@
-//! Fixed-point epistemic, spectral, and delay-stability pre-operators (`#![no_std]`).
+//! Fixed-point Part IV/V pre-operators, relational semantics, and delay-stability primitives (`#![no_std]`).
 //!
 //! This crate preserves `stoch-core` untouched while providing pure integer-only
 //! pre-operators at scale [`UNIT`] (`1_000_000` = `1.0`): exact integer square
 //! roots, Codd 4-state relational values, Stevens measurement scales, Meng + `DEFF`
 //! interval widening before sealing, Lyapunov predictability horizons, the
-//! Wirtinger--RCC time-varying delay bound, and Anderson--Morley 1-hop graph
-//! utilization.
+//! Wirtinger--RCC time-varying delay bound, Anderson--Morley 1-hop graph
+//! utilization, and the Part IV canonical operators ([`epistemic`], [`vital`],
+//! [`governance`]).
 //!
 //! No binary floating-point types or `unsafe` regions exist in this crate.
 
@@ -18,10 +19,15 @@
 #[cfg(test)]
 extern crate std;
 
+pub mod epistemic;
+pub mod governance;
+pub mod paraconsistent;
+pub mod vital;
+
 /// Fixed-point unit corresponding to `1.0` (millionths).
 pub const UNIT: i64 = 1_000_000;
 
-/// Domain or arithmetic overflow errors returned by `stoch-math`.
+/// Domain or arithmetic overflow errors returned by `stoch-math` Part V primitives.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum MathError {
     /// Input parameter lies outside the declared mathematical domain.
@@ -30,8 +36,52 @@ pub enum MathError {
     Overflow,
 }
 
+/// Domain, range, or overflow errors returned by the Part IV canonical operators.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum OperatorError {
+    /// An intermediate product left the declared range.
+    Overflow,
+    /// A value below [`UNIT`] where [`UNIT`] is the floor (a contraction `< 1`).
+    BelowUnit,
+    /// A value outside the interval declared for that parameter.
+    OutOfRange(&'static str),
+    /// An empty slice where at least one element is required.
+    Empty(&'static str),
+    /// A denominator or commitment quantity that is not strictly positive.
+    NonPositive(&'static str),
+}
+
+impl OperatorError {
+    /// Stable negative error code (`-1 ..= -5`).
+    pub const fn code(self) -> i32 {
+        match self {
+            OperatorError::Overflow => -1,
+            OperatorError::BelowUnit => -2,
+            OperatorError::OutOfRange(_) => -3,
+            OperatorError::Empty(_) => -4,
+            OperatorError::NonPositive(_) => -5,
+        }
+    }
+}
+
 fn narrow(value: i128) -> Result<i64, MathError> {
     i64::try_from(value).map_err(|_| MathError::Overflow)
+}
+
+pub(crate) fn narrow_op(value: i128) -> Result<i64, OperatorError> {
+    i64::try_from(value).map_err(|_| OperatorError::Overflow)
+}
+
+/// Exact `i64` integer floor square root delegating to [`integer_root`].
+pub fn integer_root_i64(value: i64) -> Result<i64, OperatorError> {
+    if value < 0 {
+        return Err(OperatorError::OutOfRange("integer_root of a negative value"));
+    }
+    let root = integer_root(i128::from(value)).map_err(|err| match err {
+        MathError::InvalidDomain(msg) => OperatorError::OutOfRange(msg),
+        MathError::Overflow => OperatorError::Overflow,
+    })?;
+    narrow_op(root)
 }
 
 /// Exact integer floor square root: greatest `r >= 0` with `r * r <= value`.

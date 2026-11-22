@@ -1,12 +1,12 @@
 [package]
 name = "stoch-custody"
-version = "0.1.0"
-edition = "2021"
-license = "CC-BY-4.0"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
 publish = false
 description = "Host-only bitemporal two-tape custody storage using redb 2PC and BLAKE3 verification"
 
 [dependencies]
 blake3 = "1"
 redb = "2"
-stoch-crdt = { path = "../../stoch-crdt" }

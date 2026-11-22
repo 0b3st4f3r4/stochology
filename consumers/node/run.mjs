@@ -6,7 +6,7 @@
 // using the same canonical spelling the Rust harness uses. A divergence is an exit
 // code, not a warning.
 //
-// Run: node consumers/node/run.mjs [--vectors PATH]
+// Run: node consumers/node/run.mjs [--wasm PATH] [--vectors PATH]
 
 import { readFileSync, existsSync, mkdirSync } from "node:fs";
 import { spawnSync } from "node:child_process";
@@ -19,15 +19,25 @@ import { ABI_VERSION, AbiError, open, toSafeNumber } from "../../adapters/ts/ada
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
-const wasmPath = join(root, "target/wasm32-unknown-unknown/release/stoch_abi.wasm");
+const defaultWasmPath = join(root, "target/wasm32-unknown-unknown/release/stoch_abi.wasm");
 const defaultVectors = join(root, "crates/stoch-core/vectors.kv");
 // Some hosts mount /tmp as a small tmpfs and the linker dies mid-link there.
 // Use the caller's TMPDIR when it has one, and keep the fallback inside $HOME.
 const tmpFallback = join(homedir(), ".cache", "rs-tmp");
 
 const args = process.argv.slice(2);
-const vectorsIndex = args.indexOf("--vectors");
-const vectorsPath = vectorsIndex >= 0 ? resolve(args[vectorsIndex + 1]) : defaultVectors;
+function flagValue(flag) {
+  const index = args.indexOf(flag);
+  if (index < 0) return null;
+  const value = args[index + 1];
+  if (!value || value.startsWith("--")) {
+    console.error(`${flag} requires a path argument`);
+    process.exit(2);
+  }
+  return resolve(value);
+}
+const vectorsPath = flagValue("--vectors") ?? defaultVectors;
+const wasmPath = flagValue("--wasm") ?? defaultWasmPath;
 
 // ---- the module ----------------------------------------------------------
 

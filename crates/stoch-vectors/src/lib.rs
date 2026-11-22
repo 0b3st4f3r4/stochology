@@ -2,7 +2,7 @@
 //!
 //! Five instruments, one per obligation of the harness task:
 //!
-//! * [`fixture`] — run the 44 normative vectors and compare canonical output;
+//! * [`fixture`] — run the 57 normative vectors and compare canonical output;
 //! * [`generator`] — the coverage corpus of `01` §6.3, verified by census;
 //! * [`contract`] — §V.9's concordance, read from AGENTS.md at run time;
 //! * [`topology`] — $\binom{7}{3} = 35$, the Vandermonde partition and Table B.1;

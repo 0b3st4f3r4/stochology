@@ -50,7 +50,7 @@ fn the_harness_is_integer_only() {
 }
 
 #[test]
-fn the_harness_has_one_dependency() {
+fn the_harness_only_depends_on_pure_workspace_crates() {
     let manifest = fs::read_to_string(
         Path::new(env!("CARGO_MANIFEST_DIR")).join("Cargo.toml"),
     )
@@ -62,9 +62,13 @@ fn the_harness_has_one_dependency() {
         .take_while(|line| !line.trim_start().starts_with('['))
         .filter(|line| !line.trim().is_empty())
         .collect();
-    assert_eq!(dependencies.len(), 1, "{dependencies:?}");
-    assert!(dependencies[0].contains("stoch-core"), "{dependencies:?}");
-    assert!(dependencies[0].contains("path"), "a path dependency");
+    assert_eq!(dependencies.len(), 2, "{dependencies:?}");
+    assert!(dependencies.iter().any(|line| line.contains("stoch-core")), "{dependencies:?}");
+    assert!(dependencies.iter().any(|line| line.contains("stoch-math")), "{dependencies:?}");
+    assert!(
+        dependencies.iter().all(|line| line.contains("path")),
+        "path dependencies only: {dependencies:?}"
+    );
     for absent in ["serde", "wasm-bindgen", "rand", "clap"] {
         assert!(
             !manifest.contains(absent),

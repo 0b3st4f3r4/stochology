@@ -1,7 +1,7 @@
 //! Host governance, ephemeral FROST threshold signing, HyParView 2PC membership,
-//! peaceful lineage branching, two-level OCap firewall, HSM FFI strict verification,
+//! peaceful lineage branching, two-level OCap firewall, HSM strict verification,
 //! solar energetic survival watchdog, contention-free OpenMetrics, <=10 bits/s cues,
-//! constitutional sunsets, and offline AOT `.cwasm` precompilation.
+//! and constitutional sunsets.
 //!
 //! Strictly separates online control inputs (`stoch_core::State`) from ex-post trajectory
 //! audit envelopes ([`RetrospectiveAudit`]):
@@ -26,10 +26,11 @@ pub mod frost;
 pub mod governance;
 pub mod hsm;
 pub mod hyparview;
-pub mod lineage;
 pub mod metrics;
 pub mod ocap;
 pub mod solar;
+
+pub use crate::governance::ForkLocalLineage;
 
 use stoch_core::{Axis, Diagnosis, DiagnosisView, Score};
 use stoch_custody::CustodyError;

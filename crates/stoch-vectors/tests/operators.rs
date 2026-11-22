@@ -386,6 +386,10 @@ fn the_operators_do_not_reach_the_step_or_the_accept_path() {
         .collect();
     assert_eq!(core_uses.len(), 1, "the layer reads only the unit from the core");
     assert_eq!(core_uses[0], "stoch_core::SCALE");
+    assert!(
+        code.contains("stoch_math"),
+        "the re-export shim delegates Part IV operators to stoch_math"
+    );
 
     // And the refusal is real at compile time: the module's own doctests are the
     // two `compile_fail` blocks (step and accept), and they run with the suite.
@@ -404,9 +408,6 @@ fn no_artifact_folds_the_three_margins() {
             "the layer mentions {forbidden:?}, which is how a fold across the three axes starts"
         );
     }
-    // The three temporal readings are folded over time; the three axes are never
-    // even named, so no expression here can combine them.
-    assert!(code.contains("responsibility"));
-    assert!(code.contains("ex_ante") && code.contains("kairos") && code.contains("ex_post"));
+    assert!(code.contains("pub use stoch_math::{epistemic, governance, vital, OperatorError};"));
     assert!(!code.contains("min(s_epi"));
 }

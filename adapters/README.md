@@ -1,6 +1,6 @@
 # Test adapters
 
-**These two consumers are test doubles built to rehearse the ABI; the trigger of
+**These parity doubles exist to rehearse the ABI; the trigger of
 PLAN §4.2 remains unmet.**
 
 > **Design documents cited.** `02-arquitetura.md`, `03-cadeia-de-suprimentos.md` and
@@ -8,23 +8,23 @@ PLAN §4.2 remains unmet.**
 > references stand as a record of the design these doubles rehearse; nothing here needs
 > them to be opened in order to run.
 
-This directory holds the adapter of one of the two consumers. The adapter is not a
-product and not a support promise: it exists to exercise the wasm boundary of
-`crates/stoch-abi` from a language runtime, and to give the second consumer (Python,
-straight on Wasmtime, in `consumers/python/`) something to disagree with.
+This directory holds the TypeScript adapter exercised by `consumers/node/run.mjs` on V8.
+It is not a published product and not a support promise: it exercises the wasm boundary of
+`crates/stoch-abi` from JavaScript/TypeScript with zero npm dependencies, paired against
+an independent Wasmtime parity witness in `crates/host-workspace/stoch-aot/`.
 
 ## Contents
 
 | Path | Role |
 | :--- | :--- |
 | `ts/adapter.ts` | TypeScript adapter: version handshake in `bigint`, arena in the caller's memory, a single declared `bigint → number` conversion point, decoding of both output records. |
-| `ts/adapter.test.ts` | The fourteen divergence points of `02-arquitetura.md` §8.2 (D1–D14), one test per point. |
+| `ts/adapter.test.ts` | The fourteen divergence points of `02-arquitetura.md` §8.2 (D1–D14), one test per point, plus `ESC-03` wire extensions. |
 | `ts/mutation.mjs` | Mutation study: each of the fourteen points has a mutation that only its own test catches. |
 | `ts/README.md` | Table of the fourteen points, known limits, and how to run. |
 
 ## How to run
 
-```
+```sh
 node --test adapters/ts/adapter.test.ts
 node adapters/ts/mutation.mjs
 ```

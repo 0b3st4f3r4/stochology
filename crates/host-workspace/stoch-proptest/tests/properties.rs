@@ -13,17 +13,19 @@ use stoch_core::{
     SCALE,
 };
 use stoch_crdt::{
-    cross_witness_median, CrdtError, ExilePhase, JoinSemilattice, LeontiefEpochState, RehabLattice,
-    RehabPolicy, SignedWitness, StoreCarryBundle, StoreCarryQueue,
+    cross_witness_median, cross_witness_reconcile, CrdtError, EquivocationCertificate, ExilePhase,
+    JoinSemilattice, LeontiefEpochState, RehabLattice, RehabPolicy, SignedWitness,
+    StoreCarryBundle, StoreCarryQueue, WitnessOutcome,
 };
 use stoch_host::disclosure::{BindingAxisTag, CoddStatusTag, Level1Cue, RegimeTag};
 use stoch_host::hyparview::HyParViewOverlay;
 use stoch_host::metrics::LockFreeMetrics;
 use stoch_host::solar::{SolarReading, SolarWatchdogConfig, SolarWatchdogEngine};
+use stoch_math::paraconsistent::{AnnotatedEvidence, FdeState, Filter1Claim, LocalConsistency};
 use stoch_math::{
-    chao1_lower_bound, chao2_two_list_lower_bound, combine_deff_additive, integer_root,
-    kish_design_effect, moulton_cluster_deff, thm3_max_delay, widen_before_seal, CoddValue,
-    Interval, UNIT,
+    chao1_lower_bound, chao2_two_list_lower_bound, combine_deff_additive, epistemic, governance,
+    integer_root, kish_design_effect, moulton_cluster_deff, thm3_max_delay, widen_before_seal,
+    CoddValue, Interval, UNIT,
 };
 
 fn valid_bound_l() -> impl Strategy<Value = i64> {
@@ -932,5 +934,171 @@ proptest! {
             }
         }
         let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn prop_fde_info_join_aci_and_filter1_blocks_gaps_and_gluts(
+        a_idx in 0u8..=3u8,
+        b_idx in 0u8..=3u8,
+        c_idx in 0u8..=3u8,
+        v1 in -1_000_000i64..=1_000_000i64,
+        v2 in -1_000_000i64..=1_000_000i64,
+        kind1 in 0u8..=3u8,
+        kind2 in 0u8..=3u8,
+    ) {
+        let map_fde = |idx: u8| match idx {
+            0 => FdeState::Neither,
+            1 => FdeState::True,
+            2 => FdeState::False,
+            _ => FdeState::Both,
+        };
+        let a = map_fde(a_idx);
+        let b = map_fde(b_idx);
+        let c = map_fde(c_idx);
+
+        // Belnap-Dunn information join <=_k is associative, commutative, idempotent.
+        prop_assert_eq!(a.info_join(b), b.info_join(a));
+        prop_assert_eq!(a.info_join(b).info_join(c), a.info_join(b.info_join(c)));
+        prop_assert_eq!(a.info_join(a), a);
+
+        let map_codd = |kind: u8, v: i64| match kind {
+            0 => CoddValue::Known(v),
+            1 => CoddValue::ApplicableUnknown,
+            2 => CoddValue::Inapplicable,
+            _ => CoddValue::NotAskable,
+        };
+        let c1 = Filter1Claim::new(map_codd(kind1, v1), a, LocalConsistency::Consistent);
+        let c2 = Filter1Claim::new(map_codd(kind2, v2), b, LocalConsistency::Consistent);
+        let merged = c1.merge_claim(c2);
+
+        if matches!(c1.value, CoddValue::NotAskable) || matches!(c2.value, CoddValue::NotAskable) {
+            prop_assert_eq!(merged.value, CoddValue::NotAskable);
+            prop_assert!(!merged.can_seal());
+        }
+        if merged.fde.is_gap() || merged.fde.is_glut() || !merged.value.is_known() {
+            prop_assert!(!merged.can_seal());
+        }
+        if let (CoddValue::Known(x), CoddValue::Known(y)) = (c1.value, c2.value) {
+            if x != y {
+                prop_assert_eq!(merged.fde, FdeState::Both);
+                prop_assert_eq!(merged.consistency, LocalConsistency::Contested);
+                prop_assert!(!merged.can_seal());
+            }
+        }
+    }
+
+    #[test]
+    fn prop_lpa2v_certainty_and_contradiction_within_unit_bounds(
+        mu in 0i64..=UNIT,
+        lambda in 0i64..=UNIT,
+    ) {
+        let ev = AnnotatedEvidence::new(mu, lambda).expect("mu and lambda inside [0, UNIT]");
+        let gc = ev.certainty_degree();
+        let gct = ev.contradiction_degree();
+        prop_assert!((-UNIT..=UNIT).contains(&gc));
+        prop_assert!((-UNIT..=UNIT).contains(&gct));
+        prop_assert_eq!(ev.is_overdetermined(), mu + lambda > UNIT);
+        prop_assert_eq!(ev.is_underdetermined(), mu + lambda < UNIT);
+    }
+
+    #[test]
+    fn prop_part4_deff_additive_le_product_bound_and_bitemporal_min(
+        effects in prop::collection::vec(UNIT..=(20 * UNIT), 1..=6),
+        ex_ante in 0i64..=UNIT,
+        kairos in 0i64..=UNIT,
+        ex_post in 0i64..=UNIT,
+        gov in 0i64..=UNIT,
+        pivot in 1i64..UNIT,
+        mag in 0i64..=10_000_000i64,
+    ) {
+        let additive = epistemic::compose_design_effects(&effects).expect("additive deff");
+        let bound = epistemic::design_effect_product_bound(&effects).expect("product majorant");
+        prop_assert!(additive >= UNIT);
+        prop_assert!(additive <= bound);
+
+        let bt = governance::Bitemporal::new(ex_ante, kairos, ex_post).expect("valid readings");
+        prop_assert_eq!(bt.responsibility(), ex_ante.min(kairos).min(ex_post));
+
+        let sign = governance::differential_sign(gov, pivot).expect("valid sign");
+        let diff = governance::signed_differential(mag, gov, pivot).expect("signed diff");
+        prop_assert_eq!(diff, mag * sign.factor());
+        if gov == pivot {
+            prop_assert_eq!(diff, 0);
+        }
+    }
+
+    #[test]
+    fn prop_cross_witness_reconcile_emits_verified_equivocation_certificates(
+        c1 in 1i64..=SCALE,
+        c2 in 1i64..=SCALE,
+        c3 in 1i64..=SCALE,
+        d1 in any::<u8>(),
+        d2 in any::<u8>(),
+    ) {
+        let subject = [99u8; 32];
+        let w1 = SignedWitness {
+            issuer: [1u8; 32],
+            subject,
+            epoch: 7,
+            conductance_millionths: c1,
+            digest: [d1; 32],
+        };
+        let w2_a = SignedWitness {
+            issuer: [2u8; 32],
+            subject,
+            epoch: 7,
+            conductance_millionths: c2,
+            digest: [d1; 32],
+        };
+        let w2_b = SignedWitness {
+            issuer: [2u8; 32],
+            subject,
+            epoch: 7,
+            conductance_millionths: c3,
+            digest: [d2; 32],
+        };
+
+        let forward = cross_witness_reconcile(
+            &subject,
+            7,
+            &[
+                (&w1, ExilePhase::Active),
+                (&w2_a, ExilePhase::Active),
+                (&w2_b, ExilePhase::Active),
+            ],
+        )
+        .expect("reconciles");
+        let reverse = cross_witness_reconcile(
+            &subject,
+            7,
+            &[
+                (&w2_b, ExilePhase::Active),
+                (&w2_a, ExilePhase::Active),
+                (&w1, ExilePhase::Active),
+            ],
+        )
+        .expect("reconciles reverse");
+
+        prop_assert_eq!(&forward, &reverse);
+        if (c2, [d1; 32]) != (c3, [d2; 32]) {
+            match forward {
+                WitnessOutcome::Conflicted {
+                    conservative_min_millionths,
+                    certificates,
+                } => {
+                    prop_assert_eq!(conservative_min_millionths, c1.min(c2).min(c3));
+                    prop_assert_eq!(certificates.len(), 1);
+                    let cert: &EquivocationCertificate = &certificates[0];
+                    prop_assert_eq!(cert.verify(), Ok(()));
+                    prop_assert!(cert.claim_a < cert.claim_b);
+                }
+                WitnessOutcome::Consistent { .. } => {
+                    prop_assert!(false, "conflicting claims must surface WitnessOutcome::Conflicted");
+                }
+            }
+        } else {
+            let is_consistent = matches!(forward, WitnessOutcome::Consistent { .. });
+            prop_assert!(is_consistent);
+        }
     }
 }

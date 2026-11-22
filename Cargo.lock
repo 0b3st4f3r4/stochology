@@ -26,4 +26,5 @@ name = "stoch-vectors"
 version = "0.1.0"
 dependencies = [
  "stoch-core",
+ "stoch-math",
 ]

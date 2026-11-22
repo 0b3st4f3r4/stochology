@@ -1,10 +1,10 @@
 [package]
 name = "stoch-core"
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
 description = "Deterministic formal core of the Stochology framework: step, accept, diagnose"
-license = "CC-BY-4.0"
-repository = "https://github.com/silvanoneto/stochology"
+license.workspace = true
+repository.workspace = true
 readme = "README.md"
 include = ["src/**", "vectors.kv", "Cargo.toml", "README.md"]
 

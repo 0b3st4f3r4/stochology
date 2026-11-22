@@ -42,10 +42,10 @@
 //! # What this crate is not
 //!
 //! It is not the ABI. There is no `extern "C"`, no `cdylib`, no `unsafe` block, no
-//! `wasm-bindgen` and no JSON: those belong to the wasm phase, which the plan gated
-//! on real consumers and left unbuilt. That plan is archived outside the repository;
-//! the document of record for what shipped is this crate and its README. `unsafe` is
-//! denied crate-wide, and a test asserts that the count of `unsafe` regions is zero.
+//! `wasm-bindgen` and no JSON: the linear WebAssembly boundary lives separately in
+//! `stoch-abi`. The document of record for what this crate ships is `README.md` and
+//! the source tree itself. `unsafe` is denied crate-wide, and a test asserts that
+//! the count of `unsafe` regions is zero.
 //!
 //! # Example
 //!

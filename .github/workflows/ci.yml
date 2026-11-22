@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  schedule:
+    # Daily RustSec sweep (08:00 UTC) so newly disclosed advisories fail CI proactively.
+    - cron: "0 8 * * *"
 
 permissions:
   contents: read
@@ -14,8 +17,31 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  security:
+    name: dependency security audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: taiki-e/install-action@cargo-audit
+
+      - name: audit all Cargo.lock files against RustSec
+        run: python3 .github/checks/security_audit.py --strict
+
+      - name: dependency review against GitHub Advisory Database
+        if: github.event_name == 'pull_request'
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: low
+
   structure:
     name: structural gates
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -36,6 +62,7 @@ jobs:
 
   core:
     name: normative core
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -62,6 +89,7 @@ jobs:
 
   wasm:
     name: wasm supply chain
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -70,6 +98,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
 
       # The gates read the module's bytes themselves; no wabt at all, so this
       # job does not depend on a tool the runner happens not to ship.
@@ -85,7 +117,7 @@ jobs:
           echo "TMPDIR=$RUNNER_TEMP/rs-tmp" >> "$GITHUB_ENV"
           echo "TMPDIR=$RUNNER_TEMP/rs-tmp"
 
-      # C1-C6, C12-C14 of 03 §8, plus the rows that cannot be decided offline,
+      # C1-C6, C11-C14 of 03 §8, plus the rows that cannot be decided offline,
       # each reported open with its reason and never as pass. Every cargo
       # invocation inside the script runs `--offline --locked`, so the artifact
       # is built against the committed `Cargo.lock` and never against a lock the
@@ -93,8 +125,16 @@ jobs:
       - name: release gates C1-C17
         run: python3 .github/checks/wasm_gates.py
 
+      - name: wasm parity & mutation tests (Node 24, zero npm deps)
+        run: |
+          cargo build --release --offline --locked -p stoch-abi --target wasm32-unknown-unknown
+          node --test adapters/ts/adapter.test.ts
+          node adapters/ts/mutation.mjs
+          node consumers/node/run.mjs
+
   adversarial-and-sanitizers:
     name: proptest, host-workspace, sanitizers, miri & repro-aot
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -114,23 +154,29 @@ jobs:
           mkdir -p "$RUNNER_TEMP/rs-tmp"
           echo "TMPDIR=$RUNNER_TEMP/rs-tmp" >> "$GITHUB_ENV"
 
+      - name: build stoch-abi wasm artifact for Wasmtime parity
+        run: cargo build --release --offline --locked -p stoch-abi --target wasm32-unknown-unknown
+
       - name: vendor locked host-workspace dependencies
         run: cargo vendor --locked --manifest-path crates/host-workspace/Cargo.toml vendor-host
 
-      - name: property-based invariants, custody & host integration (host-workspace)
+      - name: property-based invariants, custody, host & wasmtime parity (host-workspace)
         working-directory: crates/host-workspace
-        run: cargo test --offline --locked && cargo test --doc --offline --locked -p stoch-host
+        run: |
+          cargo test --offline --locked
+          cargo test --offline --locked -p stoch-host --features simulated-hsm-ffi
+          cargo test --doc --offline --locked -p stoch-host
 
       - name: address sanitizer over HSM FFI seam (stoch-host)
         working-directory: crates/host-workspace
         env:
           RUSTFLAGS: "-Z sanitizer=address"
-        run: cargo +nightly test --offline --locked --target x86_64-unknown-linux-gnu -p stoch-host --test host_integration hsm_ffi
+        run: cargo +nightly test --offline --locked --target x86_64-unknown-linux-gnu -p stoch-host --features simulated-hsm-ffi --test host_integration hsm_ffi
 
       - name: thread sanitizer over HSM FFI seam (stoch-host)
         env:
           RUSTFLAGS: "-Z sanitizer=thread"
-        run: cargo +nightly test -Z build-std --locked --manifest-path crates/host-workspace/Cargo.toml --target-dir target/host-workspace-tsan --target x86_64-unknown-linux-gnu -p stoch-host --test host_integration hsm_ffi
+        run: cargo +nightly test -Z build-std --locked --manifest-path crates/host-workspace/Cargo.toml --target-dir target/host-workspace-tsan --target x86_64-unknown-linux-gnu -p stoch-host --features simulated-hsm-ffi --test host_integration hsm_ffi
 
       - name: miri over pointer ABI boundary (stoch-abi)
         env:
@@ -142,6 +188,7 @@ jobs:
 
   render:
     name: render
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:

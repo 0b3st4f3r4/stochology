@@ -1,11 +1,12 @@
 [package]
 name = "stoch-math"
-version = "0.1.0"
-edition = "2021"
-description = "Fixed-point epistemic, spectral, and delay-stability pre-operators for Stochology"
-license = "CC-BY-4.0"
-repository = "https://github.com/silvanoneto/stochology"
-include = ["src/**", "tests/**", "Cargo.toml"]
+version.workspace = true
+edition.workspace = true
+description = "Fixed-point Part IV/V pre-operators, epistemic bounds, and delay-stability primitives for Stochology"
+license.workspace = true
+repository.workspace = true
+readme = "README.md"
+include = ["src/**", "tests/**", "Cargo.toml", "README.md"]
 
 [lib]
 crate-type = ["rlib"]

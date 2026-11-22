@@ -6,11 +6,13 @@
 use std::collections::BTreeMap;
 use std::fs;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicU64, Ordering};
+#[cfg(feature = "simulated-hsm-ffi")]
 use std::sync::Arc;
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
+#[cfg(feature = "simulated-hsm-ffi")]
 use std::thread;
 
-use ed25519_dalek::{Signer, SigningKey};
+use ed25519_dalek::{Signer, SigningKey, VerifyingKey};
 use frost_ed25519::round2::SignatureShare;
 use frost_ed25519::{Identifier, SigningPackage};
 use rand_chacha::rand_core::SeedableRng;
@@ -28,10 +30,13 @@ use stoch_host::frost::{
     aggregate_with_independent_verification, run_dkg_3_rounds, verify_group_signature,
     CeremonyKey, SignedFraudProof, SigningOutcome, SingleUseNonceStore,
 };
-use stoch_host::governance::{AllostaticCareLedger, ContestationRecord, EmergencyLease};
+use stoch_host::governance::{
+    AllostaticCareLedger, ContestationRecord, EmergencyLease, ForkLocalLineage,
+};
+#[cfg(feature = "simulated-hsm-ffi")]
 use stoch_host::hsm::HsmSigner;
+use stoch_host::hsm::{HsmBackend, StrictHsmSigner};
 use stoch_host::hyparview::HyParViewOverlay;
-use stoch_host::lineage::ForkLocalLineage;
 use stoch_host::metrics::LockFreeMetrics;
 use stoch_host::ocap::{
     OcapFirewall, SandboxCapabilitySet, SandboxIntent, TransportDelegationCert,
@@ -351,6 +356,47 @@ fn ocap_two_levels_and_113_byte_delegation_cert_enforce_pop_and_monotonic_seq() 
     ));
 }
 
+struct MockSafeBackend {
+    sk: SigningKey,
+    glitch_next: AtomicBool,
+}
+
+impl HsmBackend for MockSafeBackend {
+    fn verifying_key(&self) -> VerifyingKey {
+        self.sk.verifying_key()
+    }
+
+    fn sign_raw(&self, msg: &[u8]) -> Result<[u8; 64], HostError> {
+        let mut sig = self.sk.sign(msg).to_bytes();
+        if self.glitch_next.swap(false, Ordering::AcqRel) {
+            sig[17] ^= 0x80;
+        }
+        Ok(sig)
+    }
+}
+
+#[test]
+fn hsm_strict_wrapper_catches_fault_without_ffi() {
+    let metrics = LockFreeMetrics::new();
+    let signer = StrictHsmSigner::new(MockSafeBackend {
+        sk: SigningKey::from_bytes(&[0x55; 32]),
+        glitch_next: AtomicBool::new(false),
+    });
+
+    let sig = signer
+        .sign_and_verify_strict(b"safe-backend-payload", &metrics)
+        .expect("nominal strict sign succeeds");
+    assert_eq!(sig.len(), 64);
+
+    signer.backend().glitch_next.store(true, Ordering::Release);
+    assert_eq!(
+        signer.sign_and_verify_strict(b"glitched-msg", &metrics),
+        Err(HostError::HsmFaultInjectionDetected)
+    );
+    assert_eq!(metrics.hsm_fault_injections_total.load(Ordering::Relaxed), 1);
+}
+
+#[cfg(feature = "simulated-hsm-ffi")]
 #[test]
 fn hsm_ffi_sign_verify_strict_catches_fault_and_is_thread_safe() {
     let metrics = Arc::new(LockFreeMetrics::new());

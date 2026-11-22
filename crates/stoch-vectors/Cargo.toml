@@ -5,15 +5,17 @@
 # `stoch-core`, generates the coverage corpus the fixture must not lose, and
 # reconciles the artifact against Appendix B's Table B.1.
 #
-# No dependency other than the core itself: the harness is integer-only and
-# makes no claim the core does not already make.
+# Depends solely on the pure workspace crates (`stoch-core` and `stoch-math`):
+# zero external dependencies, integer-only, and makes no claim the core does not
+# already make.
 [package]
 name = "stoch-vectors"
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
 description = "Stochology normative harness: fixture, coverage corpus, separation tests, Table B.1 parity"
-license = "CC-BY-4.0"
-repository = "https://github.com/silvanoneto/stochology"
+license.workspace = true
+repository.workspace = true
+readme = "README.md"
 include = ["src/**", "tests/**", "Cargo.toml", "README.md"]
 
 [lib]
@@ -25,3 +27,4 @@ path = "src/main.rs"
 
 [dependencies]
 stoch-core = { path = "../stoch-core" }
+stoch-math = { path = "../stoch-math" }

@@ -1,3 +1,9 @@
 [workspace]
 resolver = "2"
-members = ["stoch-proptest", "stoch-custody", "stoch-host"]
+members = ["stoch-proptest", "stoch-custody", "stoch-host", "stoch-aot"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/0b3st4f3r4/stochology"

@@ -75,7 +75,7 @@ def build_aot_repro_binary(tmpdir: Path) -> Path:
             "--offline",
             "--locked",
             "-p",
-            "stoch-host",
+            "stoch-aot",
             "--bin",
             "stoch_aot_repro",
         ],

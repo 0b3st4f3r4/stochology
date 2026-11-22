@@ -29,7 +29,7 @@ break it.
 | `SCALE` | `1_000_000` | one unit of the fixed-point scale |
 | `MAX_ABS` | `1_000_000_000` | the bound on every sealed quantity |
 | `VECTORS_DATA_ROWS` | `57` | records of `vectors.kv`, comment lines excluded |
-| `vectors_hash()` | `e4c6aacb…d996fd0fa` | SHA-256 of the fixture, whole file |
+| `vectors_hash()` | `ec0ebb3b…87148d40` | SHA-256 of the fixture, whole file |
 
 Every arithmetic operation is checked. `checked_add`, `checked_sub`, `checked_mul` and
 `checked_div` appear on every path that can leave the integer range, and an overflow is
@@ -94,7 +94,7 @@ runs out of space mid-link. Nothing in the test suite depends on it.
 | :--- | :--- |
 | `src/*.rs` unit tests | the operator's branch table, the probe arithmetic, the fold |
 | `src/step.rs` grid tests | the 96-state grid and the guarded biconditionals |
-| `tests/conformance.rs` | all 52 fixture rows, and the coverage they certify |
+| `tests/conformance.rs` | all 57 fixture rows, and the coverage they certify |
 | `tests/arithmetic.rs` | truncation, the bound at the door, the twelve error codes |
 | `tests/integrity.rs` | fixture byte equality, the digest, the concordance scan |
 | `tests/separation.rs` | the type separation, determinism, contingency independence |

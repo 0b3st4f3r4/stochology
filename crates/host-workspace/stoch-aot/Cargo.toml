@@ -1,0 +1,21 @@
+[package]
+name = "stoch-aot"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+description = "Deterministic offline Wasmtime AOT .cwasm precompiler and Wasmtime ABI parity witness"
+
+[[bin]]
+name = "stoch_aot_repro"
+path = "src/main.rs"
+
+[dependencies]
+blake3 = "1"
+sha2 = "0.10"
+wasmtime = { version = "48.0.10", default-features = false, features = ["cranelift", "parallel-compilation", "all-arch"] }
+
+[dev-dependencies]
+stoch-core = { path = "../../stoch-core" }
+wasmtime = { version = "48.0.10", default-features = false, features = ["cranelift", "runtime"] }

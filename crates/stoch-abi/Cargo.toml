@@ -1,10 +1,11 @@
 [package]
 name = "stoch-abi"
-version = "0.1.0"
-edition = "2021"
-license = "CC-BY-4.0"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
 description = "The linear binary boundary of the stochology core: five exports, no imports, no allocator."
-repository = "https://example.invalid/stochology"
+repository.workspace = true
+readme = "README.md"
 publish = false
 
 [lib]

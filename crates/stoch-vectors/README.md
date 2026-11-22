@@ -1,9 +1,10 @@
 # stoch-vectors — the normative harness
 
-A harness over [`stoch-core`](../stoch-core). It has one dependency, the core it
-exercises, and no opinion of its own: every observation here is a call into
-`step`, `accept`, `seal` or `diagnose` followed by a rendering of what came back.
-`step`, `accept` and `diagnose` are not reimplemented.
+A harness over [`stoch-core`](../stoch-core) (re-exporting the Part IV operators from
+[`stoch-math`](../stoch-math)). It has zero external dependencies and no opinion of its
+own: every observation here is a call into `step`, `accept`, `seal` or `diagnose`
+followed by a rendering of what came back. `step`, `accept` and `diagnose` are not
+reimplemented.
 
 ```
 TMPDIR="${TMPDIR:-$HOME/.cache/rs-tmp}" cargo test --offline
@@ -144,9 +145,11 @@ operator returns `accept verdict=2 proposition=1 site=1 step=7`) and for a
 corrupted input (`s02`'s capacity raised by one gives `fraction=495000`), which is
 how the tests show the harness reads the inputs and not only the declarations.
 
-## The Three Canonical Operators (`src/operators.rs`)
+## The Three Canonical Operators (`src/operators.rs` -> `stoch-math`)
 
-Part IV's three transformations, as a declared integer layer *above* the step.
+Part IV's three transformations, as a declared integer layer *above* the step,
+implemented `#![no_std]` in [`stoch-math`](../stoch-math) and re-exported here for
+CLI inspection and compile-time isolation checks against `stoch-core`.
 They take the quantities the discrete core already reduces — `[L, U]`, `C`, `TTS`,
 `TTR`, the three margins — and produce margins and durations. They are not
 arguments of `step`, they never enter the acceptance path, and they never fold the
@@ -209,7 +212,7 @@ is a comparison. Zero floats in the source.
 Two questions belong to the specification, not to this layer, and are recorded
 rather than answered:
 
-1. **Per-axis margins in the fixture.** This was open and is now closed: the 33
+1. **Per-axis margins in the fixture.** This was open and is now closed: the 57
    records of `vectors.kv` (`01` §6.4) carry `m_epi`, `m_vital` and `m_gov`, so a
    row can write a non-degenerate Leontief minimum and the fold is the minimum of
    the three. Vectors `a13`–`a18` exercise it, including the boundary/skeleton

@@ -1,9 +1,9 @@
-# Virtual workspace root.
+# Virtual workspace root for the Pure-TCB Rust crates.
 #
-# The manuscript is not a program, but the two crates that discharge §V of the
-# contract are. `stoch-core` is the normative core (no dependencies at all);
-# `stoch-vectors` is the harness that exercises it and holds no opinion of its
-# own about step/accept/diagnose.
+# The manuscript is not a program. Inside this workspace sit the normative core
+# (`stoch-core`), its linear wasm boundary (`stoch-abi`), the normative harness
+# (`stoch-vectors`), and the pure zero-dependency extensions (`stoch-math` and
+# `stoch-crdt`). Host/runtime tooling lives separately in `crates/host-workspace`.
 [workspace]
 resolver = "2"
 members = [
@@ -16,3 +16,9 @@ members = [
 exclude = [
     "crates/host-workspace",
 ]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/0b3st4f3r4/stochology"

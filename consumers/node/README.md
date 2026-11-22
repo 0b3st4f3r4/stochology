@@ -41,5 +41,5 @@ Declared limits of this consumer:
 The consumer also checks that the digest the module carries is the digest of the
 fixture on disk before it compares a single row: a fixture edited without rebuilding
 the module is a divergence, not a silently different test — and that path exits `1`,
-which was verified by running it against a corrupted copy of the fixture (`e4c6aacb…` vs
+which was verified by running it against a corrupted copy of the fixture (`ec0ebb3b…` vs
 a perturbed file digest).

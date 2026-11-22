@@ -1,18 +1,17 @@
 [package]
 name = "stoch-proptest"
-version = "0.1.0"
-edition = "2021"
-license = "CC-BY-4.0"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
 publish = false
-description = "Host-only property-based testing harness for stoch-core, stoch-abi, and stoch-math"
+description = "Host-only property-based testing harness for stoch-core, stoch-abi, stoch-math, stoch-crdt, stoch-custody, and stoch-host"
 
-[dependencies]
+[dev-dependencies]
+proptest = { version = "1", default-features = false, features = ["std"] }
 stoch-core = { path = "../../stoch-core" }
 stoch-abi = { path = "../../stoch-abi" }
 stoch-math = { path = "../../stoch-math" }
 stoch-crdt = { path = "../../stoch-crdt" }
 stoch-custody = { path = "../stoch-custody" }
 stoch-host = { path = "../stoch-host" }
-
-[dev-dependencies]
-proptest = { version = "1", default-features = false, features = ["std"] }
