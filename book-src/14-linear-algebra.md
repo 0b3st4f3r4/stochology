@@ -165,7 +165,7 @@ A matrix is a machine that transforms input vectors $\mathbf{x}$ into output vec
 
 $$A = \left[\begin{matrix} 1 & 2 \\\\ 2 & 4 \end{matrix}\right], \qquad A\mathbf{x} = \left[\begin{matrix} 1(3) + 2(1) \\\\ 2(3) + 4(1) \end{matrix}\right] = \left[\begin{matrix} 5 \\\\ 10 \end{matrix}\right].$$
 
-Read that multiplication aloud: each entry of $A\mathbf{x}$ is the dot product of one row of $A$ with $\mathbf{x}$—equivalently, $3$ times the first column $(1, 2)^\top$ plus $1$ times the second column $(2, 4)^\top$.
+Read that multiplication aloud: each entry of $A\mathbf{x}$ is the dot product of one row of $A$ with $\mathbf{x}$. Equivalently, $A\mathbf{x}$ equals $3$ times the first column $(1, 2)^\top$ plus $1$ times the second column $(2, 4)^\top$.
 
 Look closely at what $A$ can output and what it erases on that same $2 \times 2$ example:
 
@@ -246,7 +246,7 @@ Three geometric laws formalize this **concentration of measure**:
 
    $$k \ge \frac{4}{\epsilon^2/2 - \epsilon^3/3}\mkern3mu \ln N.$$
 
-   Read that aloud: required dimension $k$ grows only logarithmically with point count $N$ (roughly $8 \ln N / \epsilon^2$ for small $\epsilon$) and does not depend on ambient dimension $D$. There always exists a linear map into $\mathbb{R}^k$ preserving all pairwise squared—and hence unsquared—Euclidean distances within factor $1 \pm \epsilon$ (since $\sqrt{1-\epsilon} > 1-\epsilon$ and $\sqrt{1+\epsilon} < 1+\epsilon$).
+   Read that aloud: required dimension $k$ grows only logarithmically with point count $N$ (roughly $8 \ln N / \epsilon^2$ for small $\epsilon$) and does not depend on ambient dimension $D$. There always exists a linear map into $\mathbb{R}^k$ preserving all pairwise squared, and hence unsquared, Euclidean distances within factor $1 \pm \epsilon$ (since $\sqrt{1-\epsilon} > 1-\epsilon$ and $\sqrt{1+\epsilon} < 1+\epsilon$).
 
 A quick moment check confirms shell concentration directly. Let $\mathbf{x} = (x\_1, \dots, x\_d)^\top \in \mathbb{R}^d$ have independent coordinates of mean $0$, variance $1$, and fourth moment $\mathbb{E}[x\_i^4] = 3$. Then $\mathbb{E}[\Vert\mathbf{x}\Vert\_2^2] = d$ and $\mathrm{Var}(\Vert\mathbf{x}\Vert\_2^2) = 2d$. Expanding around $\sqrt{d}$ shows that relative spread $\mathrm{SD}(\Vert\mathbf{x}\Vert\_2)/\sqrt{d}$ vanishes as $d$ grows:
 
@@ -256,13 +256,13 @@ Read that aloud: random vectors cluster ever more tightly onto a sphere of radiu
 
 ## 6. Separability over the two-element field, and why parity is not affine
 
-Exclusive OR (**parity**) exposes the exact geometric boundary of linear thresholds. Plot all four two-bit inputs $(x\_1, x\_2) \in \lbrace 0, 1\rbrace^2$ on the corners of a unit square: one straight cut isolates $(1, 1)$ for AND ($x\_1 + x\_2 \ge 1.5$) or separates $(0, 0)$ from the other three for OR ($x\_1 + x\_2 \ge 0.5$). Yet parity outputs $1$ at $(0, 1), (1, 0)$ and $0$ at $(0, 0), (1, 1)$—opposite corners whose diagonals cross at the common midpoint $(0.5, 0.5)$, defeating every single straight cut.
+Exclusive OR (**parity**) exposes the exact geometric boundary of linear thresholds. Plot all four two-bit inputs $(x\_1, x\_2) \in \lbrace 0, 1\rbrace^2$ on the corners of a unit square: one straight cut isolates $(1, 1)$ for AND ($x\_1 + x\_2 \ge 1.5$) or separates $(0, 0)$ from the other three for OR ($x\_1 + x\_2 \ge 0.5$). Yet parity outputs $1$ at $(0, 1), (1, 0)$ and $0$ at $(0, 0), (1, 1)$, opposite corners whose diagonals cross at the common midpoint $(0.5, 0.5)$, defeating every single straight cut.
 
 Over the two-element field $\mathbb{F}\_2 = \lbrace 0, 1\rbrace$ (addition modulo $2$, $\oplus$), $n$-bit parity is linear with weights $(1, \dots, 1) \in \mathbb{F}\_2^n$:
 
 $$\psi\_{\mathrm{PARITY}}(x) = \bigoplus\_{i=1}^{n} x\_i,$$
 
-whereas binary AND ($x\_1 x\_2$) and OR ($x\_1 \oplus x\_2 \oplus x\_1 x\_2$) are nonlinear products for $n \ge 2$. Embed the hypercube in real space $\lbrace 0, 1\rbrace^n \subset \mathbb{R}^n$ and ask for **affine separability**—a real vector $w \in \mathbb{R}^n$ and threshold $\theta \in \mathbb{R}$ with $w \cdot x \ge \theta$ on $1$-inputs and $w \cdot x < \theta$ on $0$-inputs—and the roles invert. Every AND ($\sum\_{i \in S} x\_i \ge |S|$) and every OR ($\sum\_{i \in S} x\_i \ge 1$) separates cleanly by one flat hyperplane, whereas $\psi\_{\mathrm{PARITY}}$ is impossible for any single linear threshold whenever $n \ge 2$: on any $2$-dimensional square face ($n - 2$ bits held at $0$), requiring odd corners $e\_1, e\_2$ above $\theta$ and even corners $\mathbf{0}, e\_1 + e\_2$ below $\theta$ yields the flat contradiction $2\theta \le w \cdot e\_1 + w \cdot e\_2 = w \cdot \mathbf{0} + w \cdot (e\_1 + e\_2) < 2\theta$.
+whereas binary AND ($x\_1 x\_2$) and OR ($x\_1 \oplus x\_2 \oplus x\_1 x\_2$) are nonlinear products for $n \ge 2$. Embed the hypercube in real space $\lbrace 0, 1\rbrace^n \subset \mathbb{R}^n$ and ask for **affine separability** (a real vector $w \in \mathbb{R}^n$ and threshold $\theta \in \mathbb{R}$ with $w \cdot x \ge \theta$ on $1$-inputs and $w \cdot x < \theta$ on $0$-inputs), and the roles invert. Every AND ($\sum\_{i \in S} x\_i \ge |S|$) and every OR ($\sum\_{i \in S} x\_i \ge 1$) separates cleanly by one flat hyperplane, whereas $\psi\_{\mathrm{PARITY}}$ is impossible for any single linear threshold whenever $n \ge 2$: on any $2$-dimensional square face ($n - 2$ bits held at $0$), requiring odd corners $e\_1, e\_2$ above $\theta$ and even corners $\mathbf{0}, e\_1 + e\_2$ below $\theta$ yields the flat contradiction $2\theta \le w \cdot e\_1 + w \cdot e\_2 = w \cdot \mathbf{0} + w \cdot (e\_1 + e\_2) < 2\theta$.
 
 Marvin Minsky and Seymour Papert (1969, Theorem 3.1.1) proved that $\psi\_{\mathrm{PARITY}}$ on $\lbrace 0, 1\rbrace^d$ has threshold order $|R| = d$ (where $R = \lbrace 1, \dots, d \rbrace$ denotes the $d$-bit input coordinate set, distinct from §5's radius $R$): no linear threshold reading fewer than all $d$ bits can compute it. Under uniform inputs on $\lbrace 0, 1\rbrace^4$, any predicate $\varphi$ reading at most three bits has $\mathrm{Cov}(\varphi, \psi\_{\mathrm{PARITY}}) = 0$, because flipping an unread bit reverses parity while leaving $\varphi$ unchanged. Separately, Frank Rosenblatt's (1958) perceptron rule converges finitely on linearly separable AND/OR targets (Minsky & Papert 1969, Theorem 11.1), yet cycles indefinitely on parity (§11.9) until hidden layers trained by backpropagation supply a nonlinear representation lift $\Phi(x)$ (Rumelhart, Hinton & Williams 1986; [Chapter 28](28-the-machine-and-the-deception.md) §5).
 
@@ -286,7 +286,7 @@ Raising $B$ to step $t$ gives $B^t = \bigl[\begin{smallmatrix} \lambda^t & t\gam
 
 ### Dimension is the rank of the design
 
-Feature dimension is column rank, never raw row count, while row-space evidence tracks effective sample size $n\_{\mathrm{eff}}^{\mathrm{var}}$ (§3); neither compensates for the other. Shrinking a linear representation $P$ widens its null kernel $\ker(P)$, erasing minority anomalies under shifting conditions ([Chapter 37](37-model-fit-and-error.md) §5) and hiding costs spilled onto external reception perimeters—outside communities and habitats ([Chapter 48](48-reactive-worlds-performativity-goodhart.md)).
+Feature dimension is column rank, never raw row count, while row-space evidence tracks effective sample size $n\_{\mathrm{eff}}^{\mathrm{var}}$ (§3); neither compensates for the other. Shrinking a linear representation $P$ widens its null kernel $\ker(P)$, erasing minority anomalies under shifting conditions ([Chapter 37](37-model-fit-and-error.md) §5) and hiding costs spilled onto external reception perimeters, namely outside communities and habitats ([Chapter 48](48-reactive-worlds-performativity-goodhart.md)).
 
 ### When the relation is not linear
 

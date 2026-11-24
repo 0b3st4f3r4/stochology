@@ -153,7 +153,7 @@
 
 1. Separate display resolution from precision across repeated readings and accuracy (low scatter plus calibration against reality).
 2. Compute why a diagnostic test with 95% sensitivity and a 5% false-positive rate still yields over 80% false alarms at 1-in-100 prevalence (base-rate neglect).
-3. Read what an uncertainty interval and evidential weight capture—and what bias, missing groups, and attention limits leave out.
+3. Read what an uncertainty interval and evidential weight capture, and what bias, missing groups, and attention limits leave out.
 
 ## 1. Precise and correct
 
@@ -161,12 +161,12 @@ A digital bathroom scale prints to the hundredth of a kilogram, and three step-o
 
 That offset is what matters; the decimals are what get read. Extra digits are only **resolution**: the finest step a screen prints. **Precision** is how tightly repeated readings under the same conditions cluster together. **Accuracy** is closeness to the real weight in the **World**, which requires *both* tight precision and proper calibration. A calibrated coarse scale stays trustworthy up to its step size even when its display looks rough, whereas an uncalibrated high-resolution scale lands smoothly in the wrong place every time.
 
-Public economic and policy numbers share another quiet fragility: they are provisional when printed. Early releases of headline statistics often get revised after decisions have already been made—in some quarters shifting measured consumption growth by nearly $5$ percentage points across vintages (Croushore & Stark 2001)—and revisions rarely appear beside the original headline. Reports routinely confuse crisp decimals and repeatable dials with truth.
+Public economic and policy numbers share another quiet fragility: they are provisional when printed. Early releases of headline statistics often get revised after decisions have already been made, in some quarters shifting measured consumption growth by nearly $5$ percentage points across vintages (Croushore & Stark 2001), and revisions rarely appear beside the original headline. Reports routinely confuse crisp decimals and repeatable dials with truth.
 
 ## 2. Percentages of what: Natural frequencies and alert fatigue
 
 A night-shift resident watches a central telemetry console. Over twelve hours the sepsis monitor
-chimes a dozen times, and nearly every one of those patients is stable—the alert triggered by a
+chimes a dozen times, and nearly every one of those patients is stable, the alert triggered by a
 brief heart-rate spike after routine movement. By the third week her hand silences the alarm before
 her eyes reach the banner. Experience taught her that most sirens are false.
 
@@ -174,14 +174,14 @@ Why does a good alarm cry wolf so often? Test it with ordinary whole counts firs
 
 Hearing "$95$ out of $100$ caught," most people guess $95\unicode{x25}$. The true chance is only about $16.1\unicode{x25}$.
 
-Gerd Gigerenzer and Ulrich Hoffrage showed that turning tricky percentages into **natural frequencies**—plain counts out of a single crowd—helps people solve problems like this cleanly without formal training (Gigerenzer & Hoffrage 1995). Walk through an illustrative crowd of $10{,}000$ people step by step:
+Gerd Gigerenzer and Ulrich Hoffrage showed that turning tricky percentages into **natural frequencies**, plain counts out of a single crowd, helps people solve problems like this cleanly without formal training (Gigerenzer & Hoffrage 1995). Walk through an illustrative crowd of $10{,}000$ people step by step:
 
 1. **Prevalence (how common it is):** Out of $10{,}000$ people, $100$ have the condition ($1$ in $100$) and $9{,}900$ are healthy.
 2. **True positives (caught sick cases):** Among the $100$ sick people, the test catches $95\unicode{x25}$: $100 \times 0.95 = 95$ alarms.
 3. **False positives (healthy false alarms):** Among the $9{,}900$ healthy people, the test triggers falsely on $5\unicode{x25}$: $9{,}900 \times 0.05 = 495$ alarms.
 4. **Total alarms:** The machine rings $95 + 495 = 590$ times in total.
 
-Pick up one positive test slip at random from the $590$ alarms: only $95$ of those $590$ people are actually sick. That leaves $495$ false alarms—more than eight out of ten ($495 / 590 \approx 83.9\unicode{x25}$).
+Pick up one positive test slip at random from the $590$ alarms: only $95$ of those $590$ people are actually sick. That leaves $495$ false alarms, more than eight out of ten ($495 / 590 \approx 83.9\unicode{x25}$).
 
 Now write that natural-count ratio in standard symbols. Call $\pi \in (0, 1)$ the baseline **prevalence** (share sick), $\mathrm{TPR} \in [0, 1]$ the **true-positive rate** (**sensitivity**, share of sick cases caught), and $\mathrm{FPR} \in [0, 1]$ the **false-positive rate** (share of healthy people wrongly flagged). Provided at least some alarms fire ($\pi\mkern2mu\mathrm{TPR} + (1 - \pi)\mathrm{FPR} > 0$), Bayes' rule gives the **positive predictive value** ($\mathrm{PPV}$), the share of alarms that are genuine:
 
@@ -198,9 +198,9 @@ Hospitals pay for ignoring that denominator. Evaluating the Epic Sepsis Model ac
 
 A bare number also hides how wide its plausible margin is, how much independent evidence backs it, and what stayed outside the survey door.
 
-Suppose a school reports that average reading scores edged up by two points over a $70$ benchmark. First look for the **uncertainty interval**—the range of plausible wobble caused by ordinary sampling luck. A single score like "$72$" sounds solid; "$72$, give or take $5$ points" immediately tells you the two-point bump could easily be noise—and even wider if that earlier $70$ baseline was itself estimated from a noisy sample rather than fixed. Yet remember what an uncertainty interval leaves out: it measures only random scatter *inside the declared rulebook*. It stays completely silent if the test was poorly calibrated or if struggling students stayed absent on exam day.
+Suppose a school reports that average reading scores edged up by two points over a $70$ benchmark. First look for the **uncertainty interval**, the range of plausible wobble caused by ordinary sampling luck. A single score like "$72$" sounds solid; "$72$, give or take $5$ points" immediately tells you the two-point bump could easily be noise, and even wider if that earlier $70$ baseline was itself estimated from a noisy sample rather than fixed. Yet remember what an uncertainty interval leaves out: it measures only random scatter *inside the declared rulebook*. It stays completely silent if the test was poorly calibrated or if struggling students stayed absent on exam day.
 
-Second, ask about the **weight of evidence** behind the number. John Maynard Keynes, in *A Treatise on Probability*, separated a claim's probability $p$ from its **weight of evidence** $V$—how much relevant evidence stands behind it compared to relevant ignorance (Keynes 1921). Five coin flips with $4$ heads ($80\unicode{x25}$) and $500$ independent coin flips with $400$ heads ($80\unicode{x25}$) yield the exact same percentage, yet carry vastly different evidential weight $V$. Repeating the exact same skewed classroom ten times adds rows to the spreadsheet without adding real independent weight (developed formally in [Measuring and Erring](33-measuring-and-erring.md) and [Appendix A](appendix-a-mathematics.md)). Publishing a point percentage with no uncertainty interval and no sense of evidential weight pretends to certainty it never earned and erodes the **epistemic margin** of honest inquiry.
+Second, ask about the **weight of evidence** behind the number. John Maynard Keynes, in *A Treatise on Probability*, separated a claim's probability $p$ from its **weight of evidence** $V$, how much relevant evidence stands behind it compared to relevant ignorance (Keynes 1921). Five coin flips with $4$ heads ($80\unicode{x25}$) and $500$ independent coin flips with $400$ heads ($80\unicode{x25}$) yield the exact same percentage, yet carry vastly different evidential weight $V$. Repeating the exact same skewed classroom ten times adds rows to the spreadsheet without adding real independent weight (developed formally in [Measuring and Erring](33-measuring-and-erring.md) and [Appendix A](appendix-a-mathematics.md)). Publishing a point percentage with no uncertainty interval and no sense of evidential weight pretends to certainty it never earned and erodes the **epistemic margin** of honest inquiry.
 
 ## 4. What to ask
 
@@ -214,7 +214,7 @@ Asking these three questions makes any report auditable in a way a bare percenta
 
 ### When finer precision stops being worth its price
 
-Measuring ever more finely stops paying once the cost—equipment, money, and fatal delay while waiting—exceeds the harm saved by shrinking uncertainty before acting, or hits the tool's calibration floor. Unlike simple quiz points, information buys nothing when one choice already clearly wins across every plausible value, and waiting for another decimal costs far more than extra precision can return when delay outruns physical survival time. Pre-checking calibration, missing groups, and denominators ahead of emergencies lets live shifts read verified ranges. When finer precision stops paying—and strictly if the choice is reversible, survival time holds, and unpaid harm is not pushed onto outsiders—act conservatively on the honest range and record the remaining ignorance openly. Under irreversible ruin, tight survival clocks, or split ledgers shifting losses onto neighbors, cost never excuses acting blind.
+Measuring ever more finely stops paying once the cost (equipment, money, and fatal delay while waiting) exceeds the harm saved by shrinking uncertainty before acting, or hits the tool's calibration floor. Unlike simple quiz points, information buys nothing when one choice already clearly wins across every plausible value, and waiting for another decimal costs far more than extra precision can return when delay outruns physical survival time. Pre-checking calibration, missing groups, and denominators ahead of emergencies lets live shifts read verified ranges. When finer precision stops paying (and strictly if the choice is reversible, survival time holds, and unpaid harm is not pushed onto outsiders), act conservatively on the honest range and record the remaining ignorance openly. Under irreversible ruin, tight survival clocks, or split ledgers shifting losses onto neighbors, cost never excuses acting blind.
 
 ## Bridge
 

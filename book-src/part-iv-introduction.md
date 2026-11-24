@@ -26,7 +26,7 @@ Throughout these nine chapters, we follow one running institutional case, *The C
 
 ## Visual map of Part IV
 
-Part IV turns the three margins of the Nuclear Triad—the **Epistemic Margin** ($S\_{\mathrm{epi}}$), the **Vital Margin** ($S\_{\mathrm{vital}}$), and **Institutional Governance** ($S\_{\mathrm{gov}}$)—into three live per-step filters bracketed by a loop setup and a reflexive stress test:
+Part IV turns the three margins of the Nuclear Triad, namely the **Epistemic Margin** ($S\_{\mathrm{epi}}$), the **Vital Margin** ($S\_{\mathrm{vital}}$), and **Institutional Governance** ($S\_{\mathrm{gov}}$), into three live per-step filters bracketed by a loop setup and a reflexive stress test:
 
 ```
   [Part III: Circuit & Triad]

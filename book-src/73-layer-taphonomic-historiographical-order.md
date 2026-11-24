@@ -24,15 +24,15 @@ Consider four strictly nested stages without mixing ($S \subseteq B \subseteq D 
 
 $$P(S \mid A, c) = P(D \mid A, c)\mkern3muP(B \mid D, c)\mkern3muP(S \mid B, c).$$
 
-In plain words, reaching a museum or archive shelf requires surviving death, burial, and discovery in sequence—and a zero at any stage wipes out the entire product.
+In plain words, reaching a museum or archive shelf requires surviving death, burial, and discovery in sequence, and a zero at any stage wipes out the entire product.
 
 Unweighted averages fail across mixed classes, and reworked fossils, stratigraphic mixing, contamination, or later codex interpolation break the nested inclusion $S \subseteq B \subseteq D \subseteq A$. Where nesting holds, soft tissues or uncopied oral speech vanish from $S$ no matter how abundant they were in $A$, and sharper excavation cannot multiply zero back into existence.
 
-Two distinct failures sit at different links. A collection defect enters recovery $P(S \mid B, c)$ through coarse sieving or lost provenience—creating selection bias ($\rho\_{R,Y} \ne 0$, Meng 2018) and permanent loss in dug beds, remediable only in unexcavated deposits or uncatalogued stores. By contrast, the taphonomic filter operates upstream inside $P(D \mid A, c)\mkern3muP(B \mid D, c)$ via soil chemistry, transport, and routine disposal (palimpsests, binding scrap, scheduled shredding, distinct from interested suppression in [Chapter 74](74-layer-critical-archival-transitional-justice-order.md)). Because that filter acts before any observer arrives, better recovery cannot undo it.
+Two distinct failures sit at different links. A collection defect enters recovery $P(S \mid B, c)$ through coarse sieving or lost provenience, creating selection bias ($\rho\_{R,Y} \ne 0$, Meng 2018) and permanent loss in dug beds, remediable only in unexcavated deposits or uncatalogued stores. By contrast, the taphonomic filter operates upstream inside $P(D \mid A, c)\mkern3muP(B \mid D, c)$ via soil chemistry, transport, and routine disposal (palimpsests, binding scrap, scheduled shredding, distinct from interested suppression in [Chapter 74](74-layer-critical-archival-transitional-justice-order.md)). Because that filter acts before any observer arrives, better recovery cannot undo it.
 
 ## 2. Deep time: the rate belongs to the window
 
-Guard site `T5Temporal` tracks how exponential decay over an observation window warps apparent abundance—and clocks how long fragile bone or paper will endure before crossing physical ruin.
+Guard site `T5Temporal` tracks how exponential decay over an observation window warps apparent abundance, and clocks how long fragile bone or paper will endure before crossing physical ruin.
 
 ### Exponential attrition and apparent growth
 
@@ -66,7 +66,7 @@ Illumina `HiSeq` sequencing of two *Dinornis robustus* extracts confirmed differ
 
 Site microclimates shift baseline admission $\alpha\_i$ and window geometry even when decay slopes match. Inside that 5 km New Zealand cluster, covariance analysis found no significant slope gap across deposits, justifying a pooled $k$ (Allentoft et al. 2012). Yet baselines diverged sharply: Pyramid Valley retains 19.6% and Rosslea 0.3% (roughly 330 times fewer, alongside older deposit ages) of Bell Hill Vineyard's template copy counts. Across the 1882-year overlap between Pyramid Valley and Bell Hill Vineyard (915–2797 years BP), the baseline log-copy quantitative PCR cycle-threshold ($C\_T$) gap holds ($t = 3.8, \mathrm{d.f.} = 72, p < 0.001$, unequal variances) (Allentoft et al. 2012).
 
-After log-transformation, age explains 74.9% of copy-number variance at Rosslea ($n = 8, p = 0.005$) versus only 5.8% at shorter-window Bell Hill Vineyard ($n = 47, p = 0.10$), reflecting window width rather than distinct decay rates (Allentoft et al. 2012). Regional pools averaging across deposits therefore confound baseline offsets with observation windows—a spread of regimes that never shrinks as more sites are added.
+After log-transformation, age explains 74.9% of copy-number variance at Rosslea ($n = 8, p = 0.005$) versus only 5.8% at shorter-window Bell Hill Vineyard ($n = 47, p = 0.10$), reflecting window width rather than distinct decay rates (Allentoft et al. 2012). Regional pools averaging across deposits therefore confound baseline offsets with observation windows, a spread of regimes that never shrinks as more sites are added.
 
 ## 3. Liability: survival read as representativeness
 

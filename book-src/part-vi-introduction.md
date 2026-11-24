@@ -22,19 +22,19 @@
 
 Part IV walked one running institutional case through Filters I–III. Part V tested thirty-five knowledge orders across all $\binom{7}{3} = 35$ three-guard combinations.
 
-Part VI keeps the exact same three-plane mediation circuit—World ($P\_1$), Archive ($P\_2$), and Institution ($P\_3$)—and its $n = P(P - 1) + 1 = 7$ guard sites ([Chapter 29, *Aim and the Three Planes*](29-aim-and-the-three-planes.md); [Chapter 41, *The Triad and the Minimum*](41-the-triad-and-the-minimum.md)). Instead of adding new parts, Part VI slows down a **single chronological shot** from first framing to final audit.
+Part VI keeps the exact same three-plane mediation circuit, namely World ($P\_1$), Archive ($P\_2$), and Institution ($P\_3$), and its $n = P(P - 1) + 1 = 7$ guard sites ([Chapter 29, *Aim and the Three Planes*](29-aim-and-the-three-planes.md); [Chapter 41, *The Triad and the Minimum*](41-the-triad-and-the-minimum.md)). Instead of adding new parts, Part VI slows down a **single chronological shot** from first framing to final audit.
 
-That single-shot lens recalls Antipater of Tarsus's classical archer, who separates disciplined aim (*télos*) from whether external contingencies deflect the arrow away from the mark (*skopós*) (Stobaeus 1884; Plutarch *c.* 100 CE; Cicero 45 BCE). It converges with Sunzi's self-secured stance before battle (Griffith 1963) and the *Bhagavad Gītā*'s disciplined action freed from clinging to outcomes (Radhakrishnan 1948). It likewise echoes the Aymara *Qhipnayra* and Māori *Whakataukī* traditions—which place the visible past (*nayra*) directly before one's eyes when stepping forward into the unseen future (*qhipa*) (Núñez & Sweetser 2006; Rivera Cusicanqui 2012; Rameka 2016)—matching how an archer inspects conditions before release.
+That single-shot lens recalls Antipater of Tarsus's classical archer, who separates disciplined aim (*télos*) from whether external contingencies deflect the arrow away from the mark (*skopós*) (Stobaeus 1884; Plutarch *c.* 100 CE; Cicero 45 BCE). It converges with Sunzi's self-secured stance before battle (Griffith 1963) and the *Bhagavad Gītā*'s disciplined action freed from clinging to outcomes (Radhakrishnan 1948). It likewise echoes the Aymara *Qhipnayra* and Māori *Whakataukī* traditions, which place the visible past (*nayra*) directly before one's eyes when stepping forward into the unseen future (*qhipa*) (Núñez & Sweetser 2006; Rivera Cusicanqui 2012; Rameka 2016), matching how an archer inspects conditions before release.
 
 ## Three tapes in one step: what was prepared, what happened, what was written down
 
 Formal syntax in [Appendix B](appendix-b-architecture-verification.md) (§B.1, the grammar and five-stage predicate) models each shot at step $t$ as a triple $\sigma\_t = (\mathbf{u}\_t, \mathbf{w}\_t, \mathbf{m}\_t)$. Read in plain English, those three objects separate three distinct things.
 
-**$\mathbf{u}\_t$ — What was prepared (the control tape, *télos*).** These are the pre-shot commitments sealed *before* impact, fixing which questions enter the ledger, which cutoffs govern action, and which brakes stay armed.
+**$\mathbf{u}\_t$: What was prepared (the control tape, *télos*).** These are the pre-shot commitments sealed *before* impact, fixing which questions enter the ledger, which cutoffs govern action, and which brakes stay armed.
 
-**$\mathbf{w}\_t$ — What happened outside (the contingency tape, *skopós*).** These are the external events that unfold *after* release, such as crosswinds, hits, misses, or shocks. The five-stage predicate $\mathcal{A}$ never peeks at $\mathbf{w}\_t$ when judging whether preparation was sound ([Chapter 92](92-sealed-bow-and-uncommuted-verdict.md), uncommuted pre-outcome verdict).
+**$\mathbf{w}\_t$: What happened outside (the contingency tape, *skopós*).** These are the external events that unfold *after* release, such as crosswinds, hits, misses, or shocks. The five-stage predicate $\mathcal{A}$ never peeks at $\mathbf{w}\_t$ when judging whether preparation was sound ([Chapter 92](92-sealed-bow-and-uncommuted-verdict.md), uncommuted pre-outcome verdict).
 
-**$\mathbf{m}\_t$ — What was written down (the native margins).** These are the numeric health readings recorded on each of the three axes before pass/fail thresholds run.
+**$\mathbf{m}\_t$: What was written down (the native margins).** These are the numeric health readings recorded on each of the three axes before pass/fail thresholds run.
 
 Once step $t - 1$ finishes ($t > 1$), whatever happened outside ($\mathbf{w}\_{t-1}$) pushes forward physically into step $t$'s reserve $R\_t$, archive $O\_t$, and external reception-perimeter capacity (audited ex post via $\Theta\_{\mathrm{basin}, t}$; [Chapter 94](94-yesterdays-crosswind-in-the-string.md), multi-step pushforwards). Inside step $t$ itself, pre-shot custody keeps preparation separate from luck.
 

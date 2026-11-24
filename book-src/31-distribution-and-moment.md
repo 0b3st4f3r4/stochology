@@ -129,13 +129,13 @@
 
 ## 1. From a number to a distribution
 
-In [Chapter 13](13-integrals-and-accumulation.md) and [Chapter 15](15-probability-as-a-measure.md), a random variable appeared as a measurable map sending sample outcomes to numbers, weighted by probability integrals. Its cumulative distribution $F(x)$ captures the entire law of that single variable—every typical day and every catastrophic tail jump—whereas nonlinear dependencies across multiple variables live in their joint law and cannot be reconstructed from single variables alone.
+In [Chapter 13](13-integrals-and-accumulation.md) and [Chapter 15](15-probability-as-a-measure.md), a random variable appeared as a measurable map sending sample outcomes to numbers, weighted by probability integrals. Its cumulative distribution $F(x)$ captures the entire law of that single variable (every typical day and every catastrophic tail jump), whereas nonlinear dependencies across multiple variables live in their joint law and cannot be reconstructed from single variables alone.
 
 Replacing a full distribution with one average is the most destructive habit in policy and engineering. As [The Average Is Not the Story](02-the-average-is-not-the-story.md) showed, when a mean sits far above a median, buffers sized to the average break on the very surge that mattered. This chapter formalizes distributions, moment breakdowns, tail indices, proper scoring rules, and convexity gaps at formalization guard `T4` ([Chapter 29](29-aim-and-the-three-planes.md)).
 
 ## 2. Expectation, variance, covariance, and their failure modes
 
-Building on Lebesgue integration ([Chapter 13](13-integrals-and-accumulation.md)), the mathematical expectation $\mathbb{E}[X]$ weights every admissible outcome by probability rather than summarizing past draws. It can sit at an impossible value such as a fractional family size. Worse, when distributions carry heavy tails or shift across regimes, sample averages converge slowly—or drift without bound.
+Building on Lebesgue integration ([Chapter 13](13-integrals-and-accumulation.md)), the mathematical expectation $\mathbb{E}[X]$ weights every admissible outcome by probability rather than summarizing past draws. It can sit at an impossible value such as a fractional family size. Worse, when distributions carry heavy tails or shift across regimes, sample averages converge slowly, or drift without bound.
 
 The variance $\mathrm{Var}(X) = \mathbb{E}[(X - \mathbb{E}[X])^2]$ measures spread around the mean by squaring every deviation. Because squaring amplifies extreme values, operational disasters, floods, and network outages often carry **infinite theoretical variance** even while every logged row in a table stays finite. Using a sample standard deviation to price reserves in that regime is a mathematical error.
 
@@ -145,7 +145,7 @@ The covariance $\mathrm{Cov}(X, Y) = \mathbb{E}[(X - \mathbb{E}[X])(Y - \mathbb{
 
 Standard bell curves decay exponentially, so events ten times larger than average practically never happen. Real operational, flood, and financial shocks often follow **power-law tails**, where exceeding huge thresholds declines algebraically as $\mathbb{P}(X > x) \sim L(x) x^{-\alpha}$ ($\alpha > 0$, with $L(x)$ a slowly varying adjustment). The tail exponent $\alpha$ tells us how fast extreme probability drops: smaller $\alpha$ means a fatter tail.
 
-On non-negative losses $X \ge 0$ (or two-sided tails $\mathbb{P}(|X| > x) \sim L(x) x^{-\alpha}$ when both signs carry extremes), that single exponent splits moment existence—which averages and spreads even exist mathematically—into four distinct regimes:
+On non-negative losses $X \ge 0$ (or two-sided tails $\mathbb{P}(|X| > x) \sim L(x) x^{-\alpha}$ when both signs carry extremes), that single exponent splits moment existence (which averages and spreads even exist mathematically) into four distinct regimes:
 
 1. **$\alpha > 4$:** Mean, variance, and fourth moment are all finite. Sample variances stabilize cleanly, and classic Gaussian central limit rates ($O(1/\sqrt{n})$) hold.
 2. **$2 < \alpha \le 4$:** Mean and variance remain finite and averages converge, yet for pure Pareto tails ($L(x) = c > 0$, or whenever $\int^\infty x^3 L(x)x^{-\alpha}\mkern3mu dx = \infty$) the fourth moment diverges (infinite kurtosis, unless a decaying factor like $L(x) = (\ln x)^{-2}$ rescues finiteness right at $\alpha = 4$; for $2 < \alpha \le 3$ and pure Pareto tails even skewness $\gamma\_1$ and cubic Taylor terms diverge), making sample variance erratic.
@@ -184,7 +184,7 @@ In plain words, Hill's index is simply the maximum-likelihood rate estimator of 
 
 ### 3.2 The bias of selecting the minimum
 
-Notice that Hill's cutoff $X\_{(n-k)}$ is not an external fixed number—it is a data-selected threshold sitting below the $k$ top observations. What happens if someone shifts that anchor up one notch to $X\_{(n-k+1)}$ while keeping $k$ in the numerator?
+Notice that Hill's cutoff $X\_{(n-k)}$ is not an external fixed number, but a data-selected threshold sitting below the $k$ top observations. What happens if someone shifts that anchor up one notch to $X\_{(n-k+1)}$ while keeping $k$ in the numerator?
 
 With the raised anchor ($k \ge 2$), the last log-ratio equals $\ln 1 = 0$, so the sum drops the $k$-th gap $D\_k$ and shrinks pathwise to $S\_k - D\_k$:
 
@@ -197,7 +197,7 @@ Even with the standard anchor, taking a reciprocal introduces systematic upward 
 $$\mathbb{E}[\hat{\alpha}\_k] = \alpha\mkern3mu\frac{k}{k-1}, \qquad
 \mathrm{Var}(\hat{\alpha}\_k) = \alpha^2\mkern3mu\frac{k^2}{(k-1)^2(k-2)} \quad (k > 1 \text{ for } \mathbb{E};\mkern5mu k > 2 \text{ for } \mathrm{Var}).$$
 
-Raising the anchor to $X\_{(n-k+1)}$ turns the sum into Gamma$(k - 1, \alpha)$, pushing expected index even higher to $\mathbb{E}[\hat{\alpha}'] = \alpha k/(k-2)$ for $k > 2$—inflating $\mathbb{E}[\hat{\alpha}\_k]$ by factor $(k-1)/(k-2)$, which differs from the inverse $k/(k-1)$ of the sum's $(k-1)/k$ factor by $\frac{1}{(k-1)(k-2)} = O(1/k^2)$ (and from $(k-1)/k$ itself by $\Theta(1/k)$) because the reciprocal of a mean never equals the mean of a reciprocal. Even standard $\hat{\alpha}\_k$ carries positive bias $\alpha/(k-1) = O(1/k)$; while that bias shrinks faster asymptotically than the $O(1/\sqrt{k})$ interval half-width as $k \to \infty$, at small tail counts (such as $k = 3$) it still slants estimates sharply upward toward comforting light tails unless corrected.
+Raising the anchor to $X\_{(n-k+1)}$ turns the sum into Gamma$(k - 1, \alpha)$, pushing expected index even higher to $\mathbb{E}[\hat{\alpha}'] = \alpha k/(k-2)$ for $k > 2$, inflating $\mathbb{E}[\hat{\alpha}\_k]$ by factor $(k-1)/(k-2)$, which differs from the inverse $k/(k-1)$ of the sum's $(k-1)/k$ factor by $\frac{1}{(k-1)(k-2)} = O(1/k^2)$ (and from $(k-1)/k$ itself by $\Theta(1/k)$) because the reciprocal of a mean never equals the mean of a reciprocal. Even standard $\hat{\alpha}\_k$ carries positive bias $\alpha/(k-1) = O(1/k)$; while that bias shrinks faster asymptotically than the $O(1/\sqrt{k})$ interval half-width as $k \to \infty$, at small tail counts (such as $k = 3$) it still slants estimates sharply upward toward comforting light tails unless corrected.
 
 ### 3.3 The cut-off trades bias for variance
 
@@ -205,7 +205,7 @@ When $L(x)$ varies slowly rather than staying constant, picking $k$ trades thres
 
 $$\frac{L(u e^y)}{L(u)} = 1 + c\mkern3mu u^{-\kappa}\bigl(e^{-\kappa y} - 1\bigr) + o(u^{-\kappa}).$$
 
-The correction vanishes at $y = 0$ and bends positive excesses ($y > 0$) by $e^{-\kappa y} - 1 < 0$. That tilt shifts $\mathbb{E}[\ln(X/u) \mid X > u]$ by $-\frac{c\kappa}{\alpha(\alpha+\kappa)}u^{-\kappa} + o(u^{-\kappa})$ (sign $-c$), biasing $\hat{\alpha}\_k$ in the direction of $+c$. Since exceedance probability scales as $k/n \sim C u^{-\alpha}$, the threshold behaves as $u \asymp (n/k)^{1/\alpha}$. Thus the bias grows with $k$ at rate $(k/n)^{\tilde{\beta}}$ (where $\tilde{\beta} = \kappa/\alpha = -\rho > 0$ marks the quantile-scale second-order exponent corresponding to Hall's (1982) $x$-scale exponent $\kappa$, distinct from queue utilization $\rho$ in §5), while estimation standard error shrinks as $\alpha/\sqrt{k}$. At the mean-squared-error optimum where bias matches standard error, unadjusted intervals around $\hat{\alpha}\_k$ miss nominal coverage unless we undersmooth ($k = o(k^\ast)$) or subtract bias—and under slow logarithmic decay, no flat Hill plateau exists at all (Embrechts, Klüppelberg & Mikosch 1997).
+The correction vanishes at $y = 0$ and bends positive excesses ($y > 0$) by $e^{-\kappa y} - 1 < 0$. That tilt shifts $\mathbb{E}[\ln(X/u) \mid X > u]$ by $-\frac{c\kappa}{\alpha(\alpha+\kappa)}u^{-\kappa} + o(u^{-\kappa})$ (sign $-c$), biasing $\hat{\alpha}\_k$ in the direction of $+c$. Since exceedance probability scales as $k/n \sim C u^{-\alpha}$, the threshold behaves as $u \asymp (n/k)^{1/\alpha}$. Thus the bias grows with $k$ at rate $(k/n)^{\tilde{\beta}}$ (where $\tilde{\beta} = \kappa/\alpha = -\rho > 0$ marks the quantile-scale second-order exponent corresponding to Hall's (1982) $x$-scale exponent $\kappa$, distinct from queue utilization $\rho$ in §5), while estimation standard error shrinks as $\alpha/\sqrt{k}$. At the mean-squared-error optimum where bias matches standard error, unadjusted intervals around $\hat{\alpha}\_k$ miss nominal coverage unless we undersmooth ($k = o(k^\ast)$) or subtract bias. Under slow logarithmic decay, no flat Hill plateau exists at all (Embrechts, Klüppelberg & Mikosch 1997).
 
 ### 3.4 When the mean stops representing risk
 
@@ -232,7 +232,7 @@ Outside calibrated ensembles, residual resolution can turn negative; good foreca
 
 In [Chapter 12](12-derivatives-and-convexity.md), we saw how curving-upward (convex) harm turns dispersion into extra loss. Flood damage scales faster than flood height, and queue wait times explode as arrival utilization $\rho \in [0, 1)$ nears capacity along Kingman's curve $\rho/(1-\rho)$ (Kingman 1961; formalized in [Chapter 38](38-time-and-dependence.md)).
 
-Recall **Jensen's inequality** (Jensen 1906): whenever loss map $\phi(x)$ is convex—meaning every chord sits on or above the curve—and expectations exist ($\mathbb{E}[|X|] < \infty$, $\mathbb{E}[|\phi(X)|] < \infty$), average loss never falls below the loss at the average input (strictly exceeding it whenever $X$ is non-degenerate and $\phi$ is non-affine on the support of $X$, such as strictly convex loss):
+Recall **Jensen's inequality** (Jensen 1906): whenever loss map $\phi(x)$ is convex (meaning every chord sits on or above the curve) and expectations exist ($\mathbb{E}[|X|] < \infty$, $\mathbb{E}[|\phi(X)|] < \infty$), average loss never falls below the loss at the average input (strictly exceeding it whenever $X$ is non-degenerate and $\phi$ is non-affine on the support of $X$, such as strictly convex loss):
 
 $$\phi\bigl(\mathbb{E}[X]\bigr) \le \mathbb{E}\bigl[\phi(X)\bigr].$$
 
@@ -240,7 +240,7 @@ The **Jensen gap** is that unpriced excess deficit:
 
 $$\Delta\_J = \mathbb{E}\bigl[\phi(X)\bigr] - \phi\bigl(\mathbb{E}[X]\bigr) \ge 0.$$
 
-When harm grows as a power law $\phi(x) \propto x^p$ ($p \ge 1$) under pure Pareto shocks of exponent $\alpha$, both expectations stay finite only if $\alpha > p$. For $1 < \alpha \le p$, mean exposure $\phi(\mathbb{E}[X])$ looks comfortably finite while true expected harm $\mathbb{E}[\phi(X)]$ explodes to $+\infty$. Budgets sized at $\mathbb{E}[X]$ systematically underfund real damage—violating Georges Canguilhem's (1943/1966) vital tolerance latitude (formalized via survival-versus-recovery clocks in [Chapter 38](38-time-and-dependence.md)) and triggering Collapse Proposition 2 (*Impotent Lucidity Before Ruin*, [Chapter 41](41-the-triad-and-the-minimum.md)).
+When harm grows as a power law $\phi(x) \propto x^p$ ($p \ge 1$) under pure Pareto shocks of exponent $\alpha$, both expectations stay finite only if $\alpha > p$. For $1 < \alpha \le p$, mean exposure $\phi(\mathbb{E}[X])$ looks comfortably finite while true expected harm $\mathbb{E}[\phi(X)]$ explodes to $+\infty$. Budgets sized at $\mathbb{E}[X]$ systematically underfund real damage, violating Georges Canguilhem's (1943/1966) vital tolerance latitude (formalized via survival-versus-recovery clocks in [Chapter 38](38-time-and-dependence.md)) and triggering Collapse Proposition 2 (*Impotent Lucidity Before Ruin*, [Chapter 41](41-the-triad-and-the-minimum.md)).
 
 ## 6. Underdetermination and competing risks bounds
 
@@ -254,7 +254,7 @@ Conversely, given latent net curves $S\_1(t)$ and $S\_2(t)$ without pretending b
 
 $$\max\bigl(0,\mkern3mu S\_1(t) + S\_2(t) - 1\bigr) \le S\_T(t) \le \min\bigl(S\_1(t),\mkern3mu S\_2(t)\bigr).$$
 
-Multiplying $S\_1(t) S\_2(t)$ silently assumes independence where data yield only an interval ([Chapter 44, *Underdetermination, Partial Identification, and Severe Testing*](44-underdetermination-partial-identification.md)). Worse, whenever a competing cause kills a positive share of units ($P\_k^\ast(\infty) > 0$ for $k \ne j$), Peterson's upper bound $1 - P\_j^\ast(t)$ never falls to zero as $t \to \infty$—leaving unidentified probability mass at infinity and making the sharp identified upper bound $\sup \mathbb{E}[T\_j^p] = +\infty$ ($p > 0$) infinite without extra dependence assumptions.
+Multiplying $S\_1(t) S\_2(t)$ silently assumes independence where data yield only an interval ([Chapter 44, *Underdetermination, Partial Identification, and Severe Testing*](44-underdetermination-partial-identification.md)). Worse, whenever a competing cause kills a positive share of units ($P\_k^\ast(\infty) > 0$ for $k \ne j$), Peterson's upper bound $1 - P\_j^\ast(t)$ never falls to zero as $t \to \infty$, leaving unidentified probability mass at infinity and making the sharp identified upper bound $\sup \mathbb{E}[T\_j^p] = +\infty$ ($p > 0$) infinite without extra dependence assumptions.
 
 ### Which moments exist
 
@@ -282,4 +282,4 @@ Apparent shifts across treaties stem instead from three concrete artifacts: appl
 
 ## Bridge
 
-[Chapter 46](46-non-identical-asymmetry-heavy-tails.md) formalizes Hill grids, four moment regimes, CRPS scoring, and the convexity gap, while [Chapter 38](38-time-and-dependence.md) and [Chapter 47](47-irreversible-time-vital-margin.md) trace how heavy-tailed shocks eat into survival time. Every floor $\delta$, cap $K$, and cutoff $k$ in §7 is set *before* rows arrive—leading directly into [Chapter 32](32-the-question-before-the-data.md), *The Question Before the Data*.
+[Chapter 46](46-non-identical-asymmetry-heavy-tails.md) formalizes Hill grids, four moment regimes, CRPS scoring, and the convexity gap, while [Chapter 38](38-time-and-dependence.md) and [Chapter 47](47-irreversible-time-vital-margin.md) trace how heavy-tailed shocks eat into survival time. Every floor $\delta$, cap $K$, and cutoff $k$ in §7 is set *before* rows arrive, leading directly into [Chapter 32](32-the-question-before-the-data.md), *The Question Before the Data*.

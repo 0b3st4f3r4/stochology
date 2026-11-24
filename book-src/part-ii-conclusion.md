@@ -28,7 +28,7 @@ It does not conclude that the framework holds. Part II tests nothing of the tria
 
 It does not conclude that three is the right number: that count belongs to the circuit in Part III, not to mathematics or biology.
 
-Nor does it conclude that epistemic or physical margins suffice. [Chapter 19](19-ethics-and-the-imposition-of-risk.md) and [Chapter 20](20-legitimacy-and-institutions.md) show that a careful, buffered arrangement stays illegitimate when it imposes irreversible harm bearers could reasonably reject, denies contestable, rank-blind voice free of status discounting, or exports deficits onto unrepresented external reception perimeters—even where literal unanimous veto is unavailable.
+Nor does it conclude that epistemic or physical margins suffice. [Chapter 19](19-ethics-and-the-imposition-of-risk.md) and [Chapter 20](20-legitimacy-and-institutions.md) show that a careful, buffered arrangement stays illegitimate when it imposes irreversible harm bearers could reasonably reject, denies contestable, rank-blind voice free of status discounting, or exports deficits onto unrepresented external reception perimeters, even where literal unanimous veto is unavailable.
 
 That failure is not an isolated defect of one coordinate among peers. The governance coordinate is not one reading among three: as [Chapter 20](20-legitimacy-and-institutions.md) and [Chapter 25](25-evolution-variation-selection.md) show, it fixes the sign of the competitive selection differential pricing the other margins, so its collapse hollows out the other margins in calm years before shocks arrive.
 

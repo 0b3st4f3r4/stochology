@@ -4,7 +4,7 @@
 
 ---
 
-Stratum VII gathers the last five orders of Part V, carrying the book's heaviest institutional stakes. Earlier strata already encountered irreversible physical thresholds and reactive metrics; Stratum VII concentrates on decisions whose institutional execution—a criminal conviction, toxic spill, crashed cluster, failed dam, or collapsed ecosystem—cannot be refunded by sharper arithmetic later.
+Stratum VII gathers the last five orders of Part V, carrying the book's heaviest institutional stakes. Earlier strata already encountered irreversible physical thresholds and reactive metrics; Stratum VII concentrates on decisions whose institutional execution (a criminal conviction, toxic spill, crashed cluster, failed dam, or collapsed ecosystem) cannot be refunded by sharper arithmetic later.
 
 Five orders carry those irreversible stakes across legal tribunals, cyber-physical infrastructure, and planetary ecosystems:
 
@@ -14,7 +14,7 @@ Five orders carry those irreversible stakes across legal tribunals, cyber-physic
 - **High-hazard nuclear and hydraulic safety (`L34`, [Chapter 84](84-layer-infrastructure-nuclear-hydraulic-safety-order.md)):** Dams and reactors rely on redundant barriers and survival clocks that collapse together when shared assumptions or alarm floods outpace human diagnosis.
 - **Polycentric commons and biospheric limits (`L35`, [Chapter 85](85-layer-polycentric-commons-urban-biospheric-order.md)):** Fisheries, cities, and watersheds endure only when local self-governance respects physical carrying capacities, checks targeted-sampling bias, protects custodial consent against unconsented archival enclosure, and refuses to dump ruin onto neighboring external reception perimeters.
 
-Read separately, these look like five distant professions. Read together, they anchor Stratum VII by a designation recorded rather than derived at `T7Liability` around one rule: **when an outcome cannot be undone, ask who bears the ruin if the estimate fails—and what hard stop fires before impact.**
+Read separately, these look like five distant professions. Read together, they anchor Stratum VII by a designation recorded rather than derived at `T7Liability` around one rule: **when an outcome cannot be undone, ask who bears the ruin if the estimate fails, and what hard stop fires before impact.**
 
 ## Where each instance is argued
 
@@ -34,4 +34,4 @@ Irreversibility fixes safety margins *ex ante*: because post-hoc updates cannot 
 
 This page decides no individual trial or engineering dispute; the five chapters establish what proof standards, quorums, physical freeboard, and shared commons require.
 
-Nor can irreversibility always be engineered away. Where decisions cannot be reversed, safeguards must outlast confidence—because durable physical reserves, out-of-band halts, and accountable institutional rules are what remain when the estimate fails.
+Nor can irreversibility always be engineered away. Where decisions cannot be reversed, safeguards must outlast confidence, because durable physical reserves, out-of-band halts, and accountable institutional rules are what remain when the estimate fails.

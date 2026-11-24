@@ -20,7 +20,7 @@
 
 ## The part where the framework is built
 
-Parts I and II left two things standing. They established a thesis—that three distinct safeguards must hold without trading off—and supplied a toolkit of mathematical, philosophical, and scientific concepts: bounds, convexity, measure, warrant, consent, entropy, buffers, selection, and feedback.
+Parts I and II left two things standing. They established a thesis, that three distinct safeguards must hold without trading off, and supplied a toolkit of mathematical, philosophical, and scientific concepts: bounds, convexity, measure, warrant, consent, entropy, buffers, selection, and feedback.
 
 Part III puts both to work. Over fifteen chapters, it builds the mediation circuit, assembles the three safeguards, fixes the seven guard sites, and closes on a retrospective diagnostic pair that judges completed trajectories without steering live moves.
 
@@ -58,4 +58,4 @@ With time horizons beside evidential limits, inquiry asks not just what fits pas
 
 [Chapter 40](40-institution-incentive-metric.md) builds the institutional safeguard: aligning liability with power, protecting metric integrity, keeping frontline distress channels open, and sealing commitments before outcomes unfold. Its load-bearing claim is that the governance coordinate is not one reading among three; it fixes the sign of the competitive differential on which the other two are priced.
 
-[Chapter 41](41-the-triad-and-the-minimum.md) brings all fifteen chapters together in a co-diagnostic pair, uniting the non-compensatory Leontief minimum with the reception-basin fold for external spillover. It states the three collapse propositions, defends ordinal comparability across axes, sets four reflexive brakes against gaming, and partitions per-step action into three ordered regimes—leaving the five empirical falsifiers to [Chapter 50](50-methodological-families-reflexivity.md). Throughout, the diagnostic verdict remains strictly retrospective; per-step action belongs solely to the canonical operator.
+[Chapter 41](41-the-triad-and-the-minimum.md) brings all fifteen chapters together in a co-diagnostic pair, uniting the non-compensatory Leontief minimum with the reception-basin fold for external spillover. It states the three collapse propositions, defends ordinal comparability across axes, sets four reflexive brakes against gaming, and partitions per-step action into three ordered regimes, leaving the five empirical falsifiers to [Chapter 50](50-methodological-families-reflexivity.md). Throughout, the diagnostic verdict remains strictly retrospective; per-step action belongs solely to the canonical operator.

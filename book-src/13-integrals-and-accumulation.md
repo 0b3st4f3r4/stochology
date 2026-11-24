@@ -127,7 +127,7 @@
 </svg>
 </figure>
 
-> Accumulation turns flows into totals: why an expectation—and a stock drawdown—is an integral rather
+> Accumulation turns flows into totals: why an expectation, and a stock drawdown, is an integral rather
 > than a discrete sum.
 
 ## By the end of this chapter you can
@@ -138,7 +138,7 @@
 
 ## 1. Accumulation and Integration
 
-A reservoir operator in a drought sees only an instantaneous outflow meter. Whether the town runs dry before rains return depends on total gallons drained over time—the accumulated stock change that turns a flow rate into an exhausted tank.
+A reservoir operator in a drought sees only an instantaneous outflow meter. Whether the town runs dry before rains return depends on total gallons drained over time, the accumulated stock change that turns a flow rate into an exhausted tank.
 
 Start by accumulating rectangular slices. Suppose water drains at $2$ units per hour for the first $3$ hours and $4$ units per hour for the next $2$ hours. Total outflow adds the slice areas: $2(3) + 4(2) = 14$ units. For a changing continuous rate $f(t)$ on $[a, b]$, slice the interval into $n$ narrow strips of width $\Delta t\_i$ with sample heights $f(t\_i^\ast)$. Add the strip areas and let the widest slice $\max\_i \Delta t\_i$ shrink toward $0$ to define the **definite integral** $I$:
 
@@ -165,7 +165,7 @@ $$\mathbb{E}[X] = \int\_\Omega X(\omega)\mkern3mud\mathbb{P}(\omega) = \mathbb{E
 
 Read that aloud: expected value equals the probability-weighted integral of positive outcomes minus that of negative outcomes. Discrete tables and continuous curves obey the exact same definition. When $X$ carries a continuous density $p(x) \ge 0$ ($\int\_{-\infty}^\infty p(x)\mkern3mudx = 1$) with finite absolute integral $\int\_{-\infty}^\infty |x|\mkern2mup(x)\mkern3mudx < \infty$, the formula specializes to $\mathbb{E}[X] = \int\_{-\infty}^\infty x\mkern2mup(x)\mkern3mudx$. Merely having area $1$ is not enough: a Cauchy density integrates to $1$ yet sends both $\mathbb{E}[X^+]$ and $\mathbb{E}[X^-]$ to $+\infty$, leaving $\mathbb{E}[X]$ undefined ($\infty - \infty$).
 
-For any non-negative loss $X \ge 0$, Tonelli's theorem reveals a clean geometric shortcut—the **tail-integral identity** (finite or $+\infty$):
+For any non-negative loss $X \ge 0$, Tonelli's theorem reveals a clean geometric shortcut, the **tail-integral identity** (finite or $+\infty$):
 
 $$\mathbb{E}[X] = \int\_0^\infty \mathbb{P}(X > t)\mkern3mudt.$$
 
@@ -191,7 +191,7 @@ Under pure Pareto decay $S(x) = L(x)x^{-\alpha}$ ($\alpha > 0$, slowly varying f
 
 ## 4. Coherent Risk Measures: Expected Shortfall vs. Value-at-Risk
 
-A reinsurance committee pricing a disaster layer cannot stop at a high quantile. Imagine $10$ equally likely scenarios where $9$ lose $0$ and the worst $1$ loses $100$. Ask for the $90\%$ threshold (**Value-at-Risk**, $\mathrm{VaR}\_{0.9}$), and the answer is $0$—drawing a curtain right across the catastrophe. Ask instead for the average loss across the worst $10\%$ (**Expected Shortfall**, $\mathrm{CVaR}\_{0.9}$), and you see $100$. A balance sheet cannot pay a curtain; it must pay the accumulated severity past the threshold.
+A reinsurance committee pricing a disaster layer cannot stop at a high quantile. Imagine $10$ equally likely scenarios where $9$ lose $0$ and the worst $1$ loses $100$. Ask for the $90\%$ threshold (**Value-at-Risk**, $\mathrm{VaR}\_{0.9}$), and the answer is $0$, drawing a curtain right across the catastrophe. Ask instead for the average loss across the worst $10\%$ (**Expected Shortfall**, $\mathrm{CVaR}\_{0.9}$), and you see $100$. A balance sheet cannot pay a curtain; it must pay the accumulated severity past the threshold.
 
 Working in **loss convention** where $X$ measures positive harm (Artzner et al. 1999 state axioms for net worth with reversed signs), Philippe Artzner et al. (1999) proposed four axioms for **coherent risk measures**: monotonicity, subadditivity, positive homogeneity, and translation invariance. Subadditivity ($\rho(X + Y) \le \rho(X) + \rho(Y)$, writing $\rho$ for the risk functional) guarantees diversification never raises measured risk. At quantile level $p \in (0, 1)$, Value-at-Risk $\mathrm{VaR}\_p(X) = \inf\lbrace x \in \mathbb{R} : \mathbb{P}(X \le x) \ge p \rbrace$ violates subadditivity: merging disjoint fat-tailed positions can jump $\mathrm{VaR}\_p$ past the sum of standalone thresholds.
 
@@ -203,7 +203,7 @@ Read that aloud: $\mathrm{CVaR}\_p(X)$ averages the quantile curve $\mathrm{VaR}
 
 - **Comonotonic limit ($Y = X$):** Lockstep risks double linearly under both: $\mathrm{VaR}\_p(2X) = 2\mkern3mu\mathrm{VaR}\_p(X)$ and $\mathrm{CVaR}\_p(2X) = 2\mkern3mu\mathrm{CVaR}\_p(X)$.
 - **Disjoint tail concentration (Acerbi & Tasche 2002):** For $p \in [1/2, 1)$, let two positions $A$ and $B$ each lose $L > 0$ with probability $1 - p$ on mutually exclusive events and $0$ otherwise. Because $\mathbb{P}(A \le 0) = p$, standalone $\mathrm{VaR}\_p(A) = \mathrm{VaR}\_p(B) = 0$, whereas $\mathrm{VaR}\_u(A) = L$ for $u > p$ yields $\mathrm{CVaR}\_p(A) = \mathrm{CVaR}\_p(B) = L$ (naive $\mathbb{E}[A \mid A \ge 0] = (1 - p)L$ breaks at the atom $0$). Combined, $A + B$ loses $L$ with probability $2(1 - p) > 1 - p$, making $\mathrm{VaR}\_p(A + B) = L > 0 + 0$ (non-subadditive) while $\mathrm{CVaR}\_p(A + B) = L \le L + L$ remains coherent.
-- **Strictly bounded deposit contracts:** Suppose an illustrative clearinghouse contract caps total liability at deposit $q\_{0.95}$. It returns that deposit when $X \le q\_{0.95}$ and forfeits it on breach with zero residual liability spilled onto survivors or external reception perimeters—outside bystanders and habitats ([Chapter 46](46-non-identical-asymmetry-heavy-tails.md); [Chapter 50](50-methodological-families-reflexivity.md) Brake 2). Only when physical and legal obligation truly stops at $q\_{0.95}$ does posting $\mathrm{CVaR}\_{0.95}$ lock up extra capital without buying trigger protection.
+- **Strictly bounded deposit contracts:** Suppose an illustrative clearinghouse contract caps total liability at deposit $q\_{0.95}$. It returns that deposit when $X \le q\_{0.95}$ and forfeits it on breach with zero residual liability spilled onto survivors or external reception perimeters, namely outside bystanders and habitats ([Chapter 46](46-non-identical-asymmetry-heavy-tails.md); [Chapter 50](50-methodological-families-reflexivity.md) Brake 2). Only when physical and legal obligation truly stops at $q\_{0.95}$ does posting $\mathrm{CVaR}\_{0.95}$ lock up extra capital without buying trigger protection.
 
 ### Two numbers for the same tail
 
@@ -231,4 +231,4 @@ This shortfall machinery breaks down at $\alpha \le 1$. Without a finite mean, b
 
 [Chapter 12](12-derivatives-and-convexity.md) pairs curvature with this chapter's accumulation integral, which [Chapter 26](26-regulation-and-homeostasis.md), [Chapter 38](38-time-and-dependence.md), and [Chapter 47](47-irreversible-time-vital-margin.md) extend to queuing, jump shocks, and recovery clocks across the three-plane circuit ([Chapter 29](29-aim-and-the-three-planes.md)). [Chapter 31](31-distribution-and-moment.md) and [Chapter 46](46-non-identical-asymmetry-heavy-tails.md) develop moment boundaries, $\mathrm{CRPS}$, and coherent $\mathrm{CVaR}\_p$ alongside external reception-perimeter limits, while [Chapter 35](35-inference-and-evidence.md) and [Chapter 44](44-underdetermination-partial-identification.md) formalize two-arm Manski bounds.
 
-[Linear Algebra](14-linear-algebra.md) next turns from scalar integrals to vectors, matrices, rank, and spectral stability—starting from two-dimensional arrows before building projections and high-dimensional geometry—before [Chapter 15](15-probability-as-a-measure.md) closes Part II's mathematical bases on $(\Omega, \mathcal{F}, \mathbb{P})$.
+[Linear Algebra](14-linear-algebra.md) next turns from scalar integrals to vectors, matrices, rank, and spectral stability (starting from two-dimensional arrows before building projections and high-dimensional geometry) before [Chapter 15](15-probability-as-a-measure.md) closes Part II's mathematical bases on $(\Omega, \mathcal{F}, \mathbb{P})$.

@@ -16,12 +16,12 @@ These are the orders closest to raw matter and furthest from human paperwork. Ye
 Across Stratum I, the physical setup scales up step by step from a single contact point to an entire continuous solid:
 
 1. **One fast contact (`L01`):** A body or vehicle brakes on a surface faster than conscious thought can plan. Survival hangs on reaction delay and friction headroom.
-2. **One shared waiting room (`L02`):** Arrivals pile up at a single server or clinic desk. Near full utilization, wait times explode—and posted wait numbers feed back to change who joins the line.
+2. **One shared waiting room (`L02`):** Arrivals pile up at a single server or clinic desk. Near full utilization, wait times explode, and posted wait numbers feed back to change who joins the line.
 3. **A web of coupled nodes (`L03`):** Queues wire together into power grids and server meshes. A local fault cascades across edges, including hidden links created simply by sharing a target dashboard.
 4. **A chaotic fluid field (`L04`):** Winds and oceans mix continuously across scales. Tiny measurement gaps grow exponentially until the forecast horizon shuts.
-5. **A stressed solid or soil (`L05`):** Bridges and steel plates shatter at their worst unseen flaw through brittle cleavage or fold collapse, whereas loose saturated earthen and tailings dams can fail under tiny monotonic raises via undrained contractive liquefaction—both hidden behind nominal static load averages until the weakest flaw gives way.
+5. **A stressed solid or soil (`L05`):** Bridges and steel plates shatter at their worst unseen flaw through brittle cleavage or fold collapse, whereas loose saturated earthen and tailings dams can fail under tiny monotonic raises via undrained contractive liquefaction, both hidden behind nominal static load averages until the weakest flaw gives way.
 
-In every step, physical failure arrives on the clock before spreadsheet averages notice. Anchored to `T5Temporal` as its designated stratum site—a designation recorded rather than derived ([Part V — Introduction](part-v-introduction.md))—Stratum I proves that waiting for cleaner estimates never refunds lost physical time.
+In every step, physical failure arrives on the clock before spreadsheet averages notice. Anchored to `T5Temporal` as its designated stratum site, a designation recorded rather than derived ([Part V — Introduction](part-v-introduction.md)), Stratum I proves that waiting for cleaner estimates never refunds lost physical time.
 
 ## Where each instance is argued
 
@@ -39,4 +39,4 @@ In $\mathcal{G}\_1$, orders carrying a zero coordinate rely on upstream ancestor
 
 Stratum I does not convert its five physical currencies into one common price. A millisecond of braking latency, an hour of queue wait, a dropped network link, a forecast day, and a micrometer of steel crack have no shared exchange rate.
 
-What unites them is a common boundary geometry: physical thresholds—whether a remaining survival duration compared against an effective response duration or spatial flaw and softening thresholds (`L05`) coupled through upstream $\mathrm{Cone}(L\_i)$ survival clocks—cannot be cleared retrospectively once the margin expires. Better data analysis after the clock runs out cannot buy back a single second of lost margin.
+What unites them is a common boundary geometry: physical thresholds, whether a remaining survival duration compared against an effective response duration or spatial flaw and softening thresholds (`L05`) coupled through upstream $\mathrm{Cone}(L\_i)$ survival clocks, cannot be cleared retrospectively once the margin expires. Better data analysis after the clock runs out cannot buy back a single second of lost margin.

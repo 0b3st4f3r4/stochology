@@ -134,7 +134,7 @@
         <h1 class="stoch-home-title">Stochology</h1>
       </div>
     </div>
-    <p class="stoch-home-lead">From Greek <em>stókhos</em> (aim or conjecture) and <em>lógos</em> (reasoned account): an integrative framework and transversal research program for judgment under structural uncertainty—gathering convergent lineages across the world into modern mathematical, statistical, and institutional rigor when action must precede the outcome and reshapes the world tomorrow's record will have to read.</p>
+    <p class="stoch-home-lead">From Greek <em>stókhos</em> (aim or conjecture) and <em>lógos</em> (reasoned account): an integrative framework and transversal research program for judgment under structural uncertainty, gathering convergent lineages across the world into modern mathematical, statistical, and institutional rigor when action must precede the outcome and reshapes the world tomorrow's record will have to read.</p>
     <nav class="stoch-home-actions" aria-label="Primary reading entry">
       <a class="stoch-home-cta" href="00-preface.html">Read the Prologue <span aria-hidden="true">→</span></a>
       <span class="stoch-home-alt-entry">or open the treatise at <a href="01-deciding-without-knowing.html">Chapter 01: Deciding Without Knowing</a></span>
@@ -281,7 +281,7 @@
 
 <section aria-labelledby="triad-heading">
   <h2 id="triad-heading">The Mediation Circuit &amp; The Nuclear Triad</h2>
-  <p class="stoch-home-section-intro">Judgment crosses one indivisible circuit—<strong>World</strong>, <strong>Archive</strong>, and <strong>Institution</strong>—guarded at seven ordered transits (<i>T</i><sub>1</sub>–<i>T</i><sub>7</sub>). The minimum is not a weighted sum: no surplus on one axis compensates a deficit on another, and the co-diagnostic pair 𝒟<sub>diag</sub> = (<i>M</i><sub>Leontief</sub>, Θ<sub>basin</sub>) remains strictly retrospective over a finished trajectory while per-step operators govern action.</p>
+  <p class="stoch-home-section-intro">Judgment crosses one indivisible circuit (<strong>World</strong>, <strong>Archive</strong>, and <strong>Institution</strong>), guarded at seven ordered transits (<i>T</i><sub>1</sub>–<i>T</i><sub>7</sub>). The minimum is not a weighted sum: no surplus on one axis compensates a deficit on another, and the co-diagnostic pair 𝒟<sub>diag</sub> = (<i>M</i><sub>Leontief</sub>, Θ<sub>basin</sub>) remains strictly retrospective over a finished trajectory while per-step operators govern action.</p>
 
   <div class="stoch-triad-folio">
     <figure class="stoch-home-plate">
@@ -441,7 +441,7 @@
       <span class="stoch-atlas-code">Part IV · 42–50</span>
       <div class="stoch-atlas-body">
         <a href="part-iv-introduction.html">The Framework</a>
-        <p>The sequential World–Archive–Institution loop—operationalized by an agent reading Archive records into Institutional rules—and the epistemic, vital, and governance filters argued step by step on one running case.</p>
+        <p>The sequential World–Archive–Institution loop (operationalized by an agent reading Archive records into Institutional rules) and the epistemic, vital, and governance filters argued step by step on one running case.</p>
       </div>
     </li>
     <li class="stoch-atlas-row">
