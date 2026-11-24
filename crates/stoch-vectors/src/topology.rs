@@ -188,38 +188,54 @@ pub fn parse_anchors(text: &str) -> Result<Vec<Anchor>, String> {
         let stratum = trimmed
             .split("S\\_")
             .nth(1)
+            .or_else(|| trimmed.split("`S").nth(1))
             .and_then(|rest| rest.chars().next())
             .and_then(|c| c.to_digit(10))
             .ok_or_else(|| format!("anchor line without a stratum number: {line}"))? as u8;
-        let chapters = trimmed
-            .split("Chapters ")
-            .nth(1)
-            .ok_or_else(|| format!("anchor line without a chapter run: {line}"))?;
-        // The run is written `51–55` (en dash); a hyphen is accepted too.
-        let run = chapters
-            .split(')')
-            .next()
-            .ok_or_else(|| format!("anchor line without a chapter run: {line}"))?;
-        let separator = if run.contains('\u{2013}') { '\u{2013}' } else { '-' };
-        let mut parts = run.split(separator);
-        let first: String = parts
-            .next()
-            .ok_or_else(|| format!("anchor line without a first chapter: {line}"))?
-            .chars()
-            .filter(|c| c.is_ascii_digit())
-            .collect();
-        let last: String = parts
-            .next()
-            .ok_or_else(|| format!("anchor line without a last chapter: {line}"))?
-            .chars()
-            .filter(|c| c.is_ascii_digit())
-            .collect();
-        let first_chapter: u32 = first
-            .parse()
-            .map_err(|_| format!("anchor line without a first chapter: {line}"))?;
-        let last_chapter: u32 = last
-            .parse()
-            .map_err(|_| format!("anchor line without a last chapter: {line}"))?;
+        let (first_chapter, last_chapter) =
+            if let Some(chapters) = trimmed.split("Chapters ").nth(1) {
+                // The run is written `51–55` (en dash); a hyphen is accepted too.
+                let run = chapters
+                    .split(')')
+                    .next()
+                    .ok_or_else(|| format!("anchor line without a chapter run: {line}"))?;
+                let separator = if run.contains('\u{2013}') { '\u{2013}' } else { '-' };
+                let mut parts = run.split(separator);
+                let first: String = parts
+                    .next()
+                    .ok_or_else(|| format!("anchor line without a first chapter: {line}"))?
+                    .chars()
+                    .filter(|c| c.is_ascii_digit())
+                    .collect();
+                let last: String = parts
+                    .next()
+                    .ok_or_else(|| format!("anchor line without a last chapter: {line}"))?
+                    .chars()
+                    .filter(|c| c.is_ascii_digit())
+                    .collect();
+                let first_chapter: u32 = first
+                    .parse()
+                    .map_err(|_| format!("anchor line without a first chapter: {line}"))?;
+                let last_chapter: u32 = last
+                    .parse()
+                    .map_err(|_| format!("anchor line without a last chapter: {line}"))?;
+                (first_chapter, last_chapter)
+            } else {
+                let mut link_nums = trimmed.split("[Chapter ").skip(1).map(|seg| {
+                    seg.chars()
+                        .take_while(|c| c.is_ascii_digit())
+                        .collect::<String>()
+                });
+                let first_chapter: u32 = link_nums
+                    .next()
+                    .and_then(|s| s.parse().ok())
+                    .ok_or_else(|| format!("anchor line without a first chapter: {line}"))?;
+                let last_chapter: u32 = link_nums
+                    .next()
+                    .and_then(|s| s.parse().ok())
+                    .ok_or_else(|| format!("anchor line without a last chapter: {line}"))?;
+                (first_chapter, last_chapter)
+            };
         let site = trimmed
             .split("leftrightarrow T\\_")
             .nth(1)

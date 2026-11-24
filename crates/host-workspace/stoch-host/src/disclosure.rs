@@ -127,7 +127,8 @@ impl CoddStatusTag {
     }
 }
 
-/// Level 1 synchronous operator cue packed into 1 byte (`8 bits <= 10 bits/s` ceiling).
+/// Level 1 synchronous operator cue packed into 1 byte (`8 bits/cue`, strictly within
+/// the `10 bits/s` deliberate-attention ceiling at cue rates `<= 1 cue/s`).
 ///
 /// Bit layout (`LSB -> MSB`):
 /// - bits `0..=2`: `regime` (3 bits)
@@ -147,7 +148,14 @@ pub struct Level1Cue {
 }
 
 impl Level1Cue {
-    /// Packs the cue into exactly 8 bits (`1` byte), well within the 10-bit ceiling.
+    /// Returns `true` iff emitting one 8-bit cue at `cues_per_sec` stays within
+    /// the `10 bits/s` synchronous human deliberation ceiling (`8 * cues_per_sec <= 10`).
+    #[must_use]
+    pub const fn within_throughput_ceiling(cues_per_sec: u32) -> bool {
+        cues_per_sec.saturating_mul(8) <= 10
+    }
+
+    /// Packs the cue into exactly 8 bits (`1` byte), well within the `10 bits/s` ceiling at `<= 1 cue/s`.
     #[must_use]
     pub const fn pack(self) -> u8 {
         (self.regime as u8 & 0b111)

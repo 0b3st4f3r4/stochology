@@ -217,6 +217,29 @@ impl RehabPolicy {
         })
     }
 
+    /// Validates Byzantine-safe quorum parameters (`q_fraud >= max_byzantine + 1` and
+    /// `q_fraud < q_rehab`, rejecting undersized `q_fraud = 1` when `max_byzantine >= 1`).
+    pub const fn new_byzantine(
+        q_fraud: usize,
+        q_rehab: usize,
+        t_base: u64,
+        max_byzantine: usize,
+    ) -> Result<Self, CrdtError> {
+        let Some(min_fraud) = max_byzantine.checked_add(1) else {
+            return Err(CrdtError::InvalidDomain("max_byzantine overflow"));
+        };
+        if q_fraud < min_fraud || q_fraud >= q_rehab || t_base == 0 {
+            return Err(CrdtError::QuorumViolation(
+                "rehabilitation policy requires max_byzantine + 1 <= q_fraud < q_rehab and t_base > 0",
+            ));
+        }
+        Ok(Self {
+            q_fraud,
+            q_rehab,
+            t_base,
+        })
+    }
+
     /// Computes exponential probation horizon `T_vigil(g) = t_base * 2^(g - 1)` for `g >= 1`,
     /// or `0` when `generation == 0` (never exiled).
     pub fn vigil_duration(self, generation: u64) -> Result<u64, CrdtError> {
@@ -234,6 +257,45 @@ impl RehabPolicy {
     }
 }
 
+/// Validates that `q_fraud` and `q_rehab` respect the rehabilitation graph floor (`App. A §A.6`).
+impl RehabPolicy {
+    /// Checks `min_degree >= 2*f + 2`, `num_nodes >= 2*f + 3`, `f + 1 <= q_fraud <= min_degree - f + 1`,
+    /// and `q_fraud + 1 <= q_rehab <= min_degree - f` so an honest exiled peer can always reach `q_rehab`.
+    pub fn validate_graph_floor(
+        self,
+        min_degree: usize,
+        num_nodes: usize,
+        max_byzantine: usize,
+    ) -> Result<(), CrdtError> {
+        let min_deg_req = max_byzantine
+            .checked_mul(2)
+            .and_then(|v| v.checked_add(2))
+            .ok_or(CrdtError::InvalidDomain("degree floor overflow"))?;
+        let min_nodes_req = min_deg_req
+            .checked_add(1)
+            .ok_or(CrdtError::InvalidDomain("node floor overflow"))?;
+        if min_degree < min_deg_req || num_nodes < min_nodes_req {
+            return Err(CrdtError::QuorumViolation(
+                "graph violates minimum rehabilitation degree/size floor (2f+2 / 2f+3)",
+            ));
+        }
+        let fraud_lo = max_byzantine + 1;
+        let fraud_hi = min_degree - max_byzantine + 1;
+        let rehab_hi = min_degree - max_byzantine;
+        if self.q_fraud < fraud_lo || self.q_fraud > fraud_hi {
+            return Err(CrdtError::QuorumViolation(
+                "q_fraud outside [f+1, delta(G)-f+1]",
+            ));
+        }
+        if self.q_rehab <= self.q_fraud || self.q_rehab > rehab_hi {
+            return Err(CrdtError::QuorumViolation(
+                "q_rehab outside [q_fraud+1, delta(G)-f] (rehabilitation deadlock risk)",
+            ));
+        }
+        Ok(())
+    }
+}
+
 /// Replicated, clock-free revocable rehabilitation lattice for a node.
 ///
 /// Higher `(generation, phase)` dominates lexicographically, so a new quarantine at `g + 1`
@@ -241,6 +303,7 @@ impl RehabPolicy {
 /// permanently in `attested_fraud_logs`.
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct RehabLattice {
+    subject_id: [u8; 32],
     generation: u64,
     phase: ExilePhase,
     attested_fraud_logs: BTreeSet<[u8; 32]>,
@@ -258,7 +321,14 @@ impl RehabLattice {
     /// Constructs a healthy peer at generation `0` in [`ExilePhase::Active`].
     #[must_use]
     pub const fn new_active() -> Self {
+        Self::new_active_for([0_u8; 32])
+    }
+
+    /// Constructs a healthy peer bound to `subject_id` (enforcing non-self voting).
+    #[must_use]
+    pub const fn new_active_for(subject_id: [u8; 32]) -> Self {
         Self {
+            subject_id,
             generation: 0,
             phase: ExilePhase::Active,
             attested_fraud_logs: BTreeSet::new(),
@@ -271,12 +341,19 @@ impl RehabLattice {
     #[must_use]
     pub const fn at_state(generation: u64, phase: ExilePhase) -> Self {
         Self {
+            subject_id: [0_u8; 32],
             generation,
             phase,
             attested_fraud_logs: BTreeSet::new(),
             fraud_votes: BTreeSet::new(),
             rehab_votes: BTreeSet::new(),
         }
+    }
+
+    /// Subject identifier associated with this rehabilitation record.
+    #[must_use]
+    pub const fn subject_id(&self) -> [u8; 32] {
+        self.subject_id
     }
 
     /// Current exile generation (`0` if never quarantined, `>= 1` once exiled).
@@ -309,14 +386,17 @@ impl RehabLattice {
 
     /// Records a peer vote to quarantine for an attested fraud digest at the next generation.
     ///
-    /// Transitions into `(generation + 1, Quarantined)` once `policy.q_fraud` distinct
-    /// voters endorse the exile transition.
+    /// Rejects self-votes (`voter_id == subject_id`). Transitions into
+    /// `(generation + 1, Quarantined)` once `policy.q_fraud` distinct voters endorse.
     pub fn vote_quarantine(
         &mut self,
         policy: &RehabPolicy,
         voter_id: [u8; 32],
         fraud_digest: [u8; 32],
     ) -> Result<bool, CrdtError> {
+        if voter_id == self.subject_id {
+            return Err(CrdtError::QuorumViolation("self-attestation forbidden"));
+        }
         self.attested_fraud_logs.insert(fraud_digest);
         let next_gen = self
             .generation
@@ -337,10 +417,27 @@ impl RehabLattice {
         }
     }
 
+    /// Records a quarantine vote only from a witness currently holding [`ExilePhase::Active`] power.
+    pub fn vote_quarantine_verified(
+        &mut self,
+        policy: &RehabPolicy,
+        voter_id: [u8; 32],
+        voter_phase: ExilePhase,
+        fraud_digest: [u8; 32],
+    ) -> Result<bool, CrdtError> {
+        if !voter_phase.has_witness_power() {
+            return Err(CrdtError::QuorumViolation(
+                "probationary peer carries zero witness voting weight",
+            ));
+        }
+        self.vote_quarantine(policy, voter_id, fraud_digest)
+    }
+
     /// Records a witness vote to advance `self.phase` one step forward within the current generation.
     ///
-    /// Transitions occur strictly along `Quarantined -> Canary -> Pharmacovigilance -> Active`,
-    /// require at least `policy.q_rehab` votes, and guard `Pharmacovigilance -> Active` with
+    /// Rejects self-votes (`voter_id == subject_id`). Transitions occur strictly along
+    /// `Quarantined -> Canary -> Pharmacovigilance -> Active`, require at least
+    /// `policy.q_rehab` votes, and guard `Pharmacovigilance -> Active` with
     /// `vigil_ticks >= policy.vigil_duration(self.generation)`.
     pub fn vote_advance(
         &mut self,
@@ -348,6 +445,9 @@ impl RehabLattice {
         voter_id: [u8; 32],
         vigil_ticks: u64,
     ) -> Result<ExilePhase, CrdtError> {
+        if voter_id == self.subject_id {
+            return Err(CrdtError::QuorumViolation("self-attestation forbidden"));
+        }
         let target = match self.phase {
             ExilePhase::Quarantined => ExilePhase::Canary,
             ExilePhase::Canary => ExilePhase::Pharmacovigilance,
@@ -373,10 +473,100 @@ impl RehabLattice {
         }
         Ok(self.phase)
     }
+
+    /// Records a rehabilitation advancement vote only from an [`ExilePhase::Active`] witness.
+    pub fn vote_advance_verified(
+        &mut self,
+        policy: &RehabPolicy,
+        voter_id: [u8; 32],
+        voter_phase: ExilePhase,
+        vigil_ticks: u64,
+    ) -> Result<ExilePhase, CrdtError> {
+        if !voter_phase.has_witness_power() {
+            return Err(CrdtError::QuorumViolation(
+                "probationary peer carries zero witness voting weight",
+            ));
+        }
+        self.vote_advance(policy, voter_id, vigil_ticks)
+    }
+
+    /// Re-evaluates accumulated vote cardinalities after a CRDT join against `policy`.
+    pub fn apply_quorum(
+        &mut self,
+        policy: &RehabPolicy,
+        observed_vigil_ticks: u64,
+    ) -> Result<(), CrdtError> {
+        loop {
+            let next_gen = self
+                .generation
+                .checked_add(1)
+                .ok_or(CrdtError::InvalidDomain("exile generation overflow"))?;
+            let f_count = self
+                .fraud_votes
+                .iter()
+                .filter(|(g, id)| *g == next_gen && *id != self.subject_id)
+                .count();
+            if f_count >= policy.q_fraud {
+                self.generation = next_gen;
+                self.phase = ExilePhase::Quarantined;
+                continue;
+            }
+            break;
+        }
+        loop {
+            let target = match self.phase {
+                ExilePhase::Quarantined => ExilePhase::Canary,
+                ExilePhase::Canary => ExilePhase::Pharmacovigilance,
+                ExilePhase::Pharmacovigilance => ExilePhase::Active,
+                ExilePhase::Active => break,
+            };
+            if target == ExilePhase::Active
+                && observed_vigil_ticks < policy.vigil_duration(self.generation)?
+            {
+                break;
+            }
+            let r_count = self
+                .rehab_votes
+                .iter()
+                .filter(|(g, p, id)| *g == self.generation && *p == target && *id != self.subject_id)
+                .count();
+            if r_count >= policy.q_rehab {
+                self.phase = target;
+            } else {
+                break;
+            }
+        }
+        Ok(())
+    }
+
+    /// Joins `other` safely, returning `Err(CrdtError::InvalidDomain)` on `subject_id` mismatch.
+    pub fn join_checked(&mut self, other: &Self) -> Result<(), CrdtError> {
+        if self.subject_id != other.subject_id {
+            return Err(CrdtError::InvalidDomain(
+                "cannot merge RehabLattice states across distinct subject_id values",
+            ));
+        }
+        self.join(other);
+        Ok(())
+    }
+
+    /// Joins `other` as a join-semilattice and immediately re-evaluates merged quorums.
+    pub fn join_with_policy(
+        &mut self,
+        other: &Self,
+        policy: &RehabPolicy,
+        observed_vigil_ticks: u64,
+    ) -> Result<(), CrdtError> {
+        self.join_checked(other)?;
+        self.apply_quorum(policy, observed_vigil_ticks)
+    }
 }
 
 impl JoinSemilattice for RehabLattice {
     fn join(&mut self, other: &Self) {
+        if self.subject_id != other.subject_id {
+            return;
+        }
         if (other.generation, other.phase) > (self.generation, self.phase) {
             self.generation = other.generation;
             self.phase = other.phase;
@@ -563,6 +753,36 @@ pub fn cross_witness_reconcile(
     })
 }
 
+/// Quorum-enforcing variant of [`cross_witness_reconcile`] requiring at least `2 * max_byzantine + 1`
+/// distinct active neighbor issuers for `(subject, epoch)`.
+pub fn cross_witness_reconcile_quorum(
+    subject: &[u8; 32],
+    epoch: u64,
+    max_byzantine: usize,
+    receipts: &[(&SignedWitness, ExilePhase)],
+) -> Result<WitnessOutcome, CrdtError> {
+    let required = max_byzantine
+        .checked_mul(2)
+        .and_then(|v| v.checked_add(1))
+        .ok_or(CrdtError::InvalidDomain("witness quorum overflow"))?;
+    let mut issuers = BTreeSet::new();
+    for (receipt, issuer_phase) in receipts {
+        if receipt.subject != *subject || receipt.epoch != epoch {
+            continue;
+        }
+        receipt.ensure_non_self()?;
+        if issuer_phase.has_witness_power() {
+            issuers.insert(receipt.issuer);
+        }
+    }
+    if issuers.len() < required {
+        return Err(CrdtError::QuorumViolation(
+            "active neighbor witness count below 2f + 1",
+        ));
+    }
+    cross_witness_reconcile(subject, epoch, receipts)
+}
+
 /// Computes the lower median conductance for `subject` at `epoch` from neighbor receipts.
 ///
 /// Enforces three invariants:
@@ -611,6 +831,48 @@ impl DegreeLieProof {
             .filter(|w| *w != self.accused)
             .collect();
         if distinct_witnesses.len() < q_fraud {
+            return Err(CrdtError::QuorumViolation(
+                "insufficient distinct active witnesses for DegreeLieProof",
+            ));
+        }
+        let distinct_neighbors: BTreeSet<[u8; 32]> = self
+            .witnessed_neighbors
+            .iter()
+            .copied()
+            .filter(|n| *n != self.accused)
+            .collect();
+        if distinct_neighbors.len() <= usize::try_from(self.claimed_deg).unwrap_or(usize::MAX) {
+            return Err(CrdtError::QuorumViolation(
+                "corroborated neighbor count does not contradict claimed_deg",
+            ));
+        }
+        Ok(())
+    }
+
+    /// Verifies quorum `q_fraud` counting only distinct non-accused witnesses whose declared
+    /// `witness_phases` entry explicitly carries [`ExilePhase::Active`].
+    pub fn verify_active(
+        &self,
+        q_fraud: usize,
+        witness_phases: &[([u8; 32], ExilePhase)],
+    ) -> Result<(), CrdtError> {
+        if q_fraud == 0 {
+            return Err(CrdtError::InvalidDomain("q_fraud must be positive"));
+        }
+        let mut active_map: BTreeMap<[u8; 32], ExilePhase> = BTreeMap::new();
+        for &(id, phase) in witness_phases {
+            active_map.insert(id, phase);
+        }
+        let distinct_active: BTreeSet<[u8; 32]> = self
+            .witnesses
+            .iter()
+            .copied()
+            .filter(|w| {
+                *w != self.accused
+                    && matches!(active_map.get(w), Some(phase) if phase.has_witness_power())
+            })
+            .collect();
+        if distinct_active.len() < q_fraud {
             return Err(CrdtError::QuorumViolation(
                 "insufficient distinct active witnesses for DegreeLieProof",
             ));
@@ -831,6 +1093,31 @@ mod tests {
         // Second exile doubles probation to 200.
         assert_eq!(policy.vigil_duration(2), Ok(200));
         assert_eq!(policy.vigil_duration(3), Ok(400));
+
+        // Graph floor validation: f = 1 requires delta >= 4, n >= 5, q_rehab <= 3.
+        assert_eq!(policy.validate_graph_floor(4, 5, 1), Ok(()));
+        assert!(matches!(
+            policy.validate_graph_floor(3, 4, 1),
+            Err(CrdtError::QuorumViolation(_))
+        ));
+
+        // Non-self & active voter checks plus partition-merge quorum evaluation.
+        let subject = id(42);
+        let mut a = RehabLattice::new_active_for(subject);
+        assert!(matches!(
+            a.vote_quarantine(&policy, subject, id(99)),
+            Err(CrdtError::QuorumViolation(_))
+        ));
+        assert!(matches!(
+            a.vote_quarantine_verified(&policy, id(1), ExilePhase::Quarantined, id(99)),
+            Err(CrdtError::QuorumViolation(_))
+        ));
+        let mut b = RehabLattice::new_active_for(subject);
+        assert!(!a.vote_quarantine_verified(&policy, id(1), ExilePhase::Active, id(99)).unwrap());
+        assert!(!b.vote_quarantine_verified(&policy, id(2), ExilePhase::Active, id(99)).unwrap());
+        a.join_with_policy(&b, &policy, 0).expect("quorum join ok");
+        assert_eq!(a.generation(), 1);
+        assert_eq!(a.phase(), ExilePhase::Quarantined);
     }
 
     impl RehabLattice {
@@ -923,6 +1210,33 @@ mod tests {
             }
             WitnessOutcome::Consistent { .. } => panic!("expected conflicted witness outcome"),
         }
+
+        // Quorum wrapper requires at least 2f + 1 = 3 distinct active issuers for f = 1.
+        assert!(matches!(
+            cross_witness_reconcile_quorum(
+                &target,
+                5,
+                1,
+                &[(&w1, ExilePhase::Active), (&w2, ExilePhase::Active)],
+            ),
+            Err(CrdtError::QuorumViolation(_))
+        ));
+        let w3 = SignedWitness {
+            issuer: id(3),
+            subject: target,
+            epoch: 5,
+            conductance_millionths: 700_000,
+            digest: id(30),
+        };
+        assert!(matches!(
+            cross_witness_reconcile_quorum(
+                &target,
+                5,
+                1,
+                &[(&w1, ExilePhase::Active), (&w2, ExilePhase::Active), (&w3, ExilePhase::Active)],
+            ),
+            Ok(WitnessOutcome::Consistent { median_millionths: 700_000 })
+        ));
     }
 
     #[test]
@@ -951,5 +1265,45 @@ mod tests {
         dtn.enqueue(StoreCarryBundle { payload: 99_u8, expiry_epoch: 10, urgent: true }, 1)
             .expect("urgent bypass");
         assert_eq!(dtn.pop_ready(1).map(|b| b.payload), Some(99));
+    }
+
+    #[test]
+    fn cross_subject_join_byzantine_policy_and_active_degree_lie_guards() {
+        assert!(matches!(
+            RehabPolicy::new_byzantine(1, 2, 100, 1),
+            Err(CrdtError::QuorumViolation(_))
+        ));
+        assert!(RehabPolicy::new_byzantine(2, 3, 100, 1).is_ok());
+
+        let mut left = RehabLattice::new_active_for(id(1));
+        let mut right = RehabLattice::new_active_for(id(2));
+        let policy = RehabPolicy::new(2, 3, 100).unwrap();
+        assert!(!right
+            .vote_quarantine_verified(&policy, id(10), ExilePhase::Active, id(99))
+            .unwrap());
+        assert!(right
+            .vote_quarantine_verified(&policy, id(11), ExilePhase::Active, id(99))
+            .unwrap());
+        assert_eq!(right.phase(), ExilePhase::Quarantined);
+        assert!(matches!(left.join_checked(&right), Err(CrdtError::InvalidDomain(_))));
+        left.join(&right);
+        assert_eq!(left.subject_id, id(1));
+        assert_eq!(left.phase(), ExilePhase::Active);
+
+        let proof = DegreeLieProof {
+            accused: id(9),
+            epoch: 12,
+            claimed_deg: 1,
+            witnessed_neighbors: alloc::vec![id(1), id(2)],
+            witnesses: alloc::vec![id(3), id(4)],
+        };
+        assert!(matches!(
+            proof.verify_active(2, &[(id(3), ExilePhase::Active), (id(4), ExilePhase::Canary)]),
+            Err(CrdtError::QuorumViolation(_))
+        ));
+        assert_eq!(
+            proof.verify_active(2, &[(id(3), ExilePhase::Active), (id(4), ExilePhase::Active)]),
+            Ok(())
+        );
     }
 }

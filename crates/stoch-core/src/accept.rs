@@ -502,13 +502,56 @@ fn site_attains_the_fold(axes: &[AxisReading; 3], site: Site, fold: i64) -> bool
 ///     accept(&transcript),
 ///     Ok(Verdict::Boundary { site: Site::T4, margin: 101_000 })
 /// );
-
 /// ```
 pub fn accept(transcript: &Transcript) -> Result<Verdict, Error> {
+    if let Some(early) = check_structural_stages(transcript)? {
+        return Ok(early);
+    }
+    judge_stages_4_5(transcript)
+}
+
+/// Evaluates an ordered N-step sentence sequentially under Appendix B.1 two-pass semantics.
+///
+/// An empty sentence is quarantined as [`UnparsableReason::Skeleton`]. Pass 1 runs Stages 1-3
+/// across every step so structural, coverage, finiteness, or reopening faults anywhere in the
+/// sequence strictly preempt any earlier-step [`Verdict::Collapse`]. Pass 2 evaluates Stages 4-5
+/// step by step, halting at the earliest `Unparsable` (`Skeleton`) or `Collapse`, otherwise
+/// returning the step-minimal `Boundary` (smallest `margin`, earliest step on ties) or `Interior`.
+pub fn accept_sentence(transcripts: &[Transcript]) -> Result<Verdict, Error> {
+    if transcripts.is_empty() {
+        return Ok(Verdict::Unparsable {
+            reason: UnparsableReason::Skeleton,
+        });
+    }
+    for transcript in transcripts {
+        if let Some(early) = check_structural_stages(transcript)? {
+            return Ok(early);
+        }
+    }
+    let mut best_boundary: Option<(Site, i64)> = None;
+    for transcript in transcripts {
+        match judge_stages_4_5(transcript)? {
+            v @ (Verdict::Unparsable { .. } | Verdict::Collapse { .. }) => return Ok(v),
+            Verdict::Boundary { site, margin } => match best_boundary {
+                Some((_, best_margin)) if margin >= best_margin => {}
+                _ => best_boundary = Some((site, margin)),
+            },
+            Verdict::Interior => {}
+        }
+    }
+    Ok(match best_boundary {
+        Some((site, margin)) => Verdict::Boundary { site, margin },
+        None => Verdict::Interior,
+    })
+}
+
+/// Evaluates Stages 1–3 structural admissibility on a single transcript without folding.
+fn check_structural_stages(transcript: &Transcript) -> Result<Option<Verdict>, Error> {
     // Structural invariant, before any stage: site and proposition share an axis
     // (`01` §3.2). A collapse whose site belongs to one plane and whose proposition
     // names another is incoherent, and the core refuses it before emitting a verdict.
-    if let (Some(proposition), Some(site)) = (transcript.declared.proposition, transcript.declared.site)
+    if let (Some(proposition), Some(site)) =
+        (transcript.declared.proposition, transcript.declared.site)
     {
         if proposition.axis() != site.axis() {
             return Err(Error::SitePropositionMismatch);
@@ -516,36 +559,41 @@ pub fn accept(transcript: &Transcript) -> Result<Verdict, Error> {
     }
 
     // Stage 1 — syntactic skeleton, B.1 line 159. Order inside the stage follows the
-    // record: tape, extent, capacity, reserve, budget.
+    // record: tape, extent, capacity, reserve, band width, budget, reopening.
     if transcript.tape != ControlTape::Attested {
-        return Ok(Verdict::Unparsable {
+        return Ok(Some(Verdict::Unparsable {
             reason: UnparsableReason::Skeleton,
-        });
+        }));
     }
     if transcript.bounds.l > transcript.bounds.u {
-        return Ok(Verdict::Unparsable {
+        return Ok(Some(Verdict::Unparsable {
             reason: UnparsableReason::Skeleton,
-        });
+        }));
     }
     if transcript.capacity.c <= 0 {
-        return Ok(Verdict::Unparsable {
+        return Ok(Some(Verdict::Unparsable {
             reason: UnparsableReason::Skeleton,
-        });
+        }));
     }
     if transcript.capacity.r < 0 {
-        return Ok(Verdict::Unparsable {
+        return Ok(Some(Verdict::Unparsable {
             reason: UnparsableReason::Skeleton,
-        });
+        }));
+    }
+    if transcript.assessment.band_width <= 0 {
+        return Ok(Some(Verdict::Unparsable {
+            reason: UnparsableReason::Skeleton,
+        }));
     }
     if transcript.budget.elapsed > transcript.budget.limit {
-        return Ok(Verdict::Unparsable {
+        return Ok(Some(Verdict::Unparsable {
             reason: UnparsableReason::BudgetExceeded,
-        });
+        }));
     }
     if transcript.declared.reopen_sealed {
-        return Ok(Verdict::Unparsable {
+        return Ok(Some(Verdict::Unparsable {
             reason: UnparsableReason::CounterInductiveReopen,
-        });
+        }));
     }
 
     // Stage 2 — axial coverage, line 160. An axis with no reading has nothing to fold.
@@ -556,9 +604,9 @@ pub fn accept(transcript: &Transcript) -> Result<Verdict, Error> {
     ];
     for axis in axes {
         if axis.readings == 0 {
-            return Ok(Verdict::Unparsable {
+            return Ok(Some(Verdict::Unparsable {
                 reason: UnparsableReason::AxialCoverage,
-            });
+            }));
         }
     }
 
@@ -567,12 +615,22 @@ pub fn accept(transcript: &Transcript) -> Result<Verdict, Error> {
     // against a threshold and passes every guard that touches it.
     for axis in axes {
         if !axis.weakest.is_present() {
-            return Ok(Verdict::Unparsable {
+            return Ok(Some(Verdict::Unparsable {
                 reason: UnparsableReason::MarginMissing,
-            });
+            }));
         }
     }
 
+    Ok(None)
+}
+
+/// Evaluates Stages 4–5 over a structurally admissible step transcript.
+fn judge_stages_4_5(transcript: &Transcript) -> Result<Verdict, Error> {
+    let axes = [
+        transcript.axes.epi,
+        transcript.axes.vital,
+        transcript.axes.gov,
+    ];
     // Stage 4 — the Leontief fold, line 162.
     let fold = match fold3(axes[0].weakest, axes[1].weakest, axes[2].weakest) {
         Score::Present(v) => v,
@@ -595,12 +653,6 @@ pub fn accept(transcript: &Transcript) -> Result<Verdict, Error> {
             transcript.declared.site,
             transcript.declared.step,
         ) {
-            // Three names are necessary and not sufficient. B.1 line 163 asks the same
-            // of a collapse that it asks of a boundary: the site must be the place the
-            // fold is, and a site on a healthy axis would report a failure that the
-            // record attributes to a plane which is reading above the fold. Naming a
-            // healthy axis as the failed one is a claim the record does not support, so
-            // the sentence is ill-formed (B.1 line 159) rather than a collapse.
             (Some(proposition), Some(site), Some(step))
                 if site_attains_the_fold(&axes, site, fold) =>
             {
@@ -616,26 +668,14 @@ pub fn accept(transcript: &Transcript) -> Result<Verdict, Error> {
         }
     } else {
         // Stage 5 — the frontier band, line 163: `[threshold, threshold + width)`.
-        //
-        // Both ends are bounded by `MAX_ABS` at the door, so their sum is bounded by
-        // `2 * MAX_ABS` and cannot leave an `i64`. The band is compared in `i128` so
-        // that the arithmetic states that fact instead of carrying an error arm that
-        // no input can reach.
         let upper = i128::from(transcript.assessment.accept_threshold)
             + i128::from(transcript.assessment.band_width);
         if i128::from(fold) < upper {
             match transcript.declared.site {
                 Some(site) => {
-                    // Line 163: the verdict names *that* site with *its* margin — the
-                    // site whose axis carries the fold. The rule is the one the collapse
-                    // above answers to as well, so both stages ask it in one place.
                     if site_attains_the_fold(&axes, site, fold) {
                         Ok(Verdict::Boundary { site, margin: fold })
                     } else {
-                        // B.1 line 159: a control tape violating a declared invariant is
-                        // unparsable with a named reason. The declaration says this site
-                        // carries the fold; the readings say it does not. An ill-formed
-                        // sentence has no verdict, it does not have a bad one.
                         Ok(Verdict::Unparsable {
                             reason: UnparsableReason::Skeleton,
                         })
@@ -1120,5 +1160,71 @@ mod tests {
                 );
             }
         }
+    }
+
+    #[test]
+    fn zero_or_negative_band_width_is_quarantined_and_sentence_two_pass_works() {
+        let mut s_zero_bw = sentence_with(three(100_000), Declared::new(None, Some(Site::T1), None));
+        s_zero_bw.assessment = Assessment::new(100_000, 0);
+        let t_zero = Transcript::seal(s_zero_bw).unwrap();
+        assert_eq!(
+            accept(&t_zero),
+            Ok(Verdict::Unparsable {
+                reason: UnparsableReason::Skeleton
+            })
+        );
+
+        let mut s_neg_bw = sentence_with(three(200_000), Declared::none());
+        s_neg_bw.assessment = Assessment::new(100_000, -5_000);
+        let t_neg = Transcript::seal(s_neg_bw).unwrap();
+        assert_eq!(
+            accept(&t_neg),
+            Ok(Verdict::Unparsable {
+                reason: UnparsableReason::Skeleton
+            })
+        );
+
+        // Empty sentence -> Skeleton quarantine.
+        assert_eq!(
+            accept_sentence(&[]),
+            Ok(Verdict::Unparsable {
+                reason: UnparsableReason::Skeleton
+            })
+        );
+
+        // Later-step Stage-1 fault preempts an earlier-step Collapse.
+        let step1_collapse = Transcript::seal(sentence_with(
+            three(50_000),
+            Declared::new(Some(Proposition::P1Epistemic), Some(Site::T1), Some(0)),
+        ))
+        .unwrap();
+        let mut step2_unattested = sentence_with(three(200_000), Declared::none());
+        step2_unattested.tape = ControlTape::Unattested;
+        let step2_fault = Transcript::seal(step2_unattested).unwrap();
+        assert_eq!(
+            accept_sentence(&[step1_collapse, step2_fault]),
+            Ok(Verdict::Unparsable {
+                reason: UnparsableReason::Skeleton
+            })
+        );
+
+        // Valid two-step Boundary picks minimal boundary margin across steps.
+        let b1 = Transcript::seal(sentence_with(
+            three(130_000),
+            Declared::new(None, Some(Site::T2), None),
+        ))
+        .unwrap();
+        let b2 = Transcript::seal(sentence_with(
+            three(105_000),
+            Declared::new(None, Some(Site::T5), None),
+        ))
+        .unwrap();
+        assert_eq!(
+            accept_sentence(&[b1, b2]),
+            Ok(Verdict::Boundary {
+                site: Site::T5,
+                margin: 105_000
+            })
+        );
     }
 }

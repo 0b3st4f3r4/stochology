@@ -115,8 +115,10 @@ pub struct StateRec {
     pub lethal_omission: i32,
     /// `25`: `1` when an attested transcript declares counter-inductive frame reopening, `0` otherwise.
     pub reopen_sealed: i32,
-    /// `26`: reserved, zero.
-    pub reserved1: [u8; 48],
+    /// `26`: `1` when physical/causal rate clocks (`T5`) are missing or uncalibrated, `0` otherwise.
+    pub clocks_missing: i32,
+    /// `27`: reserved, zero.
+    pub reserved1: [u8; 44],
 }
 
 /// One regime on the wire, `02` §2.2 and §2.4: 64 bytes, alignment 8.
@@ -224,7 +226,8 @@ const _: () = {
     assert!(core::mem::offset_of!(StateRec, step_index) == 196);
     assert!(core::mem::offset_of!(StateRec, lethal_omission) == 200);
     assert!(core::mem::offset_of!(StateRec, reopen_sealed) == 204);
-    assert!(core::mem::offset_of!(StateRec, reserved1) == 208);
+    assert!(core::mem::offset_of!(StateRec, clocks_missing) == 208);
+    assert!(core::mem::offset_of!(StateRec, reserved1) == 212);
 };
 
 const _: () = {
@@ -443,7 +446,9 @@ fn state_from(rec: &StateRec) -> Result<State, i32> {
         flag(rec.gov_corrupt)?,
         Thresholds::new(rec.accept_threshold, rec.band_width),
     )
-    .with_lethal_omission(flag(rec.lethal_omission)?);
+    .with_lethal_omission(flag(rec.lethal_omission)?)
+    .with_reopen_sealed(flag(rec.reopen_sealed)?)
+    .with_clocks_missing(flag(rec.clocks_missing)?);
 
     State::seal(
         tape,
@@ -739,6 +744,8 @@ fn verdict_from(rec: &StateRec) -> Result<Verdict, i32> {
     // `Assessment::new` declares the pair; the door that refuses it is
     // `Transcript::seal`, which bounds both thresholds and is called below.
     let assessment = Assessment::new(rec.accept_threshold, rec.band_width);
+
+    let _ = flag(rec.clocks_missing)?;
 
     let sentence = Sentence {
         tape,

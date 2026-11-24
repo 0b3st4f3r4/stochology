@@ -301,23 +301,27 @@ pub fn thm3_max_delay(
 }
 
 /// Local 1-hop Anderson & Morley (1985) spectral utilization ratio
-/// `(deg_i + deg_j) * UNIT / budget_ij`.
+/// `(deg_i + deg_j) * UNIT / uniform_budget`.
 ///
-/// `deg_i`, `deg_j`, and `budget_ij` must share the same degree unit
-/// (either all unscaled edge counts or all pre-scaled by [`UNIT`]).
+/// `deg_i`, `deg_j`, and `uniform_budget` must share the same degree unit
+/// (either all unscaled edge counts or all pre-scaled by [`UNIT`]). Global
+/// spectral soundness (`App. A §A.2 #15a`) requires passing the single uniform
+/// global budget `B` across all edges rather than arbitrary local per-edge budgets.
+/// Rounded conservatively upward (`div_ceil`) so a ratio strictly above `1`
+/// never rounds down to `UNIT` and masks a spectral breach.
 pub fn anderson_morley_utilization(
     deg_i: i64,
     deg_j: i64,
-    budget_ij: i64,
+    uniform_budget: i64,
 ) -> Result<i64, MathError> {
-    if deg_i < 0 || deg_j < 0 || budget_ij <= 0 {
+    if deg_i < 0 || deg_j < 0 || uniform_budget <= 0 {
         return Err(MathError::InvalidDomain("invalid degree or spectral budget"));
     }
     let deg_sum = i128::from(deg_i) + i128::from(deg_j);
     let num = deg_sum
         .checked_mul(i128::from(UNIT))
         .ok_or(MathError::Overflow)?;
-    narrow(num / i128::from(budget_ij))
+    narrow(div_ceil_pos_den(num, i128::from(uniform_budget))?)
 }
 
 fn div_ceil_pos_den(num: i128, den: i128) -> Result<i128, MathError> {
@@ -425,19 +429,17 @@ pub fn moulton_cluster_deff(
     narrow(deff)
 }
 
-/// L09: Combines cluster and weighting design effects as `DEFF_cluster + DEFF_Kish - UNIT`
-/// under cluster-weight independence (`DEFF_Kish >= UNIT`, `DEFF_cluster > 0`).
+/// L09: Combines random-effects cluster and weighting design effects as
+/// `DEFF_cluster + DEFF_Kish - UNIT` under cluster-weight independence
+/// (`DEFF_cluster >= UNIT`, `DEFF_Kish >= UNIT`, harmonizing with [`epistemic::compose_design_effects`]).
 pub fn combine_deff_additive(
     deff_cluster_scaled: i64,
     deff_kish_scaled: i64,
 ) -> Result<i64, MathError> {
-    if deff_cluster_scaled <= 0 || deff_kish_scaled < UNIT {
+    if deff_cluster_scaled < UNIT || deff_kish_scaled < UNIT {
         return Err(MathError::InvalidDomain("invalid component design effect"));
     }
     let total = i128::from(deff_cluster_scaled) + i128::from(deff_kish_scaled) - i128::from(UNIT);
-    if total <= 0 {
-        return Err(MathError::InvalidDomain("combined design effect must stay positive"));
-    }
     narrow(total)
 }
 
@@ -584,6 +586,7 @@ mod tests {
     fn anderson_morley_utilization_checks_scale_and_overflow() {
         assert_eq!(anderson_morley_utilization(3, 5, 10), Ok(800_000));
         assert_eq!(anderson_morley_utilization(3 * UNIT, 5 * UNIT, 10 * UNIT), Ok(800_000));
+        assert_eq!(anderson_morley_utilization(500_001, 500_001, 1_000_001), Ok(UNIT + 1));
         assert!(matches!(anderson_morley_utilization(-1, 5, 10), Err(MathError::InvalidDomain(_))));
         assert!(matches!(anderson_morley_utilization(3, 5, 0), Err(MathError::InvalidDomain(_))));
         assert_eq!(anderson_morley_utilization(i64::MAX, 1, 1), Err(MathError::Overflow));
@@ -618,6 +621,10 @@ mod tests {
         assert_eq!(total, 2_250_000);
         let prod_scaled = (i128::from(deff_cl) * i128::from(deff_k)) / i128::from(UNIT);
         assert!(i128::from(total) < prod_scaled);
+        assert!(matches!(
+            combine_deff_additive(UNIT - 1, deff_k),
+            Err(MathError::InvalidDomain(_))
+        ));
     }
 
     #[test]

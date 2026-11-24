@@ -25,7 +25,7 @@
 //! `L < C < U` defensively return [`Error::BoundaryUnlicensed`] (`-10`).
 
 use crate::{
-    Bounds, Constraint, Error, HaltCause, Instrument, Regime, SCALE, State,
+    Bounds, Constraint, Error, HaltCause, Instrument, MissingSlot, Regime, SCALE, State,
 };
 
 /// The fraction of the reserve a reversible probe commits, `01` §5.
@@ -134,8 +134,22 @@ pub fn probe_fraction(bounds: Bounds, c: i64) -> Result<i64, Error> {
 /// );
 /// ```
 pub fn step(s: &State) -> Result<Regime, Error> {
-    // Survival clock first (`41` §5): an expiring vessel must never be trapped in
-    // missing-slot quarantine, and concurrent channel corruption must surface together.
+    // Question 1 (`41` §5): missing, uncalibrated, or negative survival/recovery clocks
+    // (`T5`) never proceed unchecked—quarantine on `T5`, or escalate when `gov_corrupt` coincides.
+    if s.params.clocks_missing || s.params.tts < 0 || s.params.ttr_eff < 0 {
+        return Ok(if s.params.gov_corrupt {
+            Regime::AlgedonicHalt {
+                cause: HaltCause::GovernanceChannel,
+            }
+        } else {
+            Regime::Quarantine {
+                missing: MissingSlot::T5,
+            }
+        });
+    }
+
+    // Calibrated survival clock preemption (`41` §5): an expiring vessel must never be
+    // trapped in missing-slot quarantine, and concurrent channel corruption surfaces together.
     if s.params.tts < s.params.ttr_eff {
         return Ok(Regime::AlgedonicHalt {
             cause: if s.params.gov_corrupt {
@@ -146,13 +160,20 @@ pub fn step(s: &State) -> Result<Regime, Error> {
         });
     }
 
-    // Instrument completeness: with survival headroom intact, an unsealed slot quarantines.
+    // Question 2 (`41` §5): instrument completeness & open `T1` reopening ahead of sealed
+    // channel corruption so unsealed slots or `T1` reopenings stay quarantined on `III-A`.
     match &s.guards.instrument {
         Instrument::Incomplete(slot) => return Ok(Regime::Quarantine { missing: *slot }),
         Instrument::Sealed(_) => {}
     }
 
-    // Channel integrity and step floors (`41` §5, `01` §2.1).
+    if s.params.reopen_sealed {
+        return Ok(Regime::Quarantine {
+            missing: MissingSlot::T1,
+        });
+    }
+
+    // Channel integrity and step floors once all seven guard slots are sealed (`41` §5).
     if s.params.gov_corrupt {
         return Ok(Regime::AlgedonicHalt {
             cause: HaltCause::GovernanceChannel,
@@ -405,7 +426,7 @@ mod tests {
 #[cfg(test)]
 mod grid_tests {
     use super::*;
-    use crate::{Capacity, Guards, MissingSlot, Params, SevenReadings, Thresholds};
+    use crate::{Capacity, ControlTape, Guards, MissingSlot, Params, SevenReadings, Thresholds};
 
     /// Six geometries of the extent, `02` §2.5.3.
     struct Geometry {
@@ -780,5 +801,101 @@ mod grid_tests {
         let regime = step(&raw(&g, 5, 10, true, true, true, sealed_instrument())).unwrap();
         assert_eq!(regime.tag(), 4);
         assert_eq!(regime.cause(), Some(HaltCause::SurvivalAndGovernance));
+    }
+
+    #[test]
+    fn missing_clocks_and_reopen_sealed_quarantine_or_escalate_under_corruption() {
+        let g = Geometry {
+            name: "buffered",
+            l: 200,
+            u: 400,
+            c: 120,
+            reversible: true,
+        };
+
+        // Missing causal/rate clocks trigger Quarantine(T5) even if raw tts < ttr_eff.
+        let mut s = State::seal(
+            ControlTape::Attested,
+            Bounds::new(g.l, g.u, 1000, 0),
+            Capacity::new(g.c, 0, 1000),
+            Guards::new(sealed_instrument()),
+            Params::new(5, 10, true, false, false, false, Thresholds::new(0, 0))
+                .with_clocks_missing(true),
+        )
+        .unwrap();
+        assert_eq!(
+            step(&s),
+            Ok(Regime::Quarantine {
+                missing: MissingSlot::T5
+            })
+        );
+
+        // Negative clocks quarantine at T5 (not buffered even when tts >= ttr_eff).
+        s = State::seal(
+            ControlTape::Attested,
+            Bounds::new(g.l, g.u, 1000, 0),
+            Capacity::new(g.c, 0, 1000),
+            Guards::new(sealed_instrument()),
+            Params::new(10, -5, true, false, false, false, Thresholds::new(0, 0)),
+        )
+        .unwrap();
+        assert_eq!(
+            step(&s),
+            Ok(Regime::Quarantine {
+                missing: MissingSlot::T5
+            })
+        );
+
+        // Concurrent corruption with missing/negative clocks escalates to GovernanceChannel halt.
+        s = State::seal(
+            ControlTape::Attested,
+            Bounds::new(g.l, g.u, 1000, 0),
+            Capacity::new(g.c, 0, 1000),
+            Guards::new(sealed_instrument()),
+            Params::new(100, 100, true, false, false, true, Thresholds::new(0, 0))
+                .with_clocks_missing(true),
+        )
+        .unwrap();
+        assert_eq!(
+            step(&s),
+            Ok(Regime::AlgedonicHalt {
+                cause: HaltCause::GovernanceChannel
+            })
+        );
+
+        // Counter-inductive reopening with intact clocks and sealed instrument quarantines at T1,
+        // even ahead of sealed governance-channel corruption (`41` §5).
+        s = State::seal(
+            ControlTape::Attested,
+            Bounds::new(g.l, g.u, 1000, 0),
+            Capacity::new(g.c, 0, 1000),
+            Guards::new(sealed_instrument()),
+            Params::new(100, 100, true, false, false, true, Thresholds::new(0, 0))
+                .with_reopen_sealed(true),
+        )
+        .unwrap();
+        assert_eq!(
+            step(&s),
+            Ok(Regime::Quarantine {
+                missing: MissingSlot::T1
+            })
+        );
+
+        // Calibrated non-negative survival deficit (tts < ttr_eff) preempts reopen_sealed & Incomplete.
+        s = State::seal(
+            ControlTape::Attested,
+            Bounds::new(g.l, g.u, 1000, 0),
+            Capacity::new(g.c, 0, 1000),
+            Guards::new(Instrument::Incomplete(MissingSlot::new(3).unwrap())),
+            Params::new(5, 10, true, false, false, false, Thresholds::new(0, 0))
+                .with_reopen_sealed(true),
+        )
+        .unwrap();
+        assert_eq!(
+            step(&s),
+            Ok(Regime::AlgedonicHalt {
+                cause: HaltCause::SurvivalLatency
+            })
+        );
     }
 }

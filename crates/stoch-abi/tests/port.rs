@@ -51,7 +51,8 @@ fn buffered_record() -> StateRec {
         step_index: -1,
         lethal_omission: 0,
         reopen_sealed: 0,
-        reserved1: [0u8; 48],
+        clocks_missing: 0,
+        reserved1: [0u8; 44],
     }
 }
 
@@ -329,6 +330,22 @@ fn a_band_record_names_its_site_and_its_margin() {
     let (tag, out) = run_accept(&reopened);
     assert_eq!(tag, 3, "counter-inductive frame reopening is quarantined with reason 5");
     assert_eq!(out.reason, 5);
+
+    let (step_tag, step_out) = run_step(&reopened);
+    assert_eq!(step_tag, 3, "step quarantines reopen_sealed at T1");
+    assert_eq!(step_out.payload_1, 1);
+
+    let mut missing_clocks = buffered_record();
+    missing_clocks.clocks_missing = 1;
+    let (step_tag, step_out) = run_step(&missing_clocks);
+    assert_eq!(step_tag, 3, "step quarantines clocks_missing at T5");
+    assert_eq!(step_out.payload_1, 5);
+
+    let mut zero_band = buffered_record();
+    zero_band.band_width = 0;
+    let (tag, out) = run_accept(&zero_band);
+    assert_eq!(tag, 3, "non-positive band_width is Skeleton Unparsable");
+    assert_eq!(out.reason, 1);
 }
 
 #[test]

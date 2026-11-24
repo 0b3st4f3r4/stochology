@@ -79,7 +79,7 @@ fn id_from(u: u16) -> Identifier {
 #[test]
 fn frost_3_of_4_dkg_sign_cheater_timeout_rollback_and_512_bitflips() {
     let tmp = TempDb::new("frost");
-    let ledger = CustodyLedger::open(&tmp.path).expect("open ledger");
+    let ledger = CustodyLedger::open_with_key(&tmp.path, [0x5A_u8; 32]).expect("open ledger");
     let _seed = ledger.append_control(10, 10, b"dkg-epoch-0").expect("seed");
     ledger.create_r0_snapshot(1).expect("snap 1");
 
@@ -259,7 +259,7 @@ fn frost_3_of_4_dkg_sign_cheater_timeout_rollback_and_512_bitflips() {
 #[test]
 fn hyparview_2pc_and_peaceful_lineage_preserve_invariants() {
     let tmp = TempDb::new("hyparview_lineage");
-    let ledger = CustodyLedger::open(&tmp.path).expect("open");
+    let ledger = CustodyLedger::open_with_key(&tmp.path, [0x5A_u8; 32]).expect("open");
 
     let mut overlay = HyParViewOverlay::new(2, 4).expect("overlay");
     let p1 = [1; 32];
@@ -300,7 +300,7 @@ fn hyparview_2pc_and_peaceful_lineage_preserve_invariants() {
 #[test]
 fn ocap_two_levels_and_113_byte_delegation_cert_enforce_pop_and_monotonic_seq() {
     let tmp = TempDb::new("ocap");
-    let ledger = CustodyLedger::open(&tmp.path).expect("open");
+    let ledger = CustodyLedger::open_with_key(&tmp.path, [0x5A_u8; 32]).expect("open");
     let metrics = LockFreeMetrics::new();
 
     // Level 1 intent containment.
@@ -438,7 +438,7 @@ fn hsm_ffi_sign_verify_strict_catches_fault_and_is_thread_safe() {
 #[test]
 fn solar_watchdog_maps_lvd_blackout_to_codd_and_checkpoints_without_fraud() {
     let tmp = TempDb::new("solar");
-    let ledger = CustodyLedger::open(&tmp.path).expect("open");
+    let ledger = CustodyLedger::open_with_key(&tmp.path, [0x5A_u8; 32]).expect("open");
     let metrics = LockFreeMetrics::new();
     let mut engine = SolarWatchdogEngine::new(SolarWatchdogConfig::default_calibrated()).expect("cfg");
 
@@ -496,6 +496,9 @@ fn solar_watchdog_maps_lvd_blackout_to_codd_and_checkpoints_without_fraud() {
     };
     let packed = cue.pack();
     assert_eq!(Level1Cue::unpack(packed).expect("unpack"), cue);
+    assert!(Level1Cue::within_throughput_ceiling(0));
+    assert!(Level1Cue::within_throughput_ceiling(1));
+    assert!(!Level1Cue::within_throughput_ceiling(2));
 
     let step_reading = StepReading::new(
         Score::Present(SCALE),

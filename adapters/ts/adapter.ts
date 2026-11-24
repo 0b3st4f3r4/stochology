@@ -211,6 +211,7 @@ export interface StateRecord {
   stepIndex: number;
   lethalOmission: 0 | 1;
   reopenSealed: 0 | 1;
+  clocksMissing?: 0 | 1;
 }
 
 export interface StepTriple {
@@ -485,7 +486,9 @@ export function open(
     view.setInt32(offset + 196, state.stepIndex, true);
     view.setInt32(offset + 200, state.lethalOmission, true);
     view.setInt32(offset + 204, state.reopenSealed, true);
-    for (let k = 208; k < 256; k += 8) {
+    view.setInt32(offset + 208, state.clocksMissing ?? 0, true);
+    view.setInt32(offset + 212, 0, true);
+    for (let k = 216; k < 256; k += 8) {
       view.setBigInt64(offset + k, 0n, true);
     }
     return offset;

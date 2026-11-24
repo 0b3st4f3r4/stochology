@@ -281,7 +281,7 @@
 
 <section aria-labelledby="triad-heading">
   <h2 id="triad-heading">The Mediation Circuit &amp; The Nuclear Triad</h2>
-  <p class="stoch-home-section-intro">Judgment crosses one indivisible circuit—<strong>World</strong>, <strong>Archive</strong>, and <strong>Institution</strong>—guarded at seven ordered transits (<i>T</i><sub>1</sub>–<i>T</i><sub>7</sub>). The minimum is not a weighted sum: no surplus on one axis compensates a deficit on another, and the co-diagnostic pair <i>D</i><sub>diag</sub> = (<i>M</i><sub>Leontief</sub>, Θ<sub>basin</sub>) remains strictly retrospective over a finished trajectory while per-step operators govern action.</p>
+  <p class="stoch-home-section-intro">Judgment crosses one indivisible circuit—<strong>World</strong>, <strong>Archive</strong>, and <strong>Institution</strong>—guarded at seven ordered transits (<i>T</i><sub>1</sub>–<i>T</i><sub>7</sub>). The minimum is not a weighted sum: no surplus on one axis compensates a deficit on another, and the co-diagnostic pair 𝒟<sub>diag</sub> = (<i>M</i><sub>Leontief</sub>, Θ<sub>basin</sub>) remains strictly retrospective over a finished trajectory while per-step operators govern action.</p>
 
   <div class="stoch-triad-folio">
     <figure class="stoch-home-plate">
@@ -340,7 +340,7 @@
           M<tspan font-size="10.5" dy="3">Leontief</tspan><tspan dy="-3"> = min(</tspan><tspan fill="var(--plane-e)">S</tspan><tspan fill="var(--plane-e)" font-size="10.5" dy="3">epi</tspan><tspan dy="-3">, </tspan><tspan fill="var(--plane-v)">S</tspan><tspan fill="var(--plane-v)" font-size="10.5" dy="3">vital</tspan><tspan dy="-3">, </tspan><tspan fill="var(--plane-g)">S</tspan><tspan fill="var(--plane-g)" font-size="10.5" dy="3">gov</tspan><tspan dy="-3">)</tspan>
         </text>
         <text x="210" y="338" text-anchor="middle" fill="var(--muted)" font-family="var(--mono-font)" font-size="12.5" font-weight="600" letter-spacing="0.15">
-          D<tspan font-size="10.3" dy="2.5">diag</tspan><tspan dy="-2.5"> = (M</tspan><tspan font-size="10.3" dy="2.5">Leontief</tspan><tspan dy="-2.5">, Θ</tspan><tspan font-size="10.3" dy="2.5">basin</tspan><tspan dy="-2.5">) · EX-POST ONLY</tspan>
+          𝒟<tspan font-size="10.3" dy="2.5">diag</tspan><tspan dy="-2.5"> = (M</tspan><tspan font-size="10.3" dy="2.5">Leontief</tspan><tspan dy="-2.5">, Θ</tspan><tspan font-size="10.3" dy="2.5">basin</tspan><tspan dy="-2.5">) · EX-POST ONLY</tspan>
         </text>
       </svg>
       <figcaption><strong>Plate 0 · Mediation Circuit.</strong> Three solid direct transits (<i>T</i><sub>3</sub> record, <i>T</i><sub>4</sub> formal summary, <i>T</i><sub>6</sub> performative policy), three dashed reflexive locks (<i>T</i><sub>1</sub> framing, <i>T</i><sub>2</sub> test, <i>T</i><sub>5</sub> trajectory), and central closure <i>T</i><sub>7</sub> (<i>télos</i> ↔ <i>skopós</i>) fold into the retrospective co-diagnostic verdict.</figcaption>
@@ -360,15 +360,15 @@
         <span class="stoch-triad-kicker">Filter II · Time &amp; Ruin</span>
         <span class="stoch-triad-span">Chapters 46–47</span>
       </div>
-      <h3><a href="47-irreversible-time-vital-margin.html">Vital Margin (<i>S</i><sub>vital</sub>)</a></h3>
+      <h3><a href="46-non-identical-asymmetry-heavy-tails.html">Vital Margin (<i>S</i><sub>vital</sub>)</a></h3>
       <p>Guards against <strong>impotent lucidity before ruin</strong> when slack trails recovery time.</p>
     </li>
     <li class="stoch-triad-row" data-plane="g">
       <div class="stoch-triad-head">
         <span class="stoch-triad-kicker">Filter III · Rules &amp; Stakes</span>
-        <span class="stoch-triad-span">Chapters 40, 48–49</span>
+        <span class="stoch-triad-span">Chapters 48–49</span>
       </div>
-      <h3><a href="40-institution-incentive-metric.html">Institutional Governance (<i>S</i><sub>gov</sub>)</a></h3>
+      <h3><a href="48-reactive-worlds-performativity-goodhart.html">Institutional Governance (<i>S</i><sub>gov</sub>)</a></h3>
       <p>Guards against <strong>cynical capture and pillaging</strong> when targets distort records and shift risk.</p>
     </li>
   </ol>
@@ -377,20 +377,20 @@
 
 <section aria-labelledby="ways-heading">
   <h2 id="ways-heading">Ways Into the Treatise</h2>
-  <p class="stoch-home-section-intro">The left table of contents indexes every chapter; these four itineraries orient entry by depth and discipline.</p>
+  <p class="stoch-home-section-intro">The table of contents indexes every chapter; these four itineraries orient entry by depth and discipline.</p>
 
   <ol class="stoch-itinerary-list" role="list">
     <li class="stoch-itinerary-row">
       <span class="stoch-itinerary-code">Route I · Core Architecture</span>
       <div class="stoch-itinerary-body">
         <a href="29-aim-and-the-three-planes.html">Aim and the Three Planes (Chapter 29)</a>
-        <p>Read the three-plane mediation circuit alongside the termination of higher-order uncertainty in Chapter 41 and the trajectory grammar of Appendix B.</p>
+        <p>Read the three-plane mediation circuit alongside the termination of higher-order uncertainty in <a href="41-the-triad-and-the-minimum.html">Chapter 41</a> and the trajectory grammar of <a href="appendix-b-architecture-verification.html">Appendix B</a>.</p>
       </div>
     </li>
     <li class="stoch-itinerary-row">
       <span class="stoch-itinerary-code">Route II · Worked Case</span>
       <div class="stoch-itinerary-body">
-        <a href="42-sequential-loop-naive-agent.html">The Sequential Loop (Chapter 42)</a>
+        <a href="42-sequential-loop-naive-agent.html">The Sequential Loop and the Naive Optimizer (Chapter 42)</a>
         <p>Follow one continuous running case from the naive optimizer across all three safeguard filters, reflexive brakes, and the five pre-registered falsifiers in Chapters 42–50.</p>
       </div>
     </li>
@@ -405,7 +405,7 @@
       <span class="stoch-itinerary-code">Route IV · By Discipline</span>
       <div class="stoch-itinerary-body">
         <a href="appendix-f-manuscript-audit.html#f8-disciplinary-entry-doors-spiral-depth-and-scope-boundaries">Five Disciplinary Entry Doors (Appendix F, Section F.8)</a>
-        <p>Enter across <em>Computing &amp; Data</em>, <em>Physical &amp; High-Hazard Engineering</em>, <em>Health &amp; Biosciences</em>, <em>Humanities, Archives &amp; Pedagogy</em>, or <em>Economics, Governance &amp; Law</em> through Brunerian spiral progression, preserving neutral scope shelters and <code>CARE</code>/<code>FPIC</code> community custody.</p>
+        <p>Enter across <em>Computing &amp; Data</em>, <em>Physical &amp; High-Hazard Engineering</em>, <em>Health &amp; Biosciences</em>, <em>Humanities, Archives &amp; Pedagogy</em>, or <em>Economics, Governance &amp; Law</em> through Brunerian spiral progression, preserving declared non-enclosure boundaries alongside community data sovereignty (<code>CARE</code>: Collective Benefit, Authority to Control, Responsibility, Ethics) and Free, Prior, and Informed Consent (<code>FPIC</code>).</p>
       </div>
     </li>
   </ol>
@@ -427,7 +427,7 @@
       <span class="stoch-atlas-code">Part II · 09–26</span>
       <div class="stoch-atlas-body">
         <a href="part-ii-introduction.html">The Bases</a>
-        <p>Mathematics (09–15), epistemology and institutional legitimacy (16–20), and mechanics, thermodynamics, evolution, and homeostasis (21–26).</p>
+        <p>Mathematics (09–15), epistemology, risk ethics, and institutional legitimacy (16–20), and mechanics, thermodynamics, chemical buffering, evolution, and homeostasis (21–26).</p>
       </div>
     </li>
     <li class="stoch-atlas-row">
@@ -441,7 +441,7 @@
       <span class="stoch-atlas-code">Part IV · 42–50</span>
       <div class="stoch-atlas-body">
         <a href="part-iv-introduction.html">The Framework</a>
-        <p>The sequential Agent–World–Institution loop and the epistemic, vital, and governance filters argued step by step on one running case.</p>
+        <p>The sequential World–Archive–Institution loop—operationalized by an agent reading Archive records into Institutional rules—and the epistemic, vital, and governance filters argued step by step on one running case.</p>
       </div>
     </li>
     <li class="stoch-atlas-row">
@@ -471,7 +471,7 @@
   <h3 class="stoch-colophon-heading">Reference Appendices</h3>
   <ul class="stoch-colophon-list" role="list">
     <li><span class="stoch-colophon-code">App. A</span> <a href="appendix-a-mathematics.html">Mathematical Reference</a> — notation, definitions, and shared identities.</li>
-    <li><span class="stoch-colophon-code">App. B</span> <a href="appendix-b-architecture-verification.html">Grammar of Aim &amp; Architecture</a> — productions, acceptance predicate, and Table B.1 of all thirty-five orders.</li>
+    <li><span class="stoch-colophon-code">App. B</span> <a href="appendix-b-architecture-verification.html">The Grammar of Aim and the Multilayer Architecture</a> — productions, acceptance predicate, and Table B.1 of all thirty-five orders.</li>
     <li><span class="stoch-colophon-code">App. C</span> <a href="appendix-c-sources.html">Bibliography</a> — primary and secondary literature across the corpus.</li>
     <li><span class="stoch-colophon-code">App. D</span> <a href="appendix-d-claim-ledger.html">Claim Ledger</a> — contract-bearing audit table mapping empirical values to primary sources.</li>
     <li><span class="stoch-colophon-code">App. E</span> <a href="appendix-e-lexicon.html">Lexicon &amp; Architecture Map</a> — classical, technical, and political vocabulary with Table E.1 (<i>T</i><sub>1</sub>–<i>T</i><sub>7</sub>).</li>

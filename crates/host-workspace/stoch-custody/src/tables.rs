@@ -1,4 +1,4 @@
-//! `redb` table definitions and BLAKE3 domain separation prefixes for `stoch-custody`.
+//! `redb` table definitions and HMAC-SHA256 domain separation prefixes for `stoch-custody`.
 
 use redb::TableDefinition;
 
@@ -20,7 +20,7 @@ pub const REFUSED_R2_TARGETS: TableDefinition<'static, &'static [u8; 32], &'stat
 /// Named recovery checkpoints for bounded `R0` state rewinds.
 pub const R0_SNAPSHOTS: TableDefinition<'static, u64, &'static [u8]> =
     TableDefinition::new("r0_snapshots");
-/// Monotonic transport delegation sequence numbers per sovereign identity (`seq` LE + `BLAKE3`).
+/// Monotonic transport delegation sequence numbers per sovereign identity (`seq` LE + `RFC 2104 HMAC-SHA256`).
 pub const DELEGATION_SEQS: TableDefinition<'static, &'static [u8; 32], &'static [u8; 40]> =
     TableDefinition::new("delegation_seqs");
 /// Authenticated metadata pointers tracking active heads and total immutable seal counts.

@@ -253,6 +253,18 @@ test("ESC-03 wire extensions: lethal_omission, reopen_sealed, and theta_basin", 
   assert.equal(reopened.tag, 3);
   assert.equal(reopened.reason, 5);
 
+  const stepReopen = core.step(state({ reopenSealed: 1 }));
+  assert.equal(stepReopen.tag, 3);
+  assert.equal(stepReopen.missing, 1);
+
+  const stepClocks = core.step(state({ clocksMissing: 1 }));
+  assert.equal(stepClocks.tag, 3);
+  assert.equal(stepClocks.missing, 5);
+
+  const zeroBand = core.accept(state({ bandWidth: 0n }));
+  assert.equal(zeroBand.tag, 3);
+  assert.equal(zeroBand.reason, 1);
+
   const fold = core.diagnose([
     { sEpi: 800_000n, sVital: 900_000n, sGov: 950_000n, thetaBasin: 50_000n, absorbed: 0, reserve: 10 },
   ]);

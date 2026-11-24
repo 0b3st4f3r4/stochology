@@ -160,7 +160,7 @@ Let us write that simple contrast down in symbols. For $n \ge 1$ observations $X
 
 $$\bar{X} = \frac{1}{n}\sum\_{i=1}^n X\_i$$
 
-Read that aloud: sum all $n$ observations indexed by $i$ from $1$ to $n$, and divide by $n$. Sort the same numbers from smallest $X\_{(1)}$ to largest $X\_{(n)}$, and the **median** $M$ sits at the middle position (or halfway between the two middle values when $n$ is even). Raise any observation above the middle, and $\bar{X}$ climbs immediately while $M$ stays put. The mean tells you total divided by count, not a typical day. In a skewed ledger, **the median captures a typical single event while hiding the rare blowups that drive total damage, whereas the mean scales the total while hiding spread and volatility.**
+Read that aloud: sum all $n$ observations indexed by $i$ from $1$ to $n$, and divide by $n$. Sort the same numbers from smallest $X\_{(1)}$ to largest $X\_{(n)}$, and the **median** $M$ sits at the middle position (or halfway between the two middle values $X\_{(n/2)}$ and $X\_{(n/2+1)}$ when $n$ is even). For $n \ge 3$, raise any observation whose rank sits strictly past the middle position(s)—past $X\_{((n+1)/2)}$ when $n$ is odd, or past $X\_{(n/2+1)}$ when $n$ is even—and $\bar{X}$ climbs immediately while $M$ stays put. The mean tells you total divided by count, not a typical day. In a skewed ledger, **the median captures a typical single event while hiding the rare blowups that drive total damage, whereas the mean scales the total while hiding spread and volatility.**
 
 ## 2. A hundred numbers and the convexity trap
 
@@ -185,7 +185,7 @@ On our ninety-nine ones and single $1{,}001$ under quadratic harm $\phi(x) = x^2
 
 Two simple boundaries govern that gap:
 
-1. **Flat costs or zero wobble ($\Delta\_J = 0$):** If costs climb in a straight line (doubling overload simply doubles cost) or every day looks identical, there is no convexity gap.
+1. **Flat marginal costs or zero wobble ($\Delta\_J = 0$):** If costs climb along a straight line (constant marginal cost per unit of overload, $\phi(x) = a + bx$) or every day looks identical, there is no convexity gap (while concave costs bend downward and make harm at the average an upper bound rather than an understatement).
 2. **Exploding extreme shocks:** When huge outliers dominate so severely that average curved damage grows without bound as you collect more records, sample averages jump unpredictably from one shock to the next. Instead of trusting a sample average, analysts inspect how fast extreme values thin out across high cutoffs (Hill 1975; taken up in [Chapter 03](03-the-biggest-number-in-the-room.md) and [Chapter 31](31-distribution-and-moment.md), with formal boundaries in [Chapter 10](10-numbers-order-bounds.md)).
 
 ## 3. Spread and shape
@@ -216,15 +216,15 @@ When stakes are high, analysts therefore look beyond the mean to upper percentil
 
 An archive often exposes its own mean: when the mean sits far above the median, skewness and extreme cases are already pulling the ledger apart.
 
-Nor does a contractual ceiling or payout cap make the average safe. Suppose an insurer caps payouts at some limit $K$ (meaning no claim on its books ever exceeds $K$). That cap truncates the *payer's bill*, never the real physical fire or flood damage. Curved harm still hits below $K$, capped claims still pull the mean above the median, and every dollar of damage above $K$ spills silently onto uninsured households and neighbors absent from the insurer's ledger ([Who Is Missing From the Table](06-who-is-missing-from-the-table.md); [Chapter 31](31-distribution-and-moment.md)). Extreme-value specialists therefore inspect how tail estimates behave across multiple high cutoffs—together with their uncertainty bands—rather than trusting a single average or a single threshold (McNeil 1997; Embrechts, Klüppelberg & Mikosch 1997).
+Nor does a contractual ceiling or payout cap make the average safe. Suppose an insurer caps non-negative claims $X \ge 0$ at some limit $K > 0$ (distinct from the top-$k$ count $k$ in Section 3, so no payout on its books exceeds $\min(X, K)$). That cap truncates the *payer's bill*, never the real physical fire or flood damage. Curved harm below $K$ still leaves average curved damage at or above harm at the capped average ($\mathbb{E}[\phi(\min(X, K))] \ge \phi(\mathbb{E}[\min(X, K)])$, strictly above whenever capped values vary under strictly convex $\phi$, while high caps still leave the capped mean above the median even though a low cap pulls it below), and every dollar of damage above $K$ spills silently onto uninsured households and neighbors absent from the insurer's ledger ([Who Is Missing From the Table](06-who-is-missing-from-the-table.md); [Chapter 31](31-distribution-and-moment.md)). Extreme-value specialists therefore inspect how tail estimates behave across multiple high cutoffs—together with their uncertainty bands—rather than trusting a single average or a single threshold (McNeil 1997; Embrechts, Klüppelberg & Mikosch 1997).
 
 ### When the average is the right instrument
 
-Planning by the average works safely only when four conditions hold together:
+Planning by the average works safely against shortfall when four conditions hold together:
 
-- Harms scale in a straight line rather than curving upward, so there is no convexity gap.
-- Losses are genuinely bounded without a cap dumping overflow onto outsiders.
-- Many small, independent events pool smoothly without one catastrophic shock wiping out the buffer.
+- Harms do not curve upward (straight-line or concave costs), so there is no positive convexity gap understating average damage.
+- Losses are genuinely bounded or light-tailed enough to pool without a cap dumping overflow onto outsiders.
+- Many small, independent events pool smoothly with sufficient reserves so no single catastrophic shock wipes out the buffer.
 - The collection door is unbiased and watched long enough to catch rare extremes ([Chapter 03](03-the-biggest-number-in-the-room.md)).
 
 When short or unstable histories break estimation, simple structural safety floors govern instead; otherwise, inspect percentiles, worst-slice tail averages, and stability checks across high cutoffs.

@@ -129,8 +129,8 @@ mod sha256;
 mod step;
 
 pub use accept::{
-    accept, Assessment, AxialReadings, AxisReading, Budget, Declared, Sentence, Transcript,
-    UnparsableReason, Verdict,
+    accept, accept_sentence, Assessment, AxialReadings, AxisReading, Budget, Declared, Sentence,
+    Transcript, UnparsableReason, Verdict,
 };
 pub use diagnose::{diagnose, Diagnosis, DiagnosisView, StepReading, Trajectory};
 pub use step::{probe_fraction, step};
@@ -428,6 +428,11 @@ impl HaltCause {
 pub struct MissingSlot(u8);
 
 impl MissingSlot {
+    /// Missing slot for `T1` (`Framing`, e.g., sealed counter-inductive reopening).
+    pub const T1: MissingSlot = MissingSlot(1);
+    /// Missing slot for `T5` (`Temporal`, e.g., absent or uncalibrated rate clocks).
+    pub const T5: MissingSlot = MissingSlot(5);
+
     /// The slot with the given tag, or `None` if it is not one of `1 .. 7`.
     pub const fn new(slot: u8) -> Option<MissingSlot> {
         if slot >= 1 && slot <= 7 {
@@ -624,12 +629,17 @@ pub struct Params {
     pub gov_corrupt: bool,
     /// Whether an irreversible binary choice also incurs irreversible ruin under omission.
     pub lethal_omission: bool,
+    /// Whether physical/causal rate clocks (`T5`) are uncalibrated or absent.
+    pub clocks_missing: bool,
+    /// Whether an attested step requests counter-inductive reopening (`T1`).
+    pub reopen_sealed: bool,
     /// The thresholds, declared but unread by [`step`].
     pub thresholds: Thresholds,
 }
 
 impl Params {
-    /// The declared parameters of a step (`lethal_omission` defaults to `false`).
+    /// The declared parameters of a step (`lethal_omission`, `clocks_missing`,
+    /// and `reopen_sealed` default to `false`).
     pub const fn new(
         tts: i64,
         ttr_eff: i64,
@@ -647,6 +657,8 @@ impl Params {
             gov_floor_breached,
             gov_corrupt,
             lethal_omission: false,
+            clocks_missing: false,
+            reopen_sealed: false,
             thresholds,
         }
     }
@@ -654,6 +666,18 @@ impl Params {
     /// Set whether an irreversible binary straddle renders omission itself lethal ruin.
     pub const fn with_lethal_omission(mut self, lethal_omission: bool) -> Params {
         self.lethal_omission = lethal_omission;
+        self
+    }
+
+    /// Set whether physical/causal rate clocks are missing (`T5` quarantine trigger).
+    pub const fn with_clocks_missing(mut self, clocks_missing: bool) -> Params {
+        self.clocks_missing = clocks_missing;
+        self
+    }
+
+    /// Set whether the step attempts counter-inductive reopening of a sealed frame (`T1`).
+    pub const fn with_reopen_sealed(mut self, reopen_sealed: bool) -> Params {
+        self.reopen_sealed = reopen_sealed;
         self
     }
 }

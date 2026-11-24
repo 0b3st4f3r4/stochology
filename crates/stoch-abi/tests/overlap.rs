@@ -52,7 +52,8 @@ fn buffered_record() -> StateRec {
         step_index: -1,
         lethal_omission: 0,
         reopen_sealed: 0,
-        reserved1: [0u8; 48],
+        clocks_missing: 0,
+        reserved1: [0u8; 44],
     }
 }
 

@@ -1,4 +1,4 @@
-//! Integration tests for `stoch-custody`: 2PC persistence, BLAKE3 bit-rot detection,
+//! Integration tests for `stoch-custody`: 2PC persistence, keyed HMAC-SHA256 verification,
 //! anti-replay under `rollback_r0`, and escrowed `CounterInductiveReopen`.
 
 use std::fs;
@@ -38,7 +38,7 @@ impl Drop for TempDb {
 fn bitemporal_order_crash_reopen_and_chain_verification() {
     let tmp = TempDb::new("bitemporal");
     {
-        let ledger = CustodyLedger::open(&tmp.db_path).expect("open ledger");
+        let ledger = CustodyLedger::open_with_key(&tmp.db_path, [0x5A_u8; 32]).expect("open ledger");
         assert!(matches!(
             ledger.append_control(200, 100, b"backdated"),
             Err(CustodyError::InvalidBitemporalOrder { valid_ts: 200, tx_ts: 100 })
@@ -55,7 +55,7 @@ fn bitemporal_order_crash_reopen_and_chain_verification() {
     }
 
     // Reopen fresh instance simulating crash recovery / process restart.
-    let reopened = CustodyLedger::open(&tmp.db_path).expect("reopen");
+    let reopened = CustodyLedger::open_with_key(&tmp.db_path, [0x5A_u8; 32]).expect("reopen");
     let heads = reopened.verify_full_chain().expect("full chain verified");
     assert_eq!(heads.control_total_sealed, 2);
     assert_eq!(heads.contingency_total_sealed, 1);
@@ -67,7 +67,7 @@ fn bitemporal_order_crash_reopen_and_chain_verification() {
 fn bit_rot_in_storage_is_caught_on_every_read_and_full_walk() {
     let tmp = TempDb::new("bitrot");
     {
-        let ledger = CustodyLedger::open(&tmp.db_path).expect("open");
+        let ledger = CustodyLedger::open_with_key(&tmp.db_path, [0x5A_u8; 32]).expect("open");
         ledger.append_control(10, 10, b"critical-seal").expect("append");
     }
 
@@ -90,7 +90,7 @@ fn bit_rot_in_storage_is_caught_on_every_read_and_full_walk() {
         wtx.commit().expect("commit corrupted payload");
     }
 
-    let ledger = CustodyLedger::open(&tmp.db_path).expect("reopen ledger");
+    let ledger = CustodyLedger::open_with_key(&tmp.db_path, [0x5A_u8; 32]).expect("reopen ledger");
     assert!(matches!(
         ledger.read_control(1),
         Err(CustodyError::IntegrityCorruption(_))
@@ -104,7 +104,7 @@ fn bit_rot_in_storage_is_caught_on_every_read_and_full_walk() {
 #[test]
 fn rollback_r0_preserves_spent_ucans_refused_r2_and_immutable_seals() {
     let tmp = TempDb::new("rollback");
-    let ledger = CustodyLedger::open(&tmp.db_path).expect("open");
+    let ledger = CustodyLedger::open_with_key(&tmp.db_path, [0x5A_u8; 32]).expect("open");
 
     let c1 = ledger.append_control(10, 10, b"pre-snapshot-control").expect("c1");
     let _w1 = ledger
@@ -147,7 +147,7 @@ fn rollback_r0_preserves_spent_ucans_refused_r2_and_immutable_seals() {
 fn counter_inductive_reopen_requires_positive_escrow_and_intact_prior_seal() {
     let tmp = TempDb::new("reopen");
     {
-        let ledger = CustodyLedger::open(&tmp.db_path).expect("open");
+        let ledger = CustodyLedger::open_with_key(&tmp.db_path, [0x5A_u8; 32]).expect("open");
         let c1 = ledger.append_control(10, 15, b"initial-frame").expect("c1");
 
         assert_eq!(
@@ -167,7 +167,7 @@ fn counter_inductive_reopen_requires_positive_escrow_and_intact_prior_seal() {
         assert_eq!(reopen.prior_control_hash, c1.seal_hash);
     }
 
-    let reopened = CustodyLedger::open(&tmp.db_path).expect("reopen db");
+    let reopened = CustodyLedger::open_with_key(&tmp.db_path, [0x5A_u8; 32]).expect("reopen db");
     let heads = reopened.verify_full_chain().expect("verify full chain");
     assert_eq!(heads.reopen_total, 1);
     let entry = reopened.read_reopen(1).expect("read reopen 1");
@@ -181,7 +181,7 @@ fn hot_unrefuse_and_monotonic_delegation_seq_survive_reopen_and_rollback() {
     let sovereign = [0x11_u8; 32];
     let ucan = [0x77_u8; 32];
     {
-        let ledger = CustodyLedger::open(&tmp.db_path).expect("open");
+        let ledger = CustodyLedger::open_with_key(&tmp.db_path, [0x5A_u8; 32]).expect("open");
         let _ = ledger.append_control(10, 10, b"seed").expect("seed");
         ledger.create_r0_snapshot(1).expect("snap");
         ledger.consume_ucan(&ucan).expect("spend ucan");
@@ -206,11 +206,29 @@ fn hot_unrefuse_and_monotonic_delegation_seq_survive_reopen_and_rollback() {
         assert!(ledger.is_ucan_spent(&ucan).expect("ucan kept"));
     }
 
-    let reopened = CustodyLedger::open(&tmp.db_path).expect("reopen");
+    let reopened = CustodyLedger::open_with_key(&tmp.db_path, [0x5A_u8; 32]).expect("reopen");
     let _ = reopened.verify_full_chain().expect("full chain verified");
     assert_eq!(reopened.delegation_seq(&sovereign).expect("seq persisted"), 4);
     assert!(matches!(
         reopened.advance_delegation_seq(&sovereign, 3),
         Err(CustodyError::ReplayRejected(_))
     ));
+}
+
+#[test]
+fn keyed_hmac_rejects_opening_or_reading_under_wrong_mac_key() {
+    let tmp = TempDb::new("wrong_key");
+    let key_a = [0xAA_u8; 32];
+    let key_b = [0xBB_u8; 32];
+    {
+        let ledger = CustodyLedger::open_with_key(&tmp.db_path, key_a).expect("open with key A");
+        let _ = ledger.append_control(10, 10, b"authenticated-seal").expect("append");
+        assert_eq!(ledger.verify_full_chain().expect("chain ok").control_total_sealed, 1);
+    }
+    assert!(matches!(
+        CustodyLedger::open_with_key(&tmp.db_path, key_b),
+        Err(CustodyError::IntegrityCorruption(_))
+    ));
+    let reopened = CustodyLedger::open_with_key(&tmp.db_path, key_a).expect("reopen with key A");
+    assert_eq!(reopened.read_control(1).expect("read").payload, b"authenticated-seal");
 }

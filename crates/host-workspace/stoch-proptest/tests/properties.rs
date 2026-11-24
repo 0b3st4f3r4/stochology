@@ -153,7 +153,7 @@ proptest! {
         l in valid_bound_l(),
         span in 0i64..=10_000i64,
         c in 1i64..=10_000i64,
-        ttr_eff in -10_000i64..=10_000i64,
+        tts in 0i64..=10_000i64,
         deficit in 1i64..=10_000i64,
         reversible in any::<bool>(),
         vital_floor in any::<bool>(),
@@ -162,7 +162,7 @@ proptest! {
         lethal_omission in any::<bool>(),
         instrument in arb_instrument(),
     ) {
-        let tts = ttr_eff - deficit;
+        let ttr_eff = tts + deficit;
         if let Some(state) = make_sealed_state(
             l, span, c, 0, 100, tts, ttr_eff,
             reversible, vital_floor, gov_floor, gov_corrupt, lethal_omission, instrument,
@@ -177,11 +177,53 @@ proptest! {
     }
 
     #[test]
+    fn prop_step_missing_or_negative_clocks_quarantine_t5(
+        l in valid_bound_l(),
+        span in 0i64..=10_000i64,
+        c in 1i64..=10_000i64,
+        tts in -10_000i64..=10_000i64,
+        ttr_eff in -10_000i64..=10_000i64,
+        clocks_missing in any::<bool>(),
+        gov_corrupt in any::<bool>(),
+        vital_floor in any::<bool>(),
+        gov_floor in any::<bool>(),
+        reopen in any::<bool>(),
+        instrument in arb_instrument(),
+    ) {
+        prop_assume!(clocks_missing || tts < 0 || ttr_eff < 0);
+        let params = Params::new(
+            tts,
+            ttr_eff,
+            true,
+            vital_floor,
+            gov_floor,
+            gov_corrupt,
+            Thresholds::new(100_000, 50_000),
+        )
+        .with_clocks_missing(clocks_missing)
+        .with_reopen_sealed(reopen);
+        if let Ok(state) = State::seal(
+            ControlTape::Attested,
+            Bounds::new(l, l + span, 1000, 0),
+            Capacity::new(c, 0, 1000),
+            Guards::new(instrument),
+            params,
+        ) {
+            let expected = if gov_corrupt {
+                Regime::AlgedonicHalt { cause: HaltCause::GovernanceChannel }
+            } else {
+                Regime::Quarantine { missing: MissingSlot::T5 }
+            };
+            prop_assert_eq!(step(&state), Ok(expected));
+        }
+    }
+
+    #[test]
     fn prop_step_incomplete_quarantines_when_surviving(
         l in valid_bound_l(),
         span in 0i64..=10_000i64,
         c in 1i64..=10_000i64,
-        ttr_eff in -10_000i64..=10_000i64,
+        ttr_eff in 0i64..=10_000i64,
         headroom in 0i64..=10_000i64,
         slot in 1u8..=7u8,
         gov_corrupt in any::<bool>(),
@@ -204,7 +246,7 @@ proptest! {
         l in valid_bound_l(),
         span in 0i64..=100_000i64,
         c in 1i64..=100_000i64,
-        ttr_eff in -1_000i64..=1_000i64,
+        ttr_eff in 0i64..=1_000i64,
         headroom in 0i64..=1_000i64,
         reversible in any::<bool>(),
         vital_floor in any::<bool>(),
@@ -450,7 +492,8 @@ proptest! {
             step_index: i32::from((flag_bits >> 4) & 1) - 1,
             lethal_omission: i32::from((flag_bits >> 5) & 1),
             reopen_sealed: 0,
-            reserved1: [0u8; 48],
+            clocks_missing: 0,
+            reserved1: [0u8; 44],
         };
 
         let mut r_out = sentinel_regime_out();
@@ -908,7 +951,7 @@ proptest! {
         ));
         std::fs::create_dir_all(&dir).expect("create temp dir");
         {
-            let ledger = stoch_custody::CustodyLedger::open(dir.join("solar.redb")).expect("open");
+            let ledger = stoch_custody::CustodyLedger::open_with_key(dir.join("solar.redb"), [0x5A_u8; 32]).expect("open");
             let metrics = LockFreeMetrics::new();
             let mut engine = SolarWatchdogEngine::new(SolarWatchdogConfig::default_calibrated())
                 .expect("valid default config");

@@ -43,7 +43,7 @@ the crate stops compiling instead of starting to lie.
 
 | Record | Size | Alignment | Fields |
 | :--- | ---: | ---: | :--- |
-| `StateRec` | 256 | 8 | `instrument` 0, `missing_slot` 4, `l` 8, `u` 16, `c` 24, `b` 32, `r` 40, `tts` 48, `ttr_eff` 56, `n_eff` 64, `defect` 72, `reversible` 80, `gov_corrupt` 84, `vital_floor` 88, `gov_floor` 92, `tape` 96, `site` 100, `accept_threshold` 104, `band_width` 112, `guard[7]` 120, `budget` 176, `elapsed` 184, `proposition` 192, `step_index` 196, `lethal_omission` 200, `reopen_sealed` 204, `reserved1[48]` 208 |
+| `StateRec` | 256 | 8 | `instrument` 0, `missing_slot` 4, `l` 8, `u` 16, `c` 24, `b` 32, `r` 40, `tts` 48, `ttr_eff` 56, `n_eff` 64, `defect` 72, `reversible` 80, `gov_corrupt` 84, `vital_floor` 88, `gov_floor` 92, `tape` 96, `site` 100, `accept_threshold` 104, `band_width` 112, `guard[7]` 120, `budget` 176, `elapsed` 184, `proposition` 192, `step_index` 196, `lethal_omission` 200, `reopen_sealed` 204, `clocks_missing` 208, `reserved1[44]` 212 |
 | `RegimeOut` | 64 | 8 | `payload_0` 0 (fraction), `payload_1` 8 (floor / slot / cause), `payload_2` 12, `reserved[48]` 16 |
 | `VerdictOut` | 64 | 8 | `proposition` 0, `site` 4, `margin` 8, `at_step` 16, `reason` 24, `reserved[36]` 28 |
 | `StepTriple` | 40 | 8 | `s_epi` 0, `s_vital` 8, `s_gov` 16, `theta_basin` 24, `absorbed` 32, `reserve` 36 |

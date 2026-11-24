@@ -24,7 +24,7 @@ Part IV walked one running institutional case through Filters I–III. Part V te
 
 Part VI keeps the exact same three-plane mediation circuit—World ($P\_1$), Archive ($P\_2$), and Institution ($P\_3$)—and its $n = P(P - 1) + 1 = 7$ guard sites ([Chapter 29, *Aim and the Three Planes*](29-aim-and-the-three-planes.md); [Chapter 41, *The Triad and the Minimum*](41-the-triad-and-the-minimum.md)). Instead of adding new parts, Part VI slows down a **single chronological shot** from first framing to final audit.
 
-That single-shot lens recalls Antipater of Tarsus's classical archer, who separates disciplined aim from where the wind blows the arrow (Stobaeus 1884; Plutarch *c.* 100 CE; Cicero 45 BCE). It converges with Sunzi's self-secured stance before battle (Griffith 1963) and the *Bhagavad Gītā*'s disciplined action freed from clinging to outcomes (Radhakrishnan 1948). It likewise echoes the *Qhipnayra* and *Whakataukī* traditions that place visible past precedent right before the archer's eyes before release (Núñez & Sweetser 2006; Rameka 2016).
+That single-shot lens recalls Antipater of Tarsus's classical archer, who separates disciplined aim (*télos*) from whether external contingencies deflect the arrow away from the mark (*skopós*) (Stobaeus 1884; Plutarch *c.* 100 CE; Cicero 45 BCE). It converges with Sunzi's self-secured stance before battle (Griffith 1963) and the *Bhagavad Gītā*'s disciplined action freed from clinging to outcomes (Radhakrishnan 1948). It likewise echoes the Aymara *Qhipnayra* and Māori *Whakataukī* traditions—which place the visible past (*nayra*) directly before one's eyes when stepping forward into the unseen future (*qhipa*) (Núñez & Sweetser 2006; Rivera Cusicanqui 2012; Rameka 2016)—matching how an archer inspects conditions before release.
 
 ## Three tapes in one step: what was prepared, what happened, what was written down
 
@@ -36,11 +36,11 @@ Formal syntax in [Appendix B](appendix-b-architecture-verification.md) (§B.1, t
 
 **$\mathbf{m}\_t$ — What was written down (the native margins).** These are the numeric health readings recorded on each of the three axes before pass/fail thresholds run.
 
-Once step $t$ finishes, whatever happened outside ($\mathbf{w}\_{t-1}$) pushes forward physically into the next step's reserve $R\_t$, archive $O\_t$, and external reception-perimeter capacity (audited ex post via $\Theta\_{\mathrm{basin}, t}$; [Chapter 94](94-yesterdays-crosswind-in-the-string.md), multi-step pushforwards). Inside step $t$ itself, pre-shot custody keeps preparation separate from luck.
+Once step $t - 1$ finishes ($t > 1$), whatever happened outside ($\mathbf{w}\_{t-1}$) pushes forward physically into step $t$'s reserve $R\_t$, archive $O\_t$, and external reception-perimeter capacity (audited ex post via $\Theta\_{\mathrm{basin}, t}$; [Chapter 94](94-yesterdays-crosswind-in-the-string.md), multi-step pushforwards). Inside step $t$ itself, pre-shot custody keeps preparation separate from luck.
 
 ## Slow-motion walk from `T1` through `T7`
 
-Chapters 86 through 92 walk that single shot in slow motion, isolating one guard site per chapter ([Appendix E](appendix-e-lexicon.md), Table E.1) so each site's core theorem stands clear before all seven collide in Part VII:
+[Chapter 86](86-posture-before-bowstring-draws.md) through [Chapter 92](92-sealed-bow-and-uncommuted-verdict.md) walk that single shot in guard-site index order (`T1`–`T7`, with `T2` auditing counts produced by `T3`'s world-to-archive transduction), isolating one guard site per chapter ([Appendix E](appendix-e-lexicon.md), Table E.1) so each site's core theorem stands clear before all seven collide in Part VII:
 
 | Chapter | Guard & Crossing | Moment of the Shot | What This Chapter Protects in Plain English |
 | :--- | :--- | :--- | :--- |
@@ -54,7 +54,7 @@ Chapters 86 through 92 walk that single shot in slow motion, isolating one guard
 
 ## What laminar isolation leaves open
 
-Walking `T1` through `T7` sequentially assumes framing ends before release, archive counts (`T3`) cleanly feed tests (`T2`), scoring charts stay single-period, human review remains unflooded ([Chapter 95](95-collision-at-ten-bits-per-second.md), ten-bits-per-second collision), and temporary overrides expire until `T7` unseals.
+Walking `T1` through `T7` sequentially assumes framing ends before release, archive counts (`T3`) cleanly feed tests (`T2`), scoring charts stay single-period, human review remains unflooded ([Chapter 95, *Collision at Ten Bits per Second*](95-collision-at-ten-bits-per-second.md), near $10\text{ bits/s}$; Zheng & Meister 2025), and temporary Reflexive Brake 3 emergency freezes expire on schedule without hardening into permanent exceptions.
 
 That laminar baseline isolates door bias (`T1`), $\mathrm{DRO}$ failure (`T2`), MNAR tail saturation (`T3`), chart-invariance and `OLC` (`T4`), survival pre-emption (`T5`), performative drift (`T6`), and five-stage non-commutation beside Intersection-Union Testing ($\mathrm{IUT}$, `T7`) before Part VII collides all seven guards simultaneously.
 

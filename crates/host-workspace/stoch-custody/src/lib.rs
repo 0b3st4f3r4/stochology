@@ -1,5 +1,5 @@
 //! Host-side bitemporal two-tape custody ledger backed by `redb` (2PC + immediate durability)
-//! and per-read `BLAKE3` integrity verification.
+//! and keyed RFC 2104 `HMAC-SHA256` per-read integrity verification.
 //!
 //! Preserves strict linear `SPENT_UCANS` anti-replay records and `REFUSED_R2_TARGETS` across
 //! `rollback_r0`, keeps `CONTROL_TAPE`, `CONTINGENCY_TAPE`, and `REOPEN_LOG` immutable, and
@@ -12,6 +12,7 @@
 
 mod codec;
 mod error;
+mod hmac_sha256;
 mod tables;
 
 use std::path::Path;
@@ -36,15 +37,26 @@ use crate::tables::{
     DOMAIN_CONTINGENCY, DOMAIN_CONTROL, DOMAIN_R2_REFUSAL, DOMAIN_UCAN, META_HEADS_KEY,
 };
 
-/// Host custody ledger wrapping `redb` (2PC + `Durability::Immediate`) and per-read `BLAKE3`.
+#[cfg(test)]
+const DEFAULT_LOCAL_MAC_KEY: [u8; 32] = *b"stoch-custody:default-mac-key-v1";
+
+/// Host custody ledger wrapping `redb` (2PC + `Durability::Immediate`) and keyed `HMAC-SHA256`.
 pub struct CustodyLedger {
     db: Database,
+    mac_key: [u8; 32],
 }
 
 impl CustodyLedger {
-    /// Opens or initializes a custody database at `path`, creating all required tables under
-    /// immediate-durability two-phase commit and verifying existing metadata integrity.
+    /// Test-only helper opening a custody database under a fixed local fixture key.
+    /// Non-test callers must supply an externally managed key via [`Self::open_with_key`].
+    #[cfg(test)]
     pub fn open(path: impl AsRef<Path>) -> Result<Self, CustodyError> {
+        Self::open_with_key(path, DEFAULT_LOCAL_MAC_KEY)
+    }
+
+    /// Opens or initializes a custody database at `path` authenticated with `mac_key`
+    /// (`RFC 2104` `HMAC-SHA256`), verifying existing metadata integrity under that key.
+    pub fn open_with_key(path: impl AsRef<Path>, mac_key: [u8; 32]) -> Result<Self, CustodyError> {
         let db = Database::create(path.as_ref()).map_err(map_storage)?;
         {
             let mut tx = db.begin_write().map_err(map_storage)?;
@@ -62,7 +74,7 @@ impl CustodyLedger {
                 let existing = meta
                     .get(META_HEADS_KEY)
                     .map_err(map_storage)?
-                    .map(|g| decode_heads(g.value()));
+                    .map(|g| decode_heads(&mac_key, g.value()));
                 match existing {
                     Some(res) => {
                         let _ = res?;
@@ -75,7 +87,7 @@ impl CustodyLedger {
                             contingency_total_sealed: 0,
                             reopen_total: 0,
                         };
-                        let bytes = encode_heads(&init);
+                        let bytes = encode_heads(&mac_key, &init)?;
                         meta.insert(META_HEADS_KEY, bytes.as_slice())
                             .map_err(map_storage)?;
                     }
@@ -83,7 +95,7 @@ impl CustodyLedger {
             }
             tx.commit().map_err(map_storage)?;
         }
-        Ok(Self { db })
+        Ok(Self { db, mac_key })
     }
 
     fn begin_durable_write(&self) -> Result<redb::WriteTransaction, CustodyError> {
@@ -93,7 +105,7 @@ impl CustodyLedger {
         Ok(tx)
     }
 
-    /// Reads and `BLAKE3`-verifies the current operational heads and seal totals.
+    /// Reads and `HMAC`-verifies the current operational heads and seal totals.
     pub fn heads(&self) -> Result<CustodyHeads, CustodyError> {
         let tx = self.db.begin_read().map_err(map_storage)?;
         let meta = tx.open_table(META).map_err(map_storage)?;
@@ -101,7 +113,7 @@ impl CustodyLedger {
             .get(META_HEADS_KEY)
             .map_err(map_storage)?
             .ok_or(CustodyError::MissingRecord("custody heads metadata absent"))?;
-        decode_heads(guard.value())
+        decode_heads(&self.mac_key, guard.value())
     }
 
     /// Appends a bitemporal record (`valid_ts <= tx_ts`) to [`CONTROL_TAPE`] with 2PC durability.
@@ -145,7 +157,7 @@ impl CustodyLedger {
                     .get(META_HEADS_KEY)
                     .map_err(map_storage)?
                     .ok_or(CustodyError::MissingRecord("custody heads missing"))?;
-                decode_heads(raw.value())?
+                decode_heads(&self.mac_key, raw.value())?
             };
 
             let mut tape = tx
@@ -170,7 +182,7 @@ impl CustodyLedger {
                     .ok_or(CustodyError::IntegrityCorruption(
                         "active head sequence missing from tape",
                     ))?;
-                decode_tape_record(domain, prev_seq, raw_prev.value())?.seal_hash
+                decode_tape_record(&self.mac_key, domain, prev_seq, raw_prev.value())?.seal_hash
             };
 
             let total_ref = if is_control {
@@ -186,13 +198,21 @@ impl CustodyLedger {
                 heads.contingency_active_seq = new_seq;
             }
 
-            let record =
-                build_tape_record(domain, new_seq, valid_ts, tx_ts, prev_seq, prev_hash, payload)?;
+            let record = build_tape_record(
+                &self.mac_key,
+                domain,
+                new_seq,
+                valid_ts,
+                tx_ts,
+                prev_seq,
+                prev_hash,
+                payload,
+            )?;
             let encoded = encode_tape_record(&record);
             tape.insert(new_seq, encoded.as_slice())
                 .map_err(map_storage)?;
 
-            let heads_bytes = encode_heads(&heads);
+            let heads_bytes = encode_heads(&self.mac_key, &heads)?;
             meta.insert(META_HEADS_KEY, heads_bytes.as_slice())
                 .map_err(map_storage)?;
             record
@@ -201,12 +221,12 @@ impl CustodyLedger {
         Ok(record)
     }
 
-    /// Reads and `BLAKE3`-verifies control record `seq` (rejects tampering via `IntegrityCorruption`).
+    /// Reads and `HMAC`-verifies control record `seq` (rejects tampering via `IntegrityCorruption`).
     pub fn read_control(&self, seq: u64) -> Result<TapeRecord, CustodyError> {
         self.read_tape(true, seq)
     }
 
-    /// Reads and `BLAKE3`-verifies contingency record `seq` (rejects tampering via `IntegrityCorruption`).
+    /// Reads and `HMAC`-verifies contingency record `seq` (rejects tampering via `IntegrityCorruption`).
     pub fn read_contingency(&self, seq: u64) -> Result<TapeRecord, CustodyError> {
         self.read_tape(false, seq)
     }
@@ -229,7 +249,7 @@ impl CustodyLedger {
             .get(seq)
             .map_err(map_storage)?
             .ok_or(CustodyError::MissingRecord("tape sequence absent"))?;
-        decode_tape_record(domain, seq, guard.value())
+        decode_tape_record(&self.mac_key, domain, seq, guard.value())
     }
 
     /// Atomically consumes a linear `UCAN` identifier if unseen, returning `ReplayRejected` if spent.
@@ -239,23 +259,23 @@ impl CustodyLedger {
             let mut table = tx.open_table(SPENT_UCANS).map_err(map_storage)?;
             let existing = table.get(ucan_id).map_err(map_storage)?.map(|g| *g.value());
             if let Some(tag) = existing {
-                verify_tag(DOMAIN_UCAN, ucan_id, &tag)?;
+                verify_tag(&self.mac_key, DOMAIN_UCAN, ucan_id, &tag)?;
                 return Err(CustodyError::ReplayRejected(*ucan_id));
             }
-            let tag = compute_key_tag(DOMAIN_UCAN, ucan_id);
+            let tag = compute_key_tag(&self.mac_key, DOMAIN_UCAN, ucan_id)?;
             table.insert(ucan_id, &tag).map_err(map_storage)?;
         }
         tx.commit().map_err(map_storage)?;
         Ok(())
     }
 
-    /// Checks and `BLAKE3`-verifies whether `ucan_id` is marked spent.
+    /// Checks and `HMAC`-verifies whether `ucan_id` is marked spent.
     pub fn is_ucan_spent(&self, ucan_id: &[u8; 32]) -> Result<bool, CustodyError> {
         let tx = self.db.begin_read().map_err(map_storage)?;
         let table = tx.open_table(SPENT_UCANS).map_err(map_storage)?;
         match table.get(ucan_id).map_err(map_storage)? {
             Some(tag) => {
-                verify_tag(DOMAIN_UCAN, ucan_id, tag.value())?;
+                verify_tag(&self.mac_key, DOMAIN_UCAN, ucan_id, tag.value())?;
                 Ok(true)
             }
             None => Ok(false),
@@ -272,23 +292,23 @@ impl CustodyLedger {
                 .map_err(map_storage)?
                 .map(|g| *g.value());
             if let Some(tag) = existing {
-                verify_tag(DOMAIN_R2_REFUSAL, target_id, &tag)?;
+                verify_tag(&self.mac_key, DOMAIN_R2_REFUSAL, target_id, &tag)?;
                 return Ok(());
             }
-            let tag = compute_key_tag(DOMAIN_R2_REFUSAL, target_id);
+            let tag = compute_key_tag(&self.mac_key, DOMAIN_R2_REFUSAL, target_id)?;
             table.insert(target_id, &tag).map_err(map_storage)?;
         }
         tx.commit().map_err(map_storage)?;
         Ok(())
     }
 
-    /// Checks and `BLAKE3`-verifies whether `target_id` is recorded in `REFUSED_R2_TARGETS`.
+    /// Checks and `HMAC`-verifies whether `target_id` is recorded in `REFUSED_R2_TARGETS`.
     pub fn is_r2_refused(&self, target_id: &[u8; 32]) -> Result<bool, CustodyError> {
         let tx = self.db.begin_read().map_err(map_storage)?;
         let table = tx.open_table(REFUSED_R2_TARGETS).map_err(map_storage)?;
         match table.get(target_id).map_err(map_storage)? {
             Some(tag) => {
-                verify_tag(DOMAIN_R2_REFUSAL, target_id, tag.value())?;
+                verify_tag(&self.mac_key, DOMAIN_R2_REFUSAL, target_id, tag.value())?;
                 Ok(true)
             }
             None => Ok(false),
@@ -308,7 +328,7 @@ impl CustodyLedger {
                 .map_err(map_storage)?
                 .map(|g| *g.value());
             if let Some(tag) = existing {
-                verify_tag(DOMAIN_R2_REFUSAL, target_id, &tag)?;
+                verify_tag(&self.mac_key, DOMAIN_R2_REFUSAL, target_id, &tag)?;
                 let _ = table.remove(target_id).map_err(map_storage)?;
                 true
             } else {
@@ -319,13 +339,13 @@ impl CustodyLedger {
         Ok(removed)
     }
 
-    /// Reads and `BLAKE3`-verifies the persisted monotonic delegation sequence for `sovereign_id`
+    /// Reads and `HMAC`-verifies the persisted monotonic delegation sequence for `sovereign_id`
     /// (`0` if no transport delegation has yet been persisted).
     pub fn delegation_seq(&self, sovereign_id: &[u8; 32]) -> Result<u64, CustodyError> {
         let tx = self.db.begin_read().map_err(map_storage)?;
         let table = tx.open_table(DELEGATION_SEQS).map_err(map_storage)?;
         match table.get(sovereign_id).map_err(map_storage)? {
-            Some(raw) => verify_deleg_seq(sovereign_id, raw.value()),
+            Some(raw) => verify_deleg_seq(&self.mac_key, sovereign_id, raw.value()),
             None => Ok(0),
         }
     }
@@ -346,13 +366,13 @@ impl CustodyLedger {
                 .map_err(map_storage)?
                 .map(|g| *g.value());
             let current = match existing {
-                Some(raw) => verify_deleg_seq(sovereign_id, &raw)?,
+                Some(raw) => verify_deleg_seq(&self.mac_key, sovereign_id, &raw)?,
                 None => 0,
             };
             if next_seq <= current {
                 return Err(CustodyError::ReplayRejected(*sovereign_id));
             }
-            let encoded = encode_deleg_seq(sovereign_id, next_seq);
+            let encoded = encode_deleg_seq(&self.mac_key, sovereign_id, next_seq)?;
             table.insert(sovereign_id, &encoded).map_err(map_storage)?;
         }
         tx.commit().map_err(map_storage)?;
@@ -369,7 +389,7 @@ impl CustodyLedger {
                     .get(META_HEADS_KEY)
                     .map_err(map_storage)?
                     .ok_or(CustodyError::MissingRecord("custody heads missing"))?;
-                decode_heads(raw.value())?
+                decode_heads(&self.mac_key, raw.value())?
             };
             let control_tape = tx.open_table(CONTROL_TAPE).map_err(map_storage)?;
             let contingency_tape = tx.open_table(CONTINGENCY_TAPE).map_err(map_storage)?;
@@ -381,7 +401,8 @@ impl CustodyLedger {
                     .get(heads.control_active_seq)
                     .map_err(map_storage)?
                     .ok_or(CustodyError::IntegrityCorruption("active control seal absent"))?;
-                decode_tape_record(DOMAIN_CONTROL, heads.control_active_seq, raw.value())?.seal_hash
+                decode_tape_record(&self.mac_key, DOMAIN_CONTROL, heads.control_active_seq, raw.value())?
+                    .seal_hash
             };
             let contingency_hash = if heads.contingency_active_seq == 0 {
                 [0_u8; 32]
@@ -390,8 +411,13 @@ impl CustodyLedger {
                     .get(heads.contingency_active_seq)
                     .map_err(map_storage)?
                     .ok_or(CustodyError::IntegrityCorruption("active contingency seal absent"))?;
-                decode_tape_record(DOMAIN_CONTINGENCY, heads.contingency_active_seq, raw.value())?
-                    .seal_hash
+                decode_tape_record(
+                    &self.mac_key,
+                    DOMAIN_CONTINGENCY,
+                    heads.contingency_active_seq,
+                    raw.value(),
+                )?
+                .seal_hash
             };
 
             let snap = SnapshotRecord {
@@ -401,7 +427,7 @@ impl CustodyLedger {
                 contingency_head_seq: heads.contingency_active_seq,
                 contingency_head_hash: contingency_hash,
             };
-            let encoded = encode_snapshot(&snap);
+            let encoded = encode_snapshot(&self.mac_key, &snap)?;
             let mut snapshots = tx.open_table(R0_SNAPSHOTS).map_err(map_storage)?;
             snapshots
                 .insert(snapshot_id, encoded.as_slice())
@@ -423,14 +449,14 @@ impl CustodyLedger {
                     .get(META_HEADS_KEY)
                     .map_err(map_storage)?
                     .ok_or(CustodyError::MissingRecord("custody heads missing"))?;
-                decode_heads(raw.value())?
+                decode_heads(&self.mac_key, raw.value())?
             };
             let snapshots = tx.open_table(R0_SNAPSHOTS).map_err(map_storage)?;
             let raw_snap = snapshots
                 .get(snapshot_id)
                 .map_err(map_storage)?
                 .ok_or(CustodyError::MissingRecord("r0 snapshot_id absent"))?;
-            let snap = decode_snapshot(snapshot_id, raw_snap.value())?;
+            let snap = decode_snapshot(&self.mac_key, snapshot_id, raw_snap.value())?;
 
             let control_tape = tx.open_table(CONTROL_TAPE).map_err(map_storage)?;
             let contingency_tape = tx.open_table(CONTINGENCY_TAPE).map_err(map_storage)?;
@@ -440,7 +466,8 @@ impl CustodyLedger {
                     .get(snap.control_head_seq)
                     .map_err(map_storage)?
                     .ok_or(CustodyError::IntegrityCorruption("snapshot control seal absent"))?;
-                let rec = decode_tape_record(DOMAIN_CONTROL, snap.control_head_seq, raw.value())?;
+                let rec =
+                    decode_tape_record(&self.mac_key, DOMAIN_CONTROL, snap.control_head_seq, raw.value())?;
                 if rec.seal_hash != snap.control_head_hash {
                     return Err(CustodyError::IntegrityCorruption(
                         "snapshot control hash mismatch",
@@ -455,6 +482,7 @@ impl CustodyLedger {
                         "snapshot contingency seal absent",
                     ))?;
                 let rec = decode_tape_record(
+                    &self.mac_key,
                     DOMAIN_CONTINGENCY,
                     snap.contingency_head_seq,
                     raw.value(),
@@ -468,7 +496,7 @@ impl CustodyLedger {
 
             heads.control_active_seq = snap.control_head_seq;
             heads.contingency_active_seq = snap.contingency_head_seq;
-            let encoded = encode_heads(&heads);
+            let encoded = encode_heads(&self.mac_key, &heads)?;
             meta.insert(META_HEADS_KEY, encoded.as_slice())
                 .map_err(map_storage)?;
             heads
@@ -499,7 +527,7 @@ impl CustodyLedger {
                     .get(META_HEADS_KEY)
                     .map_err(map_storage)?
                     .ok_or(CustodyError::MissingRecord("custody heads missing"))?;
-                decode_heads(raw.value())?
+                decode_heads(&self.mac_key, raw.value())?
             };
 
             let control_tape = tx.open_table(CONTROL_TAPE).map_err(map_storage)?;
@@ -513,7 +541,7 @@ impl CustodyLedger {
                 .map_err(map_storage)?
                 .ok_or(CustodyError::MissingRecord("prior control seal absent"))?;
             let prior_control =
-                decode_tape_record(DOMAIN_CONTROL, prior_control_seq, prior_raw.value())?;
+                decode_tape_record(&self.mac_key, DOMAIN_CONTROL, prior_control_seq, prior_raw.value())?;
 
             let mut reopen_log = tx.open_table(REOPEN_LOG).map_err(map_storage)?;
             let prev_seq = heads.reopen_total;
@@ -524,13 +552,14 @@ impl CustodyLedger {
                     .get(prev_seq)
                     .map_err(map_storage)?
                     .ok_or(CustodyError::IntegrityCorruption("prior reopen entry absent"))?;
-                decode_reopen_record(prev_seq, raw_prev.value())?.seal_hash
+                decode_reopen_record(&self.mac_key, prev_seq, raw_prev.value())?.seal_hash
             };
 
             let new_seq = heads.reopen_total.checked_add(1).ok_or(CustodyError::Overflow)?;
             heads.reopen_total = new_seq;
 
             let rec = build_reopen_record(
+                &self.mac_key,
                 new_seq,
                 valid_ts,
                 tx_ts,
@@ -545,7 +574,7 @@ impl CustodyLedger {
             reopen_log
                 .insert(new_seq, bytes.as_slice())
                 .map_err(map_storage)?;
-            let heads_bytes = encode_heads(&heads);
+            let heads_bytes = encode_heads(&self.mac_key, &heads)?;
             meta.insert(META_HEADS_KEY, heads_bytes.as_slice())
                 .map_err(map_storage)?;
             rec
@@ -554,7 +583,7 @@ impl CustodyLedger {
         Ok(rec)
     }
 
-    /// Reads and `BLAKE3`-verifies reopening entry `seq`.
+    /// Reads and `HMAC`-verifies reopening entry `seq`.
     pub fn read_reopen(&self, seq: u64) -> Result<CounterInductiveReopen, CustodyError> {
         let tx = self.db.begin_read().map_err(map_storage)?;
         let table = tx.open_table(REOPEN_LOG).map_err(map_storage)?;
@@ -562,7 +591,7 @@ impl CustodyLedger {
             .get(seq)
             .map_err(map_storage)?
             .ok_or(CustodyError::MissingRecord("reopen entry absent"))?;
-        decode_reopen_record(seq, guard.value())
+        decode_reopen_record(&self.mac_key, seq, guard.value())
     }
 
     /// Walks and cryptographically verifies every record across `CONTROL_TAPE`,
@@ -574,7 +603,7 @@ impl CustodyLedger {
             .get(META_HEADS_KEY)
             .map_err(map_storage)?
             .ok_or(CustodyError::MissingRecord("custody heads missing"))?;
-        let heads = decode_heads(raw_heads.value())?;
+        let heads = decode_heads(&self.mac_key, raw_heads.value())?;
 
         let control_tape = tx.open_table(CONTROL_TAPE).map_err(map_storage)?;
         let mut control_hashes = Vec::with_capacity(
@@ -585,7 +614,7 @@ impl CustodyLedger {
                 .get(seq)
                 .map_err(map_storage)?
                 .ok_or(CustodyError::IntegrityCorruption("missing control seal in chain"))?;
-            let rec = decode_tape_record(DOMAIN_CONTROL, seq, guard.value())?;
+            let rec = decode_tape_record(&self.mac_key, DOMAIN_CONTROL, seq, guard.value())?;
             verify_prev_link(rec.prev_seq, rec.prev_hash, seq, &control_hashes)?;
             control_hashes.push(rec.seal_hash);
         }
@@ -599,7 +628,7 @@ impl CustodyLedger {
                 .get(seq)
                 .map_err(map_storage)?
                 .ok_or(CustodyError::IntegrityCorruption("missing contingency seal in chain"))?;
-            let rec = decode_tape_record(DOMAIN_CONTINGENCY, seq, guard.value())?;
+            let rec = decode_tape_record(&self.mac_key, DOMAIN_CONTINGENCY, seq, guard.value())?;
             verify_prev_link(rec.prev_seq, rec.prev_hash, seq, &contingency_hashes)?;
             contingency_hashes.push(rec.seal_hash);
         }
@@ -611,7 +640,7 @@ impl CustodyLedger {
                 .get(seq)
                 .map_err(map_storage)?
                 .ok_or(CustodyError::IntegrityCorruption("missing reopen entry in chain"))?;
-            let rec = decode_reopen_record(seq, guard.value())?;
+            let rec = decode_reopen_record(&self.mac_key, seq, guard.value())?;
             if rec.prev_seq != seq - 1 || rec.prev_hash != prev_reopen_hash {
                 return Err(CustodyError::IntegrityCorruption(
                     "reopen chain backlink mismatch",
@@ -633,25 +662,25 @@ impl CustodyLedger {
         let spent_ucans = tx.open_table(SPENT_UCANS).map_err(map_storage)?;
         for entry in spent_ucans.iter().map_err(map_storage)? {
             let (k, v) = entry.map_err(map_storage)?;
-            verify_tag(DOMAIN_UCAN, k.value(), v.value())?;
+            verify_tag(&self.mac_key, DOMAIN_UCAN, k.value(), v.value())?;
         }
 
         let refused_r2 = tx.open_table(REFUSED_R2_TARGETS).map_err(map_storage)?;
         for entry in refused_r2.iter().map_err(map_storage)? {
             let (k, v) = entry.map_err(map_storage)?;
-            verify_tag(DOMAIN_R2_REFUSAL, k.value(), v.value())?;
+            verify_tag(&self.mac_key, DOMAIN_R2_REFUSAL, k.value(), v.value())?;
         }
 
         let snapshots = tx.open_table(R0_SNAPSHOTS).map_err(map_storage)?;
         for entry in snapshots.iter().map_err(map_storage)? {
             let (k, v) = entry.map_err(map_storage)?;
-            let _ = decode_snapshot(k.value(), v.value())?;
+            let _ = decode_snapshot(&self.mac_key, k.value(), v.value())?;
         }
 
         let deleg_seqs = tx.open_table(DELEGATION_SEQS).map_err(map_storage)?;
         for entry in deleg_seqs.iter().map_err(map_storage)? {
             let (k, v) = entry.map_err(map_storage)?;
-            let _ = verify_deleg_seq(k.value(), v.value())?;
+            let _ = verify_deleg_seq(&self.mac_key, k.value(), v.value())?;
         }
 
         Ok(heads)

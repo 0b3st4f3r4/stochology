@@ -1,9 +1,10 @@
-//! Canonical record structs and per-read BLAKE3 serialization codecs for `stoch-custody`.
+//! Canonical record structs and keyed HMAC-SHA256 serialization codecs for `stoch-custody`.
 
 use crate::error::CustodyError;
+use crate::hmac_sha256::{ct_eq, hmac_sha256};
 use crate::tables::{DOMAIN_DELEG_SEQ, DOMAIN_META, DOMAIN_REOPEN, DOMAIN_SNAPSHOT};
 
-/// Decoded and `BLAKE3`-verified entry on either [`crate::CONTROL_TAPE`] or [`crate::CONTINGENCY_TAPE`].
+/// Decoded and HMAC-SHA256-verified entry on either [`crate::CONTROL_TAPE`] or [`crate::CONTINGENCY_TAPE`].
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct TapeRecord {
     /// Monotonic 1-based physical record index.
@@ -18,11 +19,11 @@ pub struct TapeRecord {
     pub prev_hash: [u8; 32],
     /// Raw opaque sealed payload bytes.
     pub payload: Vec<u8>,
-    /// Domain-separated `BLAKE3` digest sealing the record fields and payload.
+    /// Domain-separated `RFC 2104 HMAC-SHA256` tag sealing the record fields and payload.
     pub seal_hash: [u8; 32],
 }
 
-/// Decoded and `BLAKE3`-verified entry from [`crate::REOPEN_LOG`].
+/// Decoded and `RFC 2104 HMAC-SHA256`-verified entry from [`crate::REOPEN_LOG`].
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct CounterInductiveReopen {
     /// Monotonic 1-based reopening entry sequence number.
@@ -35,7 +36,7 @@ pub struct CounterInductiveReopen {
     pub escrow_deposit: u64,
     /// Anchored sequence number on [`crate::CONTROL_TAPE`] referenced by this reopening.
     pub prior_control_seq: u64,
-    /// Verified `BLAKE3` seal digest of the anchored [`crate::CONTROL_TAPE`] entry.
+    /// Verified `RFC 2104 HMAC-SHA256` seal tag of the anchored [`crate::CONTROL_TAPE`] entry.
     pub prior_control_hash: [u8; 32],
     /// Predecessor reopening sequence (`0` if first).
     pub prev_seq: u64,
@@ -43,7 +44,7 @@ pub struct CounterInductiveReopen {
     pub prev_hash: [u8; 32],
     /// Documented rationale or protocol expansion note.
     pub rationale: Vec<u8>,
-    /// Domain-separated `BLAKE3` digest sealing all fields of this reopening record.
+    /// Domain-separated `RFC 2104 HMAC-SHA256` tag sealing all fields of this reopening record.
     pub seal_hash: [u8; 32],
 }
 
@@ -104,59 +105,65 @@ pub(crate) fn verify_prev_link(
     Ok(())
 }
 
-pub(crate) fn compute_key_tag(domain: &[u8], key: &[u8; 32]) -> [u8; 32] {
-    let mut hasher = blake3::Hasher::new();
-    hasher.update(domain);
-    hasher.update(key);
-    *hasher.finalize().as_bytes()
+pub(crate) fn compute_key_tag(
+    mac_key: &[u8; 32],
+    domain: &[u8],
+    key: &[u8; 32],
+) -> Result<[u8; 32], CustodyError> {
+    hmac_sha256(mac_key, &[domain, key])
 }
 
 pub(crate) fn verify_tag(
+    mac_key: &[u8; 32],
     domain: &[u8],
     key: &[u8; 32],
     stored: &[u8; 32],
 ) -> Result<(), CustodyError> {
-    let expected = blake3::Hash::from(compute_key_tag(domain, key));
-    if expected == blake3::Hash::from(*stored) {
+    let expected = compute_key_tag(mac_key, domain, key)?;
+    if ct_eq(&expected, stored) {
         Ok(())
     } else {
         Err(CustodyError::IntegrityCorruption("key authentication tag mismatch"))
     }
 }
 
-pub(crate) fn encode_deleg_seq(sovereign_id: &[u8; 32], seq: u64) -> [u8; 40] {
-    let mut hasher = blake3::Hasher::new();
-    hasher.update(DOMAIN_DELEG_SEQ);
-    hasher.update(sovereign_id);
-    hasher.update(&seq.to_le_bytes());
-    let tag = *hasher.finalize().as_bytes();
+pub(crate) fn encode_deleg_seq(
+    mac_key: &[u8; 32],
+    sovereign_id: &[u8; 32],
+    seq: u64,
+) -> Result<[u8; 40], CustodyError> {
+    let seq_bytes = seq.to_le_bytes();
+    let tag = hmac_sha256(mac_key, &[DOMAIN_DELEG_SEQ, sovereign_id, &seq_bytes])?;
 
     let mut out = [0_u8; 40];
-    out[0..8].copy_from_slice(&seq.to_le_bytes());
+    out[0..8].copy_from_slice(&seq_bytes);
     out[8..40].copy_from_slice(&tag);
-    out
+    Ok(out)
 }
 
 pub(crate) fn verify_deleg_seq(
+    mac_key: &[u8; 32],
     sovereign_id: &[u8; 32],
     stored: &[u8; 40],
 ) -> Result<u64, CustodyError> {
     let seq = read_u64(&stored[0..8])?;
-    let expected = encode_deleg_seq(sovereign_id, seq);
+    let expected = encode_deleg_seq(mac_key, sovereign_id, seq)?;
     let stored_tag: [u8; 32] = stored[8..40]
         .try_into()
         .map_err(|_| CustodyError::IntegrityCorruption("delegation tag width"))?;
     let expected_tag: [u8; 32] = expected[8..40]
         .try_into()
         .map_err(|_| CustodyError::IntegrityCorruption("delegation tag width"))?;
-    if blake3::Hash::from(stored_tag) == blake3::Hash::from(expected_tag) {
+    if ct_eq(&stored_tag, &expected_tag) {
         Ok(seq)
     } else {
-        Err(CustodyError::IntegrityCorruption("delegation_seq BLAKE3 mismatch"))
+        Err(CustodyError::IntegrityCorruption("delegation_seq HMAC mismatch"))
     }
 }
 
+#[allow(clippy::too_many_arguments)]
 fn compute_tape_hash(
+    mac_key: &[u8; 32],
     domain: &[u8],
     seq: u64,
     valid_ts: u64,
@@ -166,19 +173,24 @@ fn compute_tape_hash(
     payload: &[u8],
 ) -> Result<[u8; 32], CustodyError> {
     let payload_len = u32::try_from(payload.len()).map_err(|_| CustodyError::Overflow)?;
-    let mut hasher = blake3::Hasher::new();
-    hasher.update(domain);
-    hasher.update(&seq.to_le_bytes());
-    hasher.update(&valid_ts.to_le_bytes());
-    hasher.update(&tx_ts.to_le_bytes());
-    hasher.update(&prev_seq.to_le_bytes());
-    hasher.update(prev_hash);
-    hasher.update(&payload_len.to_le_bytes());
-    hasher.update(payload);
-    Ok(*hasher.finalize().as_bytes())
+    hmac_sha256(
+        mac_key,
+        &[
+            domain,
+            &seq.to_le_bytes(),
+            &valid_ts.to_le_bytes(),
+            &tx_ts.to_le_bytes(),
+            &prev_seq.to_le_bytes(),
+            prev_hash,
+            &payload_len.to_le_bytes(),
+            payload,
+        ],
+    )
 }
 
+#[allow(clippy::too_many_arguments)]
 pub(crate) fn build_tape_record(
+    mac_key: &[u8; 32],
     domain: &[u8],
     seq: u64,
     valid_ts: u64,
@@ -187,7 +199,8 @@ pub(crate) fn build_tape_record(
     prev_hash: [u8; 32],
     payload: &[u8],
 ) -> Result<TapeRecord, CustodyError> {
-    let seal_hash = compute_tape_hash(domain, seq, valid_ts, tx_ts, prev_seq, &prev_hash, payload)?;
+    let seal_hash =
+        compute_tape_hash(mac_key, domain, seq, valid_ts, tx_ts, prev_seq, &prev_hash, payload)?;
     Ok(TapeRecord {
         seq,
         valid_ts,
@@ -214,6 +227,7 @@ pub(crate) fn encode_tape_record(rec: &TapeRecord) -> Vec<u8> {
 }
 
 pub(crate) fn decode_tape_record(
+    mac_key: &[u8; 32],
     domain: &[u8],
     expected_seq: u64,
     bytes: &[u8],
@@ -244,9 +258,9 @@ pub(crate) fn decode_tape_record(
         .try_into()
         .map_err(|_| CustodyError::IntegrityCorruption("invalid seal_hash width"))?;
     let expected_hash =
-        compute_tape_hash(domain, seq, valid_ts, tx_ts, prev_seq, &prev_hash, payload)?;
-    if blake3::Hash::from(stored_hash) != blake3::Hash::from(expected_hash) {
-        return Err(CustodyError::IntegrityCorruption("tape BLAKE3 seal mismatch"));
+        compute_tape_hash(mac_key, domain, seq, valid_ts, tx_ts, prev_seq, &prev_hash, payload)?;
+    if !ct_eq(&stored_hash, &expected_hash) {
+        return Err(CustodyError::IntegrityCorruption("tape HMAC seal mismatch"));
     }
     Ok(TapeRecord {
         seq,
@@ -261,6 +275,7 @@ pub(crate) fn decode_tape_record(
 
 #[allow(clippy::too_many_arguments)]
 fn compute_reopen_hash(
+    mac_key: &[u8; 32],
     seq: u64,
     valid_ts: u64,
     tx_ts: u64,
@@ -272,23 +287,27 @@ fn compute_reopen_hash(
     rationale: &[u8],
 ) -> Result<[u8; 32], CustodyError> {
     let r_len = u32::try_from(rationale.len()).map_err(|_| CustodyError::Overflow)?;
-    let mut hasher = blake3::Hasher::new();
-    hasher.update(DOMAIN_REOPEN);
-    hasher.update(&seq.to_le_bytes());
-    hasher.update(&valid_ts.to_le_bytes());
-    hasher.update(&tx_ts.to_le_bytes());
-    hasher.update(&escrow_deposit.to_le_bytes());
-    hasher.update(&prior_control_seq.to_le_bytes());
-    hasher.update(prior_control_hash);
-    hasher.update(&prev_seq.to_le_bytes());
-    hasher.update(prev_hash);
-    hasher.update(&r_len.to_le_bytes());
-    hasher.update(rationale);
-    Ok(*hasher.finalize().as_bytes())
+    hmac_sha256(
+        mac_key,
+        &[
+            DOMAIN_REOPEN,
+            &seq.to_le_bytes(),
+            &valid_ts.to_le_bytes(),
+            &tx_ts.to_le_bytes(),
+            &escrow_deposit.to_le_bytes(),
+            &prior_control_seq.to_le_bytes(),
+            prior_control_hash,
+            &prev_seq.to_le_bytes(),
+            prev_hash,
+            &r_len.to_le_bytes(),
+            rationale,
+        ],
+    )
 }
 
 #[allow(clippy::too_many_arguments)]
 pub(crate) fn build_reopen_record(
+    mac_key: &[u8; 32],
     seq: u64,
     valid_ts: u64,
     tx_ts: u64,
@@ -300,6 +319,7 @@ pub(crate) fn build_reopen_record(
     rationale: &[u8],
 ) -> Result<CounterInductiveReopen, CustodyError> {
     let seal_hash = compute_reopen_hash(
+        mac_key,
         seq,
         valid_ts,
         tx_ts,
@@ -342,6 +362,7 @@ pub(crate) fn encode_reopen_record(rec: &CounterInductiveReopen) -> Vec<u8> {
 }
 
 pub(crate) fn decode_reopen_record(
+    mac_key: &[u8; 32],
     expected_seq: u64,
     bytes: &[u8],
 ) -> Result<CounterInductiveReopen, CustodyError> {
@@ -375,6 +396,7 @@ pub(crate) fn decode_reopen_record(
         .try_into()
         .map_err(|_| CustodyError::IntegrityCorruption("invalid reopen seal_hash width"))?;
     let expected_hash = compute_reopen_hash(
+        mac_key,
         seq,
         valid_ts,
         tx_ts,
@@ -385,8 +407,8 @@ pub(crate) fn decode_reopen_record(
         &prev_hash,
         rationale,
     )?;
-    if blake3::Hash::from(stored_hash) != blake3::Hash::from(expected_hash) {
-        return Err(CustodyError::IntegrityCorruption("reopen BLAKE3 seal mismatch"));
+    if !ct_eq(&stored_hash, &expected_hash) {
+        return Err(CustodyError::IntegrityCorruption("reopen HMAC seal mismatch"));
     }
     Ok(CounterInductiveReopen {
         seq,
@@ -402,27 +424,28 @@ pub(crate) fn decode_reopen_record(
     })
 }
 
-pub(crate) fn encode_heads(heads: &CustodyHeads) -> [u8; 72] {
-    let mut hasher = blake3::Hasher::new();
-    hasher.update(DOMAIN_META);
-    hasher.update(&heads.control_active_seq.to_le_bytes());
-    hasher.update(&heads.control_total_sealed.to_le_bytes());
-    hasher.update(&heads.contingency_active_seq.to_le_bytes());
-    hasher.update(&heads.contingency_total_sealed.to_le_bytes());
-    hasher.update(&heads.reopen_total.to_le_bytes());
-    let tag = *hasher.finalize().as_bytes();
+pub(crate) fn encode_heads(
+    mac_key: &[u8; 32],
+    heads: &CustodyHeads,
+) -> Result<[u8; 72], CustodyError> {
+    let ca = heads.control_active_seq.to_le_bytes();
+    let ct = heads.control_total_sealed.to_le_bytes();
+    let wa = heads.contingency_active_seq.to_le_bytes();
+    let wt = heads.contingency_total_sealed.to_le_bytes();
+    let rt = heads.reopen_total.to_le_bytes();
+    let tag = hmac_sha256(mac_key, &[DOMAIN_META, &ca, &ct, &wa, &wt, &rt])?;
 
     let mut out = [0_u8; 72];
-    out[0..8].copy_from_slice(&heads.control_active_seq.to_le_bytes());
-    out[8..16].copy_from_slice(&heads.control_total_sealed.to_le_bytes());
-    out[16..24].copy_from_slice(&heads.contingency_active_seq.to_le_bytes());
-    out[24..32].copy_from_slice(&heads.contingency_total_sealed.to_le_bytes());
-    out[32..40].copy_from_slice(&heads.reopen_total.to_le_bytes());
+    out[0..8].copy_from_slice(&ca);
+    out[8..16].copy_from_slice(&ct);
+    out[16..24].copy_from_slice(&wa);
+    out[24..32].copy_from_slice(&wt);
+    out[32..40].copy_from_slice(&rt);
     out[40..72].copy_from_slice(&tag);
-    out
+    Ok(out)
 }
 
-pub(crate) fn decode_heads(bytes: &[u8]) -> Result<CustodyHeads, CustodyError> {
+pub(crate) fn decode_heads(mac_key: &[u8; 32], bytes: &[u8]) -> Result<CustodyHeads, CustodyError> {
     if bytes.len() != 72 {
         return Err(CustodyError::IntegrityCorruption("invalid metadata heads length"));
     }
@@ -436,36 +459,50 @@ pub(crate) fn decode_heads(bytes: &[u8]) -> Result<CustodyHeads, CustodyError> {
     let stored: [u8; 32] = bytes[40..72]
         .try_into()
         .map_err(|_| CustodyError::IntegrityCorruption("invalid heads digest"))?;
-    let expected = encode_heads(&heads);
-    if blake3::Hash::from(stored)
-        != blake3::Hash::from(<[u8; 32]>::try_from(&expected[40..72]).unwrap_or([0; 32]))
-    {
-        return Err(CustodyError::IntegrityCorruption("metadata heads BLAKE3 mismatch"));
+    let expected = encode_heads(mac_key, &heads)?;
+    let expected_tag: [u8; 32] = expected[40..72]
+        .try_into()
+        .map_err(|_| CustodyError::IntegrityCorruption("invalid heads digest"))?;
+    if !ct_eq(&stored, &expected_tag) {
+        return Err(CustodyError::IntegrityCorruption("metadata heads HMAC mismatch"));
     }
     Ok(heads)
 }
 
-pub(crate) fn encode_snapshot(snap: &SnapshotRecord) -> [u8; 120] {
-    let mut hasher = blake3::Hasher::new();
-    hasher.update(DOMAIN_SNAPSHOT);
-    hasher.update(&snap.snapshot_id.to_le_bytes());
-    hasher.update(&snap.control_head_seq.to_le_bytes());
-    hasher.update(&snap.control_head_hash);
-    hasher.update(&snap.contingency_head_seq.to_le_bytes());
-    hasher.update(&snap.contingency_head_hash);
-    let tag = *hasher.finalize().as_bytes();
+pub(crate) fn encode_snapshot(
+    mac_key: &[u8; 32],
+    snap: &SnapshotRecord,
+) -> Result<[u8; 120], CustodyError> {
+    let sid = snap.snapshot_id.to_le_bytes();
+    let cs = snap.control_head_seq.to_le_bytes();
+    let ws = snap.contingency_head_seq.to_le_bytes();
+    let tag = hmac_sha256(
+        mac_key,
+        &[
+            DOMAIN_SNAPSHOT,
+            &sid,
+            &cs,
+            &snap.control_head_hash,
+            &ws,
+            &snap.contingency_head_hash,
+        ],
+    )?;
 
     let mut out = [0_u8; 120];
-    out[0..8].copy_from_slice(&snap.snapshot_id.to_le_bytes());
-    out[8..16].copy_from_slice(&snap.control_head_seq.to_le_bytes());
+    out[0..8].copy_from_slice(&sid);
+    out[8..16].copy_from_slice(&cs);
     out[16..48].copy_from_slice(&snap.control_head_hash);
-    out[48..56].copy_from_slice(&snap.contingency_head_seq.to_le_bytes());
+    out[48..56].copy_from_slice(&ws);
     out[56..88].copy_from_slice(&snap.contingency_head_hash);
     out[88..120].copy_from_slice(&tag);
-    out
+    Ok(out)
 }
 
-pub(crate) fn decode_snapshot(expected_id: u64, bytes: &[u8]) -> Result<SnapshotRecord, CustodyError> {
+pub(crate) fn decode_snapshot(
+    mac_key: &[u8; 32],
+    expected_id: u64,
+    bytes: &[u8],
+) -> Result<SnapshotRecord, CustodyError> {
     if bytes.len() != 120 {
         return Err(CustodyError::IntegrityCorruption("invalid snapshot length"));
     }
@@ -487,11 +524,12 @@ pub(crate) fn decode_snapshot(expected_id: u64, bytes: &[u8]) -> Result<Snapshot
     let stored: [u8; 32] = bytes[88..120]
         .try_into()
         .map_err(|_| CustodyError::IntegrityCorruption("snapshot tag width"))?;
-    let expected = encode_snapshot(&snap);
-    if blake3::Hash::from(stored)
-        != blake3::Hash::from(<[u8; 32]>::try_from(&expected[88..120]).unwrap_or([0; 32]))
-    {
-        return Err(CustodyError::IntegrityCorruption("snapshot BLAKE3 mismatch"));
+    let expected = encode_snapshot(mac_key, &snap)?;
+    let expected_tag: [u8; 32] = expected[88..120]
+        .try_into()
+        .map_err(|_| CustodyError::IntegrityCorruption("snapshot tag width"))?;
+    if !ct_eq(&stored, &expected_tag) {
+        return Err(CustodyError::IntegrityCorruption("snapshot HMAC mismatch"));
     }
     Ok(snap)
 }

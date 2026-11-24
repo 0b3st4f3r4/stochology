@@ -4,7 +4,7 @@
 
 ## What the part establishes
 
-Across thirty-five domains—from fluid turbulence and cell signaling to courtroom proof and planetary fisheries—Part V establishes three practical results. None is a sweeping metaphysical claim, yet together they carry every real institutional problem.
+Across thirty-five domains—from fluid turbulence and cell signaling to courtroom proof and planetary fisheries—Part V establishes three practical results. None is a sweeping metaphysical claim, yet together they carry the institutional problems governed by the three-plane circuit.
 
 **First, the same three-plane circuit recurs everywhere.** Whether examining a clinical trial, an ancient manuscript, a computer cluster, or formative tragedy in [Layer 20](70-layer-acoustic-aesthetic-tragic-pedagogical-order.md), every order runs into the same three questions: what the archive identifies, how long the physical system endures, and who holds accountable authority. Showing this across $\binom{7}{3}=35$ guard triples demonstrates portability rather than metaphysical universality—which is the most a book of concrete cases can prove.
 
@@ -14,7 +14,7 @@ Across thirty-five domains—from fluid turbulence and cell signaling to courtro
 
 ## The closure
 
-[Chapter 85](85-layer-polycentric-commons-urban-biospheric-order.md) brings the thirty-five-chapter sequence to a close across the five terminal endpoints of the dependency graph $\mathcal{G}\_1$. At that close, the cumulative minimum folds strictly after the fact into the co-diagnostic pair $\mathcal{D}\_{\mathrm{diag}} = \bigl(M\_{\mathrm{Leontief}}, \Theta\_{\mathrm{basin}}\bigr)$, tracking both the weakest internal axis and external reception-perimeter strain without acting as a live control target.
+[Chapter 85](85-layer-polycentric-commons-urban-biospheric-order.md) closes the thirty-five-chapter sequence: its ancestor cone $\mathrm{Cone}(L\_{35})$ covers twenty-eight orders beside four parallel terminal sinks (`L20`, `L21`, `L22`, `L25`) carrying the remaining seven (`L14`, `L18`–`L22`, `L25`). Across all five endpoints of the dependency graph $\mathcal{G}\_1$, the cumulative internal minimum ($M\_{\mathrm{cumulative}}^{(1..35)} \le \mathcal{H}(L\_{35})$) is paired strictly after the fact with external reception-perimeter strain $\Theta\_{\mathrm{basin}}$ inside the co-diagnostic pair $\mathcal{D}\_{\mathrm{diag}} = \bigl(M\_{\mathrm{Leontief}}, \Theta\_{\mathrm{basin}}\bigr)$ without acting as a live control target.
 
 Neither number in that pair reduces to the other. A passing local margin never excuses dumping losses onto neighboring communities or overriding custodial consent boundaries ([Layer 21](71-layer-linguistic-evidential-pragmatic-order.md); [Chapter 85](85-layer-polycentric-commons-urban-biospheric-order.md)). The architecture stays closed strictly inside the thirty-five three-site combinations without inventing a thirty-sixth layer.
 
@@ -22,13 +22,13 @@ Neither number in that pair reduces to the other. A passing local margin never e
 
 Four explicit boundaries mark where Part V ends its claims.
 
-**Thirty-five is a combinatorial count, not a map of all reality.** The number counts the distinct three-site subsets formed from seven circuit transits across three planes and their closure, as introduced in [Part V — Introduction](part-v-introduction.md).
+**Thirty-five is a combinatorial count, not a map of all reality.** The number counts the distinct three-site subsets formed from the circuit's seven transits—six ordered crossings across three planes plus their integral closure—as introduced in [Part V — Introduction](part-v-introduction.md).
 
 **The seven guard sites interact rather than failing independently.** Framing shapes which tests get run, published rules change what people report, and status discounting stretches how long warnings wait before action. The thirty-five triples are distinguishable checkpoints along one connected circuit, not isolated mechanical parts.
 
 **The seven strata are editorial landmarks rather than laws of nature.** Each stratum anchor is a designation recorded rather than derived from the table of layers. The neat symmetry of five orders per stratum comes from how the table is organized, and a different grouping would yield a different tour through the same thirty-five chapters.
 
-**Upper financial and legal collapses feed downward into physical and archival layers.** Although knowledge orders build upward along the acyclic dependency graph $\mathcal{G}\_1$, failures in Strata $S\_6$–$S\_7$ routinely erode physical buffers and data integrity down in $S\_1$–$S\_3$. The acyclic dependency graph marks that downward feedback only as an external boundary.
+**Upper financial and legal collapses feed downward into physical and archival layers.** Although knowledge orders build upward along the acyclic dependency graph $\mathcal{G}\_1$, failures in Strata `S6`–`S7` routinely erode physical buffers and data integrity down in `S1`–`S3`. The acyclic dependency graph marks that downward feedback only as an external boundary.
 
 ## What Part V leaves the reader with
 
@@ -38,4 +38,4 @@ What you cannot do is collapse those three dimensions into one blended performan
 
 That is why this treatise studies aim rather than optimization. An aim can be missed; a blind optimum simply drifts until impact. Every safeguard in the framework exists to expose an off-target trajectory while correction is still possible—by holding three distinct safeguards intact rather than trading one against another.
 
-With cross-domain portability demonstrated across thirty-five layers, [Part VI — Introduction](part-vi-introduction.md) narrows the zoom onto one shot unfolding in slow motion. Its chapters follow the single-step tuple $\sigma\_t = (\mathbf{u}\_t, \mathbf{w}\_t, \mathbf{m}\_t)$—separating what the actor prepared, what happened outside, and what margins were recorded—across all seven guard sites in sequence without letting lucky outcomes rewrite earlier commitments. That close-up begins in [Chapter 86 — Posture Before the Bowstring Draws](86-posture-before-bowstring-draws.md), where pre-draw framing and attested reopening protect the written control record $\mathbf{u}\_t$ before release.
+With cross-domain portability demonstrated across thirty-five layers, [Part VI — Introduction](part-vi-introduction.md) narrows the zoom onto one shot unfolding in slow motion. Its chapters follow the single-step tuple $\sigma\_t = (\mathbf{u}\_t, \mathbf{w}\_t, \mathbf{m}\_t)$—separating what the actor prepared, what happened outside, and what margins were recorded—across all seven guard sites in sequence without letting lucky outcomes rewrite earlier commitments. That close-up begins in [Chapter 86 — Posture Before the Bowstring Draws](86-posture-before-bowstring-draws.md), where pre-draw framing, standpoint cost–loss disclosure, Cromwell floors, and door-bias separation protect the written control record $\mathbf{u}\_t$ before release (deferring attested counter-inductive reopening under concurrent stress to Part VII).

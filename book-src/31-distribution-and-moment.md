@@ -145,10 +145,10 @@ The covariance $\mathrm{Cov}(X, Y) = \mathbb{E}[(X - \mathbb{E}[X])(Y - \mathbb{
 
 Standard bell curves decay exponentially, so events ten times larger than average practically never happen. Real operational, flood, and financial shocks often follow **power-law tails**, where exceeding huge thresholds declines algebraically as $\mathbb{P}(X > x) \sim L(x) x^{-\alpha}$ ($\alpha > 0$, with $L(x)$ a slowly varying adjustment). The tail exponent $\alpha$ tells us how fast extreme probability drops: smaller $\alpha$ means a fatter tail.
 
-That single exponent splits moment existence—which averages and spreads even exist mathematically—into four distinct regimes:
+On non-negative losses $X \ge 0$ (or two-sided tails $\mathbb{P}(|X| > x) \sim L(x) x^{-\alpha}$ when both signs carry extremes), that single exponent splits moment existence—which averages and spreads even exist mathematically—into four distinct regimes:
 
 1. **$\alpha > 4$:** Mean, variance, and fourth moment are all finite. Sample variances stabilize cleanly, and classic Gaussian central limit rates ($O(1/\sqrt{n})$) hold.
-2. **$2 < \alpha \le 4$:** Mean and variance remain finite and averages converge, yet the fourth moment diverges (infinite kurtosis; for $2 < \alpha \le 3$ and pure Pareto tails even skewness $\gamma\_1$ and cubic Taylor terms diverge), making sample variance erratic.
+2. **$2 < \alpha \le 4$:** Mean and variance remain finite and averages converge, yet for pure Pareto tails ($L(x) = c > 0$, or whenever $\int^\infty x^3 L(x)x^{-\alpha}\mkern3mu dx = \infty$) the fourth moment diverges (infinite kurtosis, unless a decaying factor like $L(x) = (\ln x)^{-2}$ rescues finiteness right at $\alpha = 4$; for $2 < \alpha \le 3$ and pure Pareto tails even skewness $\gamma\_1$ and cubic Taylor terms diverge), making sample variance erratic.
 3. **$1 < \alpha \le 2$:** The mean stays finite, yet for pure Pareto tails ($L(x) = c > 0$, or whenever $\int^\infty x L(x)x^{-\alpha}\mkern3mu dx = \infty$) theoretical variance explodes to infinity and sample variances grow indefinitely (unless a decaying factor like $L(x) = (\ln x)^{-2}$ rescues finiteness right at $\alpha = 2$).
 4. **$\alpha \le 1$:** For pure Pareto tails (and whenever $\int^\infty L(x)x^{-\alpha}\mkern3mu dx = \infty$), even the mean does not exist. Sample averages climb upward whenever a bigger extreme arrives.
 
@@ -186,9 +186,9 @@ In plain words, Hill's index is simply the maximum-likelihood rate estimator of 
 
 Notice that Hill's cutoff $X\_{(n-k)}$ is not an external fixed number—it is a data-selected threshold sitting below the $k$ top observations. What happens if someone shifts that anchor up one notch to $X\_{(n-k+1)}$ while keeping $k$ in the numerator?
 
-With the raised anchor, the last log-ratio equals $\ln 1 = 0$, so the sum drops the $k$-th gap $D\_k$ and shrinks pathwise to $S\_k - D\_k$:
+With the raised anchor ($k \ge 2$), the last log-ratio equals $\ln 1 = 0$, so the sum drops the $k$-th gap $D\_k$ and shrinks pathwise to $S\_k - D\_k$:
 
-$$\sum\_{i=1}^{k}\ln\frac{X\_{(n-i+1)}}{X\_{(n-k+1)}} \mkern5mu=\mkern5mu \sum\_{j=1}^{k-1} D\_j \mkern5mu=\mkern5mu S\_k - D\_k \mkern5mu=\mkern5mu \frac{k - 1}{\hat{\alpha}\_{k-1}}.$$
+$$\sum\_{i=1}^{k}\ln\frac{X\_{(n-i+1)}}{X\_{(n-k+1)}} \mkern5mu=\mkern5mu \sum\_{j=1}^{k-1} D\_j \mkern5mu=\mkern5mu S\_k - D\_k \mkern5mu=\mkern5mu \frac{k - 1}{\hat{\alpha}\_{k-1}} \qquad (k \ge 2).$$
 
 Their expectations stand in the ratio $(k-1)/k$ because $\mathbb{E}[S\_k] = k/\alpha$ while $\mathbb{E}[S\_k - D\_k] = (k-1)/\alpha$. Why doesn't moving the anchor shift the total $k$ times as much? Because the anchor enters $S\_k$ with weight $k$ and enters $D\_k$ with the exact same weight $k$, so both terms cancel in $S\_k - D\_k$.
 
@@ -197,15 +197,15 @@ Even with the standard anchor, taking a reciprocal introduces systematic upward 
 $$\mathbb{E}[\hat{\alpha}\_k] = \alpha\mkern3mu\frac{k}{k-1}, \qquad
 \mathrm{Var}(\hat{\alpha}\_k) = \alpha^2\mkern3mu\frac{k^2}{(k-1)^2(k-2)} \quad (k > 1 \text{ for } \mathbb{E};\mkern5mu k > 2 \text{ for } \mathrm{Var}).$$
 
-Raising the anchor to $X\_{(n-k+1)}$ turns the sum into Gamma$(k - 1, \alpha)$, pushing expected index even higher to $\mathbb{E}[\hat{\alpha}'] = \alpha k/(k-2)$ for $k > 2$—reporting a falsely lighter tail by factor $(k-1)/(k-2)$, which differs from the sum's $(k-1)/k$ factor by $O(1/k^2)$ because the reciprocal of a mean never equals the mean of a reciprocal. Even standard $\hat{\alpha}\_k$ carries positive bias $\alpha/(k-1)$ decaying as $1/k$, slower than its interval half-width $1/\sqrt{k}$. Small tail samples thus slant systematically toward comforting light tails unless corrected.
+Raising the anchor to $X\_{(n-k+1)}$ turns the sum into Gamma$(k - 1, \alpha)$, pushing expected index even higher to $\mathbb{E}[\hat{\alpha}'] = \alpha k/(k-2)$ for $k > 2$—inflating $\mathbb{E}[\hat{\alpha}\_k]$ by factor $(k-1)/(k-2)$, which differs from the inverse $k/(k-1)$ of the sum's $(k-1)/k$ factor by $\frac{1}{(k-1)(k-2)} = O(1/k^2)$ (and from $(k-1)/k$ itself by $\Theta(1/k)$) because the reciprocal of a mean never equals the mean of a reciprocal. Even standard $\hat{\alpha}\_k$ carries positive bias $\alpha/(k-1) = O(1/k)$; while that bias shrinks faster asymptotically than the $O(1/\sqrt{k})$ interval half-width as $k \to \infty$, at small tail counts (such as $k = 3$) it still slants estimates sharply upward toward comforting light tails unless corrected.
 
 ### 3.3 The cut-off trades bias for variance
 
-When $L(x)$ varies slowly rather than staying constant, picking $k$ trades threshold fidelity against sampling noise. Under a Hall second-order expansion $L(x) = C(1 + c\mkern2mu x^{-\kappa} + o(x^{-\kappa}))$ with convergence rate $\kappa > 0$ (distinct from GPD scale $\beta > 0$), the log-excess tail ratio perturbs as:
+When $L(x)$ varies slowly rather than staying constant, picking $k$ trades threshold fidelity against sampling noise. Under a Hall second-order expansion $L(x) = C(1 + c\mkern2mu x^{-\kappa} + o(x^{-\kappa}))$ (Hall 1982, writing $\beta$ on the $x$-scale for convergence rate $\kappa > 0$, distinct from GPD scale $\beta > 0$), the log-excess tail ratio perturbs as:
 
 $$\frac{L(u e^y)}{L(u)} = 1 + c\mkern3mu u^{-\kappa}\bigl(e^{-\kappa y} - 1\bigr) + o(u^{-\kappa}).$$
 
-The correction vanishes at $y = 0$ and bends positive excesses ($y > 0$) by $e^{-\kappa y} - 1 < 0$. That tilt shifts $\mathbb{E}[\ln(X/u) \mid X > u]$ by $-\frac{c\kappa}{\alpha(\alpha+\kappa)}u^{-\kappa} + o(u^{-\kappa})$ (sign $-c$), biasing $\hat{\alpha}\_k$ in the direction of $+c$. Since exceedance probability scales as $k/n \sim C u^{-\alpha}$, the threshold behaves as $u \asymp (n/k)^{1/\alpha}$. Thus the bias grows with $k$ at rate $(k/n)^{\tilde{\beta}}$ (where $\tilde{\beta} = \kappa/\alpha = -\rho > 0$ marks Hall's second-order exponent, distinct from queue utilization $\rho$ in §5), while estimation standard error shrinks as $\alpha/\sqrt{k}$. At the mean-squared-error optimum where bias matches standard error, unadjusted intervals around $\hat{\alpha}\_k$ miss nominal coverage unless we undersmooth ($k = o(k^\ast)$) or subtract bias—and under slow logarithmic decay, no flat Hill plateau exists at all (Embrechts, Klüppelberg & Mikosch 1997).
+The correction vanishes at $y = 0$ and bends positive excesses ($y > 0$) by $e^{-\kappa y} - 1 < 0$. That tilt shifts $\mathbb{E}[\ln(X/u) \mid X > u]$ by $-\frac{c\kappa}{\alpha(\alpha+\kappa)}u^{-\kappa} + o(u^{-\kappa})$ (sign $-c$), biasing $\hat{\alpha}\_k$ in the direction of $+c$. Since exceedance probability scales as $k/n \sim C u^{-\alpha}$, the threshold behaves as $u \asymp (n/k)^{1/\alpha}$. Thus the bias grows with $k$ at rate $(k/n)^{\tilde{\beta}}$ (where $\tilde{\beta} = \kappa/\alpha = -\rho > 0$ marks the quantile-scale second-order exponent corresponding to Hall's (1982) $x$-scale exponent $\kappa$, distinct from queue utilization $\rho$ in §5), while estimation standard error shrinks as $\alpha/\sqrt{k}$. At the mean-squared-error optimum where bias matches standard error, unadjusted intervals around $\hat{\alpha}\_k$ miss nominal coverage unless we undersmooth ($k = o(k^\ast)$) or subtract bias—and under slow logarithmic decay, no flat Hill plateau exists at all (Embrechts, Klüppelberg & Mikosch 1997).
 
 ### 3.4 When the mean stops representing risk
 
@@ -222,7 +222,7 @@ How do we grade a full forecast distribution $F$ rather than a single guessed po
 
 $$\mathrm{CRPS}(F, y) = \int\_{-\infty}^{\infty} \bigl(F(x) - \mathbf{1}\_{\lbrace{}x \ge y\rbrace}\bigr)^2\mkern3mu dx.$$
 
-In plain words, CRPS integrates the squared gap between your predicted probability curve and the step jump at the realized outcome $y$, measured in the physical units of $y$. Gneiting and Raftery (2007) prove it is proper across all probability laws and strictly proper on laws $\mathcal{P}\_1$ with finite mean ($\mathbb{E}[|Y|] < \infty$, requiring $\alpha > 1$ for pure Pareto). When $\alpha \le 1$ destroys the mean, expected CRPS diverges to $+\infty$ even though single-point values stay finite for $\alpha > 1/2$. Within $\mathcal{P}\_1$, Hersbach (2000) splits mean CRPS into three legible pieces:
+In plain words, CRPS integrates the squared gap between your predicted probability curve and the step jump at the realized outcome $y$, measured in the physical units of $y$. Gneiting and Raftery (2007) prove that the integral form is proper across Borel probability laws $\mathcal{P}$ (including vacuously $\infty \le \infty$ when expectations diverge) and that finite expected-score comparisons and non-vacuous **strict propriety** hold strictly on the finite-first-moment subclass $\mathcal{P}\_1$ ($\mathbb{E}[|Y|] < \infty$, requiring Pareto $\alpha > 1$, where the kernel form $\mathbb{E}\_F|X - y| - \frac{1}{2}\mathbb{E}\_F|X - X'|$ applies). Under power-law tails, pointwise $\mathrm{CRPS}(F, y)$ converges for every $y \in \mathbb{R}$ when $\alpha > 1/2$ (diverging identically to $+\infty$ for $\alpha \le 1/2$), yet for $\alpha \in (1/2, 1]$ we have $\mathrm{CRPS}(F, y) \sim y$ as $y \to \infty$ so expected CRPS still diverges to $+\infty$ and the kernel difference collapses to $\infty - \infty$ ([Appendix A](appendix-a-mathematics.md) §A.2). Within $\mathcal{P}\_1$, Hersbach (2000) splits mean CRPS into three legible pieces:
 
 $$\mathrm{CRPS} = \text{Reliability (Miscalibration)} - \text{Resolution} + \text{Uncertainty}.$$
 
@@ -232,7 +232,7 @@ Outside calibrated ensembles, residual resolution can turn negative; good foreca
 
 In [Chapter 12](12-derivatives-and-convexity.md), we saw how curving-upward (convex) harm turns dispersion into extra loss. Flood damage scales faster than flood height, and queue wait times explode as arrival utilization $\rho \in [0, 1)$ nears capacity along Kingman's curve $\rho/(1-\rho)$ (Kingman 1961; formalized in [Chapter 38](38-time-and-dependence.md)).
 
-Recall **Jensen's inequality** (Jensen 1906): whenever loss map $\phi(x)$ is convex—meaning every chord sits above the curve—and expectations exist ($\mathbb{E}[|X|] < \infty$, $\mathbb{E}[|\phi(X)|] < \infty$), average loss strictly exceeds the loss at the average input:
+Recall **Jensen's inequality** (Jensen 1906): whenever loss map $\phi(x)$ is convex—meaning every chord sits on or above the curve—and expectations exist ($\mathbb{E}[|X|] < \infty$, $\mathbb{E}[|\phi(X)|] < \infty$), average loss never falls below the loss at the average input (strictly exceeding it whenever $X$ is non-degenerate and $\phi$ is non-affine on the support of $X$, such as strictly convex loss):
 
 $$\phi\bigl(\mathbb{E}[X]\bigr) \le \mathbb{E}\bigl[\phi(X)\bigr].$$
 
@@ -254,7 +254,7 @@ Conversely, given latent net curves $S\_1(t)$ and $S\_2(t)$ without pretending b
 
 $$\max\bigl(0,\mkern3mu S\_1(t) + S\_2(t) - 1\bigr) \le S\_T(t) \le \min\bigl(S\_1(t),\mkern3mu S\_2(t)\bigr).$$
 
-Multiplying $S\_1(t) S\_2(t)$ silently assumes independence where data yield only an interval ([Chapter 44, *Underdetermination, Partial Identification, and Severe Testing*](44-underdetermination-partial-identification.md)). Worse, whenever a competing cause kills a positive share of units ($P\_k^\ast(\infty) > 0$ for $k \ne j$), Peterson's upper bound $1 - P\_j^\ast(t)$ never falls to zero as $t \to \infty$—leaving mass at infinity and making every latent mean or moment $\mathbb{E}[T\_j^p] = +\infty$ ($p > 0$) unbounded without extra dependence assumptions.
+Multiplying $S\_1(t) S\_2(t)$ silently assumes independence where data yield only an interval ([Chapter 44, *Underdetermination, Partial Identification, and Severe Testing*](44-underdetermination-partial-identification.md)). Worse, whenever a competing cause kills a positive share of units ($P\_k^\ast(\infty) > 0$ for $k \ne j$), Peterson's upper bound $1 - P\_j^\ast(t)$ never falls to zero as $t \to \infty$—leaving unidentified probability mass at infinity and making the sharp identified upper bound $\sup \mathbb{E}[T\_j^p] = +\infty$ ($p > 0$) infinite without extra dependence assumptions.
 
 ### Which moments exist
 
@@ -266,13 +266,13 @@ Estimated tail indices shift automatically whenever analysts move estimator cuto
 
 ### Two cuts solved by hand
 
-Hill's estimator is a log-ratio whose endpoints check by hand. At $k = 1$, $\hat{\alpha}\_1 = 1/\ln(X\_{(n)}/X\_{(n-1)})$ uses only the top two records; at $k = n - 1$, $\hat{\alpha}\_{n-1} = (n - 1) / \sum\_{i=2}^{n} \ln(X\_{(i)}/X\_{(1)})$ spans the whole ordered sample. Both remain unit-free under currency rescaling, so differing treaty indices trace back to cutoffs or shifts until proven otherwise. Honest diagnostics publish the full Hill curve and band over a pre-registered grid of $k$.
+Hill's estimator is a log-ratio whose endpoints check by hand. At $k = 1$ (with $X\_{(n)} > X\_{(n-1)} > 0$), $\hat{\alpha}\_1 = 1/\ln(X\_{(n)}/X\_{(n-1)})$ uses only the top two records; at $k = n - 1$, $\hat{\alpha}\_{n-1} = (n - 1) / \sum\_{i=2}^{n} \ln(X\_{(i)}/X\_{(1)})$ spans the whole ordered sample. Both remain unit-free under currency rescaling, so differing treaty indices trace back to cutoffs or shifts until proven otherwise. Honest diagnostics publish the full Hill curve and band over a pre-registered grid of $k$.
 
 A second cutoff governs Taylor budget approximations whenever variance $\sigma^2 < \infty$ holds ([Chapter 12](12-derivatives-and-convexity.md)). Expanding smooth loss $\phi$ around mean $\mu$ gives $\phi(\mu+\epsilon) = \phi(\mu) + \phi'(\mu)\epsilon + \frac{1}{2} \phi''(\mu)\epsilon^2 + O(\epsilon^3)$, which approximates the Jensen gap by $\mathbb{E}[\phi(X)] - \phi(\mu) \approx \frac{1}{2} \phi''(\mu)\sigma^2$. This quadratic adjustment works only when $\alpha > 2$ (finite variance) and skewness stays tame: third moments diverge across $2 < \alpha \le 3$, and for $\alpha > 3$ with $\phi'''(\mu) \ne 0$, cubic distortion swamps the quadratic estimate once $|\gamma\_1|\sigma > 3|\phi''(\mu)|/|\phi'''(\mu)|$.
 
 ### The cap that makes the suggested reserve wrong
 
-A contractual policy limit $K$ caps only the **payer's liability** $X \wedge K = \min(X, K)$ per event, leaving the **physical tail index** $\alpha$ of $X$ unchanged. Below $K$, funding $\phi(\mathbb{E}[X \wedge K])$ still under-reserves convex damage because curvature persists ($\mathbb{E}[\phi(X \wedge K)] \ge \phi(\mathbb{E}[X \wedge K])$). Treating $K$ as physical safety ignores sub-cap convexity and exports uncapped excess $(X - K)\_+$ onto unconsenting external reception perimeters; payers must fund $\mathbb{E}[\phi(g(X))]$ directly, while governance audits $(X - K)\_+$ ex post rather than as scalar targets.
+A contractual policy limit $K$ caps only the **payer's liability** $g(X) := X \wedge K = \min(X, K)$ per event, leaving the **physical tail index** $\alpha$ of $X$ unchanged. Below $K$, funding $\phi(\mathbb{E}[X \wedge K])$ still under-reserves convex damage because curvature persists ($\mathbb{E}[\phi(X \wedge K)] \ge \phi(\mathbb{E}[X \wedge K])$). Treating $K$ as physical safety ignores sub-cap convexity and exports uncapped excess $(X - K)\_+$ onto unconsenting external reception perimeters; payers must fund $\mathbb{E}[\phi(g(X))] = \mathbb{E}[\phi(X \wedge K)]$ directly (or the corresponding declared retained-payout map $(X - r)\_+ \wedge K$ with retention $r \ge 0$), while governance audits $(X - K)\_+$ ex post rather than as scalar targets.
 
 ### The archive is left-truncated, so the index is conditional
 

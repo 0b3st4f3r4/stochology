@@ -22,7 +22,7 @@
 
 The part begins with a choice that cannot wait. Acting under uncertainty is not a puzzle where all the odds sit neatly in a textbook and only arithmetic remains. It is the situation where you have to decide *before* the facts finish arriving—and where the choice you make alters the world you will later observe. Everything the rest of the book builds follows from taking that sentence seriously.
 
-[Chapter 01](01-deciding-without-knowing.md) sets the loop in motion: a real **World** where storms and hazards unfold, an **Archive** that records only part of them, an **Institution** that decides across split incentives, and an outcome that reshapes tomorrow's records. That closed loop cannot be judged one isolated step at a time without losing what makes it a loop.
+[Chapter 01](01-deciding-without-knowing.md) opens the three arenas—a real **World** where storms and hazards unfold, an **Archive** that records only part of them, and an **Institution** that decides across split incentives—showing why action cannot wait for certainty across split ledgers and previewing the closed loop developed across the part (culminating in [Chapter 06](06-who-is-missing-from-the-table.md) and [Chapter 07](07-when-the-measure-becomes-the-goal.md)). That closed loop cannot be judged one isolated step at a time without losing what makes it a loop.
 
 ## Three comforts the part removes
 
@@ -32,9 +32,9 @@ The next three chapters take away three comforting habits that make decisions lo
 
 Each of these three chapters tests what a record of past results can really prove. Together they show that a ledger of outcomes is not yet a record of good judgment.
 
-## From belief to table
+## From past ledgers to institutional tables
 
-The following three chapters move from personal beliefs to the tables and scorecards institutions rely on.
+The following three chapters move from ledgers of past outcomes to the diagnostic counts, missing rows, and scorecards institutions rely on.
 
 [Chapter 05](05-what-a-number-doesnt-say.md) asks what a bare number hides: uncalibrated dials behind crisp decimal places, rare-condition false alarms hidden inside alarming percentages, and the margin of uncertainty missing from point claims. [Chapter 06](06-who-is-missing-from-the-table.md) asks who never made it onto the spreadsheet at all—separating unmeasured blank cells from true zeros and from realities the form never even had a column for—and maps the closed three-arena loop across World, Archive, and Institution. [Chapter 07](07-when-the-measure-becomes-the-goal.md) asks what happens once people know they are graded by a number: targets warp behavior, break proxies, and reshape tomorrow's records.
 

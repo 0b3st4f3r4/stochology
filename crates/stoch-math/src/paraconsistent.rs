@@ -144,12 +144,23 @@ impl Filter1Claim {
 
     /// Merges two legitimate archive claims conservatively inside Filter I quarantine.
     ///
-    /// Preserves `NotAskable` exclusions without coercing to zero or `Both`, elevates any
-    /// discrepant known readings or contradictory truth values to [`FdeState::Both`] and
-    /// [`LocalConsistency::Contested`], and keeps [`CoddValue::ApplicableUnknown`] when
-    /// one stream reports a missing observation.
+    /// Forms a commutative, associative, idempotent join semilattice: preserves
+    /// canonical `NotAskable` exclusions as top annihilator without coercing to zero or `Both`,
+    /// elevates any discrepant known readings or contradictory Codd statuses to
+    /// [`CoddValue::ApplicableUnknown`], [`FdeState::Both`], and [`LocalConsistency::Contested`],
+    /// and preserves identical uncontested observations.
     #[must_use]
     pub const fn merge_claim(self, other: Self) -> Self {
+        if matches!(self.value, CoddValue::NotAskable)
+            || matches!(other.value, CoddValue::NotAskable)
+        {
+            return Self {
+                value: CoddValue::NotAskable,
+                fde: FdeState::Neither,
+                consistency: LocalConsistency::Consistent,
+            };
+        }
+
         let mut fde = self.fde.info_join(other.fde);
         let mut consistency = match (self.consistency, other.consistency) {
             (LocalConsistency::Consistent, LocalConsistency::Consistent) => {
@@ -159,21 +170,14 @@ impl Filter1Claim {
         };
 
         let value = match (self.value, other.value) {
-            (CoddValue::NotAskable, _) | (_, CoddValue::NotAskable) => CoddValue::NotAskable,
             (CoddValue::Inapplicable, CoddValue::Inapplicable) => CoddValue::Inapplicable,
-            (CoddValue::Inapplicable, _) | (_, CoddValue::Inapplicable) => {
-                consistency = LocalConsistency::Contested;
-                fde = FdeState::Both;
+            (CoddValue::Known(a), CoddValue::Known(b)) if a == b => CoddValue::Known(a),
+            (CoddValue::ApplicableUnknown, CoddValue::ApplicableUnknown) => {
                 CoddValue::ApplicableUnknown
             }
-            (CoddValue::Known(a), CoddValue::Known(b)) => {
-                if a != b {
-                    fde = FdeState::Both;
-                    consistency = LocalConsistency::Contested;
-                }
-                CoddValue::Known(a)
-            }
-            (CoddValue::ApplicableUnknown, _) | (_, CoddValue::ApplicableUnknown) => {
+            _ => {
+                fde = FdeState::Both;
+                consistency = LocalConsistency::Contested;
                 CoddValue::ApplicableUnknown
             }
         };
@@ -306,6 +310,34 @@ mod tests {
             LocalConsistency::Consistent,
         );
         assert!(!gap.can_seal());
+
+        let sample = [
+            Filter1Claim::new(
+                CoddValue::NotAskable,
+                FdeState::Neither,
+                LocalConsistency::Consistent,
+            ),
+            a,
+            b_diff,
+            gap,
+            Filter1Claim::new(
+                CoddValue::Inapplicable,
+                FdeState::False,
+                LocalConsistency::Contested,
+            ),
+        ];
+        for &x in &sample {
+            assert_eq!(x.merge_claim(x).value, x.value);
+            for &y in &sample {
+                assert_eq!(x.merge_claim(y), y.merge_claim(x));
+                for &z in &sample {
+                    assert_eq!(
+                        x.merge_claim(y).merge_claim(z),
+                        x.merge_claim(y.merge_claim(z))
+                    );
+                }
+            }
+        }
     }
 
     #[test]

@@ -145,13 +145,13 @@
 
 A water authority watches a rolling average of reservoir inflows hover inside a tight band for thirty months and declares that inflows have stabilized permanently. The multi-year drought that drops the baseline arrives the next month. Watching recent points stay close together proves only that recent months were calm, not that an infinite sequence has settled.
 
-A **real sequence** $(a\_n)\_{n=1}^\infty$ lists one real number $a\_n \in \mathbb{R}$ for each step $n \in \mathbb{N}$ (or elements in a metric space $(X, d)$ where distance $|a\_n - L|$ becomes $d(a\_n, L)$). Before writing the formal rule, compare three concrete sequences by hand:
+A **real sequence** $(a\_n)\_{n=1}^\infty$ lists one real number $a\_n \in \mathbb{R}$ for each step $n \in \mathbb{Z}\_{\ge 1}$ (i.e., $n \in \mathbb{N} \setminus \lbrace 0 \rbrace$, keeping $\mathbb{N} = \lbrace 0, 1, 2, \dots \rbrace$ from [Chapter 10](10-numbers-order-bounds.md); or elements in a metric space $(X, d)$ where distance $|a\_n - L|$ becomes $d(a\_n, L)$). Before writing the formal rule, compare three concrete sequences by hand:
 
 - **Settling down:** $a\_n = 1/n$ produces $1,\; 1/2,\; 1/3,\; 1/4, \dots$, squeezing steadily closer to $0$ and staying there.
 - **Persistent bouncing:** $b\_n = (-1)^n$ produces $-1,\; 1,\; -1,\; 1, \dots$, remaining bounded between $-1$ and $1$ without ever settling on one target.
 - **Deceptive slow drift:** $c\_n = \sum\_{k=1}^n 1/k$ starts as $1,\; 1.5,\; 1.833\dots,\; 2.083\dots$. Adjacent steps shrink toward zero ($c\_{n+1} - c\_n = 1/(n+1)$), yet adding enough terms pushes $c\_n$ past every ceiling toward $+\infty$.
 
-That third example explains why formal analysis never defines convergence as "neighboring terms getting close." Instead, sequence $(a\_n)$ **converges** to limit $L \in \mathbb{R}$ when every tolerance $\epsilon > 0$ admits a cutoff index $N(\epsilon) \in \mathbb{N}$ such that all $n \ge N(\epsilon)$ stay inside tolerance:
+That third example explains why formal analysis never defines convergence as "neighboring terms getting close." Instead, sequence $(a\_n)$ **converges** to limit $L \in \mathbb{R}$ when every tolerance $\epsilon > 0$ admits a cutoff index $N(\epsilon) \in \mathbb{Z}\_{\ge 1}$ such that all $n \ge N(\epsilon)$ stay inside tolerance:
 
 $$|a\_n - L| < \epsilon.$$
 
@@ -162,7 +162,7 @@ A **Cauchy sequence** demands something stronger than shrinking adjacent steps: 
 Even when an infinite limit exists ($n \to \infty$), finite samples give no speed guarantee. A rate of $\mathcal{O}(1/\ln n)$ demands astronomical sample sizes for modest accuracy. Heavy power-law tails $\mathbb{P}(|X| > x) = L(x)x^{-\alpha}$ ($\alpha > 0$, $L$ slowly varying; [Chapter 10](10-numbers-order-bounds.md)) sharpen those finite-sample warnings across three tail regimes:
 
 - **Finite variance ($\alpha > 2$, or $\alpha = 2$ with $\int^\infty x^{-1} L(x)\,dx < \infty$, such as $L(x) = (\ln x)^{-2}$):** under short-range dependence, the sample mean settles at standard error $\mathcal{O}(n^{-1/2})$ ([Distribution and Moment](31-distribution-and-moment.md)).
-- **Finite variance yet infinite fourth moment ($2 < \alpha < 4$, or $\alpha = 4$ with $\int^\infty x^{-1} L(x)\,dx = \infty$, such as constant $L$ or $L(x) = (\ln x)^{-1}$):** the running second-moment average $\hat{m}\_{2,n} = \frac{1}{n}\sum\_{i=1}^n X\_i^2$ still converges, yet $\mathrm{Var}(X^2) = \infty$ prevents $\mathcal{O}(n^{-1/2})$ standard errors. Achieving $\mathcal{O}(n^{-1/2})$ precision for $\hat{m}\_{2,n}$ requires $\alpha > 4$ (or $\alpha = 4$ with $\int^\infty x^{-1} L(x)\,dx < \infty$) and summable autocovariances of $X\_t^2$.
+- **Finite variance yet infinite fourth moment ($2 < \alpha < 4$, or $\alpha = 2$ with $\int^\infty x^{-1} L(x)\,dx < \infty$, or $\alpha = 4$ with $\int^\infty x^{-1} L(x)\,dx = \infty$, such as constant $L$ or $L(x) = (\ln x)^{-1}$):** under ergodicity or short-range dependence, the running second-moment average $\hat{m}\_{2,n} = \frac{1}{n}\sum\_{i=1}^n X\_i^2$ still converges to $\mathbb{E}[X^2]$, yet $\mathrm{Var}(X^2) = \infty$ prevents $\mathcal{O}(n^{-1/2})$ standard errors. Achieving $\mathcal{O}(n^{-1/2})$ precision for $\hat{m}\_{2,n}$ requires finite fourth moment ($\alpha > 4$, or $\alpha = 4$ with $\int^\infty x^{-1} L(x)\,dx < \infty$) and bounded long-run variance—in particular, $\mathbb{E}[X^4] < \infty$ together with absolutely summable autocovariances of $X\_t^2$ is sufficient.
 - **Infinite variance ($\alpha < 2$, or $\alpha = 2$ with $\int^\infty x^{-1} L(x)\,dx = \infty$, even when $L(x) = (\ln x)^{-1}$ decays to zero):** running variance fails the Cauchy test and lurches upward whenever a fresh record arrives. Under regime shifts or long-memory persistence, calm prefixes give false comfort right before conditions break.
 
 ## 2. Limits, Continuity, and Uniform Stability
@@ -171,7 +171,7 @@ An emergency department tracks triage waiting time against bed occupancy across 
 
 To build the intuition for a **function limit**, check a function with a single missing pinhole: $f(x) = (x^2 - 1)/(x - 1)$. At every $x \ne 1$, factoring gives $f(x) = x + 1$, so near $x = 1$ the values $f(0.99) = 1.99$ and $f(1.01) = 2.01$ crowd around $2$. Even if $f(1)$ is undefined or set to $99$, the limit as $x$ approaches $1$ is still $2$.
 
-Formally, for a function $f : D \to \mathbb{R}$ and a limit point $x\_0$ of domain $D$, we write $\lim\_{x \to x\_0} f(x) = L$ when every tolerance $\epsilon > 0$ admits a neighborhood radius $\delta > 0$ such that $0 < |x - x\_0| < \delta$ ($x \in D$) forces $|f(x) - L| < \epsilon$. Notice the condition $0 < |x - x\_0|$ skips $x\_0$ itself. A function is **continuous at $x\_0$** when $x\_0 \in D$ and its value actually meets its limit: $\lim\_{x \to x\_0} f(x) = f(x\_0)$.
+Formally, for a function $f : D \to \mathbb{R}$ and a limit point $x\_0$ of domain $D$, we write $\lim\_{x \to x\_0} f(x) = L$ when every tolerance $\epsilon > 0$ admits a neighborhood radius $\delta > 0$ such that $0 < |x - x\_0| < \delta$ ($x \in D$) forces $|f(x) - L| < \epsilon$. Notice the condition $0 < |x - x\_0|$ skips $x\_0$ itself. A function is **continuous at $x\_0$** when $x\_0 \in D$ and its value actually meets its limit: $\lim\_{x \to x\_0} f(x) = f(x\_0)$ (at any isolated point $x\_0 \in D$ with no other points of $D$ inside some $\delta > 0$, continuity holds automatically via $|x - x\_0| < \delta \implies |f(x) - f(x\_0)| < \epsilon$).
 
 Continuity splits into two strengths. **Pointwise continuity** allows the safe step size $\delta(x, \epsilon)$ to shrink depending on where $x$ stands. **Uniform continuity** requires one global step size $\delta(\epsilon) > 0$ that works across the entire domain $D$: any $x, y \in D$ with $|x - y| < \delta(\epsilon)$ must keep $|f(x) - f(y)| < \epsilon$.
 
@@ -203,13 +203,13 @@ Check that trap with a coin-flip game you can verify in two lines of arithmetic.
 - **Ensemble average (across parallel worlds):** half of the worlds reach $1.5$ and half reach $0.6$, giving an average single-round multiplier of $(1.5 + 0.6)/2 = 1.05$, a $+5\%$ gain per round.
 - **Single-path time average (along one timeline):** after one win and one loss in either order, your wealth is $1.5 \times 0.6 = 0.90$, a $-10\%$ cumulative drop (geometric factor $\sqrt{0.90} \approx 0.949$ per round).
 
-As the rounds repeat, almost every individual player drifts toward zero even while the cross-world average climbs exponentially. That divergence is the core failure of **ergodicity**. A stationary process $(X\_t)\_{t \ge 0}$ with finite expectation ($\mathbb{E}[|X\_t|] < \infty$) is mean-ergodic only when one timeline's long-run average equals the cross-world expectation almost surely:
+As the rounds repeat, almost every individual player drifts toward zero even while the cross-world average climbs exponentially. That divergence is the core failure of **ergodicity**. A jointly measurable stationary process $(X\_t)\_{t \ge 0}$ with finite expectation ($\mathbb{E}[|X\_0|] < \infty$) satisfies **pointwise (Birkhoff) ergodicity** when one timeline's long-run time average equals the cross-world expectation almost surely (whereas $L^2$ mean-square ergodicity additionally requires finite variance $\mathrm{Var}(X\_0) < \infty$):
 
-$$\lim\_{T \to \infty} \frac{1}{T} \int\_0^T X\_t\mkern3mudt = \mathbb{E}[X].$$
+$$\lim\_{T \to \infty} \frac{1}{T} \int\_0^T X\_t\mkern3mudt = \mathbb{E}[X\_0] \quad \text{almost surely}.$$
 
-Here $X\_t$ is the state at time $t$, $T$ is the averaging horizon, and $\mathbb{E}[X]$ is the expectation across all worlds.
+Here $X\_t$ is the state at time $t$, $T$ is the averaging horizon, and $\mathbb{E}[X\_0]$ is the stationary expectation across all worlds.
 
-Multiplicative growth breaks ergodicity systematically. Model continuous compounding via Geometric Brownian Motion with drift rate $\mu \in \mathbb{R}$, positive volatility $\sigma > 0$, standard Brownian motion $W\_t$, and positive starting stake $X\_0 > 0$ (deferring sudden jump shocks to §5):
+Multiplicative growth breaks ergodicity systematically because wealth itself becomes non-stationary. Model continuous compounding via Geometric Brownian Motion with drift rate $\mu \in \mathbb{R}$, positive volatility $\sigma > 0$, standard Brownian motion $W\_t$, and positive starting stake $X\_0 > 0$ (deferring sudden jump shocks to §5):
 
 $$dX\_t = \mu X\_t\mkern3mudt + \sigma X\_t\mkern3mudW\_t, \qquad X\_0 > 0.$$
 
@@ -221,7 +221,7 @@ Average $X\_t$ across all possible worlds and the random noise cancels in expect
 
 $$\mathbb{E}[X\_t] = X\_0 e^{\mu t}.$$
 
-Along any *single* lived timeline, however, the strong law for Brownian increments guarantees $W\_t / t \to 0$ almost surely as $t \to \infty$. Consequently, almost every individual path compounds at the lower log-growth rate $g$:
+Because $X\_t$ is **non-stationary** (its ensemble expectation $\mathbb{E}[X\_t] = X\_0 e^{\mu t}$ grows or shrinks with $t$), $\frac{1}{T}\int\_0^T X\_t\,dt$ never converges to $\mathbb{E}[X\_t]$—instead, whenever $0 < \mu < \frac{1}{2}\sigma^2$, individual paths collapse to $X\_t \to 0$ (and $\frac{1}{T}\int\_0^T X\_t\,dt \to 0$) almost surely even while $\mathbb{E}[X\_t] \to +\infty$. Its **log-return increments** $d\ln X\_t$, by contrast, are stationary: since the strong law for Brownian increments guarantees $W\_t / t \to 0$ almost surely as $t \to \infty$, almost every individual path compounds at the lower log-growth rate $g$ (distinct from §3's fixed-point map $g$) rather than the ensemble-mean growth rate $\mu$:
 
 $$g = \lim\_{t \to \infty} \frac{1}{t} \ln\\!\left(\frac{X\_t}{X\_0}\right) = \mu - \frac{\sigma^2}{2} \quad \text{almost surely}.$$
 
@@ -233,11 +233,11 @@ In the path growth formula $\mu\_{\mathrm{time}} = g = \mu - \frac{1}{2}\sigma^2
 
 1. **Negligible volatility ($\sigma^2/2 \ll \mu$, $\sigma \to 0^+$):** $\mu\_{\mathrm{time}}$ approaches $\mu$, so ensemble drift safely tracks path growth.
 2. **Zero-growth boundary ($\sigma = \sqrt{2\mu}$, $\mu > 0$):** volatility completely eats drift ($\mu\_{\mathrm{time}} = 0$), leaving $\ln(X\_t/X\_0) = \sigma W\_t$ an un-drifted random walk that still hits any lower threshold $b \in (0, X\_0)$ almost surely.
-3. **Decay drain ($\sigma > \sqrt{2\mu}$, $\mu > 0$):** $\mu\_{\mathrm{time}} < 0$ while $\mathbb{E}[X\_t] \to +\infty$; doubling volatility $\sigma$ quadruples the additive drain $\frac{1}{2}\sigma^2$. When $\mu$ itself must be estimated from small or clustered data, finite-sample Kelly shrinkage ($k$; Baker & McHale 2013) scales bets back inside [Time and Dependence](38-time-and-dependence.md) and [Chapter 47](47-irreversible-time-vital-margin.md).
+3. **Decay drain ($\sigma > \sqrt{2\mu}$, $\mu > 0$):** $\mu\_{\mathrm{time}} < 0$ while $\mathbb{E}[X\_t] \to +\infty$; doubling volatility $\sigma$ quadruples the additive drain $\frac{1}{2}\sigma^2$. When $\mu$ itself must be estimated from small or clustered data, finite-sample Kelly shrinkage ($k$, distinct from §1's index $k$ and §3's exponent $k$; Baker & McHale 2013) scales bets back inside [Time and Dependence](38-time-and-dependence.md) and [Chapter 47](47-irreversible-time-vital-margin.md).
 
 ## 5. Consequences for Sequential Decision-Making
 
-Institutions live along one timeline and cannot average losses across parallel worlds. Whenever $0 < \mu < \frac{1}{2}\sigma^2$, ignoring variance drain drives unpooled trajectories toward ruin while ensemble projections promise abundance. Equal-weighted continuous pooling across $N$ independent units shrinks the drain only to $\sigma^2/(2N)$, leaving every finite pool exposed.
+Institutions live along one timeline and cannot average losses across parallel worlds. Whenever $0 < \mu < \frac{1}{2}\sigma^2$, ignoring variance drain drives unpooled trajectories toward ruin while ensemble projections promise abundance. Continuously rebalanced equal-weighted pooling across $N$ independent units shrinks the drain only to $\sigma^2/(2N)$ (whereas static buy-and-hold equal-weighted pooling $\frac{1}{N}\sum\_{i=1}^N X\_t^{(i)}$ retains asymptotic log-growth rate $\mu - \frac{1}{2}\sigma^2$), leaving every finite pool exposed.
 
 ### When the ensemble average fails to return
 
