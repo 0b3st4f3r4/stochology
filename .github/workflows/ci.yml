@@ -185,9 +185,9 @@ jobs:
             python3 "$STYLE_SCRIPT" --verify-online --strict-online --citations-from-diff "$RANGE" --markdown
           fi
 
-      # Solo-maintainer direct pushes skip multi-reviewer PR custody enforcement; PRs and external pushes still enforce it strictly.
+      # Solo-maintainer direct pushes and manual dispatches skip multi-reviewer PR custody enforcement; PRs and external runs still enforce it strictly.
       - name: audit custody tiers, commit trailers, and anti-DoS bloat
-        if: github.event_name != 'push' || github.actor != github.repository_owner
+        if: (github.event_name != 'push' && github.event_name != 'workflow_dispatch') || github.actor != github.repository_owner
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUM: ${{ github.event.pull_request.number }}
