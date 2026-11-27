@@ -193,6 +193,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Assmann, J.** (2010 [2003]). *The Price of Monotheism* (R. Savage, Trans.). Stanford University Press.
 - **Austin, J. L.** (1962). *How to Do Things with Words*. Oxford University Press.
 - **Badian, E.** (1989). History from 'square brackets'. *Zeitschrift für Papyrologie und Epigraphik*, 79, 59–70.
+- **Bainbridge, L.** (1983). Ironies of automation. *Automatica*, 19(6), 775–779. <https://doi.org/10.1016/0005-1098(83)90046-8>
 - **Baker, R. D., & McHale, I. G.** (2013). Optimal betting under parameter uncertainty: Improving the Kelly criterion. *Decision Analysis*, 10(3), 189–199.
 - **Bakunin, M.** (1873/1990). *Gosudarstvennost' i anarkhiya*. Izdatel'stvo Sotsial'no-Revolyutsionnoy Partii, Zurich/Geneva. [Critical English ed.: *Statism and Anarchy* (M. S. Shatz, Ed. & Trans.). Cambridge University Press, 1990.]
 - **Bakunin, M.** (1882/1970 [1871]). *Dieu et l'État*. Imprimerie Jurassienne, Geneva. [English ed.: *God and the State* (B. R. Tucker, Trans.; P. Avrich, Intro.). Dover Publications, New York, 1970.]
@@ -202,6 +203,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Barnes, B.** (1983). Social life as bootstrapped induction. *Sociology*, 17(4), 524–545.
 - **Barnes, D. E., & Bero, L. A.** (1998). Why review articles on the health effects of passive smoking reach different conclusions. *JAMA*, 279(19), 1566–1570.
 - **Baron, J., & Hershey, J. C.** (1988). Outcome bias in decision evaluation. *Journal of Personality and Social Psychology*, 54(4), 569–579.
+- **Barr, E. T., Harman, M., McMinn, P., Shahbaz, M., & Yoo, S.** (2015). The oracle problem in software testing: A survey. *IEEE Transactions on Software Engineering*, 41(5), 507–525. <https://doi.org/10.1109/TSE.2014.2372785>
 - **Basel Committee on Banking Supervision** (2019). *Minimum Capital Requirements for Market Risk*. Bank for International Settlements, Basel, January 2019.
 - **Batens, D.** (2000). A survey of inconsistency-adaptive logics. In D. Batens, C. Mortensen, G. Priest, & J. P. Van Bendegem (Eds.), *Frontiers of Paraconsistent Logic* (pp. 49–73). Research Studies Press, Baldock.
 - **Bateson, G.** (1972/2000). *Steps to an Ecology of Mind: Collected Essays in Anthropology, Psychiatry, Evolution, and Epistemology*. University of Chicago Press.
@@ -410,6 +412,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Galen** (*c.* 200 CE). *Introductio seu medicus* [Pseudo-Galen] (ch. 5, Kühn XIV 685,12–686,1 within 684,9–686,13), *De locis affectis* (I.1, Kühn VIII 14,9–12), and *Ars medica* (ch. 19, Kühn I 353,11–13; V. Boudon-Millot, Ed. & Trans., *Exhortation à l'étude de la médecine ; Art médical*, Tome II, Les Belles Lettres, 2000).
 - **Gardiner, S. M.** (2023). The ethical risks of an intergenerational World Climate Bank (as opposed to a Climate Justice World Bank). Working Paper 2023:7 (pp. 115–148), The Institute for Futures Studies.
 - **Garnett, S. T., Johnston, C. E., Bowles, P., Christidis, L., Conix, S., Duckworth, J. W., Lien, A., Zachos, F. E., & Witteveen, J.** (2026). Evaluating the use of taxonomy in the IUCN Red List. *Conservation Biology*, 40(5), e70306. <https://doi.org/10.1111/cobi.70306>
+- **Garrabrant, S., Benson-Tilsen, T., Critch, A., Soares, N., & Taylor, J.** (2016). *Logical Induction*. *arXiv:1609.03543*. <https://arxiv.org/abs/1609.03543>
 - **Geanakoplos, J.** (2010). The leverage cycle. *NBER Macroeconomics Annual 2009*, 24, 1–65.
 - **Gelman, A., & Loken, E.** (2014). The statistical crisis in science. *American Scientist*, 102(6), 460. <https://doi.org/10.1511/2014.111.460>
 - **Georgescu-Roegen, N.** (1971). *The Entropy Law and the Economic Process*. Harvard University Press.
@@ -512,6 +515,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Hutchings, J. A., & Myers, R. A.** (1994). What can be learned from the collapse of a renewable resource? Atlantic cod, *Gadus morhua*, of Newfoundland and Labrador. *Canadian Journal of Fisheries and Aquatic Sciences*, 51(9), 2126–2146.
 - **Ilienkov, E. V.** (1960). *The Dialectic of the Abstract and the Concrete in Marx's Capital*. Izdatel'stvo Akademii Nauk SSSR.
 - **Imbens, G. W., & Manski, C. F.** (2004). Confidence intervals for partially identified parameters. *Econometrica*, 72(6), 1845–1857.
+- **Impagliazzo, R.** (1995). A Personal View of Average-Case Complexity. In *Proceedings of the Tenth Annual IEEE Conference on Structure in Complexity Theory* (pp. 134–147). IEEE Computer Society. <https://doi.org/10.1109/SCT.1995.514853>
 - **Innes, R. D.** (1990). Limited liability and incentive contracting with ex-ante action choices. *Journal of Economic Theory*, 52(1), 45–67.
 - **Innis, H. A.** (1951). *The Bias of Communication*. University of Toronto Press.
 - **International Atomic Energy Agency** (2016). *Safety of Nuclear Power Plants: Design* (Specific Safety Requirements No. SSR-2/1, Rev. 1). IAEA, Vienna.
@@ -530,6 +534,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **JCGM** (2008/2011). *Evaluation of Measurement Data — Supplement 1 to the "Guide to the Expression of Uncertainty in Measurement" — Propagation of Distributions Using a Monte Carlo Method* (JCGM 101:2008); and *Supplement 2 to the "Guide to the Expression of Uncertainty in Measurement" — Extension to Any Number of Output Quantities* (JCGM 102:2011). Joint Committee for Guides in Metrology (BIPM, IEC, IFCC, ILAC, ISO, IUPAC, IUPAP, & OIML).
 - **Jensen, J. L. W. V.** (1906). Sur les fonctions convexes et les inégalités entre les valeurs moyennes. *Acta Mathematica*, 30(1), 175–193.
 - **Jensen, M. C., & Meckling, W. H.** (1976). Theory of the firm: Managerial behavior, agency costs and ownership structure. *Journal of Financial Economics*, 3(4), 305–360.
+- **Jia, Y., & Harman, M.** (2011). An analysis and survey of the development of mutation testing. *IEEE Transactions on Software Engineering*, 37(5), 649–678. <https://doi.org/10.1109/TSE.2010.62>
 - **Johansson, M., Zhang, J., & Ehrenberg, M.** (2012). Genetic code translation displays a linear trade-off between efficiency and accuracy of tRNA selection. *Proceedings of the National Academy of Sciences*, 109(1), 131–136. <https://doi.org/10.1073/pnas.1116480109>
 - **Johnson, W. B., & Lindenstrauss, J.** (1984). Extensions of Lipschitz mappings into a Hilbert space. *Contemporary Mathematics*, 26, 189–206.
 - **Johnston, I.** (2010). *The Mozi: A Complete Translation*. Columbia University Press, New York.
@@ -543,6 +548,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Kant, I.** (1996 [1785]). *Groundwork of the Metaphysics of Morals*. Cambridge University Press. [Portuguese ed.: *Fundamentação da metafísica dos costumes*. Edições 70, 2007.]
 - **Kaplan, J., & DeMaria, M.** (2003). Large-scale characteristics of rapidly intensifying tropical cyclones in the North Atlantic basin. *Weather and Forecasting*, 18(6), 1093–1108.
 - **Karpukhin, V., Oğuz, B., Min, S., Lewis, P., Wu, L., Edunov, S., Chen, D., & Yih, W.-t.** (2020). Dense passage retrieval for open-domain question answering. *Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)*, 6769–6781 (preprint arXiv:2004.04906v3). <https://doi.org/10.18653/v1/2020.emnlp-main.550>
+- **Kaufmann, E., Cappé, O., & Garivier, A.** (2016). On the complexity of best-arm identification in multi-armed bandit models. *Journal of Machine Learning Research*, 17(1), 1–42.
 - **Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., & Liu, T.-Y.** (2017). LightGBM: A highly efficient gradient boosting decision tree. *Advances in Neural Information Processing Systems (NeurIPS)*, 30, 3146–3154.
 - **Kelly, J. L., Jr.** (1956). A new interpretation of information rate. *Bell System Technical Journal*, 35(4), 917–926.
 - **Kelly, K.** (2010). *What Technology Wants*. Viking Press.
@@ -587,6 +593,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Krawczyk, H., Bellare, M., & Canetti, R.** (1997). *HMAC: Keyed-Hashing for Message Authentication* (RFC 2104). Internet Engineering Task Force (IETF).
 - **Kropotkin, P.** (1902). *Mutual Aid: A Factor of Evolution*. William Heinemann.
 - **Kuhn, T. S.** (1962). *The Structure of Scientific Revolutions*. University of Chicago Press. [2nd enlarged ed., 1970.]
+- **Kulesza, A., & Taskar, B.** (2012). Determinantal Point Processes for Machine Learning. *Foundations and Trends in Machine Learning*, 5(2–3), 123–286. <https://doi.org/10.1561/2200000044>
 - **Kullback, S., & Leibler, R. A.** (1951). On information and sufficiency. *The Annals of Mathematical Statistics*, 22(1), 79–86. <https://doi.org/10.1214/aoms/1177729694>
 - **Kümmel, R.** (2024). Entropy and the limits to growth. *Entropy*, 26(6), 489. <https://doi.org/10.3390/e26060489>
 - **Kümmel, R., & Lindenberger, D.** (2020). Energy, entropy, constraints, and creativity in economic growth and crises. *Entropy*, 22(10), 1156. <https://doi.org/10.3390/e22101156>
@@ -627,6 +634,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Lipsky, M.** (1969). *Toward a Theory of Street-Level Bureaucracy*. Institute for Research on Poverty Discussion Paper No. 48-69, University of Wisconsin–Madison.
 - **List, C., & Pettit, P.** (2002). Aggregating sets of judgments: An impossibility result. *Economics and Philosophy*, 18(1), 89–110. <https://researchonline.lse.ac.uk/id/eprint/704/>
 - **List, C., & Pettit, P.** (2011). *Group Agency: The Possibility, Design, and Status of Corporate Agents*. Oxford University Press.
+- **Littlewood, J. E.** (1914). Sur la distribution des nombres premiers. *Comptes Rendus Hebdomadaires des Séances de l'Académie des Sciences*, 158, 1869–1872.
 - **Little, J. D. C.** (1961). A proof for the queuing formula: $L = \lambda W$. *Operations Research*, 9(3), 383–387.
 - **Little, S. C., Tkačik, G., Kneeland, T. B., Wieschaus, E. F., & Gregor, T.** (2011). The formation of the Bicoid morphogen gradient requires protein movement from anteriorly localized mRNA. *PLoS Biology*, 9(3), e1000596. <https://doi.org/10.1371/journal.pbio.1000596>
 - **Lloyd-Smith, J. O., Schreiber, S. J., Kopp, P. E., & Getz, W. M.** (2005). Superspreading and the effect of individual variation on disease emergence. *Nature*, 438(7066), 355–359.
@@ -709,6 +717,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Mohajerin Esfahani, P., & Kuhn, D.** (2018). Data-driven distributionally robust optimization using the Wasserstein metric: performance guarantees and tractable reformulations. *Mathematical Programming*, 171(1–2), 115–166 (preprint arXiv:1505.05116v3, 2017). <https://doi.org/10.1007/s10107-017-1172-1>
 - **Mohan, K., Pearl, J., & Tian, J.** (2013). Graphical models for inference with missing data. *Advances in Neural Information Processing Systems (NeurIPS)*, 26, 1277–1285. <https://papers.nips.cc/paper/4899-graphical-models-for-inference-with-missing-data.pdf>
 - **Molinari, F.** (2020). *Microeconometrics with Partial Identification*. Prepared for *Handbook of Econometrics*, Vol. 7A (pp. 355–486); preprint arXiv:2004.11751v1 (12 March 2020). <https://arxiv.org/pdf/2004.11751>
+- **Montgomery, H. L.** (1973). The pair correlation of zeros of the zeta function. In H. G. Diamond (Ed.), *Analytic Number Theory* (Proceedings of Symposia in Pure Mathematics, Vol. 24, pp. 181–193). American Mathematical Society.
 - **Montiel Olea, J. L., Qiu, C., & Stoye, J.** (2025). Decision theory for treatment choice problems with partial identification. *arXiv:2312.17623v3*. <https://arxiv.org/abs/2312.17623> [Published version: *The Review of Economic Studies*, 93(6), 3981–4011, 2026].
 - **Morley, G., Ives, J., Bradbury-Jones, C., & Irvine, F.** (2019). What is 'moral distress'? A narrative synthesis of the literature. *Nursing Ethics*, 26(3), 646–662. <https://doi.org/10.1177/0969733017724354>
 - **Morris, M. R., Sohl-Dickstein, J., Fiedel, N., Warkentin, T., Dafoe, A., Faust, A., Farabet, C., & Legg, S.** (2023). Levels of AGI: Operationalizing progress on the path to AGI. *arXiv:2311.02462*.
@@ -745,6 +754,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Nygard, M. T.** (2007). *Release It! Design and Deploy Production-Ready Software*. Pragmatic Bookshelf.
 - **Obermeyer, Z., Powers, B., Vogeli, C., & Mullainathan, S.** (2019). Dissecting racial bias in an algorithm used to manage the health of populations. *Science*, 366(6464), 447–453. <https://doi.org/10.1126/science.aax2342>
 - **Ódor, G., & Hartmann, B.** (2020). Power-law distributions of dynamic cascade failures in power-grid models. *Entropy*, 22(6), 666 (PMCID PMC7517205; preprint arXiv:2005.03458v3). <https://doi.org/10.3390/e22060666>
+- **Odlyzko, A. M.** (1987). On the distribution of spacings between zeros of the zeta function. *Mathematics of Computation*, 48(177), 273–308.
 - **Office of Qualifications and Examinations Regulation (Ofqual)** (2020). *Awarding GCSE, AS, A level, advanced extension awards and extended project qualifications in summer 2020: interim report* (`Ofqual/20/6656/1`, 13 August 2020) and *Statement from Roger Taylor, Chair, Ofqual* (17 August 2020). GOV.UK / Ofqual.
 - **Ollman, B.** (1993). *Dialectical Investigations*. Routledge, New York.
 - **O'Neil, P., Cheng, E., Gawlick, D., & O'Neil, E.** (1996). The log-structured merge-tree (LSM-tree). *Acta Informatica*, 33(4), 351–385 (author manuscript: <https://www.cs.umb.edu/~poneil/lsmtree.pdf>). <https://doi.org/10.1007/s002360050048>
@@ -753,6 +763,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Ostrom, E.** (2010). Beyond markets and states: Polycentric governance of complex economic systems. Prize Lecture, December 8, 2009, *The Nobel Prizes 2009*, 408–444.
 - **Pacioli, L.** (1494). *Summa de arithmetica, geometria, proportioni et proportionalita*. Paganino de' Paganini.
 - **Panofsky, E.** (1951). *Gothic Architecture and Scholasticism*. Saint Vincent Archabbey, Latrobe, PA.
+- **Parasuraman, R., & Manzey, D. H.** (2010). Complacency and bias in human use of automation: An attentional integration. *Human Factors*, 52(3), 381–410. <https://doi.org/10.1177/0018720810376055>
 - **Park, P., Ko, J. W., & Jeong, C.** (2011). Reciprocally convex approach to stability of systems with time-varying delays. *Automatica*, 47(1), 235–238. <https://doi.org/10.1016/j.automatica.2010.10.014>
 - **Parra Jounou, I., & Tronto, J. C.** (2024). Care ethics in theory and practice: Joan C. Tronto in conversation with Iris Parra Jounou. *Contemporary Political Theory*, 23, 269–283. <https://doi.org/10.1057/s41296-024-00680-6>
 - **Parsons, T.** (1951). *The Social System*. Free Press.
@@ -766,6 +777,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Peixoto, P. V. L., de Andrade, Í. B. L., Sales, B. C. P., & Pereira, L. C.** (2022). Rupture of Brumadinho dam (Minas Gerais, Brazil): embryotoxicity in zebrafish induced by metal mixture-contaminated water. *Journal of Environmental Science and Health, Part B*, 57(6), 479–488 (PMID 35475472). <https://doi.org/10.1080/03601234.2022.2064675>
 - **Perdomo, J., Zrnic, T., Mendler-Dünner, C., & Hardt, M.** (2020). Performative prediction. *Proceedings of the 37th International Conference on Machine Learning (ICML)*, PMLR 119, 7599–7609.
 - **Perrow, C.** (1984). *Normal Accidents: Living with High-Risk Technologies*. Basic Books.
+- **Perry, N., Srivastava, M., Kumar, D., & Boneh, D.** (2023). Do users write more insecure code with AI assistants? *Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security (CCS '23)*, 2785–2799. <https://doi.org/10.1145/3576915.3623157>
 - **Peters, J., Bühlmann, P., & Meinshausen, N.** (2016). Causal inference by using invariant prediction: Identification and confidence intervals. *Journal of the Royal Statistical Society: Series B*, 78(5), 947–1012.
 - **Peters, O.** (2019). The ergodicity problem in economics. *Nature Physics*, 15(12), 1216–1221.
 - **Peterson, A. V., Jr.** (1976). Bounds for a joint distribution function with fixed sub-distribution functions: Application to competing risks. *Proceedings of the National Academy of Sciences (PNAS)*, 73(1), 11–13.
@@ -845,6 +857,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Sansom, S. N., Shikama-Dorn, N., Zhanybekova, S., Nusspaumer, G., Macaulay, I. C., Deadman, M. E., Heger, A., Ponting, C. P., & Holländer, G. A.** (2014). Population and single-cell genomics reveal the Aire dependency, relief from Polycomb silencing, and distribution of self-antigen expression in thymic epithelia. *Genome Research*, 24(12), 1918–1931. <https://doi.org/10.1101/gr.171645.113>
 - **Santos, A. S. E., Saraiva, R. D. S., de Oliveira, A. P. N., Costa, M. A., Alonzo, H. G. A., Campolina, D., André, L. C., Peixoto, S. V., Câmara, V. M., & Asmus, C. I. R. F.** (2023). Metal exposure in a child population after a mine tailings dam failure. Projeto Bruminha. *Revista Brasileira de Epidemiologia*, 26, e230017 (PMCID PMC9949485). <https://doi.org/10.1590/1980-549720230017>
 - **Santos, M.** (2021 [1996]). *The Nature of Space* (B. Baletti, Trans.). Duke University Press, Durham, NC.
+- **Saouter, Y., Trudgian, T., & Demichel, P.** (2015). A still sharper region where $\pi(x) - \mathrm{li}(x)$ is positive. *Mathematics of Computation*, 84(295), 2433–2446. <https://doi.org/10.1090/S0025-5718-2015-02930-5>
 - **Sartre, J.-P.** (1960). *Critique de la raison dialectique*. Gallimard.
 - **Saunders, T. E., & Howard, M.** (2009). When it pays to rush: Interpreting morphogen gradients prior to steady-state. *Physical Biology*, 6(4), 046020 (preprint arXiv:0911.5315v1). <https://doi.org/10.1088/1478-3975/6/4/046020>
 - **Savage, L. J.** (1954). *The Foundations of Statistics*. John Wiley & Sons.
@@ -960,6 +973,7 @@ The six strands of argument do not map one-to-one onto the seven parts; the tabl
 - **Vickers, G.** (1965). *The Art of Judgment: A Study of Policy Making*. Chapman & Hall. [Reissued London: Sage, 1995; Part One, "Policy-Making as a Mental Skill", carries the chapters "The Regulation of Institutions", "Appreciation", and "The Appreciative System", the account of regulation as a function that judges a situation before it commits to a decision.]
 - **Ville, J.** (1939). *Étude critique de la notion de collectif*. Gauthier-Villars.
 - **Volz, E. M., Koelle, K., & Bedford, T.** (2013). Viral phylodynamics. *PLoS Computational Biology*, 9(3), e1002947. <https://doi.org/10.1371/journal.pcbi.1002947>
+- **Voronin, S. M.** (1975). Theorem on the "universality" of the Riemann zeta-function. *Izvestiya Akademii Nauk SSSR, Seriya Matematicheskaya*, 39(3), 475–486. [English trans.: *Mathematics of the USSR-Izvestiya*, 9(3), 443–455.]
 - **Vygotsky, L. S.** (1978). *Mind in Society: The Development of Higher Psychological Processes*. Harvard University Press.
 - **Waddington, C. H.** (1957). *The Strategy of the Genes: A Discussion of Some Aspects of Theoretical Biology*. George Allen & Unwin.
 - **Wald, A.** (1943). *A Method of Estimating Plane Vulnerability Based on Damage of Survivors*. Statistical Research Group, Columbia University (Memorandum; reprinted as Center for Naval Analyses CRC 432, 1980).
