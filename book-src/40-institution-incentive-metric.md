@@ -165,7 +165,7 @@ Four institutional properties keep oversight real (three internal pillars plus o
 1. **Observability:** unblocked access to raw operational records before managers sanitize them.
 2. **Authority:** independent jurisdiction to pause, halt, or roll back operations ([Chapter 20](20-legitimacy-and-institutions.md)).
 3. **Consequence:** binding remediation and symmetric downside liability.
-4. **Waiver-Reopening & Sunset Separation:** standing waivers cannot silence new emergency clocks, halt assessors sit outside override chains, emergency waivers and overrides carry automatic non-self-extending sunsets into fiduciary review, and repeated discrete waivers (two or more consecutive waivers on the same safety constraint) trigger mandatory upward escalation and operational stand-down so flight-by-flight re-issuance cannot simulate perpetual exemption (Elster 1979; Vaughan 1996).
+4. **Waiver-Reopening & Sunset Separation:** standing waivers cannot silence new emergency clocks, halt assessors sit outside override chains, emergency waivers and overrides carry automatic non-self-extending sunsets into fiduciary review, and repeated discrete waivers (two or more waivers across any safety constraints within a pre-registered rolling window, or exceeding a rolling emergency-dwell cap, barring alternating-label chattering) trigger mandatory upward escalation and operational stand-down so flight-by-flight re-issuance cannot simulate perpetual exemption (Elster 1979; Vaughan 1996).
 
 Without the first three, auditing is theater; without the fourth, normalized deviance seals exceptions forever.
 
@@ -175,7 +175,7 @@ Counting on individual heroism under asymmetric firing power selects against ear
 
 ## 4. Process tracing and Bayesian diagnostic tests
 
-Testing institutional failures requires **process tracing** across four clue types (*straw-in-the-wind*, *hoop*, *smoking-gun*, and *doubly decisive* tests; Van Evera 1997; Bennett and Checkel 2015), paired with Turing and Good's log-likelihood **deciban ($\mathrm{dB}$)** weights under Cromwell's interior priors ([Chapter 30](30-probability-as-language.md); Good 1950, 1979). Because Cromwell's bounds forbid infinite negative updates inside Bayesian sums, failing a necessary hoop test eliminates a claim solely through a pre-registered **Popper–Mayo lexical veto** co-registered with affected-party oversight so captured writers cannot weaponize fragile unobservable hoops, and combining clues requires explicit conditional-independence and common-cause checks beyond evidential weight $V$ ([Chapter 50](50-methodological-families-reflexivity.md) §9.2).
+Testing institutional failures requires **process tracing** across four clue types (*straw-in-the-wind*, *hoop*, *smoking-gun*, and *doubly decisive* tests; Van Evera 1997; Bennett and Checkel 2015), paired with Turing and Good's log-likelihood **deciban ($\mathrm{db}$)** weights under Cromwell's interior priors ([Chapter 30](30-probability-as-language.md); Good 1950, 1979). Because Cromwell's bounds forbid infinite negative updates inside Bayesian sums, failing a necessary hoop test eliminates a claim solely through a pre-registered **Popper–Mayo lexical veto** co-registered with affected-party oversight so captured writers cannot weaponize fragile unobservable hoops, and combining clues requires explicit conditional-independence and common-cause checks beyond evidential weight $V$ ([Chapter 50](50-methodological-families-reflexivity.md) §9.2).
 
 ## 5. Deliberation paradoxes, polycentric commons, and the Temporal Vault
 
