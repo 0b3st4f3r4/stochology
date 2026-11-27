@@ -205,3 +205,66 @@ pub fn corrected_level(
         .checked_sub(signed_bias(parameter)?)
         .ok_or(OperatorError::Overflow)
 }
+
+/// Exact integer cluster design effect under negative within-cluster correlation.
+///
+/// Computes `DEFF_cluster = UNIT + (cluster_size - 1) * rho_icc_scaled` for
+/// `cluster_size >= 1` and `rho_icc_scaled` in `[-UNIT, 0]`, modeling
+/// repulsive or determinantal sub-Poisson sampling (`Kulesza & Taskar 2012`,
+/// `Ch. 59`). Refuses correlations at or below the Kish feasibility bound
+/// `-1 / (cluster_size - 1)` where `DEFF_cluster <= 0`.
+pub fn negative_icc_cluster_deff(
+    cluster_size: i64,
+    rho_icc_scaled: i64,
+) -> Result<i64, OperatorError> {
+    if cluster_size <= 0 {
+        return Err(OperatorError::NonPositive("cluster_size"));
+    }
+    if rho_icc_scaled > 0 || rho_icc_scaled < -UNIT {
+        return Err(OperatorError::OutOfRange(
+            "negative_icc_cluster_deff: rho_icc outside [-UNIT, 0]",
+        ));
+    }
+    let steps = i128::from(cluster_size)
+        .checked_sub(1)
+        .ok_or(OperatorError::Overflow)?;
+    let delta = steps
+        .checked_mul(i128::from(rho_icc_scaled))
+        .ok_or(OperatorError::Overflow)?;
+    let deff = i128::from(UNIT)
+        .checked_add(delta)
+        .ok_or(OperatorError::Overflow)?;
+    if deff <= 0 {
+        return Err(OperatorError::OutOfRange(
+            "negative_icc_cluster_deff: rho_icc violates Kish lower bound",
+        ));
+    }
+    narrow_op(deff)
+}
+
+/// The effective sample size under a sub-unit repulsive design effect.
+///
+/// Computes `n_eff = n * UNIT / design_effect` (truncating toward zero) when
+/// `0 < design_effect <= UNIT`, complementing [`effective_sample`] for
+/// negatively correlated or determinantal sampling without widening `effective_sample`.
+pub fn repulsive_effective_sample(size: i64, design_effect: i64) -> Result<i64, OperatorError> {
+    if size < 0 {
+        return Err(OperatorError::OutOfRange(
+            "repulsive_effective_sample: negative size",
+        ));
+    }
+    if design_effect <= 0 {
+        return Err(OperatorError::NonPositive(
+            "repulsive_effective_sample: design_effect",
+        ));
+    }
+    if design_effect > UNIT {
+        return Err(OperatorError::OutOfRange(
+            "repulsive_effective_sample: design_effect exceeds UNIT",
+        ));
+    }
+    let num = i128::from(size)
+        .checked_mul(i128::from(UNIT))
+        .ok_or(OperatorError::Overflow)?;
+    narrow_op(num / i128::from(design_effect))
+}

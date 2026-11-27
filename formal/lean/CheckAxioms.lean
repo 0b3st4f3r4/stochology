@@ -1,0 +1,9 @@
+import StochologyInvariants
+
+#print axioms StochologyInvariants.contingency_invariance
+#print axioms StochologyInvariants.non_compensatory_leontief
+#print axioms StochologyInvariants.seven_guard_sites
+#print axioms StochologyInvariants.vandermonde_35_and_partition
+#print axioms StochologyInvariants.stage_non_commutation_119
+#print axioms StochologyInvariants.johnson_j73_invariants
+#print axioms StochologyInvariants.core_vectors_conformance

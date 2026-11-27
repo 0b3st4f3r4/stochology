@@ -1,0 +1,6 @@
+name = "stochology_invariants"
+version = "0.1.0"
+defaultTargets = ["StochologyInvariants"]
+
+[[lean_lib]]
+name = "StochologyInvariants"

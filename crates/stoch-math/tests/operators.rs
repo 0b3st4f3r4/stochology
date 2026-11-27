@@ -69,6 +69,30 @@ fn the_effective_sample_contracts_and_truncates() {
 }
 
 #[test]
+fn repulsive_sub_unit_design_effect_expands_effective_sample() {
+    let deff = epistemic::negative_icc_cluster_deff(5, -200_000).unwrap();
+    assert_eq!(deff, 200_000);
+    assert_eq!(epistemic::repulsive_effective_sample(100, deff).unwrap(), 500);
+    assert_eq!(epistemic::negative_icc_cluster_deff(1, -UNIT).unwrap(), UNIT);
+    assert_eq!(
+        epistemic::negative_icc_cluster_deff(5, -250_000).unwrap_err(),
+        OperatorError::OutOfRange("negative_icc_cluster_deff: rho_icc violates Kish lower bound")
+    );
+    assert_eq!(
+        epistemic::negative_icc_cluster_deff(5, 1).unwrap_err(),
+        OperatorError::OutOfRange("negative_icc_cluster_deff: rho_icc outside [-UNIT, 0]")
+    );
+    assert_eq!(
+        epistemic::repulsive_effective_sample(100, UNIT + 1).unwrap_err(),
+        OperatorError::OutOfRange("repulsive_effective_sample: design_effect exceeds UNIT")
+    );
+    assert_eq!(
+        epistemic::repulsive_effective_sample(100, 0).unwrap_err(),
+        OperatorError::NonPositive("repulsive_effective_sample: design_effect")
+    );
+}
+
+#[test]
 fn the_meng_identity_holds_in_the_squared_domain() {
     for rho in [-UNIT, -HALF, 0, HALF, UNIT] {
         for fraction in [UNIT / 10, HALF, UNIT] {
