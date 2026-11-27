@@ -24,7 +24,7 @@
 
 **Stochology** (from Greek **στόχος, *stókhos***, aim or conjecture, and **λόγος, *lógos***, reasoned account) is an integrative framework and transversal research program for judgment and decision-making under structural uncertainty when action must precede the outcome. Honoring convergent lineages across Africa, Asia, the Islamic world, Abya Yala, the Mediterranean, and Oceania alongside contemporary international mathematics, statistics, and systems theory, it examines the indivisible mediation circuit across **World**, **Archive**, and **Institution** through three non-substitutable safeguards: **Epistemic Margin**, **Vital Margin**, and **Institutional Governance**.
 
-This repository is the home of the complete **manuscript** in [`book-src/`](book-src/)—an essayistic prologue, ninety-nine numbered chapters across seven parts, and seven reference appendices—packaged with vendored typography and mathematical typesetting so it can be read and rendered completely offline. Beside the text sits a strictly bounded normative core that checks the formal trajectory grammar against boundary cases; it is neither evidence for any claim nor authority over the prose.
+This repository is the home of the complete **manuscript** in [`book-src/`](book-src/) (an essayistic prologue, ninety-nine numbered chapters across seven parts, and seven reference appendices), packaged with vendored typography and mathematical typesetting so it can be read and rendered completely offline. Beside the text sits a strictly bounded normative core that checks the formal trajectory grammar against boundary cases; it is neither evidence for any claim nor authority over the prose.
 
 ---
 
@@ -73,13 +73,13 @@ Choose an entry route according to what you need:
 
 ### Seven Strata of Part V (`51`–`85`)
 
-1. **`S1` (`51`–`55`)** — [The Substrate That Charges for Time](book-src/stratum-i-opening.md): micro-kinetics, queues, coupled networks, geophysical chaos, and fracture.
-2. **`S2` (`56`–`60`)** — [The Instrument and Its Commitment](book-src/stratum-ii-opening.md): formal logic & resource types, credence, metrology, experimental/survey design, and cryptography.
-3. **`S3` (`61`–`65`)** — [The Living Substrate](book-src/stratum-iii-opening.md): biochemical kinetics, morphogenesis, immunology, systematics, and deep-time paleobiology.
-4. **`S4` (`66`–`70`)** — [The Interval Between the Decision and the Evidence](book-src/stratum-iv-opening.md): clinical diagnosis, epidemiology, pharmacovigilance, metascience, and tragic/formative pedagogy.
-5. **`S5` (`71`–`75`)** — [The Record and Its Author](book-src/stratum-v-opening.md): linguistic pragmatics, philology, taphonomy & historiography, critical archives, and media ecology.
-6. **`S6` (`76`–`80`)** — [The Adversary Inside the Measurement](book-src/stratum-vi-opening.md): sequential decisions, strategic games, macro-finance & ruin, official statistics & forensic accounting, and corporate governance.
-7. **`S7` (`81`–`85`)** — [The Irreversible Decision](book-src/stratum-vii-opening.md): criminal proof, tort & constitutional law, distributed consensus, high-hazard engineering, and polycentric commons.
+1. **`S1` (`51`–`55`), [The Substrate That Charges for Time](book-src/stratum-i-opening.md):** micro-kinetics, queues, coupled networks, geophysical chaos, and fracture.
+2. **`S2` (`56`–`60`), [The Instrument and Its Commitment](book-src/stratum-ii-opening.md):** formal logic & resource types, credence, metrology, experimental/survey design, and cryptography.
+3. **`S3` (`61`–`65`), [The Living Substrate](book-src/stratum-iii-opening.md):** biochemical kinetics, morphogenesis, immunology, systematics, and deep-time paleobiology.
+4. **`S4` (`66`–`70`), [The Interval Between the Decision and the Evidence](book-src/stratum-iv-opening.md):** clinical diagnosis, epidemiology, pharmacovigilance, metascience, and tragic/formative pedagogy.
+5. **`S5` (`71`–`75`), [The Record and Its Author](book-src/stratum-v-opening.md):** linguistic pragmatics, philology, taphonomy & historiography, critical archives, and media ecology.
+6. **`S6` (`76`–`80`), [The Adversary Inside the Measurement](book-src/stratum-vi-opening.md):** sequential decisions, strategic games, macro-finance & ruin, official statistics & forensic accounting, and corporate governance.
+7. **`S7` (`81`–`85`), [The Irreversible Decision](book-src/stratum-vii-opening.md):** criminal proof, tort & constitutional law, distributed consensus, high-hazard engineering, and polycentric commons.
 
 ### Reference Appendices
 
@@ -99,7 +99,7 @@ Whether you are a human contributor or an autonomous agent inspecting or editing
 
 1. **Orient via the index layer before reading in bulk.** Instead of loading dozens of chapters at once, consult [`SUMMARY.md`](book-src/SUMMARY.md) for the spine, [Appendix F](book-src/appendix-f-manuscript-audit.md) for chapter-level scope and synopses, [Appendix E](book-src/appendix-e-lexicon.md) for canonical terminology, [Appendix G](book-src/appendix-g-glossary.md) for alphabetical lookups, [Appendix B](book-src/appendix-b-architecture-verification.md) for the `L01`–`L35` guard-triple mapping, and [Appendix C](book-src/appendix-c-sources.md) / [Appendix D](book-src/appendix-d-claim-ledger.md) for sources and audited values.
 2. **Read the binding contract first.** [`AGENTS.md`](AGENTS.md) is the governing contract for every contributor and virtual agent; [`CONTRIBUTING.md`](CONTRIBUTING.md) summarizes the editorial workflow and the ten structural verification checks.
-3. **Respect the direction of authority.** This repository is a manuscript, not a program. Chapters in [`book-src/`](book-src/) govern appendices (`Appendix B`, `Appendix E`, `Appendix F`, `Appendix G`) and govern the accompanying normative core—where an appendix or the core disagrees with a chapter's claim, source, or derivation, the chapter governs and the downstream artifact is repaired.
+3. **Respect the direction of authority.** This repository is a manuscript, not a program. Chapters in [`book-src/`](book-src/) govern appendices (`Appendix B`, `Appendix E`, `Appendix F`, `Appendix G`) and govern the accompanying normative core; where an appendix or the core disagrees with a chapter's claim, source, or derivation, the chapter governs and the downstream artifact is repaired.
 4. **Preserve editorial and provenance invariants:**
    - **Two quantitative warrants only:** every number in prose is justified in its own sentence either by **Literature** (quoted at exact source precision) or by **Derivation** (reproducible from algebra displayed beside it).
    - **Sources, never machinery:** chapters, appendices, and root documents never name file or module paths, package directories, build or test invocations, command-line flags, data archives, internal claim identifiers, or program output.

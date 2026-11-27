@@ -27,6 +27,7 @@ Before auditing any target, read:
 Before writing findings, inspect Layer 0 diagnostics for the target file(s):
 - `python3 .agents/scripts/check_notation.py --file <target> --markdown`
 - `python3 .agents/scripts/check_crossrefs.py --file <target> --markdown`
+- `python3 .agents/scripts/check_style_and_citations.py --file <target> --markdown`
 
 ## 4. Transversal Audit Checklist
 
@@ -34,15 +35,18 @@ Before writing findings, inspect Layer 0 diagnostics for the target file(s):
    - Does Part I (`01`–`08`) introduce concepts concretely before technical formalism, without dumbing down or smuggling false intuition that contradicts Part III/IV?
    - Does `00-preface.md` stay exempt from outcomes/`## Bridge` (`AGENTS.md` §III) while setting up the five mirrors cleanly?
 2. **Symbol Uniformity, Collision Disambiguation & Concordance (`AGENTS.md` §II, §V-9):**
-   - Audit every collision flagged by `check_notation.py` (`e/E`, `R`, `S`, `\rho`, `\tau`, `\delta`, `K/k`, `V`) and verify explicit local disambiguation when multiple senses share a chapter.
+   - Audit every collision flagged by `check_notation.py` (`e/E`, `R`, `S`, `\rho`, `\tau`, `\delta`, `K/k`, `V`, `W/M`, `\alpha` — all `10` ledger families in `01-notation-ledger.md`) and verify explicit local disambiguation when multiple senses share a chapter.
    - Verify no prose violates the 4 `AGENTS.md` §V-9 concordance invariants or reverses the Chapter → Appendix authority rule (`AGENTS.md` §II: chapters govern definitions; appendices follow).
    - Verify Appendix E/F/G never act as independent verdict checklists (Reflexive Brake 4).
 3. **`## Bridge` & Learning Outcomes Truthfulness (`01`–`99`):**
    - Compare the 3 numbered items in `## By the end of this chapter you can` against the chapter body: does the chapter actually demonstrate all 3 skills?
    - Read the chapter's `## Bridge` AND inspect the opening sections of the target next chapter (`NN+1` or named forward link): does the next chapter actually deliver what the `## Bridge` promises? Flag broken promises or mismatched section names as `Level 2` `[Style/Clarity]` (or `Level 1` if it creates a doctrinal contradiction).
-4. **Cross-Part Redundancy & Anti-Bloat Audit:**
+4. **Cross-Part Redundancy, Prose-Volume Anti-Bloat & Style Hygiene:**
    - Compare overlapping conceptual sequences across Parts IV (`42`–`50`), VI (`86`–`92`), and VII (`93`–`99`). Flag boilerplate restatements that repeat earlier chapters without adding either a new derivation, a new regime boundary, or a new failure mechanism.
-5. **Protected Contracts Check:**
+   - Verify `check_style_and_citations.py` reports zero running-prose em-dashes, zero invisible watermarks, and check whether new edits introduce AI-expansion bloat or LLM prose clichés.
+5. **Steelmanning Rival Hypotheses ($\neg H$):**
+   - In Process Tracing and cross-chapter counterarguments, verify that rival hypotheses ($\neg H$, such as pure throughput maximization or pure automated test gauntlets) are formulated in their strongest non-strawman version with explicit scope boundaries (Regime II vs. Regime III).
+6. **Protected Contracts Check:**
    - Never propose retitling chapters or appendices in `SUMMARY.md` without flagging that `AGENTS.md` requires explicit human approval with an inline diff.
 
 ## 5. Output Discipline

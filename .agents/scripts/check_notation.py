@@ -3,7 +3,7 @@ r"""Deterministic semantic symbol-collision & LaTeX hygiene detector (Layer 0).
 
 Complements .github/checks/structure.py without duplicating its 5-symbol
 orthographic check_notation() gate. Focuses on:
-  1. Eight semantic symbol-collision families (e/E, R, S, rho, tau, delta, K/k, V)
+  1. Ten semantic symbol-collision families (e/E, R, S, rho, tau, delta, K/k, V, W/M, alpha)
      when multiple distinct senses coexist inside the same manuscript chapter.
   2. e-value (Ramdas test wealth) vs E-value (VanderWeele-Ding sensitivity) casing.
   3. Non-canonical LaTeX typography (_\text{...} subscript drift or \operatorname
@@ -15,12 +15,13 @@ from __future__ import annotations
 import argparse
 import glob
 import json
+import os
 import re
 import sys
 from collections import defaultdict
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(os.environ.get("STOCHOLOGY_REPO_ROOT") or Path(__file__).resolve().parents[2]).resolve()
 BOOK_SRC = ROOT / "book-src"
 
 FENCE_RE = re.compile(r"^```.*?^```", re.DOTALL | re.MULTILINE)
@@ -87,6 +88,19 @@ COLLISION_FAMILIES: dict[str, dict[str, str]] = {
         "Kramers barrier (Delta V)": r"\\Delta\s*V",
         "Lebesgue volume (V_min)": r"V\\?_\{?\\min\}?",
         "Vital count in (E,V,G)": r"\(E,\s*V,\s*G\)",
+    },
+    "W/M": {
+        "Calendar horizon (W)": r"(?<![A-Za-z\\])W\s*>\s*0|S\(W[;,]",
+        "Wealth / Brownian trajectory (W_t)": r"(?<![A-Za-z\\])(?:d)?W\\?_t(?![A-Za-z])",
+        "Queue wait / Equity / Allostatic wear (W_q / W_eq / W_allostatic)": r"W\\?_\{?(?:q|eq|\\mathrm\{allostatic\})",
+        "Turing-Good deciban weight (W)": r"W\([^)\n]{1,24}\)",
+        "Multiplier / Absorption / Depth / SDF (M)": r"M\\?_\{?\\mathrm\{(?:Leontief|Common)\}\}?|M\(B,\s*\\mathrm\{TTS\}|\bmarket\s+depth\s+\$?M\$?|stochastic\s+discount\s+factor[^.\n]{0,20}\$M\$|\bthroughput\s+multiplier[^.\n]{0,20}\$M\$",
+    },
+    "alpha": {
+        "Pareto tail exponent (alpha)": r"Pareto[^.\n]{0,40}\\alpha|\b(?:tail|L[ée]vy)[^.\n]{0,30}\\alpha|\\alpha\\?_\{?\\mathrm\{Hill\}\}?",
+        "Test / Type I / hoop / window / epoch level (alpha_test / alpha_win)": r"\\alpha\\?_\{?\\mathrm\{(?:test|hoop|win)\}(?:,\s*\\ell)?\}?|(?:level|marginal)[- ]\$\\alpha\$|[zt]\\?_\{?[^}\n]*1\s*-\s*\\alpha(?![A-Za-z_\\])|1\s*-\s*\\alpha(?![A-Za-z_\\])|n\\?_\{?\\mathrm\{req\}\}?\\?\(\\alpha(?![A-Za-z_\\])",
+        "Recognition / PRI (alpha_recog / alpha_PRI)": r"\\alpha\\?_\{?\\mathrm\{(?:recog|PRI)\}\}?",
+        "Affine / tolerance / info-gap slope (alpha_a / bar-alpha_aff / alpha_tol / alpha_IG)": r"\\alpha\\?_a|\\bar\{\\alpha\}\\?_\{?\\mathrm\{aff\}\}?|\\alpha\\?_\{?\\mathrm\{(?:tol|IG)\}\}?",
     },
 }
 

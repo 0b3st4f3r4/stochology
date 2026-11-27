@@ -19,7 +19,7 @@ Derived from `book-src/appendix-g-glossary.md` (§G.2), `book-src/appendix-e-lex
 | $\sigma\_t = (\mathbf{u}\_t, \mathbf{w}\_t, \mathbf{m}\_t)$ | Step shot: control tape (*télos*), contingency tape (*skopós*), 7-site margins | App. `B.1`, Ch. `41` |
 | $\mathcal{A}(\mathbf{u}\_t, \mathbf{w}\_t, \mathbf{m}\_t; \boldsymbol{\tau})$ | Five-stage non-commuting acceptance predicate (`Interior`, `Boundary`, `Collapse`, `Unparsable`) | App. `B.1` |
 | $\rho\_{R,Y}$ | Population correlation between selection/recording indicator $R$ and latent $Y$ (never $\rho\_{Y,R}$) | Ch. `45`, App. `A.1` |
-| $\mathrm{DEFF}, \rho\_I, n\_{\mathrm{eff}}^{\mathrm{var}}$ | Unit-level design effect ($\mathrm{DEFF}\_{\mathrm{cluster}} + \mathrm{DEFF}\_{\mathrm{Kish}} - 1$, exact additive composition) vs pair-level weighting in Ch. `50` §9.5.3 | Ch. `45`, `50`, App. `A.1` |
+| $\mathrm{DEFF}, \rho\_I, n\_{\mathrm{eff}}^{\mathrm{var}}$ | Unit-level ($\mathrm{DEFF}\_{\mathrm{cluster}} + \mathrm{DEFF}\_{\mathrm{Kish}} - 1$) and pair-level ($\mathrm{DEFF}\_{\mathrm{pair}} + \mathrm{DEFF}\_w - 1$) exact additive compositions (product is an upper bound on the $\rho\_I \ge 0$ independent-weight additive form, with equality at unity, and can understate variance under unequal size-dependent hubs/weights or shock-dependent weights; Ch. `50` §9.5.3 $\tilde{m}\_{\mathrm{pair},w}$ caveat) | Ch. `45`, `50`, App. `A.1` |
 | $V(n\_{\mathrm{eff}}), V$ | Operational Keynesian evidential weight $n\_{\mathrm{eff}}/(n\_{\mathrm{eff}}+n\_0)$ or qualitative weight $K/(K+I\_0)$ | Ch. `50`, App. `A.1` |
 | $E\_t, e\_i, K\_{\max}$ | Anytime-valid test martingale wealth, *e*-value factor, hypothesis-adjustment deflation budget | Ch. `18`, `44`, App. `A.1` |
 | $p^\ast\_{\mathrm{CL}}, p^\ast\_{\mathrm{PK}}$ | Cost–loss threshold $\min(1, C/(\eta L))$ vs Pauker–Kassirer expected-regret cutoff $C\_{\mathrm{FP}}/(C\_{\mathrm{FP}}+L\_{\mathrm{FN}})$ | Ch. `36`, App. `A.1` |
@@ -28,11 +28,16 @@ Derived from `book-src/appendix-g-glossary.md` (§G.2), `book-src/appendix-e-lex
 | $\mathrm{TTS}\_{\mathrm{survival}}, \mathrm{TTR}\_{\mathrm{eff}}(\mathcal{I}\_t)$ | Survival horizon vs effective detection+deliberation+actuation latency | Ch. `47`, `50`, App. `A.2` |
 | $W\_{\mathrm{allostatic}, t}, \bar{\tau}^{\mathrm{NL\text{-}Q}}\_{\max}$ | Cumulative caregiver allostatic wear; Wirtinger–RCC delay-jitter ceiling | Ch. `42`, `99`, App. `A.2` |
 | $C\_{\mathrm{human}}, \rho\_{\mathrm{cog}}$ | Human conscious throughput limit ($\approx 10\text{ bits/s}$) and operator audit utilization | Ch. `95` |
+| $a\_{\mathrm{skill}, t}, a^\star\_{\mathrm{skill}}$ | Retained operator adroitness in $[0, 1]$ (finite latency on $(0, 1]$) and zero-discount survival floor $q\_0/\lfloor T\_{\mathrm{rem}}^{\mathrm{detect}} / \Delta t\_{\mathrm{shift}}\rfloor$ | Ch. `49`, App. `A.3` |
+| $D\_{\mathrm{KL}}(Q\_s \parallel P\_0), d\_{\mathrm{KL}}(1 - \beta\_{\mathrm{test}} \parallel \alpha\_{\mathrm{test}})$ | Surface fluency KL separation and Wald binary KL lower bound on sequential detection latency | Ch. `95`, App. `A.3` |
+| $\Omega\_{\mathrm{spec}}, \Omega\_{\mathrm{unspec}}, V\_{\mathrm{gauntlet}}$ | Encoded vs. unencoded (*Not askable* / penumbra) failure spaces and automated suite rejection set | Ch. `56`, App. `A.3` |
+| $S(W; M), p\_{\mathrm{ruin}}$ | Throughput-accelerated core survival $\exp(-M\lambda\_0 p\_{\mathrm{ruin}} W)$ over calendar horizon $W > 0$ | Ch. `83`, App. `A.3` |
 | $\theta\_{\mathrm{PS}}, \theta\_{\mathrm{PO}}, \mathrm{PRI}$ | Performative stable vs optimal equilibria; Premise Rigging Index | Ch. `43`, `48`, App. `A.3` |
 | $\delta\_{\mathrm{status}}, \mathrm{DB}\_t, B\_{\mathrm{solvency}}$ | Status testimonial discount, double-bind index, solvency buffer surcharge | Ch. `49`, App. `A.3` |
 | $R\_1$–$R\_3$, $F\_1$–$F\_5$ | Ethical refusals (`27`, `40`); pre-registered canonical falsifiers (`50`) | Ch. `27`, `40`, `50` |
 | `S1`–`S7`, `L01`–`L35`, $\mathcal{G}\_1, \mathcal{G}\_2, \mathcal{H}(L\_i)$ | Seven strata, 35 orders, dependency DAG, Johnson graph $J(7,3)$, cone homomorphism | App. `B.2`, `A.6` |
 | $A^\circ, \circ A, ⊬\_{\mathcal{L}}, O(p)$ | LFI consistency operators, paraconsistent non-explosive entailment, deontic obligation | Ch. `41`, `56`, `82` |
+| $\beta\_{\sup}, \pi\_{\mathrm{prime}}(x)$ | Zeta-zero real-part supremum (distinct from $\Theta\_{\mathrm{basin}}$); prime-counting function (distinct from priors $\pi\_0, \pi\_i$) | Ch. `17`, `41` |
 
 ### Designated Stratum Anchors (Recorded Designations, Not Derived)
 
@@ -40,7 +45,7 @@ Derived from `book-src/appendix-g-glossary.md` (§G.2), `book-src/appendix-e-lex
 
 ## 2. Watched Semantic Symbol-Collision Families
 
-Whenever two senses from the same row co-occur in a chapter without explicit local disambiguation (distinct subscript, typographic face, or prose caveat), raise a `[Notation]` finding (`Level 2` if derivations conflate them; `Level 3` if merely unglossed):
+Whenever two senses from the same row co-occur in a chapter without explicit local disambiguation (distinct subscript, typographic face, or prose caveat), raise a `[Notation]` finding (`Level 2` if derivations conflate them; `Level 3` if merely unglossed). Automated scripts (`check_notation.py`) scan all `10` ledger families below:
 
 1. **`e` / `E` family:**
    - Euler's constant $e \approx 2.718$ (exponentials $e^{-\dots}$, Cramér–Lundberg $e^{-Ru}$) vs.
@@ -50,17 +55,21 @@ Whenever two senses from the same row co-occur in a chapter without explicit loc
 2. **`R` family:**
    - Vital reserve $R\_t$ / $R\_{\mathrm{res}}$ vs. Ashby requisite variety $R$ vs. selection indicator $R \in \{0,1\}$ in $\rho\_{R,Y}$ vs. epidemiological reproduction $R\_0, R\_t$ (Ch. `67`) vs. Ethical Refusals $R\_1$–$R\_3$ vs. Lakatos deflation $R\_{\mathrm{Lakatos}}$.
 3. **`S` family:**
-   - Triad axes $S\_{\mathrm{epi}}, S\_{\mathrm{vital}}, S\_{\mathrm{gov}}$ vs. strata `S1`–`S7` vs. thermodynamic/Shannon entropy $S$ (Ch. `22`–`23`) vs. trajectory sentence $\mathcal{S}$ vs. susceptible compartment $S$ (Ch. `67`) vs. satellite stock $S\_k$ (Ch. `85`).
+   - Triad axes $S\_{\mathrm{epi}}, S\_{\mathrm{vital}}, S\_{\mathrm{gov}}$ vs. strata `S1`–`S7` vs. thermodynamic/Shannon entropy $S$ (Ch. `22`–`23`) vs. trajectory sentence $\mathcal{S}$ vs. susceptible compartment $S$ (Ch. `67`) vs. satellite stock $S\_k$ (Ch. `85`) vs. throughput-scaled survival $S(W; M)$ (Ch. `83`).
 4. **`\rho` family:**
    - Meng's data-defect correlation $\rho\_{R,Y}$ vs. queue traffic utilization $\rho = \lambda/\mu$ (Kingman/Motter–Lai) vs. intra-cluster correlation $\rho\_I$ (written $\rho\_{\mathrm{cl}}$ in Ch. `67` §2) vs. cognitive load $\rho\_{\mathrm{cog}}$ vs. spectral radius/conductance sector $\rho\_{\mathrm{sec}}$ vs. Spearman rank $\rho$.
 5. **`\tau` family:**
-   - Acceptance threshold vector $\boldsymbol{\tau} = (\tau\_{\mathrm{acc}}, \delta\_{\mathrm{band}})$ vs. latencies ($\tau\_{\mathrm{detect}}, \tau\_{\mathrm{delib}}, \tau\_{\mathrm{actuate}}, \tau\_{\mathrm{bureaucratic}}, \tau\_{\mathrm{fast}}, \tau\_{\mathrm{cog}}$) vs. Wirtinger–RCC delay ceiling $\bar{\tau}^{\mathrm{NL\text{-}Q}}\_{\max}$ vs. Lorenz Lyapunov horizon $\tau\_L$ vs. basin tolerance $\tau\_{\mathrm{tol}}$.
+   - Acceptance threshold vector $\boldsymbol{\tau} = (\tau\_{\mathrm{acc}}, \delta\_{\mathrm{band}})$ vs. latencies ($\tau\_{\mathrm{detect}}, \tau\_{\mathrm{delib}}, \tau\_{\mathrm{detect}}^{\mathrm{surf}}, \tau\_{\mathrm{cue}}, \tau\_{\mathrm{actuate}}, \tau\_{\mathrm{bureaucratic}}, \tau\_{\mathrm{fast}}, \tau\_{\mathrm{cog}}$; surface-review screen $B\_{\mathrm{cue}}, \mathrm{Power}\_{\mathrm{surf}}(m), \psi\_N$, Ch. `95` / App. `A.3`) vs. Wirtinger–RCC delay ceiling $\bar{\tau}^{\mathrm{NL\text{-}Q}}\_{\max}$ vs. Lorenz Lyapunov horizon $\tau\_L$ vs. basin tolerance $\tau\_{\mathrm{tol}}$.
 6. **`\delta` family:**
    - Status discount $\delta\_{\mathrm{status}}$ vs. frontier band $\delta\_{\mathrm{band}}$ vs. minimum effect $\delta\_{\min}$ vs. DP slack $\delta$ vs. minimum graph degree $\delta(\mathcal{G})$ vs. Dirac $\delta$.
 7. **`K` / `k` family:**
    - Contractual payout cap $K > 0$ (`X \wedge K`) vs. Hill tail cutoff $k$ (Ch. `96` note!) vs. hypothesis adjustment budget $K\_{\max}$ vs. carrying capacity $K$ (Schaefer, App. `E.3`) vs. epistemic shrinkage $k(n\_{\mathrm{eff}}^{\mathrm{var}})$ vs. Keynes acquired knowledge $K$.
 8. **`V` family:**
-   - Evidential weight $V(n\_{\mathrm{eff}})$ or $K/(K+I\_0)$ vs. Vital axis count in `(E,V,G)` vs. potential barrier $\Delta V$ (Kramers) vs. Lyapunov function $V(x)$ vs. Lebesgue volume $V\_{\min}$.
+   - Evidential weight $V(n\_{\mathrm{eff}})$ or $K/(K+I\_0)$ vs. Vital axis count in `(E,V,G)` vs. potential barrier $\Delta V$ (Kramers) vs. Lyapunov function $V(x)$ vs. Lebesgue volume $V\_{\min}$ vs. automated gauntlet rejection set $V\_{\mathrm{gauntlet}}$ (Ch. `56`).
+9. **`W` / `M` disambiguation:**
+   - Calendar horizon $W > 0$ (Ch. `83`) vs. wealth / Brownian path $W\_t$ (Ch. `38`, `90`) vs. queue wait $W\_q$ vs. limited-liability equity $W\_{\mathrm{eq}}$ vs. Turing–Good deciban weight $W$ (Ch. `50`) vs. caregiver allostatic wear $W\_{\mathrm{allostatic}, t}$ (Ch. `42`, `95`); throughput multiplier $M > 1$ (Ch. `83`) vs. market absorption $M(B, \mathrm{TTS})$ and market depth $M$ (Ch. `47`, `90`) vs. Weitzman stochastic discount factor $M$ (Ch. `47` §6.8) vs. $M\_{\mathrm{Leontief}}$ vs. $M\_{\mathrm{Common}}$.
+10. **`\alpha` family:**
+   - Pareto tail exponent $\alpha > 0$ (or $\alpha\_{\mathrm{Hill}}$; Hill cutoff estimators $\hat{\alpha}\_k$ / $\hat{\alpha}\_{k,n}$, Ch. `38`, App. `A`, App. `D`) vs. Type I / hoop / shock-window / epoch budgets ($\alpha\_{\mathrm{test}}, \alpha\_{\mathrm{test},\ell}, \alpha\_{\mathrm{hoop}}, \alpha\_{\mathrm{win}} \in (0, 1)$, Chs. `49`, `50`, `93`, `95`, `97`, App. `A`, App. `G`; always subscripted whenever Pareto $\alpha$ co-occurs) vs. restricted affine monoid slope ($\alpha\_a, \bar{\alpha}\_{\mathrm{aff}}$, Chs. `41`, `50`, `89`, `95`, App. `A`) vs. Motter–Lai overload tolerance $\alpha\_{\mathrm{tol}, i}$ (Ch. `53`, App. `A`) vs. Info-Gap uncertainty radius $\alpha\_{\mathrm{IG}}$ (Ch. `47`) vs. recognition cue validity $\alpha\_{\mathrm{recog}}$ (Ch. `95`) vs. Premise Rigging Index rigging fraction $\alpha\_{\mathrm{PRI}}$ (Ch. `93`).
 
 ## 3. MathJax & Concordance Hygiene
 

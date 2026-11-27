@@ -44,6 +44,10 @@ Before auditing any target, read:
 5. **Pre-Registered Falsifiers ($F_1$–$F_5$) & Sunset Clauses (`Ch. 50` §9.5, `82`, `85`, `97`):**
    - Can institutions exploit the inconclusive zone $(d_{\mathrm{crit}}^{\mathrm{obs}}, d_{\mathrm{corrob}}^{\mathrm{obs}})$ or $F_2$'s exposure gate to run perpetual "non-informative" pilots?
    - Stress-test sunset clauses, constitutional supermajority hysteresis, `CARE`/`FPIC` governance, and Black's `"multiple accountability disorder"` in polycentric forums.
+6. **Generator–Oracle Circularity (`Ch. 56`, `95`, `03-ai-custody-workflow.md`):**
+   - Can automated verification gauntlets ($V_{\mathrm{gauntlet}} \subseteq \Omega_{\mathrm{spec}}$) be gamed by mocking integrations, overfitting to test coverage metrics, or generating self-congratulatory test suites inside the same agent context while ignoring $\Omega_{\mathrm{unspec}}$?
+7. **Operator Epistemic Atrophy (`Ch. 49`, `75`):**
+   - Even when frontline workers retain nominal override authority ($\delta_{\mathrm{status}} = 0$), does passive automation atrophy reduce retained adroitness below $a^\star_{\mathrm{skill}}$, leaving $\tau_{\mathrm{detect}} > T_{\mathrm{rem}}^{\mathrm{detect}}$ and turning override protections into dead letters?
 
 ## 5. Output Discipline
 

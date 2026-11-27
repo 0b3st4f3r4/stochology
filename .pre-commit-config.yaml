@@ -2,6 +2,8 @@
 # Instale os hooks localmente com: pre-commit install
 # Formate todo o repositorio manualmente com: pre-commit run --all-files
 
+default_install_hook_types: [pre-commit, commit-msg, pre-push]
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
@@ -29,3 +31,54 @@ repos:
         language: system
         pass_filenames: false
         files: (^|/)Cargo\.(toml|lock)$|^\.github/checks/security_audit\.py$
+      - id: stochology-style-hygiene
+        name: Stochology style, watermark, and citation syntax check
+        entry: python3 .agents/scripts/check_style_and_citations.py
+        language: system
+        pass_filenames: false
+        files: ^book-src/.*\.md$|^book-src/figures/.*\.svg$|^AGENTS\.md$|^CONTRIBUTING\.md$|^README\.md$|^\.agents/scripts/check_style_and_citations\.py$
+      - id: stochology-structure
+        name: Stochology Layer-0 structural gates (structure.py)
+        entry: python3 .github/checks/structure.py
+        language: system
+        pass_filenames: false
+      - id: stochology-crossrefs
+        name: Stochology cross-reference and Bridge handoff check
+        entry: python3 .agents/scripts/check_crossrefs.py --markdown
+        language: system
+        pass_filenames: false
+        files: ^book-src/.*\.md$|^\.agents/scripts/check_crossrefs\.py$
+      - id: stochology-graphs
+        name: Stochology Part V G1/J(7,3) graph check
+        entry: python3 .agents/scripts/check_graphs.py --markdown
+        language: system
+        pass_filenames: false
+        files: ^book-src/.*\.md$|^\.agents/scripts/check_graphs\.py$
+      - id: stochology-notation
+        name: Stochology symbol-collision and macro hygiene check
+        entry: python3 .agents/scripts/check_notation.py --markdown
+        language: system
+        pass_filenames: false
+        files: ^book-src/.*\.md$|^\.agents/scripts/check_notation\.py$
+      - id: stochology-symbolic-math
+        name: Stochology SymPy/NumPy symbolic math check
+        entry: python3 .agents/scripts/check_symbolic_math.py --markdown
+        language: system
+        pass_filenames: false
+        files: ^book-src/.*\.md$|^\.agents/scripts/check_symbolic_math\.py$
+      - id: stochology-custody-bloat
+        name: Stochology custody tier and anti-Compliance-DoS bloat check
+        entry: python3 .agents/scripts/check_custody_provenance.py --staged --strict-bloat --markdown
+        language: system
+        pass_filenames: false
+      - id: stochology-commit-trailers
+        name: Stochology commit trailer provenance gate
+        entry: python3 .agents/scripts/check_custody_provenance.py --strict-trailers --commit-msg-file
+        language: system
+        stages: [commit-msg]
+      - id: stochology-push-custody
+        name: Stochology pre-push post-patch custody and blind-review gate
+        entry: python3 .agents/scripts/check_custody_provenance.py --diff-ref origin/main --head-ref HEAD --trailer-cutoff-commit 1322479 --allow-pending-on-non-main --strict-trailers --strict-bloat --markdown
+        language: system
+        pass_filenames: false
+        stages: [pre-push]

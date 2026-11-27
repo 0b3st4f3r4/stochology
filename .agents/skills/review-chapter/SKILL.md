@@ -25,21 +25,21 @@ Deploys **only the 2–3 specialists matched to the target's epistemic, formal, 
 | Part II Ethics & Institutions (`19`–`20`) | `philosophy-sources` + `redteam-gov` |
 | Part II Natural Science (`21`–`24`) | `logic-systems` + `formal-stat` |
 | Part II Evolution & Regulation (`25`–`26`) | `logic-systems` + `formal-stat` + `philosophy-sources` |
-| Part III Epistemology & Cause (`27`–`29`, `39`) | `philosophy-sources` + `coherence-editor` (use `formal-stat` instead of `coherence-editor` on `39`) |
+| Part III Epistemology & Cause (`27`–`29`, `39`) | `philosophy-sources` + `coherence-editor` (use `formal-stat` alongside/instead of `coherence-editor` on `28`, `39`) |
 | Part III Stats & Inference (`30`–`32`, `34`–`37`) | `formal-stat` + `philosophy-sources` |
 | Part III Measurement & Time (`33`, `38`) | `formal-stat` + `logic-systems` + `philosophy-sources` |
 | Part III Institutions (`40`) | `redteam-gov` + `philosophy-sources` |
 | Part III/IV Keystones (`41`, `50`) | `formal-stat` + `logic-systems` + `redteam-gov` (plus `philosophy-sources` on `50` §9.5–§9.7) |
 | Part IV Framing & Evidence (`42`–`45`) | `formal-stat` + `philosophy-sources` (add `coherence-editor` on `42`) |
 | Part IV Dynamics & Vital (`46`–`47`) | `logic-systems` + `formal-stat` |
-| Part IV Governance (`48`–`49`) | `redteam-gov` + `formal-stat` (on `48`) or `philosophy-sources` (on `49`) |
+| Part IV Governance (`48`–`49`) | `redteam-gov` + `formal-stat` + `philosophy-sources` (especially adroitness/channel math on `49`) |
 | Part V `S1` (`51`–`55`) | `orders-homomorphism` + `logic-systems` |
 | Part V `S2` (`56`–`60`) | `orders-homomorphism` + `logic-systems` + `formal-stat` |
 | Part V `S3` (`61`–`65`) | `orders-homomorphism` + `logic-systems` + `philosophy-sources` |
 | Part V `S4` (`66`–`70`) | `orders-homomorphism` + `formal-stat` + `philosophy-sources` |
-| Part V `S5` (`71`–`75`) | `orders-homomorphism` + `philosophy-sources` + `coherence-editor` |
+| Part V `S5` (`71`–`75`) | `orders-homomorphism` + `philosophy-sources` + `coherence-editor` (add `formal-stat` on `75`) |
 | Part V `S6` (`76`–`80`) | `orders-homomorphism` + `formal-stat` + `redteam-gov` |
-| Part V `S7` (`81`–`85`) | `orders-homomorphism` + `redteam-gov` + `logic-systems` (add `philosophy-sources` on `81`–`82` if time permits) |
+| Part V `S7` (`81`–`85`) | `orders-homomorphism` + `redteam-gov` + `logic-systems` (add `formal-stat` on `83`, `philosophy-sources` on `81`–`82` if time permits) |
 | Part VI Laminar Trajectory (`86`–`92`) | `logic-systems` + `coherence-editor` (swap `coherence-editor` for `redteam-gov` on `91`–`92`) |
 | Part VII Superposition (`93`–`96`) | `logic-systems` + `redteam-gov` (add `formal-stat` on `94`–`95`) |
 | Part VII Exception & Target (`97`–`98`) | `redteam-gov` + `philosophy-sources` |
@@ -57,12 +57,15 @@ Deploys **only the 2–3 specialists matched to the target's epistemic, formal, 
      ```bash
      python3 .agents/scripts/check_notation.py --file <target> --markdown
      python3 .agents/scripts/check_crossrefs.py --file <target> --markdown
+     python3 .agents/scripts/check_style_and_citations.py --file <target> --markdown
+     python3 .agents/scripts/check_symbolic_math.py --markdown
      ```
      and if target is in Part V (`51`–`85`), also run:
      ```bash
      python3 .agents/scripts/check_graphs.py --layer Lnn --markdown
      ```
-2. **Spawn Blind Parallel Subagents (`invoke_subagent`):**
+2. **Spawn Blind Parallel Subagents (`invoke_subagent`) — Generator–Oracle Isolation:**
+   - **Strict Anti-Circularity Rule (`03-ai-custody-workflow.md`):** Never audit Patch-Mode edits inside the drafting session or with self-congratulatory summaries. Always launch fresh, blind specialist subagents from isolated contexts that see only the target text, primary rules, and Layer-0 diagnostics (never the author/generator's rationale).
    - Define/configure each selected specialist cleanly so their tool access matches their mandate while enforcing Review Mode:
      - `orders-homomorphism`, `redteam-gov`, `coherence-editor`: `define_subagent` with `EnableWriteTools: false` (mechanically read-only) — return their completed report in their final message so the orchestrator writes it to `reviews/<scope>/<agent>-YYYYMMDD-HHMM.md`.
      - `formal-stat`, `logic-systems`: `define_subagent` with `EnableWriteTools: true` (required for running `python3`/`sympy`/`numpy` counterexamples and `cargo test`), strictly instructed by `00-constitution.md` NEVER to edit `book-src/` or `crates/` and to write **only** to `reviews/<scope>/<agent>-YYYYMMDD-HHMM.md`.
@@ -71,6 +74,6 @@ Deploys **only the 2–3 specialists matched to the target's epistemic, formal, 
 3. **Wait & Persist Append-Only Artifacts:**
    - Stop calling tools until all parallel subagents reply; then ensure each report exists under `reviews/<scope>/<agent>-YYYYMMDD-HHMM.md` following `.agents/rules/02-severity-rubric.md`.
 4. **Custody Gate (Mandatory):**
-   - Run `git diff --name-only book-src/ crates/` and confirm **zero modified tracked source files**.
+   - Run `git status --porcelain --untracked-files=all -- ':!reviews/'` and confirm empty output (**zero modified or untracked files outside `reviews/`**).
 5. **Leontief Fold Synthesis:**
    - Fold the 2–3 specialist verdicts strictly by `min` (any `Level 1` → `BLOCKED`), write `reviews/<scope>/summary-YYYYMMDD-HHMM.md` highlighting cross-specialist intersections, and report concisely to the user.

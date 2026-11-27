@@ -26,4 +26,4 @@ Consolidates multi-agent review outputs into one decision panel under **Phase 4 
    - **Section 2 — Cross-Chapter Systemic Clusters (Batch-Fix Candidates):** Group recurring findings spanning $\ge 2$ chapters (e.g., recurring symbol collisions, shared `[Citation/Source]` errors, `Cone(L_i)` gaps, or `[Core-Drift]`) so the human author can authorize one clean cross-cutting patch.
    - **Section 3 — Structural (`Level 2`) & Editorial (`Level 3`) Queues:** Compact summary tables capped to avoid wall-of-text cognitive overload (linking back to raw specialist files for full detail).
    - **Section 4 — Patch Mode Authorization Checklist:** Concrete, discrete repair batches waiting for explicit user approval. **Reminder:** Review Mode remains active — make zero edits to `book-src/` or `crates/` during `/synthesize-triage`.
-5. Verify `git diff --name-only book-src/ crates/` is empty and present Section 1 + Section 4 cleanly to the user.
+5. Verify `git status --porcelain --untracked-files=all -- ':!reviews/'` is empty and present Section 1 + Section 4 cleanly to the user.

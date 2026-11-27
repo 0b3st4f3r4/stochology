@@ -19,7 +19,7 @@ Before auditing any target, read:
 
 ## 2. Primary Audit Scope
 
-- **Manuscript:** Part III (`30`–`38`, `41`), Part IV (`43`–`48`, `50`), Appendix A (`book-src/appendix-a-mathematics.md`), quantitative/statistical derivations in Part V (especially `L07`, `L08`, `L09`, `L16`–`L19`, `L26`, `L28`, `L29`) and Part VII (`94`, `95`, `99`).
+- **Manuscript:** Chapter `28` (fluent wrongness latency), Part III (`30`–`38`, `41`), Part IV (`43`–`49`, `50`), Appendix A (`book-src/appendix-a-mathematics.md`), quantitative/statistical derivations in Part V (especially `L06` [`56`], `L07`–`L09`, `L16`–`L19`, `L25` [`75`], `L26`, `L28`, `L29`, `L33` [`83`]) and Part VII (`94`, `95`, `99`).
 - **Normative Core (Mandatory Parity Check):** `crates/stoch-math`, `crates/stoch-core`, `crates/stoch-vectors`, and `crates/host-workspace` (`stoch-proptest`).
 
 ## 3. Mandatory Verification Tooling
@@ -43,7 +43,7 @@ Probe the target chapter against each relevant mathematical mechanism:
    - Meng (2018) data-defect identity and breakdown correlation $\rho^\star_{R,Y}$: verify $f \in (0,1)$ domain, $\bar{\rho}_{\mathrm{supp}}$ bounds, and whether `05`/`34`/`45`/`50` ever confuse selection bias ($\pm \Delta_{\mathrm{sel}}$) with sampling variance ($n_{\mathrm{eff}}$).
    - Two-arm Manski bounds, Lee trimming monotonicity, and Imbens–Manski / Stoye (2021) adaptive CI equation.
 3. **Design Effects & Weighting:**
-   - Unit-level additive composition $\mathrm{DEFF}_{\mathrm{cluster}} + \mathrm{DEFF}_{\mathrm{Kish}} - 1$ (exact vs multiplicative upper bound, `AGENTS.md` §V-9) vs Ch. `50` §9.5.3 pair-level $\mathrm{DEFF}_{\mathrm{pair}} \cdot \mathrm{DEFF}_w$ (confirm no contradiction or silent unit/pair conflation).
+   - Unit-level additive composition $\mathrm{DEFF}_{\mathrm{cluster}} + \mathrm{DEFF}_{\mathrm{Kish}} - 1$ (exact vs multiplicative upper bound, `AGENTS.md` §V-9) and Ch. `50` §9.5.3 pair-level exact additive composition $\mathrm{DEFF}_{\mathrm{pair}} + \mathrm{DEFF}_w - 1$ (confirm no contradiction or silent unit/pair conflation, noting $\mathrm{DEFF}_{\mathrm{pair}} \cdot \mathrm{DEFF}_w$ bounds only the $\rho_I \ge 0$ independent-weight additive form with equality at unity and can understate variance under unequal size-dependent hubs/weights or shock-dependent weights per Ch. `50` §9.5.3 $\tilde{m}_{\mathrm{pair},w}$).
    - Kish–Moulton unequal-cluster formula $\tilde{m} = \bar{m}(1 + \mathrm{CV}^2(m))$.
 4. **Calibration, Scale Invariance & Aggregation:**
    - Murphy / Dimitriadis–Gneiting–Jordan CORP–PAV decomposition ($\mathrm{REL}_{\mathrm{CORP}}$, $\mathrm{RES}_{\mathrm{CORP}}$): verify constant base-rate collapse and check Brake 1's resolution/width/MMR pairing.
@@ -52,7 +52,9 @@ Probe the target chapter against each relevant mathematical mechanism:
    - Pareto/GPD tail boundaries ($\alpha \le 1$ infinite mean; $1 < \alpha \le 2$ infinite variance; $\alpha > 2$), Jensen gap $\Delta_J$, CRPS, $\mathrm{CVaR}_p$ / Expected Shortfall subadditivity vs VaR, Kelly shrinkage $k(n_{\mathrm{eff}}^{\mathrm{var}})$ (Baker & McHale 2013).
    - Cone-minimum downward bias $b_{\min}(\hat{\theta}) = -\mathbb{E}[\max_{m \ne m^\ast}(\hat{\theta}_{m^\ast} - \hat{\theta}_m)_+] \le 0$ and simultaneous confidence band validity.
 6. **Chapter 50 Coupled Claims & Falsifiers ($F_1$–$F_5$):**
-   - Audit all 5 Claimed Coupled Results in `50-methodological-families-reflexivity.md` and the 5 Canonical Falsifiers, including Spanos misspecification preconditions and $F_2$'s bilateral exposure gate $(1 - 1/T)^n \le \alpha_{\mathrm{win}}$.
+   - Audit all 5 Claimed Coupled Results in `50-methodological-families-reflexivity.md` and the 5 Canonical Falsifiers, including Spanos misspecification preconditions and $F_2$'s unilateral exposure gate $(1 - 1/T)^n \le \alpha_{\mathrm{win}}$.
+7. **Fluency Bounds, Adroitness Floor & Non-Ergodic Scaling (`Chs. 28, 41, 49, 56, 75, 83, 95`):**
+   - Run `python3 .agents/scripts/check_symbolic_math.py --markdown` and independently verify Pinsker fixed-budget power caps, Wald SPRT detection-latency blow-up as $D_{\mathrm{KL}}(Q_s \parallel P_0) \to 0^+$, operator adroitness floor $a^\star_{\mathrm{skill}} = q_0 / \lfloor T_{\mathrm{rem}}^{\mathrm{detect}} / \Delta t_{\mathrm{shift}}\rfloor$, oracle blindness on $\Omega_{\mathrm{unspec}}$, and Regime III survival scaling $S(W; M) = S(W; 1)^M$.
 
 ## 5. Output Discipline
 

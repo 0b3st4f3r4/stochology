@@ -18,7 +18,7 @@ import sys
 from collections import Counter, defaultdict, deque
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(os.environ.get("STOCHOLOGY_REPO_ROOT") or Path(__file__).resolve().parents[2]).resolve()
 BOOK_SRC = ROOT / "book-src"
 APP_B = BOOK_SRC / "appendix-b-architecture-verification.md"
 

@@ -24,7 +24,11 @@ dist/
 **/__pycache__/
 .ipynb_checkpoints/
 research/
-reviews/
+reviews/*
+!reviews/attested/
+reviews/attested/**
+!reviews/attested/**/
+!reviews/attested/**/*.md
 *.docx
 .licenses/
 vendor-host/

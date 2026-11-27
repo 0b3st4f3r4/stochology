@@ -1,0 +1,12 @@
+# <type>(<scope>): <concise imperative summary>
+#
+# Why this change exists (1-3 lines; focus on invariant or defect repaired):
+#
+# ----------------------------------------------------------------------
+# Stochology Provenance & Custody Trailers (uncomment and replace placeholders; blank/placeholder values fail --strict-trailers):
+# Activate locally with: git config commit.template .gitmessage
+#
+# Authorship-Vintage: <choose: human-original | human-led-ai-assisted | ai-audit-only | deterministic-script> (human-original for C2 blind-review; ai-audit-only non-C2 tooling-only reviews/)
+# Custody-Tier: <choose: tier1-invariant-core | tier2-reversible-periphery | tooling-only>
+# Oracle-Verified: <comma-separated checks run: 'na' strictly for tooling-only; tier1 requires layer0-gauntlet (or structure,notation,sympy,custody) plus fresh blind-review:reviews/attested/<report>.md (verified by commit-msg; post-patch non-author reviewer commit enforced at pre-push/CI)>
+# Human-T1-Signoff: <distinct non-author reviewer @login(s) for PR/push CI, or 'First Last' / 'First Last <email>' / '"Last, First"' with ';' locally (no single-word names or bare emails); 'na' strictly for tier2/tooling-only; >=2 for spec-shrinking>

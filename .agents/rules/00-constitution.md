@@ -11,10 +11,11 @@ This rule governs critical review and audit operations across the *Stochology* r
 - **Review Mode (default for all audit and specialist skills):**
   - Strictly **read-only** on `book-src/`, `crates/`, `adapters/`, `consumers/`, root documents, and `.github/checks/`.
   - All reports, counterexample logs, verification tables, and triage panels are written exclusively as append-only files under `reviews/`.
-  - After every automated review run, the orchestrator MUST verify `git diff --name-only book-src/ crates/` is empty. Any unauthorized edit to manuscript or core files triggers an immediate `BLOCKED` halt.
+  - After every automated review run, the orchestrator MUST verify `git status --porcelain --untracked-files=all -- ':!reviews/'` is empty. Any unauthorized edit or untracked artifact outside `reviews/` triggers an immediate `BLOCKED` halt.
 - **Patch Mode (human-authorized only):**
   - Edits to `book-src/` or `crates/` are permitted **only** when the user explicitly authorizes a separate patch turn after reviewing triage findings.
   - Proposed manuscript edits MUST obey `AGENTS.md` §IV: never cite `crates/`, Rust symbols, or `cargo test` inside `book-src/` prose, and never invent or rescale empirical numbers.
+  - **Generator–Oracle Isolation & Custody Tiers (`.agents/rules/03-ai-custody-workflow.md`):** Never self-certify AI-authored or AI-patched content inside the same drafting context window. Classify every change as `tier1-invariant-core` or `tier2-reversible-periphery`, preserve tight anti-Compliance-DoS diff budgets, and route modified files through the deterministic 7-check Layer-0 gauntlet plus fresh blind specialist review before acceptance.
 
 ## 2. Non-Compensatory Leontief Verdict Rule
 

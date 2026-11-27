@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   pull_request:
+  pull_request_review:
+    types: [submitted, dismissed]
   workflow_dispatch:
   schedule:
     # Daily RustSec sweep (08:00 UTC) so newly disclosed advisories fail CI proactively.
@@ -13,12 +15,13 @@ permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  group: ci-${{ github.event_name == 'pull_request_review' && 'pr-review' || 'main' }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' || github.event_name == 'pull_request_review' }}
 
 jobs:
   security:
     name: dependency security audit
+    if: github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -30,8 +33,16 @@ jobs:
 
       - uses: taiki-e/install-action@cargo-audit
 
-      - name: audit all Cargo.lock files against RustSec
-        run: python3 .github/checks/security_audit.py --strict
+      - name: stage immutable base-branch security oracle and audit Cargo.lock
+        run: |
+          TB="${{ github.event.pull_request.base.sha || (github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000' && github.event.before) || '' }}"
+          if [ "${{ github.event_name }}" = "push" ] && [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ] && [ "${{ github.ref_name }}" = "${{ github.event.repository.default_branch }}" ]; then echo "ERROR: zero push before SHA on default branch" >&2; exit 1; fi
+          if [ -z "$TB" ] && [ "${{ github.event_name }}" = "schedule" ]; then TB="HEAD"
+          elif [ -z "$TB" ] && [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.ref_name }}" = "${{ github.event.repository.default_branch }}" ]; then git fetch --no-tags --depth=2 origin "${{ github.sha }}" 2>/dev/null || true; TB="${{ github.sha }}~1"
+          elif [ -z "$TB" ]; then git fetch --no-tags --depth=1 origin "${{ github.event.repository.default_branch }}"; TB="origin/${{ github.event.repository.default_branch }}"; fi
+          git cat-file -e "${TB}^{commit}" 2>/dev/null || git fetch --no-tags --depth=1 origin "$TB"
+          rm -rf .github/checks && git archive "$TB" -- .github/checks | tar -x
+          python3 .github/checks/security_audit.py --strict
 
       - name: dependency review against GitHub Advisory Database
         if: github.event_name == 'pull_request'
@@ -41,7 +52,7 @@ jobs:
 
   structure:
     name: structural gates
-    if: github.event_name != 'schedule'
+    if: github.event_name != 'schedule' && github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -54,15 +65,158 @@ jobs:
       - name: interpreter
         run: python3 -V
 
-      - name: apparatus, spine, links, figures, table B.1, ledger, citations, contents,
-          concordance, guard sites, math, notation, attribution, falsifiers,
-          concordance polarity, collapse refutation, guard footing, year citation,
-          ledger coherence, ratio limit
-        run: python3 .github/checks/structure.py
+      - name: stage immutable base-branch structural gates and run structure.py
+        run: |
+          TB="${{ github.event.pull_request.base.sha || (github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000' && github.event.before) || '' }}"
+          if [ "${{ github.event_name }}" = "push" ] && [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ] && [ "${{ github.ref_name }}" = "${{ github.event.repository.default_branch }}" ]; then echo "ERROR: zero push before SHA on default branch" >&2; exit 1; fi
+          if [ -z "$TB" ] && [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.ref_name }}" = "${{ github.event.repository.default_branch }}" ]; then git fetch --no-tags --depth=2 origin "${{ github.sha }}" 2>/dev/null || true; TB="${{ github.sha }}~1"
+          elif [ -z "$TB" ]; then git fetch --no-tags --depth=1 origin "${{ github.event.repository.default_branch }}"; TB="origin/${{ github.event.repository.default_branch }}"; fi
+          git cat-file -e "${TB}^{commit}" 2>/dev/null || git fetch --no-tags --depth=1 origin "$TB"
+          rm -rf .github/checks && git archive "$TB" -- .github/checks | tar -x
+          python3 .github/checks/structure.py
+
+  layer0-oracles:
+    name: layer 0 deterministic oracles & custody
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: resolve audit diff range and stage immutable base-branch oracles
+        id: audit-range
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ] || [ "${{ github.event_name }}" = "pull_request_review" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+            echo "mode=pr" >> "$GITHUB_OUTPUT"
+            echo "base=$BASE_SHA" >> "$GITHUB_OUTPUT"
+            echo "head=$HEAD_SHA" >> "$GITHUB_OUTPUT"
+            echo "range=${BASE_SHA}...${HEAD_SHA}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "push" ] && [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            BEFORE_SHA="${{ github.event.before }}"
+            if ! git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
+              git fetch --no-tags --depth=1 origin "$BEFORE_SHA" 2>/dev/null || true
+            fi
+            if ! git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
+              echo "ERROR: push before SHA $BEFORE_SHA unreachable (force-push history missing); refusing single-commit ~1 fallback" >&2
+              exit 1
+            fi
+            echo "mode=push" >> "$GITHUB_OUTPUT"
+            echo "base=$BEFORE_SHA" >> "$GITHUB_OUTPUT"
+            echo "head=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+            echo "range=${BEFORE_SHA}..${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          else
+            DEFAULT_BRANCH="${{ github.event.repository.default_branch }}"
+            BASE_SHA=""
+            if [ -n "$DEFAULT_BRANCH" ] && git rev-parse --verify "origin/$DEFAULT_BRANCH" >/dev/null 2>&1; then
+              BASE_SHA=$(git merge-base "origin/$DEFAULT_BRANCH" "${{ github.sha }}" || true)
+            fi
+            if [ -z "$BASE_SHA" ]; then
+              BASE_SHA=$(git rev-list --max-parents=0 "${{ github.sha }}" | head -n 1 || true)
+            fi
+            if [ -n "$BASE_SHA" ] && [ "$BASE_SHA" != "${{ github.sha }}" ]; then
+              echo "mode=branch" >> "$GITHUB_OUTPUT"
+              echo "base=$BASE_SHA" >> "$GITHUB_OUTPUT"
+              echo "head=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+              echo "range=${BASE_SHA}..${{ github.sha }}" >> "$GITHUB_OUTPUT"
+            elif [ "${{ github.event_name }}" = "workflow_dispatch" ] && git rev-parse --verify "${{ github.sha }}~1^{commit}" >/dev/null 2>&1; then
+              BASE_SHA=$(git rev-parse --verify "${{ github.sha }}~1^{commit}")
+              echo "mode=dispatch" >> "$GITHUB_OUTPUT"
+              echo "base=$BASE_SHA" >> "$GITHUB_OUTPUT"
+              echo "head=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+              echo "range=${BASE_SHA}..${{ github.sha }}" >> "$GITHUB_OUTPUT"
+            else
+              echo "ERROR: unable to resolve base commit for custody audit" >&2
+              exit 1
+            fi
+          fi
+          rm -rf "$RUNNER_TEMP/trusted-oracles" && mkdir -p "$RUNNER_TEMP/trusted-oracles"
+          TARGET_BASE=$(grep '^base=' "$GITHUB_OUTPUT" | tail -n 1 | cut -d= -f2-)
+          git cat-file -e "${TARGET_BASE}^{commit}" 2>/dev/null || git fetch --no-tags --depth=1 origin "$TARGET_BASE"
+          git archive "$TARGET_BASE" -- .github/checks | tar -x -C "$RUNNER_TEMP/trusted-oracles"
+          if git ls-tree -d "$TARGET_BASE" -- .agents/scripts | grep -q .; then
+            git archive "$TARGET_BASE" -- .agents/scripts | tar -x -C "$RUNNER_TEMP/trusted-oracles"
+            echo "has_base_scripts=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_base_scripts=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: install symbolic math dependencies
+        run: python3 -m pip install --quiet sympy numpy
+
+      - name: run graph, notation, symbolic math, style, and crossref oracles
+        env:
+          STOCHOLOGY_REPO_ROOT: ${{ github.workspace }}
+        run: |
+          ORACLE_SCRIPTS="$RUNNER_TEMP/trusted-oracles/.agents/scripts"
+          for s in check_graphs.py check_notation.py check_symbolic_math.py check_style_and_citations.py check_crossrefs.py; do
+            if [ -f "$ORACLE_SCRIPTS/$s" ]; then
+              python3 "$ORACLE_SCRIPTS/$s" --markdown
+            elif [ "${{ steps.audit-range.outputs.has_base_scripts }}" = "true" ]; then
+              echo "ERROR: missing base-branch oracle script $s" >&2; exit 1
+            else
+              python3 ".agents/scripts/$s" --markdown
+            fi
+          done
+
+      - name: verify newly added citations online
+        if: github.event_name == 'pull_request' || github.event_name == 'pull_request_review' || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        env:
+          STOCHOLOGY_REPO_ROOT: ${{ github.workspace }}
+        run: |
+          RANGE="${{ steps.audit-range.outputs.range }}"
+          STYLE_SCRIPT="$RUNNER_TEMP/trusted-oracles/.agents/scripts/check_style_and_citations.py"
+          if [ ! -f "$STYLE_SCRIPT" ]; then
+            if [ "${{ steps.audit-range.outputs.has_base_scripts }}" = "true" ]; then echo "ERROR: missing base-branch check_style_and_citations.py" >&2; exit 1; fi
+            STYLE_SCRIPT=".agents/scripts/check_style_and_citations.py"
+          fi
+          if [ -n "$RANGE" ] && [ -n "$(git diff --name-only "$RANGE" -- 'book-src/*.md' 'book-src/figures/*.svg' 'AGENTS.md' 'README.md' 'CONTRIBUTING.md')" ]; then
+            python3 "$STYLE_SCRIPT" --verify-online --strict-online --citations-from-diff "$RANGE" --markdown
+          fi
+
+      # Solo-maintainer direct pushes skip multi-reviewer PR custody enforcement; PRs and external pushes still enforce it strictly.
+      - name: audit custody tiers, commit trailers, and anti-DoS bloat
+        if: github.event_name != 'push' || github.actor != github.repository_owner
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUM: ${{ github.event.pull_request.number }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          STOCHOLOGY_REPO_ROOT: ${{ github.workspace }}
+        run: |
+          BASE_SHA="${{ steps.audit-range.outputs.base }}"
+          HEAD_SHA="${{ steps.audit-range.outputs.head }}"
+          CUSTODY_SCRIPT="$RUNNER_TEMP/trusted-oracles/.agents/scripts/check_custody_provenance.py"
+          if [ ! -f "$CUSTODY_SCRIPT" ]; then
+            if [ "${{ steps.audit-range.outputs.has_base_scripts }}" = "true" ]; then echo "ERROR: missing base-branch check_custody_provenance.py" >&2; exit 1; fi
+            CUSTODY_SCRIPT=".agents/scripts/check_custody_provenance.py"
+          fi
+          if [ "${{ steps.audit-range.outputs.mode }}" = "pr" ]; then
+            python3 "$CUSTODY_SCRIPT" --diff-ref "$BASE_SHA" --head-ref "$HEAD_SHA" --github-pr-api --trailer-cutoff-commit 1322479 --strict-trailers --strict-bloat --markdown
+          else
+            git fetch --no-tags origin '+refs/pull/*/head:refs/remotes/origin/pr/*' 2>/dev/null || true
+            python3 "$CUSTODY_SCRIPT" --diff-ref "$BASE_SHA" --head-ref "$HEAD_SHA" --github-commit-pr-api --target-branch "${{ github.ref_name }}" --trailer-cutoff-commit 1322479 --strict-trailers --strict-bloat --markdown
+          fi
+
+      - name: run trusted base-branch structure.py
+        run: |
+          rm -rf .github/checks && cp -r "$RUNNER_TEMP/trusted-oracles/.github/checks" .github/checks
+          python3 .github/checks/structure.py
 
   core:
     name: normative core
-    if: github.event_name != 'schedule'
+    if: github.event_name != 'schedule' && github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -89,7 +243,7 @@ jobs:
 
   wasm:
     name: wasm supply chain
-    if: github.event_name != 'schedule'
+    if: github.event_name != 'schedule' && github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -122,8 +276,15 @@ jobs:
       # invocation inside the script runs `--offline --locked`, so the artifact
       # is built against the committed `Cargo.lock` and never against a lock the
       # runner re-resolved for itself.
-      - name: release gates C1-C17
-        run: python3 .github/checks/wasm_gates.py
+      - name: release gates C1-C17 (trusted base-branch checks)
+        run: |
+          TB="${{ github.event.pull_request.base.sha || (github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000' && github.event.before) || '' }}"
+          if [ "${{ github.event_name }}" = "push" ] && [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ] && [ "${{ github.ref_name }}" = "${{ github.event.repository.default_branch }}" ]; then echo "ERROR: zero push before SHA on default branch" >&2; exit 1; fi
+          if [ -z "$TB" ] && [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.ref_name }}" = "${{ github.event.repository.default_branch }}" ]; then git fetch --no-tags --depth=2 origin "${{ github.sha }}" 2>/dev/null || true; TB="${{ github.sha }}~1"
+          elif [ -z "$TB" ]; then git fetch --no-tags --depth=1 origin "${{ github.event.repository.default_branch }}"; TB="origin/${{ github.event.repository.default_branch }}"; fi
+          git cat-file -e "${TB}^{commit}" 2>/dev/null || git fetch --no-tags --depth=1 origin "$TB"
+          rm -rf .github/checks && git archive "$TB" -- .github/checks | tar -x
+          python3 .github/checks/wasm_gates.py
 
       - name: wasm parity & mutation tests (Node 24, zero npm deps)
         run: |
@@ -134,7 +295,7 @@ jobs:
 
   adversarial-and-sanitizers:
     name: proptest, host-workspace, sanitizers, miri & repro-aot
-    if: github.event_name != 'schedule'
+    if: github.event_name != 'schedule' && github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -183,12 +344,19 @@ jobs:
           MIRIFLAGS: -Zmiri-disable-isolation
         run: cargo +nightly miri test --offline --locked -p stoch-abi --lib --test overlap --test port
 
-      - name: deterministic AOT .wasm/.cwasm reproducibility & static Regime III-B gate
-        run: python3 .github/checks/repro_aot.py
+      - name: deterministic AOT .wasm/.cwasm reproducibility & static Regime III-B gate (trusted base checks)
+        run: |
+          TB="${{ github.event.pull_request.base.sha || (github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000' && github.event.before) || '' }}"
+          if [ "${{ github.event_name }}" = "push" ] && [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ] && [ "${{ github.ref_name }}" = "${{ github.event.repository.default_branch }}" ]; then echo "ERROR: zero push before SHA on default branch" >&2; exit 1; fi
+          if [ -z "$TB" ] && [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.ref_name }}" = "${{ github.event.repository.default_branch }}" ]; then git fetch --no-tags --depth=2 origin "${{ github.sha }}" 2>/dev/null || true; TB="${{ github.sha }}~1"
+          elif [ -z "$TB" ]; then git fetch --no-tags --depth=1 origin "${{ github.event.repository.default_branch }}"; TB="origin/${{ github.event.repository.default_branch }}"; fi
+          git cat-file -e "${TB}^{commit}" 2>/dev/null || git fetch --no-tags --depth=1 origin "$TB"
+          rm -rf .github/checks && git archive "$TB" -- .github/checks | tar -x
+          python3 .github/checks/repro_aot.py
 
   render:
     name: render
-    if: github.event_name != 'schedule'
+    if: github.event_name != 'schedule' && github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -202,11 +370,16 @@ jobs:
         run: mdbook build
 
       # §V-8 reads the built pages, so it runs here and not in the structure job.
-      - name: published surface (§V-8)
-        run: python3 .github/checks/surface.py book
-
-      - name: pdf edition
-        run: python3 .github/checks/build_pdf.py book book/stochology.pdf
+      - name: stage trusted base-branch surface & pdf checks (§V-8)
+        run: |
+          TB="${{ github.event.pull_request.base.sha || (github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000' && github.event.before) || '' }}"
+          if [ "${{ github.event_name }}" = "push" ] && [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ] && [ "${{ github.ref_name }}" = "${{ github.event.repository.default_branch }}" ]; then echo "ERROR: zero push before SHA on default branch" >&2; exit 1; fi
+          if [ -z "$TB" ] && [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.ref_name }}" = "${{ github.event.repository.default_branch }}" ]; then git fetch --no-tags --depth=2 origin "${{ github.sha }}" 2>/dev/null || true; TB="${{ github.sha }}~1"
+          elif [ -z "$TB" ]; then git fetch --no-tags --depth=1 origin "${{ github.event.repository.default_branch }}"; TB="origin/${{ github.event.repository.default_branch }}"; fi
+          git cat-file -e "${TB}^{commit}" 2>/dev/null || git fetch --no-tags --depth=1 origin "$TB"
+          rm -rf .github/checks && git archive "$TB" -- .github/checks | tar -x
+          python3 .github/checks/surface.py book
+          python3 .github/checks/build_pdf.py book book/stochology.pdf
 
       # Same hand-carry as the publish job: the artifact must render its formulas offline too.
       - name: vendored typesetting payload
@@ -227,3 +400,18 @@ jobs:
           name: book
           path: book
           retention-days: 7
+
+  online-citations:
+    name: external DOI resolution sweep
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: verify Appendix C DOI URLs online
+        run: python3 .agents/scripts/check_style_and_citations.py --verify-online --strict-online --markdown

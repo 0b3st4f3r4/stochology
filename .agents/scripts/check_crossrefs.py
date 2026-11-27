@@ -8,8 +8,9 @@ Checks:
      Stratum > VII, Reflexive Brake > 4, Falsifier > F5, or invalid Appendix subsections).
   2. Sequential ## Bridge handoffs (Ch. NN -> Ch. NN+1 or Part conclusion on boundary).
   3. Unlinked prose cross-reference density (advisory for coherence-editor).
-  4. --full-report mode: runs structure.py, check_graphs.py, check_notation.py, and
-     check_crossrefs.py, emitting an append-only reviews/00-deterministic-report-*.md.
+  4. --full-report mode: runs all 7 Layer-0 checks (structure.py plus check_graphs.py,
+     check_notation.py, check_symbolic_math.py, check_style_and_citations.py,
+     check_custody_provenance.py, and check_crossrefs.py) into reviews/00-deterministic-report*.md.
 """
 
 from __future__ import annotations
@@ -17,6 +18,7 @@ from __future__ import annotations
 import argparse
 import glob
 import json
+import os
 import re
 import subprocess
 import sys
@@ -24,7 +26,7 @@ import urllib.parse
 from datetime import datetime
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(os.environ.get("STOCHOLOGY_REPO_ROOT") or Path(__file__).resolve().parents[2]).resolve()
 BOOK_SRC = ROOT / "book-src"
 REVIEWS_DIR = ROOT / "reviews"
 
@@ -266,6 +268,24 @@ def run_full_deterministic_suite() -> int:
         capture_output=True,
         text=True,
     )
+    math_proc = subprocess.run(
+        [sys.executable, str(Path(__file__).with_name("check_symbolic_math.py")), "--markdown"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    style_proc = subprocess.run(
+        [sys.executable, str(Path(__file__).with_name("check_style_and_citations.py")), "--markdown"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    custody_proc = subprocess.run(
+        [sys.executable, str(Path(__file__).with_name("check_custody_provenance.py")), "--strict-bloat", "--markdown"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
     crossref_report = analyze(None)
     crossref_md = format_markdown(crossref_report)
 
@@ -273,6 +293,9 @@ def run_full_deterministic_suite() -> int:
         ci_proc.returncode != 0
         or graphs_proc.returncode != 0
         or notation_proc.returncode != 0
+        or math_proc.returncode != 0
+        or style_proc.returncode != 0
+        or custody_proc.returncode != 0
         or crossref_report["summary"]["blocking_count"] != 0
     )
     verdict = "BLOCKED" if any_fail else "PASS (WITH ADVISORY HOTSPOTS)"
@@ -289,7 +312,10 @@ def run_full_deterministic_suite() -> int:
         "| :--- | :---: | :--- |",
         f"| `.github/checks/structure.py` | `{'PASS' if ci_proc.returncode == 0 else 'FAIL'}` | CI gates (§V-1..§V-10, math, links, B.1, ledger, concordance) |",
         f"| `.agents/scripts/check_graphs.py` | `{'PASS' if graphs_proc.returncode == 0 else 'FAIL'}` | `G1` DAG acyclicity, `Cone(L_i)`, zero-axis inheritance, `J(7,3)` |",
-        f"| `.agents/scripts/check_notation.py` | `{'PASS' if notation_proc.returncode == 0 else 'FAIL'}` | 8 symbol-collision families & LaTeX macro hygiene |",
+        f"| `.agents/scripts/check_notation.py` | `{'PASS' if notation_proc.returncode == 0 else 'FAIL'}` | 10 symbol-collision families & LaTeX macro hygiene |",
+        f"| `.agents/scripts/check_symbolic_math.py` | `{'PASS' if math_proc.returncode == 0 else 'FAIL'}` | SymPy/NumPy symbolic proofs for 13 core mathematical claims |",
+        f"| `.agents/scripts/check_style_and_citations.py` | `{'PASS' if style_proc.returncode == 0 else 'FAIL'}` | Running-prose em-dashes, invisible watermarks, DOI/arXiv syntax |",
+        f"| `.agents/scripts/check_custody_provenance.py` | `{'PASS' if custody_proc.returncode == 0 else 'FAIL'}` | Custody-tier classification, prose-bloat delta & Git trailers |",
         f"| `.agents/scripts/check_crossrefs.py` | `{'PASS' if crossref_report['summary']['blocking_count'] == 0 else 'FAIL'}` | Out-of-range prose refs & sequential `## Bridge` handoffs |",
         "",
         "---",
@@ -307,6 +333,18 @@ def run_full_deterministic_suite() -> int:
         "---",
         "",
         notation_proc.stdout.strip(),
+        "",
+        "---",
+        "",
+        math_proc.stdout.strip(),
+        "",
+        "---",
+        "",
+        style_proc.stdout.strip(),
+        "",
+        "---",
+        "",
+        custody_proc.stdout.strip(),
         "",
         "---",
         "",
@@ -330,7 +368,7 @@ def main() -> int:
     parser.add_argument("--json", action="store_true", help="Emit JSON output")
     parser.add_argument("--markdown", action="store_true", help="Emit Markdown summary")
     parser.add_argument("--out", help="Optional file path to write output")
-    parser.add_argument("--full-report", action="store_true", help="Run CI + all 3 Layer-0 scripts and write reviews/00-deterministic-report*.md")
+    parser.add_argument("--full-report", action="store_true", help="Run all 7 Layer-0 checks and write reviews/00-deterministic-report*.md")
     args = parser.parse_args()
 
     if args.full_report:

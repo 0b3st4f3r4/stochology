@@ -49,4 +49,4 @@ Protocol:
 
 ## Mandatory Post-Run Custody Gate
 
-Run `git diff --name-only book-src/ crates/` after every invocation and confirm empty output before reporting completion.
+Run `git status --porcelain --untracked-files=all -- ':!reviews/'` after every invocation and confirm empty output before reporting completion.
